@@ -1,0 +1,84 @@
+body {
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+    }
+
+    .container-with-buttons{
+        padding: 2px;
+    }
+    .container-with-buttons, .qr-scanner-container, .qr-scanned-container{
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 5px;
+    }
+
+    .qr-scanner-container {
+      /* margin-bottom: 20px; */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    }
+
+
+    qr-scanner {
+
+    }
+    div{
+        border: none;
+    }
+    #html5-qrcode-button-camera-start, #html5-qrcode-button-camera-stop{
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        color: white;
+    }
+    #html5-qrcode-button-camera-start{
+        background-color: green;
+    }
+    #html5-qrcode-button-camera-stop{
+        background-color: red;
+    }
+    main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #reader {
+        width: 100%;
+        border: none;
+    }
+    #result {
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .table thead th {
+        background-color: #007bff;
+        color: white;
+        margin-top: 20px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #ffffff;
+    }
+
+
+    .table td, .table th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    @media (min-width: 577px) and (max-width: 768px) {
+        .container-with-buttons,
+        .qr-scanner-container,
+        .qr-scanned-container {
+            padding: 20px;
+        }
+
+        #reader {
+            width: 90%;
+        }
+
+    }

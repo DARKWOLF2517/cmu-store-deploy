@@ -1,0 +1,60 @@
+.announcement-portlet {
+    border: 1px solid #ccc;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    /* border-radius: 10px; */
+    padding: 20px;
+    margin: auto;
+    width: 100%;
+    align-items: center;
+    overflow: auto; /* Add scrollbar to the portlet */
+    max-height: 80vh;
+}
+.portlet-header {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.portlet-title {
+    margin: 0;
+    font-size: 20px;
+}
+.announcement-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    padding: 20px 0;
+    padding: 20px 0;
+}
+.announcement-card {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    padding: 20px;
+    max-height: 300px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.announcement-card h3 {
+    color: #333;
+    margin-top: 0;
+}
+.announcement-card hr {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+.announcement-card p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.ellipsis-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }

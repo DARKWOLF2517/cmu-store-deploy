@@ -1,0 +1,22 @@
+#announcement-cards{
+height: 80vh;
+max-height: 80vh;
+overflow-y: auto;
+overflow-x: hidden;
+/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+background-color: white; */
+border-radius: 10px;
+}
+#announcement-cards .card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    height: 35vh;
+    max-height: 35vh;
+    border: none;
+}
+.posted-by-title {
+    margin-top: 10px;
+    padding-left: 2px;
+}
+.circular-image {
+    border-radius: 50%;
+}

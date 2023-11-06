@@ -1,0 +1,8 @@
+$primaryColor: white;
+$secondaryColor: black;
+
+@mixin theme($theme: blue)
+{
+    $primaryColor: $theme;
+    
+}

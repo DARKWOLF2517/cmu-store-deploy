@@ -1,0 +1,71 @@
+
+@media (max-width: 768px) {
+    body {
+      font-size: 14px;
+    }
+
+    .top-nav .notification-button {
+      margin-right: 0.3125rem; /* Converted from 5px */
+    }
+
+    .nav-name {
+      display: none;
+    }
+
+    .top-nav .profile-dropdown {
+      margin-right: 0;
+    }
+
+    .sidebar {
+      position: static;
+      top: auto;
+      height: auto;
+      width: 100%;
+      transition: none;
+    }
+
+    .sidebar.collapsed {
+      width: 100%;
+    }
+
+    .content {
+      margin-left: 0;
+    }
+
+    .content.collapsed {
+      margin-left: 0;
+    }
+
+    /* Additional styles specific to smaller screens */
+
+    .card-title {
+      justify-content: flex-start;
+      padding-left: 30px;
+      margin-top: 10px;
+    }
+
+    .card-title i {
+      margin-left: 0;
+      margin-right: 10px;
+      padding-top: 0;
+      font-size: 2rem;
+    }
+
+    .timeline {
+      margin-top: 15px;
+      padding: 5px;
+    }
+
+    .timeline .list-group {
+      max-height: 150px;
+    }
+
+    .calendar {
+      margin-top: 15px;
+      padding: 5px;
+    }
+
+    .calendar table {
+      font-size: 0.75rem;
+    }
+  }

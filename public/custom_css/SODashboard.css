@@ -1,0 +1,330 @@
+
+.card {
+    max-height: 200px;
+    overflow: hidden;
+    border: none;
+}
+
+#calendar {
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: #fff;
+    width: 100%;
+    height: 50vh;
+    max-height: 50vh;
+    bottom: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.fc-header-toolbar .fc-toolbar{
+    padding: 0;
+    margin: 0;
+}
+#calendar th{
+    background-color: #60b192;
+    color: white;
+}
+.fc-col-header-cell-cushion{
+    color: white;
+    margin: 0;
+}
+.fc-dayGridMonth-view{
+    height: 40vh;
+    margin-top: 0;
+}
+.fc-header-toolbar{
+    margin: 0;
+    padding-bottom: 0;
+}
+
+#calendar a{
+    text-decoration: none;
+}
+
+#calendar h2{
+    font-size: 18px;
+}
+#calendar a{
+    font-size: 13px;
+}
+#calendar button{
+    color: white;
+    background-color: #60b192;
+    border: none;
+    height: auto;
+    width: auto;
+    font-size: 12px;
+}
+.card-text{
+    margin-left: 20px;
+}
+.welcome-card {
+    background-image: url('/assets/welcome.png');
+    background-size: 100% 100%;
+    background-size: cover;
+    color: rgb(20, 20, 20);
+    padding: 40px;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    height: 30vh;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.welcome-text {
+    padding: 5px;
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    left: 10px; /* Adjust as needed */
+    font-size: 30px;
+}
+
+
+.announcement {
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    height: 50vh;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.announcement-header, .timeline-header{
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+    padding: 5px;
+    border-bottom: 1px solid #cfcfcf;
+}
+.announcement-list{
+    margin-top: 10px;
+    height: 40vh;
+    max-height: 40vh;
+    overflow: auto;
+}
+.announcement-card{
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.Schedule{
+    width: 100%;
+    max-height: 500px;
+    overflow-y: auto;
+}
+.Schedule-event {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px;
+}
+
+.Schedule-event-title {
+    flex: 0 0 100px;
+    text-align: center;
+    color: #555;
+}
+
+.Schedule-event-details {
+    flex: 1;
+    padding-left: 20px;
+}
+
+
+small {
+    color: #777;
+}
+.announcement-container{
+padding: 10px;
+margin-top: 5px;
+}
+#statistic{
+    align-items: center;
+}
+.statistic {
+padding: 10px;
+margin-left: 3px;
+width: 100%;
+height: 100%;
+background-color: #ffffff;
+border-radius: 10px;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+font-size: 36px;
+padding: 5px;
+/* margin-right: 10px; */
+flex-shrink: 0;
+}
+.stat-label {
+color: #000000;
+font-size: small;
+padding-left: 10px;
+margin-bottom: 5px;
+}
+
+.stat-number {
+font-size: 25px;
+color: #000000;
+}
+.square-span {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #60b192;
+    border-radius: 10px;
+  }
+
+  .square-span i {
+    color: #fff;
+    font-size: 24px;
+  }
+
+
+/* @mixin tablet-and-up {
+    @media screen and (min-width: 769px) { @content; }
+}
+@mixin mobile-and-up {
+    @media screen and (min-width: 601px) { @content; }
+}
+@mixin tablet-and-down  {
+    @media screen and (max-width: 768px) { @content; }
+}
+@mixin mobile-only {
+    @media screen and (max-width: 600px) { @content; }
+} */
+
+ul, li{
+  list-style: none;
+  padding: 0;
+}
+.timeline-schedule-container{
+    align-items: center;
+    padding: 0 1rem;
+    padding: 3rem 0;
+  }
+.timeline-schedule{
+ background-color: #ffffff;
+  padding: 10px;
+  border-radius: 15px;
+  height: 50vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+h1{
+  font-size: 1.1rem;
+
+}
+.sessions{
+  border-radius: 12px;
+  position: relative;
+}
+.timeline-body{
+    margin-top: 5px;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+.timeline-schedule li{
+  padding-bottom: 1.5rem;
+  border-left: 1px solid #60b192;
+  position: relative;
+  padding-left: 20px;
+  margin-left: 10px;
+  &:last-child{
+    border: 0px;
+    padding-bottom: 0;
+  }
+  &:before{
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: white;
+    border: 1px solid #439756;
+    box-shadow: 3px 3px 0px #bab5f8;
+    box-shadow: 3px 3px 0px #bab5f8;
+    border-radius: 50%;
+    position: absolute;
+    left: -10px;
+    top: 0px;
+  }
+}
+.date{ /* Change .time to .date */
+  color: #2a2839;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  @include mobile-and-up{
+    font-size: .9rem;
+  }
+  @include mobile-only{
+    margin-bottom: .3rem;
+    font-size: 0.85rem;
+  }
+
+}
+<small>{ /* Change <p> to <small> */
+  color: #4f4f4f;
+  font-family: sans-serif;
+  line-height: 1.5;
+  margin-top:0.4rem;
+  @include mobile-only{
+    font-size: .9rem;
+  }
+}
+/* Media query for screens with a maximum width of 768px */
+@media screen and (max-width: 768px) {
+
+    #events {
+        padding: 10px; /* Adjust the padding as needed */
+        width: 90%; /* Adjust the width as needed */
+        margin-right: 10px; /* Adjust the margin as needed */
+    }
+
+    .card {
+        max-height: 150px; /* Adjust the max-height as needed */
+        margin-top: 5px;
+    }
+
+    #calendar {
+        font-size: 10px; /* Adjust the font size as needed */
+        height: 50vh;
+        margin-bottom: 10px;
+    }
+
+    .welcome-card {
+        padding: 20px; /* Adjust the padding as needed */
+        height: 30vh; /* Adjust the height as needed */
+    }
+
+    .welcome-text {
+        bottom: 5px; /* Adjust the position as needed */
+        left: 5px; /* Adjust the position as needed */
+    }
+
+    .Schedule {
+        max-height: 300px; /* Adjust the max-height as needed */
+    }
+
+    .Schedule-event-title {
+        flex: 0 0 80px; /* Adjust the flex as needed */
+    }
+
+    .statistic {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+
+    .square-span {
+        width: 40px; /* Adjust the width as needed */
+        height: 40px; /* Adjust the height as needed */
+    }
+
+    .square-span i {
+        font-size: 20px; /* Adjust the icon size as needed */
+    }
+}

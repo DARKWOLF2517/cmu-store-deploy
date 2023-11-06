@@ -1,0 +1,95 @@
+body{
+    background-color: #f3f7fb;
+    font-family: sans-serif;
+}
+.top-nav {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: #0b904f;
+    color: #000000;
+    padding: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.125rem;
+}
+
+
+.top-nav .notification-button {
+    display: flex;
+    align-items: center;
+    color: #000000;
+    text-decoration: none;
+    margin-right: 0.625rem;
+}
+
+.nav-name {
+    padding-left: 3.75rem;
+}
+
+.top-nav .profile-dropdown {
+    display: flex;
+    align-items: center;
+    color: #000000;
+    text-decoration: none;
+}
+.header{
+    text-align: center;
+    justify-content: center;
+    margin-top: 100px;
+}
+.h1{
+    color: #283739;
+}
+
+.top-nav .profile-dropdown .profile-name {
+    margin-right: 0.3125rem;
+}
+/* User login */
+.container {
+margin-top: 10px;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+max-width: 900px;
+margin: 40px auto;
+}
+
+.user-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 10px;
+    width: 250px;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-card h3 {
+    font-size: 1.5rem; /* Increase font size for headings */
+}
+
+.user-card p {
+    margin: 10px 0;
+}
+
+.user-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.user-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
