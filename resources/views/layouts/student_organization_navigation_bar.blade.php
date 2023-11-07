@@ -22,7 +22,7 @@
     @yield('custom-style')
     <title>Student Organization Dashboard</title>
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    @vite('resources/js/app.js', 'public/build')
+    @vite('resources/js/app.js', 'build')
 </head>
 <body>
     <div id="app">
