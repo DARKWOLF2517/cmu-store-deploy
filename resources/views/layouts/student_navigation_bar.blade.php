@@ -24,7 +24,7 @@
 
     @yield('custom-style')
     <title>Student Organization Dashboard</title>
-    @vite('resources/js/app.js', 'vendor/courier/build')
+    @vite('resources/js/app.js', 'public/build')
 </head>
 <body>
     <div id="app">
