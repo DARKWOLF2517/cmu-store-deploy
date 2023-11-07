@@ -58,14 +58,13 @@
 </head>
 <body>
   <!-- Bootstrap Top Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-success">
-    <a class="navbar-brand center link-light " href="#">CMU-STORE-AMS</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-    </div>
-</nav>
+<div class="top-nav">
+    <a class="nav-link link-light " href="#">CMU-STORE-AMS</a>
+</div>
 
   {{-- <div id="app"> --}}
-    <div id="app" class="container ">
+    <div class="content">
+    <div id="app" class="container">
         {{-- <div class="row justify-content-center">
             <div class="col-md-6">
               <div class="container-with-buttons d-flex justify-content-end">
@@ -74,7 +73,7 @@
               </div>
             </div>
           </div> --}}
-          
+
           <qr-scanner
           event_id = {{$event_id}}
           org_id = {{$org_id}}
@@ -85,7 +84,7 @@
 
 
     </div>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>

@@ -36,6 +36,9 @@
             </div>
                 <h3><i class="fas fa-list mt-2"></i> Evaluation</h3>
             <div id="evaluation-container">
+                <div class="spinner-border" id="event-spinner" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
                 <div class="evaluation-event-cards">
 
                     {{-- <div class="event-card">
