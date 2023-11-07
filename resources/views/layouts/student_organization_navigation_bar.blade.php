@@ -16,10 +16,9 @@
 
 
     {{-- CUSTOM STYLE SHEETS FOUND IN PUBLIC DIRECTORY --}}
-    <link href="/custom_css/stylesheet.css" rel="stylesheet">
-    <link href="/custom_css/Navbars.css" rel="stylesheet">
-    <link href="/custom_css/tables.css" rel="stylesheet">
-
+    <link href="{{ asset('custom_css/stylesheet.css') }}" rel="stylesheet">
+    <link href="{{ asset('custom_css/Navbars.css') }}" rel="stylesheet">
+    <link href="{{ asset('custom_css/tables.css') }}" rel="stylesheet">
     @yield('custom-style')
     <title>Student Organization Dashboard</title>
     @vite('resources/js/app.js','')
