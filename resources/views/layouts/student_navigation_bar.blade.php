@@ -20,7 +20,7 @@
     <link href="{{ asset('custom_css/Navbars.css') }}" rel="stylesheet">
     {{-- <link href="/custom_css/tables.css" rel="stylesheet"> --}}
 
-
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     @yield('custom-style')
     <title>Student Organization Dashboard</title>
