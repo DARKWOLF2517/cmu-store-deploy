@@ -26,9 +26,13 @@ Route::get('student_organization_profile', function () {
     return view('student.student_organization_profile');
 });
 // general
+    Route::get('/', function () {
+        return view('layouts.login');
+    });
     Route::post('/authenticate_user', [LoginController::class, 'authenticate'])->name('authentication');
     Route::get('/logout', [LoginController::class, 'logout']);
 
+    
     Route::get('/login', function () {
         return view('layouts.login');
     })->name('login');
