@@ -13,6 +13,7 @@
   <link rel="icon" href="{{ url('https://i.pinimg.com/736x/00/eb/c7/00ebc7ed5034e9f18acae56a19966099--flat-illustration-stock-illustrations.jpg') }}">
 
   @vite('resources/js/app.js')
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
