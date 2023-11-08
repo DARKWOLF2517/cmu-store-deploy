@@ -14,7 +14,7 @@
     <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css" rel="stylesheet">
 
-    
+
     {{-- CUSTOM STYLE SHEETS FOUND IN PUBLIC DIRECTORY --}}
     <link href="{{ asset('custom_css/stylesheet.css') }}" rel="stylesheet">
     <link href="{{ asset('custom_css/Navbars.css') }}" rel="stylesheet">

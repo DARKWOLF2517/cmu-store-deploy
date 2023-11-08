@@ -64,12 +64,13 @@
     background-image: url('/assets/welcome.png');
     background-size: 100% 100%;
     background-size: cover;
+    background-repeat: no-repeat;
     color: rgb(20, 20, 20);
     padding: 40px;
     border: none;
     border-radius: 10px;
     width: 100%;
-    height: 30vh;
+    height: 35vh;
     position: relative;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
@@ -297,8 +298,11 @@ h1{
     }
 
     .welcome-card {
+        margin-top: 10px;
+        background-image: url('/assets/welcomesmall.png');
         padding: 20px; /* Adjust the padding as needed */
-        height: 30vh; /* Adjust the height as needed */
+        height: 18vh; /* Adjust the height as needed */
+        background-size: cover;
     }
 
     .welcome-text {

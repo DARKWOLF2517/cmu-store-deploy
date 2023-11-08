@@ -11,19 +11,19 @@
                         </div>
                         <div class="modal-footer">
                             <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button> -->
-                            <button type="submit" class="btn btn-primary" id="save-event-button">Save</button>
+                            <button type="submit" class="btn btn-success" id="save-event-button">Save</button>
                         </div>
                     </form>
     </div>
-    <div class="col-md-4 qr-scanned-container border-top border-5 border-warning border-bottom-0 py-3">
+    <div class="col-md-4 qr-scanned-container border-top border-5 border-success border-bottom-0 py-3">
         <h4>Scanned Data</h4>
         <div class="row justify-content-center">
-                <div class="col-md-6">
+                <div class="col">
                     <div class="table-container">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Student ID</th>
                             </tr>
                             <tr v-for="attendances in this.attendance" :id="attendances.user_id">
                                 <td> {{  attendances["user_id"] }}</td>
@@ -119,7 +119,7 @@ methods: {
 
         //     });
         axios.post("/attendance", this.formData)
-            .then(response => 
+            .then(response =>
             {
                 // if(response.result === "failure")
                 // {
@@ -136,7 +136,7 @@ methods: {
             //         else{
             //             axios.post('/attendance', this.formData)
             //                 .then(response => {
-                                
+
             //                 })
             //                 .catch(error => {
             //                     alert(error);
@@ -148,7 +148,7 @@ methods: {
             //     })
             //     .catch(error => {
             //         alert(error);
-                
+
             //     });
         }
 }
@@ -174,12 +174,12 @@ methods: {
 //         console.log(result);
 //         this.submitForm();
 //     }
-    
+
 //     function error(err) {
 //         // console.error(err);
 //         // Prints any errors to the console
 //     }
-    
+
 //     function fetchData() {
 //         axios.get(`/attendance/show/${this.event_id}/${this.org_id}`)
 //             .then(response => {
@@ -212,7 +212,7 @@ methods: {
 //                 else{
 //                     axios.post('/attendance', this.formData)
 //                         .then(response => {
-                            
+
 //                         })
 //                         .catch(error => {
 //                             alert(error);
@@ -222,7 +222,7 @@ methods: {
 //             })
 //             .catch(error => {
 //                 alert(error);
-            
+
 //             });
 
 //         window.location.reload();

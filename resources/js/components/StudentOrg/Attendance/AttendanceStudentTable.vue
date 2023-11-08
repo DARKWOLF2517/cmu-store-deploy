@@ -1,8 +1,7 @@
 <template>
 
 
-        <div class="container" id="tablecontainer">
-
+<div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
                     <div class="input-container">
@@ -14,15 +13,15 @@
                     <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button>
                     <div class="select-dropdown">
                         <select id="sort-select" class="form-control" style="text-align: center;">
-                            <option value="" >Select Session</option>
-                            <option value="option1">in</option>
-                            <option value="option2">out</option>
+                            <option value="">Select Semester</option>
+                            <option value="option1">1st Semester 2023-2024</option>
+                            <option value="option2">2nd Semester 2022-2023</option>
+                            <option value="option3">1st Semester 2022-2023</option>
                         </select>
                     </div>
                 </div>
             </div>
         </div>
-
             <h4> <i class="fas fa-list mt-2"></i> Attendance Record</h4>
             <div class="container" id="table-container">
                 <div class=" student-buttons d-flex justify-content-end">

@@ -67,3 +67,36 @@
     margin: 2px;
 }
 
+@media (max-width: 768px) {
+
+
+    .qr-code {
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px;
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background-color: white;
+        height: auto; /* Allow content to expand as needed */
+    }
+
+
+    .qrcode-img {
+        margin-top: 20px;
+        width: auto;
+        padding: 10px;
+    }
+
+    .qr-code h5 {
+        font-weight: bold;
+    }
+
+    .qr-code h5,
+    small {
+        text-align: center;
+        margin-top: 10px;
+        padding: 0;
+    }
+
+
+}

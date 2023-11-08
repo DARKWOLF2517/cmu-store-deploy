@@ -1,5 +1,4 @@
 #record-container {
-
     height: 65vh;
     max-height: 65vh;
     border: none;
@@ -145,5 +144,8 @@
         font-size: 10px; /* Adjust the font size as needed */
         height: 50vh;
         margin-bottom: 10px;
+    }
+    .btn-success{
+        margin-top: 30px;
     }
 }
