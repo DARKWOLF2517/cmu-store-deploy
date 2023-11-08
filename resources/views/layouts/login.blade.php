@@ -19,16 +19,19 @@
 </head>
 
 <body>
+  <div id="app">
     <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6 col-lg-5">
-            <div class="login-wrap p-4 p-md-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+          <div class="login-wrap p-4 p-md-5">
               <div class="logo">
                 <img src="/assets/CMULogo.png" alt="CMULogo">
               </div>
               <h5>CMU-STORE-AMS</h5>
-
-              <form action="{{ route('authentication') }}" method="POST" class="login-form">
+              <login-form>
+  
+              </login-form>
+              {{-- <form action="{{ route('authentication') }}" method="POST" class="login-form">
                 @csrf
                 <div class="form-group">
                   <div class="input-group">
@@ -57,19 +60,20 @@
                       Remember Me
                     </label>
                   </div>
-                  {{-- <div class="w-50 text-md-right">
+                  <div class="w-50 text-md-right">
                     <a href="#">Forgot Password</a>
-                  </div> --}}
+                    
                 </div>
                 <div class="form-group text-right">
                   <button type="submit" class="btn btn-primary rounded submit">Log In</button>
                 </div>
-              </form>
-            </div>
+              </form> --}}
           </div>
         </div>
       </div>
-
+    </div>
+  <div>
+{{--   
   <script>
     function validateForm() {
       var username = document.getElementById("username").value;
@@ -87,10 +91,8 @@
 
       return true; // Allow form submission if username and password are correct
     }
-  </script>
+  </script> --}}
     </body>
-  {{-- <div id="app">
-    <login-form> </login-form>
-  </div> --}}
+
 
 </html>

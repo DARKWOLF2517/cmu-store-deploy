@@ -1,17 +1,39 @@
 <template>
 <div>
-    <form @submit.prevent="login">
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="form.email" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="form.password" required>
-    </div>
-    <div>
-        <button type="submit">Login</button>
-    </div>
+    <form @submit.prevent="this.login()" class="login-form">
+        
+        <div class="form-group">
+            <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fas fa-user"></i>
+                </span>
+            </div>
+            <input type="email" class="form-control rounded-left"  placeholder="Username" required name="email" v-model="form.email" >
+            </div>
+        </div>
+        <div class="form-group d-flex">
+            <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                <i class="fas fa-lock"></i>
+                </span>
+            </div>
+            <input type="password" class="form-control rounded-left" placeholder="Password" required name="password" v-model="form.password">
+            </div>
+        </div>
+        <!-- <div class="form-group d-md-flex">
+            <div class="w-50">
+            <label>
+                <input type="checkbox" checked="">
+                Remember Me
+            </label>
+            </div>
+        </div> -->
+        <p class="text-danger error-message" id="error-message" v-if="this.error == '1'">Incorrect username or password. Please try again.</p>
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary rounded submit">Log In</button>
+        </div>
     </form>
 </div>
 </template>
@@ -23,25 +45,36 @@ data() {
     form: {
         email: '',
         password: ''
-    }
+    },
+    error: '',
+
     };
 },
 methods: {
     login() {
-    axios.post('/authenticate_user', this.form)
-        .then(response => {
-        // Handle successful login (e.g., redirect to dashboard)
-            console.log('SUccess')
-            window.location = '/org_dashboard';
-        })
-        .catch(error => {
-        // Handle login error (e.g., display error message)
-        console.log(error)
-        });
+    
+        axios.post('/authenticate_user', this.form)
+            .then(response => {
+                if(response.data == 1){
+                    window.location.href = '/login/org_dashboard';
+                }
+                else if(response.data == 2){
+                    window.location.href = '/login/student_dashboard';
+                }
+                else if(response.data == 3){
+                    window.location.href = '/login/options';
+                }
+                else if(response.data == 'error'){
+                    this.error = '1';
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                alert(error)
+            });
     }
 },
-mounted() {
-    console.log('Mounted')
+mounted() { 
 },
 }
 </script>

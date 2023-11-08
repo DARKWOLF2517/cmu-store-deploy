@@ -52,14 +52,16 @@ Route::get('student_organization_profile', function () {
     //get into organization that been choosen
     Route::get('login/{org_id}/{role_id}/{organization_name}', [LoginController::class, 'LoginOrganization'])->name('login-organization');
 
-Route::get('/evaluation_result', function () {
-    return view('student_organization.student_organization_evaluation_results');
-    });
-#Announcement Page
+    Route::get('/evaluation_result', function () {
+        return view('student_organization.student_organization_evaluation_results');
+        });
+    #Announcement Page
     Route::get('student_organization_announcement', function () {
         return view('student_organization.student_organization_announcement');
     });
 
+    //calendar events
+    Route::get('/events/calendar',[EventController::class, 'getEventsForCalendar'])->name('get-event-calendar');
 
     Route::middleware(['auth'])->group(function(){
     #ORG ROUTE
@@ -142,8 +144,7 @@ Route::get('/evaluation_result', function () {
                 Route::get('student_organization_events', function () {
                     return view('student_organization.student_organization_events');
                 });
-                //calendar events
-                Route::get('/events/calendar',[EventController::class, 'getEventsForCalendar'])->name('get-event-calendar');
+
 
                 Route::get('/events', [EventController::class, 'showEvents'])->name('events');
                 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events-destroy');
