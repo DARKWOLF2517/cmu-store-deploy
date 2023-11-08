@@ -258,6 +258,7 @@ export default {
 
             },
 
+
         FetchUpdateData(id){
             axios.get(`edit/events/${id}`)
                 .then(response => {
