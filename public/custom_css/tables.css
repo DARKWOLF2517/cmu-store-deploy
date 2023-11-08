@@ -95,32 +95,38 @@ thead th{
 
 /* Media Query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
-    /* Adjust styles for table, th, td, and other elements within the media query */
     table {
       width: 100%;
       border: 1px solid #ddd;
+      font-size: 10px;
     }
 
     th {
       background-color: #e7eaee;
       color: rgb(31, 31, 31);
-      font-size: 14px; /* Decrease font size for smaller screens */
+      font-size: 14px;
     }
 
     td {
-      font-size: 12px; /* Decrease font size for smaller screens */
+      font-size: 12px;
     }
 
     .pagination {
-      margin-top: 10px; /* Adjust margin for pagination */
+      margin-top: 10px;
     }
 
     .pagination button {
-      font-size: 14px; /* Decrease font size for pagination buttons */
+      font-size: 14px;
     }
 
     .scroll-pane {
-      height: auto; /* Remove fixed height for scroll pane on smaller screens */
+      height: auto;
       overflow: auto;
     }
+    td .btn{
+        font-size: 10px;
+    }
+.btn-group{
+    font-size: 10px;
+}
   }

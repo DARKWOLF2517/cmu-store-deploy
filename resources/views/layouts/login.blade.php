@@ -69,6 +69,25 @@
           </div>
         </div>
       </div>
+
+  <script>
+    function validateForm() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // You can replace these with your actual username and password validation logic
+      var correctUsername = "yourUsername";
+      var correctPassword = "yourPassword";
+
+      if (username !== correctUsername || password !== correctPassword) {
+        var errorMessage = document.getElementById("error-message");
+        errorMessage.textContent = "Incorrect username or password. Please try again.";
+        return false; // Prevent form submission
+      }
+
+      return true; // Allow form submission if username and password are correct
+    }
+  </script>
     </body>
   {{-- <div id="app">
     <login-form> </login-form>
