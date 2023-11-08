@@ -87,28 +87,28 @@
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
+                                <div class="announcement-description">Bayanihan.</div>
                             </div>
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
+                                <div class="announcement-description">Bayanihan.</div>
                             </div>
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
+                                <div class="announcement-description">Bayanihan.</div>
                             </div>
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
+                                <div class="announcement-description">Bayanihan.</div>
                             </div>
                         </div>
                     </div>
