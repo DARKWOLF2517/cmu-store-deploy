@@ -53,23 +53,24 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                         <!-- option 1 -->
-
                                         <li><a class="dropdown-item" @click=" FetchUpdateData(event.event_id,'1')" data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
                                         <!-- option 2 -->
                                         <li><a class="dropdown-item" @click="this.id = (event.event_id,'0')"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
-                                        <!-- Add more dropdown items as needed -->
                                     </ul>
                                 </div>
-                                        <h5 class="card-title mt-2">Event Name: <strong>{{ event["name"] }}</strong></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">Scheduled Date: {{ event["start_date"] }}</h6>
-                                        <h6 class="card-subtitle mb-2 text-muted">Scheduled Time: {{ event["start_attendance"] }} </h6>
-                                        <h6 class="card-text">Location: {{ event["location"] }} </h6>
-                                        <h6 class="card-text">Description: {{ event["description"] }} </h6>
+                                        <h5 class="card-title mt-2 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
+                                        <h6 class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</h6>
+                                        <h6 class="card-subtitle text-muted">Scheduled Time: {{ event["start_attendance"] }} </h6>
+                                        <h6 class="card-text mt-2">Location: {{ event["location"] }} </h6>
+                                        <!-- <h6 class="card-text">Description: {{ event["description"] }} </h6> -->
                                         <!-- <div class="card-actions">
                                             <button class="ellipsis-button" @click=" FetchUpdateData(event.event_id) "   type="button"  data-bs-toggle="modal" data-bs-target="#event-modal" > <i class="bi bi-pencil-square"></i></button> -->
                                             <!-- <button class="ellipsis-button"  @click="deleteEvent(event.event_id)"  type="button"> <i class="bi bi-trash"></i></button> -->
                                             <!-- <button class="ellipsis-button" @click="this.id = event.event_id"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation" type="button"> <i class="bi bi-trash"></i></button>
                                         </div> -->
+                                            <!-- Add View button to show event details -->
+                                            <br>
+                                            <button class="btn btn-success" @click="showEventDetails(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-details-modal">View</button>
                                 </div>
                             </div>
 
@@ -91,7 +92,37 @@
                         </div>
                     </div>
 
-                        <!-- Event Modal -->
+    <!-- View modal -->
+<div class="modal fade" id="event-details-modal" tabindex="-1" role="dialog" aria-labelledby="event-details-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="event-details-modal-label">Event Details</h5>
+            </div>
+            <div class="modal-body" :id="this.showEvent.event_id">
+                <div class="mb-3">
+                <h5 class="card-title">Event Name: <strong>{{ this.showEvent["name"] }}</strong></h5>
+                </div>
+                <div class="mb-3">
+                <h6 class="card-subtitle mb-2 text-muted">Scheduled Date: {{this.showEvent["start_date"]  }}</h6>
+                </div>
+                <div class="mb-3">
+                <h6 class="card-subtitle mb-2 text-muted">Scheduled Time: {{ this.showEvent["start_attendance"] }}</h6>
+                </div>
+                <div class="mb-3">
+                <h6 class="card-text">Location: {{ this.showEvent["location"] }}</h6>
+                </div>
+                <div class="mb-3">
+                <h6 class="card-text">Description: {{ this.showEvent["description"] }}</h6>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+                <!-- Event Modal -->
                     <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="event-modal-label" aria-hidden="true" >
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -132,7 +163,6 @@
                                             <input class="form-check-input" type="checkbox" name="require_attendance" id="require-attendance" v-model="formData.require_attendance" true-value="1" false-value="0" @click="checkboxClick()">
                                             <label for="require-attendance" class="form-label">Require Attendance</label>
                                         </div>
-
                                         <div id="attendance-container" style="display: none;">
                                             <div class="mb-3">
                                                 <label for="event-attendance" class="form-label">Number of Attendance</label>
@@ -154,10 +184,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
         </div>
@@ -177,6 +203,7 @@ export default {
         return {
             submit : this.sendData,
             events: [],
+            showEvent: [],
             id: 0,
             formData:{
                     name:'',
@@ -199,6 +226,19 @@ export default {
 
     },
     methods: {
+        showEventDetails(event) {
+            console.log(event)
+            axios.get(`edit/events/${event}`)
+                .then(response => {
+                    this.showEvent = response.data
+                    console.log(response.data)
+
+                })
+                .catch(error => {
+
+                });
+        },
+
         checkboxClick(){
             document.getElementById('require-attendance').addEventListener('change', function() {
                 const attendanceContainer = document.getElementById('attendance-container');
@@ -245,6 +285,7 @@ export default {
         //         // })
         //     })
         // },
+
         fetchData(){
                 axios.get(`/events/show/${this.organization_id}`)
                 .then(response => {

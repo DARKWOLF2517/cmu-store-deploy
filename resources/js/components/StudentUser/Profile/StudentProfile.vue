@@ -7,6 +7,8 @@
                 </div>
                 <h5>{{ this.profile.name }}</h5>
                 <small>{{ this.user_id }}</small>
+                <br>
+                <button class="btn btn-primary" id="download-qrcode-btn">Download QR Code</button>
             </div>
         </div>
 
@@ -46,6 +48,30 @@
         </div>
     </div>
 </template>
+<!--
+<script>
+    // Wait for the document to be fully loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        const downloadButton = document.getElementById("download-qrcode-btn");
+        const qrCodeImage = document.getElementById("qr-code-image");
+
+        downloadButton.addEventListener("click", function () {
+            // Get the QR code image source
+            const qrCodeSrc = qrCodeImage.toDataURL("image/png");
+
+            // Create a temporary anchor element to trigger the download
+            const downloadLink = document.createElement("a");
+            downloadLink.href = qrCodeSrc;
+            downloadLink.download = "qrcode.png";
+
+            // Trigger the download
+            downloadLink.click();
+        });
+    });
+</script> -->
+
+
+
 
 <script>
 import QrcodeVue from 'qrcode.vue';

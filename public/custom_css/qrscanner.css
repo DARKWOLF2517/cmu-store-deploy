@@ -4,18 +4,19 @@ body {
     }
 
 
-.top-nav {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    background-color: #42b385;
-    color: #ffffff;
-    padding: 0.875rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 3.125rem;
-}
+
+    .top-nav {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        background-color: #42b385;
+        color: #ffffff;
+        padding: 0.875rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 3.125rem;
+    }
 
 .container{
     margin-top: 50px;
