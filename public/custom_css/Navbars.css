@@ -231,15 +231,15 @@ margin-right: 0;
 @media screen and (max-width: 768px) {
 
     .top-nav {
-    padding: 10px; /* Example padding for smaller screens */
+    padding: 10px;
     }
 
     .top-nav .notification-button {
-        margin-right: 5px; /* Adjust margin for smaller screens */
+        margin-right: 5px;
     }
 
     .sidebar {
-        margin-top: 15px;
+        margin-top: 50px;
         width: 100%;
         height: auto;
         position: static;

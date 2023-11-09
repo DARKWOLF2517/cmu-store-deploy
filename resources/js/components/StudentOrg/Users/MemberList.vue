@@ -18,7 +18,7 @@
                         <td>{{ memberLists['year_level'] }}</td>
                         <td>{{ memberLists['organization']['name']}}</td>
                         <td>
-                            <button class="edit-button ellipsis-button"> <i class="bi bi-pencil-square"></i></button>
+                            <button class="edit-button ellipsis-button mb-2"> <i class="bi bi-pencil-square"></i></button>
                             <button class="delete-button ellipsis-button"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>

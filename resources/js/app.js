@@ -12,6 +12,7 @@ import { createApp } from 'vue';
     import EventsCount from './components/StudentOrg/Dashboard/DashboardCard.vue';
     import CalendarCard from './components/StudentOrg/Dashboard/CalendarCard.vue';
     import EventCard from './components/StudentOrg/Events/EventCard.vue';
+    import AnnouncementCard from './components/StudentOrg/Announcement/AnnouncementCard.vue';
     import QrScanner from './components/StudentOrg/Attendance/QrScanner.vue';
     import EventAttendanceList from './components/StudentOrg/Attendance/AttendanceEventList.vue';
     import EvaluationChart from './components/StudentOrg/Evaluation/Chart.vue';
@@ -20,7 +21,7 @@ import { createApp } from 'vue';
     import AttendanceRecord from './components/StudentOrg/Attendance/AttendanceRecord.vue';
     import UploadStudents from './components/StudentOrg/Users/UploadStudents.vue'
     import AttendanceStudentList from './components/StudentOrg/Attendance/AttendanceStudentTable.vue';
-// student module 
+// student module
     import StudentAttendance from './components/StudentUser/Attendance/StudentAttendance.vue';
     import StudentEventModal from './components/StudentUser/Events/EventModal.vue';
     import StudentProfile from './components/StudentUser/Profile/StudentProfile.vue';
@@ -28,13 +29,14 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-// all  
+// all
     app.component('side-nav-button',SideNavbtn);
     app.component('login-form',LoginForm);
     app.component('user-organization',UserOrganization);
 
 // org module
     app.component('event-card',EventCard);
+    app.component('announcement-card',AnnouncementCard);
     app.component('event-count', EventsCount);
     app.component('event-dashboard', EventsDashboard);
     app.component('dashboard-calendar', CalendarCard);
@@ -51,6 +53,7 @@ const app = createApp({});
 // student module
     app.component ('student-attendance',StudentAttendance);
     app.component ('student-event-card', StudentEventModal);
+    app.component ('student-announcement-card', StudentEventModal);
     app.component ('student-profile', StudentProfile);
     app.component ('student-evaluation-form', EvaluationForm);
 app.mount('#app');
