@@ -85,7 +85,7 @@
                     <form>
                         <div class="form-group">
                             <label for="studentId">Student ID</label>
-                            <input type="text" class="form-control" id="studentId">
+                            <input type="text" class="form-control" id="studentId" v-model="this.editData['student_id']">
                         </div>
                         <div class="form-group">
                             <label for="studentName">Name</label>
@@ -125,6 +125,7 @@ data(){
 mounted(){
     this.upload();
     this.fetchData();
+
 },
 methods:{
     fetchData(){
@@ -151,6 +152,7 @@ methods:{
                     });
                 //to be finish
                 this.editData = response.data;
+    
             })
             .catch(error => {
 
