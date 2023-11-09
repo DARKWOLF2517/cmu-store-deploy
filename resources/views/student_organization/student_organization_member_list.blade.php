@@ -58,17 +58,17 @@
 
                 </member-list> --}}
             {{-- </div> --}}
-            <div class="scroll-pane">
-          <table id="student-list-table">
-            <thead>
-                <tr>
-                    <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Institutional Email</th>
-                    <th>Year Level</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
+        {{-- <div class="scroll-pane">
+            <table id="student-list-table">
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Institutional Email</th>
+                        <th>Year Level</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
                 <tbody id="studentTableBody">
                     <!-- Student data will be added here -->
                         <td>1</td>
@@ -79,21 +79,21 @@
                             <button class="btn btn-danger delete-button">Delete</button>
                             <button class="btn btn-primary edit-button">Edit</button>
                         </td>
-                        </tr>
+                        </tr> 
                 </tbody>
         
 
-            </tbody>
+        
             </table>
-        </div>
-
-    </div>
-
+        </div> --}}
+        
         <upload-students
         org_id = {{Session::get('org_id')}}
         >
 
         </upload-students>
+    </div>
+
     </div>
     </div>
 
@@ -107,7 +107,7 @@
       <!-- Include exceljs for parsing Excel files -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 
-<script>
+{{-- <script>
 
             
             // Function to handle the file upload
@@ -255,7 +255,7 @@
                     });
                 }
             });
-</script>
+</script> --}}
 
 {{-- WALA NI LABOT ANG SA UBOS NA --}}
 

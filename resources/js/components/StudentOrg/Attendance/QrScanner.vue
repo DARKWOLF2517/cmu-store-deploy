@@ -127,6 +127,9 @@ methods: {
                 // }
                 alert(response.data.message)
                 this.scanner.resume();
+            })
+            .catch(error => {
+                alert(error)
             });
             // axios.get(`/attendance_repetition/${this.formData.user_id}/${this.session}/${this.event_id}`)
             //     .then(response => {

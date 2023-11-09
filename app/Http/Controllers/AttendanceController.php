@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Event;
+use App\Models\UserOrganization;
+
 class AttendanceController extends Controller
 {
     public function showAttendanceList($event_id, $org_id)
@@ -15,6 +17,16 @@ class AttendanceController extends Controller
         ])->get();
         
         return $attendance->toJson();
+    }
+    public function showAttendance($org_id)
+    {
+        $student_list = UserOrganization::where([
+            ['student_org_id', $org_id],
+            ['role_id', '2']
+        ])->with('user')
+        ->get();
+        
+        return $student_list->toJson();
     }
     public function AttendanceList($organization_id, $event_id)
     {
