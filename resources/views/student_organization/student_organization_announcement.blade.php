@@ -8,9 +8,9 @@
 
 <div class="content">
     <div class="container">
-        <student-announcement-card
+        <announcement-card
         organization_id = {{Session::get('org_id')}}>
-    </student-announcement-card>
+    </announcement-card>
         {{-- <event-card
         organization_id = {{Session::get('org_id')}}>
         </event-card> --}}

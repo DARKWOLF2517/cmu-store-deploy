@@ -35,7 +35,7 @@
                         <div class="announcement-cards-list ">
                                 <div class="announcement-card">
                                     <div class="d-flex align-items-center">
-                                    <img src="https://pbs.twimg.com/profile_images/1669519370287198209/QVqk0Ho8_400x400.jpg" alt="Profile Image" width="30" height="30" class="circular-image">
+                                    <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
                                     <strong class="posted-by-title ml-2">CSCo</strong>
                                     </div>
                                     <div class="card-body">
@@ -51,6 +51,27 @@
                         </div>
                     </div>
                 </div>
+ <!-- View Modal -->
+ <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="fullDetailsModalLabel">Full Announcement Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h6 class="card-title mt-2 mb-2">Announcement: <strong>Lulinghayaw</strong></h6>
+          <small class="date-upload">11/9/2023 - 10:12 AM</small>
+          <p class="card-description">
+            {{ cardDescription }}
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
     </template>
