@@ -31,6 +31,7 @@
                 </div>
             </div>
         </div>
+        <div class="scroll-pane">
         <div class="container" id="accountabilities-table">
             <table  id="accountabilities-table">
                     <tr>
@@ -53,6 +54,6 @@
             </div>
         </div>
     </div>
-
+</div>
 </div>
 @endsection

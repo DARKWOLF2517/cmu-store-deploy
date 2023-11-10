@@ -24,6 +24,7 @@ import { createApp } from 'vue';
 // student module
     import StudentAttendance from './components/StudentUser/Attendance/StudentAttendance.vue';
     import StudentEventModal from './components/StudentUser/Events/EventModal.vue';
+    import StudentAnnouncement from './components/StudentUser/Announcement/StudentAnnouncementCard.vue';
     import StudentProfile from './components/StudentUser/Profile/StudentProfile.vue';
     import EvaluationForm from './components/StudentUser/Evaluation/EvaluationForm.vue';
 
@@ -53,7 +54,7 @@ const app = createApp({});
 // student module
     app.component ('student-attendance',StudentAttendance);
     app.component ('student-event-card', StudentEventModal);
-    app.component ('student-announcement-card', StudentEventModal);
+    app.component ('student-announcement-card', StudentAnnouncement);
     app.component ('student-profile', StudentProfile);
     app.component ('student-evaluation-form', EvaluationForm);
 app.mount('#app');

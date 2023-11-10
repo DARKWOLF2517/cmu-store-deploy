@@ -35,6 +35,7 @@
                 </div>
             </div>
         </div>
+
     <h4><i class="fas fa-list mt-2"></i> Student List</h4>
       <div class="container" id="table-container">
 
@@ -79,14 +80,14 @@
                             <button class="btn btn-danger delete-button">Delete</button>
                             <button class="btn btn-primary edit-button">Edit</button>
                         </td>
-                        </tr> 
+                        </tr>
                 </tbody>
-        
 
-        
+
+
             </table>
         </div> --}}
-        
+
         <upload-students
         org_id = {{Session::get('org_id')}}
         >
@@ -97,7 +98,7 @@
     </div>
     </div>
 
-        
+
 
   <!-- Include Bootstrap and jQuery JavaScript -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -109,7 +110,7 @@
 
 {{-- <script>
 
-            
+
             // Function to handle the file upload
             document.getElementById("uploadButton").addEventListener("click", function () {
                 document.getElementById("fileInput").click();
