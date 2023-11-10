@@ -76,7 +76,7 @@
 
 
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://icons-for-free.com/iconfiles/png/512/avatar+circle+male+profile+user+icon-1320196710301016992.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="" width="32" height="32" class="rounded-circle me-2">
                         <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">

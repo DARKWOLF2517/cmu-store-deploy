@@ -3,6 +3,7 @@ table {
     width: 100%;
     /* border: 1px solid #ddd;
     border-color: #ddd; */
+    border: collapse;
   }
   .scroll-pane{
     height: 100vh;
@@ -88,7 +89,8 @@ thead th{
   }
 
   .scroll-pane {
-    height: 350px; /* Adjust the height as needed */
+    height: 55vh;
+    max-height: 55vh;
     overflow: auto;
   }
 
