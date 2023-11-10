@@ -69,8 +69,7 @@
                                             <!-- <button class="ellipsis-button" @click="this.id = event.event_id"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation" type="button"> <i class="bi bi-trash"></i></button>
                                         </div> -->
                                             <!-- Add View button to show event details -->
-                                            <br>
-                                            <button class="btn btn-success" @click="showEventDetails(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-details-modal">View</button>
+                                            <button class="btn btn-success view-button" @click="showEventDetails(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-details-modal">View</button>
                                 </div>
                             </div>
 
@@ -172,7 +171,8 @@
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
                                             </select>
-                                            </div>
+                                        </div>
+
                                         </div>
                                         <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
                                         <div class="modal-footer">
