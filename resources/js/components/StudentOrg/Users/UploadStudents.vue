@@ -4,13 +4,15 @@
             <thead>
                 <tr>
                     <th>Student ID</th>
-                    <th>Year Level</th>
-                    <th>Actions</th>
+                                    <th>Last Name</th>
+                                    <th>Full Name</th>
+                                    <th>Year Level</th>
                 </tr>
             </thead>
                 <tbody id="studentTableBody" v-for="students in this.studentList" :id="students.student_id">
                     <!-- Student data will be added here -->
                         <td>{{ students['student_id'] }}</td>
+                        <td>{{ students['user']['name'] }}</td>
                         <td>{{ students['year_level'] }}</td>
 
 

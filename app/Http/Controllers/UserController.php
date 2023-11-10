@@ -36,12 +36,17 @@ class UserController extends Controller
             $data = $request->input('data');
             foreach ($data as $row) {
                 
-                $row[1] = strtolower(preg_replace('/\s+/', '', $row[1]));
-                $row[2] = strtolower(preg_replace('/\s+/', '', $row[2]));
-                $row[3] = strtolower(preg_replace('/\s+/', '', $row[3]));                
+         
                 
                 $user = new User();
                 $user->id = $row[0];
+                $user->name = $row[3].' '.$row[2].' '.$row[1];
+
+                $row[1] = strtolower(preg_replace('/\s+/', '', $row[1]));
+                $row[2] = strtolower(preg_replace('/\s+/', '', $row[2]));
+                $row[3] = strtolower(preg_replace('/\s+/', '', $row[3]));       
+
+
                 $user->email = $row[1].$row[3];
                 $user->password = Hash::make($row[0]);
                 $user->save();
