@@ -35,12 +35,19 @@ class UserController extends Controller
             $org_id = Session::get('org_id');
             $data = $request->input('data');
             foreach ($data as $row) {
-
-
+                
+         
+                
                 $user = new User();
                 $user->id = $row[0];
-                $user->name = $row[1];
-                $user->email = $row[2];
+                $user->name = $row[3].' '.$row[2].' '.$row[1];
+
+                $row[1] = strtolower(preg_replace('/\s+/', '', $row[1]));
+                $row[2] = strtolower(preg_replace('/\s+/', '', $row[2]));
+                $row[3] = strtolower(preg_replace('/\s+/', '', $row[3]));       
+
+
+                $user->email = $row[1].$row[3];
                 $user->password = Hash::make($row[0]);
                 $user->save();
 
@@ -53,7 +60,7 @@ class UserController extends Controller
                 $user->student_org_id = $org_id;
                 $user->student_id = $row[0];
                 $user->role_id = '2' ;
-                $user->year_level = $row[3];
+                $user->year_level = $row[5];
                 $user->save();
 
             }
@@ -82,5 +89,24 @@ class UserController extends Controller
             ->get();
             
             return $student_list->toJson();
+        }
+        public function UpdateData(Request $request)
+        {   
+
+
+            $user = User::find($request->student_id); 
+            $user_org = UserOrganization::where('student_id', $request->student_id)->first(); 
+            if(!$user) {
+            return response()->json(['error' => 'User not found'], 404); 
+            }
+
+            // $user->name = $request->name;
+            // $user->email = $request->email;
+            // $user->save();
+            $user_org->year_level = $request->year_level;
+            $user_org->save();
+
+            // return $request;
+            return 'success';
         }
 }

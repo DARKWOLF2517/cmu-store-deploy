@@ -83,7 +83,8 @@ Route::get('student_organization_profile', function () {
             Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
             //show students list  in the main form
             Route::get('/student_list/show/{org_id}',[UserController::class, 'showStudents']);
-            Route::get('/attendance_list/edit/{student_id}',[UserController::class, 'showforEdit']);
+            Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
+            Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
             
             Route::post('/upload_students',[UserController::class, 'store']);
             #ORG DASHBOARD
@@ -162,13 +163,20 @@ Route::get('student_organization_profile', function () {
         });
     //STUDENT ROUTE
         Route::middleware(['user-role:2'])->group(function(){
+
+            //test route
+            
+            Route::get('student_profile', function () {
+                return view('student.test_student_qr');
+            });
+
             Route::get('/login/student_dashboard', function () {
                 return view('student.student_dashboard');
             });
 
-            Route::get('student_profile', function () {
-                return view('student.student_profile');
-            });
+            // Route::get('student_profile', function () {
+            //     return view('student.student_profile');
+            // });
 
             Route::get('student_accountabilities', function () {
                 return view('student.student_accountabilities');
@@ -182,9 +190,10 @@ Route::get('student_organization_profile', function () {
                 return view('student.student_attendance');
             });
 
-            Route::get('student_profile', function () {
-                return view('student.student_profile');
-            });
+            //commented for testing purpose
+            // Route::get('student_profile', function () {
+            //     return view('student.student_profile');
+            // });
 
             //get students user profile
                 Route::get('organization/{org_id}',[UserController::class, 'getUserOrganization']);

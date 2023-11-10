@@ -9,7 +9,7 @@
                 <i class="fas fa-user"></i>
                 </span>
             </div>
-            <input type="email" class="form-control rounded-left"  placeholder="Username" required name="email" v-model="form.email" >
+            <input type="text" class="form-control rounded-left"  placeholder="Username" required name="email" v-model="form.email" >
             </div>
         </div>
         <div class="form-group d-flex">
@@ -59,7 +59,7 @@ methods: {
                     window.location.href = '/login/org_dashboard';
                 }
                 else if(response.data == 2){
-                    window.location.href = '/login/student_dashboard';
+                    window.location.href = 'student_profile';
                 }
                 else if(response.data == 3){
                     window.location.href = '/login/options';
@@ -70,7 +70,7 @@ methods: {
             })
             .catch(error => {
                 console.log(error)
-                alert(error)
+                alert('sadfd')
             });
     }
 },
