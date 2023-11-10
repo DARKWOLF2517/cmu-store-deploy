@@ -4,8 +4,6 @@
             <thead>
                 <tr>
                     <th>Student ID</th>
-                    <th>Name</th>
-                    <th>Institutional Email</th>
                     <th>Year Level</th>
                     <th>Actions</th>
                 </tr>
@@ -13,14 +11,12 @@
                 <tbody id="studentTableBody" v-for="students in this.studentList" :id="students.student_id">
                     <!-- Student data will be added here -->
                         <td>{{ students['student_id'] }}</td>
-                        <td>{{ students['user']['name'] }}</td>
-                        <td>{{ students['user']['email'] }}</td>
                         <td>{{ students['year_level'] }}</td>
 
 
                         <td>
                             <button class="btn btn-danger delete-button">Delete</button>
-                            <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editStudentModal" @click="this.fetchDataEdit(students.student_id)">Edit</button>
+                            <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" >Edit</button>
                         </td>
                 
                 </tbody>
@@ -53,8 +49,10 @@
                             <thead>
                                 <tr>
                                     <th>Student ID</th>
-                                    <th>Name</th>
-                                    <th>Institutional Email</th>
+                                    <th>Last Name</th>
+                                    <th>Middle Name</th>
+                                    <th>First Name</th>
+                                    <th>Suffix Name</th>
                                     <th>Year Level</th>
                                 </tr>
                             </thead>
@@ -65,49 +63,90 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="excelDataModal">Close</button>
-                        <button type="button" class="btn btn-primary" id="uploadToTableButton" @click="this.getData()">Upload</button>
+                        <button type="button" class="btn btn-primary" id="uploadToTableButton" @click="this.uploadData()">Upload</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal for editing student data -->
+    <!-- Modal for editing student data
     <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form @submit="this.submit">
                         <div class="form-group">
                             <label for="studentId">Student ID</label>
-                            <input type="text" class="form-control" id="studentId" v-model="this.editData['student_id']">
+                            <input type="text" class="form-control" id="studentId" v-model="this.editData['student_id']" disabled>
                         </div>
                         <div class="form-group">
                             <label for="studentName">Name</label>
-                            <input type="text" class="form-control" id="studentName">
+                            <input type="text" class="form-control" id="studentName"  v-model="this.editData['name']">
                         </div>
                         <div class="form-group">
                             <label for="studentEmail">Institutional Email</label>
-                            <input type="text" class="form-control" id="studentEmail">
+                            <input type="text" class="form-control" id="studentEmail" v-model="this.editData['email']">
                         </div>
                         <div class="form-group">
                             <label for="yearLevel">Year Level</label>
-                            <input type="text" class="form-control" id="yearLevel">
+                            <input type="text" class="form-control" id="yearLevel" v-model="this.editData['year_level']">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveStudentChanges">Save Changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="saveStudentChanges" @click="this.updateData()">Save Changes</button>
                 </div>
             </div>
         </div>
     </div>
+ -->
+
+
+                <!--Modal for editing student data -->
+                <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="event-modal-label" aria-hidden="true" >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="event-modal-label">Create Event</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form @submit="this.updateData"  id="eventsForm"  >
+                                        <div class="form-group">
+                                        <label for="studentId">Student ID</label>
+                                        <input type="text" class="form-control" id="studentId" v-model="this.editData['student_id']" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="studentName">Name</label>
+                                            <input type="text" class="form-control" id="studentName"  v-model="this.editData['name']">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="studentEmail">Institutional Email</label>
+                                            <input type="text" class="form-control" id="studentEmail" v-model="this.editData['email']">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="yearLevel">Year Level</label>
+                                            <input type="text" class="form-control" id="yearLevel" v-model="this.editData['year_level']">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary" id="save-event-button">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
 </template>
 
 <script>
@@ -116,9 +155,16 @@ export default{
 props: ['org_id'],
 data(){
     return{
+        submit: this.updateData,
+        fetchID: '',
         collectedData:[],
         studentList:[],
-        editData: [],
+        editData: {
+            student_id: '',
+            name: '',
+            email: '',
+            year_level: '',
+        },
     }
 
 },
@@ -138,27 +184,33 @@ methods:{
 
             });
     },
-    fetchDataEdit(student_id){
-        axios.get(`/attendance_list/edit/${student_id}`)
+    fetchDataEdit(){
+        axios.get(`/student_list/edit/${this.fetchID}`)
             .then(response => {
-                console.log(response.data)
-
-                //to be finish
                 const data = response.data;
                     data.forEach(item => {
-        
-                    // console.log(item);
-                    item['attendance'] =  item['attendance'].length;
+                    this.editData.student_id = item['student_id'];
+                    this.editData.name = item['user']['name'];
+                    this.editData.email = item['user']['email'];
+                    this.editData.year_level = item['year_level']
                     });
-                //to be finish
-                this.editData = response.data;
-    
             })
             .catch(error => {
 
             });
     },
-    getData(){
+    updateData(){
+        axios.put(`/student_list/edit/commit/${this.fetchID}`, this.editData)
+                .then(response => {
+                    console.log(response.data)
+                    alert('adf')
+ 
+                })
+                .catch(error => {
+                    alert( error)
+                });
+    },
+    uploadData(){
         // Get a reference to the table
         var table = document.getElementById("tableModal");
 
@@ -183,13 +235,13 @@ methods:{
         //
         // }));
         this.collectedData = data;
-        console.log(data)
+        // console.log(data)
         // Display the extracted data in the console
 
             axios.post('/upload_students', { data: this.collectedData })
                 .then(response => {
                     console.log(response.data)
-                    location.reload();
+                    // location.reload();
                 })
                 .catch(error => {
                     console.log(error)
@@ -211,11 +263,11 @@ methods:{
         });
 
         // Function to parse the uploaded Excel file and display it in the modal
-            async function parseExcelData(file) {
-            const workbook = new ExcelJS.Workbook();
-            const reader = new FileReader();
+        async function parseExcelData(file) {
+        const workbook = new ExcelJS.Workbook();
+        const reader = new FileReader();
 
-            reader.onload = async function (e) {
+        reader.onload = async function (e) {
             const buffer = e.target.result;
             await workbook.xlsx.load(buffer);
             const worksheet = workbook.getWorksheet(1); // Assuming data is in the first worksheet
@@ -224,38 +276,39 @@ methods:{
             const tableBody = document.getElementById("modalStudentTableBody");
             tableBody.innerHTML = "";
 
-            // Populate the table with student data
-            worksheet.eachRow({ includeEmpty: false }, function (row, rowNumber) {
-                if (rowNumber === 1) return; // Skip the header row
-                const studentArray = [];
+            // Populate the table with student data, excluding the first row
+            let isHeaderRow = true;
+            worksheet.eachRow({ includeEmpty: true }, function (row) {
+                if (isHeaderRow) {
+                    isHeaderRow = false; // Skip the first row (header row)
+                    return;
+                }
 
-                row.eachCell({ includeEmpty: false }, function (cell, colNumber) {
+                const newRow = document.createElement("tr");
+
+                row.eachCell({ includeEmpty: true }, function (cell) {
                     let cellValue = cell.text;
                     if (cell.hyperlink && cell.hyperlink.address) {
                         // If the cell contains a hyperlink, use the hyperlink's address as the cell value
                         cellValue = cell.hyperlink.address;
                     }
-                    studentArray.push(cellValue);
-                });
 
-                const newRow = document.createElement("tr");
-                newRow.innerHTML = `
-                    <td>${studentArray[0] || ""}</td>
-                    <td>${studentArray[1] || ""}</td>
-                    <td>${studentArray[2] || ""}</td>
-                    <td>${studentArray[3] || ""}</td>
-                    
-                `;
+                    const newCell = document.createElement("td");
+                    newCell.textContent = cellValue || ""; // Use an empty string if cellValue is falsy
+                    newRow.appendChild(newCell);
+                });
 
                 tableBody.appendChild(newRow);
             });
+
             // Show the modal
             const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"), { keyboard: false });
             excelDataModal.show();
         };
 
-    reader.readAsArrayBuffer(file);
+        reader.readAsArrayBuffer(file);
     }
+
 
 
         // // Function to handle the "Delete" button click

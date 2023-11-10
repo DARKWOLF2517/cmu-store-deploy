@@ -8,7 +8,7 @@
                 <h5>{{ this.profile.name }}</h5>
                 <small>{{ this.user_id }}</small>
                 <br>
-                <button class="btn btn-primary" id="download-qrcode-btn">Download QR Code</button>
+                <!-- <button class="btn btn-primary" id="download-qrcode-btn">Download QR Code</button> -->
             </div>
         </div>
 
