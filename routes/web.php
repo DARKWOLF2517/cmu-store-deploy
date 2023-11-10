@@ -68,8 +68,7 @@ Route::get('student_organization_profile', function () {
         Route::middleware(['user-role:1'])->group(function(){
             #attendance
             Route::get('/attendance/show/{event_id}/{org_id}',[AttendanceController::class, 'showAttendanceList']);
-            //show attendance list  in the main form
-            Route::get('/attendance/show/{org_id}',[AttendanceController::class, 'showAttendance']);
+
             Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
             Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
             Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
@@ -82,7 +81,10 @@ Route::get('student_organization_profile', function () {
 
             #USER ROUTE
             Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
-
+            //show students list  in the main form
+            Route::get('/student_list/show/{org_id}',[UserController::class, 'showStudents']);
+            Route::get('/attendance_list/edit/{student_id}',[UserController::class, 'showforEdit']);
+            
             Route::post('/upload_students',[UserController::class, 'store']);
             #ORG DASHBOARD
                 Route::get('/login/org_dashboard', function () {

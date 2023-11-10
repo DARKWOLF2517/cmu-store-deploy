@@ -20,7 +20,7 @@
 
                         <td>
                             <button class="btn btn-danger delete-button">Delete</button>
-                            <button class="btn btn-primary edit-button">Edit</button>
+                            <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#editStudentModal" @click="this.fetchDataEdit(students.student_id)">Edit</button>
                         </td>
                 
                 </tbody>
@@ -70,6 +70,44 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modal for editing student data -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="studentId">Student ID</label>
+                            <input type="text" class="form-control" id="studentId" v-model="this.editData['student_id']">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentName">Name</label>
+                            <input type="text" class="form-control" id="studentName">
+                        </div>
+                        <div class="form-group">
+                            <label for="studentEmail">Institutional Email</label>
+                            <input type="text" class="form-control" id="studentEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="yearLevel">Year Level</label>
+                            <input type="text" class="form-control" id="yearLevel">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveStudentChanges">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -80,19 +118,41 @@ data(){
     return{
         collectedData:[],
         studentList:[],
+        editData: [],
     }
 
 },
 mounted(){
     this.upload();
     this.fetchData();
+
 },
 methods:{
     fetchData(){
-        axios.get(`/attendance/show/${this.org_id}`)
+        axios.get(`/student_list/show/${this.org_id}`)
+            .then(response => {
+                
+                this.studentList = response.data;
+            })
+            .catch(error => {
+
+            });
+    },
+    fetchDataEdit(student_id){
+        axios.get(`/attendance_list/edit/${student_id}`)
             .then(response => {
                 console.log(response.data)
-                this.studentList = response.data;
+
+                //to be finish
+                const data = response.data;
+                    data.forEach(item => {
+        
+                    // console.log(item);
+                    item['attendance'] =  item['attendance'].length;
+                    });
+                //to be finish
+                this.editData = response.data;
+    
             })
             .catch(error => {
 

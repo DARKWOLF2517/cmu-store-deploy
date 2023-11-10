@@ -62,4 +62,25 @@ class UserController extends Controller
             // Optionally, you can return a response indicating success or redirection
             // return $request;
         }
+
+        public function showStudents($org_id)
+        {
+            $student_list = UserOrganization::where([
+                ['student_org_id', $org_id],
+                ['role_id', '2']
+            ])->with('user')
+            ->get();
+            
+            return $student_list->toJson();
+        }
+        public function showforEdit($student_id)
+        {
+            $student_list = UserOrganization::where([
+                ['student_id', $student_id],
+                ['role_id', '2']
+            ])->with('user')
+            ->get();
+            
+            return $student_list->toJson();
+        }
 }
