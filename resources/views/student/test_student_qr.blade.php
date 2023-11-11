@@ -28,7 +28,7 @@
                 </a>
 
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                        <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="" width="32" height="32" class="rounded-circle me-2">
                         <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
@@ -59,7 +59,7 @@
 
     <div class="content">
         <div class="container mt-4">
-            <student-profile
+            <student-profile   
             user_id = {{Auth::id()}}
             user_org = {{Session::get('org_id')}}
             ></student-profile>

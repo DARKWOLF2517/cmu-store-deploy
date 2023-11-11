@@ -170,9 +170,9 @@ Route::get('student_organization_profile', function () {
                 return view('student.test_student_qr');
             });
 
-            Route::get('/login/student_dashboard', function () {
-                return view('student.student_dashboard');
-            });
+            // Route::get('/login/student_dashboard', function () {
+            //     return view('student.student_dashboard');
+            // });
 
             // Route::get('student_profile', function () {
             //     return view('student.student_profile');
