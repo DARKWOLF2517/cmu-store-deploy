@@ -81,10 +81,10 @@ export default {
     data() {
         return {
             profile: {
-              name: '',
-              year_level: '',
-              college: '',
-              department: '',
+                name: '',
+                year_level: '',
+                college: '',
+                department: '',
             },
             organization:[],
             size: 150,
@@ -108,17 +108,35 @@ export default {
 
                 axios.get(`profile/${this.user_id}`)
                 .then(response => {
-                  const data = response.data;
+                    const data = response.data;
                     data.forEach(item => {
 
                     this.profile.name = item['user']['name'];
                     this.profile.year_level = item['year_level'];
 
                     });
-                  this.organization = response.data;
+
+                    //get the organization list
+                    this.organization = response.data;
+                    // Create a Map to store unique objects based on student_org_id
+                    const uniqueOrganizationMap = new Map();
+
+                    this.organization.forEach(item => {
+                    const student_org_id = item.student_org_id;
+
+                    // Check if the student_org_id is not already in the Map
+                    if (!uniqueOrganizationMap.has(student_org_id)) {
+                        // Add the item to the Map with student_org_id as the key
+                        uniqueOrganizationMap.set(student_org_id, item);
+                    }
+                    });
+
+                    // Convert the Map values back to an array
+                    this.organization = Array.from(uniqueOrganizationMap.values());
+                    // console.log(this.organization)
                 })
                 .catch(error => {
-                  console.log(error)
+                    console.log(error)  
                 });
         },
     },
