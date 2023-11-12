@@ -59,8 +59,7 @@ methods: {
                     window.location.href = '/login/org_dashboard';
                 }
                 else if(response.data == 2){
-                    window.location.href = 'student_profile';
-                    // console.log('sadfsdf');
+                    window.location.href = 'student_attendance';
                 }
                 else if(response.data == 3){
                     window.location.href = '/login/options';
