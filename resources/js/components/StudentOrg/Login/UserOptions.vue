@@ -7,7 +7,7 @@
             <div @click=" profileClicked( userOrg['student_org_id'],  userOrg['role_id'],userOrg['organization']['name'])">
             <h3> {{ userOrg['organization']['name'] }}</h3>
             <hr>
-            <img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" alt="User 1">
+            <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1">
             <p>
                 <span v-if="userOrg['role']['role_id'] == 1"><b>Admin</b></span>
                 <span v-else-if="userOrg['role']['role_id'] == 2"><b>Student</b></span>

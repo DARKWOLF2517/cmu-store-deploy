@@ -10,6 +10,7 @@
     justify-content: space-between;
     align-items: center;
     height: 3.125rem;
+
 }
 
 
@@ -232,6 +233,7 @@ margin-right: 0;
 
     .top-nav {
     padding: 10px;
+    z-index: 9999;
     }
 
     .top-nav .notification-button {

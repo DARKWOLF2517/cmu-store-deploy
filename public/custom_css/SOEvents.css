@@ -3,13 +3,17 @@
     max-height: 60vh;
     border: none;
   }
+  .event-list{
+    height: 60vh;
+    max-height: 60vh;
+  }
 
-  .event-cards-list, .event-list {
+  .event-cards-list {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 65vh;
+    max-height: 60vh;
   }
 
   .event-card {

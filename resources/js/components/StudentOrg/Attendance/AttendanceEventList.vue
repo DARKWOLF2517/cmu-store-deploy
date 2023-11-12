@@ -1,5 +1,10 @@
 <template>
     <div class="schedule-list-container">
+        <!-- Message if the container is empty -->
+        <div class="Message-IfEmpty" v-if="events.length === 0">
+        <p class="empty-schedule">Nothing scheduled yet</p>
+        </div>
+
     <div class="card" v-for="event in this.events" :id="event.event_id">
         <div class="card-header">
             <b> Event Name: {{ event["name"] }}</b>

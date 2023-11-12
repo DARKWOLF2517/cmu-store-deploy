@@ -1,10 +1,3 @@
-#record-container {
-    height: 65vh;
-    max-height: 65vh;
-    border: none;
-    border-radius: 10px;
-
-  }
 
   #calendar {
     border-radius: 10px;
@@ -56,32 +49,37 @@
 .card-text{
     margin-left: 20px;
 }
+#record-container {
+    height: 65vh;
+    max-height: 65vh;
+    border: none;
+
+}
 .recorded-event-cards{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     overflow-y: auto;
-    height: 65vh;
     max-height: 65vh;
-
 }
+
+.record-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px);
+    height: 200px;
+  }
+
 .schedule-list-container{
     height: 80vh;
     max-height: 80vh;
     overflow: auto;
 }
-.record-card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    width: calc(33.33% - 20px);
-    height: 200px;
-    padding: 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-  }
 
   .record-title {
     font-size: 1.2rem;
