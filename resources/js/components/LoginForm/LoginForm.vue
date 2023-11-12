@@ -60,6 +60,7 @@ methods: {
                 }
                 else if(response.data == 2){
                     window.location.href = 'student_profile';
+                    // console.log('sadfsdf');
                 }
                 else if(response.data == 3){
                     window.location.href = '/login/options';
