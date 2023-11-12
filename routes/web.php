@@ -194,6 +194,11 @@ Route::get('student_organization_profile', function () {
                 return view('student.student_attendance');
             });
 
+            //if user is done evaluating it will mark as done   
+            Route::get('/evaluation/user/status/{organization_id}',[EvaluationController::class, 'isDoneEvaluation']);
+            
+            
+            //get user organization
             //commented for testing purpose
             // Route::get('student_profile', function () {
             //     return view('student.student_profile');

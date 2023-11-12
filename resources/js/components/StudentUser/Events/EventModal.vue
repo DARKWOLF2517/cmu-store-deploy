@@ -1,5 +1,5 @@
 <template>
-        <div class="container mb-3" id="tablecontainer" v-for="event in this.events" :id="event.event_id">
+        <div class="container mb-3" id="tablecontainer" v-for="event in this.events" :id="event.event_id"> 
                 <h4> Event name: {{ event["name"] }}</h4>
                 <!-- <h6> Number of Days: 2</h6>
                 <h6> Total number of Attendance made: 4 </h6> -->
@@ -23,8 +23,10 @@
                             <td class="present">Pending</td>
                             <td class="present">Pending</td>
                             <td>
-                                <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-if="event['status'] == 1">Evaluate now</button>
-                                <div v-else>Evaluation is disable at the moment..</div>
+            
+                                    <div v-if ="event['status'] == 0">Evaluation is disable at the moment..</div>
+                                    <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
+
                                 </td>
     
                         </tr>
@@ -42,19 +44,20 @@ export default {
     data() {
         return {
             events: [],
+            evaluation_answer:[],
         }
     },
-    created() {
+    mounted() {
         this.fetchData();
-        // console.log(this.student_id)
+        this.getEvaluatinStatus()
+
     },
     methods: {
         fetchData(){
                 axios.get(`/events/show/${this.organization_id}`)
                 .then(response => {
-                    // document.getElementById("event-spinner").classList.add("hidden");
-  
                     this.events = response.data;
+                    // console.log(this.events)
                 })
                 .catch(error => {
                     console.log(error)
@@ -62,11 +65,17 @@ export default {
 
             },
         getEvaluatinStatus(){
-            axios.get(`/evaluation/user/status/${this.organization_id}/${this.event_id}`)
+            axios.get(`/evaluation/user/status/${this.organization_id}`)
             .then(response => {
-                // document.getElementById("event-spinner").classList.add("hidden");
-
-                this.events = response.data;
+                
+                // console.log ()
+                if (console.data == '0'){
+                   
+                }
+                else{
+                    this.evaluation_answer = response.data;
+                    // console.log(response.data)
+                }
             })
             .catch(error => {
                 console.log(error)
