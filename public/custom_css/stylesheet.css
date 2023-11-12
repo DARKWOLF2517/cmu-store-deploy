@@ -158,6 +158,14 @@ body {
     height: 50px;
 }
 
+/* Message if empty */
+.Message-IfEmpty {
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+}
+
 /* Media query for screens with a maximum width of 768px */
 @media (max-width: 768px) {
 

@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                    <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button>
+                    <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                     <div class="select-dropdown">
                         <select id="sort-select" class="form-control" style="text-align: center;">
                             <option value="">Select Semester</option>
@@ -46,6 +46,10 @@
                     </div>
 
                         <div class="event-cards-list ">
+                            <!-- Message if the container is empty -->
+                                <div class="Message-IfEmpty" v-if="events.length === 0">
+                                <p class="empty-schedule">Nothing scheduled yet</p>
+                                </div>
                             <div class="event-card" v-for="event in this.events" :id="event.event_id" >
                                 <div class="dropdown">
                                     <a class="ellipsis-button" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">

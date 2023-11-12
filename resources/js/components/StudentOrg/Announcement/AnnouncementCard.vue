@@ -7,7 +7,7 @@
                 <li class="breadcrumb-item active" aria-current="page">announcements</li>
                 </ol>
             </nav>
-        </div>
+</div>
         <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                    <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button>
+                    <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                     <div class="select-dropdown">
                         <select id="sort-select" class="form-control" style="text-align: center;">
                             <option value="">Select Semester</option>

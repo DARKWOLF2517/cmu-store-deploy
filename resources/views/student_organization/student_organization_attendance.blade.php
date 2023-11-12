@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                        <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button>
+                        {{-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> --}}
                         <div class="select-dropdown">
                             <select id="sort-select" class="form-control" style="text-align: center;">
                                 <option value="">Select Semester</option>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-    
+
 
             <div class="mt-4">
                 <h4><i class="fas fa-list"></i> Attendance Records</h4>

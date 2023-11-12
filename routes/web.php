@@ -32,7 +32,7 @@ Route::get('student_organization_profile', function () {
     Route::post('/authenticate_user', [LoginController::class, 'authenticate'])->name('authentication');
     Route::get('/logout', [LoginController::class, 'logout']);
 
-    
+
     Route::get('/login', function () {
         return view('layouts.login');
     })->name('login');
@@ -85,7 +85,7 @@ Route::get('student_organization_profile', function () {
             Route::get('/student_list/show/{org_id}',[UserController::class, 'showStudents']);
             Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
             Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
-            
+
             Route::post('/upload_students',[UserController::class, 'store']);
             #ORG DASHBOARD
                 Route::get('/login/org_dashboard', function () {
@@ -98,7 +98,7 @@ Route::get('student_organization_profile', function () {
             //     return view('student_organization.student_organization_attendance_record');
             // });
             Route::get('student_organization_attendance_record/{event_id}',[AttendanceController::class, 'events']);
-            
+
             Route::get('student_organization_attendance', function () {
                 return view('student_organization.student_organization_attendance');
             });
@@ -126,6 +126,10 @@ Route::get('student_organization_profile', function () {
 
             Route::get('student_organization_membership_fee', function () {
                 return view('student_organization.student_organization_membership_fee');
+            });
+
+            Route::get('student_organization_set_accountabilities', function () {
+                return view('student_organization.student_organization_set_accountabilities');
             });
 
             //QR SCANNER
@@ -165,7 +169,7 @@ Route::get('student_organization_profile', function () {
         Route::middleware(['user-role:2'])->group(function(){
 
             //test route
-            
+
             Route::get('student_profile', function () {
                 return view('student.test_student_qr');
             });

@@ -20,11 +20,11 @@
                             <button class="btn btn-danger delete-button">Delete</button>
                             <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" >Edit</button>
                         </td>
-                
-                </tbody>
-        
 
-        
+                </tbody>
+
+
+
             </table>
         </div>
 
@@ -37,7 +37,7 @@
         </div>
 
 
-        
+
         <!-- Modal for displaying Excel data -->
         <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -179,7 +179,7 @@ methods:{
     fetchData(){
         axios.get(`/student_list/show/${this.org_id}`)
             .then(response => {
-                
+
                 this.studentList = response.data;
             })
             .catch(error => {
@@ -206,7 +206,7 @@ methods:{
                 .then(response => {
                     console.log(response.data)
                     alert('adf')
- 
+
                 })
                 .catch(error => {
                     alert( error)
@@ -228,7 +228,7 @@ methods:{
                 var cell = row.cells[j];
 
                 rowData.push(cell.textContent);
-        
+
             }
 
         data.push(rowData);

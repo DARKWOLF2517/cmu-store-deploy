@@ -13,7 +13,7 @@
                 </ol>
             </nav>
         </div>
-        
+
                 <show-student-attendance
                     event_id = {{$event_id}}
                     organization_id = {{Session::get('org_id')}}

@@ -15,7 +15,7 @@
                         </div>
                     </form>
     </div>
-    <div class="col-md-4 qr-scanned-container border-top border-5 border-success border-bottom-0 py-3">
+    <div class="col-md-4 qr-scanned-container border-top border-5 border-success border-bottom-0 py-3" id="record-table">
         <h4>Scanned Data</h4>
         <div class="row justify-content-center">
                 <div class="col">
