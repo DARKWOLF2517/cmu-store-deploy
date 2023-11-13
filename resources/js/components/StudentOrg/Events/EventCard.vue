@@ -57,9 +57,9 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                         <!-- option 1 -->
-                                        <li><a class="dropdown-item" @click=" FetchUpdateData(event.event_id,'1')" data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
+                                        <li><a class="dropdown-item" @click=" FetchUpdateData(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
                                         <!-- option 2 -->
-                                        <li><a class="dropdown-item" @click="this.id = (event.event_id,'0')"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
+                                        <li><a class="dropdown-item" @click="this.id = (event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
                                     </ul>
                                 </div>
                                         <h5 class="card-title mt-2 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>

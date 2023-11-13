@@ -32,7 +32,7 @@
                                             <div v-else-if ="event['status'] == 0 ">Evaluation is disable at the moment..</div>
                                             <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate </button>
                                         </div>
-                                       <div v-else>
+                                        <div v-else>
                                             <div v-if ="event['status'] == 0">Evaluation is disable at the moment..</div>
                                             <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
                                         </div> 
