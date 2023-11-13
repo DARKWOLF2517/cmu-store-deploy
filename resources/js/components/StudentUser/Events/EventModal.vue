@@ -78,6 +78,7 @@ export default {
             axios.get(`/evaluation/user/status/${this.organization_id}`)
             .then(response => {
                 this.evaluation_answer = response.data;
+                console.log(this.student_id)
                 // console.log ()
                  console.log()
                 // if (console.data == '0'){
