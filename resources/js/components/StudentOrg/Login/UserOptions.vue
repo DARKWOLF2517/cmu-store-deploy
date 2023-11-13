@@ -58,7 +58,7 @@ export default {
                 window.location.href = 'org_dashboard';
                 }
                 else if (response.data == 2){
-                    window.location.href = '/student_profile';
+                    window.location.href = '/student_attendance';
                 }
 
             })

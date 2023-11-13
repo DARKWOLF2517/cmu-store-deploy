@@ -114,7 +114,29 @@ class EvaluationController extends Controller
     {
         $events = Event::where('event_id', $event_id)->with('organization')->get();
         return $events->toJson();
-    
+
+    }
+    public function isDoneEvaluation($organization_id)
+    {
+        // $evaluation = EvaluationFormAnswer::where([
+        //     ['org_id', $organization_id],
+        // ])->get();
+
+        $evaluation = EvaluationFormAnswer::where([
+            ['org_id', $organization_id],
+        ])->get();
+        
+        if ($evaluation->isEmpty()) {
+            
+            return "0";
+        } else {
+            
+            return $evaluation;
+        }
+        
+        // Pluck only 'user_id' and 'event_id' columns from the collection
+        
+        // return $evaluation->toJson();
 
     }
 }
