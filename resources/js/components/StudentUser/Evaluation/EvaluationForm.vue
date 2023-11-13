@@ -208,7 +208,7 @@
 import {converTime} from "../../StudentOrg/Functions/TimeConverter.js";
 export default {
         mounted() {
-            console.log(this.event_id)
+            // console.log(this.event_id)
             this.showEventTitle();
 
         },
@@ -260,6 +260,7 @@ export default {
             showEventTitle(){
             axios.get(`/evaluation_form_title/${this.event_id}`)
                 .then(response => {
+                    console.log(response.data)
                     const data = response.data;
                     data.forEach(item => {
 
@@ -270,7 +271,7 @@ export default {
                     this.event_title['start_attendance'] =  item['start_attendance'];
                     this.event_title['location'] =  item['location'];
                     });
-                    console.log(this.event_title);
+                    // console.log(this.event_title);
                     
 
                 })

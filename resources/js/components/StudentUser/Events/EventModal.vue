@@ -36,7 +36,6 @@
                                             <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
                                         </div>
                                     </div>
-
                                 </td>
 
                         </tr>
