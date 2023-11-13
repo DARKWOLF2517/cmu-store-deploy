@@ -77,7 +77,7 @@ class EventController extends Controller
         $event->save();
 
         // Redirect or return a response
-        return redirect()->back()->with('success', 'Event created successfully!');
+        return response()->json(['message' => 'Event Created successfully']);
     }
 
     public function edit($event_id)
@@ -103,12 +103,12 @@ class EventController extends Controller
 
         $event->update($request->all());
         
-        return redirect()->back()->with('success', 'Event updated successfully.');
+        return response()->json(['message' => 'Event Updated Successfully']);
     }
     public function destroy(Event $event)
     {
         $event->delete();
-        return response()->json(['message' => 'Event deleted successfully']);
+        return response()->json(['message' => 'Event Deleted successfully']);
     }
 
 }

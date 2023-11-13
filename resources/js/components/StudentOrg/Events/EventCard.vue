@@ -31,7 +31,7 @@
         </div>
         <div class="event-buttons d-flex justify-content-end">
             <div class="btn-group" role="group">
-            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData()">
+            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">
                 <i class="bi bi-calendar-event"></i> Add Event
             </button>
             </div>
@@ -59,7 +59,7 @@
                                         <!-- option 1 -->
                                         <li><a class="dropdown-item" @click=" FetchUpdateData(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
                                         <!-- option 2 -->
-                                        <li><a class="dropdown-item" @click="this.id = (event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
+                                        <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
                                     </ul>
                                 </div>
                                         <h5 class="card-title mt-2 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
@@ -89,51 +89,54 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger" @click="deleteEvent()">Delete</button>
+                                <button type="button" class="btn btn-danger" @click="deleteEvent()" data-bs-dismiss="modal">Delete</button>
                             </div>
                             </div>
                         </div>
                     </div>
 
-    <!-- View modal -->
-<div class="modal fade" id="event-details-modal" tabindex="-1" role="dialog" aria-labelledby="event-details-modal-label" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="event-details-modal-label">Event Details</h5>
-            </div>
-            <div class="modal-body" :id="this.showEvent.event_id">
-                <div class="mb-3">
-                <h5 class="card-title">Event Name: <strong>{{ this.showEvent["name"] }}</strong></h5>
-                </div>
-                <div class="mb-3">
-                <h6 class="card-subtitle mb-2 text-muted">Scheduled Date: {{this.showEvent["start_date"]  }}</h6>
-                </div>
-                <div class="mb-3">
-                <h6 class="card-subtitle mb-2 text-muted">Scheduled Time: {{ this.showEvent["start_attendance"] }}</h6>
-                </div>
-                <div class="mb-3">
-                <h6 class="card-text">Location: {{ this.showEvent["location"] }}</h6>
-                </div>
-                <div class="mb-3">
-                <h6 class="card-text">Description: {{ this.showEvent["description"] }}</h6>
-            </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-                <!-- Event Modal -->
+                    <!-- View modal -->
+                    <div class="modal fade" id="event-details-modal" tabindex="-1" role="dialog" aria-labelledby="event-details-modal-label" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="event-details-modal-label">Event Details</h5>
+                                </div>
+                                <div class="modal-body" :id="this.showEvent.event_id">
+                                    <div class="mb-3">
+                                    <h5 class="card-title">Event Name: <strong>{{ this.showEvent["name"] }}</strong></h5>
+                                    </div>
+                                    <div class="mb-3">
+                                    <h6 class="card-subtitle mb-2 text-muted">Scheduled Date: {{this.showEvent["start_date"]  }}</h6>
+                                    </div>
+                                    <div class="mb-3">
+                                    <h6 class="card-subtitle mb-2 text-muted">Scheduled Time: {{ this.showEvent["start_attendance"] }}</h6>
+                                    </div>
+                                    <div class="mb-3">
+                                    <h6 class="card-text">Location: {{ this.showEvent["location"] }}</h6>
+                                    </div>
+                                    <div class="mb-3">
+                                    <h6 class="card-text">Description: {{ this.showEvent["description"] }}</h6>
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Modal -->
                     <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="event-modal-label" aria-hidden="true" >
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="event-modal-label">Create Event</h5>
+                                    
+                                    <h5 v-if="this.submit == this.sendData" class="modal-title" id="event-modal-label">Create Event</h5>
+                                    <h5 v-else-if="this.submit == this.UpdateData" class="modal-title" id="event-modal-label">Edit Event</h5>
                                 </div>
                                 <div class="modal-body">
-                                    <form @submit="this.submit"  id="eventsForm"  >
+                                    <form @submit.prevent="this.submit"  id="eventsForm"  >
                                         <div class="mb-3">
                                             <label for="event-title" class="form-label">Event Name</label>
                                             <input type="text" name="name" class="form-control" id="event-title" v-model="formData.name" required>
@@ -181,7 +184,7 @@
                                         <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" id="save-event-button">Save</button>
+                                            <button type="submit" class="btn btn-primary" id="save-event-button" data-bs-dismiss="modal">Save</button>
                                         </div>
                                     </form>
                                 </div>
@@ -236,7 +239,6 @@ export default {
                 .then(response => {
                     this.showEvent = response.data
                     console.log(response.data)
-
                 })
                 .catch(error => {
 
@@ -258,7 +260,7 @@ export default {
             // alert(this.formData.org_id);
                 axios.post('/events', this.formData)
                     .then(response => {
-                        location.reload();
+                        this.showSucces('Events Successfuly Added');
                     })
                     .catch(error => {
                         alert(error)
@@ -321,9 +323,8 @@ export default {
         UpdateData() {
             axios.put(`/events/${this.id}`, this.formData)
                 .then(response => {
-                // The update was successful, handle any additional logic here
-                // console.log('User updated successfully:', response.data);
-                    this.showSucces(response.message.success);
+                    this.submit = this.sendData;
+                    this.showSucces(response.data.message);
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -337,7 +338,7 @@ export default {
                         // const closeButton = $('.modal button[data-bs-dismiss="modal"]');
                         // closeButton.trigger('click');
                         this.showSucces(response.data.message);
-                        this.fetchData();
+
 
                     })
                     .catch(error => {
@@ -350,6 +351,7 @@ export default {
 
         },
         showSucces(message){
+            this.fetchData();
             toast.info(message),{
                 autoClose: 100,
             }
