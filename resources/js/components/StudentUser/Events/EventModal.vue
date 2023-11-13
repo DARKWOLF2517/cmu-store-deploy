@@ -79,7 +79,7 @@ export default {
             .then(response => {
                 this.evaluation_answer = response.data;
                 // console.log ()
-                //  console.log(response.data)
+                 console.log()
                 // if (console.data == '0'){
                    
                 // }
