@@ -79,14 +79,14 @@ export default {
             .then(response => {
                 this.evaluation_answer = response.data;
                 // console.log ()
-                 console.log(response.data)
-                if (console.data == '0'){
+                //  console.log(response.data)
+                // if (console.data == '0'){
                    
-                }
-                else{
+                // }
+                // else{
                     
                    
-                }
+                // }
             })
             .catch(error => {
                 console.log(error)
