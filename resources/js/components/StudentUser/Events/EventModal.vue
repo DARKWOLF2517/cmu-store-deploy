@@ -29,7 +29,7 @@
                                         <div v-if="this.evaluation_answer.length > 0">
                                             <div v-if = "this.evaluation_answer[0]['event_id'] == event['event_id'] && this.evaluation_answer[0]['user_id'] == this.student_id"> You Already Responded</div>
                                             <div v-else-if ="event['status'] == 0">Evaluation is disable at the moment..</div>
-                                            <button v-else-if ="event['status'] == 1" class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)"> sadfd</button>
+                                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
                                         </div>
                                         <div v-else>
                                             <div v-if ="event['status'] == 0">Evaluation is disable at the moment..</div>
@@ -78,7 +78,6 @@ export default {
             axios.get(`/evaluation/user/status/${this.organization_id}`)
             .then(response => {
                 this.evaluation_answer = response.data;
-                console.log(this.student_id)
                 // console.log ()
                  console.log()
                 // if (console.data == '0'){
