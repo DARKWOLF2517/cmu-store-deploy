@@ -271,7 +271,7 @@ export default {
                     this.event_title['start_attendance'] =  item['start_attendance'];
                     this.event_title['location'] =  item['location'];
                     });
-                    // console.log(this.event_title);
+                    console.log(this.event_title);
                     
 
                 })
