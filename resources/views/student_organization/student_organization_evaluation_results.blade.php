@@ -19,16 +19,15 @@
       </div>
       <div class="mt-2 student-buttons d-flex justify-content-end">
           <div class="btn-group" role="group">
-              <button class="btn me-2" id="add-student-list-button">
-                  <i class="fas fa-print"></i> Print Results
-              </button>
-              <button class="btn me-2" id="add-student-button">
+            <button class="btn me-2" id="print-results-button">
+                <i class="fas fa-print"></i> Print Results
+            </button>
+              <button class="btn me-2" id="download-results-button">
                   <i class="fas fa-download"></i> Download Results
               </button>
           </div>
       </div>
         <div class="container mt-2" id="evaluation-summary">
-
           <evaluation-chart
               event_id={{$id}}>
           </evaluation-chart>
@@ -47,8 +46,51 @@
   <script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_graphics_module.js"></script>
   <script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_ui_module.js"></script>
   <script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_corechart_module.js"></script>
-@endsection
+<script>
+    // Print button
+$('#print-results-button').click(function() {
 
+// Open print window
+var printWindow = window.open('', '_blank', 'width=600,height=600');
+
+// Write evaluation summary content
+printWindow.document.open();
+printWindow.document.write($('#evaluation-summary').html());
+printWindow.document.close();
+
+// Print and close
+printWindow.onload = function() {
+  printWindow.print();
+  printWindow.close();
+};
+
+});
+
+// Download button
+$('#download-results-button').click(function() {
+
+// Create invisible download link
+var downloadLink = document.createElement('a');
+downloadLink.style.display = 'none';
+document.body.appendChild(downloadLink);
+
+// Set download content
+var evaluationHTML = $('#evaluation-summary').html();
+var evaluationBlob = new Blob([evaluationHTML], {type: 'text/html'});
+
+// Trigger download
+var evaluationFilename = 'evaluation-results.html';
+downloadLink.href = URL.createObjectURL(evaluationBlob);
+downloadLink.download = evaluationFilename;
+downloadLink.click();
+
+// Clean up
+URL.revokeObjectURL(downloadLink.href);
+document.body.removeChild(downloadLink);
+
+});
+</script>
+  @endsection
 
 
 

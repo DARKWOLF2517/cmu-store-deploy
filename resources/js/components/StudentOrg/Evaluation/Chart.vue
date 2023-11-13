@@ -37,13 +37,13 @@
                 <div class="piechart" id="q9"></div>
             </div>
         </div>
-    <h6>3. Venue</h6>
+    <h6>2. Venue</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q10"></div>
             </div>
         </div>
-    <h6>4. PARTICIPATION</h6>
+    <h6>3. PARTICIPATION</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q11"></div>
@@ -55,13 +55,13 @@
                 <div class="piechart" id="q13"></div>
             </div>
         </div>
-    <h6>5. FOOD/HOSPITALITY</h6>
+    <h6>4. FOOD/HOSPITALITY</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q14"></div>
             </div>
         </div>
-    <h6>6. TEAMWORK/COORDINATION OF ORGANIZATION</h6>
+    <h6>5. TEAMWORK/COORDINATION OF ORGANIZATION</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q15"></div>
@@ -69,6 +69,21 @@
         </div>
 
 
+<div class="row">
+    <div class="col-md-12 col-12">
+        <h4>Feedbacks</h4>
+        <div class="feedbacklist-card">
+            <ul class="list-group" id="evaluation-feedbacks">
+                <li class="list-group-item mb-2">Feedback 1</li>
+                <li class="list-group-item mb-2">Feedback 2</li>
+                <li class="list-group-item mb-2">Feedback 3</li>
+                <li class="list-group-item mb-2">Feedback 4</li>
+                <li class="list-group-item mb-2">Feedback 4</li>
+                <li class="list-group-item mb-2">Feedback 4</li>
+            </ul>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
@@ -198,7 +213,7 @@ export default{
         }
     },
     mounted() {
-        this.fetchAnswer(this.event_id).then((evals)=> 
+        this.fetchAnswer(this.event_id).then((evals)=>
         {
             for(let e of evals)
             {
@@ -240,7 +255,7 @@ export default{
                     this.event_title['location'] =  item['location'];
                     });
                     console.log(this.event_title);
-                    
+
 
                 })
                 .catch(error => {
@@ -585,7 +600,7 @@ export default{
             }
 
 
-            
+
 
         },
 

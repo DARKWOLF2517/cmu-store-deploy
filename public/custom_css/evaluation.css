@@ -125,7 +125,20 @@ option {
     overflow-x: hidden;
     background-color: white;
 }
+.feedbacklist-card{
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 30px;
+    height: 40vh;
+    max-height: 40vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+.list-group-item{
+    background-color: #eeeeee;
+    border-radius: 8px;
 
+}
 @media (max-width: 768px) {
     .event-card {
       width: calc(50% - 20px);
