@@ -27,7 +27,7 @@
                                     <div>
                                         <!-- Check if this.evaluation_answer is defined -->
                                         <div v-if="this.evaluation_answer.length > 0">
-                                            <div v-if = "this.evaluation_answer[0]['event_id'] == event['event_id'] && this.evaluation_answer[0]['user_id'] == this.student_id"> You Already Responded</div>
+                                            <div v-if = "this.evaluation_answer[0]['event_id'] == event['event_id']"> You Already Responded</div>
                                             <div v-else-if ="event['status'] == 0">Evaluation is disable at the moment..</div>
                                             <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
                                         </div>
