@@ -116,14 +116,14 @@ class EvaluationController extends Controller
         return $events->toJson();
 
     }
-    public function isDoneEvaluation($organization_id)
+    public function isDoneEvaluation($student_id)
     {
         // $evaluation = EvaluationFormAnswer::where([
         //     ['org_id', $organization_id],
         // ])->get();
 
         $evaluation = EvaluationFormAnswer::where([
-            ['org_id', $organization_id],
+            ['user_id', $student_id],
         ])->get();
         
         if ($evaluation->isEmpty()) {

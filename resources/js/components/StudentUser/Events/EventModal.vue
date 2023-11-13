@@ -1,5 +1,5 @@
 <template>
-        <div class="container mb-3" id="tablecontainer" v-for="event in this.events" :id="event.event_id"> 
+        <div class="container mb-3" id="tablecontainer" v-for="(event , index) in this.events" :id="event.event_id"> 
                 <h4> Event name: {{ event["name"] }}</h4>
                 <!-- <h6> Number of Days: 2</h6>
                 <h6> Total number of Attendance made: 4 </h6> -->
@@ -24,18 +24,19 @@
                             <td class="present">Pending</td>
                             <td>
                                 
-                                    <div>
+                                    
                                         <!-- Check if this.evaluation_answer is defined -->
-                                        <div v-if="this.evaluation_answer.length > 0">
-                                            <div v-if = "this.evaluation_answer[0]['event_id'] == event['event_id'] && this.evaluation_answer[0]['user_id'] == this.student_id"> You Already Responded</div>
-                                            <div v-else-if ="event['status'] == 0">Evaluation is disable at the moment..</div>
-                                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
-                                        </div>
-                                        <div v-else>
+                                        <!-- <div v-if="this.evaluation_answer.length > 0"> -->
+
+                                            <div v-if = "hasResponded(event['event_id'])"> You Already Responded</div>
+                                            <div v-else-if ="event['status'] == 0 ">Evaluation is disable at the moment..</div>
+                                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate </button>
+                                        <!-- </div> -->
+                                        <!-- <div v-else>
                                             <div v-if ="event['status'] == 0">Evaluation is disable at the moment..</div>
                                             <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
-                                        </div>
-                                    </div>
+                                        </div> -->
+                                    
                                 </td>
 
                         </tr>
@@ -53,15 +54,20 @@ export default {
     data() {
         return {
             events: [],
-            evaluation_answer:[],
+            user_answer_student_id:[],
+
         }
     },
     mounted() {
         this.fetchData();
-        this.getEvaluatinStatus()
+        this.getEvaluationStatus()
 
     },
     methods: {
+        hasResponded(eventId) {
+            // Check if any element in user_answer_student_id has a matching event_id
+            return this.user_answer_student_id.some(item => item.event_id === eventId);
+        },
         fetchData(){
                 axios.get(`/events/show/${this.organization_id}`)
                 .then(response => {
@@ -73,20 +79,17 @@ export default {
                 });
 
             },
-        getEvaluatinStatus(){
-            axios.get(`/evaluation/user/status/${this.organization_id}`)
+        getEvaluationStatus(){
+            axios.get(`/evaluation/user/status/${this.student_id}`)
             .then(response => {
-                this.evaluation_answer = response.data;
-                // console.log ()
-                console.log()
-                console.log(this.evaluation_answer[0]['user_id'])
-                console.log(this.student_id)
+                // console.log(response.data)
+                this.user_answer_student_id = response.data;
                 // if (console.data == '0'){
-                   
+                
                 // }
                 // else{
                     
-                   
+                
                 // }
             })
             .catch(error => {

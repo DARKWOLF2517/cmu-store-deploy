@@ -194,7 +194,7 @@ Route::get('student_organization_profile', function () {
             });
 
             //if user is done evaluating it will mark as done   
-            Route::get('/evaluation/user/status/{organization_id}',[EvaluationController::class, 'isDoneEvaluation']);
+            Route::get('/evaluation/user/status/{student_id}',[EvaluationController::class, 'isDoneEvaluation']);
             
             
             //get user organization
@@ -202,7 +202,7 @@ Route::get('student_organization_profile', function () {
             // Route::get('student_profile', function () {
             //     return view('student.student_profile');
             // });
-            
+
             //get evaluation form title
             Route::get('/evaluation_form_title/{event_id}', [EvaluationController::class, 'EvaluationResultTitle']);
 
