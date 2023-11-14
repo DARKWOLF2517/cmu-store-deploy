@@ -352,7 +352,7 @@ export default {
         },
         showSucces(message){
             this.fetchData();
-            toast.info(message),{
+            toast.success(message),{
                 autoClose: 100,
             }
         },
