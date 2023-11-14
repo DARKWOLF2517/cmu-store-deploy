@@ -161,27 +161,6 @@
                         </button>
                     </li>
 
-                    {{-- <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#evaluation-collapse" aria-expanded="false">
-                            <i class="fas fa-chart-line"></i>
-                            <span class="link-title">Evaluation</span>
-                            <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
-                        </button>
-                        <div class="collapse" id="evaluation-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="/student_organization_evaluation" class="link-dark rounded"><i class="fas fa-book"></i> Results</a></li>
-                                <li><a href="#" class="link-dark rounded"><i class="fas fa-pen"></i> Forms</a></li>
-                            </ul>
-                        </div>
-                    </li> --}}
-                    {{-- <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center studentlist-button">
-                            <i class="fas fa-money-check"></i>
-                            <a href="/student_organization_accountabilities">
-                            <span class="link-title">Accountabilities</span>
-                            </a>
-                        </button>
-                    </li> --}}
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse" aria-expanded="false">
                             <i class="fas fa-clipboard-check"></i>

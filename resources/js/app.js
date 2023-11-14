@@ -6,6 +6,7 @@ import { createApp } from 'vue';
     import SideNavbtn from './components/SideNav/SideNavButton.vue';
     import LoginForm from './components/LoginForm/LoginForm.vue';
     import UserOrganization from './components/StudentOrg/Login/UserOptions.vue';
+    import SideNav from './components/SideNav/NavBar.vue';
 
 // org module
     import EventsDashboard from './components/StudentOrg/Dashboard/DashboardEvents.vue';
@@ -34,6 +35,7 @@ const app = createApp({});
     app.component('side-nav-button',SideNavbtn);
     app.component('login-form',LoginForm);
     app.component('user-organization',UserOrganization);
+    app.component('side-nav',SideNav);
 
 // org module
     app.component('event-card',EventCard);
