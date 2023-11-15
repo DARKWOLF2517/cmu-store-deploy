@@ -86,9 +86,7 @@ methods: {
         // Starts scanner
     },
     success(result){
-        this.scanner.pause();
         this.formData.user_id = result;
-        console.log(result);
         this.submitForm();
     },
     error(err) {
@@ -105,166 +103,20 @@ methods: {
             });
     },
     submitForm(){
-        //get the repeating data using id number of the student
-        // axios.get(`/show/user/${this.formData.user_id}`)
-        //     .then(response => {
-        //         if(response.data > 0){
-
-        //         }
-        //         else{
-        //             alert('adfdsf')
-        //         }
-        //     })
-        //     .catch(error => {
-
-        //     });
+        this.scanner.pause();
         axios.post("/attendance", this.formData)
             .then(response =>
             {
-                // if(response.result === "failure")
-                // {
-                //     alert(response.message);
-                // }
                 alert(response.data.message)
+                this.fetchData();
                 this.scanner.resume();
+                this.formData.user_id = '';
             })
             .catch(error => {
                 alert(error)
             });
-            // axios.get(`/attendance_repetition/${this.formData.user_id}/${this.session}/${this.event_id}`)
-            //     .then(response => {
-            //         if(response.data > 0){
-            //             alert ('Already Repeated')
-            //         }
-            //         else{
-            //             axios.post('/attendance', this.formData)
-            //                 .then(response => {
-
-            //                 })
-            //                 .catch(error => {
-            //                     alert(error);
-            //                     // alert(this.formData.id_number);
-            //                 });
-            //         }
-            //         console.log("resuming scanner");
-            //         this.scanner.resume();
-            //     })
-            //     .catch(error => {
-            //         alert(error);
-
-            //     });
         }
 }
-// setup(props)
-// {
-//     const scanner = new Html5QrcodeScanner('reader', {
-//     // Scanner will be initialized in DOM inside element with id of 'reader'
-//         qrbox: {
-//             width: 250,
-//             height: 250,
-//         },  // Sets dimensions of scanning box (set relative to reader element width)
-//         fps: 20, // Frames per second to attempt a scan
-//     });
-
-//     onMounted(() => {
-//         scanner.render();
-//         fetchData();
-//     })
-
-//     function success(result){
-//         scanner.pause();
-//         this.formData.user_id = result;
-//         console.log(result);
-//         this.submitForm();
-//     }
-
-//     function error(err) {
-//         // console.error(err);
-//         // Prints any errors to the console
-//     }
-
-//     function fetchData() {
-//         axios.get(`/attendance/show/${this.event_id}/${this.org_id}`)
-//             .then(response => {
-//                 this.attendance = response.data
-//             })
-//             .catch(error => {
-
-//             });
-//     }
-
-//     function submitForm(){
-//         //get the repeating data using id number of the student
-//         // axios.get(`/show/user/${this.formData.user_id}`)
-//         //     .then(response => {
-//         //         if(response.data > 0){
-
-//         //         }
-//         //         else{
-//         //             alert('adfdsf')
-//         //         }
-//         //     })
-//         //     .catch(error => {
-
-//         //     });
-//         axios.get(`/attendance_repetition/${this.formData.user_id}/${this.session}/${this.event_id}`)
-//             .then(response => {
-//                 if(response.data > 0){
-//                     alert ('Already Repeated')
-//                 }
-//                 else{
-//                     axios.post('/attendance', this.formData)
-//                         .then(response => {
-
-//                         })
-//                         .catch(error => {
-//                             alert(error);
-//                             // alert(this.formData.id_number);
-//                         });
-//                 }
-//             })
-//             .catch(error => {
-//                 alert(error);
-
-//             });
-
-//         window.location.reload();
-//     }
-
-//     return { scanner, submitForm, error, success, fetchData}
-// }
 
 }
 </script>
-
-<!-- <style>
-    main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    #reader {
-        width: 100%;
-    }
-    #result {
-        text-align: center;
-        font-size: 1.5rem;
-    }
-
-    .table thead th {
-        background-color: #007bff;
-        color: white;
-        margin-top: 20px;
-    }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #ffffff;
-    }
-
-
-    .table td, .table th {
-        padding: 10px;
-        text-align: center;
-    }
-
-</style> -->

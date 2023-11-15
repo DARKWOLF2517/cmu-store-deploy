@@ -71,8 +71,14 @@ class AttendanceController extends Controller
     {   
         $attendance = Event::find($event_id);
         $attendance->update(['status' => $status]);
+        if ($status == 1){
+            $status = 'Ongoing';
+        }
+        else if ($status == 0){
+            $status = 'Closed';
+        }
         
-        return response()->json(['message' => 'Status updated successfully']);
+        return response()->json(['message' => 'Evaluation Status of '. $attendance -> name .' Changed to '. $status ]);
 
     }
     public function attendanceRecord($organization_id)

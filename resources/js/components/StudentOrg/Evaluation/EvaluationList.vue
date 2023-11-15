@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
     export default{
         props: ['organization_id'],
         data() {
@@ -69,12 +71,20 @@
                 axios.put(`/attendance/${event_id}/${status}`)
                     .then(response => {
                         // After update, axios post for calculating fines
-                        location.reload();
+                        // location.reload();
+                        this.showSucces(response.data.message);
+                        this.fetchData();
                     })
                     .catch(error => {
                         alert('Error', error)
                     });
-        },
+            },
+            showSucces(message){
+            this.fetchData();
+                toast.success(message),{
+                    autoClose: 100,
+                }
+            },
         },
 
     }

@@ -13,6 +13,7 @@
             <div>
             <h6 class="card-text">Start Date: {{ event["start_date"] }}</h6>
             <h6 class="card-text">Time starts at: {{ event["start_attendance"] }}</h6>
+            <h6 class="card-text">Number of Attendance: {{ event["attendance_count"] }}</h6>
             </div>
             <div class="ml-auto">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceModal" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
@@ -28,20 +29,20 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <p>Are you sure you want to start attendance?</p>
+            <!-- <p>Are you sure you want to start attendance?</p> -->
             <div class="form-group">
                         <label for="attendanceType">Select Attendance Type:</label>
-                        <select class="form-select" id="attendanceType">
-                                <option value="morning" v-if="this.event_id == 0">Morning (Log in)</option>
-                                <option value="morning">Morning (Log out)</option>
-                                <option value="afternoon">Afternoon (Log in)</option>
-                                <option value="afternoon">Afternoon (Log out)</option>
+                        <select class="form-select" id="attendanceType" v-model="session">
+                            <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                            <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                            <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                            <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
                         </select>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-success" @click="startAttendance(this.event_id, this.org_id, 1)" >Start</button>
+            <button type="button" class="btn btn-success" @click="startAttendance(event_id, org_id, session)" >Start</button>
         </div>
         </div>
     </div>
@@ -58,9 +59,10 @@ export default {
     props: ['org_id'],
     data() {
         return {
-            event_count:0,
+            attendance_count:null,
             events: [],
-            event_id: 0,
+            event_id: null,
+            session: null, 
 
         }
     },
@@ -73,10 +75,7 @@ export default {
         attendanceCount(){
             axios.get(`/attendance/count/${this.event_id}/${this.org_id}`)
                 .then(response => {
-                    this.event_count = response.data;
-                    console.log(this.event_count)
-
-
+                    this.attendance_count = response.data;
                 })
                 .catch(error => {
 
@@ -84,7 +83,6 @@ export default {
 
     },
         fetchData() {
-            // document.getElementById("event-spinner").show();
             fetch(`/events/show/${this.org_id}`, {
                 method: "GET",
                 headers: {
@@ -92,21 +90,31 @@ export default {
                     "Content-Type":"application/json"
                 }
             }).then( (response) => {
-                // document.getElementById("event-spinner").classList.add("hidden");
                 response.json().then((data) => {
                     data.forEach(element => {
-                        // console.log(element);
-                        // console.log(element[])
                         element["start_date"] = convertDate(element["start_date"]);
                         element["end_date"] = convertDate(element["end_date"]);
                     });
                     this.events = data;
+                    console.log(this.events)
                 })
             })
         },
         startAttendance(event_id, org_id, session){
-            //query for qr scanner with event_id
-            window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
+
+            if (event_id === null || org_id === null || session === null) {
+                // console.error('Error: One or more parameters are null');
+                if(session == null){
+                    alert('Please Select Attendance Type.');
+                }
+                // You can handle the error here, such as displaying a message to the user
+                return; // Exit the method early if there's an error
+            }
+            else{
+                 //query for qr scanner with event_id
+                window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
+            }
+        
         }
     }
 }

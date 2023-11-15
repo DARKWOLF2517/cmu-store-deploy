@@ -103,12 +103,12 @@ class EventController extends Controller
 
         $event->update($request->all());
         
-        return response()->json(['message' => 'Event Updated Successfully']);
+        return response()->json(['message' => 'Event '. $request-> name.' Updated Successfully']);
     }
     public function destroy(Event $event)
     {
         $event->delete();
-        return response()->json(['message' => 'Event Deleted successfully']);
+        return response()->json(['message' => 'Event '. $event-> name.' Deleted successfully']);
     }
 
 }
