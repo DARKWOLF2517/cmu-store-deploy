@@ -67,7 +67,7 @@ Route::get('student_organization_profile', function () {
     #ORG ROUTE
         Route::middleware(['user-role:1'])->group(function(){
             #attendance
-            Route::get('/attendance/show/{event_id}/{org_id}',[AttendanceController::class, 'showAttendanceList']);
+            Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
 
             Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
             Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');

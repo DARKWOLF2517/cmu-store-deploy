@@ -9,11 +9,12 @@ use App\Models\UserOrganization;
 
 class AttendanceController extends Controller
 {
-    public function showAttendanceList($event_id, $org_id)
+    public function showAttendanceList($event_id, $org_id,$session)
     {
         $attendance = Attendance::where([
             ['event_id', $event_id],
             ['org_id', $org_id],
+            ['session', $session],
         ])->get();
         
         return $attendance->toJson();
