@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountabilitiesController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ProfileController;
@@ -62,166 +63,173 @@ Route::get('student_organization_profile', function () {
 
     //calendar events
     Route::get('/events/calendar',[EventController::class, 'getEventsForCalendar'])->name('get-event-calendar');
+     #ACCOUNTABILITIES ROUTE
+     Route::get('/accountabilities/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
 
-    Route::middleware(['auth'])->group(function(){
-    #ORG ROUTE
-        Route::middleware(['user-role:1'])->group(function(){
-            #attendance
-            Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
+Route::middleware(['auth'])->group(function(){
+#ORG ROUTE
+    Route::middleware(['user-role:1'])->group(function(){
+        #attendance
+        Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
+        Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
+        Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
+        Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
+        
+        //check the repetition of the data using id number
+        Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
+        
+        //attendance record list
+        Route::get('/attendance_record/{organization_id}',[AttendanceController::class, 'attendanceRecord']);
+        
+        //attendance status route
+        Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
 
-            Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
-            Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
-            Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
-            //check the repetition of the data using id number
-            Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
-            //attendance record list
-            Route::get('/attendance_record/{organization_id}',[AttendanceController::class, 'attendanceRecord']);
-            //attendance status route
-            Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
+        #USER ROUTE
+        Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
+        
+        //show students list  in the main form
+        Route::get('/student_list/show/{org_id}',[UserController::class, 'showStudents']);
+        Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
+        Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
 
-            #USER ROUTE
-            Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
-            //show students list  in the main form
-            Route::get('/student_list/show/{org_id}',[UserController::class, 'showStudents']);
-            Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
-            Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
-
-            Route::post('/upload_students',[UserController::class, 'store']);
-            #ORG DASHBOARD
-                Route::get('/login/org_dashboard', function () {
-                    return view('student_organization.student_organization_dashboard');
-                })->name('org_dashboard');
-
-
-
-            // Route::get('student_organization_attendance_record/{event_id}', function () {
-            //     return view('student_organization.student_organization_attendance_record');
-            // });
-            Route::get('student_organization_attendance_record/{event_id}',[AttendanceController::class, 'events']);
-
-            Route::get('student_organization_attendance', function () {
-                return view('student_organization.student_organization_attendance');
-            });
-
-            Route::get('student_organization_attendance_schedule', function () {
-                return view('student_organization.student_organization_attendance_schedule');
-            });
-
-            Route::get('student_organization_attendance_records', function () {
-                return view('student_organization.student_organization_attendance_records');
-            });
+        Route::post('/upload_students',[UserController::class, 'store']);
+        #ORG DASHBOARD
+            Route::get('/login/org_dashboard', function () {
+                return view('student_organization.student_organization_dashboard');
+            })->name('org_dashboard');
 
 
-            Route::get('student_organization_member_list', function () {
-                return view('student_organization.student_organization_member_list');
-            });
 
-            Route::get('student_organization_students', function () {
-                return view('student_organization.student_organization_students');
-            });
+        // Route::get('student_organization_attendance_record/{event_id}', function () {
+        //     return view('student_organization.student_organization_attendance_record');
+        // });
+        Route::get('student_organization_attendance_record/{event_id}',[AttendanceController::class, 'events']);
 
-            Route::get('student_organization_fines', function () {
-                return view('student_organization.student_organization_fines');
-            });
-
-            Route::get('student_organization_membership_fee', function () {
-                return view('student_organization.student_organization_membership_fee');
-            });
-
-            Route::get('student_organization_set_accountabilities', function () {
-                return view('student_organization.student_organization_set_accountabilities');
-            });
-
-            //QR SCANNER
-            Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
-
-            #EVALUATION ROUTES
-                Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
-                Route::get('student_organization_evaluation', function () {
-                    return view('student_organization.student_organization_evaluation');
-                });
-                Route::get('/evaluation_form{event_id}', [EvaluationController::class, 'GetEvaluationResult'])->name('fetchEvaluation');
-                // Route::get('/evaluation_form_answer/{event_id}/{question_id}/{option}',[EvaluationController::class, 'EvaluationFormAnswer']);
-                Route::get('/evaluation_form_answer/{event_id}',[EvaluationController::class, 'EvaluationFormAnswer']);
-                //get event total response
-                Route::get('/evaluation_form_total_response/{event_id}',[EvaluationController::class, 'EvaluationTotalResponse']);
-                Route::get('/evaluation_list/{org_id}',[EvaluationController::class, 'EvaluationList']);
-
-
-                #EVENT ROUTES
-                Route::get('student_organization_events', function () {
-                    return view('student_organization.student_organization_events');
-                });
-
-
-                Route::get('/events', [EventController::class, 'showEvents'])->name('events');
-                Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events-destroy');
-                Route::post('/events', [EventController::class, 'store'])->name('event-store');
-                Route::get('edit/events/{event}', [EventController::class, 'edit'])->name('events-edit');
-                Route::put('/events/{event}', [EventController::class, 'update'])->name('events-update');
-
-
-                Route::get('/events/count',[EventController::class, 'getEventsCount'])->name('get-events-count');
-                Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
+        Route::get('student_organization_attendance', function () {
+            return view('student_organization.student_organization_attendance');
         });
-    //STUDENT ROUTE
-        Route::middleware(['user-role:2'])->group(function(){
 
-            //test route
-
-            Route::get('student_profile', function () {
-                return view('student.student_profile');
-            });
-
-            Route::get('/login/student_dashboard', function () {
-                return view('student.student_dashboard');
-            });
-
-            // Route::get('student_profile', function () {
-            //     return view('student.student_profile');
-            // });
-
-            Route::get('student_accountabilities', function () {
-                return view('student.student_accountabilities');
-            });
-
-            Route::get('student_announcement', function () {
-                return view('student.student_announcement');
-            });
-
-            Route::get('student_attendance', function () {
-                return view('student.student_attendance');
-            });
-
-            //if user is done evaluating it will mark as done   
-            Route::get('/evaluation/user/status/{student_id}',[EvaluationController::class, 'isDoneEvaluation']);
-            
-            
-            //get user organization
-            //commented for testing purpose
-            // Route::get('student_profile', function () {
-            //     return view('student.student_profile');
-            // });
-
-            //get evaluation form title
-            Route::get('/evaluation_form_title/{event_id}', [EvaluationController::class, 'EvaluationResultTitle']);
-
-            //get students user profile
-                Route::get('organization/{org_id}',[UserController::class, 'getUserOrganization']);
-            //get user organization
-                Route::get('profile/{student_id}',[UserController::class, 'getUserProfile']);
-            //evaluation form
-                Route::get('student_evaluation_list', function () {
-                    return view('student.student_evaluation_list');
-                });
-                Route::get('student_evaluationform', function () {
-                    return view('student.student_evaluation_form');
-                });
-                Route::post('/submit_evaluation',[EvaluationController::class, 'store']);
-                Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
-
-
-
-
+        Route::get('student_organization_attendance_schedule', function () {
+            return view('student_organization.student_organization_attendance_schedule');
         });
+
+        Route::get('student_organization_attendance_records', function () {
+            return view('student_organization.student_organization_attendance_records');
+        });
+
+
+        Route::get('student_organization_member_list', function () {
+            return view('student_organization.student_organization_member_list');
+        });
+
+        Route::get('student_organization_students', function () {
+            return view('student_organization.student_organization_students');
+        });
+
+        Route::get('student_organization_fines', function () {
+            return view('student_organization.student_organization_fines');
+        });
+
+        Route::get('student_organization_membership_fee', function () {
+            return view('student_organization.student_organization_membership_fee');
+        });
+
+        Route::get('student_organization_set_accountabilities', function () {
+            return view('student_organization.student_organization_set_accountabilities');
+        });
+
+        //QR SCANNER
+        Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
+
+        #EVALUATION ROUTES
+            Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
+            Route::get('student_organization_evaluation', function () {
+                return view('student_organization.student_organization_evaluation');
+            });
+            Route::get('/evaluation_form{event_id}', [EvaluationController::class, 'GetEvaluationResult'])->name('fetchEvaluation');
+            // Route::get('/evaluation_form_answer/{event_id}/{question_id}/{option}',[EvaluationController::class, 'EvaluationFormAnswer']);
+            Route::get('/evaluation_form_answer/{event_id}',[EvaluationController::class, 'EvaluationFormAnswer']);
+            //get event total response
+            Route::get('/evaluation_form_total_response/{event_id}',[EvaluationController::class, 'EvaluationTotalResponse']);
+            Route::get('/evaluation_list/{org_id}',[EvaluationController::class, 'EvaluationList']);
+
+
+            #EVENT ROUTES
+            Route::get('student_organization_events', function () {
+                return view('student_organization.student_organization_events');
+            });
+
+
+            Route::get('/events', [EventController::class, 'showEvents'])->name('events');
+            Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events-destroy');
+            Route::post('/events', [EventController::class, 'store'])->name('event-store');
+            Route::get('edit/events/{event}', [EventController::class, 'edit'])->name('events-edit');
+            Route::put('/events/{event}', [EventController::class, 'update'])->name('events-update');
+
+
+            Route::get('/events/count',[EventController::class, 'getEventsCount'])->name('get-events-count');
+            Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
+
+            
+    });
+//STUDENT ROUTE
+Route::middleware(['user-role:2'])->group(function(){
+
+    //test route
+
+    Route::get('student_profile', function () {
+        return view('student.student_profile');
+    });
+
+    Route::get('/login/student_dashboard', function () {
+        return view('student.student_dashboard');
+    });
+
+    // Route::get('student_profile', function () {
+    //     return view('student.student_profile');
+    // });
+
+    Route::get('student_accountabilities', function () {
+        return view('student.student_accountabilities');
+    });
+
+    Route::get('student_announcement', function () {
+        return view('student.student_announcement');
+    });
+
+    Route::get('student_attendance', function () {
+        return view('student.student_attendance');
+    });
+
+    //if user is done evaluating it will mark as done   
+    Route::get('/evaluation/user/status/{student_id}',[EvaluationController::class, 'isDoneEvaluation']);
+    
+    
+    //get user organization
+    //commented for testing purpose
+    // Route::get('student_profile', function () {
+    //     return view('student.student_profile');
+    // });
+
+    //get evaluation form title
+    Route::get('/evaluation_form_title/{event_id}', [EvaluationController::class, 'EvaluationResultTitle']);
+
+    //get students user profile
+        Route::get('organization/{org_id}',[UserController::class, 'getUserOrganization']);
+    //get user organization
+        Route::get('profile/{student_id}',[UserController::class, 'getUserProfile']);
+    //evaluation form
+        Route::get('student_evaluation_list', function () {
+            return view('student.student_evaluation_list');
+        });
+        Route::get('student_evaluationform', function () {
+            return view('student.student_evaluation_form');
+        });
+        Route::post('/submit_evaluation',[EvaluationController::class, 'store']);
+        Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
+
+
+
+
+});
     });

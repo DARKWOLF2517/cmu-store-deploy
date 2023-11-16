@@ -177,8 +177,13 @@
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
-                                            </select>
-                                        </div>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                            <label for="fines" class="form-label">Fines Per Attendance</label>
+                                            <input type="number" name="fines" class="form-control" id="event-title" v-model="formData.fines" required>
+                                            </div>
 
                                         </div>
                                         <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
@@ -222,6 +227,7 @@ export default {
                     description:'',
                     require_attendance: '',
                     attendance_count: '',
+                    fines: '',
                     org_id: '',
 
                 },

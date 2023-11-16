@@ -15,16 +15,21 @@
             </ol>
             </nav>
         </div>
-        </div>
+    </div>
             <div class="container" >
                 <h1 class="text-center">Organization Accountabilities</h1>
 
                 <div class="alert alert-info mt-4" role="alert">
                     This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities. This will reflect on the membership fee and fines accountability lists.
                 </div>
+                <set-accountabilities>
 
-                <!-- Card 1 -->
+                </set-accountabilities>
+
+                {{-- <button>sdfdsf</button>
                 <div class="row">
+                    
+                    <!-- Card 1 -->
                     <div class="col-md-6 col-12">
                         <div class="membershipfee-card">
                             <h2>Membership Fee</h2>
@@ -43,10 +48,11 @@
                             <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#finesModal">Set Fines</button>
                         </div>
                     </div>
-                </div>
+                    
+                </div> --}}
             </div>
 
-            <!-- Membership Fee Modal -->
+            {{-- <!-- Membership Fee Modal -->
             <div class="modal fade" id="membershipFeeModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -67,10 +73,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Fines Modal -->
-            <div class="modal fade" id="finesModal" tabindex="-1" aria-labelledby="finesModalLabel" aria-hidden="true">
+            {{-- <div class="modal fade" id="finesModal" tabindex="-1" aria-labelledby="finesModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -90,16 +96,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
-    </div>
-    </div>
+            </div> --}}
 </div>
+                    {{-- </div>
+                    </div>
+        </div> --}}
 
-    @endsection
-      <!-- Bootstrap JavaScript -->
-      {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
-    @section('custom-script')
+@endsection
+        <!-- Bootstrap JavaScript -->
+        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
+@section('custom-script')
 
 
 @endsection

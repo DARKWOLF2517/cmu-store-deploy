@@ -111,7 +111,7 @@
             <div class=" p-3  sidebar" id="sidebarCollapse">
                 <div class="d-md-flex flex-shrink-0">
                     <ul class="list-unstyled ps-0">
-                    {{-- <li class="mb-1">
+                    <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded dashboard-button">
                             <i class="fas fa-home"></i>
                             <a href="/login/student_dashboard">
@@ -126,7 +126,7 @@
                             <span class="link-title">Announcements</span>
                             </a>
                         </button>
-                    </li>--}}
+                    </li>
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-user"></i>
@@ -154,14 +154,14 @@
                         </button>
                     </li> --}}
 
-                    {{-- <li class="mb-1">
+                    <li class="mb-1">
                         <button class="btn btn-toggle align-items-center studentlist-button">
                             <i class="fas fa-money-check"></i>
                             <a href="/student_accountabilities">
                             <span class="link-title">Accountabilities</span>
                             </a>
                         </button>
-                    </li> --}}
+                    </li>
                     </ul>
                 </div>
             </div>

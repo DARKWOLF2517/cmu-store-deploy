@@ -14,7 +14,14 @@
             </ol>
             </nav>
         </div>
-        <div class="mt-2">
+        <show-fines
+        user_id = {{Auth::id()}}
+        name= {{Auth::user()->name}}
+        org_id = {{Session::get('org_id')}}
+        >
+
+        </show-fines>
+        {{-- <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
                     <h4><i class="fas fa-bars"></i> Accountabilities</h4>
@@ -40,19 +47,15 @@
                     </tr>
                     <tr>
                         <th>Membership Fee Status</th>
-                        <td class="unpaid">Unpaid</td>
+                        <td class="unpaid">1000</td>
                     </tr>
                     <tr>
                         <th>Fines Status</th>
-                        <td class="paid">Paid</td>
-                    </tr>
-                    <tr>
-                        <th>Clearance Status</th>
-                        <td class="not-cleared">Not Cleared</td>
+                        <td class="paid">200</td>
                     </tr>
                 </table>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 </div>
