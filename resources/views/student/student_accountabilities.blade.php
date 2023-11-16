@@ -15,9 +15,9 @@
             </nav>
         </div>
         <show-fines
-        user_id = {{Auth::id()}}
-        name= {{Auth::user()->name}}
-        org_id = {{Session::get('org_id')}}
+        :user_id = {{Auth::id()}}
+        :name ="{{ json_encode(Auth::user()->name) }}"
+        :org_id = {{Session::get('org_id')}}
         >
 
         </show-fines>

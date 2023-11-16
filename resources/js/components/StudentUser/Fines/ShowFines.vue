@@ -22,15 +22,15 @@
                 <table  id="accountabilities-table">
                         <tr>
                             <th>Student Name</th>
-                            <td><b>{{ this.name }}</b></td>
+                            <td>{{ this.name }}</td>
                         </tr>
                         <tr>
-                            <th>Membership Fee Status</th>
-                            <td class="unpaid">1000</td>
-                        </tr>
-                        <tr>
-                            <th>Fines Status</th>
+                            <th>Fines</th>
                             <td class="paid">{{fines}}</td>
+                        </tr>
+                        <tr v-for="accountability in this.accountabilityList">
+                            <th>{{ accountability['accountability_name'] }}</th>
+                            <td class="unpaid">{{ accountability['amount'] }}</td>
                         </tr>
                     </table>
             </div>
@@ -39,25 +39,40 @@
 
 <script>
 export default{
-    props:['user_id','name','org_id'],
+    props: {
+        user_id: Number,
+        name: String,
+        org_id: Number
+
+},
     data(){
         return{
             attendanceCount: [],
             fines: 0,
+            accountabilityList:[],
         }
     },
     mounted() {
-        console.log('mounted')
         this.fetchEventsWithAttendance();
+        this.fetchData();
         // console.log(this.name)
 
     },
     methods:{
+        fetchData(){
+            axios.get(`/get_accountabilities/${this.org_id}`)
+                    .then(response => {
+                        this.accountabilityList = response.data;
+                    })
+                    .catch(error => {
+                        alert(error)
+
+                });
+        },
         
         fetchEventsWithAttendance(){
             axios.get(`/accountabilities/${this.org_id}`)
                 .then(response => {
-                    console.log(response.data)
                     const data = response.data;
                     data.forEach(events => {
                         //get the data of the student attendance and compile it to the array
@@ -79,16 +94,18 @@ export default{
                         // Update the events.attendance_count with the total attendance count for the user
                         attendanceRecord.attendance_count = attendanceCount;
                         attendanceRecord.student_id = student_id;
-                        this.attendanceCount.push(attendanceRecord);
 
 
                         if (attendanceRecord.session_count > attendanceRecord.attendance_count){
-                            console.log(attendanceRecord.event_id + " has fines " + attendanceRecord.fines)
-
-                            this.fines+= attendanceRecord.fines * attendanceRecord.session_count;
+                            // console.log(attendanceRecord.event_id + " has fines " + attendanceRecord.fines)
+                            attendanceRecord.finalSession = attendanceRecord.session_count - attendanceRecord.attendance_count;
+                            this.fines += attendanceRecord.fines * attendanceRecord.finalSession;
+                            // console.log(attendanceRecord.finalSession)
                         }
+
+                        this.attendanceCount.push(attendanceRecord);
                     });
-                    console.log(this.attendanceCount);
+                    // console.log(this.attendanceCount);
 
                     
                 })

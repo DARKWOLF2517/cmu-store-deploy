@@ -150,11 +150,11 @@
                                             <input type="date" name="end_date" class="form-control" id="event-end-date" v-model="formData.end_date" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="event-start-time" class="form-label">Start Attendance</label>
+                                            <label for="event-start-time" class="form-label">Start Event</label>
                                             <input type="time" name="start_attendance" class="form-control" id="event-start-time" v-model="formData.start_attendance" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="event-end-time" class="form-label">End Attendance</label>
+                                            <label for="event-end-time" class="form-label">End Event</label>
                                             <input type="time" name="end_attendance" class="form-control" id="event-end-time" v-model="formData.end_attendance" required>
                                         </div>
                                         <div class="mb-3">

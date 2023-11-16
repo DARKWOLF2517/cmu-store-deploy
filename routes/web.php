@@ -63,8 +63,10 @@ Route::get('student_organization_profile', function () {
 
     //calendar events
     Route::get('/events/calendar',[EventController::class, 'getEventsForCalendar'])->name('get-event-calendar');
-     #ACCOUNTABILITIES ROUTE
-     Route::get('/accountabilities/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
+    #ACCOUNTABILITIES ROUTE
+    Route::get('/accountabilities/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
+    Route::get('/get_accountabilities/{org_id}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
+            
 
 Route::middleware(['auth'])->group(function(){
 #ORG ROUTE
@@ -170,66 +172,68 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/events/count',[EventController::class, 'getEventsCount'])->name('get-events-count');
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
 
-            
+
+            #ACCOUNTABILITIES ROUTE
+            Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
     });
 //STUDENT ROUTE
-Route::middleware(['user-role:2'])->group(function(){
+    Route::middleware(['user-role:2'])->group(function(){
 
-    //test route
+        //test route
 
-    Route::get('student_profile', function () {
-        return view('student.student_profile');
-    });
-
-    Route::get('/login/student_dashboard', function () {
-        return view('student.student_dashboard');
-    });
-
-    // Route::get('student_profile', function () {
-    //     return view('student.student_profile');
-    // });
-
-    Route::get('student_accountabilities', function () {
-        return view('student.student_accountabilities');
-    });
-
-    Route::get('student_announcement', function () {
-        return view('student.student_announcement');
-    });
-
-    Route::get('student_attendance', function () {
-        return view('student.student_attendance');
-    });
-
-    //if user is done evaluating it will mark as done   
-    Route::get('/evaluation/user/status/{student_id}',[EvaluationController::class, 'isDoneEvaluation']);
-    
-    
-    //get user organization
-    //commented for testing purpose
-    // Route::get('student_profile', function () {
-    //     return view('student.student_profile');
-    // });
-
-    //get evaluation form title
-    Route::get('/evaluation_form_title/{event_id}', [EvaluationController::class, 'EvaluationResultTitle']);
-
-    //get students user profile
-        Route::get('organization/{org_id}',[UserController::class, 'getUserOrganization']);
-    //get user organization
-        Route::get('profile/{student_id}',[UserController::class, 'getUserProfile']);
-    //evaluation form
-        Route::get('student_evaluation_list', function () {
-            return view('student.student_evaluation_list');
+        Route::get('student_profile', function () {
+            return view('student.student_profile');
         });
-        Route::get('student_evaluationform', function () {
-            return view('student.student_evaluation_form');
+
+        Route::get('/login/student_dashboard', function () {
+            return view('student.student_dashboard');
         });
-        Route::post('/submit_evaluation',[EvaluationController::class, 'store']);
-        Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
+
+        // Route::get('student_profile', function () {
+        //     return view('student.student_profile');
+        // });
+
+        Route::get('student_accountabilities', function () {
+            return view('student.student_accountabilities');
+        });
+
+        Route::get('student_announcement', function () {
+            return view('student.student_announcement');
+        });
+
+        Route::get('student_attendance', function () {
+            return view('student.student_attendance');
+        });
+
+        //if user is done evaluating it will mark as done   
+        Route::get('/evaluation/user/status/{student_id}',[EvaluationController::class, 'isDoneEvaluation']);
+        
+        
+        //get user organization
+        //commented for testing purpose
+        // Route::get('student_profile', function () {
+        //     return view('student.student_profile');
+        // });
+
+        //get evaluation form title
+        Route::get('/evaluation_form_title/{event_id}', [EvaluationController::class, 'EvaluationResultTitle']);
+
+        //get students user profile
+            Route::get('organization/{org_id}',[UserController::class, 'getUserOrganization']);
+        //get user organization
+            Route::get('profile/{student_id}',[UserController::class, 'getUserProfile']);
+        //evaluation form
+            Route::get('student_evaluation_list', function () {
+                return view('student.student_evaluation_list');
+            });
+            Route::get('student_evaluationform', function () {
+                return view('student.student_evaluation_form');
+            });
+            Route::post('/submit_evaluation',[EvaluationController::class, 'store']);
+            Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
 
 
 
 
+    });
 });
-    });
