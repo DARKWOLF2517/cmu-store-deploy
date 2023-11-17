@@ -100,7 +100,7 @@ class EventController extends Controller
             'location' => 'required',
             'description' => 'required',
             'require_attendance' => 'nullable|boolean',
-            'fines' => 'nullable|double',
+            'fines' => 'nullable',
         
         ]);
 
