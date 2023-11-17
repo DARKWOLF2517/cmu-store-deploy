@@ -66,7 +66,7 @@ Route::get('student_organization_profile', function () {
     #ACCOUNTABILITIES ROUTE
     Route::get('/accountabilities/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
     Route::get('/get_accountabilities/{org_id}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
-            
+
 
 Route::middleware(['auth'])->group(function(){
 #ORG ROUTE
@@ -76,19 +76,19 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
         Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
         Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
-        
+
         //check the repetition of the data using id number
         Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
-        
+
         //attendance record list
         Route::get('/attendance_record/{organization_id}',[AttendanceController::class, 'attendanceRecord']);
-        
+
         //attendance status route
         Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
 
         #USER ROUTE
         Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
-        
+
         //show students list  in the main form
         Route::get('/student_list/show/{org_id}',[UserController::class, 'showStudents']);
         Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
@@ -128,12 +128,10 @@ Route::middleware(['auth'])->group(function(){
             return view('student_organization.student_organization_students');
         });
 
-        Route::get('student_organization_fines', function () {
-            return view('student_organization.student_organization_fines');
-        });
 
-        Route::get('student_organization_membership_fee', function () {
-            return view('student_organization.student_organization_membership_fee');
+
+        Route::get('student_organization_accountabilities_list', function () {
+            return view('student_organization.student_organization_accountabilities_list');
         });
 
         Route::get('student_organization_set_accountabilities', function () {
@@ -205,10 +203,10 @@ Route::middleware(['auth'])->group(function(){
             return view('student.student_attendance');
         });
 
-        //if user is done evaluating it will mark as done   
+        //if user is done evaluating it will mark as done
         Route::get('/evaluation/user/status/{student_id}',[EvaluationController::class, 'isDoneEvaluation']);
-        
-        
+
+
         //get user organization
         //commented for testing purpose
         // Route::get('student_profile', function () {

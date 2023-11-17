@@ -170,8 +170,7 @@
                         <div class="collapse" id="accountabilities-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-check-circle"></i> Set Accountabilities</a></li>
-                                <li><a href="/student_organization_membership_fee" class="link-dark rounded"><i class="fas fa-calendar"></i> Membership fee list</a></li>
-                                <li><a href="/student_organization_fines" class="link-dark rounded"><i class="fas fa-check-circle"></i> Fines List</a></li>
+                                <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-calendar"></i> Accountability list</a></li>
                             </ul>
                         </div>
                     </li>

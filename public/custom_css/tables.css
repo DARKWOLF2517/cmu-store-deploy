@@ -3,7 +3,7 @@ table {
     width: 100%;
     /* border: 1px solid #ddd;
     border-color: #ddd; */
-    border: collapse;
+
   }
   .scroll-pane{
     height: 100vh;
@@ -13,9 +13,6 @@ table {
     /* background-color: #69a09d; */
     font-size: 15px;
     font-weight: bold;
-    height: 50vh;
-    max-height: 50vh;
-    overflow-y: auto;
   }
 thead th{
     position: sticky;
