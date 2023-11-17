@@ -186,8 +186,9 @@
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}
     <script>
+        
         document.onreadystatechange = () => {
-            if (document.readyState === "complete") {
+            if (document.readyState === "complete") {   
                 // Notification button and popover
                 const notificationButton = document.querySelector('.notification-button');
                 const popover = document.querySelector('.popover');
@@ -243,43 +244,50 @@
                     }
                 });
 
-                // Event listener for rotating chevron icons on btn-toggle click
-                rotateButtons.forEach((button) => {
-                    button.addEventListener('click', function () {
-                        this.classList.toggle('collapsed');
-                        rotateChevron(this);
-                        if (sidebar.classList.contains('collapsed')) {
-                            sidebar.classList.remove('collapsed');
-                            content.classList.remove('collapsed');
-                            icon.classList.remove('fa-bars');
-                            icon.classList.add('fa-times');
-                        } else {
-                            closeOpenBtnToggle();
-                        }
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Event listener for rotating chevron icons on btn-toggle click
+                        rotateButtons.forEach((button) => {
+                        button.addEventListener('click', function () {
+                            this.classList.toggle('collapsed');
+                            rotateChevron(this);
+                            if (sidebar.classList.contains('collapsed')) {
+                                sidebar.classList.remove('collapsed');
+                                content.classList.remove('collapsed');
+                                icon.classList.remove('fa-bars');
+                                icon.classList.add('fa-times');
+                            } else {
+                                closeOpenBtnToggle();
+                            }
+                        });
                     });
-                });
+
 
                 // Event listener for toggling the notification popover
                 notificationButton.addEventListener('click', () => {
                     popover.style.display = popover.style.display === 'block' ? 'none' : 'block';
                 });
-                     // Check screen width and collapse/expand sidebar accordingly
-                     function checkScreenWidth() {
-                    if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
-                        sidebar.classList.add('collapsed');
-                        content.classList.add('collapsed');
-                        icon.classList.add('fa-bars');
-                        icon.classList.remove('fa-times');
-                    } else {
-                        sidebar.classList.remove('collapsed');
-                        content.classList.remove('collapsed');
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-times');
-                    }
-                }
 
-                // Initial check on page load
-                checkScreenWidth();
+                    // Check screen width and collapse/expand sidebar accordingly
+                    function checkScreenWidth() {
+                        if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
+                            sidebar.classList.add('collapsed');
+                            content.classList.add('collapsed');
+                            icon.classList.add('fa-bars');
+                            icon.classList.remove('fa-times');
+                        } else {
+                            sidebar.classList.remove('collapsed');
+                            content.classList.remove('collapsed');
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-times');
+                        }
+                    }
+                    // Initial check on page load
+                    checkScreenWidth();
+
+                });
+
+
+        
             }
         }
     </script>
