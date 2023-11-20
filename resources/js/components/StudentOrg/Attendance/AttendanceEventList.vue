@@ -47,6 +47,10 @@
         </div>
     </div>
     </div>
+
+
+
+
 </div>
 </template>
 
@@ -83,7 +87,7 @@ export default {
 
     },
         fetchData() {
-            fetch(`/events/show/${this.org_id}`, {
+            fetch(`/events/attendance/${this.org_id}`, {
                 method: "GET",
                 headers: {
                     //TYPE OF DATA THAT THE SERVER SHOULD RESPOND
@@ -115,7 +119,8 @@ export default {
                 window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
             }
         
-        }
+        },
+
     }
 }
 </script>

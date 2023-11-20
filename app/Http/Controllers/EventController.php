@@ -15,12 +15,14 @@ class EventController extends Controller
     }
 
     public function getEvents($org_id)
-    {
-        // $events = Event::all();
-        
-        $events = Event::where('org_id', $org_id)->get();
+    {        
+        $events = Event::where([['org_id', $org_id]])->get();
         return $events->toJson();
-        // return $org_id;
+    }
+    public function getEventsAttendance($org_id)
+    {
+        $events = Event::where([['org_id', $org_id], ['attendance_status', 1]])->get();
+        return $events->toJson();
     }
     public function getEventsForCalendar()
     {
@@ -100,7 +102,7 @@ class EventController extends Controller
             'location' => 'required',
             'description' => 'required',
             'require_attendance' => 'nullable|boolean',
-            'fines' => 'nullable',
+            'fines' => 'nullable', 
         
         ]);
 

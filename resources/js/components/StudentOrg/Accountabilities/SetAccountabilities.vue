@@ -78,8 +78,7 @@ export default{
         submitData(){
             axios.post('/set_accountabilities', this.formData)
                     .then(response => {
-                        console.log(response.data)
-                        this.showSucces('Events Successfuly Added');
+                        this.showSucces(response.data.message);
                     })
                     .catch(error => {
                         alert(error)

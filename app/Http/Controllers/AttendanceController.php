@@ -71,7 +71,7 @@ class AttendanceController extends Controller
     public function update($event_id,$status)
     {   
         $attendance = Event::find($event_id);
-        $attendance->update(['status' => $status]);
+        $attendance->update(['evaluation_status' => $status]);
         if ($status == 1){
             $status = 'Ongoing';
         }

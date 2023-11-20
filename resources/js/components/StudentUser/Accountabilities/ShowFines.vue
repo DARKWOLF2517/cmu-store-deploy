@@ -105,7 +105,7 @@ export default{
 
                         this.attendanceCount.push(attendanceRecord);
                     });
-                    // console.log(this.attendanceCount);
+                    console.log(this.attendanceCount);
 
                     
                 })

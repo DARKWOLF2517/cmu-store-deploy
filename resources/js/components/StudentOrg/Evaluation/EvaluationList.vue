@@ -18,8 +18,8 @@
             <div class="event-title">{{ evaluation['name'] }}</div>
             <div class="event-description">Total Response: <b>{{evaluation['evaluation_form_answer']}}</b></div>
             <div>
-                <div class="event-status" v-if="evaluation['status'] == 0">Status: <b>Closed</b> </div>
-                <div class="event-status" v-else="evaluation['status'] == 1">Status: <b>Ongoing</b></div>
+                <div class="event-status" v-if="evaluation['evaluation_status'] == 0">Status: <b>Closed</b> </div>
+                <div class="event-status" v-else="evaluation['evaluation_status'] == 1">Status: <b>Ongoing</b></div>
             </div>
 
             <button v-if="evaluation['evaluation_form_answer'] !== 0"  class="view-button" @click="evaluation_result(evaluation.event_id)"> <i class="fas fa-chevron-right button-icon"></i></button>

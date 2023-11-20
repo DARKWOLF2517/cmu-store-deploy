@@ -192,7 +192,6 @@
 
                 // Function to close any open btn-toggle elements
                 function closeOpenBtnToggle() {
-                    console.log("jsdkfjskdjfsfjskjfd");
                     const btnToggle = document.querySelectorAll('.btn-toggle');
                     btnToggle.forEach((button) => {
                         const collapseTarget = button.getAttribute('data-bs-target');

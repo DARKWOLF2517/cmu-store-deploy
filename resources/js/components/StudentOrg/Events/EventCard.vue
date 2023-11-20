@@ -60,6 +60,7 @@
                                         <li><a class="dropdown-item" @click=" FetchUpdateData(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
                                         <!-- option 2 -->
                                         <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
+                                        <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
                                     </ul>
                                 </div>
                                         <h5 class="card-title mt-2 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
@@ -90,6 +91,24 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-danger" @click="deleteEvent()" data-bs-dismiss="modal">Delete</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Start Attendance confirmation -->
+                    <div class="modal fade " id="startAttendanceConfirmation" tabindex="-1" aria-labelledby="startAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><b>Are you sure you want to start attendance to this Event?</b></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" @click="startAttendance('1')" data-bs-dismiss="modal">Start Attendance</button>
                             </div>
                             </div>
                         </div>
@@ -355,6 +374,17 @@ export default {
 
             });
 
+        },
+
+        startAttendance(status) {
+            axios.put(`/update_event_attendance_status/${this.id}/${status}`)
+                    .then(response => {
+                        this.showSucces(response.data.message);
+                        this.fetchData();
+                    })
+                    .catch(error => {
+                        alert('Error', error)
+                    });
         },
         showSucces(message){
             this.fetchData();

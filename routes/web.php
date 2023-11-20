@@ -38,6 +38,7 @@ Route::get('student_organization_profile', function () {
         return view('layouts.login');
     })->name('login');
     Route::get('/events/show/{org_id}',[EventController::class, 'getEvents'])->name('get-events');
+    Route::get('/events/attendance/{org_id}',[EventController::class, 'getEventsAttendance']);
 
 
     //get student org list
@@ -128,8 +129,6 @@ Route::middleware(['auth'])->group(function(){
             return view('student_organization.student_organization_students');
         });
 
-
-
         Route::get('student_organization_accountabilities_list', function () {
             return view('student_organization.student_organization_accountabilities_list');
         });
@@ -173,6 +172,8 @@ Route::middleware(['auth'])->group(function(){
 
             #ACCOUNTABILITIES ROUTE
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
+            Route::get('/accountabilities_list/{org_id}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
+            Route::put('/update_event_attendance_status/{event_id}/{status}',[AccountabilitiesController::class, 'updateEventAttendanceStatus']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){

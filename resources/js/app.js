@@ -23,14 +23,15 @@ import { createApp } from 'vue';
     import UploadStudents from './components/StudentOrg/Users/UploadStudents.vue'
     import AttendanceStudentList from './components/StudentOrg/Attendance/AttendanceStudentTable.vue';
     import SetAccountabilities from './components/StudentOrg/Accountabilities/SetAccountabilities.vue';
+    import AccountabilitiesList from './components/StudentOrg/Accountabilities/AccountabilitiesList.vue';
 
 // student module
     import StudentAttendance from './components/StudentUser/Attendance/StudentAttendance.vue';
-    import StudentEventModal from './components/StudentUser/Events/EventModal.vue';
+    import StudentEventModal from './components/StudentUser/Evaluation/EvaluationView.vue';
     import StudentAnnouncement from './components/StudentUser/Announcement/StudentAnnouncementCard.vue';
     import StudentProfile from './components/StudentUser/Profile/StudentProfile.vue';
     import EvaluationForm from './components/StudentUser/Evaluation/EvaluationForm.vue';
-    import ShowFines from './components/StudentUser/Fines/ShowFines.vue';
+    import ShowFines from './components/StudentUser/Accountabilities/ShowFines.vue';
 
 const app = createApp({});
 
@@ -55,6 +56,7 @@ const app = createApp({});
     app.component('upload-students', UploadStudents);
     app.component('show-student-attendance', AttendanceStudentList);
     app.component('set-accountabilities', SetAccountabilities);
+    app.component('show-accountabilities-list', AccountabilitiesList);
 
 
 // student module
