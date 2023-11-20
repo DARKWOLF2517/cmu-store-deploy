@@ -61,15 +61,14 @@ export default{
     props: ['org_id'],
     data(){
         return{
-            attendance_list: [],
-            event_with_session: [],
-            absentStudents: [],
+            events: [],
+            attendance: [],
         }
     },
     mounted(){
-        console.log('mounted');
+        // console.log('asdfd')
         this.fetchData();
-        console.log(this.getAbsentStudents())
+        // console.log(this.getAbsentStudents())
     },
 
     methods:{
@@ -77,37 +76,129 @@ export default{
         fetchData(){
             axios.get(`/accountabilities_list/${this.org_id}`)
                     .then(response => {
+
                         const events_with_attendance = response.data.accountabilities;
-                        const users = response.data.user;
+                        // const users = response.data.user;
+                        events_with_attendance.forEach(attend=> {
+                            if (attend.attendance_count == 1){
+                                for (let index = 1; index <= 1; index++) {
+                                    const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index
 
-
-                        events_with_attendance.forEach(data => {
-                        const user_attendance = data.attendance;
-                            const events = {
-                                event_id : data.event_id,
-                                session_count : data.attendance_count,
+                                    
+                                }
+                                this.events.push(session_count);
                             }
-                            user_attendance.forEach(attend => {
-                                    const attendanceRecord = {
-                                        user_id: attend.user_id,
-                                        session: attend.session,
-                                        event_id: attend.event_id,
-                                    };
-                                this.attendance_list.push(attendanceRecord);
+                            }
+                            else if (attend.attendance_count == 2) {
+                                for (let index = 1; index <= 2; index++) {
+                                    const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index
+                                    
+                                }
+                                this.events.push(session_count);
                                 
-                            });
+                            }
+                            }
+                            else if (attend.attendance_count == 3) {
+                                for (let index = 1; index <= 3; index++) {
+                                    const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index
+                                    
+                                }
+                                this.events.push(session_count); 
+                            }
+                            }
+                            else if (attend.attendance_count == 4) {
+                                for (let index = 1; index <= 4; index++) {
+                                    const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index
+                                    
+                                }
+                                this.events.push(session_count); 
+                            }
+                            }
+                            
 
-                            this.event_with_session.push(events);
-                        });
 
+                            const attendance = attend.attendance;
+                                attendance.forEach(data=> {
+                                    // console.log(data)
+                                    const attendance = {
+                                        event_id: data.event_id,
+                                        user_id : data.user_id,
+                                        session: data.session,
+                                    }
+                                    // console.log(attendance);
+                                    this.attendance.push(attendance);
+                                    
+                                })
 
+                            
+                        })
+                        // console.log(this.events)
+                        // console.log(this.attendance)
 
+const events = [
+  { event_id: 5, session: 1 },
+  { event_id: 5, session: 2 },
+  { event_id: 21, session: 1 },
+  { event_id: 21, session: 2 }
+];
+
+const attendance = [
+  { event_id: 5, user_id: 2020301072, session: 1 },
+  { event_id: 5, user_id: 2020301072, session: 2 }
+];
+
+const users = [
+  { user: 'Jerricho', user_id: 2020301072 },
+  { user: 'Alphalyn', user_id: 2020300620 }
+];
+
+const userSessionsPresent = attendance.reduce((acc, entry) => {
+  if (!acc[entry.user_id]) {
+    acc[entry.user_id] = {};
+  }
+  if (!acc[entry.user_id][entry.event_id]) {
+    acc[entry.user_id][entry.event_id] = new Set();
+  }
+  acc[entry.user_id][entry.event_id].add(entry.session);
+  return acc;
+}, {});
+
+const missingSessions = [];
+
+users.forEach(user => {
+  events.forEach(event => {
+    if (!userSessionsPresent[user.user_id] || !userSessionsPresent[user.user_id][event.event_id]) {
+      missingSessions.push({
+        user_id: user.user_id,
+        event_id: event.event_id,
+        missing_session: event.session
+      });
+    } else if (!userSessionsPresent[user.user_id][event.event_id].has(event.session)) {
+      missingSessions.push({
+        user_id: user.user_id,
+        event_id: event.event_id,
+        missing_session: event.session
+      });
+    }
+  });
+});
+
+console.log("Missing sessions:", missingSessions);
 
                     })
                     .catch(error => {
                         console.log(error)
 
                 }); 
+                // console.log(this.event_with_session)
         },
         getAbsentStudents() {
             let absentStudents = [];
