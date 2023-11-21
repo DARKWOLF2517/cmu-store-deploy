@@ -244,7 +244,6 @@
                     }
                 });
 
-                document.addEventListener('DOMContentLoaded', function() {
                     // Event listener for rotating chevron icons on btn-toggle click
                         rotateButtons.forEach((button) => {
                         button.addEventListener('click', function () {
@@ -284,7 +283,6 @@
                     // Initial check on page load
                     checkScreenWidth();
 
-                });
 
 
         

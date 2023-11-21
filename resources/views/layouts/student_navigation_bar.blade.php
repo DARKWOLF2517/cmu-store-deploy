@@ -231,6 +231,7 @@
 
                 rotateButtons.forEach((button) => {
                     button.addEventListener('click', function () {
+                        console.log('asdf')
                         // Toggle the 'collapsed' class on the button
                         this.classList.toggle('collapsed');
 
