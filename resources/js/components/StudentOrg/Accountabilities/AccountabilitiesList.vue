@@ -22,12 +22,12 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody v-for="fines_list in this.fines_list" :id="fines_list.event_id" >
                     <tr>
-                    <td>2023-05-01</td>
-                    <td>John Smith</td>
-                    <td>College Fee</td>
-                    <td>Php 1000</td>
+                    <td >{{ fines_list.user_id }}</td>
+                    <td> {{ fines_list.name }}</td>
+                    <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
+                    <td>{{ fines_list.total_fines }}</td>
                     <td>
                         <button class="edit-button ellipsis-button" onclick="editStudent(this)"><i class="bi bi-pencil-square"></i></button>
                         <button class="delete-button ellipsis-button"><i class="bi bi-trash"></i></button>
@@ -63,12 +63,18 @@ export default{
         return{
             events: [],
             attendance: [],
+            overall_fines_list:[],
+            fines_list:[],
+            
         }
     },
     mounted(){
         // console.log('asdfd')
+        // this.fetchData();
+        // console.log(this.getoverall_fines_listStudents())
+    },
+    created(){
         this.fetchData();
-        // console.log(this.getAbsentStudents())
     },
 
     methods:{
@@ -78,13 +84,14 @@ export default{
                     .then(response => {
 
                         const events_with_attendance = response.data.accountabilities;
-                        // const users = response.data.user;
+                        const users = response.data.user;
                         events_with_attendance.forEach(attend=> {
                             if (attend.attendance_count == 1){
                                 for (let index = 1; index <= 1; index++) {
                                     const session_count = {
                                     event_id: attend.event_id,
-                                    session: index
+                                    session: index,
+                                    fines: attend.fines,
 
                                     
                                 }
@@ -95,7 +102,8 @@ export default{
                                 for (let index = 1; index <= 2; index++) {
                                     const session_count = {
                                     event_id: attend.event_id,
-                                    session: index
+                                    session: index,
+                                    fines: attend.fines,
                                     
                                 }
                                 this.events.push(session_count);
@@ -106,7 +114,8 @@ export default{
                                 for (let index = 1; index <= 3; index++) {
                                     const session_count = {
                                     event_id: attend.event_id,
-                                    session: index
+                                    session: index,
+                                    fines: attend.fines,
                                     
                                 }
                                 this.events.push(session_count); 
@@ -116,15 +125,14 @@ export default{
                                 for (let index = 1; index <= 4; index++) {
                                     const session_count = {
                                     event_id: attend.event_id,
-                                    session: index
+                                    session: index,
+                                    fines: attend.fines,
                                     
                                 }
                                 this.events.push(session_count); 
                             }
                             }
                             
-
-
                             const attendance = attend.attendance;
                                 attendance.forEach(data=> {
                                     // console.log(data)
@@ -140,58 +148,103 @@ export default{
 
                             
                         })
-                        // console.log(this.events)
-                        // console.log(this.attendance)
 
-const events = [
-  { event_id: 5, session: 1 },
-  { event_id: 5, session: 2 },
-  { event_id: 21, session: 1 },
-  { event_id: 21, session: 2 }
-];
+                        const userSessionsPresent = this.attendance.reduce((acc, entry) => {
+                        if (!acc[entry.user_id]) {
+                            acc[entry.user_id] = {};
+                        }
+                        if (!acc[entry.user_id][entry.event_id]) {
+                            acc[entry.user_id][entry.event_id] = new Set();
+                        }
+                        acc[entry.user_id][entry.event_id].add(entry.session);
+                        return acc;
+                        }, {});
 
-const attendance = [
-  { event_id: 5, user_id: 2020301072, session: 1 },
-  { event_id: 5, user_id: 2020301072, session: 2 }
-];
+                        const missingSessions = [];
 
-const users = [
-  { user: 'Jerricho', user_id: 2020301072 },
-  { user: 'Alphalyn', user_id: 2020300620 }
-];
+                        users.forEach(user => {
+                        this.events.forEach(event => {
+                            if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id]) {
+                            missingSessions.push({
+                                name: user.name,
+                                user_id: user.id,
+                                event_id: event.event_id,
+                                amount: event.fines,
+                                missing_session: event.session,
+                                accountability_type: 'fines'
+                            });
+                            } else if (!userSessionsPresent[user.id][event.event_id].has(event.session)) {
+                            missingSessions.push({
+                                name: user.name,
+                                user_id: user.id,
+                                event_id: event.event_id,
+                                amount: event.fines,
+                                missing_session: event.session,
+                                accountability_type: 'fines'
+                            });
+                            }
+                        });
+                        });
 
-const userSessionsPresent = attendance.reduce((acc, entry) => {
-  if (!acc[entry.user_id]) {
-    acc[entry.user_id] = {};
-  }
-  if (!acc[entry.user_id][entry.event_id]) {
-    acc[entry.user_id][entry.event_id] = new Set();
-  }
-  acc[entry.user_id][entry.event_id].add(entry.session);
-  return acc;
-}, {});
+                        // console.log("Missing sessions:", missingSessions);
+                        missingSessions.forEach(overall_fines_list=>{
+                                const missing = {
+                                name: overall_fines_list.name,
+                                user_id: overall_fines_list.user_id,
+                                event_id: overall_fines_list.event_id,
+                                amount: overall_fines_list.amount,
+                                missing_session: overall_fines_list.missing_session,
+                                accountability_type: overall_fines_list.accountability_type
+                            }
+                            this.overall_fines_list.push(missing);
+                        })
+                        
+                        // Function to aggregate data by user ID
+                        const aggregateData = (dataArray) => {
+                        const aggregated = {};
 
-const missingSessions = [];
+                        // Loop through the array and aggregate data by user ID
+                        dataArray.forEach((item) => {
+                            const { user_id, name, event_id, amount, missing_session, accountability_type } = item;
 
-users.forEach(user => {
-  events.forEach(event => {
-    if (!userSessionsPresent[user.user_id] || !userSessionsPresent[user.user_id][event.event_id]) {
-      missingSessions.push({
-        user_id: user.user_id,
-        event_id: event.event_id,
-        missing_session: event.session
-      });
-    } else if (!userSessionsPresent[user.user_id][event.event_id].has(event.session)) {
-      missingSessions.push({
-        user_id: user.user_id,
-        event_id: event.event_id,
-        missing_session: event.session
-      });
-    }
-  });
-});
+                            // Check if the user ID already exists in the aggregated data
+                            if (!aggregated[user_id]) {
+                            // If it doesn't exist, create a new entry
+                            aggregated[user_id] = {
+                                name,
+                                user_id,
+                                event_id,
+                                missing_session,
+                                accountability_type,
+                                total_amount: amount, // Initialize total amount for the user ID
+                            };
+                            } else {
+                            // If it exists, update the total amount by merging with the existing amount
+                            aggregated[user_id].total_amount += amount;
+                            aggregated[user_id].amount += amount; // Merge total_amount with amount
+                            }
+                        });
 
-console.log("Missing sessions:", missingSessions);
+                        // Convert aggregated object to an array of objects
+                        const aggregatedArray = Object.values(aggregated);
+                        return aggregatedArray;
+                        };
+
+                        // Call the function with your data array
+                        const aggregatedDataArray = aggregateData(this.overall_fines_list);
+                        aggregatedDataArray.forEach(aggregated=>{
+                            this.fines_list.push({
+                                name: aggregated.name,
+                                user_id: aggregated.user_id,
+                                event_id: aggregated.event_id,
+                                total_fines: aggregated.total_amount,
+                                missing_session: aggregated.missing_session,
+                                accountability_type: aggregated.accountability_type
+                            })
+                        })
+
+                        console.log(this.fines_list)
+                        console.log(this.overall_fines_list)
 
                     })
                     .catch(error => {
@@ -200,35 +253,6 @@ console.log("Missing sessions:", missingSessions);
                 }); 
                 // console.log(this.event_with_session)
         },
-        getAbsentStudents() {
-            let absentStudents = [];
-
-            // Iterate through attendance_list
-            this.attendance_list.forEach(student => {
-                // Check if the student's session exists in event_with_session
-                const event = this.event_with_session.find(
-                event => event.event_id === student.event_id
-                );
-
-                // If event and session count exist but student's session is absent
-                if (event && event.session_count >= student.session) {
-                const sessionExists = this.attendance_list.some(
-                    item =>
-                    item.user_id === student.user_id &&
-                    item.session === student.session
-                );
-
-                if (!sessionExists) {
-                    absentStudents.push({
-                    user_id: student.user_id,
-                    session: student.session
-                    });
-                }
-                }
-            });
-
-            return absentStudents;
-            }
 
     }
 
