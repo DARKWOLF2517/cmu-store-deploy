@@ -1,4 +1,4 @@
-<template>      
+<template>
 
 <div class="container" id="table-container">
         <div class="student-buttons d-flex justify-content-end">
@@ -29,8 +29,9 @@
                     <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
                     <td>{{ fines_list.total_fines }}</td>
                     <td>
-                        <button class="edit-button ellipsis-button" onclick="editStudent(this)"><i class="bi bi-pencil-square"></i></button>
-                        <button class="delete-button ellipsis-button"><i class="bi bi-trash"></i></button>
+                        <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="bi bi-eye"></i> View
+                        </button>
                     </td>
                     </tr>
                 </tbody>
@@ -50,6 +51,60 @@
                         </div>
                     </div>
                 </div>
+            </div>
+<!-- View Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">View Student Accountability</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Accountabilities</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>John Doe</td>
+              <td>Books</td>
+              <td>$50</td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Paid</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirm Payment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to mark this as paid?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes, Mark as Paid</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 </template>
@@ -65,7 +120,7 @@ export default{
             attendance: [],
             overall_fines_list:[],
             fines_list:[],
-            
+
         }
     },
     mounted(){
@@ -93,7 +148,7 @@ export default{
                                     session: index,
                                     fines: attend.fines,
 
-                                    
+
                                 }
                                 this.events.push(session_count);
                             }
@@ -104,10 +159,10 @@ export default{
                                     event_id: attend.event_id,
                                     session: index,
                                     fines: attend.fines,
-                                    
+
                                 }
                                 this.events.push(session_count);
-                                
+
                             }
                             }
                             else if (attend.attendance_count == 3) {
@@ -116,9 +171,9 @@ export default{
                                     event_id: attend.event_id,
                                     session: index,
                                     fines: attend.fines,
-                                    
+
                                 }
-                                this.events.push(session_count); 
+                                this.events.push(session_count);
                             }
                             }
                             else if (attend.attendance_count == 4) {
@@ -127,12 +182,12 @@ export default{
                                     event_id: attend.event_id,
                                     session: index,
                                     fines: attend.fines,
-                                    
+
                                 }
-                                this.events.push(session_count); 
+                                this.events.push(session_count);
                             }
                             }
-                            
+
                             const attendance = attend.attendance;
                                 attendance.forEach(data=> {
                                     // console.log(data)
@@ -143,10 +198,10 @@ export default{
                                     }
                                     // console.log(attendance);
                                     this.attendance.push(attendance);
-                                    
+
                                 })
 
-                            
+
                         })
 
                         const userSessionsPresent = this.attendance.reduce((acc, entry) => {
@@ -198,7 +253,7 @@ export default{
                             }
                             this.overall_fines_list.push(missing);
                         })
-                        
+
                         // Function to aggregate data by user ID
                         const aggregateData = (dataArray) => {
                         const aggregated = {};
@@ -250,7 +305,7 @@ export default{
                     .catch(error => {
                         console.log(error)
 
-                }); 
+                });
                 // console.log(this.event_with_session)
         },
 

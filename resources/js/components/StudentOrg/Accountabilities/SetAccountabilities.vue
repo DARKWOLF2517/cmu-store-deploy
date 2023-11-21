@@ -1,8 +1,14 @@
 <template>
-    
-    <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button>
+    <div class="event-buttons d-flex justify-content-end">
+            <div class="btn-group" role="group">
+            <button class="btn me-2" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">
+                <i class="fas fa-clipboard"></i> Add Accountabilities
+            </button>
+            </div>
+        </div>
+    <!-- <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button> -->
                 <div class="row" v-for="accountability in this.accountabilityList">
-                    
+
                     <!-- Card 1 -->
                     <div class="col-md-6 col-12">
                         <div class="membershipfee-card">
@@ -37,7 +43,7 @@
                         </form>
                     </div>
                 </div>
-            </div> 
+            </div>
 </template>
 
 <script>
