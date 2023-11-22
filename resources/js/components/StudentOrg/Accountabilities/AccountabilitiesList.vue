@@ -80,7 +80,7 @@
             </div>
             <!-- View Modal -->
             <div class="modal fade" id="viewAllAccountabilitiesModal" tabindex="-1" aria-labelledby="viewAllAccountabilitiesModalLabel" aria-hidden="true" v-i>
-                <div class="modal-dialog  modal-dialog-centered modal-lg">
+                <div class="modal-dialog  modal-dialog-centered modal-lg "  style="max-width: 80%;">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="viewAllAccountabilitiesModalLabel">View Student Accountability</h5>
