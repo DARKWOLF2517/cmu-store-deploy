@@ -282,10 +282,6 @@
                     }
                     // Initial check on page load
                     checkScreenWidth();
-
-
-
-        
             }
         }
     </script>
