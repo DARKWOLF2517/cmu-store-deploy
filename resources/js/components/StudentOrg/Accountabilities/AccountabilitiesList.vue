@@ -6,7 +6,7 @@
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="this.select_accountability">
                             <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                             <option value="fines">Fines</option>
-                            <option value="membership_fee">Membership Fee</option>
+                            <option value="others">Other Accountability</option>
                         </select>
                     </div>
 
@@ -38,6 +38,7 @@
             </div>
         </div>
             <div class="scroll-pane">
+                <!-- fines accountabilities -->
                 <table  id="accountabilities-table" v-if="this.select_accountability === 'fines' ">
                     <thead>
                         <tr>
@@ -57,6 +58,31 @@
                         <td>
                             <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id)">
                             <i class="bi bi-eye"></i> View
+                            </button>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- other accountabilities -->
+                <table  id="accountabilities-table" v-if="this.select_accountability === 'others' ">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Accountabilities</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="fines_list in this.fines_list" :id="fines_list.event_id" >
+                        <tr>
+                        <td >{{ fines_list.user_id }}</td>
+                        <td> {{ fines_list.name }}</td>
+                        <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
+                        <td>{{ fines_list.total_fines }}</td>
+                        <td>
+                            <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Paid</button>
                             </button>
                         </td>
                         </tr>
