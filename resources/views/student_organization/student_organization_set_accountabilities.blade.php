@@ -10,17 +10,16 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item">Student Organization</li>
-                <li class="breadcrumb-item active" aria-current="page">Accountabilities</li>
-                <li class="breadcrumb-item active" aria-current="page">Fines List</li>
+                <li class="breadcrumb-item active" aria-current="page">Set Accountabilities</li>
             </ol>
             </nav>
         </div>
     </div>
             <div class="container" >
-                <h1 class="text-center">Organization Accountabilities</h1>
+                <h4> <i class="fas fa-bars"></i> Organization Accountabilities</h4>
 
                 <div class="alert alert-info mt-4" role="alert">
-                    This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities. This will reflect on the membership fee and fines accountability lists.
+                    This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
                 </div>
                 <set-accountabilities
                 org_id = {{Session::get('org_id')}}
@@ -30,7 +29,7 @@
 
                 {{-- <button>sdfdsf</button>
                 <div class="row">
-                    
+
                     <!-- Card 1 -->
                     <div class="col-md-6 col-12">
                         <div class="membershipfee-card">
@@ -50,7 +49,7 @@
                             <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#finesModal">Set Fines</button>
                         </div>
                     </div>
-                    
+
                 </div> --}}
             </div>
 

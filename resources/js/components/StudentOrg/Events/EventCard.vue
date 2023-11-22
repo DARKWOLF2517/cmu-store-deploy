@@ -63,7 +63,7 @@
                                         <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
                                     </ul>
                                 </div>
-                                        <h5 class="card-title mt-2 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
+                                        <h5 class="card-title mt-4 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
                                         <h6 class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</h6>
                                         <h6 class="card-subtitle text-muted">Scheduled Time: {{ event["start_attendance"] }} </h6>
                                         <h6 class="card-text mt-2">Location: {{ event["location"] }} </h6>
@@ -150,7 +150,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    
+
                                     <h5 v-if="this.submit == this.sendData" class="modal-title" id="event-modal-label">Create Event</h5>
                                     <h5 v-else-if="this.submit == this.UpdateData" class="modal-title" id="event-modal-label">Edit Event</h5>
                                 </div>
@@ -198,7 +198,7 @@
                                                 <option value="4">4</option>
                                                 </select>
                                             </div>
-                                            
+
                                             <div class="mb-3">
                                             <label for="fines" class="form-label">Fines Per Attendance</label>
                                             <input type="number" name="fines" class="form-control" id="event-title" v-model="formData.fines" required>
