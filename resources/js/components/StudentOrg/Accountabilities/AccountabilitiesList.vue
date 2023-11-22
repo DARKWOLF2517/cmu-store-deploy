@@ -29,7 +29,7 @@
                     <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
                     <td>{{ fines_list.total_fines }}</td>
                     <td>
-                        <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id)">
                         <i class="bi bi-eye"></i> View
                         </button>
                     </td>
@@ -52,60 +52,64 @@
                     </div>
                 </div>
             </div>
-<!-- View Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">View Student Accountability</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Student ID</th>
-              <th>Student Name</th>
-              <th>Accountabilities</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>John Doe</td>
-              <td>Books</td>
-              <td>$50</td>
-            </tr>
-            <!-- Add more rows as needed -->
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Paid</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Confirmation Modal -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmationModalLabel">Confirm Payment</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to mark this as paid?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes, Mark as Paid</button>
-      </div>
-    </div>
-  </div>
-</div>
+            <!-- View Modal -->
+            <div class="modal fade" id="viewAllAccountabilitiesModal" tabindex="-1" aria-labelledby="viewAllAccountabilitiesModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="viewAllAccountabilitiesModalLabel">View Student Accountability</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table" v-for="temporary_fines_list in this.temporary_fines_list" :id="temporary_fines_list.event_id">
+                            <thead>
+                                <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Accountabilities</th>
+                                <th>event</th>
+                                <th>Missing Session</th>
+                                <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>{{temporary_fines_list.user_id }}</td>
+                                <td>{{temporary_fines_list.name }}</td>
+                                <td>{{temporary_fines_list.accountability_type }}</td>
+                                <td>{{temporary_fines_list.event_id }}</td>
+                                <td>{{temporary_fines_list.missing_session }}</td>    
+                                <td>{{temporary_fines_list.amount }} </td>
+                                </tr>
+                                <!-- Add more rows as needed -->
+                            </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Paid</button>
+                        </div>
+                    </div>
+            </div>
+            </div>
+            <!-- Confirmation Modal -->
+            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationModalLabel">Confirm Payment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to mark this as paid?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Yes, Mark as Paid</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 </template>
 
@@ -121,6 +125,8 @@ export default{
             overall_fines_list:[],
             fines_list:[],
 
+            temporary_fines_list:[],
+
         }
     },
     mounted(){
@@ -133,6 +139,22 @@ export default{
     },
 
     methods:{
+        viewAccountabilities(user_id){
+            this.temporary_fines_list= [];
+            this.overall_fines_list.forEach(fines=>{
+                if (fines.user_id == user_id){
+                    this.temporary_fines_list.push({
+                        name: fines.name,
+                        user_id: fines.user_id,
+                        event_id: fines.event_id,
+                        amount: fines.amount,
+                        missing_session: fines.missing_session,
+                        accountability_type: fines.accountability_type
+                    });
+                }
+            })
+            console.log(this.temporary_fines_list)
+        },
 
         fetchData(){
             axios.get(`/accountabilities_list/${this.org_id}`)
@@ -298,8 +320,8 @@ export default{
                             })
                         })
 
-                        console.log(this.fines_list)
-                        console.log(this.overall_fines_list)
+                        // console.log(this.fines_list)
+                        // console.log(this.overall_fines_list)
 
                     })
                     .catch(error => {
