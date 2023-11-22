@@ -1,5 +1,31 @@
 <template>
 
+<div class="col-md-4 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; margin-right: 20px;">
+                    <div class="select-dropdown">
+                        <!-- First dropdown -->
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="this.select_accountability">
+                            <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
+                            <option value="fines">Fines</option>
+                            <option value="membership_fee">Membership Fee</option>
+                        </select>
+                    </div>
+
+                    <!-- {{-- <button class="btn sort-btn"><i class="fas fa-filter"></i></button> --}} -->
+
+                    <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 270px;">
+                        <!-- Second dropdown -->
+                        <select id="sort-select" class="form-control" style="text-align: center; ">
+                            <option value="">Select Semester</option>
+                            <option value="option1">1st Semester 2023-2024</option>
+                            <option value="option2">2nd Semester 2022-2023</option>
+                            <option value="option3">1st Semester 2022-2023</option>
+                        </select>
+                    </div>
+                </div>
+
+
+    <h4> <i class="fas fa-list mt-2"></i>  Student Accountabilities</h4>
+
 <div class="container" id="table-container">
         <div class="student-buttons d-flex justify-content-end">
             <div class="btn-group" role="group">
@@ -12,30 +38,30 @@
             </div>
         </div>
             <div class="scroll-pane">
-            <table  id="accountabilities-table">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Student Name</th>
-                        <th>Accountabilities</th>
-                        <th>Amount</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody v-for="fines_list in this.fines_list" :id="fines_list.event_id" >
-                    <tr>
-                    <td >{{ fines_list.user_id }}</td>
-                    <td> {{ fines_list.name }}</td>
-                    <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
-                    <td>{{ fines_list.total_fines }}</td>
-                    <td>
-                        <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id)">
-                        <i class="bi bi-eye"></i> View
-                        </button>
-                    </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table  id="accountabilities-table" v-if="this.select_accountability === 'fines' ">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Accountabilities</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="fines_list in this.fines_list" :id="fines_list.event_id" >
+                        <tr>
+                        <td >{{ fines_list.user_id }}</td>
+                        <td> {{ fines_list.name }}</td>
+                        <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
+                        <td>{{ fines_list.total_fines }}</td>
+                        <td>
+                            <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id)">
+                            <i class="bi bi-eye"></i> View
+                            </button>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="pagination">
                 <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
@@ -53,7 +79,7 @@
                 </div>
             </div>
             <!-- View Modal -->
-            <div class="modal fade" id="viewAllAccountabilitiesModal" tabindex="-1" aria-labelledby="viewAllAccountabilitiesModalLabel" aria-hidden="true">
+            <div class="modal fade" id="viewAllAccountabilitiesModal" tabindex="-1" aria-labelledby="viewAllAccountabilitiesModalLabel" aria-hidden="true" v-i>
                 <div class="modal-dialog  modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -69,6 +95,7 @@
                                 <th>Accountabilities</th>
                                 <th>event</th>
                                 <th>Missing Session</th>
+                                <th>Date</th>
                                 <th>Amount</th>
                                 </tr>
                             </thead>
@@ -76,9 +103,15 @@
                                 <tr>
                                 <td>{{temporary_fines_list.user_id }}</td>
                                 <td>{{temporary_fines_list.name }}</td>
-                                <td>{{temporary_fines_list.accountability_type }}</td>
+                                <td>{{temporary_fines_list.accountability_type.toUpperCase() }}</td>
                                 <td>{{temporary_fines_list.event_id }}</td>
-                                <td>{{temporary_fines_list.missing_session }}</td>
+                                <div>
+                                    <td v-if="temporary_fines_list.missing_session === 1">Morning (in)</td>
+                                    <td v-else-if="temporary_fines_list.missing_session === 2">Morning (out)</td>
+                                    <td v-else-if="temporary_fines_list.missing_session === 3">Afternoon (in)</td>
+                                    <td v-else-if="temporary_fines_list.missing_session === 4">Afternoon (out)</td>
+                                </div>
+                                <td>{{temporary_fines_list.date }} </td>
                                 <td>{{temporary_fines_list.amount }} </td>
                                 </tr>
                                 <!-- Add more rows as needed -->
@@ -124,8 +157,8 @@ export default{
             attendance: [],
             overall_fines_list:[],
             fines_list:[],
-
             temporary_fines_list:[],
+            select_accountability: 'fines',
 
         }
     },
@@ -149,7 +182,8 @@ export default{
                         event_id: fines.event_id,
                         amount: fines.amount,
                         missing_session: fines.missing_session,
-                        accountability_type: fines.accountability_type
+                        accountability_type: fines.accountability_type,
+                        date: fines.date,
                     });
                 }
             })
@@ -169,6 +203,7 @@ export default{
                                     event_id: attend.event_id,
                                     session: index,
                                     fines: attend.fines,
+                                    date: attend.start_date,
 
 
                                 }
@@ -181,6 +216,7 @@ export default{
                                     event_id: attend.event_id,
                                     session: index,
                                     fines: attend.fines,
+                                    date: attend.start_date,
 
                                 }
                                 this.events.push(session_count);
@@ -193,6 +229,7 @@ export default{
                                     event_id: attend.event_id,
                                     session: index,
                                     fines: attend.fines,
+                                    date: attend.start_date,
 
                                 }
                                 this.events.push(session_count);
@@ -204,6 +241,7 @@ export default{
                                     event_id: attend.event_id,
                                     session: index,
                                     fines: attend.fines,
+                                    date: attend.start_date,
 
                                 }
                                 this.events.push(session_count);
@@ -240,40 +278,48 @@ export default{
                         const missingSessions = [];
 
                         users.forEach(user => {
-                        this.events.forEach(event => {
-                            if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id]) {
-                            missingSessions.push({
-                                name: user.name,
-                                user_id: user.id,
-                                event_id: event.event_id,
-                                amount: event.fines,
-                                missing_session: event.session,
-                                accountability_type: 'fines'
+                            this.events.forEach(event => {
+                                if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id]) {
+                                missingSessions.push({
+                                    name: user.name,
+                                    user_id: user.id,
+                                    event_id: event.event_id,
+                                    amount: event.fines,
+                                    missing_session: event.session,
+                                    accountability_type: 'fines',
+                                    date: event.date,
+                                });
+                                } else if (!userSessionsPresent[user.id][event.event_id].has(event.session)) {
+                                missingSessions.push({
+                                    name: user.name,
+                                    user_id: user.id,
+                                    event_id: event.event_id,
+                                    amount: event.fines,
+                                    missing_session: event.session,
+                                    accountability_type: 'fines',
+                                    date: event.date,
+                                });
+                                }
                             });
-                            } else if (!userSessionsPresent[user.id][event.event_id].has(event.session)) {
-                            missingSessions.push({
-                                name: user.name,
-                                user_id: user.id,
-                                event_id: event.event_id,
-                                amount: event.fines,
-                                missing_session: event.session,
-                                accountability_type: 'fines'
-                            });
-                            }
                         });
-                        });
+
 
                         // console.log("Missing sessions:", missingSessions);
                         missingSessions.forEach(overall_fines_list=>{
-                                const missing = {
-                                name: overall_fines_list.name,
-                                user_id: overall_fines_list.user_id,
-                                event_id: overall_fines_list.event_id,
-                                amount: overall_fines_list.amount,
-                                missing_session: overall_fines_list.missing_session,
-                                accountability_type: overall_fines_list.accountability_type
-                            }
-                            this.overall_fines_list.push(missing);
+                                events_with_attendance.forEach(event_name=>{
+                                    if(overall_fines_list.event_id === event_name.event_id){
+                                        const missing = {
+                                            name: overall_fines_list.name,
+                                            user_id: overall_fines_list.user_id,
+                                            event_id: event_name.name,
+                                            amount: overall_fines_list.amount,
+                                            missing_session: overall_fines_list.missing_session,
+                                            accountability_type: overall_fines_list.accountability_type,
+                                            date: overall_fines_list.date
+                                        }
+                                        this.overall_fines_list.push(missing);
+                                    }
+                                })
                         })
 
                         // Function to aggregate data by user ID

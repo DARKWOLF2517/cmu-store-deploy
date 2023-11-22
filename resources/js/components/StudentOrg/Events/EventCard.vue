@@ -47,7 +47,7 @@
 
                         <div class="event-cards-list ">
                             <!-- Message if the container is empty -->
-                                <div class="Message-IfEmpty" v-if="events.length === 0">
+                                <div class="Message-IfEmpty" v-if="this.events.length === 0">
                                 <p class="empty-schedule">Nothing scheduled yet</p>
                                 </div>
                             <div class="event-card" v-for="event in this.events" :id="event.event_id" >
@@ -60,7 +60,13 @@
                                         <li><a class="dropdown-item" @click=" FetchUpdateData(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
                                         <!-- option 2 -->
                                         <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
-                                        <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
+                                        <div v-if="event.attendance_status === 0">
+                                            <li><a class="dropdown-item"  @click="this.id =(event.event_id), this.status = 1"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
+                                        </div>
+                                        <div v-else-if="event.attendance_status === 1">
+                                            <li><a class="dropdown-item"  @click="this.id =(event.event_id) , this.status = 0"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Stop Attendance</a></li>
+                                        </div>
+                                        
                                     </ul>
                                 </div>
                                         <h5 class="card-title mt-4 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
@@ -104,11 +110,19 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p><b>Are you sure you want to start attendance to this Event?</b></p>
+                                <p >
+                                    <b v-if="this.status === 1">Are you sure you want to Start Attendance to this Event?</b>
+                                    <b v-if="this.status === 0">Are you sure you want to Stop Attendance to this Event?</b>
+                                </p>
+                                
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-primary" @click="startAttendance('1')" data-bs-dismiss="modal">Start Attendance</button>
+
+                                <button type="button" class="btn btn-primary" @click="startAttendance()" data-bs-dismiss="modal">
+                                    <div v-if="this.status === 1 ">Start Attendance</div>
+                                    <div v-else-if="this.status === 0 ">Stop Attendance</div>
+                                </button>
                             </div>
                             </div>
                         </div>
@@ -201,7 +215,7 @@
 
                                             <div class="mb-3">
                                             <label for="fines" class="form-label">Fines Per Attendance</label>
-                                            <input type="number" name="fines" class="form-control" id="event-title" v-model="formData.fines" required>
+                                            <input type="number" name="fines" class="form-control" id="event-title" v-model="formData.fines">
                                             </div>
 
                                         </div>
@@ -236,6 +250,7 @@ export default {
             events: [],
             showEvent: [],
             id: 0,
+            status:0,
             formData:{
                     name:'',
                     start_date:'',
@@ -376,8 +391,8 @@ export default {
 
         },
 
-        startAttendance(status) {
-            axios.put(`/update_event_attendance_status/${this.id}/${status}`)
+        startAttendance() {
+            axios.put(`/update_event_attendance_status/${this.id}/${this.status}`)
                     .then(response => {
                         this.showSucces(response.data.message);
                         this.fetchData();

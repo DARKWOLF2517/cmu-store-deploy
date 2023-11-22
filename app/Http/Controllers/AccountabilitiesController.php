@@ -47,7 +47,7 @@ class AccountabilitiesController extends Controller
     public function AccountabilitiesListInAdmin($org_id)
     {
 
-            $accountabilities = Event::where('org_id', $org_id )->with(['Attendance'])->get();
+            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1]])->with(['Attendance'])->get();
             $users = User::all();
             // return $accountabilities->toJson();
             return response()->json([
