@@ -68,21 +68,8 @@ max-height: 65vh;
 
 }
 
-.membershipfee-card, .fines-card {
-    background-color: white;
-    height: 40vh;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
-.membershipfee-card h2, .fines-card h2 {
-    color: #007bff;
-}
+
 .modal{
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -95,6 +82,38 @@ max-height: 65vh;
     width: 200px;
     margin: 0 auto;
 }
+
+/* Set Accountabilities */
+.accountabilities-container {
+    height: 60vh;
+    max-height: 60vh;
+    border: none;
+}
+
+.accountabilities-cards {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    max-height: 65vh;
+}
+.accountability-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px);
+    height: 200px;
+    }
+    .ellipsis-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        }
+
 @media (max-width: 768px) {
     table {
         border-collapse: collapse;

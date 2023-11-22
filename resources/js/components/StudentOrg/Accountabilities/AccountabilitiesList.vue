@@ -54,7 +54,7 @@
             </div>
             <!-- View Modal -->
             <div class="modal fade" id="viewAllAccountabilitiesModal" tabindex="-1" aria-labelledby="viewAllAccountabilitiesModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog  modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="viewAllAccountabilitiesModalLabel">View Student Accountability</h5>
@@ -78,7 +78,7 @@
                                 <td>{{temporary_fines_list.name }}</td>
                                 <td>{{temporary_fines_list.accountability_type }}</td>
                                 <td>{{temporary_fines_list.event_id }}</td>
-                                <td>{{temporary_fines_list.missing_session }}</td>    
+                                <td>{{temporary_fines_list.missing_session }}</td>
                                 <td>{{temporary_fines_list.amount }} </td>
                                 </tr>
                                 <!-- Add more rows as needed -->

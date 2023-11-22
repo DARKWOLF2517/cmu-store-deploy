@@ -7,17 +7,35 @@
             </div>
         </div>
     <!-- <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button> -->
-                <div class="row" v-for="accountability in this.accountabilityList">
-
                     <!-- Card 1 -->
+<div class="accountabilities-container">
+    <div class="accountabilities-cards">
+        <div class="accountability-card" v-for="accountability in this.accountabilityList">
+            <div class="dropdown">
+                <a class="ellipsis-button" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                    <!-- option 1 -->
+                    <li><a class="dropdown-item">Edit Accountability</a></li>
+                    <!-- option 2 -->
+                    <li><a class="dropdown-item">Delete Accountability</a></li>
+                    <!-- Add more dropdown items as needed -->
+                </ul>
+            </div>
+            <h2 class="text-center mt-5">{{ accountability['accountability_name']}}</h2>
+            <h4 class="text-center">Php {{ accountability['amount'] }}</h4>
+            </div>
+    </div>
+    </div>
+<!--
                     <div class="col-md-6 col-12">
                         <div class="membershipfee-card">
                             <h2>{{ accountability['accountability_name']}}</h2>
                             <h4>Php {{ accountability['amount'] }}</h4>
                             <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal">Set Membership Fee</button>
                         </div>
-                    </div>
-                </div>
+                    </div> -->
 
 
             <!-- Add Fee Modal -->

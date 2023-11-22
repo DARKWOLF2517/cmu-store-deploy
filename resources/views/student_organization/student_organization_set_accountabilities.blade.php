@@ -21,6 +21,8 @@
                 <div class="alert alert-info mt-4" role="alert">
                     This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
                 </div>
+
+
                 <set-accountabilities
                 org_id = {{Session::get('org_id')}}
                 >
