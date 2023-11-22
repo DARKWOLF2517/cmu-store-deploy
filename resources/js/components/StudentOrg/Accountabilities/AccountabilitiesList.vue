@@ -131,12 +131,12 @@
                                 <td>{{temporary_fines_list.name }}</td>
                                 <td>{{temporary_fines_list.accountability_type.toUpperCase() }}</td>
                                 <td>{{temporary_fines_list.event_id }}</td>
-                                <div>
-                                    <td v-if="temporary_fines_list.missing_session === 1">Morning (in)</td>
-                                    <td v-else-if="temporary_fines_list.missing_session === 2">Morning (out)</td>
-                                    <td v-else-if="temporary_fines_list.missing_session === 3">Afternoon (in)</td>
-                                    <td v-else-if="temporary_fines_list.missing_session === 4">Afternoon (out)</td>
-                                </div>
+                                
+                                <td v-if="temporary_fines_list.missing_session === 1">Morning (in)</td>
+                                <td v-else-if="temporary_fines_list.missing_session === 2">Morning (out)</td>
+                                <td v-else-if="temporary_fines_list.missing_session === 3">Afternoon (in)</td>
+                                <td v-else-if="temporary_fines_list.missing_session === 4">Afternoon (out)</td>
+    
                                 <td>{{temporary_fines_list.date }} </td>
                                 <td>{{temporary_fines_list.amount }} </td>
                                 </tr>
