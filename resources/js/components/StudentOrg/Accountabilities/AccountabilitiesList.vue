@@ -1,6 +1,11 @@
 <template>
-
-<div class="col-md-4 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; margin-right: 20px;">
+                <div class="col-md-6 col-sm-12">
+                    <div class="input-container">
+                        <i class="fa fa-search"></i>
+                        <input type="text" v-model="searchTerm"   @input="filterItems" placeholder="Search Accountabilities" >
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; margin-right: 20px;">
                     <div class="select-dropdown">
                         <!-- First dropdown -->
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="this.select_accountability">
@@ -49,7 +54,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody v-for="fines_list in this.fines_list" :id="fines_list.event_id" >
+                    <tbody v-for="fines_list in this.filteredItems" :id="fines_list.event_id" >
                         <tr>
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>
@@ -57,7 +62,7 @@
                         <td>{{ fines_list.total_fines }}</td>
                         <td>
                             <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id)">
-                            <i class="bi bi-eye"></i> View
+                            <i class="bi bi-eye"></i> See More
                             </button>
                         </td>
                         </tr>
@@ -113,7 +118,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <table class="table" v-for="temporary_fines_list in this.temporary_fines_list" :id="temporary_fines_list.event_id">
+                            <table class="table" v-for="temporary_list in this.temporary_list" :id="temporary_list.event_id">
                             <thead>
                                 <tr>
                                 <th>Student ID</th>
@@ -127,18 +132,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                <td>{{temporary_fines_list.user_id }}</td>
-                                <td>{{temporary_fines_list.name }}</td>
-                                <td>{{temporary_fines_list.accountability_type.toUpperCase() }}</td>
-                                <td>{{temporary_fines_list.event_id }}</td>
+                                <td>{{temporary_list.user_id }}</td>
+                                <td>{{temporary_list.name }}</td>
+                                <td>{{temporary_list.accountability_type.toUpperCase() }}</td>
+                                <td>{{temporary_list.event_id }}</td>
                                 
-                                <td v-if="temporary_fines_list.missing_session === 1">Morning (in)</td>
-                                <td v-else-if="temporary_fines_list.missing_session === 2">Morning (out)</td>
-                                <td v-else-if="temporary_fines_list.missing_session === 3">Afternoon (in)</td>
-                                <td v-else-if="temporary_fines_list.missing_session === 4">Afternoon (out)</td>
+                                <td v-if="temporary_list.missing_session === 1">Morning (in)</td>
+                                <td v-else-if="temporary_list.missing_session === 2">Morning (out)</td>
+                                <td v-else-if="temporary_list.missing_session === 3">Afternoon (in)</td>
+                                <td v-else-if="temporary_list.missing_session === 4">Afternoon (out)</td>
     
-                                <td>{{temporary_fines_list.date }} </td>
-                                <td>{{temporary_fines_list.amount }} </td>
+                                <td>{{temporary_list.date }} </td>
+                                <td>{{temporary_list.amount }} </td>
                                 </tr>
                                 <!-- Add more rows as needed -->
                             </tbody>
@@ -183,26 +188,36 @@ export default{
             attendance: [],
             overall_fines_list:[],
             fines_list:[],
-            temporary_fines_list:[],
+            temporary_list:[],
             select_accountability: 'fines',
+            searchTerm: '',
+            filteredItems: [],
 
         }
     },
+
     mounted(){
-        // console.log('asdfd')
-        // this.fetchData();
-        // console.log(this.getoverall_fines_listStudents())
+        this.filteredItems = this.fines_list;
     },
     created(){
         this.fetchData();
     },
 
     methods:{
+        filterItems() {
+        this.filteredItems = this.fines_list.filter(item => {
+        return (
+            item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
+            item.user_id.toString().includes(this.searchTerm)
+        );
+        });
+    },
+        
         viewAccountabilities(user_id){
-            this.temporary_fines_list= [];
+            this.temporary_list= [];
             this.overall_fines_list.forEach(fines=>{
                 if (fines.user_id == user_id){
-                    this.temporary_fines_list.push({
+                    this.temporary_list.push({
                         name: fines.name,
                         user_id: fines.user_id,
                         event_id: fines.event_id,
@@ -213,7 +228,7 @@ export default{
                     });
                 }
             })
-            console.log(this.temporary_fines_list)
+            console.log(this.temporary_list)
         },
 
         fetchData(){
@@ -226,52 +241,48 @@ export default{
                             if (attend.attendance_count == 1){
                                 for (let index = 1; index <= 1; index++) {
                                     const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
-
-
-                                }
+                                        event_id: attend.event_id,
+                                        session: index,
+                                        fines: attend.fines,
+                                        date: attend.start_date,
+                                    }
                                 this.events.push(session_count);
-                            }
+                                }
                             }
                             else if (attend.attendance_count == 2) {
                                 for (let index = 1; index <= 2; index++) {
                                     const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
-
-                                }
+                                        event_id: attend.event_id,
+                                        session: index,
+                                        fines: attend.fines,
+                                        date: attend.start_date,
+                                    }
                                 this.events.push(session_count);
-
-                            }
+                                }
                             }
                             else if (attend.attendance_count == 3) {
                                 for (let index = 1; index <= 3; index++) {
                                     const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
+                                        event_id: attend.event_id,
+                                        session: index,
+                                        fines: attend.fines,
+                                        date: attend.start_date,
 
-                                }
+                                    }
                                 this.events.push(session_count);
-                            }
+                                }
                             }
                             else if (attend.attendance_count == 4) {
                                 for (let index = 1; index <= 4; index++) {
                                     const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
+                                        event_id: attend.event_id,
+                                        session: index,
+                                        fines: attend.fines,
+                                        date: attend.start_date,
 
-                                }
+                                    }
                                 this.events.push(session_count);
-                            }
+                                }
                             }
 
                             const attendance = attend.attendance;

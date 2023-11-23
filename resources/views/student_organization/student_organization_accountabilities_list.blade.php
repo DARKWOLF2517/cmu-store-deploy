@@ -18,21 +18,11 @@
         </div>
         <div class="mt-2">
             <div class="row head-container">
-                <div class="col-md-6 col-sm-12">
-                    <div class="input-container">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search Event">
-                    </div>
-                </div>
-
-
             <show-accountabilities-list
             :org_id = {{Session::get('org_id')}} />
-
-          
+            </div>
         </div>
     </div>
-</div>
 
 @endsection
 
