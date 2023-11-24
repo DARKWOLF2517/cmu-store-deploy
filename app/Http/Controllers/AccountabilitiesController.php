@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Accountability;
 use App\Models\Event;
+use App\Models\OrganizationAccountability;
+use App\Models\PaidAccountability;
 use App\Models\User;
 use App\Models\UserOrganization;
 use Illuminate\Http\Request;
@@ -53,6 +55,20 @@ class AccountabilitiesController extends Controller
             return response()->json([
                 'accountabilities' => $accountabilities, 
                 'user' => $users
+                ]);
+    }
+    public function OtherAccountabilities($org_id)
+    {
+
+            $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ]])->get();
+            $accountability = OrganizationAccountability::where([['ORG_ID', $org_id ]])->get();
+            $users = User::all();
+            // return $accountabilities->toJson();
+            return response()->json([
+                'paid_accountabilities' => $paidAccountability, 
+                'accountabilities' => $accountability,
+                'user' => $users
+
                 ]);
     }
     public function updateEventAttendanceStatus($event_id,$status)

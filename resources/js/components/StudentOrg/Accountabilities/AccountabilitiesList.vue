@@ -201,6 +201,7 @@ export default{
     },
     created(){
         this.fetchData();
+        this.fetchOtherAccountabilities();
     },
 
     methods:{
@@ -230,9 +231,65 @@ export default{
             })
             console.log(this.temporary_list)
         },
+        fetchOtherAccountabilities(){
+            axios.get(`/other_accountabilities/${this.org_id}`)
+                .then(response => {
+                    const accountability_paid = response.data.paid_accountabilities;
+                    const users = response.data.user;
+                    const organization_accountability_set = response.data.accountabilities;
+
+                    // const accountability_paid = [
+                    // { accountability_name: 'fines', amount: 30, created_at: null, id: 1, student_id: 2020301072, student_org_id: 1, updated_at: null },
+                    // // Other accountability_paid data
+                    // ];
+
+                    // const users = [
+                    // { id: 2020301072, name: 'JERRICHO BORJA PAMISA', email: 'pamisajerricho', created_at: '2023-11-10T15:07:36.000000Z', updated_at: '2023-11-10T15:07:36.000000Z' },
+                    // { id: 2020301071, name: 'ALPHALYN', email: 'pamisajerricho', created_at: '2023-11-10T15:07:36.000000Z', updated_at: '2023-11-10T15:07:36.000000Z' },
+                    // // Other users data
+                    // ];
+
+                    // const organization_accountability_set = [
+                    // { org_id: 1, accountability_name: 'College Fee', amount: 12 },
+                    // { org_id: 1, accountability_name: 'fasd', amount: 12 },
+                    // // Other organization_accountability_set data
+                    // ];
+
+                    // Get a Set of student_ids who have paid for accountabilities
+                    const studentsWhoPaid = new Set(accountability_paid.map(entry => entry.student_id));
+
+                    // Get a Set of unique accountability types from organization_accountability_set
+                    const accountabilityTypes = new Set(organization_accountability_set.map(entry => entry.accountability_name));
+
+                    // Find students who have not paid for their accountabilities and replace accountability_type
+                    const studentsNotPaid = users.reduce((acc, user) => {
+                    if (!studentsWhoPaid.has(user.id)) {
+                        // Push user details with an indication of not being paid and relevant accountability info
+                        organization_accountability_set.forEach(entry => {
+                        acc.push({
+                            user_id: user.id,
+                            name: user.name,
+                            org_id: entry.org_id,
+                            accountability_type: entry.accountability_name,
+                            amount: entry.amount,
+                        });
+                        });
+                    }
+                    return acc;
+                    }, []);
+
+                    // Display students who have not paid for their accountabilities with replaced accountability_type
+                    console.log(studentsNotPaid);
+
+                })
+                .catch(error => {
+
+                });
+
+        },
 
         fetchData(){
-            axios.get(`/accountabilities_list/${this.org_id}`)
+            axios.get(`/fines_list/${this.org_id}`)
                     .then(response => {
 
                         const events_with_attendance = response.data.accountabilities;
@@ -300,7 +357,6 @@ export default{
 
 
                         })
-
                         const userSessionsPresent = this.attendance.reduce((acc, entry) => {
                         if (!acc[entry.user_id]) {
                             acc[entry.user_id] = {};
