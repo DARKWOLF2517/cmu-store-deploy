@@ -169,8 +169,9 @@
                         </button>
                         <div class="collapse" id="accountabilities-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-check-circle"></i> Set Accountabilities</a></li>
-                                <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-calendar"></i> Accountability list</a></li>
+                                <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> Set Accountabilities</a></li>
+                                <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
+                                <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
                             </ul>
                         </div>
                     </li>
@@ -186,9 +187,9 @@
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}
     <script>
-        
+
         document.onreadystatechange = () => {
-            if (document.readyState === "complete") {   
+            if (document.readyState === "complete") {
                 // Notification button and popover
                 const notificationButton = document.querySelector('.notification-button');
                 const popover = document.querySelector('.popover');

@@ -133,6 +133,11 @@ Route::middleware(['auth'])->group(function(){
             return view('student_organization.student_organization_accountabilities_list');
         });
 
+        Route::get('student_organization_free_fines', function () {
+            return view('student_organization.student_organization_free_fines');
+        });
+
+
         Route::get('student_organization_set_accountabilities', function () {
             return view('student_organization.student_organization_set_accountabilities');
         });
