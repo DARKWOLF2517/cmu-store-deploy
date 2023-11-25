@@ -85,7 +85,7 @@
 
                             <side-nav-button
                             link_name="Profile"
-                            link_route = "#"
+                            link_route = "{{url('/student_organization_profile')}}"
                             show_icon = "{{false}}"
                             >
                             </side-nav-button>
@@ -116,6 +116,22 @@
                         </button>
                     </li>
                     <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-bullhorn"></i>
+                            <a href="/student_organization_announcement">
+                            <span class="link-title">Announcement</span>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-user"></i>
+                            <a href="/student_organization_profile">
+                            <span class="link-title">Profile</span>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                             <i class="fas fa-clipboard-check"></i>
                             <span class="link-title">Attendance</span>
@@ -128,14 +144,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-bullhorn"></i>
-                            <a href="/student_organization_announcement">
-                            <span class="link-title">Announcement</span>
-                            </a>
-                        </button>
-                    </li>
+
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-calendar"></i>

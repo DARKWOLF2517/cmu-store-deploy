@@ -186,7 +186,7 @@ body {
 /* Message if empty */
 .Message-IfEmpty {
     text-align: center;
-    background-color: #ffffff;
+    background-color: transparent;
     padding: 20px;
     border-radius: 10px;
 }
