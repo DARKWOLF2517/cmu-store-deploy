@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 // PROFILE
 
 Route::get('student_organization_profile', function () {
-    return view('student.student_organization_profile');
+    return view('student_organization.student_organization_profile');
 });
 // general
     Route::get('/', function () {
