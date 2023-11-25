@@ -54,7 +54,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody v-for="fines_list in this.filteredItems" :id="fines_list.user_id" >
+                    <tbody v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" >
                         <tr>
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>
@@ -79,7 +79,7 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody v-for="fines_list in this.other_accountabilities_list" :id="fines_list.user_id" >
+                    <tbody v-for="fines_list in this.filtered_items_for_other_accountabilities" :id="fines_list.user_id" >
                         <tr>
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>
@@ -192,13 +192,16 @@ export default{
             temporary_list:[],
             select_accountability: 'fines',
             searchTerm: '',
-            filteredItems: [],
+            filtered_items_for_fines: [],
+            filtered_items_for_other_accountabilities: [],
+
 
         }
     },
 
     mounted(){
-        this.filteredItems = this.fines_list;
+        this.filtered_items_for_fines = this.fines_list;
+        this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
     },
     created(){
         this.fetchData();
@@ -207,13 +210,21 @@ export default{
 
     methods:{
         filterItems() {
-        this.filteredItems = this.fines_list.filter(item => {
-        return (
-            item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
-            item.user_id.toString().includes(this.searchTerm)
-        );
-        });
-    },
+            //FILTER OF FINES
+            this.filtered_items_for_fines = this.fines_list.filter(item => {
+                return (
+                    item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
+                    item.user_id.toString().includes(this.searchTerm)
+                );
+            });
+            //FILTER FOR OTHER ACCOUNTABILITIES
+            this.filtered_items_for_other_accountabilities = this.other_accountabilities_list.filter(item => {
+                return (
+                    item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
+                    item.user_id.toString().includes(this.searchTerm)
+                );
+            });
+        },
         
         viewAccountabilities(user_id){
             this.temporary_list= [];
@@ -240,29 +251,53 @@ export default{
 
                         //FOR FINES LOGIC
                         const events_with_attendance = response.data.accountabilities_fines;
-                        console.log(events_with_attendance)
                         let users = response.data.user;
-                        const user_orgs = response.data.user_orgs;
+                        let user_orgs = response.data.user_orgs;
+                        const year_level = response.data.year_level;
+                        
+                        const change_user_year_level = []
+                        user_orgs.forEach(element => {
+
+                            const findYear =  year_level.find(year => year.id === element.year_level_id)
+                                if(findYear){
+                                    change_user_year_level.push({
+                                        student_org_id : element.student_org_id,
+                                        student_id : element.student_id,
+                                        role_id: element.role_id,
+                                        year_level_id: findYear.year_level,
+                                    })
+                                }
+
+                                
+                        });
+                        
+                        //CHANGE THE YEAR LEVEL TO NAME INSTEAD OF ID
+                        // user_orgs = change_user_year_level;
 
                     // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
                     const usersInOrg = [];
                     user_orgs.forEach(userOrg => {
+                    
                         if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
+
                         const userId = userOrg.student_id;
                         const foundUser = users.find(user => user.id === userId);
                             if (foundUser) {
                                 const user = {
                                 id: foundUser.id,
                                 name: foundUser.name,
-                                year_level: userOrg.year_level
+                                year_level: userOrg.year_level_id,
+                                org_id: userOrg.student_org_id
                                 };
                                 usersInOrg.push(user);
                             }
                         }
                     });
 
+
+
                         //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
-                        users = usersInOrg;
+                            users = usersInOrg;
 
                         events_with_attendance.forEach(attend=> {
                             if (attend.attendance_count == 1){
@@ -335,34 +370,43 @@ export default{
                         acc[entry.user_id][entry.event_id].add(entry.session);
                         return acc;
                         }, {});
-
+                        
                         const missingSessions = [];
 
+
                         users.forEach(user => {
+
                             this.events.forEach(event => {
-                                if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id]) {
-                                missingSessions.push({
-                                    name: user.name,
-                                    user_id: user.id,
-                                    event_id: event.event_id,
-                                    amount: event.fines,
-                                    missing_session: event.session,
-                                    accountability_type: 'fines',
-                                    date: event.date,
-                                });
-                                } else if (!userSessionsPresent[user.id][event.event_id].has(event.session)) {
-                                missingSessions.push({
-                                    name: user.name,
-                                    user_id: user.id,
-                                    event_id: event.event_id,
-                                    amount: event.fines,
-                                    missing_session: event.session,
-                                    accountability_type: 'fines',
-                                    date: event.date,
-                                });
+                                if(user.year_level== 2 && event.event_id == 24){
+
                                 }
+                                else{
+                                    if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id]) {
+                                        missingSessions.push({
+                                            name: user.name,
+                                            user_id: user.id,
+                                            event_id: event.event_id,
+                                            amount: event.fines,
+                                            missing_session: event.session,
+                                            accountability_type: 'fines',
+                                            date: event.date,
+                                        });
+                                    } else if (!userSessionsPresent[user.id][event.event_id].has(event.session)) {
+                                        missingSessions.push({
+                                            name: user.name,
+                                            user_id: user.id,
+                                            event_id: event.event_id,
+                                            amount: event.fines,
+                                            missing_session: event.session,
+                                            accountability_type: 'fines',
+                                            date: event.date,
+                                        });
+                                    }
+                                }
+
                             });
                         });
+                        console.log(missingSessions)
 
 
                         // console.log("Missing sessions:", missingSessions);
@@ -454,7 +498,6 @@ export default{
                         }, []);
 
                     // Display students who have not paid for their accountabilities with replaced accountability_type
-                    console.log(studentsNotPaid);
                     studentsNotPaid.forEach(items =>{
                         this.other_accountabilities_list.push({
                                 name: items.name,

@@ -8,6 +8,7 @@ use App\Models\OrganizationAccountability;
 use App\Models\PaidAccountability;
 use App\Models\User;
 use App\Models\UserOrganization;
+use App\Models\YearLevel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -52,7 +53,8 @@ class AccountabilitiesController extends Controller
             $users = User::all();
             $userOrgs = UserOrganization::all();
             $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ]])->get();
-            $accountability = OrganizationAccountability::where([['ORG_ID', $org_id ]])->get();
+            $accountability = OrganizationAccountability::where([['org_id', $org_id ]])->get();
+            $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
             // return $accountabilities->toJson();
             return response()->json([
                 'accountabilities_fines' => $accountabilities, 
@@ -60,6 +62,7 @@ class AccountabilitiesController extends Controller
                 'user_orgs' => $userOrgs,
                 'paid_accountabilities' => $paidAccountability, 
                 'accountabilities_other' => $accountability,
+                'year_level' => $yearLevel,
 
                 ]);
     }

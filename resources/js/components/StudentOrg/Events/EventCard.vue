@@ -218,6 +218,14 @@
                                             <input type="number" name="fines" class="form-control" id="event-title" v-model="formData.fines">
                                             </div>
 
+                                            <br>
+                                            <!-- CONTAINER OF THE CHECKBOX TO POPULATE -->
+                                            <b><p>Year Level that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
+                                            
+                                            <div id="checkboxes-container">
+                                                
+                                            </div>
+
                                         </div>
                                         <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
                                         <div class="modal-footer">
@@ -294,6 +302,39 @@ export default {
                     attendanceContainer.style.display = 'none';
                 }
             });
+
+            const user_orgs = [
+                { id: 1, label: '1st Year', value: '1' },
+                { id: 2, label: '2nd Year', value: '2' },
+                { id: 3, label: '4th Year', value: '3' },
+                { id: 4, label: '5th Year', value: '4' },
+                // Other checkbox data objects...
+                ];
+
+                // Assuming you have a container element where checkboxes will be added
+                const checkboxesContainer = document.getElementById('checkboxes-container');
+                checkboxesContainer.innerHTML = '';
+                // Loop through the user_orgs array to create checkboxes
+                user_orgs.forEach(item => {
+                // Create a checkbox element
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = 'checkbox_' + item.id; // Unique ID for each checkbox
+                checkbox.name = 'checkboxes'; // Set the same name for checkboxes if part of a group
+                checkbox.value = item.value; // Value associated with the checkbox
+
+                // Create a label for the checkbox
+                const label = document.createElement('label');
+                label.htmlFor = 'checkbox_' + item.id;
+                label.appendChild(document.createTextNode(item.label));
+
+                // Append checkbox and label to the container
+                checkboxesContainer.appendChild(checkbox);
+                checkboxesContainer.appendChild(label);
+                checkboxesContainer.appendChild(document.createElement('br')); // Line break between checkboxes
+                });
+
+
         },
 
         sendData() {
