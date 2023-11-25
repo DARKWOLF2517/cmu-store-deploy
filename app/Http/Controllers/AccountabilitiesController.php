@@ -48,29 +48,22 @@ class AccountabilitiesController extends Controller
     }
     public function AccountabilitiesListInAdmin($org_id)
     {
-
             $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1]])->with(['Attendance'])->get();
             $users = User::all();
-            // return $accountabilities->toJson();
-            return response()->json([
-                'accountabilities' => $accountabilities, 
-                'user' => $users
-                ]);
-    }
-    public function OtherAccountabilities($org_id)
-    {
-
+            $userOrgs = UserOrganization::all();
             $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ]])->get();
             $accountability = OrganizationAccountability::where([['ORG_ID', $org_id ]])->get();
-            $users = User::all();
             // return $accountabilities->toJson();
             return response()->json([
+                'accountabilities_fines' => $accountabilities, 
+                'user' => $users,
+                'user_orgs' => $userOrgs,
                 'paid_accountabilities' => $paidAccountability, 
-                'accountabilities' => $accountability,
-                'user' => $users
+                'accountabilities_other' => $accountability,
 
                 ]);
     }
+
     public function updateEventAttendanceStatus($event_id,$status)
     {
         $attendance = Event::find($event_id);

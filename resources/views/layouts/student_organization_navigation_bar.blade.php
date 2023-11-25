@@ -33,7 +33,7 @@
                 {{-- Toggle button for side navigation Bar --}}
 
                 <a href="#" class="nav-link link-light">
-                    <button class="btn toggle-button" id="ssidebar-toggle"><i class="fas fa-bars"></i></button>
+                    <button class="btn toggle-button" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
                 <div class="profile-dropdown dropdown">
@@ -67,10 +67,11 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
                     </div>
                 </div>
 
-
+                <div>
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="user-image" width="32" height="32" class="rounded-circle me-2">
                         <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
@@ -81,23 +82,23 @@
                             link_route = "#"
                             show_icon = "{{false}}"
                             >
-                            </side-nav-button>
+                        </side-nav-button>
 
-                            <side-nav-button
+                        <side-nav-button
                             link_name="Profile"
                             link_route = "#"
                             show_icon = "{{false}}"
                             >
-                            </side-nav-button>
+                        </side-nav-button>
 
-                            <li><hr class="dropdown-divider"></li>
+                        <li><hr class="dropdown-divider"></li>
 
-                            <side-nav-button
+                        <side-nav-button
                             link_name="Sign out"
                             link_route = "{{url('/logout')}}"
                             show_icon = "{{false}}"
-                            >
-                            </side-nav-button>
+                        >
+                        </side-nav-button>
                     </ul>
                 </div>
             </div>
@@ -107,74 +108,73 @@
             <div class=" p-3  sidebar" id="sidebarCollapse">
                 <div class="d-md-flex flex-shrink-0">
                     <ul class="list-unstyled ">
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded dashboard-button">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <a href="/login/org_dashboard">
-                            <span class="link-title">Dashboard</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-                            <i class="fas fa-clipboard-check"></i>
-                            <span class="link-title">Attendance</span>
-                            <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
-                        </button>
-                        <div class="collapse" id="dashboard-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="/student_organization_attendance_schedule" class="link-dark rounded"><i class="fas fa-calendar"></i> Schedule</a></li>
-                                <li><a href="/student_organization_attendance" class="link-dark rounded"><i class="fas fa-check-circle"></i> Record</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-bullhorn"></i>
-                            <a href="/student_organization_announcement">
-                            <span class="link-title">Announcement</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-calendar"></i>
-                            <a href="/student_organization_events">
-                            <span class="link-title">Events</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center studentlist-button">
-                            <i class="	fas fa-list-alt"></i>
-                            <a href="/student_organization_member_list">
-                            <span class="link-title">Student List</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center studentlist-button">
-                            <i class="fas fa-chart-line"></i>
-                            <a href="/student_organization_evaluation">
-                            <span class="link-title">Evaluation</span>
-                            </a>
-                        </button>
-                    </li>
-
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse" aria-expanded="false">
-                            <i class="fas fa-clipboard-check"></i>
-                            <span class="link-title">Accountabilities</span>
-                            <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
-                        </button>
-                        <div class="collapse" id="accountabilities-collapse">
-                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> Set Accountabilities</a></li>
-                                <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
-                                <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle align-items-center rounded dashboard-button">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <a href="/login/org_dashboard">
+                                <span class="link-title">Dashboard</span>
+                                </a>
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                                <i class="fas fa-clipboard-check"></i>
+                                <span class="link-title">Attendance</span>
+                                <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
+                            </button>
+                            <div class="collapse" id="dashboard-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="/student_organization_attendance_schedule" class="link-dark rounded"><i class="fas fa-calendar"></i> Schedule</a></li>
+                                    <li><a href="/student_organization_attendance" class="link-dark rounded"><i class="fas fa-check-circle"></i> Record</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle align-items-center rounded events-button">
+                                <i class="fas fa-bullhorn"></i>
+                                <a href="/student_organization_announcement">
+                                <span class="link-title">Announcement</span>
+                                </a>
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle align-items-center rounded events-button">
+                                <i class="fas fa-calendar"></i>
+                                <a href="/student_organization_events">
+                                <span class="link-title">Events</span>
+                                </a>
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle align-items-center studentlist-button">
+                                <i class="	fas fa-list-alt"></i>
+                                <a href="/student_organization_member_list">
+                                <span class="link-title">Student List</span>
+                                </a>
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle align-items-center studentlist-button">
+                                <i class="fas fa-chart-line"></i>
+                                <a href="/student_organization_evaluation">
+                                <span class="link-title">Evaluation</span>
+                                </a>
+                            </button>
+                        </li>
+                        <li class="mb-1">
+                            <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse" aria-expanded="false">
+                                <i class="fas fa-clipboard-check"></i>
+                                <span class="link-title">Accountabilities</span>
+                                <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
+                            </button>
+                            <div class="collapse" id="accountabilities-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> Set Accountabilities</a></li>
+                                    <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
+                                    <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -195,10 +195,10 @@
                 const popover = document.querySelector('.popover');
 
                 // Sidebar and toggle button
-                const toggleSidebarButton = document.getElementById('ssidebar-toggle');
+                const toggleSidebarButton = document.getElementById('sidebar-toggle');
                 const sidebar = document.getElementById('sidebarCollapse');
                 const content = document.querySelector('.content');
-                const icon = document.querySelector('#sidebar-toggle i');
+                // const icon = document.querySelector('#sidebar-toggle i');
 
                 // Buttons with chevron icons
                 const rotateButtons = document.querySelectorAll('.rotate-icon');
