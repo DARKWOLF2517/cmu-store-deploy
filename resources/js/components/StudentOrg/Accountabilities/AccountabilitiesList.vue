@@ -294,8 +294,6 @@ export default{
                         }
                     });
 
-
-
                         //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
                             users = usersInOrg;
 
@@ -377,21 +375,20 @@ export default{
                         users.forEach(user => {
 
                             this.events.forEach(event => {
-                                if(user.year_level== 2 && event.event_id == 24){
+                                const isYearLevel2 = user.year_level === 2;
+                                const isEvent24 = event.event_id === 24;
 
+                                if ((isYearLevel2 && isEvent24) || (!isYearLevel2 && !isEvent24)) {
+                                    // console.log('included ' + event.event_id);
+                                    handleMissingSessions();
+                                } else if (isYearLevel2 && !isEvent24) {
+                                    // console.log('not included ' + event.event_id);
+                                    handleMissingSessions();
                                 }
-                                else{
-                                    if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id]) {
-                                        missingSessions.push({
-                                            name: user.name,
-                                            user_id: user.id,
-                                            event_id: event.event_id,
-                                            amount: event.fines,
-                                            missing_session: event.session,
-                                            accountability_type: 'fines',
-                                            date: event.date,
-                                        });
-                                    } else if (!userSessionsPresent[user.id][event.event_id].has(event.session)) {
+
+                                function handleMissingSessions() {
+                                    if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id] ||
+                                        !userSessionsPresent[user.id][event.event_id].has(event.session)) {
                                         missingSessions.push({
                                             name: user.name,
                                             user_id: user.id,
@@ -404,9 +401,10 @@ export default{
                                     }
                                 }
 
+
                             });
                         });
-                        console.log(missingSessions)
+                        // console.log(missingSessions)
 
 
                         // console.log("Missing sessions:", missingSessions);

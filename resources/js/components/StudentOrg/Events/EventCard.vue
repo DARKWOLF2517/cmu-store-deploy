@@ -306,8 +306,8 @@ export default {
             const user_orgs = [
                 { id: 1, label: '1st Year', value: '1' },
                 { id: 2, label: '2nd Year', value: '2' },
-                { id: 3, label: '4th Year', value: '3' },
-                { id: 4, label: '5th Year', value: '4' },
+                { id: 3, label: '3rd Year', value: '3' },
+                { id: 4, label: '4th Year', value: '4' },
                 // Other checkbox data objects...
                 ];
 
@@ -333,11 +333,27 @@ export default {
                 checkboxesContainer.appendChild(label);
                 checkboxesContainer.appendChild(document.createElement('br')); // Line break between checkboxes
                 });
-
-
         },
 
         sendData() {
+              // Assuming the checkboxes are already created as mentioned in your code snippet
+
+                // Get all the checkboxes by their name
+                const checkboxes = document.querySelectorAll('input[name="checkboxes"]');
+
+                // Initialize an array to store the values of checked checkboxes
+                const checkedValues = [];
+
+                // Loop through each checkbox and check if it is checked
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        checkedValues.push(checkbox.value); // Add the value to the array if the checkbox is checked
+                    }
+                });
+
+                // Now, the checkedValues array contains the values of the checked checkboxes
+                console.log('Checked values:', checkedValues);
+
             // alert(this.formData.org_id);
                 axios.post('/events', this.formData)
                     .then(response => {
