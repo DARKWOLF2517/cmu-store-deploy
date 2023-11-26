@@ -23,14 +23,13 @@
                 </div>
             </div>
 
-
             <div class="col-md-9">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><b>Profile</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="organization-tab" data-toggle="tab" href="#organization" role="tab" aria-controls="organization" aria-selected="false"><b>Organization</b></a>
+                        <a class="nav-link" id="organization-tab" data-toggle="tab" href="#organization" role="tab" aria-controls="organization" aria-selected="false"><b>Organization Officers</b></a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -56,34 +55,37 @@
                     <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
 
                         <div class="organization-details">
-                        <div class="org-officers">
-                            <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                            <div class="org-officers">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                                </div>
+                                <h3>Organization Officers</h3>
+                                <ul>
+                                    <li>Taylor Swift - Chairperson</li>
+                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
+                                    <li>Katy Perry - Vice-Chairperson External</li>
+                                </ul>
                             </div>
-                            <h3>Organization Officers</h3>
-                            <ul>
-                                <li>Taylor Swift - Chairperson</li>
-                                <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                <li>Katy Perry - Vice-Chairperson External</li>
-                            </ul>
-                        </div>
 
-                        <div class="roles">
-                            <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                            <div class="roles">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                                </div>
+                                <h3>Committee Members</h3>
+                                <ul>
+                                    <li>Taylor Swift - Admin</li>
+                                    <li>Taylor Swift - Attendance Checker</li>
+                                </ul>
                             </div>
-                            <h3>Committee Members</h3>
-                            <ul>
-                                <li>Taylor Swift - Admin</li>
-                                <li>Taylor Swift - Attendance Checker</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+            </div>
+            </div>
+            </div>
+            </div>
+
 </div>
  <!-- Edit Details Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">

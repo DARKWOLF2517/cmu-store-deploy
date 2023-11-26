@@ -72,7 +72,7 @@
                             </ul>
                     </div>
 
-                    </div>
+                </div>
 
 
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -134,7 +134,7 @@
                             <span class="link-title">Profile</span>
                             </a>
                         </button>
-                    </li> 
+                    </li>
 
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">

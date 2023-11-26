@@ -60,13 +60,15 @@
                                         <li><a class="dropdown-item" @click=" FetchUpdateData(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
                                         <!-- option 2 -->
                                         <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
+                                        <!-- option 3 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted attendees</a></li>
                                         <div v-if="event.attendance_status === 0">
                                             <li><a class="dropdown-item"  @click="this.id =(event.event_id), this.status = 1"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
                                         </div>
                                         <div v-else-if="event.attendance_status === 1">
                                             <li><a class="dropdown-item"  @click="this.id =(event.event_id) , this.status = 0"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Stop Attendance</a></li>
                                         </div>
-                                        
+
                                     </ul>
                                 </div>
                                         <h5 class="card-title mt-4 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
@@ -114,7 +116,7 @@
                                     <b v-if="this.status === 1">Are you sure you want to Start Attendance to this Event?</b>
                                     <b v-if="this.status === 0">Are you sure you want to Stop Attendance to this Event?</b>
                                 </p>
-                                
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
@@ -127,6 +129,41 @@
                             </div>
                         </div>
                     </div>
+                <!-- Exmpted Modal -->
+<div class="modal fade" id="exemptModal" tabindex="-1" role="dialog" aria-labelledby="exemptModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exemptModalLabel">Exempted Year levels</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-check">
+                        <h5>Select year level/s that is NOT required to attend the event.</h5>
+                        <input type="checkbox" class="form-check-input" id="1stYearCheckbox">
+                        <label class="form-check-label" for="1stYearCheckbox">1st Year</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="2ndYearCheckbox">
+                        <label class="form-check-label" for="2ndYearCheckbox">2nd Year</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="3rdYearCheckbox">
+                        <label class="form-check-label" for="3rdYearCheckbox">3rd Year</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="4thYearCheckbox">
+                        <label class="form-check-label" for="4thYearCheckbox">4th Year</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
                     <!-- View modal -->
                     <div class="modal fade" id="event-details-modal" tabindex="-1" role="dialog" aria-labelledby="event-details-modal-label" aria-hidden="true">
@@ -174,22 +211,25 @@
                                             <label for="event-title" class="form-label">Event Name</label>
                                             <input type="text" name="name" class="form-control" id="event-title" v-model="formData.name" required>
                                         </div>
-                                        <div class="mb-3">
+                                        <div class="row g-3">
+                                        <div class="col-md-6">
                                             <label for="event-start-date" class="form-label">Start Date</label>
                                             <input type="date" name="start_date" class="form-control" id="event-start-date" v-model="formData.start_date" required>
                                         </div>
-                                            <div class="mb-3">
+                                        <div class="col-md-6">
                                             <label for="event-end-date" class="form-label">End Date</label>
                                             <input type="date" name="end_date" class="form-control" id="event-end-date" v-model="formData.end_date" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="event-start-time" class="form-label">Start Event</label>
+                                        <div class="col-md-6">
+                                            <label for="event-start-time" class="form-label">Start Event Time</label>
                                             <input type="time" name="start_attendance" class="form-control" id="event-start-time" v-model="formData.start_attendance" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="event-end-time" class="form-label">End Event</label>
+                                        <div class="col-md-6">
+                                            <label for="event-end-time" class="form-label">End Event Time</label>
                                             <input type="time" name="end_attendance" class="form-control" id="event-end-time" v-model="formData.end_attendance" required>
                                         </div>
+                                    </div>
+
                                         <div class="mb-3">
                                             <label for="event-location" class="form-label">Location</label>
                                             <input type="text" name="location" class="form-control" id="event-location" v-model="formData.location" required>
@@ -203,27 +243,29 @@
                                             <label for="require-attendance" class="form-label">Require Attendance</label>
                                         </div>
                                         <div id="attendance-container" style="display: none;">
-                                            <div class="mb-3">
-                                                <label for="event-attendance" class="form-label">Number of Attendance</label>
-                                                <select name="attendance_count" class="form-select" id="event-attendance" v-model="formData.attendance_count">
+                                        <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="event-attendance" class="form-label">Number of Attendance</label>
+                                            <select name="attendance_count" class="form-select" id="event-attendance" v-model="formData.attendance_count">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                                 <option value="4">4</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="mb-3">
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label for="fines" class="form-label">Fines Per Attendance</label>
-                                            <input type="number" name="fines" class="form-control" id="event-title" v-model="formData.fines">
-                                            </div>
+                                            <input type="number" name="fines" class="form-control" id="fines" v-model="formData.fines">
+                                        </div>
+                                    </div>
+
 
                                             <br>
                                             <!-- CONTAINER OF THE CHECKBOX TO POPULATE -->
-                                            <b><p>Year Level that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
-                                            
+                                            <b><p>Select the year level/s that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
+
                                             <div id="checkboxes-container">
-                                                
+
                                             </div>
 
                                         </div>

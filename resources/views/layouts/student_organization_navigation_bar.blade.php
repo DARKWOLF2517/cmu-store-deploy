@@ -36,7 +36,7 @@
                     <button class="btn toggle-button" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
-                <div class="profile-dropdown dropdown">
+                <div class="profile-dropdown dropdown dropdown ms-auto">
                     <button class="notification-button btn btn-link">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge"></span>
