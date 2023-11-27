@@ -17,7 +17,6 @@
     padding: 20px;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    height: 44vh;
     background-color: white;
 }
 
@@ -39,8 +38,8 @@
 
 .student-info{
     padding: 10px;
-    height: 40vh;
-    max-height: 40vh;
+    height: 27vh;
+    max-height: 27vh;
     overflow-y: auto;
 }
 
@@ -83,23 +82,24 @@
 
 .profile img {
     margin-top: 10px;
-    width: 200px;
-    height: 200px;
+    width: 100%;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #fff;
 }
 .org-officers,
-.roles {
+.roles .organization-partners{
     flex: 1;
     margin-right: 20px;
 }
 .organization-details{
     display: flex;
-    height: 30vh;
-    max-height: 30vh;
+    height: 36.5vh;
+    max-height: 65vh;
     overflow-y: auto;
 }
+
 
 
 @media (max-width: 768px) {
@@ -112,7 +112,7 @@
         box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         background-color: white;
-        height: auto; /* Allow content to expand as needed */
+        height: auto;
     }
 
 
@@ -133,5 +133,12 @@
         padding: 0;
     }
 
+    .profile img {
+        width: 70%;
+        margin: 10px auto;
+    }
 
+    .profile {
+        height: auto;
+    }
 }

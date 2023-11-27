@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="profile">
-                    <img src="https://via.placeholder.com/150" style="width: 250px; height: 250px;" alt="profile photo">
+                    <img src="https://via.placeholder.com/150" alt="profile photo">
                     <h5><b> CSCo</b></h5>
                     <small>College of Information Sciences and Computing Student Council</small>
                 </div>
@@ -29,7 +29,7 @@
                         <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><b>Profile</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="organization-tab" data-toggle="tab" href="#organization" role="tab" aria-controls="organization" aria-selected="false"><b>Organization Officers</b></a>
+                        <a class="nav-link" id="organization-tab" data-toggle="tab" href="#organization" role="tab" aria-controls="organization" aria-selected="false"><b>Organization</b></a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -77,8 +77,44 @@
                                     <li>Taylor Swift - Attendance Checker</li>
                                 </ul>
                             </div>
+                            <div class="partner-organizations">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
+                                </div>
+                                <h3><b>Organizations Partners</b></h3>
+                                <li>PASOA</li>
+                                <li>JPIA</li>
+                            </div>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+
+                        <div class="organization-details">
+                            <div class="org-officers">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                                </div>
+                                <h3>Organization Officers</h3>
+                                <ul>
+                                    <li>Taylor Swift - Chairperson</li>
+                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
+                                    <li>Katy Perry - Vice-Chairperson External</li>
+                                </ul>
+                            </div>
+
+                            <div class="roles">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                                </div>
+                                <h3>Committee Members</h3>
+                                <ul>
+                                    <li>Taylor Swift - Admin</li>
+                                    <li>Taylor Swift - Attendance Checker</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             </div>
@@ -167,6 +203,45 @@
                                 <option>Admin</option>
                                 <option>Attendance Checker</option>
                                 <!-- Add other roles as needed -->
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Set Partners Modal -->
+    <div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="setPartnersModalLabel">Set Partners</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="selectCollegeCouncil">Select College Council</label>
+                            <select class="form-control" id="selectOrganization">
+                                <option>CBMSO</option>
+                                <option>CASCO</option>
+                                <option>COEDSCO</option>
+                                <option>CSCO</option>
+                                <!-- Add other organizations as needed -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="selectDepartment">Select Department</label>
+                            <select class="form-control" id="selectDepartment">
+                                <option>JPIA</option>
+                                <option>PASOA</option>
+                                <option>BIMAP</option>
+                                <!-- Add other departments as needed -->
                             </select>
                         </div>
                         <div class="modal-footer">
