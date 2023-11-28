@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Accountability;
 use App\Models\Event;
+use App\Models\OrganizationAccountability;
+use App\Models\PaidAccountability;
 use App\Models\User;
 use App\Models\UserOrganization;
+use App\Models\YearLevel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -46,15 +49,24 @@ class AccountabilitiesController extends Controller
     }
     public function AccountabilitiesListInAdmin($org_id)
     {
-
             $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1]])->with(['Attendance'])->get();
             $users = User::all();
+            $userOrgs = UserOrganization::all();
+            $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ]])->get();
+            $accountability = OrganizationAccountability::where([['org_id', $org_id ]])->get();
+            $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
             // return $accountabilities->toJson();
             return response()->json([
-                'accountabilities' => $accountabilities, 
-                'user' => $users
+                'accountabilities_fines' => $accountabilities, 
+                'user' => $users,
+                'user_orgs' => $userOrgs,
+                'paid_accountabilities' => $paidAccountability, 
+                'accountabilities_other' => $accountability,
+                'year_level' => $yearLevel,
+
                 ]);
     }
+
     public function updateEventAttendanceStatus($event_id,$status)
     {
         $attendance = Event::find($event_id);

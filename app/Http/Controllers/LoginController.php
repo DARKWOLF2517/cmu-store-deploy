@@ -45,10 +45,10 @@ class LoginController extends Controller
                     return '2';
                 }
                 else{
-                    return redirect()->back();
+                    return 'no';
                 }
             }
-
+            
         }
         else{
             return 'error';

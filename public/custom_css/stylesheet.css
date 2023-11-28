@@ -4,6 +4,32 @@ body {
     font-family: sans-serif;
 
 }
+
+.Message-IfEmpty {
+    text-align: center;
+    background-color: rgb(233, 233, 233);
+    padding: 10px;
+    height: 150px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    margin: auto; /* Center horizontally */
+    margin-top: 30%; /* Adjust the top margin as needed */
+}
+
+#icon-message {
+    margin-top: 10px;
+    font-size: 5em;
+    color: #72ad97;
+}
+
+.empty-container {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
 .fa-search{
     color: #42b385;
 }
@@ -160,10 +186,11 @@ body {
 /* Message if empty */
 .Message-IfEmpty {
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: transparent;
     padding: 20px;
     border-radius: 10px;
 }
+
 
 /* Media query for screens with a maximum width of 768px */
 @media (max-width: 768px) {

@@ -2,7 +2,8 @@
     <div class="schedule-list-container">
         <!-- Message if the container is empty -->
         <div class="Message-IfEmpty" v-if="events.length === 0">
-        <p class="empty-schedule">Nothing scheduled yet</p>
+            <i class="icon 	far fa-calendar-times" id="icon-message"></i>
+        <p class="empty-container">Nothing Scheduled yet.</p>
         </div>
 
     <div class="card" v-for="event in this.events" :id="event.event_id">
@@ -66,7 +67,7 @@ export default {
             attendance_count:null,
             events: [],
             event_id: null,
-            session: null, 
+            session: null,
 
         }
     },
@@ -118,7 +119,7 @@ export default {
                  //query for qr scanner with event_id
                 window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
             }
-        
+
         },
 
     }

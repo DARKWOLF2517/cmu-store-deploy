@@ -33,10 +33,10 @@
                 {{-- Toggle button for side navigation Bar --}}
 
                 <a href="#" class="nav-link link-light">
-                    <button class="btn toggle-button" id="ssidebar-toggle"><i class="fas fa-bars"></i></button>
+                    <button class="btn toggle-button" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
-                <div class="profile-dropdown dropdown">
+                <div class="profile-dropdown dropdown dropdown ms-auto">
                     <button class="notification-button btn btn-link">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge"></span>
@@ -67,10 +67,11 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
                     </div>
                 </div>
 
-
+                <div>
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="user-image" width="32" height="32" class="rounded-circle me-2">
                         <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
@@ -81,23 +82,23 @@
                             link_route = "#"
                             show_icon = "{{false}}"
                             >
-                            </side-nav-button>
+                        </side-nav-button>
 
-                            <side-nav-button
+                        <side-nav-button
                             link_name="Profile"
-                            link_route = "#"
+                            link_route = "{{url('/student_organization_profile')}}"
                             show_icon = "{{false}}"
                             >
-                            </side-nav-button>
+                        </side-nav-button>
 
-                            <li><hr class="dropdown-divider"></li>
+                        <li><hr class="dropdown-divider"></li>
 
-                            <side-nav-button
+                        <side-nav-button
                             link_name="Sign out"
                             link_route = "{{url('/logout')}}"
                             show_icon = "{{false}}"
-                            >
-                            </side-nav-button>
+                        >
+                        </side-nav-button>
                     </ul>
                 </div>
             </div>
@@ -116,6 +117,22 @@
                         </button>
                     </li>
                     <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-bullhorn"></i>
+                            <a href="/student_organization_announcement">
+                            <span class="link-title">Announcement</span>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-user"></i>
+                            <a href="/student_organization_profile">
+                            <span class="link-title">Profile</span>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                             <i class="fas fa-clipboard-check"></i>
                             <span class="link-title">Attendance</span>
@@ -128,14 +145,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-bullhorn"></i>
-                            <a href="/student_organization_announcement">
-                            <span class="link-title">Announcement</span>
-                            </a>
-                        </button>
-                    </li>
+
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-calendar"></i>
@@ -169,8 +179,9 @@
                         </button>
                         <div class="collapse" id="accountabilities-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-check-circle"></i> Set Accountabilities</a></li>
-                                <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-calendar"></i> Accountability list</a></li>
+                                <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> Set Accountabilities</a></li>
+                                <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
+                                <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
                             </ul>
                         </div>
                     </li>
@@ -186,18 +197,18 @@
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}
     <script>
-        
+
         document.onreadystatechange = () => {
-            if (document.readyState === "complete") {   
+            if (document.readyState === "complete") {
                 // Notification button and popover
                 const notificationButton = document.querySelector('.notification-button');
                 const popover = document.querySelector('.popover');
 
                 // Sidebar and toggle button
-                const toggleSidebarButton = document.getElementById('ssidebar-toggle');
+                const toggleSidebarButton = document.getElementById('sidebar-toggle');
                 const sidebar = document.getElementById('sidebarCollapse');
                 const content = document.querySelector('.content');
-                const icon = document.querySelector('#sidebar-toggle i');
+                // const icon = document.querySelector('#sidebar-toggle i');
 
                 // Buttons with chevron icons
                 const rotateButtons = document.querySelectorAll('.rotate-icon');

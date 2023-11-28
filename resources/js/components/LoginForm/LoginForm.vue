@@ -70,7 +70,7 @@ methods: {
             })
             .catch(error => {
                 console.log(error)
-                alert('sadfd')
+                alert(error)
             });
     }
 },
