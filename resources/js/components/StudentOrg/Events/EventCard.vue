@@ -48,6 +48,7 @@
                         <div class="event-cards-list ">
                             <!-- Message if the container is empty -->
                                 <div class="Message-IfEmpty" v-if="this.events.length === 0">
+                                    <i class="icon 	far fa-calendar-times" id="icon-message"></i>
                                 <p class="empty-schedule">Nothing scheduled yet</p>
                                 </div>
                             <div class="event-card" v-for="event in this.events" :id="event.event_id" >
