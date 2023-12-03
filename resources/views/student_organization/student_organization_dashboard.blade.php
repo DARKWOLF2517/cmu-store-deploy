@@ -80,7 +80,7 @@
                                     <small>General Assembly</small>
                                 </li>
                             </ul>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
 
@@ -91,7 +91,11 @@
                         </div>
 
                         <div class="announcement-list">
-                            <div class="announcement-card">
+                            <div class="Message-IfEmpty">
+                                <i class="icon 	far fa-calendar-times" id="icon-message"></i>
+                                <p class="empty-schedule">Nothing scheduled yet</p>
+                            </div>
+                            {{-- <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
@@ -118,7 +122,7 @@
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
                                 <div class="announcement-description">Bayanihan.</div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

@@ -47,7 +47,11 @@
                             <a href="/student_announcement">See All</a>
                         </div>
                         <div class="notifications">
-                            <ul>
+                            <div class="Message-IfEmpty">
+                                <i class="icon 	far fa-frown" id="icon-message"></i>
+                                <p class="empty-schedule">Nothing posted yet</p>
+                            </div>
+                            {{-- <ul>
                                 <li>
                                     <a class="btn text-start" href="">
                                         <p><strong>SSC</strong> posted an announcement.</p>
@@ -66,7 +70,7 @@
                                     <small class="time-posted">9:46 AM</small>
                                     </a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>
