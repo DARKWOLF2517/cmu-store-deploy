@@ -1,6 +1,10 @@
 @extends('layouts.student_organization_navigation_bar')
+@section('custom-style')
+    <link href="/custom_css/SODashboard.css" rel="stylesheet">
+@endsection
+
 @section('main-content')
-<link href="/custom_css/SODashboard.css" rel="stylesheet">
+
 <div class="content">
     <div class="container">
         <div class="row">
@@ -48,7 +52,12 @@
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
                         </div>
-                        <div class="timeline-body">
+                        <event-dashboard
+                        organization_id =  {{Session::get('org_id')}}
+                        >
+
+                        </event-dashboard>
+                        {{-- <div class="timeline-body">
                             <ul class="sessions">
                                 <li>
                                     <div class="date">October 07, 2023</div>
@@ -71,7 +80,7 @@
                                     <small>General Assembly</small>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

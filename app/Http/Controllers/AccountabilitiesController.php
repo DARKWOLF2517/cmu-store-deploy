@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Accountability;
 use App\Models\Event;
+use App\Models\EventExempted;
 use App\Models\OrganizationAccountability;
 use App\Models\PaidAccountability;
 use App\Models\User;
@@ -55,6 +56,7 @@ class AccountabilitiesController extends Controller
             $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ]])->get();
             $accountability = OrganizationAccountability::where([['org_id', $org_id ]])->get();
             $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
+            $exempted = EventExempted::where([['org_id', $org_id ]])->get();
             // return $accountabilities->toJson();
             return response()->json([
                 'accountabilities_fines' => $accountabilities, 
@@ -63,6 +65,7 @@ class AccountabilitiesController extends Controller
                 'paid_accountabilities' => $paidAccountability, 
                 'accountabilities_other' => $accountability,
                 'year_level' => $yearLevel,
+                'year_level_exempted' => $exempted,
 
                 ]);
     }
@@ -79,5 +82,28 @@ class AccountabilitiesController extends Controller
         }
         
         return response()->json(['message' => 'Attendance Status of '. $attendance -> name .' Changed to '. $status ]);
+    }
+
+    public function Payment(Request $request)
+    {
+             // Validate the form data
+            $validatedData = $this->validate($request,[
+                'org_id' => 'required',
+                'description' => 'required',
+                'amount' => 'required',
+            ]);
+    
+            // // Create a new Event instance
+            $accountability = new Accountability([
+                'org_id' => $validatedData['org_id'],
+                'accountability_name' => $validatedData['description'],
+                'amount' => $validatedData['amount'],
+                
+            ]);
+            $accountability->save();
+    
+            // Redirect or return a response
+            return response()->json(['message' => 'Accountability Created Successfully']);
+            // return $request;
     }
 }

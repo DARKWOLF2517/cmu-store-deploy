@@ -178,7 +178,7 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
             Route::get('/fines_list/{org_id}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
             Route::put('/update_event_attendance_status/{event_id}/{status}',[AccountabilitiesController::class, 'updateEventAttendanceStatus']);
-        
+            Route::post('/payment',[AccountabilitiesController::class, 'Payment']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){

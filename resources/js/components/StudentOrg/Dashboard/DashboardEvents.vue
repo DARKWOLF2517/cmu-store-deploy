@@ -1,50 +1,69 @@
 <template>
-    <div class="Schedule-event" v-for="event in this.events" :id="event.event_id">
-        <div class="Schedule-event-title"><h5> {{ event["name"] }}</h5></div>
-        <div class="Schedule-event-details">
-            <small>From: {{ event["start_date"] }} <br> To:  {{ event["end_date"] }}, {{ event["start_attendance"] }} - {{ event["end_attendance"] }}</small>
-        </div>
+    <div class="timeline-body">
+        <ul class="sessions">
+            <li v-for="event in this.events" :id="event.event_id">
+                <div class="date">{{ event.start_date }}</div>
+                <small>{{ event.name }}</small>
+            </li>
+            <!-- <li>
+                <div class="date">September 30, 2023</div>
+                <small>Bayanihan</small>
+            </li>
+            <li>
+                <div class="date">September 20, 2023</div>
+                <small>Palaro</small>
+            </li>
+            <li>
+                <div class="date">July 30, 2023</div>
+                <small>General Assembly</small>
+            </li>
+            <li>
+                <div class="date">July 30, 2023</div>
+                <small>General Assembly</small>
+            </li> -->
+        </ul>
     </div>
-
-    <!-- <div class="list-group"  v-for="event in this.events" :id="event.event_id">
-            <div class="list-group-item">
-                <h6 class="mb-0">Event name: <b> {{ event["name"] }}</b></h6>
-                <small> From:  {{ event["start_date"] }} To:  {{ event["end_date"] }} , {{ event["start_attendance"] }} - {{ event["end_attendance"] }} </small>
-            </div>
-    </div> -->
 </template>
 
 <script>
 import {convertDate} from "../Functions/DateConverter.js";
 
 export default {
-    props: ['target_route'],
+    props: ['organization_id'],
     data() {
         return {
             events: []
         }
     },
-    created() {
-        this.fetchData();
+    mounted(){
+        console.log('asdf')
+        this.fetchData()
     },
     methods: {
-        fetchData() {
-            fetch('/events/show', {
-                method: "GET",
-                headers: {
-                    //TYPE OF DATA THAT THE SERVER SHOULD RESPOND
-                    "Content-Type":"application/json"
-                }
-            }).then( (response) => {
-                response.json().then((data) => {
-                    data.forEach(element => {
-                        element["start_date"] = convertDate(element["start_date"]);
-                        element["end_date"] = convertDate(element["end_date"]);
+        fetchData(){
+
+
+                axios.get(`/events/show/${this.organization_id}`)
+                .then(response => {
+                    // console.log(response.data)
+                    const events = response.data;
+                    // Sort the events by start_date
+                    events.sort((a, b) => {
+                        const dateA = new Date(a.start_date);
+                        const dateB = new Date(b.start_date);
+                        return dateA - dateB;
                     });
-                    this.events = data;
+                    this.events = events;
+
                 })
-            })
-        },
+                .catch(error => {
+                    console.log('error')
+                });
+
+
+
+            },
+
     }
 }
 </script>

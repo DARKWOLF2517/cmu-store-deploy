@@ -169,7 +169,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Yes, Mark as Paid</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="payment()">Yes, Mark as Paid</button>
                         </div>
                     </div>
                 </div>
@@ -209,6 +209,17 @@ export default{
     },
 
     methods:{
+        payment(){
+            console.log(this.temporary_list)
+            // axios.post('/payment', this.temporary_list)
+            //         .then(response => {
+            //             // this.showSucces('Events Successfuly Added');
+            //         })
+            //         .catch(error => {
+            //             alert(error)
+
+            //     });
+        },
         filterItems() {
             //FILTER OF FINES
             this.filtered_items_for_fines = this.fines_list.filter(item => {
@@ -254,6 +265,8 @@ export default{
                         let users = response.data.user;
                         let user_orgs = response.data.user_orgs;
                         const year_level = response.data.year_level;
+                        const year_level_exempted = response.data.year_level_exempted;
+                        
                         
                         const change_user_year_level = []
                         user_orgs.forEach(element => {
@@ -371,37 +384,34 @@ export default{
                         
                         const missingSessions = [];
 
-
+                        console.log(year_level_exempted)
                         users.forEach(user => {
 
                             this.events.forEach(event => {
-                                const isYearLevel2 = user.year_level === 2;
-                                const isEvent24 = event.event_id === 24;
-
-                                if ((isYearLevel2 && isEvent24) || (!isYearLevel2 && !isEvent24)) {
-                                    // console.log('included ' + event.event_id);
-                                    handleMissingSessions();
-                                } else if (isYearLevel2 && !isEvent24) {
-                                    // console.log('not included ' + event.event_id);
-                                    handleMissingSessions();
-                                }
-
-                                function handleMissingSessions() {
-                                    if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id] ||
-                                        !userSessionsPresent[user.id][event.event_id].has(event.session)) {
-                                        missingSessions.push({
-                                            name: user.name,
-                                            user_id: user.id,
-                                            event_id: event.event_id,
-                                            amount: event.fines,
-                                            missing_session: event.session,
-                                            accountability_type: 'fines',
-                                            date: event.date,
-                                        });
+                                for (const exemption of year_level_exempted) {
+                                    if (user.year_level === exemption.year_level_id && event.event_id === exemption.event_id) {
+                                        // Do nothing
+                                        return;
                                     }
                                 }
 
+                                // Your existing logic for missing sessions
+                                if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id] || 
+                                    !userSessionsPresent[user.id][event.event_id].has(event.session)) {
 
+                                    missingSessions.push({
+                                        name: user.name,
+                                        user_id: user.id,
+                                        event_id: event.event_id,
+                                        amount: event.fines,
+                                        missing_session: event.session,
+                                        accountability_type: 'fines',
+                                        date: event.date,
+                                    });
+                                }
+
+
+                                
                             });
                         });
                         // console.log(missingSessions)
