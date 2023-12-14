@@ -16,13 +16,13 @@ class CreateUserOrgSeeder extends Seeder
                 'student_org_id' =>'1',
                 'student_id' =>'1',
                 'role_id' =>'1',
-                'year_level' =>'4th Year',
+                'year_level_id' =>'4',
             ]);
         DB::table('user_organization')->insert([
                 'student_org_id' =>'1',
                 'student_id' =>'2',
                 'role_id' =>'2',
-                'year_level' =>'4th Year',
+                'year_level_id' =>'4',
 
             ]);
     }

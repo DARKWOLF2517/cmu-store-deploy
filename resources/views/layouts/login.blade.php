@@ -25,11 +25,11 @@
         <div class="col-md-6 col-lg-5">
           <div class="login-wrap p-4 p-md-5">
               <div class="logo">
-                <img src="/assets/CMULogo.png" alt="CMULogo">
+                <img src="/assets/CSA_logo.png" alt="CMULogo">
               </div>
               <h5>CMU-STORE-AMS</h5>
               <login-form>
-  
+
               </login-form>
               {{-- <form action="{{ route('authentication') }}" method="POST" class="login-form">
                 @csrf
@@ -62,7 +62,7 @@
                   </div>
                   <div class="w-50 text-md-right">
                     <a href="#">Forgot Password</a>
-                    
+
                 </div>
                 <div class="form-group text-right">
                   <button type="submit" class="btn btn-primary rounded submit">Log In</button>
@@ -73,7 +73,7 @@
       </div>
     </div>
   <div>
-{{--   
+{{--
   <script>
     function validateForm() {
       var username = document.getElementById("username").value;
