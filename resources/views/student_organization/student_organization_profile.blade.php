@@ -43,10 +43,10 @@
 
                             <div class="row student-details">
                                 <div class="student-info">
-                                    <h3><b>Student Organization Information</b></h3>
-                                    <h5 class="mt-4 mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h5>
-                                    <h5 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h5>
-                                    <h5><b>Semester: </b> <span id="number-of-students">1st Semester</span></h5>
+                                    <h4><b>Student Organization Information</b></h4>
+                                    <h6 class="mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h6>
+                                    <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h6>
+                                    <h6><b>Semester: </b> <span id="number-of-students">1st Semester</span></h6>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
                                 </div>
-                                <h4>Organization Officers</h4>
+                                <h5>Organization Officers</h5>
                                 <ul>
                                     <li>Taylor Swift - Chairperson</li>
                                     <li>Ariana Grande - Vice-Chairperson Internal</li>
@@ -71,7 +71,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
                                 </div>
-                                <h4>Committee Members</h4>
+                                <h5>Committee Members</h5>
                                 <ul>
                                     <li>Taylor Swift - Admin</li>
                                     <li>Taylor Swift - Attendance Checker</li>
@@ -81,7 +81,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
                                 </div>
-                                <h4>Organizations Partners</b></h4>
+                                <h5>Organizations Partners</b></h5>
                                 <li>PASOA</li>
                                 <li>JPIA</li>
                             </div>

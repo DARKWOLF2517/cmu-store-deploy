@@ -1,6 +1,4 @@
 <template>
-
-
 <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
@@ -40,10 +38,10 @@
             <table  id="accountabilities-table">
                 <thead>
                     <tr>
-                        <th class="sortable-header">Student ID</th>
+                        <th class="sortable-header" style="width: 10%;">Student ID</th>
                         <th class="sortable-header">Student Name</th>
                         <th class="sortable-header">Session</th>
-                        <th class="sortable-header">Actions</th>
+                        <th class="sortable-header" style="width: 20%;">Actions</th>
                     </tr>
                 </thead>
                 <tbody v-for="attendance in this.attendance" :id="attendance.user_id">
@@ -53,10 +51,10 @@
                         <td>In</td>
                         <td>
                             <button class="edit-button ellipsis-button" >
-                                <i class="bi bi-pencil-square"></i>
+                                <i class="fas fa-edit"></i> Edit
                             </button>
                             <button class="delete-button ellipsis-button">
-                                <i class="bi bi-trash"></i>
+                                <i class="fas fa-trash"></i> Delete
                             </button>
                         </td>
                     </tr>

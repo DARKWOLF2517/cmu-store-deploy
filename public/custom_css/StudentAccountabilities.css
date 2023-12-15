@@ -7,7 +7,6 @@ table {
 
 th,
 td {
-    border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
@@ -27,11 +26,7 @@ td {
     color: #1db64e; /* Green color for present */
     font-weight: bold;
   }
-th {
-    background-color:  #42b385;
-    width: 40vh;
-    color: white;
-}
+
 #accountabilities-table{
     background-color: white;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);

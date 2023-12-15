@@ -17,8 +17,9 @@ table {
 thead th{
     position: sticky;
     top: 0;
-    background-color: #69a09d;
-    color: white;
+    /* background-color: #60b192; */
+    /* color: white; */
+    color: black;
 }
   td{
     font-size: 14px;

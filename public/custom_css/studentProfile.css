@@ -20,6 +20,9 @@
     background-color: white;
 }
 
+p{
+    font-size: 10px;
+}
 
 #organization {
     padding: 10px;
@@ -38,8 +41,8 @@
 
 .student-info{
     padding: 10px;
-    height: 27vh;
-    max-height: 27vh;
+    height: 25vh;
+    max-height: 25vh;
     overflow-y: auto;
 }
 

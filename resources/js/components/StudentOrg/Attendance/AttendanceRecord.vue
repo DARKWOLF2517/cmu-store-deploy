@@ -6,7 +6,6 @@
             <div class="record-description">Number of Attendance recorded: <b>{{attendance['attendance']}}</b></div>
             <button v-if="attendance['attendance'] !== 0"  class="view-button" @click="attendance_result(attendance.event_id)"> <i class="fas fa-chevron-right button-icon"></i></button>
         </div>
-
 </template>
 
 
@@ -16,10 +15,10 @@
         data() {
             return {
                 attendance: {
-                    
+
                 },
                 // evaluation_count: 1,
-                
+
             }
         },
 
@@ -34,7 +33,7 @@
                     console.log(response.data)
                     const data = response.data;
                     data.forEach(item => {
-        
+
                     // console.log(item);
                     item['attendance'] =  item['attendance'].length;
                     });

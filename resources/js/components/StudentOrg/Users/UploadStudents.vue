@@ -7,6 +7,7 @@
                                     <th>Last Name</th>
                                     <th>Full Name</th>
                                     <th>Year Level</th>
+                                    <th style="width: 20%;">Actions</th>
                 </tr>
             </thead>
                 <tbody id="studentTableBody" v-for="students in this.studentList" :id="students.student_id">
@@ -17,8 +18,8 @@
 
 
                         <td>
-                            <button class="btn delete-button"> <i class="fas fa-trash"></i> Delete</button>
                             <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn delete-button"> <i class="fas fa-trash"></i> Delete</button>
                         </td>
 
                 </tbody>

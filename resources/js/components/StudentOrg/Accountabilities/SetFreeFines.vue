@@ -37,10 +37,10 @@
     <table  id="accountabilities-table">
         <thead>
             <tr>
-                <th>Student ID</th>
+                <th style="width: 15%;">Student ID</th>
                 <th>Student Name</th>
                 <th>Reason</th>
-                <th>Actions</th>
+                <th style="width: 20%;">Actions</th>
             </tr>
         </thead>
         <tbody >
@@ -49,8 +49,8 @@
                 <td>John Doe</td>
                 <td>Officer</td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editStudentModal" onclick="populateEditModal(this)">Edit</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">Delete</button>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editStudentModal" onclick="populateEditModal(this)"><i class="fas fa-edit"></i> Edit</button>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i> Delete</button>
                 </td>
             </tr>
             <tr>
@@ -58,8 +58,8 @@
                 <td>Jane Smith</td>
                 <td>Palaro Player</td>
                 <td>
-                    <button type="button" class="btn btn-primary">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn"><i class="fas fa-edit"></i> Edit</button>
+                    <button type="button" class="btn"> <i class="fas fa-trash"></i> Delete</button>
                 </td>
             </tr>
         </tbody>
@@ -109,9 +109,11 @@
               <option value="others">Others</option>
             </select>
           </div>
-
-          <button type="submit" class="btn btn-primary">Save</button>
+<div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Save</button>
+</div>
+
         </form>
       </div>
     </div>
@@ -150,7 +152,7 @@
         </div>
 
 
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn-success">Save</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         </form>
       </div>
