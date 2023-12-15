@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/student_organization_dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item">Student Ogranizatopm</li>
+                <li class="breadcrumb-item">Student Ogranization</li>
                 <li class="breadcrumb-item active" aria-current="page">Organization Profile</li>
                 </ol>
             </nav>
@@ -59,7 +59,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
                                 </div>
-                                <h3>Organization Officers</h3>
+                                <h4>Organization Officers</h4>
                                 <ul>
                                     <li>Taylor Swift - Chairperson</li>
                                     <li>Ariana Grande - Vice-Chairperson Internal</li>
@@ -71,7 +71,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
                                 </div>
-                                <h3>Committee Members</h3>
+                                <h4>Committee Members</h4>
                                 <ul>
                                     <li>Taylor Swift - Admin</li>
                                     <li>Taylor Swift - Attendance Checker</li>
@@ -81,7 +81,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
                                 </div>
-                                <h3><b>Organizations Partners</b></h3>
+                                <h4>Organizations Partners</b></h4>
                                 <li>PASOA</li>
                                 <li>JPIA</li>
                             </div>
@@ -145,7 +145,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
+                <button type="button" class="btn btn-success" id="saveChangesButton">Save Changes</button>
             </div>
         </div>
     </div>
@@ -170,7 +170,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary mt-2">Add Officer</button>
+                        <button type="submit" class="btn btn-success mt-2">Add Officer</button>
                     </div>
                 </form>
             </div>
@@ -207,7 +207,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                            <button type="submit" class="btn btn-success mt-2">Save</button>
                         </div>
                     </form>
                 </div>
@@ -246,7 +246,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                            <button type="submit" class="btn btn-success mt-2">Save</button>
                         </div>
                     </form>
                 </div>

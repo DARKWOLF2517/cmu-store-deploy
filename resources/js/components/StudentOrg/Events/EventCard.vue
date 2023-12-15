@@ -98,7 +98,7 @@
                                 <p><b>Are you sure you want to delete this event?</b></p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-danger" @click="deleteEvent()" data-bs-dismiss="modal">Delete</button>
                             </div>
                             </div>
@@ -120,7 +120,7 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
                                 <button type="button" class="btn btn-primary" @click="startAttendance()" data-bs-dismiss="modal">
                                     <div v-if="this.status === 1 ">Start Attendance</div>
@@ -130,12 +130,13 @@
                             </div>
                         </div>
                     </div>
-                <!-- Exmpted Modal -->
+                <!-- Exempted Modal -->
 <div class="modal fade" id="exemptModal" tabindex="-1" role="dialog" aria-labelledby="exemptModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exemptModalLabel">Exempted Year levels</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
@@ -159,8 +160,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Save</button>
             </div>
         </div>
     </div>
@@ -172,6 +173,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="event-details-modal-label">Event Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" :id="this.showEvent.event_id">
                                     <div class="mb-3">
@@ -191,7 +193,7 @@
                                 </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -205,6 +207,7 @@
 
                                     <h5 v-if="this.submit == this.sendData" class="modal-title" id="event-modal-label">Create Event</h5>
                                     <h5 v-else-if="this.submit == this.UpdateData" class="modal-title" id="event-modal-label">Edit Event</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form @submit.prevent="this.submit"  id="eventsForm"  >
@@ -272,8 +275,8 @@
                                         </div>
                                         <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" id="save-event-button" data-bs-dismiss="modal">Save</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success" id="save-event-button" data-bs-dismiss="modal">Save</button>
                                         </div>
                                     </form>
                                 </div>

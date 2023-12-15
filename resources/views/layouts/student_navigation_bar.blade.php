@@ -138,7 +138,7 @@
 
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-list"></i>
+                            <i class="fas fa-clipboard-check"></i>
                             <a href="/student_attendance">
                             <span class="link-title">Attendance</span>
                             </a>

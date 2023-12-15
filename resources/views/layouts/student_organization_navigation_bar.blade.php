@@ -205,8 +205,8 @@
         document.onreadystatechange = () => {
             if (document.readyState === "complete") {
                 // Notification button and popover
-                const notificationButton = document.querySelector('.notification-button');
-                const popover = document.querySelector('.popover');
+                // const notificationButton = document.querySelector('.notification-button');
+                // const popover = document.querySelector('.popover');
 
                 // Sidebar and toggle button
                 const toggleSidebarButton = document.getElementById('sidebar-toggle');
@@ -245,7 +245,7 @@
                     sidebar.classList.toggle('collapsed');
                     content.classList.toggle('collapsed');
                     icon.classList.toggle('fa-bars');
-                    icon.classList.toggle('fa-times');
+                    // icon.classList.toggle('fa-times');
                     if (!isCollapsed) {
                         rotateButtons.forEach((button) => {
                             if (!button.classList.contains('collapsed')) {
@@ -267,8 +267,8 @@
                             if (sidebar.classList.contains('collapsed')) {
                                 sidebar.classList.remove('collapsed');
                                 content.classList.remove('collapsed');
-                                icon.classList.remove('fa-bars');
-                                icon.classList.add('fa-times');
+                                //icon.classList.add('fa-bars');
+                                // icon.classList.add('fa-times');
                             } else {
                                 closeOpenBtnToggle();
                             }
@@ -277,9 +277,9 @@
 
 
                 // Event listener for toggling the notification popover
-                notificationButton.addEventListener('click', () => {
-                    popover.style.display = popover.style.display === 'block' ? 'none' : 'block';
-                });
+                // notificationButton.addEventListener('click', () => {
+                //     popover.style.display = popover.style.display === 'block' ? 'none' : 'block';
+                // });
 
                     // Check screen width and collapse/expand sidebar accordingly
                     function checkScreenWidth() {
@@ -287,12 +287,12 @@
                             sidebar.classList.add('collapsed');
                             content.classList.add('collapsed');
                             icon.classList.add('fa-bars');
-                            icon.classList.remove('fa-times');
+                            // icon.classList.remove('fa-times');
                         } else {
                             sidebar.classList.remove('collapsed');
                             content.classList.remove('collapsed');
-                            icon.classList.remove('fa-bars');
-                            icon.classList.add('fa-times');
+                            icon.classList.add('fa-bars');
+                            // icon.classList.add('fa-times');
                         }
                     }
                     // Initial check on page load

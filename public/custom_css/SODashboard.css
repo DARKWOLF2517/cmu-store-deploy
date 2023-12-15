@@ -61,7 +61,7 @@
     margin-left: 20px;
 }
 .welcome-card {
-    background-image: url('/assets/welcome.png');
+    background-image: url('/assets/banner.png');
     background-size: 100% 100%;
     background-size: cover;
     background-repeat: no-repeat;
@@ -300,23 +300,23 @@ small{ /* Change <p> to <small> */
     .welcome-card {
         margin-top: 10px;
         /* background-image: url('/assets/welcomesmall.png'); */
-        background-image: url();
-        padding: 20px; /* Adjust the padding as needed */
-        height: 18vh; /* Adjust the height as needed */
+        background-image: url('/assets/bannersmall.png');
+        padding: 20px;
+        height: 18vh;
         background-size: cover;
     }
 
     .welcome-text {
-        bottom: 5px; /* Adjust the position as needed */
-        left: 5px; /* Adjust the position as needed */
+        bottom: 5px;
+        left: 5px;
     }
 
     .Schedule {
-        max-height: 300px; /* Adjust the max-height as needed */
+        max-height: 300px;
     }
 
     .Schedule-event-title {
-        flex: 0 0 80px; /* Adjust the flex as needed */
+        flex: 0 0 80px;
     }
 
     .statistic {
@@ -325,11 +325,11 @@ small{ /* Change <p> to <small> */
     }
 
     .square-span {
-        width: 40px; /* Adjust the width as needed */
-        height: 40px; /* Adjust the height as needed */
+        width: 40px;
+        height: 40px;
     }
 
     .square-span i {
-        font-size: 20px; /* Adjust the icon size as needed */
+        font-size: 20px;
     }
 }

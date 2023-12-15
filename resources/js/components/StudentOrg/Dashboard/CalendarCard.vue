@@ -1,8 +1,8 @@
 <template>
-    <FullCalendar 
+    <FullCalendar
     :options="calendarOptions"
-    :events ="events" 
-    @eventClick="eventClick"   />    
+    :events ="events"
+    @eventClick="eventClick"   />
     <!-- Bootstrap Modal -->
     <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -56,8 +56,8 @@ export default {
         fetchData(){
                 axios.get('/events/calendar')
                     .then(response => {
-                        this.calendarOptions.events = response.data; 
-                        
+                        this.calendarOptions.events = response.data;
+
                     })
                     .catch(error => {
 
@@ -66,7 +66,7 @@ export default {
         },
         eventClick: function(info){
             console.log('askjdfkjsd')
-            
+
             // Display event details in the modal
             document.getElementById('eventTitle').textContent = info.event.title;
             document.getElementById('eventStart').textContent = info.event.start;

@@ -17,8 +17,8 @@
 
 
                         <td>
-                            <button class="btn btn-danger delete-button">Delete</button>
-                            <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" >Edit</button>
+                            <button class="btn delete-button"> <i class="fas fa-trash"></i> Delete</button>
+                            <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-edit"></i> Edit</button>
                         </td>
 
                 </tbody>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="excelDataModal">Close</button>
-                        <button type="button" class="btn btn-primary" id="uploadToTableButton" @click="this.uploadData()">Upload</button>
+                        <button type="button" class="btn btn-success" id="uploadToTableButton" @click="this.uploadData()">Upload</button>
                     </div>
                 </div>
             </div>
