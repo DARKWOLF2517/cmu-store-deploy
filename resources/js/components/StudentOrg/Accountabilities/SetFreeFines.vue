@@ -24,7 +24,7 @@
 <div class="btn-group" role="group">
     <button  class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
         <i class="fas fa-plus"></i> Add Student
-</button>
+    </button>
     <button class="btn me-2" id="add-student-list-button" onclick="printTableData()">
         <i class="fas fa-print"></i> Print
     </button>

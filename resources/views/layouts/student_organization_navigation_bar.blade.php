@@ -36,7 +36,7 @@
                     <button class="btn toggle-button" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
-                <div class="profile-dropdown dropdown dropdown ms-auto">
+                {{-- <div class="profile-dropdown dropdown dropdown ms-auto">
                     <button class="notification-button btn btn-link">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge"></span>
@@ -51,7 +51,7 @@
                                 <i class="icon 	far fa-frown" id="icon-message"></i>
                                 <p class="empty-schedule">Nothing posted yet</p>
                             </div>
-                            {{-- <ul>
+                            <ul>
                                 <li>
                                     <a class="btn text-start" href="">
                                         <p><strong>SSC</strong> posted an announcement.</p>
@@ -70,10 +70,10 @@
                                     <small class="time-posted">9:46 AM</small>
                                     </a>
                                 </li>
-                            </ul> --}}
+                            </ul>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div>
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,12 +81,12 @@
                         <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                        <side-nav-button
+                        {{-- <side-nav-button
                             link_name="Settings"
                             link_route = "#"
                             show_icon = "{{false}}"
                             >
-                        </side-nav-button>
+                        </side-nav-button> --}}
 
                         <side-nav-button
                             link_name="Profile"

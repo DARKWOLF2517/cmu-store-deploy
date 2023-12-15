@@ -1,7 +1,7 @@
 <template>
 <div>
     <form @submit.prevent="this.login()" class="login-form">
-        
+
         <div class="form-group">
             <div class="input-group">
             <div class="input-group-prepend">
@@ -52,7 +52,7 @@ data() {
 },
 methods: {
     login() {
-    
+
         axios.post('/authenticate_user', this.form)
             .then(response => {
                 if(response.data == 1){
@@ -74,7 +74,7 @@ methods: {
             });
     }
 },
-mounted() { 
+mounted() {
 },
 }
 </script>

@@ -299,7 +299,8 @@ small{ /* Change <p> to <small> */
 
     .welcome-card {
         margin-top: 10px;
-        background-image: url('/assets/welcomesmall.png');
+        /* background-image: url('/assets/welcomesmall.png'); */
+        background-image: url();
         padding: 20px; /* Adjust the padding as needed */
         height: 18vh; /* Adjust the height as needed */
         background-size: cover;

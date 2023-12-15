@@ -41,9 +41,53 @@
 
             <div class="student-buttons d-flex justify-content-end">
                 <div class="btn-group" role="group">
-                    <button class="btn me-2" id="add-student-list-button" data-bs-toggle="modal" data-bs-target="#editModal">
-                        <i class="fas fa-user-plus"></i>  Add student
+                    <button  class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                        <i class="fas fa-plus"></i> Add Student
                     </button>
+
+<!-- Add student Modal -->
+<div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="studentId" class="form-label">Student ID</label>
+              <input type="text" class="form-control" id="studentId">
+            </div>
+
+            <div class="mb-3">
+              <label for="name" class="form-label">Student Name</label>
+              <input type="text" class="form-control" id="name">
+            </div>
+
+            <div class="mb-3">
+          <label for="reason" class="form-label">Year-level</label>
+          <select class="form-select" id="yr-level">
+              <option value="1st">1st year level</option>
+              <option value="2nd">2nd year level</option>
+              <option value="3rd">3rd year level</option>
+              <option value="4th">4th year level</option>
+              <option value="4th">5th year level</option>
+              <option value="4th">6th year level</option>
+          </select>
+          </div>
+
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
                     {{-- <input type="file" id="fileInput" accept=".xlsx" style="display: none;">
                     <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
                     <i class="fas fa-file-excel"></i> Add student list

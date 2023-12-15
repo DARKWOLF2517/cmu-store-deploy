@@ -39,7 +39,7 @@
                     <button class="btn toggle-button" id="ssidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
-                <div class="profile-dropdown dropdown">
+                {{-- <div class="profile-dropdown dropdown">
                     <button class="notification-button btn btn-link">
                         <i class="fas fa-bell"></i>
                         <span class="notification-badge"></span>
@@ -72,7 +72,7 @@
                             </ul>
                     </div>
 
-                </div>
+                </div> --}}
 
 
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -173,84 +173,20 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}
-    <script>
-        document.onreadystatechange = () => {
-            if(document.readyState === "complete")
-            {
-                const notificationButton = document.querySelector('.notification-button');
-                const popover = document.querySelector('.popover');
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the sidebar and toggle button elements
+        var sidebar = document.getElementById("sidebarCollapse");
+        var toggleButton = document.getElementById("ssidebar-toggle");
 
-                notificationButton.addEventListener('click', () => {
-                    popover.style.display = popover.style.display === 'block' ? 'none' : 'block';
-                });
-                // Toggle the sidebar when the burger button is clicked
-                const toggleSidebarButton = document.getElementById('ssidebar-toggle');
-                const sidebar = document.getElementById('sidebarCollapse');
-                const content = document.querySelector('.content');
-                const icon = document.querySelector('#sidebar-toggle i');
-                const rotateButtons = document.querySelectorAll('.rotate-icon');
+        // Add click event listener to the toggle button
+        toggleButton.addEventListener("click", function () {
+            // Toggle the 'collapsed' class on the sidebar
+            sidebar.classList.toggle("collapsed");
+        });
+    });
+</script>
 
-                // Function to close any open btn-toggle elements
-                function closeOpenBtnToggle() {
-                    const btnToggle = document.querySelectorAll('.btn-toggle');
-                    btnToggle.forEach((button) => {
-                        const collapseTarget = button.getAttribute('data-bs-target');
-                        const collapseElement = document.querySelector(collapseTarget);
-                        if (collapseElement && collapseElement.classList.contains('show')) {
-                            // Close the open collapse element
-                            collapseElement.classList.remove('show');
-                        }
-                    });
-                }
-
-                toggleSidebarButton.addEventListener('click', function () {
-                    // Check if the sidebar is currently collapsed
-                    const isCollapsed = sidebar.classList.contains('collapsed');
-
-                    // Close any open btn-toggle elements before toggling the sidebar
-                    closeOpenBtnToggle();
-                    // Toggle the sidebar and content
-                    sidebar.classList.toggle('collapsed');
-                    content.classList.toggle('collapsed');
-                    icon.classList.toggle('fa-bars');
-                    icon.classList.toggle('fa-times');
-
-                    // If the sidebar was previously collapsed, reopen any open btn-toggle elements
-                    if (!isCollapsed) {
-                        rotateButtons.forEach((button) => {
-                            if (!button.classList.contains('collapsed')) {
-                                const collapseTarget = button.getAttribute('data-bs-target');
-                                const collapseElement = document.querySelector(collapseTarget);
-                                if (collapseElement) {
-                                    collapseElement.classList.add('show');
-                                }
-                            }
-                        });
-                    }
-                });
-
-                rotateButtons.forEach((button) => {
-                    button.addEventListener('click', function () {
-                        console.log('asdf')
-                        // Toggle the 'collapsed' class on the button
-                        this.classList.toggle('collapsed');
-
-                        // Check if the sidebar is collapsed, and if so, expand it
-                        if (sidebar.classList.contains('collapsed')) {
-                            sidebar.classList.remove('collapsed');
-                            content.classList.remove('collapsed');
-                            icon.classList.remove('fa-bars');
-                            icon.classList.add('fa-times');
-                        } else {
-                            // Close any open btn-toggle elements when a new one is clicked
-                            closeOpenBtnToggle();
-                        }
-                    });
-                });
-            }
-        }
-
-    </script>
     @yield('custom-script')
 </body>
 </html>
