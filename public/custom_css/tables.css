@@ -39,7 +39,7 @@ thead th{
 }
 
   .edit-button i, .delete-button i {
-    font-size: 16px; /* Adjust the font size as needed */
+    font-size: 16px;
   }
 
   .pagination {
@@ -78,7 +78,7 @@ thead th{
     background-color: transparent;
     border: none;
   }
-
+/*
   .pagination button:disabled {
     background-color: #f2f2f2;
     color: #bbb;
@@ -88,7 +88,7 @@ thead th{
   .pagination button.current-page {
     background-color: #6388b6;
     color: #fff;
-  }
+  } */
 
   .scroll-pane {
     height: 55vh;
@@ -97,17 +97,17 @@ thead th{
   }
 
   .pagination .page-link {
-    color: #000000; /* Change this color to your desired font color */
+    color: #000000;
   }
 
   .pagination .page-link:hover {
-    color: #60b192; /* Change this color to your desired font color on hover */
+    color: #60a17c;
   }
 
   .pagination .active .page-link {
-    background-color: #60b192; /* Change this color to your desired background color for the active page */
-    border-color: #60b192; /* Change this color to your desired border color for the active page */
-    color: #fff; /* Change this color to your desired font color for the active page */
+    background-color: #60b192;
+    border-color: #60b192;
+    color: #fff;
   }
 /* Media Query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
