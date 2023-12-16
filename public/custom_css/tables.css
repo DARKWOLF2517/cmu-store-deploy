@@ -5,6 +5,7 @@ table {
     border-color: #ddd; */
 
   }
+
   .scroll-pane{
     height: 100vh;
     max-height: 100vh;
@@ -95,7 +96,19 @@ thead th{
     overflow: auto;
   }
 
+  .pagination .page-link {
+    color: #000000; /* Change this color to your desired font color */
+  }
 
+  .pagination .page-link:hover {
+    color: #60b192; /* Change this color to your desired font color on hover */
+  }
+
+  .pagination .active .page-link {
+    background-color: #60b192; /* Change this color to your desired background color for the active page */
+    border-color: #60b192; /* Change this color to your desired border color for the active page */
+    color: #fff; /* Change this color to your desired font color for the active page */
+  }
 /* Media Query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
     table {
