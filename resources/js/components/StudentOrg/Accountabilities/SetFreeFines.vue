@@ -65,6 +65,23 @@
         </tbody>
     </table>
 </div>
+
+<div class="pagination-container mt-3">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</div>
+
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -136,12 +153,12 @@
             <input type="text" class="form-control" id="studentId">
           </div>
 
-          <div class="mb-3">
+        <div class="mb-3">
             <label for="name" class="form-label">Student Name</label>
             <input type="text" class="form-control" id="name">
-          </div>
+        </div>
 
-          <div class="mb-3">
+        <div class="mb-3">
         <label for="reason" class="form-label">Reason</label>
         <select class="form-select" id="reason">
             <option value="officer">Officer</option>
@@ -150,15 +167,14 @@
             <option value="others">Others</option>
         </select>
         </div>
-
-
-          <button type="submit" class="btn btn-success">Save</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-success">Save</button>
+        </div>
         </form>
-      </div>
-
     </div>
-  </div>
+    </div>
+</div>
 </div>
 
 </template>

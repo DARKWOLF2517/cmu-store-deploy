@@ -61,12 +61,27 @@
                 </tbody>
             </table>
             </div>
-            <div class="pagination">
+            <!-- <div class="pagination">
                 <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
                 <button id="previous-page-button" onclick="previousPage()" disabled>&lt; Previous</button>
                 <span id="pagination-numbers"></span>
                 <button id="next-page-button" onclick="nextPage()">Next &gt;</button>
                 <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
+            </div> -->
+            <div class="pagination-container mt-3">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
             </div>
         </div>
 

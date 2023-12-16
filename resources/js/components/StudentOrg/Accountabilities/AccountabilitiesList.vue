@@ -94,13 +94,30 @@
                     </tbody>
                 </table>
             </div>
-            <div class="pagination">
+            <!-- <div class="pagination">
                 <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
                 <button id="previous-page-button" onclick="previousPage()" disabled>&lt; Previous</button>
                 <span id="pagination-numbers"></span>
                 <button id="next-page-button" onclick="nextPage()">Next &gt;</button>
                 <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
+            </div> -->
+
+            <div class="pagination-container mt-3">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
             </div>
+
                 <div id="edit-modal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -136,12 +153,12 @@
                                 <td>{{temporary_list.name }}</td>
                                 <td>{{temporary_list.accountability_type.toUpperCase() }}</td>
                                 <td>{{temporary_list.event_id }}</td>
-                                
+
                                 <td v-if="temporary_list.missing_session === 1">Morning (in)</td>
                                 <td v-else-if="temporary_list.missing_session === 2">Morning (out)</td>
                                 <td v-else-if="temporary_list.missing_session === 3">Afternoon (in)</td>
                                 <td v-else-if="temporary_list.missing_session === 4">Afternoon (out)</td>
-    
+
                                 <td>{{temporary_list.date }} </td>
                                 <td>{{temporary_list.amount }} </td>
                                 </tr>
@@ -236,7 +253,7 @@ export default{
                 );
             });
         },
-        
+
         viewAccountabilities(user_id){
             this.temporary_list= [];
             this.overall_fines_list.forEach(fines=>{
@@ -266,8 +283,8 @@ export default{
                         let user_orgs = response.data.user_orgs;
                         const year_level = response.data.year_level;
                         const year_level_exempted = response.data.year_level_exempted;
-                        
-                        
+
+
                         const change_user_year_level = []
                         user_orgs.forEach(element => {
 
@@ -281,16 +298,16 @@ export default{
                                     })
                                 }
 
-                                
+
                         });
-                        
+
                         //CHANGE THE YEAR LEVEL TO NAME INSTEAD OF ID
                         // user_orgs = change_user_year_level;
 
                     // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
                     const usersInOrg = [];
                     user_orgs.forEach(userOrg => {
-                    
+
                         if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
 
                         const userId = userOrg.student_id;
@@ -381,7 +398,7 @@ export default{
                         acc[entry.user_id][entry.event_id].add(entry.session);
                         return acc;
                         }, {});
-                        
+
                         const missingSessions = [];
 
                         console.log(year_level_exempted)
@@ -396,7 +413,7 @@ export default{
                                 }
 
                                 // Your existing logic for missing sessions
-                                if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id] || 
+                                if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id] ||
                                     !userSessionsPresent[user.id][event.event_id].has(event.session)) {
 
                                     missingSessions.push({
@@ -411,7 +428,7 @@ export default{
                                 }
 
 
-                                
+
                             });
                         });
                         // console.log(missingSessions)
