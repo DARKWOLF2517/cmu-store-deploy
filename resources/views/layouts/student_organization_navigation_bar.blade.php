@@ -301,5 +301,6 @@
         }
     </script>
     @yield('custom-script')
+
 </body>
 </html>
