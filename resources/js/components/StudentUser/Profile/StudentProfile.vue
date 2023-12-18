@@ -39,10 +39,12 @@
                 <!-- Clubs Tab Content -->
                 <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
                     <h3>Organizations</h3>
-                    <ul v-for="organization in this.organization" :id="organization.student_org_id">
-                        <li><b>{{ organization['organization']['name'] }}</b></li>
-                        <!-- Add more club items here -->
-                    </ul>
+                    <div class="org-under-info">
+                        <ul v-for="organization in this.organization" :id="organization.student_org_id">
+                            <li><b>{{ organization['organization']['name'] }}</b></li>
+                            <!-- Add more club items here -->
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -136,7 +138,7 @@ export default {
                     // console.log(this.organization)
                 })
                 .catch(error => {
-                    console.log(error)  
+                    console.log(error)
                 });
         },
     },

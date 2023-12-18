@@ -42,7 +42,7 @@
                             </div>
 
                             <div class="row student-details">
-                                <div class="student-info">
+                                <div class="student-org-info">
                                     <h4><b>Student Organization Information</b></h4>
                                     <h6 class="mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h6>
                                     <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h6>
@@ -58,11 +58,14 @@
                                                 <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
                                             </div>
                                             <h5>Organization Officers</h5>
-                                            <ul>
-                                                <li>Taylor Swift - Chairperson</li>
-                                                <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                                <li>Katy Perry - Vice-Chairperson External</li>
-                                            </ul>
+                                            <div class="officers-list">
+                                                <ul>
+                                                    <li>Taylor Swift - Chairperson</li>
+                                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
+                                                    <li>Katy Perry - Vice-Chairperson External</li>
+
+                                                </ul>
+                                            </div>
                                         </div>
 
                                         <div class="roles">
@@ -70,18 +73,22 @@
                                                 <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
                                             </div>
                                             <h5>Committee Members</h5>
-                                            <ul>
-                                                <li>Taylor Swift - Admin</li>
-                                                <li>Taylor Swift - Attendance Checker</li>
-                                            </ul>
+                                            <div class="committee-list">
+                                                <ul>
+                                                    <li>Taylor Swift - Admin</li>
+                                                    <li>Taylor Swift - Attendance Checker</li>
+                                                </ul>
+                                        </div>
                                         </div>
                                         <div class="partner-organizations">
                                             <div class="d-flex justify-content-end mb-3">
                                                 <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
                                             </div>
                                             <h5>Organizations Partners</b></h5>
-                                            <li>PASOA</li>
-                                            <li>JPIA</li>
+                                            <div class="partner-org-list">
+                                                <li>PASOA</li>
+                                                <li>JPIA</li>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +298,7 @@
             // Additional logic for other modal content update
             // For example, you might want to send the updated description, number of students, and semester to the server
 
-            $('#editProfileModal').modal('hide');
+            $('#editModal').modal('hide');
         }
     </script>
 

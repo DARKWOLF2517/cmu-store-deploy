@@ -20,9 +20,7 @@
     background-color: white;
 }
 
-p{
-    font-size: 10px;
-}
+
 
 #organization {
     padding: 10px;
@@ -39,13 +37,19 @@ p{
 }
 
 
-.student-info{
+.student-info, .org-under-info{
+    padding: 10px;
+    height: 32vh;
+    max-height: 32vh;
+    overflow-y: auto;
+}
+
+.student-org-info{
     padding: 10px;
     height: 25vh;
     max-height: 25vh;
     overflow-y: auto;
 }
-
 .qrcode-img {
     margin-top: 30px;
     width: auto;
