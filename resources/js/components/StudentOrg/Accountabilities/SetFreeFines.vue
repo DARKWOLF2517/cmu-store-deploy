@@ -37,10 +37,10 @@
     <table  id="accountabilities-table">
         <thead>
             <tr>
-                <th>Student ID</th>
+                <th style="width: 15%;">Student ID</th>
                 <th>Student Name</th>
                 <th>Reason</th>
-                <th>Actions</th>
+                <th style="width: 20%;">Actions</th>
             </tr>
         </thead>
         <tbody >
@@ -49,8 +49,8 @@
                 <td>John Doe</td>
                 <td>Officer</td>
                 <td>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editStudentModal" onclick="populateEditModal(this)">Edit</button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">Delete</button>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#editStudentModal" onclick="populateEditModal(this)"><i class="fas fa-edit"></i> Edit</button>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i> Delete</button>
                 </td>
             </tr>
             <tr>
@@ -58,13 +58,30 @@
                 <td>Jane Smith</td>
                 <td>Palaro Player</td>
                 <td>
-                    <button type="button" class="btn btn-primary">Edit</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn"><i class="fas fa-edit"></i> Edit</button>
+                    <button type="button" class="btn"> <i class="fas fa-trash"></i> Delete</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
+
+<div class="pagination-container mt-3">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    <li class="page-item active" aria-current="page">
+      <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</div>
+
 <!-- Delete Confirmation Modal -->
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -109,9 +126,11 @@
               <option value="others">Others</option>
             </select>
           </div>
-
-          <button type="submit" class="btn btn-primary">Save</button>
+<div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Save</button>
+</div>
+
         </form>
       </div>
     </div>
@@ -134,12 +153,12 @@
             <input type="text" class="form-control" id="studentId">
           </div>
 
-          <div class="mb-3">
+        <div class="mb-3">
             <label for="name" class="form-label">Student Name</label>
             <input type="text" class="form-control" id="name">
-          </div>
+        </div>
 
-          <div class="mb-3">
+        <div class="mb-3">
         <label for="reason" class="form-label">Reason</label>
         <select class="form-select" id="reason">
             <option value="officer">Officer</option>
@@ -148,15 +167,14 @@
             <option value="others">Others</option>
         </select>
         </div>
-
-
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-success">Save</button>
+        </div>
         </form>
-      </div>
-
     </div>
-  </div>
+    </div>
+</div>
 </div>
 
 </template>

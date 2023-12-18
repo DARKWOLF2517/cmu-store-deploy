@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/student_organization_dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item">Student Ogranizatopm</li>
+                <li class="breadcrumb-item">Student Ogranization</li>
                 <li class="breadcrumb-item active" aria-current="page">Organization Profile</li>
                 </ol>
             </nav>
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="profile">
-                    <img src="https://via.placeholder.com/150" alt="profile photo">
+                    <img id="profileImage" src="https://via.placeholder.com/150" alt="profile photo">
                     <h5><b> CSCo</b></h5>
                     <small>College of Information Sciences and Computing Student Council</small>
                 </div>
@@ -43,10 +43,10 @@
 
                             <div class="row student-details">
                                 <div class="student-info">
-                                    <h3><b>Student Organization Information</b></h3>
-                                    <h5 class="mt-4 mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h5>
-                                    <h5 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h5>
-                                    <h5><b>Semester: </b> <span id="number-of-students">1st Semester</span></h5>
+                                    <h4><b>Student Organization Information</b></h4>
+                                    <h6 class="mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h6>
+                                    <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h6>
+                                    <h6><b>Semester: </b> <span id="number-of-students">1st Semester</span></h6>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
                                 </div>
-                                <h3>Organization Officers</h3>
+                                <h5>Organization Officers</h5>
                                 <ul>
                                     <li>Taylor Swift - Chairperson</li>
                                     <li>Ariana Grande - Vice-Chairperson Internal</li>
@@ -71,7 +71,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
                                 </div>
-                                <h3>Committee Members</h3>
+                                <h5>Committee Members</h5>
                                 <ul>
                                     <li>Taylor Swift - Admin</li>
                                     <li>Taylor Swift - Attendance Checker</li>
@@ -81,7 +81,7 @@
                                 <div class="d-flex justify-content-end mb-3">
                                     <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
                                 </div>
-                                <h3><b>Organizations Partners</b></h3>
+                                <h5>Organizations Partners</b></h5>
                                 <li>PASOA</li>
                                 <li>JPIA</li>
                             </div>
@@ -129,6 +129,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel">Edit Student Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <label for="editDescription">Description:</label>
@@ -142,41 +143,44 @@
                     <option value="first-semester">1st Semester</option>
                     <option value="second-semester">2nd Semester</option>
                 </select>
+                <label for="profileImage" class="mt-2">Change Profile Image: </label>
+                <br>
+                <input type="file" id="profileImageInput" accept="image/*">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
+                <button type="button" class="btn btn-primary" onclick="updateProfileImage()">Save changes</button>
             </div>
         </div>
     </div>
 </div>
 
- <!-- Add officers Modal -->
- <div class="modal fade" id="addOfficerModal" tabindex="-1" role="dialog" aria-labelledby="addOfficerModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addOfficerModalLabel">Add Officer</h5>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="officerName"><b>Name of Officer</b></label>
-                        <input type="text" class="form-control" id="officerName" placeholder="Enter name">
-                    </div>
-                    <div class="form-group mt-4">
-                        <label for="positionTitle"><b>Title of Position</b></label>
-                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary mt-2">Add Officer</button>
-                    </div>
-                </form>
+    <!-- Add officers Modal -->
+    <div class="modal fade" id="addOfficerModal" tabindex="-1" role="dialog" aria-labelledby="addOfficerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addOfficerModalLabel">Add Officer</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="officerName"><b>Name of Officer</b></label>
+                            <input type="text" class="form-control" id="officerName" placeholder="Enter name">
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for="positionTitle"><b>Title of Position</b></label>
+                            <input type="text" class="form-control" id="positionTitle" placeholder="Enter title">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success mt-2">Add Officer</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Set Roles Modal -->
@@ -207,7 +211,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                            <button type="submit" class="btn btn-success mt-2">Save</button>
                         </div>
                     </form>
                 </div>
@@ -246,7 +250,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                            <button type="submit" class="btn btn-success mt-2">Save</button>
                         </div>
                     </form>
                 </div>
@@ -260,4 +264,39 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('edit-profile-btn').addEventListener('click', function () {
+            // Clear the file input value to ensure change detection
+            document.getElementById('profileImageInput').value = null;
+            // Optionally, you can reset the image to its default state if needed
+            // document.getElementById('profileImage').src = 'default-image.jpg';
+
+            // Additional logic for other modal content
+            // For example, you might want to clear input fields or reset other elements
+            document.getElementById('editDescription').value = "";
+            document.getElementById('editNumberOfStudents').value = "";
+            document.getElementById('editSemester').value = "first-semester";
+        });
+
+        function updateProfileImage() {
+            const input = document.getElementById('profileImageInput');
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profileImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Optionally, you can add logic to send the updated image to the server if needed
+
+            // Additional logic for other modal content update
+            // For example, you might want to send the updated description, number of students, and semester to the server
+
+            $('#editProfileModal').modal('hide');
+        }
+    </script>
+
 @endsection

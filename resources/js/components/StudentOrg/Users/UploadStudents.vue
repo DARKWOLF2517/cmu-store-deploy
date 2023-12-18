@@ -7,6 +7,7 @@
                                     <th>Last Name</th>
                                     <th>Full Name</th>
                                     <th>Year Level</th>
+                                    <th style="width: 20%;">Actions</th>
                 </tr>
             </thead>
                 <tbody id="studentTableBody" v-for="students in this.studentList" :id="students.student_id">
@@ -17,8 +18,8 @@
 
 
                         <td>
-                            <button class="btn btn-danger delete-button">Delete</button>
-                            <button class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" >Edit</button>
+                            <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-edit"></i> Edit</button>
+                            <button class="btn delete-button"> <i class="fas fa-trash"></i> Delete</button>
                         </td>
 
                 </tbody>
@@ -27,14 +28,28 @@
 
             </table>
         </div>
-
-        <div class="pagination">
+        <div class="pagination-container mt-3">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </div>
+        <!-- <div class="pagination">
             <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
             <button id="previous-page-button" onclick="previousPage()" disabled>&lt; Previous</button>
             <span id="pagination-numbers"></span>
             <button id="next-page-button" onclick="nextPage()">Next &gt;</button>
             <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
-        </div>
+        </div> -->
 
 
 
@@ -65,7 +80,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="excelDataModal">Close</button>
-                        <button type="button" class="btn btn-primary" id="uploadToTableButton" @click="this.uploadData()">Upload</button>
+                        <button type="button" class="btn btn-success" id="uploadToTableButton" @click="this.uploadData()">Upload</button>
                     </div>
                 </div>
             </div>

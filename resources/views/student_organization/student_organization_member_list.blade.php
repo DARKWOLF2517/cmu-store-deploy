@@ -77,10 +77,10 @@
               <option value="4th">6th year level</option>
           </select>
           </div>
-
-
-            <button type="submit" class="btn btn-primary">Save</button>
+          <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-success">Save</button>
+          </div>
           </form>
         </div>
 
@@ -92,7 +92,7 @@
                     <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
                     <i class="fas fa-file-excel"></i> Add student list
                     </button> --}}
-                    <button id="uploadButton" class="btn me-2">Upload Student List</button>
+                    <button id="uploadButton" class="btn me-2"> <i class="fas fa-file-upload"></i> Upload Student List</button>
                     <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
                 </div>
             </div>

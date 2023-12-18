@@ -20,7 +20,10 @@
 
                 <div class="alert alert-info mt-4" role="alert">
                     This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
+                    <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
+
+
 
 
                 <set-accountabilities

@@ -36,7 +36,7 @@
                 {{-- Toggle button for side navigation Bar --}}
 
                 <a href="#" class="nav-link link-light">
-                    <button class="btn toggle-button" id="ssidebar-toggle"><i class="fas fa-bars"></i></button>
+                    <button class="btn toggle-button" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
                 {{-- <div class="profile-dropdown dropdown">
@@ -138,7 +138,7 @@
 
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-list"></i>
+                            <i class="fas fa-clipboard-check"></i>
                             <a href="/student_attendance">
                             <span class="link-title">Attendance</span>
                             </a>
@@ -173,19 +173,52 @@
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Get the sidebar and toggle button elements
-        var sidebar = document.getElementById("sidebarCollapse");
-        var toggleButton = document.getElementById("ssidebar-toggle");
+    <script>
+        document.onreadystatechange = () => {
+            if (document.readyState === "complete") {
+                // Sidebar and toggle button
+                const toggleSidebarButton = document.getElementById('sidebar-toggle');
+                const sidebar = document.getElementById('sidebarCollapse');
+                const content = document.querySelector('.content');
 
-        // Add click event listener to the toggle button
-        toggleButton.addEventListener("click", function () {
-            // Toggle the 'collapsed' class on the sidebar
-            sidebar.classList.toggle("collapsed");
-        });
-    });
-</script>
+
+                // Function to close any open btn-toggle elements
+                function closeOpenBtnToggle() {
+                    const btnToggle = document.querySelectorAll('.btn-toggle');
+                    btnToggle.forEach((button) => {
+                        const collapseTarget = button.getAttribute('data-bs-target');
+                        const collapseElement = document.querySelector(collapseTarget);
+                        if (collapseElement && collapseElement.classList.contains('show')) {
+                            collapseElement.classList.remove('show');
+                            button.classList.remove('collapsed');
+                        }
+                    });
+                }
+
+                // Event listener for toggling the sidebar
+                toggleSidebarButton.addEventListener('click', function () {
+                    const isCollapsed = sidebar.classList.contains('collapsed');
+                    closeOpenBtnToggle();
+                    sidebar.classList.toggle('collapsed');
+                    content.classList.toggle('collapsed');
+                });
+
+                // Check screen width and collapse/expand sidebar accordingly
+                function checkScreenWidth() {
+                    if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
+                        sidebar.classList.add('collapsed');
+                        content.classList.add('collapsed');
+                    } else {
+                        sidebar.classList.remove('collapsed');
+                        content.classList.remove('collapsed');
+                    }
+                }
+
+                // Initial check on page load
+                checkScreenWidth();
+            }
+        }
+    </script>
 
     @yield('custom-script')
 </body>

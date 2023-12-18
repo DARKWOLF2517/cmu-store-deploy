@@ -5,6 +5,7 @@ table {
     border-color: #ddd; */
 
   }
+
   .scroll-pane{
     height: 100vh;
     max-height: 100vh;
@@ -17,8 +18,9 @@ table {
 thead th{
     position: sticky;
     top: 0;
-    background-color: #69a09d;
-    color: white;
+    /* background-color: #60b192; */
+    /* color: white; */
+    color: black;
 }
   td{
     font-size: 14px;
@@ -37,7 +39,7 @@ thead th{
 }
 
   .edit-button i, .delete-button i {
-    font-size: 16px; /* Adjust the font size as needed */
+    font-size: 16px;
   }
 
   .pagination {
@@ -76,7 +78,7 @@ thead th{
     background-color: transparent;
     border: none;
   }
-
+/*
   .pagination button:disabled {
     background-color: #f2f2f2;
     color: #bbb;
@@ -86,7 +88,7 @@ thead th{
   .pagination button.current-page {
     background-color: #6388b6;
     color: #fff;
-  }
+  } */
 
   .scroll-pane {
     height: 55vh;
@@ -94,7 +96,19 @@ thead th{
     overflow: auto;
   }
 
+  .pagination .page-link {
+    color: #000000;
+  }
 
+  .pagination .page-link:hover {
+    color: #60a17c;
+  }
+
+  .pagination .active .page-link {
+    background-color: #60b192;
+    border-color: #60b192;
+    color: #fff;
+  }
 /* Media Query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
     table {

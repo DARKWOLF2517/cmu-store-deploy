@@ -6,10 +6,28 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 
 }
+.top-nav {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: #42b385;
+    color: #ffffff;
+    padding: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.125rem;
 
+}
+.top-nav {
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 0.625rem;
+}
 .login-wrap {
     max-width: 400px;
-    margin: 100px auto 0; /* Added margin-top of 100px */
+    margin: 100px auto 0;
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;

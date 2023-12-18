@@ -19,9 +19,10 @@
     align-items: center;
     color: #ffffff;
     text-decoration: none;
-    margin-right: 0.625rem; /* Converted from 10px */
+    margin-right: 0.625rem;
 }
-.notification-button {
+
+/* .notification-button {
     background-color: #337058;
     color: #fff;
     border: none;
@@ -29,32 +30,32 @@
     border-radius: 50%;
     cursor: pointer;
     position: relative;
-}
+} */
 
 /* Badge Styles */
-.notification-badge {
+/* .notification-badge {
     position: absolute;
     top: 0;
     right: 0;
     background-color: #FF0000;
     border-radius: 50%;
     padding: 5px;
-}
-.time-posted{
+} */
+/* .time-posted{
     color: #007BFF;
     margin: 0;
 }
 .notifications li p {
     margin: 0;
-}
-.notifications button{
+} */
+/* .notifications button{
     border: none;
     background-color: transparent;
     justify-items: left;
     justify-content: left;
-}
+} */
 /* Popover Styles */
-.popover {
+/* .popover {
     display: none;
     position: absolute;
     color: #000;
@@ -78,12 +79,12 @@
     bottom: 0;
 }
 .popover-header{
-    position: -webkit-sticky; /* Safari */
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1;
-    display: flex; /* Flex layout for content alignment */
-    justify-content: space-between; /* Space between content */
+    display: flex;
+    justify-content: space-between;
     background-color: white;
     height: 40px;
     width: 100%;
@@ -116,9 +117,9 @@
 .notification-description {
     color: #555;
     margin-bottom: 0;
-}
+} */
 .nav-name {
-    padding-left: 3.75rem; /* Converted from 60px */
+    padding-left: 3.75rem;
 }
 
 .top-nav .profile-dropdown {
@@ -257,9 +258,9 @@ margin-right: 0;
     }
 
     .sidebar.collapsed {
-        width: 0; /* Set the collapsed width to zero */
+        width: 0;
         display: none;
-        transition: width 0.5s ease; /* Add transition for width property */
+        transition: width 0.5s ease;
     }
 
     .toggle-button {
