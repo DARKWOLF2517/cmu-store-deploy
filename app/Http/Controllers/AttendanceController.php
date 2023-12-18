@@ -52,6 +52,7 @@ class AttendanceController extends Controller
         $attendances->event_id = $validatedData['event_id'];
         $attendances->officer_id = $validatedData['officer_id'];
         $attendances->session = $validatedData['session'];
+        $attendances->remarks = 0;
         $attendances->save();
 
         return response()->json(array("result"=>"success","message"=>"Student successfully logged in..."));

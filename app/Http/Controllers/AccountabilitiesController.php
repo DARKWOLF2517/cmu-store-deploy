@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accountability;
+use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\EventExempted;
 use App\Models\OrganizationAccountability;
@@ -84,26 +85,90 @@ class AccountabilitiesController extends Controller
         return response()->json(['message' => 'Attendance Status of '. $attendance -> name .' Changed to '. $status ]);
     }
 
-    public function Payment(Request $request)
+    public function OtherAccountabilityPayment(Request $request)
     {
              // Validate the form data
             $validatedData = $this->validate($request,[
-                'org_id' => 'required',
-                'description' => 'required',
+                'accountability_name' => 'required',
                 'amount' => 'required',
+                'student_id' => 'required',
+                'student_name' => 'required',
+                'student_org_id' => 'required',
             ]);
     
             // // Create a new Event instance
-            $accountability = new Accountability([
-                'org_id' => $validatedData['org_id'],
-                'accountability_name' => $validatedData['description'],
+            $accountability = new PaidAccountability([
+                'student_id' => $validatedData['student_id'],
+                'student_org_id' => $validatedData['student_org_id'],
+                'accountability_name' => $validatedData['accountability_name'],
                 'amount' => $validatedData['amount'],
                 
             ]);
             $accountability->save();
     
             // Redirect or return a response
-            return response()->json(['message' => 'Accountability Created Successfully']);
+            return response()->json(['message' => 'Accountability Paid Successfully']);
             // return $request;
+    }
+    public function FinesAccountabilityPayment(Request $request)
+    {
+             // Validate the form data
+            $validatedData = $this->validate($request,[
+                'student_id' => 'required',
+                'student_org_id' => 'required',
+                'accountability_name' => 'required',
+                'amount' => 'required',
+            ]);
+    
+            // // Create a new Event instance
+            $accountability = new PaidAccountability([
+                'student_id' => $validatedData['student_id'],
+                'student_org_id' => $validatedData['student_org_id'],
+                'accountability_name' => $validatedData['accountability_name'],
+                'amount' => $validatedData['amount'],
+                
+            ]);
+            $accountability->save();
+    
+            // Redirect or return a response
+            return response()->json(['message' => 'Accountability Paid Successfully']);
+            // return $request;
+    }
+    public function attendanceFill(Request $request)
+    {
+
+
+            foreach ($request->all() as $data) {
+                // // Create a new Attendance instance and insert data
+                // $attendance = Attendance::create([
+                //     'user_id' => $data['0'],
+                //     'org_id' => $data['7'],
+                //     'event_id' => $data['6'],
+                //     'officer_id' =>$data['8'] ,
+                //     'session' => $data['5'],
+                //     // Add more columns if necessary based on your table structure
+                // ]);
+
+                $attendance = new Attendance([
+                    'user_id' => $data['0'],
+                    'org_id' => $data['7'],
+                    'event_id' => $data['6'],
+                    'officer_id' =>$data['8'] ,
+                    'session' => $data['5'],
+                    'remarks' => 1,
+                    
+                ]);
+                $attendance->save();
+                
+    
+
+            }
+            return response()->json(['message' => 'Accountability Paid Successfully']);
+    
+    }
+    public function DeleteOrganizationAccountability(OrganizationAccountability $accountability_id)
+    {
+        $accountability_id->delete();
+        return response()->json(['message' => 'Accountability '. $accountability_id-> accountability_name.' Deleted successfully']);
     }
 }

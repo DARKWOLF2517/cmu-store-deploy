@@ -178,7 +178,10 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
             Route::get('/fines_list/{org_id}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
             Route::put('/update_event_attendance_status/{event_id}/{status}',[AccountabilitiesController::class, 'updateEventAttendanceStatus']);
-            Route::post('/payment',[AccountabilitiesController::class, 'Payment']);
+            Route::post('/OtherAccountabilityPayment',[AccountabilitiesController::class, 'OtherAccountabilityPayment']);
+            Route::post('/FinesAccountabilityPayment',[AccountabilitiesController::class, 'FinesAccountabilityPayment']);
+            Route::post('/attendanceFill',[AccountabilitiesController::class, 'attendanceFill']);
+            Route::delete('/delete_organization_accountability/{accountability_id}',[AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){

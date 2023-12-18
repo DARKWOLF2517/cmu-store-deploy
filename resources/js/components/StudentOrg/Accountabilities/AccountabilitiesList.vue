@@ -61,7 +61,15 @@
                         <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
                         <td>{{ fines_list.total_fines }}</td>
                         <td>
-                            <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id)">
+                            <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id),
+                             this.finesPay = {
+                                    student_id: fines_list.user_id,
+                                    student_name: fines_list.name,
+                                    accountability_name: fines_list.accountability_type,
+                                    amount: fines_list.total_fines,
+                                    student_org_id: this.org_id,
+                                }
+                            ">
                             <i class="bi bi-eye"></i> See More
                             </button>
                         </td>
@@ -86,9 +94,16 @@
                         <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
                         <td>{{ fines_list.amount }}</td>
                         <td>
-                            <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Paid</button>
-                            </button>
+                
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 2, 
+                                this.otherAccountabilitiesPaymentDetails = {
+                                    student_id: fines_list.user_id,
+                                    student_name: fines_list.name,
+                                    accountability_name: fines_list.accountability_type,
+                                    amount: fines_list.amount,
+                                    student_org_id: this.org_id,
+                                }">
+                                Mark As Paid</button>
                         </td>
                         </tr>
                     </tbody>
@@ -135,7 +150,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <table class="table">
+                            <table class="table" id="temporaryList">
                             <thead>
                                 <tr>
                                 <th>Student ID</th>
@@ -152,23 +167,25 @@
                                 <td>{{temporary_list.user_id }}</td>
                                 <td>{{temporary_list.name }}</td>
                                 <td>{{temporary_list.accountability_type.toUpperCase() }}</td>
-                                <td>{{temporary_list.event_id }}</td>
+                                <td>{{temporary_list.event_name }}</td>
 
                                 <td v-if="temporary_list.missing_session === 1">Morning (in)</td>
                                 <td v-else-if="temporary_list.missing_session === 2">Morning (out)</td>
                                 <td v-else-if="temporary_list.missing_session === 3">Afternoon (in)</td>
                                 <td v-else-if="temporary_list.missing_session === 4">Afternoon (out)</td>
-
+                                <td style="display: none;">{{ temporary_list.missing_session }}</td>
+                                <td style="display: none;">{{ temporary_list.event_id }}</td>
+                                <td style="display: none;">{{ this.org_id }}</td>
+                                <td style="display: none;">{{ this.user_id }}</td>
                                 <td>{{temporary_list.date }} </td>
                                 <td>{{temporary_list.amount }} </td>
                                 </tr>
-                                <!-- Add more rows as needed -->
                             </tbody>
                             </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal">Paid</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 1, this.getTableData()">Mark As Paid</button>
                         </div>
                     </div>
             </div>
@@ -186,7 +203,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="payment()">Yes, Mark as Paid</button>
+                            <button v-if="this.PaymentDecision == 2" type="button" class="btn btn-success" data-bs-dismiss="modal"  @click="OtherAccountabilityPayment()">Yes, Mark as Paid</button>
+                            <button v-else-if="this.PaymentDecision == 1" type="button" class="btn btn-success" data-bs-dismiss="modal"  @click="FinesPayment()">Yes, Mark as Paid</button>
                         </div>
                     </div>
                 </div>
@@ -196,14 +214,17 @@
 
 <script>
 import { convertDate } from '../Functions/DateConverter';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default{
-    props: ['org_id'],
+    props: ['org_id', 'user_id'],
     data(){
         return{
             events: [],
             attendance: [],
             overall_fines_list:[],
+            overall_fines_list_with_event_id:[],
             fines_list:[],
             other_accountabilities_list: [],
             temporary_list:[],
@@ -211,6 +232,10 @@ export default{
             searchTerm: '',
             filtered_items_for_fines: [],
             filtered_items_for_other_accountabilities: [],
+            PaymentDecision: 0,
+            otherAccountabilitiesPaymentDetails: [],
+            attendanceFill: [],
+            finesPay: [],
 
 
         }
@@ -219,6 +244,7 @@ export default{
     mounted(){
         this.filtered_items_for_fines = this.fines_list;
         this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
+        
     },
     created(){
         this.fetchData();
@@ -226,16 +252,75 @@ export default{
     },
 
     methods:{
-        payment(){
-            console.log(this.temporary_list)
-            // axios.post('/payment', this.temporary_list)
+        getTableData(){
+            // Get a reference to the table
+            var table = document.getElementById('temporaryList');
+
+            // Initialize an array to store the table data without the first row
+            var tableDataWithoutFirstRow = [];
+
+            // Iterate through the rows of the table, starting from the second row
+            for (var i = 1; i < table.rows.length; i++) {
+            var rowData = [];
+
+            // Iterate through the cells of the current row
+            for (var j = 0; j < table.rows[i].cells.length; j++) {
+                // Push the cell value to the rowData array
+                rowData.push(table.rows[i].cells[j].textContent);
+            }
+
+            // Push the row data to the tableDataWithoutFirstRow array
+            tableDataWithoutFirstRow.push(rowData);
+            }
+
+            // Output the tableDataWithoutFirstRow array
+            // console.log(tableDataWithoutFirstRow);
+            this.attendanceFill = tableDataWithoutFirstRow;
+            // console.log(this.attendanceFill)
+        },
+        
+        FinesPayment(){
+            // for adding payment database
+            // axios.post('/FinesAccountabilityPayment', this.finesPay)
             //         .then(response => {
-            //             // this.showSucces('Events Successfuly Added');
+            //             // this.showSucces(response.data.message);
+            //             // this.fetchData();
+            //             // location.reload();
+            //             console.log(response.data)
             //         })
             //         .catch(error => {
             //             alert(error)
 
             //     });
+
+            //     console.log(this.attendanceFill)
+            
+            // //for adding to attendance to remove the list but leave remarks of 1 
+            axios.post('/attendanceFill', this.attendanceFill)
+                .then(response => {
+                    // this.showSucces(response.data.message);
+                    // this.fetchData();
+                    // location.reload();
+                    console.log(response.data.message)
+                })
+                .catch(error => {
+                    alert(error)
+
+            });
+
+        },
+        OtherAccountabilityPayment(){
+            console.log(this.otherAccountabilitiesPaymentDetails)
+            axios.post('/OtherAccountabilityPayment', this.otherAccountabilitiesPaymentDetails)
+                    .then(response => {
+                        // this.showSucces(response.data.message);
+                        // this.fetchData();
+                        location.reload();
+                    })
+                    .catch(error => {
+                        alert(error)
+
+                });
         },
         filterItems() {
             //FILTER OF FINES
@@ -255,6 +340,7 @@ export default{
         },
 
         viewAccountabilities(user_id){
+            // console.log(this.overall_fines_list)
             this.temporary_list= [];
             this.overall_fines_list.forEach(fines=>{
                 if (fines.user_id == user_id){
@@ -262,6 +348,7 @@ export default{
                         name: fines.name,
                         user_id: fines.user_id,
                         event_id: fines.event_id,
+                        event_name: fines.event_name,
                         amount: fines.amount,
                         missing_session: fines.missing_session,
                         accountability_type: fines.accountability_type,
@@ -269,7 +356,7 @@ export default{
                     });
                 }
             })
-            console.log(this.temporary_list)
+            // console.log(this.temporary_list)
         },
 
 
@@ -283,7 +370,6 @@ export default{
                         let user_orgs = response.data.user_orgs;
                         const year_level = response.data.year_level;
                         const year_level_exempted = response.data.year_level_exempted;
-                        
                         
                         const change_user_year_level = []
                         user_orgs.forEach(element => {
@@ -307,6 +393,7 @@ export default{
                     // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
                     const usersInOrg = [];
 
+                //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
                     user_orgs.forEach(userOrg => {
                     
                         if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
@@ -324,9 +411,9 @@ export default{
                             }
                         }
                     });
-                    console.log(user_orgs);
 
-                        //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
+
+                    
 
                         events_with_attendance.forEach(attend=> {
                             if (attend.attendance_count == 1){
@@ -402,8 +489,7 @@ export default{
 
                         const missingSessions = [];
 
-                        console.log(year_level_exempted)
-                        users.forEach(user => {
+                        usersInOrg.forEach(user => {
 
                             this.events.forEach(event => {
                                 for (const exemption of year_level_exempted) {
@@ -442,16 +528,20 @@ export default{
                                         const missing = {
                                             name: overall_fines_list.name,
                                             user_id: overall_fines_list.user_id,
-                                            event_id: event_name.name,
+                                            event_name: event_name.name,
+                                            event_id: event_name.event_id,
                                             amount: overall_fines_list.amount,
                                             missing_session: overall_fines_list.missing_session,
                                             accountability_type: overall_fines_list.accountability_type,
                                             date: overall_fines_list.date
                                         }
+            
                                         this.overall_fines_list.push(missing);
+                                    
                                     }
                                 })
                         })
+
                     
 
                         // Function to aggregate data by user ID
@@ -497,7 +587,7 @@ export default{
                                 accountability_type: aggregated.accountability_type
                             })
                         })
-
+                       
                         //FOR OTHER ACCOUNTABILITIES LOGIC
                         const accountability_paid = response.data.paid_accountabilities;
                         const organization_accountability_set = response.data.accountabilities_other;
@@ -507,11 +597,12 @@ export default{
                         const accountabilityTypes = new Set(organization_accountability_set.map(entry => entry.accountability_name));
 
                         // Find students who have not paid for their accountabilities and replace accountability_type
-                        const studentsNotPaid = users.reduce((acc, user) => {
+                        const studentsNotPaid = usersInOrg.reduce((acc, user) => {
                         if (!studentsWhoPaid.has(user.id)) {
                             // Push user details with an indication of not being paid and relevant accountability info
                             organization_accountability_set.forEach(entry => {
                             acc.push({
+                                accountability_id: entry.accountability_id,
                                 user_id: user.id,
                                 name: user.name,
                                 org_id: entry.org_id,
@@ -523,9 +614,11 @@ export default{
                         return acc;
                         }, []);
 
+                     // this.other_accountabilities_list = [];
                     // Display students who have not paid for their accountabilities with replaced accountability_type
                     studentsNotPaid.forEach(items =>{
                         this.other_accountabilities_list.push({
+                                accountability_id: items.accountability_id,
                                 name: items.name,
                                 user_id: items.user_id,
                                 amount: items.amount,
@@ -533,11 +626,18 @@ export default{
                             })
                     })
 
+                    // console.log(this.other_accountabilities_list);
                     })
                     .catch(error => {
                         console.log(error)
 
                 });
+        },
+
+        showSucces(message){
+            toast.success(message),{
+                autoClose: 100,
+            }
         },
 
     }

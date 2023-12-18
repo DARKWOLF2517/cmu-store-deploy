@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('organization_accountabilities', function (Blueprint $table) {
+            $table->id('accountability_id');
             $table->unsignedBigInteger('org_id');
             $table->string('accountability_name');
             $table->double('amount');

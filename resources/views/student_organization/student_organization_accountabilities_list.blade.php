@@ -19,7 +19,9 @@
         <div class="mt-2">
             <div class="row head-container">
             <show-accountabilities-list
-            :org_id = {{Session::get('org_id')}} />
+            :org_id = {{Session::get('org_id')}} 
+            user_id = {{Auth::id()}}
+            />
             </div>
         </div>
     </div>

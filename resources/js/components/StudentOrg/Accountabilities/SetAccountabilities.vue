@@ -19,7 +19,7 @@
                     <!-- option 1 -->
                     <li><a class="dropdown-item">Edit Accountability</a></li>
                     <!-- option 2 -->
-                    <li><a class="dropdown-item">Delete Accountability</a></li>
+                    <li @click="this.deleteId = accountability.accountability_id"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation" ><a class="dropdown-item">Delete Accountability</a></li>
                     <!-- Add more dropdown items as needed -->
                 </ul>
             </div>
@@ -62,6 +62,24 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Delete confirmation -->
+            <div class="modal fade " id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true" role="dialog">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>Are you sure you want to delete this Accountability?</b></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" @click="deleteAccountability()" data-bs-dismiss="modal">Delete</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
 </template>
 
 <script>
@@ -70,6 +88,7 @@ export default{
     props: ['org_id'],
     data(){
         return{
+            deleteId: 0,
             formData: {
                 description: '',
                 amount: '',
@@ -113,11 +132,26 @@ export default{
             axios.get(`/get_accountabilities/${this.org_id}`)
                     .then(response => {
                         this.accountabilityList = response.data;
+
                     })
                     .catch(error => {
                         alert(error)
 
                 });
+        },
+        deleteAccountability(){
+            axios.delete(`/delete_organization_accountability/${this.deleteId}`)
+                    .then(response => {
+                        this.showSucces(response.data.message);
+                        this.fetchData();
+                    })
+                    .catch(error => {
+                        if (error.response && error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+                        alert(error)
+
+            });
         },
 
     }

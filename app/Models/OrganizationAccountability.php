@@ -9,7 +9,7 @@ class OrganizationAccountability extends Model
 {
     use HasFactory;
     protected $table = 'organization_accountabilities';
-    // protected $primaryKey = 'org_id';
+    protected $primaryKey = 'accountability_id';
 
     protected $fillable = [
         'org_id',
