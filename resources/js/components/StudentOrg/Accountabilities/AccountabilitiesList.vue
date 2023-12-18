@@ -268,6 +268,7 @@ export default{
                         const year_level_exempted = response.data.year_level_exempted;
                         
                         
+
                         const change_user_year_level = []
                         user_orgs.forEach(element => {
 
@@ -289,9 +290,10 @@ export default{
 
                     // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
                     const usersInOrg = [];
+
                     user_orgs.forEach(userOrg => {
                     
-                        if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
+                        if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2) {
 
                         const userId = userOrg.student_id;
                         const foundUser = users.find(user => user.id === userId);
@@ -306,9 +308,9 @@ export default{
                             }
                         }
                     });
+                    console.log(user_orgs);
 
                         //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
-                            users = usersInOrg;
 
                         events_with_attendance.forEach(attend=> {
                             if (attend.attendance_count == 1){
@@ -434,6 +436,7 @@ export default{
                                     }
                                 })
                         })
+                    
 
                         // Function to aggregate data by user ID
                         const aggregateData = (dataArray) => {
@@ -478,7 +481,6 @@ export default{
                                 accountability_type: aggregated.accountability_type
                             })
                         })
-
 
                         //FOR OTHER ACCOUNTABILITIES LOGIC
                         const accountability_paid = response.data.paid_accountabilities;

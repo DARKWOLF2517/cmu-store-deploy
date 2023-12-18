@@ -75,6 +75,7 @@ class EventController extends Controller
         $event->location = $validatedData['location'];
         $event->description = $validatedData['description'];
         $event->require_attendance = $validatedData['require_attendance'] ?? 0;
+        $event->attendance_status = 0;
         $event->attendance_count = $validatedData['attendance_count'] ?? 1;
         $event->fines = $validatedData['fines'] ?? 0;
         $event->org_id = $validatedData['org_id'];
