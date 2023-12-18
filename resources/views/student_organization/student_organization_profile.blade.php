@@ -51,77 +51,73 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+                                    <div class="organization-details">
+                                        <div class="org-officers">
+                                            <div class="d-flex justify-content-end mb-3">
+                                                <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                                            </div>
+                                            <h5>Organization Officers</h5>
+                                            <ul>
+                                                <li>Taylor Swift - Chairperson</li>
+                                                <li>Ariana Grande - Vice-Chairperson Internal</li>
+                                                <li>Katy Perry - Vice-Chairperson External</li>
+                                            </ul>
+                                        </div>
 
-                        <div class="organization-details">
-                            <div class="org-officers">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                                        <div class="roles">
+                                            <div class="d-flex justify-content-end mb-3">
+                                                <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                                            </div>
+                                            <h5>Committee Members</h5>
+                                            <ul>
+                                                <li>Taylor Swift - Admin</li>
+                                                <li>Taylor Swift - Attendance Checker</li>
+                                            </ul>
+                                        </div>
+                                        <div class="partner-organizations">
+                                            <div class="d-flex justify-content-end mb-3">
+                                                <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
+                                            </div>
+                                            <h5>Organizations Partners</b></h5>
+                                            <li>PASOA</li>
+                                            <li>JPIA</li>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h5>Organization Officers</h5>
-                                <ul>
-                                    <li>Taylor Swift - Chairperson</li>
-                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                    <li>Katy Perry - Vice-Chairperson External</li>
-                                </ul>
-                            </div>
+                                <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
 
-                            <div class="roles">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                                    <div class="organization-details">
+                                        <div class="org-officers">
+                                            <div class="d-flex justify-content-end mb-3">
+                                                <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                                            </div>
+                                            <h3>Organization Officers</h3>
+                                            <ul>
+                                                <li>Taylor Swift - Chairperson</li>
+                                                <li>Ariana Grande - Vice-Chairperson Internal</li>
+                                                <li>Katy Perry - Vice-Chairperson External</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="roles">
+                                            <div class="d-flex justify-content-end mb-3">
+                                                <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                                            </div>
+                                            <h3>Committee Members</h3>
+                                            <ul>
+                                                <li>Taylor Swift - Admin</li>
+                                                <li>Taylor Swift - Attendance Checker</li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h5>Committee Members</h5>
-                                <ul>
-                                    <li>Taylor Swift - Admin</li>
-                                    <li>Taylor Swift - Attendance Checker</li>
-                                </ul>
-                            </div>
-                            <div class="partner-organizations">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
-                                </div>
-                                <h5>Organizations Partners</b></h5>
-                                <li>PASOA</li>
-                                <li>JPIA</li>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-
-                        <div class="organization-details">
-                            <div class="org-officers">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
-                                </div>
-                                <h3>Organization Officers</h3>
-                                <ul>
-                                    <li>Taylor Swift - Chairperson</li>
-                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                    <li>Katy Perry - Vice-Chairperson External</li>
-                                </ul>
-                            </div>
-
-                            <div class="roles">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
-                                </div>
-                                <h3>Committee Members</h3>
-                                <ul>
-                                    <li>Taylor Swift - Admin</li>
-                                    <li>Taylor Swift - Attendance Checker</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-            </div>
-            </div>
-            </div>
-            </div>
-
+        </div>
 </div>
  <!-- Edit Details Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">

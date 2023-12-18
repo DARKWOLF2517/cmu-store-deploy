@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 
             <table id="student-list-table">
                 <thead>
@@ -67,4 +67,7 @@ export default{
         },
     },
 }
-</script>
+</script> -->
+<template>
+
+</template>

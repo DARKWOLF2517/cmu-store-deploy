@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th>Student ID</th>
-                                    <th>Last Name</th>
+                                    <!-- <th>Last Name</th> -->
                                     <th>Full Name</th>
                                     <th>Year Level</th>
                                     <th style="width: 20%;">Actions</th>

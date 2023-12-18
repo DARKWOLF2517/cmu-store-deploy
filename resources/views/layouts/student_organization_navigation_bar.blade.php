@@ -87,13 +87,23 @@
                             show_icon = "{{false}}"
                             >
                         </side-nav-button> --}}
+                        <li>
+                            <side-nav-button
+                                link_name="Profile"
+                                link_route = "{{url('/student_organization_profile')}}"
+                                show_icon = "{{false}}"
+                                >
+                            </side-nav-button>
+                        </li>
 
-                        <side-nav-button
-                            link_name="Profile"
-                            link_route = "{{url('/student_organization_profile')}}"
+                        <li>
+                            <side-nav-button
+                            link_name="Switch User"
+                            {{-- link_route = "{{url('/student_organization_profile')}}" --}}
                             show_icon = "{{false}}"
                             >
                         </side-nav-button>
+                        </li>
 
                         <li><hr class="dropdown-divider"></li>
 
@@ -137,6 +147,14 @@
                         </button>
                     </li>
                     <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-calendar"></i>
+                            <a href="/student_organization_events">
+                            <span class="link-title">Events</span>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
                             <i class="fas fa-clipboard-check"></i>
                             <span class="link-title">Attendance</span>
@@ -150,14 +168,7 @@
                         </div>
                     </li>
 
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-calendar"></i>
-                            <a href="/student_organization_events">
-                            <span class="link-title">Events</span>
-                            </a>
-                        </button>
-                    </li>
+
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center studentlist-button">
                             <i class="	fas fa-list-alt"></i>

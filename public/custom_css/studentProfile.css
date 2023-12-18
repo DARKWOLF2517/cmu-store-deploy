@@ -64,8 +64,8 @@ p{
     padding: 0;
 }
 .student-details.flex {
-    display: flex; /* Use flex display */
-    justify-content: space-between; /* Adjust alignment as needed */
+    display: flex;
+    justify-content: space-between;
 }
 .student-details p{
     margin: 2px;
