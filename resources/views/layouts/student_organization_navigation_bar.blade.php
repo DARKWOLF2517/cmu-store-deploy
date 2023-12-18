@@ -148,7 +148,7 @@
                     </li>
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-calendar"></i>
+                            <i class="	fas fa-calendar-alt"></i>
                             <a href="/student_organization_events">
                             <span class="link-title">Events</span>
                             </a>
@@ -162,7 +162,7 @@
                         </button>
                         <div class="collapse" id="dashboard-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="/student_organization_attendance_schedule" class="link-dark rounded"><i class="fas fa-calendar"></i> Schedule</a></li>
+                                <li><a href="/student_organization_attendance_schedule" class="link-dark rounded"><i class="fas fa-calendar-check"></i> Schedule</a></li>
                                 <li><a href="/student_organization_attendance" class="link-dark rounded"><i class="fas fa-check-circle"></i> Record</a></li>
                             </ul>
                         </div>

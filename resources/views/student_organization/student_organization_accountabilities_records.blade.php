@@ -12,7 +12,7 @@
                     <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item">Student Organization</li>
                     <li class="breadcrumb-item active" aria-current="page">Accountabilities</li>
-                    <li class="breadcrumb-item active" aria-current="page">Membership Fee List</li>
+                    <li class="breadcrumb-item active" aria-current="page">Paid Accountabilities</li>
                 </ol>
             </nav>
         </div>

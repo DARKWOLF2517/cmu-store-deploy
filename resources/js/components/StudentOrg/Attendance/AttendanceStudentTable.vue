@@ -25,10 +25,10 @@
                 <div class=" student-buttons d-flex justify-content-end">
                     <div class="btn-group" role="group">
                         <button class="btn me-2" id="add-student-list-button">
-                            <i class="fas fa-print"></i> Print Recorded Attendance
+                            <i class="fas fa-print"></i> Print
                         </button>
                         <button class="btn me-2" id="add-student-button">
-                            <i class="fas fa-download"></i> Download Recorded Attendance
+                            <i class="fas fa-download"></i> Download
                         </button>
                     </div>
                 </div>

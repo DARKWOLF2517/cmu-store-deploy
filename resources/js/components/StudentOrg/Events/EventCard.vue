@@ -32,7 +32,7 @@
         <div class="event-buttons d-flex justify-content-end">
             <div class="btn-group" role="group">
             <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">
-                <i class="bi bi-calendar-event"></i> Add Event
+                <i class="far fa-calendar-plus"></i> Add Event
             </button>
             </div>
         </div>
@@ -72,10 +72,10 @@
 
                                     </ul>
                                 </div>
-                                        <h5 class="card-title mt-4 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
-                                        <h6 class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</h6>
-                                        <h6 class="card-subtitle text-muted">Scheduled Time: {{ event["start_attendance"] }} </h6>
-                                        <h6 class="card-text mt-2">Location: {{ event["location"] }} </h6>
+                                        <h6 class="card-title mt-4 mb-2">Event: <strong>{{ event["name"] }}</strong></h6>
+                                        <p class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</p>
+                                        <p class="card-subtitle text-muted">Scheduled Time: {{ event["start_attendance"] }} </p>
+                                        <p class="card-text text-muted">Location: {{ event["location"] }} </p>
                                         <!-- <h6 class="card-text">Description: {{ event["description"] }} </h6> -->
                                         <!-- <div class="card-actions">
                                             <button class="ellipsis-button" @click=" FetchUpdateData(event.event_id) "   type="button"  data-bs-toggle="modal" data-bs-target="#event-modal" > <i class="bi bi-pencil-square"></i></button> -->

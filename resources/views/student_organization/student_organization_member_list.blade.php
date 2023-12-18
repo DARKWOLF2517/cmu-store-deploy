@@ -42,7 +42,7 @@
             <div class="student-buttons d-flex justify-content-end">
                 <div class="btn-group" role="group">
                     <button  class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-                        <i class="fas fa-plus"></i> Add Student
+                        <i class="fas fa-plus"></i> Tag Student
                     </button>
 
 <!-- Add student Modal -->
@@ -92,8 +92,9 @@
                     <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
                     <i class="fas fa-file-excel"></i> Add student list
                     </button> --}}
-                    <button id="uploadButton" class="btn me-2"> <i class="fas fa-file-upload"></i> Upload Student List</button>
+                    <button id="uploadButton" class="btn me-2" > <i class="fas fa-file-upload"></i> Upload List</button>
                     <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+                    <button id="ellipsesButton" class="btn me-2"> <i class="fas fa-ellipsis-v"></i></button>
                 </div>
             </div>
             {{-- <div class="scroll-pane"> --}}

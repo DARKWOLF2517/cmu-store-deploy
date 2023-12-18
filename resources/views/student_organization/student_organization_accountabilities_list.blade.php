@@ -12,14 +12,14 @@
                     <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item">Student Organization</li>
                     <li class="breadcrumb-item active" aria-current="page">Accountabilities</li>
-                    <li class="breadcrumb-item active" aria-current="page">Membership Fee List</li>
+                    <li class="breadcrumb-item active" aria-current="page">Unpaid Accountabilities</li>
                 </ol>
             </nav>
         </div>
         <div class="mt-2">
             <div class="row head-container">
             <show-accountabilities-list
-            :org_id = {{Session::get('org_id')}} 
+            :org_id = {{Session::get('org_id')}}
             user_id = {{Auth::id()}}
             />
             </div>
@@ -34,4 +34,3 @@
         {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
 
 @endsection
-        

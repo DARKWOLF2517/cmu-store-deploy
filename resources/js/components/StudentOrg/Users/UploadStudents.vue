@@ -5,9 +5,9 @@
                 <tr>
                     <th>Student ID</th>
                                     <!-- <th>Last Name</th> -->
-                                    <th>Full Name</th>
-                                    <th>Year Level</th>
-                                    <th style="width: 20%;">Actions</th>
+                    <th>Full Name</th>
+                    <th>Year Level</th>
+                    <th style="width: 20%;">Actions</th>
                 </tr>
             </thead>
                 <tbody id="studentTableBody" v-for="students in this.studentList" :id="students.student_id">
@@ -43,17 +43,7 @@
                     </li>
                 </ul>
             </div>
-        <!-- <div class="pagination">
-            <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
-            <button id="previous-page-button" onclick="previousPage()" disabled>&lt; Previous</button>
-            <span id="pagination-numbers"></span>
-            <button id="next-page-button" onclick="nextPage()">Next &gt;</button>
-            <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
-        </div> -->
-
-
-
-        <!-- Modal for displaying Excel data -->
+        <!-- Modal for displaying Excel data before Uploading -->
         <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -66,10 +56,7 @@
                             <thead>
                                 <tr>
                                     <th>Student ID</th>
-                                    <th>Last Name</th>
-                                    <th>Middle Name</th>
-                                    <th>First Name</th>
-                                    <th>Suffix Name</th>
+                                    <th>Full Name</th>
                                     <th>Year Level</th>
                                 </tr>
                             </thead>
@@ -85,83 +72,6 @@
                 </div>
             </div>
         </div>
-
-    <!-- Modal for editing student data
-    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editStudentModalLabel">Edit Student</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form @submit="this.submit">
-                        <div class="form-group">
-                            <label for="studentId">Student ID</label>
-                            <input type="text" class="form-control" id="studentId" v-model="this.editData['student_id']" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label for="studentName">Name</label>
-                            <input type="text" class="form-control" id="studentName"  v-model="this.editData['name']">
-                        </div>
-                        <div class="form-group">
-                            <label for="studentEmail">Institutional Email</label>
-                            <input type="text" class="form-control" id="studentEmail" v-model="this.editData['email']">
-                        </div>
-                        <div class="form-group">
-                            <label for="yearLevel">Year Level</label>
-                            <input type="text" class="form-control" id="yearLevel" v-model="this.editData['year_level']">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="saveStudentChanges" @click="this.updateData()">Save Changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
- -->
-
-
-                <!--Modal for editing student data -->
-                <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="event-modal-label" aria-hidden="true" >
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="event-modal-label">Create Event</h5>
-                                </div>
-                                <div class="modal-body">
-                                    <form @submit="this.updateData"  id="eventsForm"  >
-                                        <div class="form-group">
-                                        <label for="studentId">Student ID</label>
-                                        <input type="text" class="form-control" id="studentId" v-model="this.editData['student_id']" disabled>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="studentName">Name</label>
-                                            <input type="text" class="form-control" id="studentName"  v-model="this.editData['name']">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="studentEmail">Institutional Email</label>
-                                            <input type="text" class="form-control" id="studentEmail" v-model="this.editData['email']">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="yearLevel">Year Level</label>
-                                            <input type="text" class="form-control" id="yearLevel" v-model="this.editData['year_level']">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" id="save-event-button">Save</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
 
 
 </template>
