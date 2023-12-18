@@ -24,17 +24,17 @@
                             <td class="present">Pending</td>
                             <td>
                                 
-                                    
+                                        <!-- <div> {{ this.user_answer_student_id }}</div> -->
                                         <!-- Check if this.evaluation_answer is defined -->
                                         <div v-if="this.user_answer_student_id.length > 0">
 
                                             <div v-if = "hasResponded(event['event_id'])"> You Already Responded</div>
-                                            <div v-else-if ="event['evaluation_status'] == 0 ">Evaluation is disable at the moment..</div>
-                                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate </button>
+                                            <!-- <div v-else-if ="event['evaluation_status'] == 0 ">Evaluation is disable at the moment..</div>
+                                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['evaluation_status'] == 1"> Evaluate </button> -->
                                         </div>
                                         <div v-else>
                                             <div v-if ="event['evaluation_status'] == 0">Evaluation is disable at the moment..</div>
-                                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['status'] == 1"> Evaluate</button>
+                                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['evaluation_status'] == 1"> Evaluate</button>
                                         </div> 
                                     
                                 </td>
@@ -72,7 +72,7 @@ export default {
                 axios.get(`/events/show/${this.organization_id}`)
                 .then(response => {
                     this.events = response.data;
-                    // console.log(this.events)
+                    console.log(this.events)
                 })
                 .catch(error => {
                     console.log(error)

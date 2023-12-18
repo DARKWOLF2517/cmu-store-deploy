@@ -83,6 +83,9 @@
           cardDescription: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ducimus, aliquam atque fugit voluptatibus dignissimos ipsum tempore ab numquam saepe veritatis possimus aut ipsam delectus assumenda sed autem omnis accusantium corrupti! `
         }
       },
+      mounted(){
+        console.log('asdfsdaf')
+      },
 
       computed: {
         truncatedDescription() {
