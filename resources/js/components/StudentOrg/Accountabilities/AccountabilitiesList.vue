@@ -185,7 +185,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 1, this.getTableData()">Mark As Paid</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 1, this.getTableData1()">Mark As Paid</button>
                         </div>
                     </div>
             </div>
@@ -214,8 +214,8 @@
 
 <script>
 import { convertDate } from '../Functions/DateConverter';
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+// import { toast } from 'vue3-toastify';
+// import 'vue3-toastify/dist/index.css';
 import * as XLSX from 'xlsx';
 
 export default{
@@ -253,7 +253,7 @@ export default{
     },
 
     methods:{
-        getTableData(){
+        getTableData1(){
             // Get a reference to the table
             var table = document.getElementById('temporaryList');
 
@@ -282,27 +282,27 @@ export default{
 
         FinesPayment(){
             // for adding payment database
-            // axios.post('/FinesAccountabilityPayment', this.finesPay)
-            //         .then(response => {
-            //             // this.showSucces(response.data.message);
-            //             // this.fetchData();
-            //             // location.reload();
-            //             console.log(response.data)
-            //         })
-            //         .catch(error => {
-            //             alert(error)
+            axios.post('/FinesAccountabilityPayment', this.finesPay)
+                    .then(response => {
+                        // this.showSucces(response.data.message);
+                        // this.fetchData();
+                        // location.reload();
+                        console.log(response.data)
+                    })
+                    .catch(error => {
+                        alert(error)
 
-            //     });
+                });
 
-            //     console.log(this.attendanceFill)
+                console.log(this.attendanceFill)
 
             // //for adding to attendance to remove the list but leave remarks of 1
             axios.post('/attendanceFill', this.attendanceFill)
                 .then(response => {
                     // this.showSucces(response.data.message);
                     // this.fetchData();
-                    location.reload();
-                    // console.log(response.data.message)
+                    // location.reload();
+                    console.log(response.data)
                 })
                 .catch(error => {
                     alert(error)
@@ -311,6 +311,7 @@ export default{
 
         },
         OtherAccountabilityPayment(){
+
             // console.log(this.otherAccountabilitiesPaymentDetails)
             axios.post('/OtherAccountabilityPayment', this.otherAccountabilitiesPaymentDetails)
                     .then(response => {
@@ -642,7 +643,7 @@ export default{
         },
 
 
-        printTable() {
+    printTable() {
         // Clone the table element to avoid modifying the original table
         const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
 
@@ -696,43 +697,43 @@ export default{
     },
 
     downloadTable() {
-      // Get the table data
-      const tableData = this.getTableData();
+        // Get the table data
+        const tableData = this.getTableData();
 
-      // Create a worksheet
-      const ws = XLSX.utils.aoa_to_sheet(tableData);
+        // Create a worksheet
+        const ws = XLSX.utils.aoa_to_sheet(tableData);
 
-      // Create a workbook
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+        // Create a workbook
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-      // Save the workbook as an Excel file
-      XLSX.writeFile(wb, 'UnpaidAccountabilities.xlsx');
+        // Save the workbook as an Excel file
+        XLSX.writeFile(wb, 'UnpaidAccountabilities.xlsx');
     },
 
     getTableData() {
-  // Get a reference to the table
-  const table = document.getElementById('accountabilities-table');
+        // Get a reference to the table
+        const table = document.getElementById('accountabilities-table');
 
-  // Initialize an array to store the table data
-  const tableData = [];
+        // Initialize an array to store the table data
+        const tableData = [];
 
-  // Iterate through the rows of the table
-  for (let i = 0; i < table.rows.length; i++) {
-    const rowData = [];
+        // Iterate through the rows of the table
+        for (let i = 0; i < table.rows.length; i++) {
+            const rowData = [];
 
-    // Iterate through the cells of the current row, excluding the last one
-    for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
-      // Push the cell value to the rowData array
-      rowData.push(table.rows[i].cells[j].textContent);
-    }
+            // Iterate through the cells of the current row, excluding the last one
+            for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
+            // Push the cell value to the rowData array
+            rowData.push(table.rows[i].cells[j].textContent);
+            }
 
-    // Push the row data to the tableData array
-    tableData.push(rowData);
-  }
+            // Push the row data to the tableData array
+            tableData.push(rowData);
+        }
 
-  // Return the table data
-  return tableData;
+        // Return the table data
+        return tableData;
 },
 
 

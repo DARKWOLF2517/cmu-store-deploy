@@ -18,8 +18,9 @@
         </div>
         <div class="mt-2">
             <div class="row head-container">
-            <show-accountabilities-record
-            :org_id = {{Session::get('org_id')}} />
+            <paid-accountabilities
+            :org_id = {{Session::get('org_id')}} >
+            </paid-accountabilities>
             </div>
         </div>
     </div>

@@ -29,22 +29,22 @@
     </div>
 
 
-<h4> <i class="fas fa-list mt-2"></i>  Student Accountabilities</h4>
+<h4> <i class="fas fa-list mt-2"></i>  Paid Accountabilities</h4>
 
 <div class="container" id="table-container">
     <div class="student-buttons d-flex justify-content-end">
         <div class="btn-group" role="group">
-            <button class="btn me-2" id="add-student-list-button" onclick="printTableData()">
+            <button class="btn me-2" id="add-student-list-button" @click="this.printTable()">
                 <i class="fas fa-print"></i> Print
             </button>
-            <button class="btn me-2" id="add-student-button" onclick="  downloadTableData()">
+            <button class="btn me-2" id="add-student-button" @click="this.downloadTable()">
                 <i class="fas fa-download"></i> Download
             </button>
         </div>
     </div>
     <div class="scroll-pane">
         <!-- fines accountabilities -->
-        <table  id="accountabilities-table" v-if="this.select_accountability === 'fines' ">
+        <table  id="accountabilities-table" >
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -53,31 +53,12 @@
                     <th>Amount</th>
                 </tr>
             </thead>
-            <tbody v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" >
+            <tbody >
                 <tr>
-                <td >{{ fines_list.user_id }}</td>
-                <td> {{ fines_list.name }}</td>
-                <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
-                <td>{{ fines_list.total_fines }}</td>
-                </tr>
-            </tbody>
-        </table>
-        <!-- other accountabilities -->
-        <table  id="accountabilities-table" v-if="this.select_accountability === 'others' ">
-            <thead>
-                <tr>
-                    <th>Student ID</th>
-                    <th>Student Name</th>
-                    <th>Accountabilities</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody v-for="fines_list in this.filtered_items_for_other_accountabilities" :id="fines_list.user_id" >
-                <tr>
-                <td >{{ fines_list.user_id }}</td>
-                <td> {{ fines_list.name }}</td>
-                <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
-                <td>{{ fines_list.amount }}</td>
+                <td >21</td>
+                <td> 21</td>
+                <td>12</td>
+                <td>12</td>
                 </tr>
             </tbody>
         </table>
@@ -133,30 +114,136 @@
 import { convertDate } from '../Functions/DateConverter';
 
 export default{
-    props: ['org_id'],
-    data(){
+
+props: ['org_id'],
+data(){
     return{
 
 
 
     }
+},
+
+mounted(){
+
+},
+created(){
+
+
+},
+
+methods:{
+    fetchData(){
+                axios.get(`/events/show/${this.organization_id}`)
+                .then(response => {
+                    document.getElementById("event-spinner").classList.add("hidden");
+                    // console.log(response.data)
+                    this.events = response.data;
+                })
+                .catch(error => {
+                    console.log('error')
+                });
+
+            },
+
+
+    
+    printTable() {
+        // Clone the table element to avoid modifying the original table
+        const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+
+        // Remove or hide the "Actions" column in each row
+        const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
+        const rows = tableToPrint.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            if (cells.length > actionsColumnIndex) {
+                // Remove the cell from the DOM
+                cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
+            }
+        }
+
+        // Hide the header cell for the "Actions" column
+        const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+        if (headerRow) {
+            const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
+            if (headerCell) {
+                headerCell.style.display = 'none';
+            }
+        }
+
+        // Open a new window for printing
+        const printWindow = window.open('', '_blank');
+
+        // Create a new HTML document in the print window
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Print</title>
+                <!-- Include Bootstrap stylesheet link -->
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            </head>
+            <body>
+                <!-- Add a title before the table -->
+                <h2>Unpaid Accountabilities</h2>
+
+                <!-- Add Bootstrap table classes -->
+                <table class="table table-bordered table-striped">
+                    ${tableToPrint.innerHTML}
+                </table>
+            </body>
+            </html>
+        `);
+
+        // Close the HTML document
+        printWindow.document.close();
+        printWindow.print();
     },
 
-    mounted(){
-    this.filtered_items_for_fines = this.fines_list;
-    this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
+    downloadTable() {
+        // Get the table data
+        const tableData = this.getTableData();
+
+        // Create a worksheet
+        const ws = XLSX.utils.aoa_to_sheet(tableData);
+
+        // Create a workbook
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+
+        // Save the workbook as an Excel file
+        XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
     },
-    created(){
-    this.fetchData();
 
-    },
+    getTableData() {
+        // Get a reference to the table
+        const table = document.getElementById('accountabilities-table');
 
-    methods:{
+        // Initialize an array to store the table data
+        const tableData = [];
+
+        // Iterate through the rows of the table
+        for (let i = 0; i < table.rows.length; i++) {
+            const rowData = [];
+
+            // Iterate through the cells of the current row, excluding the last one
+            for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
+            // Push the cell value to the rowData array
+            rowData.push(table.rows[i].cells[j].textContent);
+            }
+
+            // Push the row data to the tableData array
+            tableData.push(rowData);
+        }
+
+        // Return the table data
+        return tableData;
+},
 
 
 
-
-    }
+}
 
 
 }

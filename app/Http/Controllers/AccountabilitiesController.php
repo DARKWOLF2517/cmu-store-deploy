@@ -139,16 +139,6 @@ class AccountabilitiesController extends Controller
 
 
             foreach ($request->all() as $data) {
-                // // Create a new Attendance instance and insert data
-                // $attendance = Attendance::create([
-                //     'user_id' => $data['0'],
-                //     'org_id' => $data['7'],
-                //     'event_id' => $data['6'],
-                //     'officer_id' =>$data['8'] ,
-                //     'session' => $data['5'],
-                //     // Add more columns if necessary based on your table structure
-                // ]);
-
                 $attendance = new Attendance([
                     'user_id' => $data['0'],
                     'org_id' => $data['7'],
