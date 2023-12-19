@@ -45,6 +45,25 @@
                         <i class="fas fa-plus"></i> Tag Student
                     </button>
 
+
+                    {{-- <input type="file" id="fileInput" accept=".xlsx" style="display: none;">
+                    <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-file-excel"></i> Add student list
+                    </button> --}}
+                    <button id="uploadButton" class="btn me-2" > <i class="fas fa-file-upload"></i> Upload List</button>
+                    <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+
+                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                        <!-- option 1 -->
+                        <li><a class="dropdown-item"  id="downloadButton">Download Template</a></li>
+
+                    </ul>
+                </div>
+                </div>
+
 <!-- Add student Modal -->
 <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -87,16 +106,6 @@
       </div>
     </div>
   </div>
-
-                    {{-- <input type="file" id="fileInput" accept=".xlsx" style="display: none;">
-                    <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
-                    <i class="fas fa-file-excel"></i> Add student list
-                    </button> --}}
-                    <button id="uploadButton" class="btn me-2" > <i class="fas fa-file-upload"></i> Upload List</button>
-                    <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
-                    <button id="ellipsesButton" class="btn me-2"> <i class="fas fa-ellipsis-v"></i></button>
-                </div>
-            </div>
             {{-- <div class="scroll-pane"> --}}
                 {{-- <member-list
                 organization_id = {{Session::get('org_id')}}
@@ -150,9 +159,34 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
-      <!-- Include exceljs for parsing Excel files -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 
+  <!-- Include exceljs for parsing Excel files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
+  <script>
+    export default {
+      methods: {
+        downloadFile() {
+          // Define the file name
+          var fileName = 'template.xlsx';
+
+          // Create a Blob containing the Excel file data
+          var blob = new Blob([], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+          // Create a virtual link element
+          var link = document.createElement('a');
+          link.href = window.URL.createObjectURL(blob);
+          link.download = fileName;
+
+          // Trigger a click on the link element to initiate the download
+          document.body.appendChild(link);
+          link.click();
+
+          // Remove the link element from the DOM
+          document.body.removeChild(link);
+        },
+      },
+    };
+    </script>
 {{-- <script>
 
 

@@ -34,10 +34,10 @@
 <div class="container" id="table-container">
         <div class="student-buttons d-flex justify-content-end">
             <div class="btn-group" role="group">
-                <button class="btn me-2" id="add-student-list-button" onclick="printTableData()">
+                <button class="btn me-2" id="add-student-list-button" @click="printTable">
                     <i class="fas fa-print"></i> Print
                 </button>
-                <button class="btn me-2" id="add-student-button" onclick="  downloadTableData()">
+                <button class="btn me-2" id="add-student-button" @click="downloadTable">
                     <i class="fas fa-download"></i> Download
                 </button>
             </div>
@@ -70,7 +70,7 @@
                                     student_org_id: this.org_id,
                                 }
                             ">
-                            <i class="bi bi-eye"></i> See More
+                            <i class="fas fa-eye"></i> See More
                             </button>
                         </td>
                         </tr>
@@ -94,8 +94,8 @@
                         <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
                         <td>{{ fines_list.amount }}</td>
                         <td>
-                
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 2, 
+
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 2,
                                 this.otherAccountabilitiesPaymentDetails = {
                                     student_id: fines_list.user_id,
                                     student_name: fines_list.name,
@@ -216,6 +216,7 @@
 import { convertDate } from '../Functions/DateConverter';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import * as XLSX from 'xlsx';
 
 export default{
     props: ['org_id', 'user_id'],
@@ -244,7 +245,7 @@ export default{
     mounted(){
         this.filtered_items_for_fines = this.fines_list;
         this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
-        
+
     },
     created(){
         this.fetchData();
@@ -278,7 +279,7 @@ export default{
             this.attendanceFill = tableDataWithoutFirstRow;
             // console.log(this.attendanceFill)
         },
-        
+
         FinesPayment(){
             // for adding payment database
             // axios.post('/FinesAccountabilityPayment', this.finesPay)
@@ -294,8 +295,8 @@ export default{
             //     });
 
             //     console.log(this.attendanceFill)
-            
-            // //for adding to attendance to remove the list but leave remarks of 1 
+
+            // //for adding to attendance to remove the list but leave remarks of 1
             axios.post('/attendanceFill', this.attendanceFill)
                 .then(response => {
                     // this.showSucces(response.data.message);
@@ -370,7 +371,7 @@ export default{
                         let user_orgs = response.data.user_orgs;
                         const year_level = response.data.year_level;
                         const year_level_exempted = response.data.year_level_exempted;
-                        
+
                         const change_user_year_level = []
                         user_orgs.forEach(element => {
 
@@ -395,7 +396,7 @@ export default{
 
                 //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
                     user_orgs.forEach(userOrg => {
-                    
+
                         if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
 
                         const userId = userOrg.student_id;
@@ -413,7 +414,7 @@ export default{
                     });
 
 
-                    
+
 
                         events_with_attendance.forEach(attend=> {
                             if (attend.attendance_count == 1){
@@ -535,14 +536,14 @@ export default{
                                             accountability_type: overall_fines_list.accountability_type,
                                             date: overall_fines_list.date
                                         }
-            
+
                                         this.overall_fines_list.push(missing);
-                                    
+
                                     }
                                 })
                         })
 
-                    
+
 
                         // Function to aggregate data by user ID
                         const aggregateData = (dataArray) => {
@@ -587,7 +588,7 @@ export default{
                                 accountability_type: aggregated.accountability_type
                             })
                         })
-                       
+
                         //FOR OTHER ACCOUNTABILITIES LOGIC
                         const accountability_paid = response.data.paid_accountabilities;
                         const organization_accountability_set = response.data.accountabilities_other;
@@ -639,6 +640,102 @@ export default{
                 autoClose: 100,
             }
         },
+
+
+        printTable() {
+        // Clone the table element to avoid modifying the original table
+        const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+
+        // Remove or hide the "Actions" column in each row
+        const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
+        const rows = tableToPrint.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            if (cells.length > actionsColumnIndex) {
+                // Remove the cell from the DOM
+                cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
+            }
+        }
+
+        // Hide the header cell for the "Actions" column
+        const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+        if (headerRow) {
+            const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
+            if (headerCell) {
+                headerCell.style.display = 'none';
+            }
+        }
+
+        // Open a new window for printing
+        const printWindow = window.open('', '_blank');
+
+        // Create a new HTML document in the print window
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Print</title>
+                <!-- Include Bootstrap stylesheet link -->
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            </head>
+            <body>
+                <!-- Add a title before the table -->
+                <h2>Unpaid Accountabilities</h2>
+
+                <!-- Add Bootstrap table classes -->
+                <table class="table table-bordered table-striped">
+                    ${tableToPrint.innerHTML}
+                </table>
+            </body>
+            </html>
+        `);
+
+        // Close the HTML document
+        printWindow.document.close();
+        printWindow.print();
+    },
+
+    downloadTable() {
+      // Get the table data
+      const tableData = this.getTableData();
+
+      // Create a worksheet
+      const ws = XLSX.utils.aoa_to_sheet(tableData);
+
+      // Create a workbook
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+
+      // Save the workbook as an Excel file
+      XLSX.writeFile(wb, 'UnpaidAccountabilities.xlsx');
+    },
+
+    getTableData() {
+  // Get a reference to the table
+  const table = document.getElementById('accountabilities-table');
+
+  // Initialize an array to store the table data
+  const tableData = [];
+
+  // Iterate through the rows of the table
+  for (let i = 0; i < table.rows.length; i++) {
+    const rowData = [];
+
+    // Iterate through the cells of the current row, excluding the last one
+    for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
+      // Push the cell value to the rowData array
+      rowData.push(table.rows[i].cells[j].textContent);
+    }
+
+    // Push the row data to the tableData array
+    tableData.push(rowData);
+  }
+
+  // Return the table data
+  return tableData;
+},
+
+
 
     }
 

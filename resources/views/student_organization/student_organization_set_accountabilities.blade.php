@@ -16,7 +16,7 @@
         </div>
     </div>
             <div class="container" >
-                <h4> <i class="fas fa-bars"></i> Organization Accountabilities</h4>
+                <h4> <i class="fas fa-list"></i> Organization Accountabilities</h4>
 
                 <div class="alert alert-info mt-4" role="alert">
                     This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.

@@ -70,7 +70,7 @@
 
 
 <div class="row">
-    <div class="col-md-12 col-12">
+    <div class="col-md-12 col-12 feedback">
         <h4>Feedbacks</h4>
         <div class="feedbacklist-card">
             <ul class="list-group" id="evaluation-feedbacks">

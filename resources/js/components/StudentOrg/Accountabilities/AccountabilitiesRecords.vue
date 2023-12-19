@@ -34,10 +34,10 @@
 <div class="container" id="table-container">
 <div class="student-buttons d-flex justify-content-end">
 <div class="btn-group" role="group">
-    <button class="btn me-2" id="add-student-list-button" onclick="printTableData()">
+    <button class="btn me-2" id="add-student-list-button"  @click="printTable">
         <i class="fas fa-print"></i> Print
     </button>
-    <button class="btn me-2" id="add-student-button" onclick="  downloadTableData()">
+    <button class="btn me-2" id="add-student-button" @click="downloadTable">
         <i class="fas fa-download"></i> Download
     </button>
 </div>
@@ -82,13 +82,7 @@
         </tbody>
     </table>
 </div>
-<!-- <div class="pagination">
-    <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
-    <button id="previous-page-button" onclick="previousPage()" disabled>&lt; Previous</button>
-    <span id="pagination-numbers"></span>
-    <button id="next-page-button" onclick="nextPage()">Next &gt;</button>
-    <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
-</div> -->
+
 
 <div class="pagination-container mt-3">
     <ul class="pagination justify-content-center">
@@ -527,6 +521,99 @@ axios.get(`/fines_list/${this.org_id}`)
 
     });
 },
+printTable() {
+        // Clone the table element to avoid modifying the original table
+        const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+
+        // Remove or hide the "Actions" column in each row
+        const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
+        const rows = tableToPrint.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            if (cells.length > actionsColumnIndex) {
+                // Remove the cell from the DOM
+                cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
+            }
+        }
+
+        // Hide the header cell for the "Actions" column
+        const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+        if (headerRow) {
+            const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
+            if (headerCell) {
+                headerCell.style.display = 'none';
+            }
+        }
+
+        // Open a new window for printing
+        const printWindow = window.open('', '_blank');
+
+        // Create a new HTML document in the print window
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Print</title>
+                <!-- Include Bootstrap stylesheet link -->
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            </head>
+            <body>
+                <!-- Update the title to "Paid Accountabilities" -->
+                <h2>Paid Accountabilities</h2>
+
+                <!-- Add Bootstrap table classes -->
+                <table class="table table-bordered table-striped">
+                    ${tableToPrint.innerHTML}
+                </table>
+            </body>
+            </html>
+        `);
+
+        // Close the HTML document
+        printWindow.document.close();
+        printWindow.print();
+    },
+
+
+        downloadTable() {
+    // Get the table data
+    const tableData = this.getTableData();
+
+    // Create a worksheet
+    const ws = XLSX.utils.aoa_to_sheet(tableData);
+
+    // Create a workbook
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+
+    // Save the workbook as an Excel file with the desired filename
+    XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
+    },
+    getTableData() {
+  // Get a reference to the table
+  const table = document.getElementById('accountabilities-table');
+
+  // Initialize an array to store the table data
+  const tableData = [];
+
+  // Iterate through the rows of the table
+  for (let i = 0; i < table.rows.length; i++) {
+    const rowData = [];
+
+    // Iterate through the cells of the current row
+    for (let j = 0; j < table.rows[i].cells.length; j++) {
+      // Push the cell value to the rowData array
+      rowData.push(table.rows[i].cells[j].textContent);
+    }
+
+    // Push the row data to the tableData array
+    tableData.push(rowData);
+  }
+
+  // Return the table data
+  return tableData;
+},
+
 
 }
 

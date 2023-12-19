@@ -69,7 +69,7 @@ export default{
 
                 });
         },
-        
+
         fetchEventsWithAttendance(){
             axios.get(`/accountabilities/${this.org_id}`)
                 .then(response => {
@@ -107,7 +107,7 @@ export default{
                     });
                     console.log(this.attendanceCount);
 
-                    
+
                 })
                 .catch(error => {
                     // alert(error)

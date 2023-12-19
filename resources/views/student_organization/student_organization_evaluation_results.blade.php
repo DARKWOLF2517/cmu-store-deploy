@@ -48,6 +48,45 @@
   <script type="text/javascript" charset="UTF-8" src="https://www.gstatic.com/charts/51/js/jsapi_compiled_corechart_module.js"></script>
 
 
+    <!-- Add jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Add your custom script with inline CSS -->
+    <script>
+        $(document).ready(function() {
+            // Create a style element and append it to the head
+            var customStyles = '<style>' +
+                '.col { padding: 15px;  margin-bottom: 20px;}' +
+                '.no-stack { display: flex; flex-wrap: nowrap; }' +
+                '.col { display: flex; flex-direction: column; }' +
+                '</style>';
+            $('head').append(customStyles);
+
+            $("#print-results-button").click(function() {
+                printEvaluationSummary();
+            });
+
+            function printEvaluationSummary() {
+                // Get the content of the evaluation summary
+                var evaluationSummaryContent = $("#evaluation-summary").html();
+
+                // Create a new window to print the content
+                var printWindow = window.open('', '_blank');
+                printWindow.document.open();
+                printWindow.document.write('<html><head><title>Evaluation Summary</title>');
+                printWindow.document.write('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">');
+                printWindow.document.write(customStyles); // Include custom styles in the new window
+                printWindow.document.write('</head><body>');
+                printWindow.document.write(evaluationSummaryContent);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+
+                // Trigger the print dialog
+                printWindow.print();
+            }
+        });
+    </script>
+</head>
 
 
   @endsection
