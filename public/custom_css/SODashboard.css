@@ -65,7 +65,6 @@
     background-size: 100% 100%;
     background-size: cover;
     background-repeat: no-repeat;
-    color: rgb(20, 20, 20);
     padding: 40px;
     border: none;
     border-radius: 10px;
@@ -78,9 +77,12 @@
 .welcome-text {
     padding: 5px;
     position: absolute;
-    bottom: 10px; /* Adjust as needed */
-    left: 10px; /* Adjust as needed */
+    bottom: 10px;
+    left: 10px;
     font-size: 30px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 

@@ -11,10 +11,10 @@
         </div>
         <br>
 
-        <table class="table table-styled"  >
+        <table class="table"  >
         <thead>
         <tr>
-            <th>Events</th>
+            <th >Events</th>
             <th>Date</th>
             <th>Status</th>
             <th>Evaluation status</th>

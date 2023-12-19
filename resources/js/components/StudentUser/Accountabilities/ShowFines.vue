@@ -19,10 +19,14 @@
         </div>
         <div class="scroll-pane">
             <div class="container" id="accountabilities-table">
-                <table  id="accountabilities-table">
+                <table class="student-accountabilities" id="accountabilities-table">
                         <tr>
-                            <th>Student Name</th>
-                            <td>{{ this.name }}</td>
+                            <th style="width: 30%; background-color: #53967c; color: white;"> <h5> <b>Student Name</b></h5></th>
+                            <td style=" background-color: #53967c; color: white;"><h5>{{ this.name }}</h5></td>
+                        </tr>
+                        <tr>
+                            <th> <h6><b>Accountabilities</b> </h6></th>
+                            <td> <h6><b>Amount</b></h6>  </td>
                         </tr>
                         <tr>
                             <th>Fines</th>

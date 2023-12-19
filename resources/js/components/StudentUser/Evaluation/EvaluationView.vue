@@ -1,6 +1,6 @@
 <template>
         <div class="container mb-3" id="tablecontainer" v-for="(event , index) in this.events" :id="event.event_id">
-                <h4> Event name: {{ event["name"] }}</h4>
+                <h5> <span class="text-muted">Event name:</span>  <b>{{ event["name"] }} </b></h5>
                 <!-- <h6> Number of Days: 2</h6>
                 <h6> Total number of Attendance made: 4 </h6> -->
                 <table class="mt-4">
@@ -29,11 +29,11 @@
                                         <div v-if="this.user_answer_student_id.length > 0">
 
                                             <div v-if = "hasResponded(event['event_id'])"> You Already Responded</div>
-                                            <div v-else-if ="event['evaluation_status'] == 0 ">Evaluation is disabled at the moment..</div>
+                                            <div v-else-if ="event['evaluation_status'] == 0 ">Evaluation is unavailable at the moment..</div>
                                             <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['evaluation_status'] == 1"> Evaluate </button>
                                         </div>
                                         <div v-else>
-                                            <div v-if ="event['evaluation_status'] == 0">Evaluation is disabled at the moment..</div>
+                                            <div v-if ="event['evaluation_status'] == 0">Evaluation is unavailable at the moment..</div>
                                             <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if ="event['evaluation_status'] == 1"> Evaluate</button>
                                         </div>
 

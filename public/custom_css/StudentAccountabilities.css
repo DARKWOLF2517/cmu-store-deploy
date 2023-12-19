@@ -8,6 +8,12 @@ table {
 th,
 td {
     padding: 8px;
+    border: 1px solid #ddd;
+}
+
+
+
+td{
     text-align: center;
 }
 .scroll-attendance{
@@ -62,7 +68,11 @@ height: 75vh;
 max-height: 65vh;
 
 }
-
+.sortable-header{
+    background-color: #53967c;
+    color: white;
+    text-align: center;
+}
 
 
 .modal{
@@ -120,7 +130,7 @@ max-height: 65vh;
     td {
         border: 1px solid #ddd;
         padding: 8px;
-        text-align: center;
+
     }
 
     .scroll-attendance {
@@ -132,7 +142,6 @@ max-height: 65vh;
     }
 
     th {
-        background-color: #69a09d;
         width: 40vh; /* Adjust width for smaller screens */
         color: white;
     }

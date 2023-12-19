@@ -58,12 +58,12 @@ body {
   }
 
   .login-form .submit:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: #53967c;
+    border-color: #53967c;
   }
 
   .login-form a {
-    color: #007bff;
+    color: #53967c;
   }
 
   .login-form a:hover {

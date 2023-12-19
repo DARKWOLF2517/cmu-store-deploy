@@ -2,45 +2,12 @@ body{
     background-color: #f3f7fb;
     font-family: sans-serif;
 }
-.top-nav {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    background-color: #0b904f;
-    color: #000000;
-    padding: 0.875rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 3.125rem;
-}
 
-
-.top-nav .notification-button {
-    display: flex;
-    align-items: center;
-    color: #000000;
-    text-decoration: none;
-    margin-right: 0.625rem;
-}
-
-.nav-name {
-    padding-left: 3.75rem;
-}
-
-.top-nav .profile-dropdown {
-    display: flex;
-    align-items: center;
-    color: #000000;
-    text-decoration: none;
-}
 .header{
     text-align: center;
     justify-content: center;
     margin-top: 100px;
-}
-.h1{
-    color: #283739;
+    color: rgb(22, 27, 26);
 }
 
 .top-nav .profile-dropdown .profile-name {
