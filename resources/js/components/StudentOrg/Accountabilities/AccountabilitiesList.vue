@@ -300,8 +300,8 @@ export default{
                 .then(response => {
                     // this.showSucces(response.data.message);
                     // this.fetchData();
-                    // location.reload();
-                    console.log(response.data.message)
+                    location.reload();
+                    // console.log(response.data.message)
                 })
                 .catch(error => {
                     alert(error)
@@ -310,7 +310,7 @@ export default{
 
         },
         OtherAccountabilityPayment(){
-            console.log(this.otherAccountabilitiesPaymentDetails)
+            // console.log(this.otherAccountabilitiesPaymentDetails)
             axios.post('/OtherAccountabilityPayment', this.otherAccountabilitiesPaymentDetails)
                     .then(response => {
                         // this.showSucces(response.data.message);
