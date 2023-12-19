@@ -4,7 +4,7 @@
             <div class="record-date-container"><span class="event-date">{{attendance['start_date']}}</span></div>
             <div class="record-title">{{ attendance['name'] }}</div>
             <div class="record-description">Number of Attendance recorded: <b>{{attendance['attendance']}}</b></div>
-            <button v-if="attendance['attendance'] !== 0"  class="view-button" @click="attendance_result(attendance.event_id)"> <i class="fas fa-chevron-right button-icon"></i></button>
+            <button v-if="attendance['attendance'] != 0"  class="view-button" @click="attendance_result(attendance.event_id)"> <i class="fas fa-chevron-right button-icon"></i></button>
         </div>
 </template>
 
@@ -27,17 +27,17 @@
         },
         methods: {
             fetchData(){
+                //TO BE FIX TOMORROW
                 // console.log(this.evaluation_count)
                 axios.get(`/attendance_record/${this.organization_id}`)
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     const data = response.data;
                     data.forEach(item => {
-
-                    // console.log(item);
-                    item['attendance'] =  item['attendance'].length;
+                            item['attendance'] =  item['attendance'].length;
+                    
                     });
-                    this.attendance = response.data;
+                    this.attendance = data;
                 })
                 .catch(error => {
                     console.log('error')

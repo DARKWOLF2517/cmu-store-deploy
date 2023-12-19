@@ -15,6 +15,7 @@ class AttendanceController extends Controller
             ['event_id', $event_id],
             ['org_id', $org_id],
             ['session', $session],
+            ['remarks', 0],
         ])->get();
         
         return $attendance->toJson();
@@ -24,7 +25,8 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::where([
             ['org_id', $organization_id],
-            ['event_id', $event_id]
+            ['event_id', $event_id],
+            ['remarks', 0]
         ])->with(['user','events'])->get();
 
         return $attendance->toJson();
@@ -85,7 +87,11 @@ class AttendanceController extends Controller
     }
     public function attendanceRecord($organization_id)
     {   
-        $attendance = Event::where('org_id', $organization_id)->with('Attendance')->get();
+        $attendance = Event::where('org_id', $organization_id)
+        ->with(['Attendance' => function ($query) {
+            $query->where('remarks', 0); 
+        }])
+        ->get();
         return $attendance->toJson();
 
     }
