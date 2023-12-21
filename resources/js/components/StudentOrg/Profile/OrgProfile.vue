@@ -35,7 +35,7 @@
                             <!-- Add an edit button on the top right -->
                             <div class="d-flex justify-content-end mb-3">
                                 <button class="btn btn-light mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
-                                <button class="btn btn-light" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">Add School Year</button>
+                                
                             </div>
 
                             <div class="row student-details">
@@ -119,7 +119,7 @@
     <div class="col">
         <div class="roles">
             <div class="d-flex justify-content-between align-items-center mb-3 header">
-                <h5>Committee Members</h5>
+                <h5>Roles</h5>
                 <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
             </div>
 
@@ -155,6 +155,7 @@
         <div class="roles">
             <div class="d-flex justify-content-between align-items-center mb-3 header">
                 <h5>Semesters</h5>
+                <button class="btn btn-light" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
             </div>
 
             <table class="table">
@@ -165,13 +166,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1st Semester SY 2023-2024</td>
+                    <tr v-for="schoolYear in this.schoolYear">
+                        <td>{{ schoolYear['school_year'] }}</td>
                         <td>
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editSemesterModal">
+                            <button class="btn" @click=" this.schoolYearId = schoolYear.id ,SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear"  data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" >
                                 <i class="fas fa-edit"></i> Edit
                             </button>
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                            <button class="btn" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
                                 <i class="fas fa-times"></i> Remove
                             </button>
                         </td>
@@ -233,15 +234,16 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSchoolYearModalLabel">Add Semester</h5>
+                <h5 class="modal-title" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
+                <h5 class="modal-title" id="addSchoolYearModalLabel" v-else-if="this.schoolYearSubmit == this.updateSchoolYear">Edit School Year</h5>
             </div>
             <div class="modal-body">
-            <form @submit.prevent="this.addSemester" >
+            <form @submit.prevent="this.schoolYearSubmit" >
                 <!-- Semester and Academic Year Input -->
                 <label for="editYearSemester">Semester and Academic Year :</label>
                     <br>
                     <small> <b>ex: 1st Semester SY 2023-2024</b></small>
-                    <input type="text" class="form-control" id="academicYearInput" placeholder="Enter Academic Year" v-model="addSchoolYear.school_year">
+                    <input type="text" class="form-control" id="academicYearInput" placeholder="Enter Academic Year" v-model="addSchoolYears.school_year">
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -254,28 +256,6 @@
     </div>
 </div>
 
-<!-- Edit Semester -->
-<div class="modal fade" id="editSemesterModal" tabindex="-1" aria-labelledby="editSemesterModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editSemesterModalLabel">Edit Semester and Academic Year</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Form elements for editing semester and academic year -->
-                <label for="editAcademicYearInput" class="form-label">Semester and Academic Year:</label>
-                <br>
-                <small><b>ex: 1st Semester SY 2023-2024</b></small>
-                <input type="text" class="form-control" id="editAcademicYearInput">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Semester Delete confirmation-->
 <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -285,11 +265,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this Semester</p>
+                <p>Are you sure you want to delete this School Year</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-danger" @click="this.deleteSchoolYear" data-bs-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
@@ -572,31 +552,82 @@ export default{
     props:['org_id'],
     data(){
         return{
-            addSchoolYear: {
+            addSchoolYears: {
                 school_year: '',
                 org_id: this.org_id,
             },
+            schoolYear: [],
+            schoolYearSubmit : this.addSchoolYear,
+            schoolYearId: 0,
         }
     },
     mounted(){
-        console.log(this.org_id)
+        console.log(this.org_id);
+        this.viewSchoolYear()
     },
     methods: {
-        addSemester(){
-            axios.post('/add_school_year', this.addSchoolYear)
+        deleteSchoolYear(){
+            axios.delete(`/deleteSchoolYear/${this.schoolYearId}`)
                     .then(response => {
                         this.showSucces(response.data.message);
                     })
                     .catch(error => {
-                        alert(error)
+                        console.log(error)
+            });
+
+        },
+        updateSchoolYear(){
+            axios.put(`/update_school_year/${this.schoolYearId}`, this.addSchoolYears)
+                .then(response => {
+                    this.showSucces(response.data.message);
+                })
+                .catch(error => {
+                    // console.error('Error updating user:', error);
+                    alert('Error updating user:', error)
+                });
+        },
+        SchoolYearFetchUpdate(){
+            axios.get(`edit_school_year/${this.schoolYearId}`)
+                .then(response => {
+                    this.addSchoolYears = response.data
+                })
+                .catch(error => {
+
+                });
+        },
+        viewSchoolYear(){
+            axios.get(`/view_school_year/${this.org_id}`)
+                .then(response => {
+                    // console.log(response.data)
+                    this.schoolYear = response.data
+                })
+                .catch(error => {
+                    alert(error)
+
+                });
+        },
+        addSchoolYear(){
+            axios.post('/add_school_year', this.addSchoolYears)
+                .then(response => {
+                    this.showSucces(response.data.message);
+                })
+                .catch(error => {
+                    alert(error)
 
                 });
         },
         showSucces(message){
+            this.viewSchoolYear()
             toast.success(message),{
                 autoClose: 100,
             }
         },
+        clearSchoolYearData(){
+            this.addSchoolYears = {
+                school_year:'',
+                org_id: this.org_id,
+                }
+        }
     },
 
 }

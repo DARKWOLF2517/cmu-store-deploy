@@ -193,6 +193,10 @@ Route::middleware(['auth'])->group(function(){
 
             #ORG PROFILE ROUTE
             Route::post('/add_school_year',[OrgProfileController::class, 'addSchoolYear']);
+            Route::get('/view_school_year/{org_id}',[OrgProfileController::class, 'viewSchoolYear']);
+            Route::get('/edit_school_year/{id}',[OrgProfileController::class, 'fetchUpdateSchoolYear']);
+            Route::put('/update_school_year/{id}',[OrgProfileController::class, 'updateSchoolYear']);
+            Route::delete('/deleteSchoolYear/{id}',[OrgProfileController::class, 'DeleteSchoolYear']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){
