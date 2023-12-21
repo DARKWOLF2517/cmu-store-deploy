@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\SchoolYear;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -63,6 +64,7 @@ class EventController extends Controller
             'attendance_count' => 'nullable|integer',
             'fines' => 'nullable',
             'org_id' => 'required|exists:organizations,org_id',
+            'school_year_input' => 'required',
         ]);
 
         // Create a new Event instance
@@ -79,10 +81,12 @@ class EventController extends Controller
         $event->attendance_count = $validatedData['attendance_count'] ?? 1;
         $event->fines = $validatedData['fines'] ?? 0;
         $event->org_id = $validatedData['org_id'];
+        $event->school_year = $validatedData['school_year_input'];
         $event->save();
 
         // Redirect or return a response
         return response()->json(['message' => 'Event Created successfully']);
+        // return $request;
     }
 
     public function edit($event_id)
@@ -117,4 +121,9 @@ class EventController extends Controller
         return response()->json(['message' => 'Event '. $event-> name.' Deleted successfully']);
     }
 
+    public function getSchoolYear($organization_id)
+    {   
+        $events = SchoolYear::where('org_id', $organization_id)->get();
+        return response()->json($events);
+    }
 }

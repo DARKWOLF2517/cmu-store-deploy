@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrgProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 
@@ -167,7 +168,6 @@ Route::middleware(['auth'])->group(function(){
                 return view('student_organization.student_organization_events');
             });
 
-
             Route::get('/events', [EventController::class, 'showEvents'])->name('events');
             Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events-destroy');
             Route::post('/events', [EventController::class, 'store'])->name('event-store');
@@ -176,7 +176,9 @@ Route::middleware(['auth'])->group(function(){
 
             Route::get('/events/count',[EventController::class, 'getEventsCount'])->name('get-events-count');
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
+            Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
 
+            
 
             #ACCOUNTABILITIES ROUTE
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
@@ -187,6 +189,10 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/attendanceFill',[AccountabilitiesController::class, 'attendanceFill']);
             Route::delete('/delete_organization_accountability/{accountability_id}',[AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
             Route::get('/paid_accountabilities/{org_id}',[AccountabilitiesController::class, 'PaidAccountabilities']);
+
+
+            #ORG PROFILE ROUTE
+            Route::post('/add_school_year',[OrgProfileController::class, 'addSchoolYear']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){
