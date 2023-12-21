@@ -15,21 +15,39 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: 15px;
     /* box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
-    margin: auto; /* Center horizontally */
-    margin-top: 30%; /* Adjust the top margin as needed */
+    margin: auto;
+    margin-top: 30%;
 }
 
 #icon-message {
-    margin-top: 10px;
     font-size: 5em;
     color: #d6e7e1;
 }
+
 
 .empty-container {
     font-size: 1.2em;
     margin-top: 10px;
 }
+
+.Container-IfEmpty {
+    text-align: center;
+    padding: 10px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
+    margin: auto;
+    margin-top: 10%;
+  }
+
+  .Empty-Message {
+    font-size: 1.2em;
+  }
 .fa-search{
     color: #42b385;
 }

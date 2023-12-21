@@ -1,5 +1,9 @@
 <template>
     <div class="timeline-body">
+        <div class="Message-IfEmpty">
+                                <i class="icon 	far fa-calendar-times" id="icon-message"></i>
+                                <p class="empty-schedule">Nothing scheduled yet</p>
+                            </div>
         <ul class="sessions">
             <li v-for="event in this.events" :id="event.event_id">
                 <div class="date">{{ event.start_date }}</div>

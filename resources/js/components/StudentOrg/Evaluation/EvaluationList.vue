@@ -1,5 +1,15 @@
 <template>
+
+         <!-- Message if the container is empty -->
+         <div class="Container-IfEmpty" v-if="this.evaluation.length === 0">
+            <div class="Empty-Message">
+            <i class="icon 	far fa-file-alt" id="icon-message"></i>
+            <p class="text-muted">Evaluation cards show up here.</p>
+        </div>
+        </div>
+
         <div class="event-card" v-for="evaluation in this.evaluation" :id="evaluation.event_id">
+
             <!-- <h5> {{ evaluation['event_id'] }}</h5> -->
             <div class="dropdown">
                 <a class="ellipsis-button" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">

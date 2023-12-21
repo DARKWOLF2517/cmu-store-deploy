@@ -163,7 +163,7 @@
                         <div class="collapse" id="dashboard-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                 <li><a href="/student_organization_attendance_schedule" class="link-dark rounded"><i class="fas fa-calendar-check"></i> Schedule</a></li>
-                                <li><a href="/student_organization_attendance" class="link-dark rounded"><i class="fas fa-check-circle"></i> Record</a></li>
+                                <li><a href="/student_organization_attendance" class="link-dark rounded"><i class="fas fa-check-circle"></i> Records</a></li>
                             </ul>
                         </div>
                     </li>
@@ -197,7 +197,7 @@
                                 <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> Set Accountabilities</a></li>
                                 <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
                                 <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
-                                <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i>Paid Accountabilities</a></li>
+                                <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i> Paid Accountabilities</a></li>
                             </ul>
                         </div>
                     </li>

@@ -217,6 +217,11 @@
                 <label class="mt-4" for="editNumberOfStudents">Number of Members:</label>
                 <input type="text" class="form-control" id="editNumberOfStudents" value="550">
 
+                <label class="mt-4" for="editYearSemester">Semester and Academic year :</label>
+                <br>
+                <small> <b>ex: 1st Semester SY 2023-2024</b></small>
+                <input type="text" class="form-control" id="editNumberOfStudents">
+
                 <label class="mt-4" for="editSemester">Semester:</label>
                 <select class="form-control" id="editSemester">
                     <option value="first-semester">1st Semester</option>
