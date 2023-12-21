@@ -194,7 +194,7 @@
                         </button>
                         <div class="collapse" id="accountabilities-collapse">
                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> Set Accountabilities</a></li>
+                                <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-file-invoice-dollar"></i> Set Accountabilities</a></li>
                                 <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
                                 <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
                                 <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i> Paid Accountabilities</a></li>
