@@ -4,6 +4,9 @@ body {
     font-family: sans-serif;
 
 }
+.button-secondary{
+    background-color: #dde3e9;
+}
 
 .Message-IfEmpty, .Dashboard-IfEmpty {
     text-align: center;
@@ -20,6 +23,7 @@ body {
     margin: auto;
     margin-top: 30%;
 }
+
 
 #icon-message {
     font-size: 5em;

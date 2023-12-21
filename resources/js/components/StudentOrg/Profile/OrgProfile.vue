@@ -34,8 +34,8 @@
                         <div class="col">
                             <!-- Add an edit button on the top right -->
                             <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-light mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
-                                
+                                <button class="btn button-secondary mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
+
                             </div>
 
                             <div class="row student-details">
@@ -48,66 +48,75 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-                        <div class="organization-details">
-                            <div class="org-officers">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add officers</button>
-                                    <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+<div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+    <div class="organization-details">
+        <div class="org-officers" style="width: 50%;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5><b>Organization Officers</b></h5>
+                <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Officer</button>
+            </div>
 
-                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewOfficersModal">View Officers</a></li>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 50%; ">Name</th>
+                    <th style="width: 40%;">Position</th>
+                    <th style="width:10%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Taylor Swift</td>
+                    <td>Chairperson</td>
+                    <td>
+                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                        <!-- option 1 -->
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editOfficerModal">Edit Officer</a></li>
+                        <!-- option 2 -->
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeOfficerModal">Remove Officer</a></li>
+                    </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<div class="partner-organizations" style="width: 50%;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5><b>Organizations Partners</b></h5>
+        <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal">Set Partners</button>
+    </div>
 
-                                    </ul>
-                                </div>
-                                <h5> <b>Organization Officers</b> </h5>
-                                <div class="officers-list">
-                                    <ul>
-                                        <li>Taylor Swift - Chairperson</li>
-                                        <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                        <li>Katy Perry - Vice-Chairperson External</li>
 
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="partner-organizations">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#setPartnersModal">Set Partners</button>
-                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewPartnersModal">View Partners</a></li>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Partner</th>
+                    <th style="width: 10%; "></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>JPIA</td>
+                    <td>
+                        <!-- Ellipsis Button -->
+                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
 
-                                    </ul>
-                                </div>
-
-                                <h5><b>Organizations Partners</b></h5>
-                                <div class="partner-org-list">
-                                    <li>PASOA</li>
-                                    <li>JPIA</li>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-
-                        <div class="organization-details">
-                            <div class="org-officers">
-                                <div class="d-flex justify-content-end mb-3">
-                                    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add officers</button>
-                                </div>
-                                <h3>Organization Officers</h3>
-                                <ul>
-                                    <li>Taylor Swift - Chairperson</li>
-                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                    <li>Katy Perry - Vice-Chairperson External</li>
-                                </ul>
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                            <!-- option 1 -->
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editPartnerModal">Edit Partner</a></li>
+                            <!-- option 2 -->
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removePartnerModal">Delete Partner</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
                             </div>
                         </div>
                     </div>
@@ -119,16 +128,16 @@
     <div class="col">
         <div class="roles">
             <div class="d-flex justify-content-between align-items-center mb-3 header">
-                <h5>Roles</h5>
-                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
+                <h5> <b>Organization Roles</b> </h5>
+                <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
             </div>
 
             <table class="table">
                 <thead>
                     <tr>
-                        <th style="width: 40%;">Name</th>
-                        <th style="width: 20%;">Role</th>
-                        <th >Action</th>
+                        <th style="width: 50%;">Name</th>
+                        <th style="width: 40%;">Role</th>
+                        <th style="width: 10%;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -136,94 +145,92 @@
                         <td>Taylor Swift</td>
                         <td>Admin</td>
                         <td>
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editRoleModal">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn" data-bs-toggle="modal" data-bs-target="#removeUserModal">
-                                <i class="fas fa-times"></i> Remove
-                            </button>
+
+                        <!-- Ellipsis Button -->
+                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                            <!-- option 1 -->
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editRoleModal">Edit Role</a></li>
+                            <!-- option 2 -->
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeUserModal">Remove User</a></li>
+                        </ul>
                         </td>
                     </tr>
-                    <!-- Add more rows as needed -->
                 </tbody>
             </table>
         </div>
     </div>
 
     <!-- Table for semesters-->
-    <div class="col ms-3">
-        <div class="roles">
-            <div class="d-flex justify-content-between align-items-center mb-3 header">
-                <h5>Semesters</h5>
-                <button class="btn btn-light" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
-            </div>
+        <div class="col ms-3">
+            <div class="roles">
+                <div class="d-flex justify-content-between align-items-center mb-3 header">
+                    <h5> <b>Semesters</b> </h5>
+                    <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
+                </div>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Semester and School Year</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="schoolYear in this.schoolYear">
-                        <td>{{ schoolYear['school_year'] }}</td>
-                        <td>
-                            <button class="btn" @click=" this.schoolYearId = schoolYear.id ,SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear"  data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" >
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
-                                <i class="fas fa-times"></i> Remove
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Add more rows as needed -->
-                </tbody>
-            </table>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Semester and School Year</th>
+                            <th style="width: 10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="schoolYear in this.schoolYear">
+                            <td>{{ schoolYear['school_year'] }}</td>
+                            <td>
+                                <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                <i class="fas fa-ellipsis-v"></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                    <!-- option 1 -->
+                                    <li><a class="dropdown-item" @click=" this.schoolYearId = schoolYear.id ,SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear"  data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" >Edit</a></li>
+                                    <!-- option 2 -->
+                                    <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete</a></li>
+                                </ul>
+                                <!-- <button class="btn" @click=" this.schoolYearId = schoolYear.id ,SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear"  data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" >
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                                    <i class="fas fa-times"></i> Remove
+                                </button> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
 
-    </div>
-
-<!-- Modal here -->
-
-
-<!-- Add the modal structure for viewing partners -->
-<div class="modal fade" id="viewPartnersModal" tabindex="-1" role="dialog" aria-labelledby="viewPartnersModalLabel" aria-hidden="true">
+<!-- Edit Student Details Modal -->
+<div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewPartnersModalLabel">View Partners</h5>
+                <h5 class="modal-title" id="editDetailsModalLabel">Edit Student Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Add a table to display the list of partners -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Partner Name</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PASOA</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>JPIA</td>
-                            <td>
-                                <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                            </td>
-                        </tr>
-                        <!-- Add more rows for additional partners if needed -->
-                    </tbody>
-                </table>
+                <label for="editDescription">Description:</label>
+                <input type="text" class="form-control" id="editDescription" value="College of Information Sciences and Computing">
+
+                <label class="mt-4" for="editNumberOfStudents">Number of Members:</label>
+                <input type="text" class="form-control" id="editNumberOfStudents" value="550">
+
+
+                <label for="profileImage" class="mt-2">Change Profile Image: </label>
+                <br>
+                <input type="file" id="profileImageInput" accept="image/*">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateProfileImage()">Save changes</button>
             </div>
         </div>
     </div>
@@ -275,197 +282,6 @@
     </div>
 </div>
 
-<!-- Edit Student Details Modal -->
-<div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editDetailsModalLabel">Edit Student Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <label for="editDescription">Description:</label>
-                <input type="text" class="form-control" id="editDescription" value="College of Information Sciences and Computing">
-
-                <label class="mt-4" for="editNumberOfStudents">Number of Members:</label>
-                <input type="text" class="form-control" id="editNumberOfStudents" value="550">
-
-
-                <label for="profileImage" class="mt-2">Change Profile Image: </label>
-                <br>
-                <input type="file" id="profileImageInput" accept="image/*">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="updateProfileImage()">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- View Officer Modal -->
-<div class="modal fade" id="viewOfficersModal" tabindex="-1" role="dialog" aria-labelledby="viewOfficersModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="viewOfficersModalLabel">View Officers</h5>
-            </div>
-            <div class="modal-body">
-
-                <!-- Table with the list of officers -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Taylor Swift</td>
-                            <td>Chairperson</td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ariana Grande</td>
-                            <td>Vice-Chairperson Internal</td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Katy Perry</td>
-                            <td>Vice-Chairperson External</td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Delete</button>
-                            </td>
-                        </tr>
-                        <!-- Add more rows for other officers as needed -->
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!-- "Delete All" button -->
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteAllModal">Delete All</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Delete Confirmation Modal for Individual Officer -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this officer?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteIndividualButton">Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete All officers Confirmation Modal -->
-<div class="modal fade" id="confirmDeleteAllModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteAllModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmDeleteAllModalLabel">Confirm Delete</h5>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete all officers?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDeleteButton">Delete All</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit set Roles Modal -->
-<div class="modal fade" id="editRoleModal" tabindex="-1" role="dialog" aria-labelledby="editRoleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
-            </div>
-            <div class="modal-body">
-                <form id="editRoleForm">
-                    <div class="form-group">
-                        <label for="editRole">Select Role:</label>
-                        <select class="form-control" id="editRole" name="editRole">
-                            <option value="Admin">Admin</option>
-                            <option value="Attendance Checker">Attendance Checker</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" onclick="saveChanges()">Save Changes</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Remove User Modal -->
-<div class="modal fade" id="removeUserModal" tabindex="-1" role="dialog" aria-labelledby="removeUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="removeUserModalLabel">Remove User</h5>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to remove this user as ('role')?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" >Remove</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Add officers Modal -->
-<div class="modal fade" id="addOfficerModal" tabindex="-1" role="dialog" aria-labelledby="addOfficerModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addOfficerModalLabel">Add Officer</h5>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="officerName"><b>Name of Officer</b></label>
-                        <input type="text" class="form-control" id="officerName" placeholder="Enter name">
-                    </div>
-                    <div class="form-group mt-4">
-                        <label for="positionTitle"><b>Title of Position</b></label>
-                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success mt-2">Add Officer</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- Set Roles Modal -->
 <div class="modal fade" id="setRolesModal" tabindex="-1" role="dialog" aria-labelledby="setRolesModalLabel" aria-hidden="true">
@@ -503,6 +319,126 @@
     </div>
 </div>
 
+<!-- Edit Roles Modal -->
+<div class="modal fade" id="editRoleModal" tabindex="-1" role="dialog" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+            </div>
+            <div class="modal-body">
+                <form id="editRoleForm">
+                    <div class="form-group">
+                        <label for="editRole">Select Role:</label>
+                        <select class="form-control" id="editRole" name="editRole">
+                            <option value="Admin">Admin</option>
+                            <option value="Attendance Checker">Attendance Checker</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" onclick="saveChanges()">Save Changes</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete User Modal -->
+<div class="modal fade" id="removeUserModal" tabindex="-1" aria-labelledby="removeUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeUserModalLabel">Delete User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure to remove this User this role?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Delete User</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add officers Modal -->
+<div class="modal fade" id="addOfficerModal" tabindex="-1" role="dialog" aria-labelledby="addOfficerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addOfficerModalLabel">Add Officer</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="officerName"><b>Name of Officer</b></label>
+                        <input type="text" class="form-control" id="officerName" placeholder="Enter name">
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="positionTitle"><b>Title of Position</b></label>
+                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success mt-2">Add Officer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Officer Modal -->
+<div class="modal fade" id="editOfficerModal" tabindex="-1" aria-labelledby="editOfficerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editOfficerModalLabel">Edit Officer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label for="officerName"><b>Name of Officer</b></label>
+                        <input type="text" class="form-control" id="officerName">
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="positionTitle"><b>Title of Position</b></label>
+                        <input type="text" class="form-control" id="positionTitle">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Remove Officer Modal -->
+<div class="modal fade" id="removeOfficerModal" tabindex="-1" aria-labelledby="removeOfficerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeOfficerModalLabel">Remove Officer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this officer?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Remove Officer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Set Partners Modal -->
 <div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -536,6 +472,48 @@
                         <button type="submit" class="btn btn-success mt-2">Save</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Partner Modal -->
+<div class="modal fade" id="editPartnerModal" tabindex="-1" aria-labelledby="editPartnerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPartnerModalLabel">Edit Partner</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="organizationName"><b>Name of Organization:</b></label>
+                        <input type="text" class="form-control" id="organizationName">
+                    </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Partner Modal -->
+<div class="modal fade" id="removePartnerModal" tabindex="-1" aria-labelledby="removePartnerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removePartnerModalLabel">Delete Partner</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove this Organization?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Delete Partner</button>
             </div>
         </div>
     </div>
