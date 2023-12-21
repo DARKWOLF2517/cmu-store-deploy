@@ -161,13 +161,13 @@
                     </div>
     </div>
 </div> --}}
-
+<div class="content">
 <org-profile
 org_id = {{Session::get('org_id')}}
 >
 
 </org-profile>
-
+</div>
 @endsection
 @section('custom-script')
     <!-- Add Bootstrap JS and jQuery for tab functionality -->

@@ -22,7 +22,7 @@
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input" >
                             <option value="" disabled selected>Select Semester</option>
                             <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                            
+
                         </select>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this student?</p>
+                <p>Are you sure you want to delete this Event?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

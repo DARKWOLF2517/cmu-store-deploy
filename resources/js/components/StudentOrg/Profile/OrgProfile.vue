@@ -1,5 +1,5 @@
 <template>
-<div class="content">
+
     <div class="container mt-4">
         <div class="container breadcrumbs">
             <nav aria-label="breadcrumb">
@@ -43,7 +43,7 @@
                                     <h4><b>Student Organization Information</b></h4>
                                     <h6 class="mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h6>
                                     <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h6>
-                                    <h6><b>Semester: </b> <span id="number-of-students">1st Semester</span></h6>
+                                    <h6><b>Semester and Academic Year: </b> <span id="number-of-students">1st Semester</span></h6>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
 
                                     </ul>
                                 </div>
-                                <h5>Organization Officers</h5>
+                                <h5> <b>Organization Officers</b> </h5>
                                 <div class="officers-list">
                                     <ul>
                                         <li>Taylor Swift - Chairperson</li>
@@ -114,50 +114,76 @@
                 </div>
             </div>
         </div>
-                    <div class="col">
-                        <div class="roles">
-                            <div class="d-flex justify-content-between align-items-center mb-3 header">
-                                <h5>Committee Members</h5>
-                                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
-                            </div>
+        <div class="d-flex">
+    <!-- Committee Members Table -->
+    <div class="col">
+        <div class="roles">
+            <div class="d-flex justify-content-between align-items-center mb-3 header">
+                <h5>Committee Members</h5>
+                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
+            </div>
 
-                            <!-- Committee Members Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Role</th>
-                                        <th style="width: 20%;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Taylor Swift</td>
-                                        <td>Admin</td>
-                                        <td>
-                                            <!-- Add your action button here -->
-                                            <button class="btn " data-bs-toggle="modal" data-bs-target="#editRoleModal"> <i class="fas fa-edit"></i> Edit</button>
-                                            <button class="btn " data-bs-toggle="modal" data-bs-target="#removeUserModal"> <i class="fas fa-times"></i> Remove</button>
-                                        </td>
-                                    </tr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 40%;">Name</th>
+                        <th style="width: 20%;">Role</th>
+                        <th >Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Taylor Swift</td>
+                        <td>Admin</td>
+                        <td>
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editRoleModal">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#removeUserModal">
+                                <i class="fas fa-times"></i> Remove
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                                    <tr>
-                                        <td>Taylor Swift</td>
-                                        <td>Attendance Checker</td>
-                                        <td>
-                                            <!-- Add your action button here -->
-                                            <button class="btn " data-bs-toggle="modal" data-bs-target="#editRoleModal"> <i class="fas fa-edit"></i>Edit</button>
-                                            <button class="btn " data-bs-toggle="modal" data-bs-target="#removeUserModal"> <i class="fas fa-times"></i> Remove</button>
-                                        </td>
-                                    </tr>
-                                    <!-- Add more rows as needed -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+    <!-- Table for semesters-->
+    <div class="col ms-3">
+        <div class="roles">
+            <div class="d-flex justify-content-between align-items-center mb-3 header">
+                <h5>Semesters</h5>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Semester and School Year</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1st Semester SY 2023-2024</td>
+                        <td>
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#editSemesterModal">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
+                                <i class="fas fa-times"></i> Remove
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
+    </div>
 
 <!-- Modal here -->
 
@@ -216,17 +242,59 @@
                     <br>
                     <small> <b>ex: 1st Semester SY 2023-2024</b></small>
                     <input type="text" class="form-control" id="academicYearInput" placeholder="Enter Academic Year" v-model="addSchoolYear.school_year">
-            
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Save Changes</button>
                     </div>
             </form>
             </div>
-            
+
         </div>
     </div>
 </div>
+
+<!-- Edit Semester -->
+<div class="modal fade" id="editSemesterModal" tabindex="-1" aria-labelledby="editSemesterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSemesterModalLabel">Edit Semester and Academic Year</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form elements for editing semester and academic year -->
+                <label for="editAcademicYearInput" class="form-label">Semester and Academic Year:</label>
+                <br>
+                <small><b>ex: 1st Semester SY 2023-2024</b></small>
+                <input type="text" class="form-control" id="editAcademicYearInput">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Semester Delete confirmation-->
+<div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Semester</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Edit Student Details Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -500,7 +568,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 export default{
-    
+
     props:['org_id'],
     data(){
         return{
@@ -530,7 +598,7 @@ export default{
             }
         },
     },
-       
+
 }
 
 </script>
