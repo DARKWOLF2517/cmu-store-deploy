@@ -23,7 +23,8 @@ class Event extends Model
         'fines',
         'org_id',
         'evaluation_status',
-        'attendance_status'
+        'attendance_status',
+        'school_year'
     ];
 
     public function organization()

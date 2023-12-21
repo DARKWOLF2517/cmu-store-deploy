@@ -13,17 +13,16 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="input-container">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search Event">
+                        <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
                     <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                     <div class="select-dropdown">
-                        <select id="sort-select" class="form-control" style="text-align: center;">
-                            <option value="">Select Semester</option>
-                            <option value="option1">1st Semester 2023-2024</option>
-                            <option value="option2">2nd Semester 2022-2023</option>
-                            <option value="option3">1st Semester 2022-2023</option>
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input" >
+                            <option value="" disabled selected>Select Semester</option>
+                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                            
                         </select>
                     </div>
                 </div>
@@ -320,16 +319,55 @@ export default {
                     attendance_count: '',
                     fines: '',
                     org_id: '',
+                    school_year_input: this.school_year_input,
 
                 },
                 errors: {},
+                school_year:[],
+                school_year_input: 1,
+                searchTerm:'',
+                filtered_events:[],
         }
     },
     created() {
         this.fetchData();
-
+        this.showSchoolYear();
     },
     methods: {
+        filterItems() {
+            // Filter based on searchTerm from textbox
+            let filteredBySearch = this.violation_list;
+            if (this.searchTerm) {
+                const searchTermLower = this.searchTerm.toLowerCase();
+                filteredBySearch = filteredBySearch.filter(item =>
+                    item.student_name.toLowerCase().includes(searchTermLower) ||
+                    item.student_id.toString().includes(this.searchTerm)
+                );
+            }
+
+            // Filter based on filterStatus from select option
+            // let filteredByStatus = this.violation_list;
+            // if (this.filterStatus) {
+            //     filteredByStatus = filteredByStatus.filter(item =>
+            //         item.status.toString().includes(this.filterStatus)
+            //     );
+            // }
+
+            // // Merge the results of both filters (independently applied)
+            // this.filtered_violation_status = filteredBySearch.filter(item =>
+            //     filteredByStatus.includes(item)
+            // );
+        },
+        showSchoolYear(){
+            axios.get(`get_school_year/${this.organization_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.school_year = response.data;
+                })
+                .catch(error => {
+
+                });
+        },
         showEventDetails(event) {
             console.log(event)
             axios.get(`edit/events/${event}`)
@@ -406,7 +444,8 @@ export default {
             // alert(this.formData.org_id);
                 axios.post('/events', this.formData)
                     .then(response => {
-                        this.showSucces('Events Successfuly Added');
+                        this.showSucces(response.data.message);
+                        // console.log(response.data)
                     })
                     .catch(error => {
                         alert(error)
@@ -524,6 +563,7 @@ export default {
                     description:'',
                     require_attendance: '',
                     org_id: this.organization_id,
+                    school_year_input: this.school_year_input,
 
                 }
         },
