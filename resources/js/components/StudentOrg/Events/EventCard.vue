@@ -31,7 +31,7 @@
         <div class="event-buttons d-flex justify-content-end">
             <div class="btn-group" role="group">
             <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">
-                <i class="far fa-calendar-plus"></i> Add Event
+                <i class="fas fa-calendar-plus"></i> Add Event
             </button>
             </div>
         </div>
@@ -74,10 +74,10 @@
 
                                     </ul>
                                 </div>
-                                        <h6 class="card-title mt-4 mb-2">Event: <strong>{{ event["name"] }}</strong></h6>
+                                        <h5 class="card-title mt-4 mb-2">Event: <strong>{{ event["name"] }}</strong></h5>
                                         <p class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</p>
                                         <p class="card-subtitle text-muted">Scheduled Time: {{ event["start_attendance"] }} </p>
-                                        <p class="card-text text-muted">Location: {{ event["location"] }} </p>
+                                        <h6 class="card-text">Location: {{ event["location"] }} </h6>
                                         <!-- <h6 class="card-text">Description: {{ event["description"] }} </h6> -->
                                         <!-- <div class="card-actions">
                                             <button class="ellipsis-button" @click=" FetchUpdateData(event.event_id) "   type="button"  data-bs-toggle="modal" data-bs-target="#event-modal" > <i class="bi bi-pencil-square"></i></button> -->
@@ -88,24 +88,25 @@
                                             <button class="btn btn-success view-button" @click="showEventDetails(event.event_id)" data-bs-toggle="modal" data-bs-target="#event-details-modal">View</button>
                                 </div>
                             </div>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this student?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" @click="deleteEvent()" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <!-- Delete confirmation -->
-                    <div class="modal fade " id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true" role="dialog">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p><b>Are you sure you want to delete this event?</b></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger" @click="deleteEvent()" data-bs-dismiss="modal">Delete</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Start Attendance confirmation -->
                     <div class="modal fade " id="startAttendanceConfirmation" tabindex="-1" aria-labelledby="startAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
@@ -132,7 +133,7 @@
                             </div>
                         </div>
                     </div>
-                <!-- Exempted Modal -->
+<!-- Exempted Modal -->
 <div class="modal fade" id="exemptModal" tabindex="-1" role="dialog" aria-labelledby="exemptModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -178,19 +179,13 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body" :id="this.showEvent.event_id">
-                                    <div class="mb-3">
-                                    <h5 class="card-title">Event Name: <strong>{{ this.showEvent["name"] }}</strong></h5>
-                                    </div>
-                                    <div class="mb-3">
-                                    <h6 class="card-subtitle mb-2 text-muted">Scheduled Date: {{this.showEvent["start_date"]  }}</h6>
-                                    </div>
-                                    <div class="mb-3">
-                                    <h6 class="card-subtitle mb-2 text-muted">Scheduled Time: {{ this.showEvent["start_attendance"] }}</h6>
+                                    <h4 class="card-title">Event Name: <strong>{{ this.showEvent["name"] }}</strong></h4>
+                                    <div class="mt-2 mb-3">
+                                    <h6 class="card-text text-muted">Scheduled Date: {{this.showEvent["start_date"]  }}</h6>
+                                    <h6 class="card-text text-muted">Scheduled Time: {{ this.showEvent["start_attendance"] }}</h6>
                                     </div>
                                     <div class="mb-3">
                                     <h6 class="card-text">Location: {{ this.showEvent["location"] }}</h6>
-                                    </div>
-                                    <div class="mb-3">
                                     <h6 class="card-text">Description: {{ this.showEvent["description"] }}</h6>
                                 </div>
                                 </div>

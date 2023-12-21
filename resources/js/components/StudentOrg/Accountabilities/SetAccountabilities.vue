@@ -17,10 +17,9 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                     <!-- option 1 -->
-                    <li><a class="dropdown-item">Edit Accountability</a></li>
+                    <li data-bs-toggle="modal" data-bs-target="#editModal" ><a class="dropdown-item">Edit Accountability</a></li>
                     <!-- option 2 -->
                     <li @click="this.deleteId = accountability.accountability_id"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation" ><a class="dropdown-item">Delete Accountability</a></li>
-                    <!-- Add more dropdown items as needed -->
                 </ul>
             </div>
             <h2 class="text-center mt-5">{{ accountability['accountability_name']}}</h2>
@@ -62,24 +61,49 @@
                     </div>
                 </div>
             </div>
+<!-- Edit Accountability -->
 
-            <!-- Delete confirmation -->
-            <div class="modal fade " id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true" role="dialog">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><b>Are you sure you want to delete this Accountability?</b></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" @click="deleteAccountability()" data-bs-dismiss="modal">Delete</button>
-                    </div>
-                    </div>
-                </div>
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Accountability</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <!-- Add form elements for editing accountability -->
+                <!-- Modify the form elements based on your requirements -->
+                <label for="editDescriptionInput" class="form-label mt-2">Description:</label>
+                <input type="text" class="form-control" id="editDescription">
+                <label for="editAmountInput" class="form-label">Amount:</label>
+                <input type="number" class="form-control" id="editAmount">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add this modal code after your existing modal -->
+<div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this student?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" @click="deleteAccountability()" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </template>
 
 <script>

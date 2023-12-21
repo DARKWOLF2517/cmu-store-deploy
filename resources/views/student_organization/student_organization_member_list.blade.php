@@ -50,7 +50,7 @@
                     <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
                     <i class="fas fa-file-excel"></i> Add student list
                     </button> --}}
-                    <button id="uploadButton" class="btn me-2" > <i class="fas fa-file-upload"></i> Upload List</button>
+                    <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" > <i class="fas fa-file-upload"></i> Upload List</button>
                     <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
 
                     <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
