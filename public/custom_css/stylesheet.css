@@ -5,7 +5,7 @@ body {
 
 }
 
-.Message-IfEmpty {
+.Message-IfEmpty, .Dashboard-IfEmpty {
     text-align: center;
     background-color: rgb(233, 233, 233);
     padding: 10px;

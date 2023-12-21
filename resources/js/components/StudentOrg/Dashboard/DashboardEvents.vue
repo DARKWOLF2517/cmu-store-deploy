@@ -1,13 +1,9 @@
 <template>
     <div class="timeline-body">
-       <!-- Message if the container is empty -->
-       <div class="Container-IfEmpty" v-if="this.events.length === 0">
-                                    <div class="Empty-Message">
-                                    <i class="icon 	bi bi-calendar-event" id="icon-message"></i>
-                                    <p><b>Create Events when you're ready</b></p>
-                                    <p class="text-muted">No events yet.</p>
-                                </div>
-                                </div>
+         <div class="Message-IfEmpty">
+                                <i class="icon 	far fa-calendar-times" id="icon-message"></i>
+                                <p class="empty-schedule">Nothing scheduled yet</p>
+                            </div>
         <ul class="sessions">
             <li v-for="event in this.events" :id="event.event_id">
                 <div class="date">{{ event.start_date }}</div>
