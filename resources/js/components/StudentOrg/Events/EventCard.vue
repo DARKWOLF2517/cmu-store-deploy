@@ -19,7 +19,7 @@
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
                     <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                     <div class="select-dropdown">
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input" >
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="filterItems">
                             <option value="" disabled selected>Select Semester</option>
                             <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                             
@@ -53,7 +53,7 @@
                                     <p class="text-muted">No events yet.</p>
                                 </div>
                                 </div>
-                            <div class="event-card" v-for="event in this.events" :id="event.event_id" >
+                            <div class="event-card" v-for="event in this.filtered_events" :id="event.event_id" >
                                 <div class="dropdown">
                                     <a class="ellipsis-button" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-ellipsis-h"></i>
@@ -326,7 +326,9 @@ export default {
                 school_year:[],
                 school_year_input: 1,
                 searchTerm:'',
+                searchSchoolYear:0,
                 filtered_events:[],
+
         }
     },
     created() {
@@ -336,27 +338,27 @@ export default {
     methods: {
         filterItems() {
             // Filter based on searchTerm from textbox
-            let filteredBySearch = this.violation_list;
+            let filteredBySearch = this.events;
             if (this.searchTerm) {
                 const searchTermLower = this.searchTerm.toLowerCase();
                 filteredBySearch = filteredBySearch.filter(item =>
-                    item.student_name.toLowerCase().includes(searchTermLower) ||
-                    item.student_id.toString().includes(this.searchTerm)
+                    item.name.toLowerCase().includes(searchTermLower)
                 );
             }
 
+
             // Filter based on filterStatus from select option
-            // let filteredByStatus = this.violation_list;
-            // if (this.filterStatus) {
-            //     filteredByStatus = filteredByStatus.filter(item =>
-            //         item.status.toString().includes(this.filterStatus)
-            //     );
-            // }
+            let filteredBySchoolYear = this.events;
+            if (this.school_year_input) {
+                filteredBySchoolYear = filteredBySchoolYear.filter(item =>
+                    item.school_year.toString().includes(this.school_year_input)
+                );
+            }
 
             // // Merge the results of both filters (independently applied)
-            // this.filtered_violation_status = filteredBySearch.filter(item =>
-            //     filteredByStatus.includes(item)
-            // );
+            this.filtered_events = filteredBySearch.filter(item =>
+                filteredBySchoolYear.includes(item)
+            );   
         },
         showSchoolYear(){
             axios.get(`get_school_year/${this.organization_id}`)
@@ -423,72 +425,50 @@ export default {
         },
 
         sendData() {
-              // Assuming the checkboxes are already created as mentioned in your code snippet
+            // Assuming the checkboxes are already created as mentioned in your code snippet
 
-                // Get all the checkboxes by their name
-                const checkboxes = document.querySelectorAll('input[name="checkboxes"]');
+            // Get all the checkboxes by their name
+            const checkboxes = document.querySelectorAll('input[name="checkboxes"]');
 
-                // Initialize an array to store the values of checked checkboxes
-                const checkedValues = [];
+            // Initialize an array to store the values of checked checkboxes
+            const checkedValues = [];
 
-                // Loop through each checkbox and check if it is checked
-                checkboxes.forEach(checkbox => {
-                    if (checkbox.checked) {
-                        checkedValues.push(checkbox.value); // Add the value to the array if the checkbox is checked
-                    }
-                });
+            // Loop through each checkbox and check if it is checked
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedValues.push(checkbox.value); // Add the value to the array if the checkbox is checked
+                }
+            });
 
-                // Now, the checkedValues array contains the values of the checked checkboxes
-                console.log('Checked values:', checkedValues);
+            // Now, the checkedValues array contains the values of the checked checkboxes
+            console.log('Checked values:', checkedValues);
 
             // alert(this.formData.org_id);
-                axios.post('/events', this.formData)
-                    .then(response => {
-                        this.showSucces(response.data.message);
-                        // console.log(response.data)
-                    })
-                    .catch(error => {
-                        alert(error)
-
-                });
-        },
-        // fetchData() {
-        //     // document.getElementById("event-spinner").show();
-        //     fetch(`/events/show/${this.org_id}`, {
-        //         method: "GET",
-        //         headers: {
-        //             //TYPE OF DATA THAT THE SERVER SHOULD RESPOND
-        //             "Content-Type":"application/json"
-        //         }
-        //     }).then( (response) => {
-        //         console.log(response);
-        //         // document.getElementById("event-spinner").classList.add("hidden");
-        //         // response.json().then((data) => {
-        //         //     data.forEach(element => {
-        //         //         // console.log(element);
-        //         //         // console.log(element[])
-        //         //         element["start_date"] = convertDate(element["start_date"]);
-        //         //         element["end_date"] = convertDate(element["end_date"]);
-
-        //         //     });
-        //         //     this.events = data;
-        //         //     console.log(data)
-        //         // })
-        //     })
-        // },
-
-        fetchData(){
-                axios.get(`/events/show/${this.organization_id}`)
+            axios.post('/events', this.formData)
                 .then(response => {
-                    document.getElementById("event-spinner").classList.add("hidden");
+                    this.showSucces(response.data.message);
                     // console.log(response.data)
-                    this.events = response.data;
                 })
                 .catch(error => {
-                    console.log('error')
-                });
+                    alert(error)
 
-            },
+            });
+        },
+
+
+        fetchData(){
+            axios.get(`/events/show/${this.organization_id}`)
+            .then(response => {
+                document.getElementById("event-spinner").classList.add("hidden");
+                console.log(response.data)
+                this.events = response.data;
+                this.filtered_events = this.events;
+            })
+            .catch(error => {
+                console.log('error')
+            });
+
+        },
 
 
         FetchUpdateData(id){

@@ -34,7 +34,7 @@
                         <div class="col">
                             <!-- Add an edit button on the top right -->
                             <div class="d-flex justify-content-end mb-3">
-                                <button class="btn btn-light mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editModal">Edit Details</button>
+                                <button class="btn btn-light mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
                                 <button class="btn btn-light" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">Add School Year</button>
                             </div>
 
@@ -228,11 +228,11 @@
     </div>
 </div>
 <!-- Edit Student Details Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Student Details</h5>
+                <h5 class="modal-title" id="editDetailsModalLabel">Edit Student Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
