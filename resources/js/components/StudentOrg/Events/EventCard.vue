@@ -472,9 +472,7 @@ export default {
                     this.formData = response.data
                     this.id = id
                     this.submit = this.UpdateData
-                    // console.log(this.submit)
-                    // console.log(id)
-                    // console.log(response.data)
+
                 })
                 .catch(error => {
 

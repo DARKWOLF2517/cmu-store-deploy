@@ -26,4 +26,31 @@ class OrgProfileController extends Controller
             return response()->json(['message' => 'School Year year added Successfully']);
     
     }
+    public function viewSchoolYear($org_id)
+    {
+        $schoolYear = SchoolYear::where('org_id', $org_id)->get();
+        return response()->json($schoolYear);
+    
+    }
+    public function fetchUpdateSchoolYear($id)
+    {   
+        $schoolYear = SchoolYear::find($id);
+        return $schoolYear;
+
+    }
+
+    public function updateSchoolYear($id , Request $request)
+    {
+        $attendance = SchoolYear::find($id);
+        $attendance->update(['school_year' => $request['school_year']]);
+        
+        return response()->json(['message' => 'School Year Updated Successfully']);
+
+    }
+    public function DeleteSchoolYear(SchoolYear $id)
+    {
+        $id->delete();
+        return response()->json(['message' => 'School Year Deleted successfully']);
+    }
+
 }
