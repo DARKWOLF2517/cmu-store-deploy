@@ -161,4 +161,9 @@ class AccountabilitiesController extends Controller
         $accountability_id->delete();
         return response()->json(['message' => 'Accountability '. $accountability_id-> accountability_name.' Deleted successfully']);
     }
+    public function PaidAccountabilities($org_id)
+    {
+        $paidAccountabilities = PaidAccountability::where('student_org_id', $org_id )->with('user')->get();
+        return $paidAccountabilities->toJson();
+    }
 }

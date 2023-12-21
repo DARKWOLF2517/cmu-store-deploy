@@ -52,116 +52,115 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-                                    <div class="organization-details">
-                                        <div class="org-officers">
-                                            <div class="d-flex justify-content-end mb-3">
-                                                <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
-                                                <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+                        <div class="organization-details">
+                            <div class="org-officers">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                                    <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
 
-                                                <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                                    <!-- option 1 -->
-                                                    <li><a class="dropdown-item" data-toggle="modal" data-target="#viewOfficersModal">View Officers</a></li>
+                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <!-- option 1 -->
+                                        <li><a class="dropdown-item" data-toggle="modal" data-target="#viewOfficersModal">View Officers</a></li>
 
-                                                </ul>
-                                            </div>
-                                            <h5>Organization Officers</h5>
-                                            <div class="officers-list">
-                                                <ul>
-                                                    <li>Taylor Swift - Chairperson</li>
-                                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                                    <li>Katy Perry - Vice-Chairperson External</li>
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="partner-organizations">
-                                            <div class="d-flex justify-content-end mb-3">
-                                                <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
-                                                <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                                    <!-- option 1 -->
-                                                    <li><a class="dropdown-item" data-toggle="modal" data-target="#viewPartnersModal">View Partners</a></li>
-
-                                                </ul>
-                                            </div>
-
-                                            <h5>Organizations Partners</b></h5>
-                                            <div class="partner-org-list">
-                                                <li>PASOA</li>
-                                                <li>JPIA</li>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </ul>
                                 </div>
-                                <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+                                <h5>Organization Officers</h5>
+                                <div class="officers-list">
+                                    <ul>
+                                        <li>Taylor Swift - Chairperson</li>
+                                        <li>Ariana Grande - Vice-Chairperson Internal</li>
+                                        <li>Katy Perry - Vice-Chairperson External</li>
 
-                                    <div class="organization-details">
-                                        <div class="org-officers">
-                                            <div class="d-flex justify-content-end mb-3">
-                                                <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
-                                            </div>
-                                            <h3>Organization Officers</h3>
-                                            <ul>
-                                                <li>Taylor Swift - Chairperson</li>
-                                                <li>Ariana Grande - Vice-Chairperson Internal</li>
-                                                <li>Katy Perry - Vice-Chairperson External</li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
+                            <div class="partner-organizations">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#setPartnersModal">Set Partners</button>
+                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <!-- option 1 -->
+                                        <li><a class="dropdown-item" data-toggle="modal" data-target="#viewPartnersModal">View Partners</a></li>
+
+                                    </ul>
+                                </div>
+
+                                <h5>Organizations Partners</b></h5>
+                                <div class="partner-org-list">
+                                    <li>PASOA</li>
+                                    <li>JPIA</li>
+                                </div>
+                            </div>
+                                    </div>
                     </div>
-                    <div class="col">
-                        <div class="roles">
-                            <div class="d-flex justify-content-between align-items-center mb-3 header">
-                                <h5>Committee Members</h5>
-                                <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                    <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+
+                        <div class="organization-details">
+                            <div class="org-officers">
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#addOfficerModal">Add officers</button>
+                                </div>
+                                <h3>Organization Officers</h3>
+                                <ul>
+                                    <li>Taylor Swift - Chairperson</li>
+                                    <li>Ariana Grande - Vice-Chairperson Internal</li>
+                                    <li>Katy Perry - Vice-Chairperson External</li>
+                                </ul>
                             </div>
-
-                            <!-- Committee Members Table -->
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Role</th>
-                                        <th style="width: 20%;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Taylor Swift</td>
-                                        <td>Admin</td>
-                                        <td>
-                                            <!-- Add your action button here -->
-                                            <button class="btn " data-toggle="modal" data-target="#editRoleModal"> <i class="fas fa-edit"></i> Edit</button>
-                                            <button class="btn " data-toggle="modal" data-target="#removeUserModal"> <i class="fas fa-times"></i> Remove</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Taylor Swift</td>
-                                        <td>Attendance Checker</td>
-                                        <td>
-                                            <!-- Add your action button here -->
-                                            <button class="btn " data-toggle="modal" data-target="#editRoleModal"> <i class="fas fa-edit"></i>Edit</button>
-                                            <button class="btn " data-toggle="modal" data-target="#removeUserModal"> <i class="fas fa-times"></i> Remove</button>
-                                        </td>
-                                    </tr>
-                                    <!-- Add more rows as needed -->
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col">
+            <div class="roles">
+                <div class="d-flex justify-content-between align-items-center mb-3 header">
+                    <h5>Committee Members</h5>
+                    <button class="btn btn-light" data-toggle="modal" data-target="#setRolesModal">Set Roles</button>
+                </div>
+
+                <!-- Committee Members Table -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th style="width: 20%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Taylor Swift</td>
+                            <td>Admin</td>
+                            <td>
+                                <!-- Add your action button here -->
+                                <button class="btn " data-toggle="modal" data-target="#editRoleModal"> <i class="fas fa-edit"></i> Edit</button>
+                                <button class="btn " data-toggle="modal" data-target="#removeUserModal"> <i class="fas fa-times"></i> Remove</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Taylor Swift</td>
+                            <td>Attendance Checker</td>
+                            <td>
+                                <!-- Add your action button here -->
+                                <button class="btn " data-toggle="modal" data-target="#editRoleModal"> <i class="fas fa-edit"></i>Edit</button>
+                                <button class="btn " data-toggle="modal" data-target="#removeUserModal"> <i class="fas fa-times"></i> Remove</button>
+                            </td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
+
 
     <!-- Add the modal structure for viewing partners -->
 <div class="modal fade" id="viewPartnersModal" tabindex="-1" role="dialog" aria-labelledby="viewPartnersModalLabel" aria-hidden="true">
@@ -202,7 +201,7 @@
         </div>
     </div>
 </div>
- <!-- Edit Student Details Modal -->
+<!-- Edit Student Details Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -285,8 +284,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <!-- "Delete All" button -->
-                  <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteAllModal">Delete All</button>
+                <!-- "Delete All" button -->
+                <button class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteAllModal">Delete All</button>
 
             </div>
         </div>
@@ -375,105 +374,104 @@
     </div>
 </div>
 
-    <!-- Add officers Modal -->
-    <div class="modal fade" id="addOfficerModal" tabindex="-1" role="dialog" aria-labelledby="addOfficerModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addOfficerModalLabel">Add Officer</h5>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="officerName"><b>Name of Officer</b></label>
-                            <input type="text" class="form-control" id="officerName" placeholder="Enter name">
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="positionTitle"><b>Title of Position</b></label>
-                            <input type="text" class="form-control" id="positionTitle" placeholder="Enter title">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success mt-2">Add Officer</button>
-                        </div>
-                    </form>
-                </div>
+<!-- Add officers Modal -->
+<div class="modal fade" id="addOfficerModal" tabindex="-1" role="dialog" aria-labelledby="addOfficerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addOfficerModalLabel">Add Officer</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="officerName"><b>Name of Officer</b></label>
+                        <input type="text" class="form-control" id="officerName" placeholder="Enter name">
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="positionTitle"><b>Title of Position</b></label>
+                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success mt-2">Add Officer</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- Set Roles Modal -->
-    <div class="modal fade" id="setRolesModal" tabindex="-1" role="dialog" aria-labelledby="setRolesModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="setRolesModalLabel">Set Roles</h5>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="selectOfficer"><b>Select Officer</b></label>
-                            <select class="form-control" id="selectOfficer">
-                                <option>Taylor Swift</option>
-                                <option>Ariana Grande</option>
-                                <option>Katy Perry</option>
-                                <!-- Add other officers as needed -->
-                            </select>
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="selectRole"><b>Select Role</b></label>
-                            <select class="form-control" id="selectRole">
-                                <option>Admin</option>
-                                <option>Attendance Checker</option>
-                                <!-- Add other roles as needed -->
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success mt-2">Save</button>
-                        </div>
-                    </form>
-                </div>
+<div class="modal fade" id="setRolesModal" tabindex="-1" role="dialog" aria-labelledby="setRolesModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="setRolesModalLabel">Set Roles</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="selectOfficer"><b>Select Officer</b></label>
+                        <select class="form-control" id="selectOfficer">
+                            <option>Taylor Swift</option>
+                            <option>Ariana Grande</option>
+                            <option>Katy Perry</option>
+                            <!-- Add other officers as needed -->
+                        </select>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="selectRole"><b>Select Role</b></label>
+                        <select class="form-control" id="selectRole">
+                            <option>Admin</option>
+                            <option>Attendance Checker</option>
+                            <!-- Add other roles as needed -->
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success mt-2">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-    <!-- Set Partners Modal -->
-    <div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="setPartnersModalLabel">Set Partners</h5>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="selectCollegeCouncil">Select College Council</label>
-                            <select class="form-control" id="selectOrganization">
-                                <option>CBMSO</option>
-                                <option>CASCO</option>
-                                <option>COEDSCO</option>
-                                <option>CSCO</option>
-                                <!-- Add other organizations as needed -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="selectDepartment">Select Department</label>
-                            <select class="form-control" id="selectDepartment">
-                                <option>JPIA</option>
-                                <option>PASOA</option>
-                                <option>BIMAP</option>
-                                <!-- Add other departments as needed -->
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success mt-2">Save</button>
-                        </div>
-                    </form>
-                </div>
+
+<!-- Set Partners Modal -->
+<div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="setPartnersModalLabel">Set Partners</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="selectCollegeCouncil">Select College Council</label>
+                        <select class="form-control" id="selectOrganization">
+                            <option>CBMSO</option>
+                            <option>CASCO</option>
+                            <option>COEDSCO</option>
+                            <option>CSCO</option>
+                            <!-- Add other organizations as needed -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectDepartment">Select Department</label>
+                        <select class="form-control" id="selectDepartment">
+                            <option>JPIA</option>
+                            <option>PASOA</option>
+                            <option>BIMAP</option>
+                            <!-- Add other departments as needed -->
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success mt-2">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

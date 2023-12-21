@@ -286,7 +286,7 @@ export default{
                     .then(response => {
                         // this.showSucces(response.data.message);
                         // this.fetchData();
-                        // location.reload();
+                        location.reload();
                         console.log(response.data)
                     })
                     .catch(error => {
@@ -593,6 +593,8 @@ export default{
                         //FOR OTHER ACCOUNTABILITIES LOGIC
                         const accountability_paid = response.data.paid_accountabilities;
                         const organization_accountability_set = response.data.accountabilities_other;
+                        // console.log(accountability_paid)
+                        // console.log(organization_accountability_set)
                         const studentsWhoPaid = new Set(accountability_paid.map(entry => entry.student_id));
 
                         // Get a Set of unique accountability types from organization_accountability_set
@@ -600,7 +602,7 @@ export default{
 
                         // Find students who have not paid for their accountabilities and replace accountability_type
                         const studentsNotPaid = usersInOrg.reduce((acc, user) => {
-                        if (!studentsWhoPaid.has(user.id)) {
+                        if (!studentsWhoPaid.has(user.id) ) {
                             // Push user details with an indication of not being paid and relevant accountability info
                             organization_accountability_set.forEach(entry => {
                             acc.push({
@@ -628,7 +630,9 @@ export default{
                             })
                     })
 
-                    // console.log(this.other_accountabilities_list);
+                    
+
+                    
                     })
                     .catch(error => {
                         console.log(error)

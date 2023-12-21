@@ -2,13 +2,13 @@
     <div class="col-md-6 col-sm-12">
         <div class="input-container">
             <i class="fa fa-search"></i>
-            <input type="text" v-model="searchTerm"   @input="filterItems" placeholder="Search Accountabilities" >
+            <input type="text" >
         </div>
     </div>
     <div class="col-md-4 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; margin-right: 20px;">
         <div class="select-dropdown">
             <!-- First dropdown -->
-            <select id="sort-select" class="form-control" style="text-align: center;" v-model="this.select_accountability">
+            <select id="sort-select" class="form-control" style="text-align: center;">
                 <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                 <option value="fines">Fines</option>
                 <option value="others">Other Accountability</option>
@@ -44,7 +44,7 @@
     </div>
     <div class="scroll-pane">
         <!-- fines accountabilities -->
-        <table  id="accountabilities-table" >
+        <table  id="accountabilities-table"  >
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -53,12 +53,12 @@
                     <th>Amount</th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody v-for="paid in this.paidList">
                 <tr>
-                <td >21</td>
-                <td> 21</td>
-                <td>12</td>
-                <td>12</td>
+                <td >{{ paid['student_id'] }}</td>
+                <td> {{ paid.user['name'] }}</td>
+                <td>{{ paid['accountability_name'] }}</td>
+                <td>{{ paid['amount'] }}</td>
                 </tr>
             </tbody>
         </table>
@@ -115,135 +115,134 @@ import { convertDate } from '../Functions/DateConverter';
 
 export default{
 
-props: ['org_id'],
-data(){
-    return{
+    props: ['org_id'],
+    data(){
+        return{
+            paidList: [],
+
+
+        }
+    },
+
+    mounted(){
+        this.fetchData();
+    },
+    created(){
+
+
+    },
+
+    methods:{
+        fetchData(){
+                    axios.get(`/paid_accountabilities/${this.org_id}`)
+                    .then(response => {
+                        this.paidList = response.data;
+                        console.log(this.paidList)
+                    })
+                    .catch(error => {
+                        console.log('error')
+                    });
+
+                },
+
+
+        
+        printTable() {
+            // Clone the table element to avoid modifying the original table
+            const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+
+            // Remove or hide the "Actions" column in each row
+            const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
+            const rows = tableToPrint.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells.length > actionsColumnIndex) {
+                    // Remove the cell from the DOM
+                    cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
+                }
+            }
+
+            // Hide the header cell for the "Actions" column
+            const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+            if (headerRow) {
+                const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
+                if (headerCell) {
+                    headerCell.style.display = 'none';
+                }
+            }
+
+            // Open a new window for printing
+            const printWindow = window.open('', '_blank');
+
+            // Create a new HTML document in the print window
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Print</title>
+                    <!-- Include Bootstrap stylesheet link -->
+                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+                </head>
+                <body>
+                    <!-- Add a title before the table -->
+                    <h2>Unpaid Accountabilities</h2>
+
+                    <!-- Add Bootstrap table classes -->
+                    <table class="table table-bordered table-striped">
+                        ${tableToPrint.innerHTML}
+                    </table>
+                </body>
+                </html>
+            `);
+
+            // Close the HTML document
+            printWindow.document.close();
+            printWindow.print();
+        },
+
+        downloadTable() {
+            // Get the table data
+            const tableData = this.getTableData();
+
+            // Create a worksheet
+            const ws = XLSX.utils.aoa_to_sheet(tableData);
+
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
+        },
+
+        getTableData() {
+            // Get a reference to the table
+            const table = document.getElementById('accountabilities-table');
+
+            // Initialize an array to store the table data
+            const tableData = [];
+
+            // Iterate through the rows of the table
+            for (let i = 0; i < table.rows.length; i++) {
+                const rowData = [];
+
+                // Iterate through the cells of the current row, excluding the last one
+                for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
+                // Push the cell value to the rowData array
+                rowData.push(table.rows[i].cells[j].textContent);
+                }
+
+                // Push the row data to the tableData array
+                tableData.push(rowData);
+            }
+
+            // Return the table data
+            return tableData;
+    },
 
 
 
     }
-},
-
-mounted(){
-
-},
-created(){
-
-
-},
-
-methods:{
-    fetchData(){
-                axios.get(`/events/show/${this.organization_id}`)
-                .then(response => {
-                    document.getElementById("event-spinner").classList.add("hidden");
-                    // console.log(response.data)
-                    this.events = response.data;
-                })
-                .catch(error => {
-                    console.log('error')
-                });
-
-            },
-
-
-    
-    printTable() {
-        // Clone the table element to avoid modifying the original table
-        const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
-
-        // Remove or hide the "Actions" column in each row
-        const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
-        const rows = tableToPrint.getElementsByTagName('tr');
-
-        for (let i = 0; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName('td');
-            if (cells.length > actionsColumnIndex) {
-                // Remove the cell from the DOM
-                cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
-            }
-        }
-
-        // Hide the header cell for the "Actions" column
-        const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-        if (headerRow) {
-            const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
-            if (headerCell) {
-                headerCell.style.display = 'none';
-            }
-        }
-
-        // Open a new window for printing
-        const printWindow = window.open('', '_blank');
-
-        // Create a new HTML document in the print window
-        printWindow.document.write(`
-            <html>
-            <head>
-                <title>Print</title>
-                <!-- Include Bootstrap stylesheet link -->
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-            </head>
-            <body>
-                <!-- Add a title before the table -->
-                <h2>Unpaid Accountabilities</h2>
-
-                <!-- Add Bootstrap table classes -->
-                <table class="table table-bordered table-striped">
-                    ${tableToPrint.innerHTML}
-                </table>
-            </body>
-            </html>
-        `);
-
-        // Close the HTML document
-        printWindow.document.close();
-        printWindow.print();
-    },
-
-    downloadTable() {
-        // Get the table data
-        const tableData = this.getTableData();
-
-        // Create a worksheet
-        const ws = XLSX.utils.aoa_to_sheet(tableData);
-
-        // Create a workbook
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-        // Save the workbook as an Excel file
-        XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
-    },
-
-    getTableData() {
-        // Get a reference to the table
-        const table = document.getElementById('accountabilities-table');
-
-        // Initialize an array to store the table data
-        const tableData = [];
-
-        // Iterate through the rows of the table
-        for (let i = 0; i < table.rows.length; i++) {
-            const rowData = [];
-
-            // Iterate through the cells of the current row, excluding the last one
-            for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
-            // Push the cell value to the rowData array
-            rowData.push(table.rows[i].cells[j].textContent);
-            }
-
-            // Push the row data to the tableData array
-            tableData.push(rowData);
-        }
-
-        // Return the table data
-        return tableData;
-},
-
-
-
-}
 
 
 }

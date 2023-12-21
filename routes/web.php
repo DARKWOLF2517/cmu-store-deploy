@@ -186,6 +186,7 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/FinesAccountabilityPayment',[AccountabilitiesController::class, 'FinesAccountabilityPayment']);
             Route::post('/attendanceFill',[AccountabilitiesController::class, 'attendanceFill']);
             Route::delete('/delete_organization_accountability/{accountability_id}',[AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
+            Route::get('/paid_accountabilities/{org_id}',[AccountabilitiesController::class, 'PaidAccountabilities']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){

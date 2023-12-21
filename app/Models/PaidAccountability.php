@@ -21,7 +21,7 @@ class PaidAccountability extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'student_id','id');
+        return $this->belongsTo(User::class, 'student_id','id');
     }
 
 
