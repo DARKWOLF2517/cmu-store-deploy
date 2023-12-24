@@ -49,10 +49,11 @@
                                 <div class="Container-IfEmpty" v-if="this.events.length === 0">
                                     <div class="Empty-Message">
                                     <i class="icon 	bi bi-calendar-event" id="icon-message"></i>
-                                    <p><b>Create Events when you're ready</b></p>
-                                    <p class="text-muted">No events yet.</p>
+                                    <p class="text-muted"><b>Create Events when you're ready</b>
+                                    <br>
+                                    No events yet.</p>
                                 </div>
-                                </div>
+                        </div>
                             <div class="event-card" v-for="event in this.filtered_events" :id="event.event_id" >
                                 <div class="dropdown">
                                     <a class="ellipsis-button" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -353,7 +354,7 @@ export default {
             // // Merge the results of both filters (independently applied)
             this.filtered_events = filteredBySearch.filter(item =>
                 filteredBySchoolYear.includes(item)
-            );   
+            );
         },
         showSchoolYear(){
             axios.get(`get_school_year/${this.organization_id}`)

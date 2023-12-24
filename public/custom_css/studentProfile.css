@@ -91,7 +91,7 @@
 
 .profile img {
     margin-top: 10px;
-    width: 30vh;
+    width: 35vh;
     height: auto;
     border-radius: 50%;
     object-fit: cover;
@@ -163,5 +163,8 @@
 
     .profile {
         height: auto;
+    }
+    h5{
+        font-size: 15px;
     }
 }

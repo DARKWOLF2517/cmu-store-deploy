@@ -178,7 +178,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
             Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
 
-            
+
 
             #ACCOUNTABILITIES ROUTE
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
@@ -259,8 +259,18 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/submit_evaluation',[EvaluationController::class, 'store']);
             Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
 
+//Attendance Checker
+            Route::get('/attendance_checker_dashboard', function () {
+                return view('attendance_checker.attendance_checker_dashboard');
+            });
 
+            Route::get('attendance_checker_attendance_schedule', function () {
+                return view('attendance_checker.attendance_checker_attendance_schedule');
+            });
 
+            Route::get('attendance_checker_attendance_records', function () {
+                return view('attendance_checker.attendance_checker_attendance_records');
+            });
 
     });
 });

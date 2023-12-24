@@ -2,8 +2,10 @@
     <div class="schedule-list-container">
         <!-- Message if the container is empty -->
         <div class="Message-IfEmpty" v-if="events.length === 0">
-            <i class="icon bi bi-calendar-x" id="icon-message"></i>
-        <p class="text-muted">Nothing Scheduled yet.</p>
+            <i class="icon 	far fa-calendar-minus" id="icon-message"></i>
+            <p class="text-muted"><b>No Attendance Scheduled yet</b>
+            <br>
+            Start an attendance by activating an event.</p>
         </div>
 
     <div class="card" v-for="event in this.events" :id="event.event_id">
