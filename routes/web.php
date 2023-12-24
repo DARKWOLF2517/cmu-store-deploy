@@ -197,6 +197,11 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/edit_school_year/{id}',[OrgProfileController::class, 'fetchUpdateSchoolYear']);
             Route::put('/update_school_year/{id}',[OrgProfileController::class, 'updateSchoolYear']);
             Route::delete('/deleteSchoolYear/{id}',[OrgProfileController::class, 'DeleteSchoolYear']);
+            Route::get('/view_officers/{org_id}',[OrgProfileController::class, 'viewOrgOfficer']);
+            Route::get('/view_users_org/{org_id}',[OrgProfileController::class, 'viewUsersOrg']);
+            Route::post('/add_org_officer',[OrgProfileController::class, 'addOrgOfficer']);
+            Route::get('/edit_officer/{id}/{org_id}',[OrgProfileController::class, 'fetchUpdateOfficer']);
+            Route::delete('/deleteOfficer/{id}',[OrgProfileController::class, 'DeleteOfficer']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){
