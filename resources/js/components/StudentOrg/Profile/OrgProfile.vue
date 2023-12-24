@@ -391,7 +391,7 @@
                             <label for="IDnumber"><b>Name</b></label>
                             <input type="text" class="form-control" id="IDnumber" disabled v-model="this.nameFilterAddOfficer">
                         <!-- </div> -->
-                        
+
                     </div>
                     <div class="form-group mt-4">
                         <label for="positionTitle"><b>Title of Position</b></label>
@@ -433,28 +433,58 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="setPartnersModalLabel">Set Partners</h5>
+                <h5 class="modal-title" id="setPartnersModalLabel">Choose Partners</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
-                    <div class="form-group">
-                        <label for="selectCollegeCouncil">Select College Council</label>
-                        <select class="form-control" id="selectOrganization">
-                            <option>CBMSO</option>
-                            <option>CASCO</option>
-                            <option>COEDSCO</option>
-                            <option>CSCO</option>
-                            <!-- Add other organizations as needed -->
-                        </select>
+                    <div class="form-group Student-Councils">
+                        <label for="selectCollegeCouncil"> <b> Select College Council</b></label>
+                        <br>
+                        <!-- Buttons for options -->
+                        <button type="button" class="btn option-btn" data-option="CASSCO">CASSCO</button>
+                        <button type="button" class="btn option-btn" data-option="CBMSCO">CBMSCO</button>
+                        <button type="button" class="btn option-btn" data-option="COASCO">COASCO</button>
+                        <button type="button" class="btn option-btn" data-option="COEDSCO">COEDSCO</button>
+                        <button type="button" class="btn option-btn" data-option="COESCO">COESCO</button>
+                        <button type="button" class="btn option-btn" data-option="COHESCO">COHESCO</button>
+                        <button type="button" class="btn option-btn" data-option="CONSCO">CONSCO</button>
+                        <button type="button" class="btn option-btn" data-option="CSCo">CSCo</button>
+                        <button type="button" class="btn option-btn" data-option="CVMSCO">CVMSCO</button>
                     </div>
-                    <div class="form-group">
-                        <label for="selectDepartment">Select Department</label>
-                        <select class="form-control" id="selectDepartment">
-                            <option>JPIA</option>
-                            <option>PASOA</option>
-                            <option>BIMAP</option>
-                            <!-- Add other departments as needed -->
-                        </select>
+                    <div class="form-group Department-orgs mt-2">
+                        <label for="selectDepartment"> <b>Select Department</b> </label>
+                        <br>
+                        <!-- Buttons for options -->
+                        <button type="button" class="btn option-btn" data-option="AFFS">AFFS</button>
+                        <button type="button" class="btn option-btn" data-option="BIOSOC">BIOSOC</button>
+                        <button type="button" class="btn option-btn" data-option="BMAP">BMAP</button>
+                        <button type="button" class="btn option-btn" data-option="CHEMSOC">CHEMSOC</button>
+                        <button type="button" class="btn option-btn" data-option="CMU-BAKAS">CMU-BAKAS</button>
+                        <button type="button" class="btn option-btn" data-option="CMU-ENTOMSOC">CMU-ENTOMSOC</button>
+                        <button type="button" class="btn option-btn" data-option="CMU-PPS">CMU-PPS</button>
+                        <button type="button" class="btn option-btn" data-option="CMUSSS">CMUSSS</button>
+                        <button type="button" class="btn option-btn" data-option="ENVIROSS">ENVIROSS</button>
+                        <button type="button" class="btn option-btn" data-option="HORTUSS">HORTUSS</button>
+                        <button type="button" class="btn option-btn" data-option="IIEE-CSC">IIEE-CSC</button>
+                        <button type="button" class="btn option-btn" data-option="JABES">JABES</button>
+                        <button type="button" class="btn option-btn" data-option="JFINEX">JFINEX</button>
+                        <button type="button" class="btn option-btn" data-option="JMA">JMA</button>
+                        <button type="button" class="btn option-btn" data-option="JPIA">JPIA</button>
+                        <button type="button" class="btn option-btn" data-option="JPSME">JPSME</button>
+                        <button type="button" class="btn option-btn" data-option="LTS">LTS</button>
+                        <button type="button" class="btn option-btn" data-option="MATHSOC">MATHSOC</button>
+                        <button type="button" class="btn option-btn" data-option="MESA">MESA</button>
+                        <button type="button" class="btn option-btn" data-option="ORGASMS">ORGASMS</button>
+                        <button type="button" class="btn option-btn" data-option="PAN-AP">PAN-AP</button>
+                        <button type="button" class="btn option-btn" data-option="PASOA">PASOA</button>
+                        <button type="button" class="btn option-btn" data-option="PBASS">PBASS</button>
+                        <button type="button" class="btn option-btn" data-option="PES">PES</button>
+                        <button type="button" class="btn option-btn" data-option="PSABE-PPG">PSABE-PPG</button>
+                        <button type="button" class="btn option-btn" data-option="SAEEx">SAEEx</button>
+                        <button type="button" class="btn option-btn" data-option="SEES">SAEEx</button>
+                        <button type="button" class="btn option-btn" data-option="SEES">SEES</button>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -557,7 +587,7 @@ export default{
                     });
         },
         updateOfficer(){
-            
+
         },
         officerFetchUpdate(){
             axios.get(`edit_officer/${this.OfficerId}/${this.org_id}`)
@@ -594,7 +624,7 @@ export default{
             this.nameFilterAddOfficer = this.nameAddOfficer.filter(item => item.student_id == this.addOfficersData.id);
             if (this.nameFilterAddOfficer != null && this.nameFilterAddOfficer['0'] && this.nameFilterAddOfficer['0']['user'] && this.nameFilterAddOfficer['0']['user']['name']) {
                 this.nameFilterAddOfficer = this.nameFilterAddOfficer['0']['user']['name'];
-                
+
             }
 
         },
@@ -609,7 +639,7 @@ export default{
                                 position: element.position,
                             })
                         // console.log(this.orgOfficers)
-                        
+
                     });
 
                 })
@@ -690,7 +720,7 @@ export default{
 
             };
             this.nameFilterAddOfficer = [];
-            
+
         },
     },
 
