@@ -50,75 +50,79 @@
                             </div>
                         </div>
                     </div>
-<div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-    <div class="organization-details">
-        <div class="org-officers" style="width: 50%;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h5><b>Organization Officers</b></h5>
-                <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Officer</button>
-            </div>
 
-            <table class="table">
-            <thead>
-                <tr>
-                    <th style="width: 50%; ">Name</th>
-                    <th style="width: 40%;">Position</th>
-                    <th style="width:10%;"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Taylor Swift</td>
-                    <td>Chairperson</td>
-                    <td>
-                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                        <!-- option 1 -->
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editOfficerModal">Edit Officer</a></li>
-                        <!-- option 2 -->
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeOfficerModal">Remove Officer</a></li>
-                    </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-<div class="partner-organizations" style="width: 50%;">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5><b>Organizations Partners</b></h5>
-        <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal">Set Partners</button>
-    </div>
+                    <!-- For adding officer  -->
+                    <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+                        <div class="organization-details">
+                            <div class="org-officers" style="width: 50%;">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5><b>Organization Officers</b></h5>
+                                    <button class="btn button-secondary" @click="this.addOfficerSubmit = this.addOfficer, this.clearAddOfficerData()" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Officer</button>
+                                </div>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50%; ">Name</th>
+                                            <th style="width: 40%;">Position</th>
+                                            <th style="width:10%;"> Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="officers in this.orgOfficers">
+                                            <td>{{ officers['name'] }}</td>
+                                            <td>{{ officers['position'] }}</td>
+                                            <td>
+                                                <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </a>
+                                                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                                <!-- option 1 -->
+                                                <li><a class="dropdown-item" @click="this.addOfficerSubmit = this.updateOfficer, this.OfficerId = officers['id'], this.officerFetchUpdate()" data-bs-toggle="modal" data-bs-target="#addOfficerModal" >Edit Officer</a></li>
+                                                <!-- option 2 -->
+                                                <li><a class="dropdown-item" @click="this.OfficerId = officers['id']" data-bs-toggle="modal" data-bs-target="#removeOfficerModal">Remove Officer</a></li>
+                                            </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- for partner organization -->
+                            <div class="partner-organizations" style="width: 50%;">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h5><b>Organizations Partners</b></h5>
+                                    <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal">Set Partners</button>
+                                </div>
 
 
-    <table class="table">
-            <thead>
-                <tr>
-                    <th style="width: 50%;">Partner</th>
-                    <th style="width: 10%; "></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>JPIA</td>
-                    <td>
-                        <!-- Ellipsis Button -->
-                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>
+                                <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 50%;">Partner</th>
+                                                <th style="width: 10%; "></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>JPIA</td>
+                                                <td>
+                                                    <!-- Ellipsis Button -->
+                                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
 
-                        <!-- Dropdown Menu -->
-                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                            <!-- option 1 -->
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editPartnerModal">Edit Partner</a></li>
-                            <!-- option 2 -->
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removePartnerModal">Delete Partner</a></li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                                                    <!-- Dropdown Menu -->
+                                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                                        <!-- option 1 -->
+                                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editPartnerModal">Edit Partner</a></li>
+                                                        <!-- option 2 -->
+                                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removePartnerModal">Delete Partner</a></li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                             </div>
                         </div>
                     </div>
@@ -223,11 +227,6 @@
             <div class="modal-body">
                 <label for="editDescription">Description:</label>
                 <input type="text" class="form-control" id="editDescription" value="College of Information Sciences and Computing">
-
-                <label class="mt-4" for="editNumberOfStudents">Number of Members:</label>
-                <input type="text" class="form-control" id="editNumberOfStudents" value="550">
-
-
                 <label for="profileImage" class="mt-2">Change Profile Image: </label>
                 <br>
                 <input type="file" id="profileImageInput" accept="image/*">
@@ -350,7 +349,7 @@
     </div>
 </div>
 
-<!-- Delete User Modal -->
+<!-- Delete User Role Modal -->
 <div class="modal fade" id="removeUserModal" tabindex="-1" aria-labelledby="removeUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -374,49 +373,35 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addOfficerModalLabel">Add Officer</h5>
+                <h5 class="modal-title" id="addOfficerModalLabel" v-if="this.addOfficerSubmit == this.addOfficer">Add Officer</h5>
+                <h5 class="modal-title" id="addOfficerModalLabel" v-else-if="this.addOfficerSubmit == this.updateOfficer">Edit Officer</h5>
             </div>
             <div class="modal-body">
-                <form>
+                <form @submit.prevent="this.addOfficerSubmit">
                     <div class="form-group">
-                        <label for="officerName"><b>Name of Officer</b></label>
-                        <input type="text" class="form-control" id="officerName" placeholder="Enter name">
+                        <div v-if="this.addOfficerSubmit == this.addOfficer">
+                            <label for="IDnumber"><b>ID number</b></label>
+                            <input type="text" class="form-control" id="IDnumber" placeholder="Enter ID Number" v-model="this.addOfficersData.id" @input="this.fetchNameInputOrgOfficer">
+                        </div>
+                        <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
+                            <label for="IDnumber"><b>ID number</b></label>
+                            <input type="text" class="form-control" id="IDnumber"  v-model="this.addOfficersData.id" @input="this.fetchNameInputOrgOfficer" disabled>
+                        </div>
+                        <!-- <div v-if="this.addOfficerSubmit == this.addOfficer"> -->
+                            <label for="IDnumber"><b>Name</b></label>
+                            <input type="text" class="form-control" id="IDnumber" disabled v-model="this.nameFilterAddOfficer">
+                        <!-- </div> -->
+                        
                     </div>
                     <div class="form-group mt-4">
                         <label for="positionTitle"><b>Title of Position</b></label>
-                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title">
+                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title" v-model="this.addOfficersData.position" >
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success mt-2">Add Officer</button>
+                        <button type="submit" class="btn btn-success mt-2" data-bs-dismiss="modal">Add Officer</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Edit Officer Modal -->
-<div class="modal fade" id="editOfficerModal" tabindex="-1" aria-labelledby="editOfficerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editOfficerModalLabel">Edit Officer</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                    <div class="form-group">
-                        <label for="officerName"><b>Name of Officer</b></label>
-                        <input type="text" class="form-control" id="officerName">
-                    </div>
-                    <div class="form-group mt-4">
-                        <label for="positionTitle"><b>Title of Position</b></label>
-                        <input type="text" class="form-control" id="positionTitle">
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Save changes</button>
             </div>
         </div>
     </div>
@@ -435,7 +420,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Remove Officer</button>
+                <button type="button" class="btn btn-danger" @click="this.deleteOfficer()" data-bs-dismiss="modal">Remove Officer</button>
             </div>
         </div>
     </div>
@@ -571,27 +556,114 @@ export default{
             schoolYear: [],
             schoolYearSubmit : this.addSchoolYear,
             schoolYearId: 0,
+            orgOfficers: [],
+
+            addOfficerSubmit: this.addOfficer,
+            nameAddOfficer: [],
+            nameFilterAddOfficer: [],
+            addOfficersData:{
+                id:'',
+                position: '',
+                org_id: this.org_id,
+
+            },
+            OfficerId: 0,
         }
     },
     mounted(){
-        console.log(this.org_id);
-        this.viewSchoolYear()
+        this.viewSchoolYear();
+        this.showOfficer();
+        this.showOrgUser();
     },
     methods: {
+        deleteOfficer(){
+            axios.delete(`/deleteOfficer/${this.OfficerId}`)
+                    .then(response => {
+                        this.showSucces(response.data.message);
+                        this.showOfficer();
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+        },
+        updateOfficer(){
+            
+        },
+        officerFetchUpdate(){
+            axios.get(`edit_officer/${this.OfficerId}/${this.org_id}`)
+                .then(response => {
+                    this.addOfficersData = response.data;
+                    console.log(this.addOfficersData);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        addOfficer(){
+            axios.post('/add_org_officer', this.addOfficersData)
+                .then(response => {
+                    // console.log(response.data)
+                    this.showSucces(response.data.message);
+                    this.showOfficer();
+                })
+                .catch(error => {
+                    alert(error)
+
+                });
+        },
+        showOrgUser(){
+            axios.get(`/view_users_org/${this.org_id}`)
+                .then(response => {
+                    this.nameAddOfficer = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        fetchNameInputOrgOfficer(){
+            this.nameFilterAddOfficer = this.nameAddOfficer.filter(item => item.student_id == this.addOfficersData.id);
+            if (this.nameFilterAddOfficer != null && this.nameFilterAddOfficer['0'] && this.nameFilterAddOfficer['0']['user'] && this.nameFilterAddOfficer['0']['user']['name']) {
+                this.nameFilterAddOfficer = this.nameFilterAddOfficer['0']['user']['name'];
+                
+            }
+
+        },
+        showOfficer(){
+            this.orgOfficers = [];
+            axios.get(`/view_officers/${this.org_id}`)
+                .then(response => {
+                    response.data.forEach(element => {
+                            this.orgOfficers.push({
+                                id: element.id,
+                                name: element.user.name,
+                                position: element.position,
+                            })
+                        // console.log(this.orgOfficers)
+                        
+                    });
+
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+
         deleteSchoolYear(){
             axios.delete(`/deleteSchoolYear/${this.schoolYearId}`)
                     .then(response => {
                         this.showSucces(response.data.message);
+                        this.viewSchoolYear();
                     })
                     .catch(error => {
                         console.log(error)
-            });
+                    });
 
         },
         updateSchoolYear(){
             axios.put(`/update_school_year/${this.schoolYearId}`, this.addSchoolYears)
                 .then(response => {
                     this.showSucces(response.data.message);
+                    this.viewSchoolYear();
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -604,7 +676,7 @@ export default{
                     this.addSchoolYears = response.data
                 })
                 .catch(error => {
-
+                    console.log(error)
                 });
         },
         viewSchoolYear(){
@@ -622,6 +694,7 @@ export default{
             axios.post('/add_school_year', this.addSchoolYears)
                 .then(response => {
                     this.showSucces(response.data.message);
+                    this.viewSchoolYear();
                 })
                 .catch(error => {
                     alert(error)
@@ -629,7 +702,6 @@ export default{
                 });
         },
         showSucces(message){
-            this.viewSchoolYear()
             toast.success(message),{
                 autoClose: 100,
             }
@@ -639,7 +711,17 @@ export default{
                 school_year:'',
                 org_id: this.org_id,
                 }
-        }
+        },
+        clearAddOfficerData(){
+            this.addOfficersData={
+                id:'',
+                position: '',
+                org_id: this.org_id,
+
+            };
+            this.nameFilterAddOfficer = [];
+            
+        },
     },
 
 }
