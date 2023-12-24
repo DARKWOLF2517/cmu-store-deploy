@@ -113,7 +113,8 @@
 
 .profile img {
     margin-top: 10px;
-    width: 35vh;
+    width: 90%;
+    max-width: 200px;
     height: auto;
     border-radius: 50%;
     object-fit: cover;

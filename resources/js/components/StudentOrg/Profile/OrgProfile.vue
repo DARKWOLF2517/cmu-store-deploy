@@ -391,7 +391,7 @@
                             <label for="IDnumber"><b>Name</b></label>
                             <input type="text" class="form-control" id="IDnumber" disabled v-model="this.nameFilterAddOfficer">
                         <!-- </div> -->
-                        
+
                     </div>
                     <div class="form-group mt-4">
                         <label for="positionTitle"><b>Title of Position</b></label>
@@ -587,7 +587,7 @@ export default{
                     });
         },
         updateOfficer(){
-            
+
         },
         officerFetchUpdate(){
             axios.get(`edit_officer/${this.OfficerId}/${this.org_id}`)
@@ -624,7 +624,7 @@ export default{
             this.nameFilterAddOfficer = this.nameAddOfficer.filter(item => item.student_id == this.addOfficersData.id);
             if (this.nameFilterAddOfficer != null && this.nameFilterAddOfficer['0'] && this.nameFilterAddOfficer['0']['user'] && this.nameFilterAddOfficer['0']['user']['name']) {
                 this.nameFilterAddOfficer = this.nameFilterAddOfficer['0']['user']['name'];
-                
+
             }
 
         },
@@ -639,7 +639,7 @@ export default{
                                 position: element.position,
                             })
                         // console.log(this.orgOfficers)
-                        
+
                     });
 
                 })
@@ -720,7 +720,7 @@ export default{
 
             };
             this.nameFilterAddOfficer = [];
-            
+
         },
     },
 
