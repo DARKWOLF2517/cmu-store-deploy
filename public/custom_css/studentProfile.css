@@ -3,6 +3,28 @@
     text-align: center;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
 }
+.option-btn {
+    background-color: #cbd0d4;
+    color: #000000;
+    border-radius: 20px;
+    border: none;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    justify-content: center;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+  .option-btn:hover {
+    background-color: #4a8c78; /* Change color on hover */
+    color: white;
+  }
+
+  .option-btn.active {
+    background-color: #2f755c;
+    color: white;
+  }
 
 .nav-tabs {
     margin-top: 20px;
