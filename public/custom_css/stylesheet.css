@@ -250,5 +250,8 @@ body {
     #tablecontainer{
         overflow-x: auto;
     }
+    .button-secondary{
+        font-size: 10px;
+    }
 
 }
