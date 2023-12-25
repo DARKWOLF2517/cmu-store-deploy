@@ -19,12 +19,12 @@ class UserOrgRoleMiddleware
 
         $userOrganizationCount = UserOrganization::where('student_id', Auth::id())->count();
 
-        if($userOrganizationCount > 1){
-            if (Auth::check()){
-                return $next($request);
-            }
-        }
-        else{
+        // if($userOrganizationCount > 1){
+        //     if (Auth::check()){
+        //         return $next($request);
+        //     }
+        // }
+        // else{
             $student_id = Auth::id();
             $userOrganization = UserOrganization::where('student_id', $student_id)->first();
             if (Auth::check() && $userOrganization->role_id == $role){
@@ -34,7 +34,7 @@ class UserOrgRoleMiddleware
             else{
                 return response()->json(["You don't have permission to access this page"]);
             }
-        }
+        // }
 
     }
 }
