@@ -40,7 +40,7 @@
                     <div class="announcement-cards-list ">
                             <div class="announcement-card">
                                 <div class="dropdown">
-                                    <a class="ellipsis-button" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-ellipsis-h"></i>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">

@@ -5,7 +5,7 @@ body {
 
 }
 .button-secondary{
-    background-color: #dde3e9;
+    background-color: #e9eef3;
 }
 
 .Message-IfEmpty, .Dashboard-IfEmpty {
@@ -218,7 +218,22 @@ body {
   justify-content: center;
   align-items: center;
   height: 200px;
+
   }
+
+  .loader-spinner-container{
+    text-align: center;
+    padding: 10px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
+    margin: auto;
+    margin-top: 10%;
+  }
+
 /* Media query for screens with a maximum width of 768px */
 @media (max-width: 768px) {
 

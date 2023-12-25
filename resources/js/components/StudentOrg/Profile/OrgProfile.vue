@@ -10,9 +10,10 @@
                 </ol>
             </nav>
         </div>
-        <div class="row height-fix">
-            <div class="col-md-3 col-sm-12">
+<div class="row">
+    <div class="col-md-3 col-sm-12">
         <div class="profile">
+            <!-- Profile content -->
             <img id="profileImage" src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="profile photo">
             <div class="profile-details mt-2">
                 <h5><b> CSCo</b></h5>
@@ -21,201 +22,200 @@
         </div>
     </div>
 
-            <div class="col-md-9">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><b>Profile</b></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="organization-tab" data-bs-toggle="tab" href="#organization" role="tab" aria-controls="organization" aria-selected="false"><b>Organization</b></a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <!-- Profile Tab Content -->
-                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <div class="col">
-                            <!-- Add an edit button on the top right -->
-                            <div class="d-flex justify-content-end mb-3">
-                                <button class="btn button-secondary mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
+    <div class="col-md-9">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <!-- Nav tabs -->
+            <li class="nav-item">
+                <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><b>Profile</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="organization-tab" data-bs-toggle="tab" href="#organization" role="tab" aria-controls="organization" aria-selected="false"><b>Organization</b></a>
+            </li>
+        </ul>
 
-                            </div>
-
-                            <div class="row student-details">
-                                <div class="student-org-info">
-                                    <h4><b>Student Organization Information</b></h4>
-                                    <h6 class="mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h6>
-                                    <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h6>
-                                    <h6><b>Semester and Academic Year: </b> <span id="number-of-students">1st Semester</span></h6>
-                                </div>
-                            </div>
-                        </div>
+        <div class="tab-content" id="myTabContent">
+            <!-- Profile Tab Content -->
+            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="col">
+                    <!-- Add an edit button on the top right -->
+                    <div class="d-flex justify-content-end mb-3">
+                        <button class="btn button-secondary mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
                     </div>
 
-                    <!-- For adding officer  -->
-                    <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-                        <div class="organization-details">
-                            <div class="org-officers" style="width: 50%;">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5><b>Organization Officers</b></h5>
-                                    <button class="btn button-secondary" @click="this.addOfficerSubmit = this.addOfficer, this.clearAddOfficerData()" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Officer</button>
-                                </div>
-
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 50%; ">Name</th>
-                                            <th style="width: 40%;">Position</th>
-                                            <th style="width:10%;"> Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="officers in this.orgOfficers">
-                                            <td>{{ officers['name'] }}</td>
-                                            <td>{{ officers['position'] }}</td>
-                                            <td>
-                                                <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                                <!-- option 1 -->
-                                                <li><a class="dropdown-item" @click="this.addOfficerSubmit = this.updateOfficer, this.OfficerId = officers['id'], this.officerFetchUpdate()" data-bs-toggle="modal" data-bs-target="#addOfficerModal" >Edit Officer</a></li>
-                                                <!-- option 2 -->
-                                                <li><a class="dropdown-item" @click="this.OfficerId = officers['id']" data-bs-toggle="modal" data-bs-target="#removeOfficerModal">Remove Officer</a></li>
-                                            </ul>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- for partner organization -->
-                            <div class="partner-organizations" style="width: 50%;">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h5><b>Organizations Partners</b></h5>
-                                    <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal">Set Partners</button>
-                                </div>
-
-
-                                <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 50%;">Partner</th>
-                                                <th style="width: 10%; "></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>JPIA</td>
-                                                <td>
-                                                    <!-- Ellipsis Button -->
-                                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                                        <i class="fas fa-ellipsis-v"></i>
-                                                    </a>
-
-                                                    <!-- Dropdown Menu -->
-                                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                                        <!-- option 1 -->
-                                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editPartnerModal">Edit Partner</a></li>
-                                                        <!-- option 2 -->
-                                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removePartnerModal">Delete Partner</a></li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
+                    <div class="row student-details">
+                        <div class="student-org-info">
+                            <!-- Student Organization Information -->
+                            <h4><b>Student Organization Information</b></h4>
+                            <h6 class="mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h6>
+                            <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h6>
+                            <h6><b>Semester and Academic Year: </b> <span id="number-of-students">1st Semester</span></h6>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="d-flex">
-            <div class="container">
-    <div class="row">
-        <!-- Committee Members Table -->
-        <div class="col-md-6">
-            <div class="roles">
-                <div class="d-flex justify-content-between align-items-center mb-3 header">
-                    <h5><b>Organization Roles</b></h5>
-                    <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
-                </div>
 
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 50%;">Name</th>
-                                <th style="width: 40%;">Role</th>
-                                <th style="width: 10%;"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Taylor Swift</td>
-                                <td>Admin</td>
-                                <td>
-                                    <!-- Ellipsis Button -->
-                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
+            <!-- Organization Tab Content -->
+            <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
+                <div class="organization-details">
+                    <div class="org-officers" style="width: 50%;">
+                        <!-- Organization Officers -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5><b>Organization Officers</b></h5>
+                            <button class="btn button-secondary" @click="this.addOfficerSubmit = this.addOfficer, this.clearAddOfficerData()" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Officer</button>
+                        </div>
 
-                                    <!-- Dropdown Menu -->
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editRoleModal">Edit Role</a></li>
-                                        <!-- option 2 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeUserModal">Remove User</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%; ">Name</th>
+                                    <th style="width: 40%;">Position</th>
+                                    <th style="width:10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="officers in this.orgOfficers">
+                                    <td>{{ officers['name'] }}</td>
+                                    <td>{{ officers['position'] }}</td>
+                                    <td>
+                                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                            <!-- Edit Officer -->
+                                            <li><a class="dropdown-item" @click="this.addOfficerSubmit = this.updateOfficer, this.OfficerId = officers['id'], this.officerFetchUpdate()" data-bs-toggle="modal" data-bs-target="#addOfficerModal" >Edit Officer</a></li>
+                                            <!-- Remove Officer -->
+                                            <li><a class="dropdown-item" @click="this.OfficerId = officers['id']" data-bs-toggle="modal" data-bs-target="#removeOfficerModal">Remove Officer</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-        <!-- Table for semesters -->
-        <div class="col-md-6">
-            <div class="roles">
-                <div class="d-flex justify-content-between align-items-center mb-3 header">
-                    <h5><b>Semesters</b></h5>
-                    <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
-                </div>
+                    <!-- Partner Organizations -->
+                    <div class="partner-organizations" style="width: 50%;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5><b>Organizations Partners</b></h5>
+                            <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal">Set Partners</button>
+                        </div>
 
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Semester and School Year</th>
-                                <th style="width: 10%;"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="schoolYear in this.schoolYear">
-                                <td>{{ schoolYear['school_year'] }}</td>
-                                <td>
-                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id, SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">Edit</a></li>
-                                        <!-- option 2 -->
-                                        <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">Partner</th>
+                                    <th style="width: 10%; "></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>JPIA</td>
+                                    <td>
+                                        <!-- Ellipsis Button -->
+                                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+
+                                        <!-- Dropdown Menu -->
+                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                            <!-- Edit Partner -->
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editPartnerModal">Edit Partner</a></li>
+                                            <!-- Delete Partner -->
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removePartnerModal">Delete Partner</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="containers">
+        <div class="row">
+            <!-- Committee Members Table -->
+            <div class="col-md-6">
+                <div class="roles">
+                    <div class="d-flex justify-content-between align-items-center mb-3 header">
+                        <h5><b>Organization Roles</b></h5>
+                        <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%;">Name</th>
+                                    <th style="width: 40%;">Role</th>
+                                    <th style="width: 10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Taylor Swift</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <!-- Ellipsis Button -->
+                                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+
+                                        <!-- Dropdown Menu -->
+                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                            <!-- Edit Role -->
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editRoleModal">Edit Role</a></li>
+                                            <!-- Remove User -->
+                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeUserModal">Remove User</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table for Semesters -->
+            <div class="col-md-6">
+                <div class="semester">
+                    <div class="d-flex justify-content-between align-items-center mb-3 header">
+                        <h5><b>Semesters</b></h5>
+                        <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Semester and School Year</th>
+                                    <th style="width: 10%;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="schoolYear in this.schoolYear">
+                                    <td>{{ schoolYear['school_year'] }}</td>
+                                    <td>
+                                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                            <!-- Edit School Year -->
+                                            <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id, SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">Edit</a></li>
+                                            <!-- Delete School Year -->
+                                            <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 <!-- Edit Student Details Modal -->
 <div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -375,6 +375,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="addOfficerModalLabel" v-if="this.addOfficerSubmit == this.addOfficer">Add Officer</h5>
                 <h5 class="modal-title" id="addOfficerModalLabel" v-else-if="this.addOfficerSubmit == this.updateOfficer">Edit Officer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="this.addOfficerSubmit">
