@@ -38,7 +38,7 @@
             <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="col">
                     <!-- Add an edit button on the top right -->
-                    <div class="d-flex justify-content-end mb-3">
+                    <div class="d-flex justify-content-end">
                         <button class="btn button-secondary mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
                     </div>
 
