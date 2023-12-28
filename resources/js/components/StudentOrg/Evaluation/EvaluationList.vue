@@ -34,7 +34,7 @@
 
                 <!-- <h5> {{ evaluation['event_id'] }}</h5> -->
                 <div class="dropdown">
-                    <a class="ellipsis-button" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
@@ -108,11 +108,11 @@ import 'vue3-toastify/dist/index.css';
             // // Merge the results of both filters (independently applied)
             this.filtered_events = filteredBySearch.filter(item =>
                 filteredBySchoolYear.includes(item)
-            );   
+            );
         },
             showSchoolYear(){
             axios.get(`get_school_year/${this.organization_id}`)
-                .then(response => { 
+                .then(response => {
                     this.school_year = response.data;
                 })
                 .catch(error => {

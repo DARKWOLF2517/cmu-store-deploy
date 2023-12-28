@@ -1,22 +1,26 @@
 <template>
     <div class="schedule-list-container">
-        <!-- Message if the container is empty -->
-        <div class="Message-IfEmpty" v-if="events.length === 0">
-            <i class="icon 	far fa-calendar-minus" id="icon-message"></i>
-            <p class="text-muted"><b>No Attendance Scheduled yet</b>
-            <br>
-            Start an attendance by activating an event.</p>
-        </div>
+         <!-- Loading spinner -->
+    <div v-if="loading" class="loading-spinner">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
-    <div class="card" v-for="event in this.events" :id="event.event_id">
-        <div class="card-header">
-            <b> Event Name: {{ event["name"] }}</b>
-        </div>
+    <!-- Message if the container is empty -->
+    <div class="Message-IfEmpty" v-if="events.length === 0 && !loading">
+      <i class="icon far fa-calendar-minus" id="icon-message"></i>
+      <p class="text-muted"><b>No Attendance Scheduled yet</b><br>Start an attendance.</p>
+      <a class="btn btn-success" href="/student_organization_events">Go to Events</a>
+    </div>
+
+    <div class="schedule-card" v-for="event in this.events" :id="event.event_id">
         <div class="card-body d-flex justify-content-between align-items-start">
             <div>
-            <h6 class="card-text">Start Date: {{ event["start_date"] }}</h6>
-            <h6 class="card-text">Time starts at: {{ event["start_attendance"] }}</h6>
-            <h6 class="card-text">Number of Attendance: {{ event["attendance_count"] }}</h6>
+                <h5><b>{{ event["name"] }}</b></h5>
+            <h6 >Start Date: {{ event["start_date"] }}</h6>
+            <h6 >Time starts at: {{ event["start_attendance"] }}</h6>
+            <h6 class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</h6>
             </div>
             <div class="ml-auto">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceModal" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
@@ -29,6 +33,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
         <div class="modal-header">
+            <h5> Start an Attendance?</h5>
+
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -66,6 +72,7 @@ export default {
     props: ['org_id'],
     data() {
         return {
+            loading: true,
             attendance_count:null,
             events: [],
             event_id: null,
@@ -89,24 +96,30 @@ export default {
                 });
 
     },
-        fetchData() {
-            fetch(`/events/attendance/${this.org_id}`, {
-                method: "GET",
-                headers: {
-                    //TYPE OF DATA THAT THE SERVER SHOULD RESPOND
-                    "Content-Type":"application/json"
-                }
-            }).then( (response) => {
-                response.json().then((data) => {
-                    data.forEach(element => {
-                        element["start_date"] = convertDate(element["start_date"]);
-                        element["end_date"] = convertDate(element["end_date"]);
-                    });
-                    this.events = data;
-                    console.log(this.events)
-                })
-            })
+    fetchData() {
+      fetch(`/events/attendance/${this.org_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
         },
+      })
+        .then((response) => {
+          response.json().then((data) => {
+            data.forEach((element) => {
+              element["start_date"] = convertDate(element["start_date"]);
+              element["end_date"] = convertDate(element["end_date"]);
+            });
+            this.events = data;
+            this.loading = false; // Set loading to false after data is loaded
+            console.log(this.events);
+          });
+        })
+        .catch((error) => {
+          // Handle error
+          this.loading = false; // Set loading to false in case of an error
+        });
+    },
+
         startAttendance(event_id, org_id, session){
 
             if (event_id === null || org_id === null || session === null) {

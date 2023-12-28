@@ -1,8 +1,9 @@
 
 .card {
     text-align: center;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
 }
+
 .option-btn {
     background-color: #cbd0d4;
     color: #000000;
@@ -37,11 +38,12 @@
 
 .tab-content {
     padding: 20px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: white;
+    height: 40vh;
+    max-height: 40vh;
 }
-
 
 
 #organization {
@@ -52,34 +54,32 @@
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2); */
     border-radius: 10px;
     background-color: white;
-    height: 50vh;
+    height: 45vh;
+    max-height: 45vh;
 }
 
 
 .student-info, .org-under-info{
     padding: 10px;
-    height: 32vh;
-    max-height: 32vh;
+    height: 40vh;
+    max-height: 40vh;
     overflow-y: auto;
 }
 
 .student-org-info{
     padding: 10px;
-    height: 25vh;
-    max-height: 25vh;
     overflow-y: auto;
 }
 .qrcode-img {
-    margin-top: 30px;
-    height: 30vh;
+    margin-top: 10px;
     width: auto;
     padding: 10px;
 }
 .student-details {
-    padding: 20px;
+    padding: 10px;
     width: 100%;
 }
 .qr-code h5{
@@ -98,18 +98,23 @@
     margin: 2px;
 }
 
-
 /* Student Organization CSS */
+.stud-org-details{
+    height: 45vh;
+    max-height: 45vh;
+}
+#profile{
+    height: 50vh;
+    max-height: 50vh;
+}
 .profile {
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background-color: white;
-    height: 50vh;
 }
-
 
 .profile img {
     margin-top: 10px;
@@ -121,11 +126,11 @@
     border: 2px solid #fff;
 }
 
-.roles {
+.roles , .semester{
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background-color: white;
     height: 30vh;
@@ -140,8 +145,8 @@
 }
 .organization-details{
     display: flex;
-    height: 36.5vh;
-    max-height: 65vh;
+    height: 30vh;
+    max-height: 30vh;
     overflow-y: auto;
 }
 
@@ -155,7 +160,7 @@
         text-align: center;
         margin-top: 20px;
         padding: 10px;
-        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         background-color: white;
         height: auto;
@@ -184,10 +189,28 @@
         margin: 10px auto;
     }
 
-    .profile {
+    .profile, #profile {
         height: auto;
     }
-    h5{
+    h4{
         font-size: 15px;
     }
+    h5, h6, th{
+        font-size: 12px;
+    }
+    .student-details{
+        height: 30vh;
+        max-height: 30vh;
+        overflow-y: auto;
+    }
+    .org-officers,
+    .organization-partners {
+        flex: 1; /* Reset flex property */
+        margin-right: 60px;
+        width: 100%;
+    }
+    .table{
+        width: 100%;
+    }
+
 }
