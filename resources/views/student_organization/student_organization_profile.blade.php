@@ -163,7 +163,7 @@
 </div> --}}
 <div class="content">
 <org-profile
-org_id = {{Session::get('org_id')}}
+    :org_id = {{Session::get('org_id')}}
 >
 
 </org-profile>

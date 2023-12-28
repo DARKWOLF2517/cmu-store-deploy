@@ -9,15 +9,15 @@ class UserOrganization extends Model
 {
     use HasFactory;
     protected $table = 'user_organization';
-    protected $primaryKey = ['student_org_id', 'student_id', 'role_id'];
-    public $incrementing = false;
+    // protected $primaryKey = ['student_org_id', 'student_id', 'role_id'];
+    // public $incrementing = false;
 
 
     protected $fillable = [
         'student_org_id',
         'student_id',
         'role_id',
-        'year_level'
+        'year_level_id'
     ];
 
     public function organization()

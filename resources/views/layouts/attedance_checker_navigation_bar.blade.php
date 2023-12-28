@@ -79,7 +79,7 @@
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded dashboard-button">
                             <i class="fas fa-tachometer-alt"></i>
-                            <a href="/login/attendance_checker_dashboard">
+                            <a href="attendance_checker_dashboard">
                             <span class="link-title">Dashboard</span>
                             </a>
                         </button>
@@ -87,7 +87,7 @@
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-calendar-check"></i>
-                            <a href="/student_organization_attendance_schedule">
+                            <a href="/attendance_checker_attendance_schedule">
                             <span class="link-title">Schedule</span>
                             </a>
                         </button>
@@ -95,7 +95,7 @@
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="	fas fa-calendar-alt"></i>
-                            <a href="/student_organization_attendance">
+                            <a href="/attendance_checker_attendance_records">
                             <span class="link-title">Records</span>
                             </a>
                         </button>

@@ -1,4 +1,4 @@
-@extends('layouts.attendance_checker_navigation_bar')
+@extends('layouts.attedance_checker_navigation_bar')
 @section('main-content')
 <link href="/custom_css/SODashboard.css" rel="stylesheet">
 <div class="content">

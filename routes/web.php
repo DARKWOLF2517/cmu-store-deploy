@@ -202,6 +202,8 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/add_org_officer',[OrgProfileController::class, 'addOrgOfficer']);
             Route::get('/edit_officer/{id}/{org_id}',[OrgProfileController::class, 'fetchUpdateOfficer']);
             Route::delete('/deleteOfficer/{id}',[OrgProfileController::class, 'DeleteOfficer']);
+            Route::get('/view_roles',[OrgProfileController::class, 'viewRoles']);
+            Route::post('/add_org_officer_role',[OrgProfileController::class, 'addOrgOfficerRole']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){
@@ -259,18 +261,23 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/submit_evaluation',[EvaluationController::class, 'store']);
             Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
 
-//Attendance Checker
-            Route::get('/attendance_checker_dashboard', function () {
-                return view('attendance_checker.attendance_checker_dashboard');
-            });
 
-            Route::get('attendance_checker_attendance_schedule', function () {
-                return view('attendance_checker.attendance_checker_attendance_schedule');
-            });
 
-            Route::get('attendance_checker_attendance_records', function () {
-                return view('attendance_checker.attendance_checker_attendance_records');
-            });
 
+    });
+
+
+
+//Attendance Checker route
+    Route::get('/attendance_checker_dashboard', function () {
+        return view('attendance_checker.student_attendance_checker_dashboard');
+    });
+
+    Route::get('/attendance_checker_attendance_schedule', function () {
+        return view('attendance_checker.student_attendance_schedule');
+    });
+
+    Route::get('/attendance_checker_attendance_records', function () {
+        return view('attendance_checker.student_attendance_records');
     });
 });

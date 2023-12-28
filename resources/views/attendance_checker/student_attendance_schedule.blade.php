@@ -1,5 +1,5 @@
 
-@extends('layouts.attendance_checker_navigation_bar')
+@extends('layouts.attedance_checker_navigation_bar')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
 @section('main-content')
 <div class="content">

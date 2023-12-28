@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrganizationOfficer;
+use App\Models\Role;
 use App\Models\SchoolYear;
 use App\Models\UserOrganization;
 use Illuminate\Http\Request;
@@ -54,12 +55,12 @@ class OrgProfileController extends Controller
         $id->delete();
         return response()->json(['message' => 'School Year Deleted successfully']);
     }
-    public function viewOrgOfficer($org_id)
-    {
-        $orgOfficer = OrganizationOfficer::where('org_id', $org_id)->with('user')->get();
-        return response()->json($orgOfficer);
-    
-    }
+public function viewOrgOfficer($org_id)
+{
+    $orgOfficer = OrganizationOfficer::where('org_id', $org_id)->with('user')->get();
+    return response()->json($orgOfficer);
+
+}
     public function viewUsersOrg($org_id)
     {
         $orgUser = UserOrganization::where('student_org_id', $org_id)->with('user')->get();
@@ -73,6 +74,7 @@ class OrgProfileController extends Controller
             return response()->json(['message' => 'Already in the List','type' => 0]);
         }
         else{
+            $UserYearLevel = UserOrganization::where('student_id', $request['id'])->first();
             // Validate the form data
             $validatedData = $this->validate($request,[
                 'id' => 'required',
@@ -85,11 +87,11 @@ class OrgProfileController extends Controller
                 'id' => $validatedData['id'],
                 'position' => $validatedData['position'],
                 'org_id' => $validatedData['org_id'],
+                'year_level_id' => $UserYearLevel->year_level_id,
                 
             ]);
             $schoolyear->save();
             return response()->json(['message' => 'Officer added Successfully','type' => 1]);
-            
         }
 
 
@@ -105,6 +107,16 @@ class OrgProfileController extends Controller
         return $count;
     }
 
+    public function officerRoleRepitition($id, $org_id, $role_id)
+    {
+        $records = UserOrganization::where([
+            ['student_id', $id],
+            ['student_org_id', $org_id],
+            ['role_id', $role_id]
+        ])->get();
+        $count = $records->count();
+        return $count;
+    }
 
     public function fetchUpdateOfficer($id, $org_id)
     {   
@@ -121,5 +133,43 @@ class OrgProfileController extends Controller
         $id->delete();
         return response()->json(['message' => 'Officer Deleted successfully']);
     }
+
+    public function viewRoles()
+{
+    $roles = Role::all();
+    return response()->json($roles);
+
+}
+
+public function addOrgOfficerRole(Request $request)
+{
+    if($this->officerRoleRepitition($request['student_id'],$request['student_org_id'], $request['role_id']) >= 1)
+    {
+        return response()->json(['message' => 'Already in the List','type' => 0]);
+    }
+    else{
+        // Validate the form data
+        $validatedData = $this->validate($request,[
+            'role_id' => 'required',
+            'student_id' => 'required',
+            'student_org_id' => 'required',
+            'year_level_id' => 'required',
+        ]);
+
+        // // Create a new School Year instance
+        $OrganizationRole = new UserOrganization([
+            'student_org_id' => $validatedData['student_org_id'],
+            'student_id' => $validatedData['student_id'],
+            'role_id' => $validatedData['role_id'],
+            'year_level_id' => $validatedData['year_level_id'],
+            
+        ]);
+        $OrganizationRole->save();
+        return response()->json(['message' => 'Role added Successfully','type' => 1]);
+    }
+
+    // return $request;
+
+}
 
 }

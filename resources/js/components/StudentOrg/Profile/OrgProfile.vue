@@ -140,7 +140,7 @@
                 <div class="roles">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
                         <h5><b>Organization Roles</b></h5>
-                        <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal">Set Roles</button>
+                        <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()">Set Roles</button>
                     </div>
 
                     <div class="table-responsive">
@@ -153,9 +153,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Taylor Swift</td>
-                                    <td>Admin</td>
+                                <tr >
+                                    <td></td>
+                                    <td></td>
                                     <td>
                                         <!-- Ellipsis Button -->
                                         <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
@@ -294,22 +294,17 @@
                 <h5 class="modal-title" id="setRolesModalLabel">Set Roles</h5>
             </div>
             <div class="modal-body">
-                <form>
+                <form @submit.prevent="this.addOfficerRoleSubmit">
                     <div class="form-group">
                         <label for="selectOfficer"><b>Select Officer</b></label>
-                        <select class="form-control" id="selectOfficer">
-                            <option>Taylor Swift</option>
-                            <option>Ariana Grande</option>
-                            <option>Katy Perry</option>
-                            <!-- Add other officers as needed -->
+                        <select class="form-control" id="selectOfficer" v-model ="addOfficerRoleData.student_id">
+                            <option v-for="officer in this.orgOfficers" :value="officer.id" >{{ officer.name }}</option>
                         </select>
                     </div>
                     <div class="form-group mt-4">
                         <label for="selectRole"><b>Select Role</b></label>
-                        <select class="form-control" id="selectRole">
-                            <option>Admin</option>
-                            <option>Attendance Checker</option>
-                            <!-- Add other roles as needed -->
+                        <select class="form-control" id="selectRole" v-model ="addOfficerRoleData.role_id">
+                            <option v-for="role in this.roles " :value="role.role_id">{{ role.name }}</option>
                         </select>
                     </div>
                     <div class="modal-footer">
@@ -382,7 +377,7 @@
                     <div class="form-group">
                         <div v-if="this.addOfficerSubmit == this.addOfficer">
                             <label for="IDnumber"><b>ID number</b></label>
-                            <input type="text" class="form-control" id="IDnumber" placeholder="Enter ID Number" v-model="this.addOfficersData.id" @input="this.fetchNameInputOrgOfficer">
+                            <input type="text" class="form-control" id="IDnumber" placeholder="Enter ID Number" v-model="this.addOfficersData.id" @input="this.fetchNameInputOrgOfficer" required>
                         </div>
                         <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
                             <label for="IDnumber"><b>ID number</b></label>
@@ -396,7 +391,7 @@
                     </div>
                     <div class="form-group mt-4">
                         <label for="positionTitle"><b>Title of Position</b></label>
-                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title" v-model="this.addOfficersData.position" >
+                        <input type="text" class="form-control" id="positionTitle" placeholder="Enter title" v-model="this.addOfficersData.position" required >
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -567,14 +562,63 @@ export default{
 
             },
             OfficerId: 0,
+            roles: [] ,
+            addOfficerRoleData: {
+                student_org_id: this.org_id,
+                student_id: '',
+                role_id: '',
+                year_level_id: '',
+            },
+            addOfficerRoleSubmit: this.addOfficerRole,
         }
     },
     mounted(){
         this.viewSchoolYear();
         this.showOfficer();
         this.showOrgUser();
+        this.fetchRoles();
     },
     methods: {
+        addOfficerRole(){
+            // initialize data
+            let year_level = this.orgOfficers.find(item => item.id == this.addOfficerRoleData.student_id);
+            this.addOfficerRoleData= {
+                student_org_id:  this.addOfficerRoleData.student_org_id,
+                student_id:  this.addOfficerRoleData.student_id,
+                role_id:  this.addOfficerRoleData.role_id,
+                year_level_id: year_level.year_level_id,
+            }
+            // submit data
+            axios.post('/add_org_officer_role', this.addOfficerRoleData)
+                .then(response => {
+                        // console.log(response.data)
+                        if (response.data.type == 0) {
+                            this.showError(response.data.message);
+                        }
+                        else{
+                            this.showSucces(response.data.message);
+                            this.showOfficer();
+                            
+                        }
+
+                })
+                .catch(error => {
+                    alert(error)
+
+                });
+
+        },
+        fetchRoles(){
+            axios.get(`/view_roles`)
+                .then(response => {
+                    this.roles = response.data;
+                    // console.log(this.roles)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
+        },
         deleteOfficer(){
             axios.delete(`/deleteOfficer/${this.OfficerId}`)
                     .then(response => {
@@ -592,7 +636,7 @@ export default{
             axios.get(`edit_officer/${this.OfficerId}/${this.org_id}`)
                 .then(response => {
                     this.addOfficersData = response.data;
-                    console.log(this.addOfficersData);
+                    // console.log(this.addOfficersData);
                 })
                 .catch(error => {
                     console.log(error)
@@ -608,6 +652,7 @@ export default{
                         else{
                             this.showSucces(response.data.message);
                             this.showOfficer();
+                            
                         }
 
                 })
@@ -620,6 +665,7 @@ export default{
             axios.get(`/view_users_org/${this.org_id}`)
                 .then(response => {
                     this.nameAddOfficer = response.data;
+                    console.log(this.nameAddOfficer)
                 })
                 .catch(error => {
                     console.log(error)
@@ -642,11 +688,12 @@ export default{
                                 id: element.id,
                                 name: element.user.name,
                                 position: element.position,
+                                year_level_id: element.year_level_id,
                             })
-                        // console.log(this.orgOfficers)
+                        
 
                     });
-
+                    console.log(this.orgOfficers)
                 })
                 .catch(error => {
                     console.log(error)
@@ -731,6 +778,14 @@ export default{
             };
             this.nameFilterAddOfficer = [];
 
+        },
+        clearAddOfficerRole(){
+            this.addOfficerRoleData= {
+                student_org_id: this.org_id,
+                student_id: '',
+                role_id: '',
+                year_level_id: '',
+            }
         },
     },
 

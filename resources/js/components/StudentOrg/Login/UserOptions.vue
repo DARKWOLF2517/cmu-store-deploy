@@ -11,6 +11,7 @@
             <p>
                 <span v-if="userOrg['role']['role_id'] == 1"><b>Admin</b></span>
                 <span v-else-if="userOrg['role']['role_id'] == 2"><b>Student</b></span>
+                <span v-else-if="userOrg['role']['role_id'] == 3"><b>Attendance Checker</b></span>
             </p>
             </div>
         </div>
@@ -59,6 +60,9 @@ export default {
                 }
                 else if (response.data == 2){
                     window.location.href = '/student_attendance';
+                }
+                else if (response.data == 3){
+                    window.location.href = '/attendance_checker_dashboard';
                 }
 
             })

@@ -15,6 +15,7 @@ class OrganizationOfficer extends Model
         'id',
         'org_id',
         'position',
+        'year_level_id',
     ];
 
     public function user()
