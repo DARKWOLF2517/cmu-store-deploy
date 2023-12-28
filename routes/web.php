@@ -267,17 +267,22 @@ Route::middleware(['auth'])->group(function(){
     });
 
 
+    Route::middleware(['user-role:3'])->group(function(){
+        //Attendance Checker route
+            Route::get('/attendance_checker_dashboard', function () {
+                return view('attendance_checker.student_attendance_checker_dashboard');
+            });
 
-//Attendance Checker route
-    Route::get('/attendance_checker_dashboard', function () {
-        return view('attendance_checker.student_attendance_checker_dashboard');
+            Route::get('/attendance_checker_attendance_schedule', function () {
+                return view('attendance_checker.student_attendance_schedule');
+            });
+
+            Route::get('/attendance_checker_attendance_records', function () {
+                return view('attendance_checker.student_attendance_records');
+            });
+
+
     });
 
-    Route::get('/attendance_checker_attendance_schedule', function () {
-        return view('attendance_checker.student_attendance_schedule');
-    });
 
-    Route::get('/attendance_checker_attendance_records', function () {
-        return view('attendance_checker.student_attendance_records');
-    });
 });
