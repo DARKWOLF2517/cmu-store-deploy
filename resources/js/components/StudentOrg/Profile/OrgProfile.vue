@@ -426,8 +426,6 @@
     </div>
 </div>
 
-
-
 <!-- Set Partners Modal -->
 <div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -602,9 +600,15 @@ export default{
         addOfficer(){
             axios.post('/add_org_officer', this.addOfficersData)
                 .then(response => {
-                    // console.log(response.data)
-                    this.showSucces(response.data.message);
-                    this.showOfficer();
+                        // console.log(response.data)
+                        if (response.data.type == 0) {
+                            this.showError(response.data.message);
+                        }
+                        else{
+                            this.showSucces(response.data.message);
+                            this.showOfficer();
+                        }
+
                 })
                 .catch(error => {
                     alert(error)
@@ -703,6 +707,11 @@ export default{
         },
         showSucces(message){
             toast.success(message),{
+                autoClose: 100,
+            }
+        },
+        showError(message){
+            toast.error(message),{
                 autoClose: 100,
             }
         },

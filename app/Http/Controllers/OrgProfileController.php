@@ -68,7 +68,12 @@ class OrgProfileController extends Controller
     }
     public function addOrgOfficer(Request $request)
     {
-             // Validate the form data
+        if($this->officerRepitition($request['id'],$request['org_id']) >= 1)
+        {
+            return response()->json(['message' => 'Already in the List','type' => 0]);
+        }
+        else{
+            // Validate the form data
             $validatedData = $this->validate($request,[
                 'id' => 'required',
                 'position' => 'required',
@@ -83,9 +88,23 @@ class OrgProfileController extends Controller
                 
             ]);
             $schoolyear->save();
-            return response()->json(['message' => 'Officer added Successfully']);
+            return response()->json(['message' => 'Officer added Successfully','type' => 1]);
+            
+        }
+
+
     
     }
+    public function officerRepitition($id, $org_id)
+    {
+        $records = OrganizationOfficer::where([
+            ['id', $id],
+            ['org_id', $org_id]
+        ])->get();
+        $count = $records->count();
+        return $count;
+    }
+
 
     public function fetchUpdateOfficer($id, $org_id)
     {   
