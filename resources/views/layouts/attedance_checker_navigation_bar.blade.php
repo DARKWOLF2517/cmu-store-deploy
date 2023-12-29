@@ -39,23 +39,27 @@
                         <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                        <li>
+                        @if(Session::get('many_user') == 'true')
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+
+                                <side-nav-button
+                                link_name="Switch User"
+                                link_route = "{{url('/options')}}"
+                                show_icon = "{{false}}"
+                                >
+                                </side-nav-button>
+                            </li>
+
+                        @else
+                            <li><hr class="dropdown-divider"></li>
                             <side-nav-button
-                            link_name="Switch User"
-                            {{-- link_route = "{{url('/student_organization_profile')}}" --}}
-                            show_icon = "{{false}}"
+                                link_name="Sign out"
+                                link_route = "{{url('/logout')}}"
+                                show_icon = "{{false}}"
                             >
-                        </side-nav-button>
-                        </li>
-
-                        <li><hr class="dropdown-divider"></li>
-
-                        <side-nav-button
-                            link_name="Sign out"
-                            link_route = "{{url('/logout')}}"
-                            show_icon = "{{false}}"
-                        >
-                        </side-nav-button>
+                            </side-nav-button>
+                        @endif
                     </ul>
                 </div>
             </div>

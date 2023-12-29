@@ -59,7 +59,7 @@ export default {
                 window.location.href = '/org_dashboard';
                 }
                 else if (response.data == 2){
-                    window.location.href = '/student_attendance';
+                    window.location.href = '/student_dashboard';
                 }
                 else if (response.data == 3){
                     window.location.href = '/attendance_checker_dashboard';

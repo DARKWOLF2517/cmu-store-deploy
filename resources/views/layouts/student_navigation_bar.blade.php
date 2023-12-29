@@ -98,9 +98,6 @@
                         >
                         </side-nav-button>
                         <li><hr class="dropdown-divider"></li> --}}
-
-
-
                         @if(Session::get('many_user') == 'true')
                             <li><hr class="dropdown-divider"></li>
                             <li>

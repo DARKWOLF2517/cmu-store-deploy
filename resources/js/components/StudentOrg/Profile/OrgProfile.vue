@@ -636,7 +636,7 @@ export default{
             axios.get(`edit_officer/${this.OfficerId}/${this.org_id}`)
                 .then(response => {
                     this.addOfficersData = response.data;
-                    // console.log(this.addOfficersData);
+                    console.log(response.data);
                 })
                 .catch(error => {
                     console.log(error)
@@ -665,7 +665,7 @@ export default{
             axios.get(`/view_users_org/${this.org_id}`)
                 .then(response => {
                     this.nameAddOfficer = response.data;
-                    console.log(this.nameAddOfficer)
+                    // console.log(this.nameAddOfficer)
                 })
                 .catch(error => {
                     console.log(error)
@@ -693,7 +693,7 @@ export default{
                         
 
                     });
-                    console.log(this.orgOfficers)
+                    // console.log(this.orgOfficers)
                 })
                 .catch(error => {
                     console.log(error)
