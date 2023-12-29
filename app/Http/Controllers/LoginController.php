@@ -26,23 +26,31 @@ class LoginController extends Controller
             $userOrganizationCount = UserOrganization::where('student_id', $student_id)->count();
             //if the user has MANY org or role
             if ($userOrganizationCount > 1){
-                // return redirect()->intended('/login/options');
-                return '3';
+                //tells when there is many user
+                session(['many_user' =>  'true']);
+                return '4';
 
+                
             }
             else{
                 //if the user has only ONE org or role
                 $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization')->first();
-                // dd($userOrganization->organization->name);
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
+                
+                //tells when there is only one user
+                session(['many_user' =>  'false']);
                 if($userOrganization->role_id == 1){
-                    // return redirect()->intended('/login/org_dashboard');
+                    //for admin role when the user has 1 role
                     return '1';
                 }
                 else if($userOrganization->role_id == 2){
-                    // return redirect()->intended('/login/student_dashboard');
+                    //for student role when the user has 1 role
                     return '2';
+                }
+                else if($userOrganization->role_id == 3){
+                    //for attendance checker role when the user has 1 role
+                    return '3';
                 }
                 else{
                     return 'no';

@@ -85,7 +85,9 @@
                 </div>
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div id="calendar">
-                        <dashboard-calendar>
+                        <dashboard-calendar
+                            :org_id={{Session::get('org_id')}}
+                        >
                         </dashboard-calendar>
                     </div>
                 </div>

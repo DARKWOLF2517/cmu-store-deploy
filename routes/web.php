@@ -46,14 +46,14 @@ Route::get('student_organization_profile', function () {
     Route::get('/usercards', function () {
         return view('layouts.organization_cards');
     });
-    Route::get('login/options', function () {
+    Route::get('/options', function () {
         $hideNav = true;
         return view('layouts.organization_cards',compact('hideNav'));
     })->name('login_options');
-    Route::get('login/GetOrgList/{userOrganization}', [LoginController::class, 'GetOrganizationList'])->name('get-user-organization');
+    Route::get('/GetOrgList/{userOrganization}', [LoginController::class, 'GetOrganizationList'])->name('get-user-organization');
 
     //get into organization that been choosen
-    Route::get('login/{org_id}/{role_id}/{organization_name}', [LoginController::class, 'LoginOrganization'])->name('login-organization');
+    Route::get('/{org_id}/{role_id}/{organization_name}', [LoginController::class, 'LoginOrganization'])->name('login-organization');
 
     Route::get('/evaluation_result', function () {
         return view('student_organization.student_organization_evaluation_results');
@@ -64,7 +64,7 @@ Route::get('student_organization_profile', function () {
     });
 
     //calendar events
-    Route::get('/events/calendar',[EventController::class, 'getEventsForCalendar'])->name('get-event-calendar');
+    Route::get('/calendar/{org_id}',[EventController::class, 'getEventsForCalendar']);
     #ACCOUNTABILITIES ROUTE
     Route::get('/accountabilities/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
     Route::get('/get_accountabilities/{org_id}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
@@ -98,7 +98,7 @@ Route::middleware(['auth'])->group(function(){
 
         Route::post('/upload_students',[UserController::class, 'store']);
         #ORG DASHBOARD
-            Route::get('/login/org_dashboard', function () {
+            Route::get('/org_dashboard', function () {
                 return view('student_organization.student_organization_dashboard');
             })->name('org_dashboard');
 
@@ -214,7 +214,7 @@ Route::middleware(['auth'])->group(function(){
             return view('student.student_profile');
         });
 
-        Route::get('/login/student_dashboard', function () {
+        Route::get('/student_dashboard', function () {
             return view('student.student_dashboard');
         });
 
@@ -230,7 +230,7 @@ Route::middleware(['auth'])->group(function(){
             return view('student.student_announcement');
         });
 
-        Route::get('student_attendance', function () {
+        Route::get('/student_attendance', function () {
             return view('student.student_attendance');
         });
 

@@ -25,12 +25,6 @@ class UserOrgRoleMiddleware
             }
         }
         else{
-
-
-            
-
-
-
             $student_id = Auth::id();
             // $userOrganization = UserOrganization::where('student_id', $student_id)->get();
             // Fetch the user organizations for a specific student ID
@@ -39,7 +33,6 @@ class UserOrgRoleMiddleware
                 // foreach ($userOrganizations as $currentOrganization) {
 
                 // }
-       
                 if (Auth::check() && $userOrganizations->role_id == $role){
                     return $next($request);
                 }

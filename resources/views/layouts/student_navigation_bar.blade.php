@@ -100,12 +100,28 @@
                         <li><hr class="dropdown-divider"></li> --}}
 
 
-                        <side-nav-button
-                        link_name="Sign out"
-                        link_route = "{{url('/logout')}}"
-                        show_icon = "{{false}}"
-                        >
-                        </side-nav-button>
+
+                        @if(Session::get('many_user') == 'true')
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+
+                                <side-nav-button
+                                link_name="Switch User"
+                                link_route = "{{url('/options')}}"
+                                show_icon = "{{false}}"
+                                >
+                                </side-nav-button>
+                            </li>
+
+                        @else
+                            <li><hr class="dropdown-divider"></li>
+                            <side-nav-button
+                                link_name="Sign out"
+                                link_route = "{{url('/logout')}}"
+                                show_icon = "{{false}}"
+                            >
+                            </side-nav-button>
+                        @endif
                 </ul>
                 </div>
             </div>

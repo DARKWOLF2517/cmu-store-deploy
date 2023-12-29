@@ -30,7 +30,9 @@
                 </div>
                 <div class="col-lg-6">
                     <div id="calendar">
-                        <dashboard-calendar>
+                        <dashboard-calendar
+                            :org_id={{Session::get('org_id')}}
+                        >
                         </dashboard-calendar>
                     </div>
                 </div>
