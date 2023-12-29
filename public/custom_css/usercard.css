@@ -1,5 +1,5 @@
 body{
-    background-color: #f3f7fb;
+    background-color: #f3f7fb !important;
     font-family: sans-serif;
 }
 
@@ -12,6 +12,28 @@ body{
 
 .top-nav .profile-dropdown .profile-name {
     margin-right: 0.3125rem;
+}
+.top-nav {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: #42b385;
+    color: #ffffff;
+    padding: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.125rem;
+
+}
+
+
+.top-nav .notification-button {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    text-decoration: none;
+    margin-right: 0.625rem;
 }
 /* User login */
 .container {
