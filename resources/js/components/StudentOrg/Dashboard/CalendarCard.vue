@@ -31,12 +31,11 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { Modal } from 'bootstrap'
 import axios from 'axios'
 export default {
-    created() {
-        this.fetchData();
-    },
+
     components: {
         FullCalendar // make the <FullCalendar> tag available
     },
+    props: ['org_id'],
     data() {
         return {
             events: [],
@@ -52,12 +51,14 @@ export default {
 
         }
     },
+    mounted() {
+        this.fetchData();
+    },
     methods: {
         fetchData(){
-                axios.get('/events/calendar')
+                axios.get(`/calendar/${this.org_id}`)
                     .then(response => {
                         this.calendarOptions.events = response.data;
-
                     })
                     .catch(error => {
 
@@ -65,7 +66,7 @@ export default {
 
         },
         eventClick: function(info){
-            console.log('askjdfkjsd')
+
 
             // Display event details in the modal
             document.getElementById('eventTitle').textContent = info.event.title;

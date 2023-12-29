@@ -25,14 +25,15 @@ class EventController extends Controller
         $events = Event::where([['org_id', $org_id], ['attendance_status', 1]])->get();
         return $events->toJson();
     }
-    public function getEventsForCalendar()
+    public function getEventsForCalendar($org_id)
     {
-        // $events = Event::select(DB::raw('name as title', 'start_date as start', 'end_date as end'))->get();
+        $events = Event::select(DB::raw('name as title', 'start_date as start', 'end_date as end'))->get();
         
         $events = Event::select(('name as title'),
                                 DB::raw("CONCAT(start_date, 'T', start_attendance) as start"),
-                                DB::raw("CONCAT(end_date, 'T', end_attendance) as end"))->get();
+                                DB::raw("CONCAT(end_date, 'T', end_attendance) as end"))->where('org_id', $org_id)->get();
         return $events->toJson();
+        // return $org_id;
     }
 
     public function getEventsCount()

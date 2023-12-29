@@ -42,6 +42,7 @@
 export default {
 data() {
     return {
+        
     form: {
         email: '',
         password: ''
@@ -56,13 +57,17 @@ methods: {
         axios.post('/authenticate_user', this.form)
             .then(response => {
                 if(response.data == 1){
-                    window.location.href = '/login/org_dashboard';
+                    window.location.href = '/org_dashboard';
                 }
                 else if(response.data == 2){
-                    window.location.href = 'student_attendance';
+                    window.location.href = '/student_dashboard';
                 }
                 else if(response.data == 3){
-                    window.location.href = '/login/options';
+                    window.location.href = '/attendance_checker_dashboard';
+                }
+
+                else if(response.data == 4){
+                    window.location.href = '/options';
                 }
                 else if(response.data == 'error'){
                     this.error = '1';

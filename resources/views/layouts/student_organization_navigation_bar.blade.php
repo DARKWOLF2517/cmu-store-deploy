@@ -96,23 +96,29 @@
                             </side-nav-button>
                         </li>
 
-                        <li>
+                        @if(Session::get('many_user') == 'true')
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+
+                                <side-nav-button
+                                link_name="Switch User"
+                                link_route = "{{url('/options')}}"
+                                show_icon = "{{false}}"
+                                >
+                                </side-nav-button>
+                            </li>
+
+                        @else
+                            <li><hr class="dropdown-divider"></li>
                             <side-nav-button
-                            link_name="Switch User"
-                            {{-- link_route = "{{url('/student_organization_profile')}}" --}}
-                            show_icon = "{{false}}"
+                                link_name="Sign out"
+                                link_route = "{{url('/logout')}}"
+                                show_icon = "{{false}}"
                             >
-                        </side-nav-button>
-                        </li>
+                            </side-nav-button>
+                        @endif
 
-                        <li><hr class="dropdown-divider"></li>
 
-                        <side-nav-button
-                            link_name="Sign out"
-                            link_route = "{{url('/logout')}}"
-                            show_icon = "{{false}}"
-                        >
-                        </side-nav-button>
                     </ul>
                 </div>
             </div>
@@ -125,7 +131,7 @@
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded dashboard-button">
                             <i class="fas fa-tachometer-alt"></i>
-                            <a href="/login/org_dashboard">
+                            <a href="/org_dashboard">
                             <span class="link-title">Dashboard</span>
                             </a>
                         </button>
@@ -206,6 +212,7 @@
             </div>
         </div>
         <div>
+
             @yield('main-content')
         </div>
     </div>
