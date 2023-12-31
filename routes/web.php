@@ -200,10 +200,13 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/view_officers/{org_id}',[OrgProfileController::class, 'viewOrgOfficer']);
             Route::get('/view_users_org/{org_id}',[OrgProfileController::class, 'viewUsersOrg']);
             Route::post('/add_org_officer',[OrgProfileController::class, 'addOrgOfficer']);
-            Route::get('/edit_officer/{id}/{org_id}',[OrgProfileController::class, 'fetchUpdateOfficer']);
+            Route::get('/edit_officer/{id}',[OrgProfileController::class, 'fetchUpdateOfficer']);
             Route::delete('/deleteOfficer/{id}',[OrgProfileController::class, 'DeleteOfficer']);
             Route::get('/view_roles',[OrgProfileController::class, 'viewRoles']);
             Route::post('/add_org_officer_role',[OrgProfileController::class, 'addOrgOfficerRole']);
+            Route::get('/view_officer_role/{org_id}',[OrgProfileController::class, 'viewOfficerRole']);
+            Route::put('/update_officer_role/{id}',[OrgProfileController::class, 'updateOfficerRole']);
+            Route::delete('/delete_officer_role/{id}',[OrgProfileController::class, 'DeleteOfficerRole']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){
@@ -265,8 +268,6 @@ Route::middleware(['auth'])->group(function(){
 
 
     });
-
-
     Route::middleware(['user-role:3'])->group(function(){
         //Attendance Checker route
             Route::get('/attendance_checker_dashboard', function () {

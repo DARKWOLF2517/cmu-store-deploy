@@ -82,7 +82,7 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                             <!-- Edit Officer -->
-                                            <li><a class="dropdown-item" @click="this.addOfficerSubmit = this.updateOfficer, this.OfficerId = officers['id'], this.officerFetchUpdate()" data-bs-toggle="modal" data-bs-target="#addOfficerModal" >Edit Officer</a></li>
+                                            <li><a class="dropdown-item" @click="this.addOfficerSubmit = this.updateOfficer ,this.fetchNameInputOrgOfficer(), this.officerFetchUpdate(officers.id)" data-bs-toggle="modal" data-bs-target="#addOfficerModal" >Edit Officer</a></li>
                                             <!-- Remove Officer -->
                                             <li><a class="dropdown-item" @click="this.OfficerId = officers['id']" data-bs-toggle="modal" data-bs-target="#removeOfficerModal">Remove Officer</a></li>
                                         </ul>
@@ -135,7 +135,7 @@
 
 <div class="containers">
         <div class="row">
-            <!-- Committee Members Table -->
+            <!-- Organization Roles Table -->
             <div class="col-md-6">
                 <div class="roles">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
@@ -153,9 +153,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr >
-                                    <td></td>
-                                    <td></td>
+                                <tr v-for="officerRole in this.officerRoles">
+                                    <td>{{ officerRole.user.name }}</td>
+                                    <td>{{ officerRole.role.name }}</td>
                                     <td>
                                         <!-- Ellipsis Button -->
                                         <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
@@ -165,9 +165,9 @@
                                         <!-- Dropdown Menu -->
                                         <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                             <!-- Edit Role -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editRoleModal">Edit Role</a></li>
+                                            <li><a class="dropdown-item" @click=" this.officerRoleFetchUpdate(officerRole.id)" data-bs-toggle="modal" data-bs-target="#editRoleModal">Edit Role</a></li>
                                             <!-- Remove User -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeUserModal">Remove User</a></li>
+                                            <li><a class="dropdown-item" @click="this.updateOfficerRoleID = officerRole.id" data-bs-toggle="modal" data-bs-target="#removeUserModal">Remove User</a></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -309,7 +309,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success mt-2">Save</button>
+                        <button type="submit" class="btn btn-success mt-2"  data-bs-dismiss="modal">Save</button>
                     </div>
                 </form>
             </div>
@@ -325,17 +325,17 @@
                 <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
             </div>
             <div class="modal-body">
-                <form id="editRoleForm">
+                <form id="editRoleForm" @submit.prevent="this.updateOfficerRole">
                     <div class="form-group">
                         <label for="editRole">Select Role:</label>
-                        <select class="form-control" id="editRole" name="editRole">
-                            <option value="Admin">Admin</option>
-                            <option value="Attendance Checker">Attendance Checker</option>
+                        <select class="form-control" id="editRole" name="editRole"  v-model ="updatedOfficerRoleData.role_id">
+                            <!-- continue on this side, display role in option and set value based on click update -->
+                            <option v-for="role in this.roles " :value="role.role_id">{{ role.name }}</option>
                         </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" onclick="saveChanges()">Save Changes</button>
+                        <button type="submit" class="btn btn-success"  data-bs-dismiss="modal">Save Changes</button>
                     </div>
 
                 </form>
@@ -357,7 +357,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Delete User</button>
+                <button type="button" class="btn btn-danger" @click="this.deleteOfficerRole()" data-bs-dismiss="modal">Delete User</button>
             </div>
         </div>
     </div>
@@ -377,16 +377,16 @@
                     <div class="form-group">
                         <div v-if="this.addOfficerSubmit == this.addOfficer">
                             <label for="IDnumber"><b>ID number</b></label>
-                            <input type="text" class="form-control" id="IDnumber" placeholder="Enter ID Number" v-model="this.addOfficersData.id" @input="this.fetchNameInputOrgOfficer" required>
+                            <input type="text" class="form-control" id="IDnumber" placeholder="Enter ID Number" v-model="this.addOfficersData.student_id" @change="this.fetchNameInputOrgOfficer" required>
                         </div>
                         <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
                             <label for="IDnumber"><b>ID number</b></label>
-                            <input type="text" class="form-control" id="IDnumber"  v-model="this.addOfficersData.id" @input="this.fetchNameInputOrgOfficer" disabled>
+                            <input type="text" class="form-control" id="IDnumber"  v-model="this.addOfficersData.student_id" @change="this.fetchNameInputOrgOfficer" disabled>
                         </div>
-                        <!-- <div v-if="this.addOfficerSubmit == this.addOfficer"> -->
+                        <div v-if="this.addOfficerSubmit == this.addOfficer">
                             <label for="IDnumber"><b>Name</b></label>
                             <input type="text" class="form-control" id="IDnumber" disabled v-model="this.nameFilterAddOfficer">
-                        <!-- </div> -->
+                        </div>
 
                     </div>
                     <div class="form-group mt-4">
@@ -556,7 +556,7 @@ export default{
             nameAddOfficer: [],
             nameFilterAddOfficer: [],
             addOfficersData:{
-                id:'',
+                student_id:'',
                 position: '',
                 org_id: this.org_id,
 
@@ -570,6 +570,14 @@ export default{
                 year_level_id: '',
             },
             addOfficerRoleSubmit: this.addOfficerRole,
+            officerRoles: [],
+            updatedOfficerRoleData:{
+                student_org_id: this.org_id,
+                student_id: '',
+                role_id: '',
+                year_level_id: '',
+            },
+            updateOfficerRoleID:0,
         }
     },
     mounted(){
@@ -577,8 +585,65 @@ export default{
         this.showOfficer();
         this.showOrgUser();
         this.fetchRoles();
+        this.showOfficerRole();
     },
     methods: {
+        deleteOfficerRole(){
+            axios.delete(`/delete_officer_role/${this.updateOfficerRoleID}`)
+                .then(response => {
+                    // console.log(response.data)
+                    this.showSucces(response.data.message);
+                    this.showOfficerRole();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        updateOfficerRole(){
+            // console.log(this.updatedOfficerRoleData)
+            axios.put(`/update_officer_role/${this.updateOfficerRoleID}`, this.updatedOfficerRoleData)
+                .then(response => {
+                    // console.log(response.data)
+                    if (response.data.type == 0) {
+                            this.showError(response.data.message);
+                            this.showOfficerRole();
+                        }
+                        else{
+                            this.showSucces(response.data.message);
+                            this.showOfficerRole();
+                        }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+
+
+        officerRoleFetchUpdate(id){
+            this.updateOfficerRoleID = id;
+            const filteredData = this.officerRoles.find(item => item.id === id );
+            this.updatedOfficerRoleData = filteredData; 
+            // this.updatedOfficerRoleData= {
+            //     student_org_id: this.org_id,
+            //     student_id: filteredData.student_id,
+            //     role_id: filteredData.role_id,
+            //     year_level_id: filteredData.year_level_id,
+            // }
+            // console.log(this.updateOfficerRoleID)
+        },
+
+
+        showOfficerRole(){
+            axios.get(`/view_officer_role/${this.org_id}`)
+                .then(response => {
+                    this.officerRoles = response.data;
+                    // console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
+            },
         addOfficerRole(){
             // initialize data
             let year_level = this.orgOfficers.find(item => item.id == this.addOfficerRoleData.student_id);
@@ -594,10 +659,11 @@ export default{
                         // console.log(response.data)
                         if (response.data.type == 0) {
                             this.showError(response.data.message);
+                            this.showOfficerRole();
                         }
                         else{
                             this.showSucces(response.data.message);
-                            this.showOfficer();
+                            this.showOfficerRole();
                             
                         }
 
@@ -632,11 +698,13 @@ export default{
         updateOfficer(){
 
         },
-        officerFetchUpdate(){
-            axios.get(`edit_officer/${this.OfficerId}/${this.org_id}`)
+        officerFetchUpdate(id){
+            this.OfficerId = id;
+            // console.log(id)
+            axios.get(`edit_officer/${id}`)
                 .then(response => {
                     this.addOfficersData = response.data;
-                    console.log(response.data);
+                    // console.log(response.data);
                 })
                 .catch(error => {
                     console.log(error)
@@ -648,6 +716,7 @@ export default{
                         // console.log(response.data)
                         if (response.data.type == 0) {
                             this.showError(response.data.message);
+                            this.showOfficer();
                         }
                         else{
                             this.showSucces(response.data.message);
@@ -672,7 +741,7 @@ export default{
                 });
         },
         fetchNameInputOrgOfficer(){
-            this.nameFilterAddOfficer = this.nameAddOfficer.filter(item => item.student_id == this.addOfficersData.id);
+            this.nameFilterAddOfficer = this.nameAddOfficer.filter(item => item.student_id == this.addOfficersData.student_id);
             if (this.nameFilterAddOfficer != null && this.nameFilterAddOfficer['0'] && this.nameFilterAddOfficer['0']['user'] && this.nameFilterAddOfficer['0']['user']['name']) {
                 this.nameFilterAddOfficer = this.nameFilterAddOfficer['0']['user']['name'];
 
@@ -693,7 +762,7 @@ export default{
                         
 
                     });
-                    // console.log(this.orgOfficers)
+                    // console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error)
@@ -771,7 +840,7 @@ export default{
         },
         clearAddOfficerData(){
             this.addOfficersData={
-                id:'',
+                student_id:'',
                 position: '',
                 org_id: this.org_id,
 

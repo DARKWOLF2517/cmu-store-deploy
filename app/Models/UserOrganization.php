@@ -14,6 +14,7 @@ class UserOrganization extends Model
 
 
     protected $fillable = [
+        'id',
         'student_org_id',
         'student_id',
         'role_id',
@@ -32,7 +33,7 @@ class UserOrganization extends Model
 
     public function role()
     {
-        return $this->belongsTo(Role::class, 'role_id', 'role_id');
+        return $this->hasOne(Role::class, 'role_id', 'role_id');
     }
 
     
