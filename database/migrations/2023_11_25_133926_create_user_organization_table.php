@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_organization', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('student_org_id');
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('role_id');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->foreign('student_id')->references('id')->on('users');
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->foreign('year_level_id')->references('id')->on('year_level');
-            $table->primary(['student_org_id','student_id','role_id']);
+
         });
     }
 

@@ -13,6 +13,7 @@ class OrganizationOfficer extends Model
 
     protected $fillable = [
         'id',
+        'student_id',
         'org_id',
         'position',
         'year_level_id',
@@ -20,6 +21,6 @@ class OrganizationOfficer extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id','id');
+        return $this->belongsTo(User::class, 'student_id','id');
     }
 }
