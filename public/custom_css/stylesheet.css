@@ -130,7 +130,6 @@ body {
 .select-dropdown{
     border-radius: 10px;
     margin-top: 10px;
-    width: 40%;
     position: relative;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
 
@@ -215,10 +214,9 @@ body {
 
 .loading-spinner {
     display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-
+    justify-content: center;
+    align-items: center;
+    height: 200px;
   }
 
   .loader-spinner-container{
@@ -232,6 +230,7 @@ body {
     /* box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
     margin: auto;
     margin-top: 10%;
+    overflow: hidden;
   }
 
 /* Media query for screens with a maximum width of 768px */

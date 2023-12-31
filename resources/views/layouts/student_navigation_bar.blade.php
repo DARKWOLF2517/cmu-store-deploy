@@ -131,7 +131,7 @@
                             <li class="mb-1">
                                 <button class="btn btn-toggle align-items-center rounded dashboard-button">
                                     <i class="fas fa-home"></i>
-                                    <a href="/login/student_dashboard">
+                                    <a href="/student_dashboard">
                                     <span class="link-title">Home</span>
                                     </a>
                                 </button>
@@ -152,7 +152,7 @@
                                     </a>
                                 </button>
                             </li>
-        
+
                             <li class="mb-1">
                                 <button class="btn btn-toggle align-items-center rounded events-button">
                                     <i class="fas fa-clipboard-check"></i>
@@ -161,7 +161,7 @@
                                     </a>
                                 </button>
                             </li>
-        
+
                             {{-- <li class="mb-1">
                                 <button class="btn btn-toggle align-items-center rounded events-button">
                                     <i class="fas fa-calendar"></i>
@@ -170,7 +170,7 @@
                                     </a>
                                 </button>
                             </li> --}}
-        
+
                             <li class="mb-1">
                                 <button class="btn btn-toggle align-items-center studentlist-button">
                                     <i class="fas fa-money-check"></i>

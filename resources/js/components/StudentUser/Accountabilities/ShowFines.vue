@@ -3,7 +3,7 @@
     <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
-                    <h4><i class="fas fa-bars"></i> Accountabilities</h4>
+                    <h4><i class="fas fa-list mt-2"></i>  Accountabilities</h4>
                 </div>
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
                     <div class="select-dropdown">

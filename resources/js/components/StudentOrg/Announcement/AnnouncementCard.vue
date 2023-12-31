@@ -51,7 +51,7 @@
                                     </ul>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
+                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
                                 <strong class="posted-by-title ml-2">CSCo</strong>
                                 </div>
                                 <div class="card-body">

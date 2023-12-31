@@ -27,7 +27,6 @@ body{
 
 }
 
-
 .top-nav .notification-button {
     display: flex;
     align-items: center;
@@ -67,11 +66,12 @@ margin: 40px auto;
 }
 
 .user-card h3 {
-    font-size: 1.5rem; /* Increase font size for headings */
+    font-size: 1.25rem;
 }
 
 .user-card p {
     margin: 10px 0;
+    font-size: 1.25rem;
 }
 
 .user-card a {
