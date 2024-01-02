@@ -90,8 +90,9 @@ max-height: 65vh;
 
 /* Set Accountabilities */
 .accountabilities-container {
-    height: 60vh;
-    max-height: 60vh;
+    height: 50vh;
+    max-height: 50vh;
+    overflow-y: auto;
     border: none;
 }
 

@@ -9,6 +9,20 @@
     <!-- <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button> -->
                     <!-- Card 1 -->
 <div class="accountabilities-container">
+     <!-- Loading spinner -->
+     <div v-if="loading" class="loading-spinner-container">
+      <div class="spinner-border text-success" id="event-spinner" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Message if the container is empty -->
+    <div v-if="!loading && accountabilityList.length === 0" class="Container-IfEmpty">
+      <div class="Empty-Message">
+        <i class="icon fas fa-money-check" id="icon-message"></i>
+        <p class="text-muted">Accountability cards show up here.</p>
+      </div>
+    </div>
     <div class="accountabilities-cards">
         <div class="accountability-card" v-for="accountability in this.accountabilityList">
             <div class="dropdown">
@@ -105,80 +119,78 @@
 </div>
 
 </template>
-
 <script>
 import { toast } from 'vue3-toastify';
-export default{
-    props: ['org_id'],
-    data(){
-        return{
-            deleteId: 0,
-            formData: {
-                description: '',
-                amount: '',
-                org_id: '',
-            },
-            submit: null,
-            accountabilityList:[],
-        }
+
+export default {
+  props: ['org_id'],
+  data() {
+    return {
+      loading: false, // Add loading variable
+      deleteId: 0,
+      formData: {
+        description: '',
+        amount: '',
+        org_id: '',
+      },
+      submit: null,
+      accountabilityList: [],
+    };
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    showSuccess(message) {
+      this.fetchData();
+      toast.success(message, {
+        autoClose: 100,
+      });
     },
-    mounted(){
-        console.log('mounted')
-        this.fetchData();
+    clearData() {
+      this.formData = {
+        description: '',
+        amount: '',
+        org_id: this.org_id,
+      };
     },
-
-    methods:{
-        showSucces(message){
-            this.fetchData();
-            toast.success(message),{
-                autoClose: 100,
-            }
-        },
-        clearData(){
-            this.formData = {
-                description: '',
-                amount: '',
-                org_id: this.org_id,
-
-                }
-        },
-        submitData(){
-            axios.post('/set_accountabilities', this.formData)
-                    .then(response => {
-                        this.showSucces(response.data.message);
-                    })
-                    .catch(error => {
-                        alert(error)
-
-                });
-        },
-        fetchData(){
-            axios.get(`/get_accountabilities/${this.org_id}`)
-                    .then(response => {
-                        this.accountabilityList = response.data;
-
-                    })
-                    .catch(error => {
-                        alert(error)
-
-                });
-        },
-        deleteAccountability(){
-            axios.delete(`/delete_organization_accountability/${this.deleteId}`)
-                    .then(response => {
-                        this.showSucces(response.data.message);
-                        this.fetchData();
-                    })
-                    .catch(error => {
-                        if (error.response && error.response.status === 422) {
-                            this.errors = error.response.data.errors;
-                        }
-                        alert(error)
-
-            });
-        },
-
-    }
-
-}
+    submitData() {
+      axios
+        .post('/set_accountabilities', this.formData)
+        .then((response) => {
+          this.showSuccess(response.data.message);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    },
+    fetchData() {
+      this.loading = true; // Set loading to true before making the request
+      axios
+        .get(`/get_accountabilities/${this.org_id}`)
+        .then((response) => {
+          this.accountabilityList = response.data;
+        })
+        .catch((error) => {
+          alert(error);
+        })
+        .finally(() => {
+          this.loading = false; // Set loading to false after the request is completed
+        });
+    },
+    deleteAccountability() {
+      axios
+        .delete(`/delete_organization_accountability/${this.deleteId}`)
+        .then((response) => {
+          this.showSuccess(response.data.message);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 422) {
+            this.errors = error.response.data.errors;
+          }
+          alert(error);
+        });
+    },
+  },
+};
 </script>

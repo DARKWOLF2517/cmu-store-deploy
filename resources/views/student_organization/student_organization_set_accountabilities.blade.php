@@ -15,11 +15,10 @@
             </nav>
         </div>
     </div>
-            <div class="container" >
                 <h4> <i class="fas fa-list"></i> Organization Accountabilities</h4>
 
                 <div class="alert alert-info mt-4" role="alert">
-                    This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
+                   <b><i class="fas fa-info"></i> Note!</b>  This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
                     <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
 
@@ -56,8 +55,6 @@
                     </div>
 
                 </div> --}}
-            </div>
-
             {{-- <!-- Membership Fee Modal -->
             <div class="modal fade" id="membershipFeeModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

@@ -88,7 +88,7 @@
                 <h4><i class="fas fa-list"></i> Attendance Records</h4>
             </div>
                 <div class="col" id="record-container">
-                    <div class="recorded-event-cards">
+
                         <attendance-record
                         organization_id = {{Session::get('org_id')}}
                         >
@@ -139,7 +139,6 @@
                 </div>
 
             </div>
-        </div>
 
 
 

@@ -1,18 +1,18 @@
 <template>
 
      <div class="header">
-    <h1> Select Account</h1>
+    <h1> Select Profile</h1>
+    <small>Tailor Your Experience with Individual Profiles. Keeping data organized and personalized</small>
   </div>
     <div class="container">
         <div class="user-card"  v-for="userOrg in this.userOrgs" >
             <div @click=" profileClicked( userOrg['student_org_id'],  userOrg['role_id'],userOrg['organization']['name'])">
             <h3> {{ userOrg['organization']['name'] }}</h3>
-            <hr>
             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1">
             <p>
-                <span v-if="userOrg['role']['role_id'] == 1"><b>Admin</b></span>
-                <span v-else-if="userOrg['role']['role_id'] == 2"><b>Student</b></span>
-                <span v-else-if="userOrg['role']['role_id'] == 3"><b>Attendance Checker</b></span>
+                <span v-if="userOrg['role']['role_id'] == 1">Admin</span>
+                <span v-else-if="userOrg['role']['role_id'] == 2">Student</span>
+                <span v-else-if="userOrg['role']['role_id'] == 3">Attendance Checker</span>
             </p>
             </div>
         </div>

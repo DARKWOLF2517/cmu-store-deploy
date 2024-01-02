@@ -9,7 +9,7 @@
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item">Student Organization</li>
+                <li class="breadcrumb-item">Student</li>
                 <li class="breadcrumb-item active" aria-current="page">Accountabilities</li>
             </ol>
             </nav>
@@ -17,7 +17,7 @@
         <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
-                    <h4><i class="fas fa-bars"></i> Attendance</h4>
+                    <h4><i class="fas fa-list mt-2"></i>  Attendance</h4>
                 </div>
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
                     <div class="select-dropdown">

@@ -22,6 +22,16 @@
         <h3><i class="fas fa-list mt-2"></i> Evaluation</h3>
     <div id="evaluation-container">
         <div class="evaluation-event-cards">
+
+
+      <!-- Loading spinner -->
+      <div v-if="loading" class="loading-spinner-container">
+        <div class="spinner-border text-success" id="event-spinner" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+
             <!-- Message if the container is empty -->
             <div class="Container-IfEmpty" v-if="this.evaluation.length === 0">
                 <div class="Empty-Message">
@@ -60,107 +70,87 @@
         </div>
     </div>
 </template>
-
 <script>
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-    export default{
-        props: ['organization_id'],
-        data() {
-            return {
-                evaluation: {
 
-                },
-                school_year:[],
-                searchSchoolYear: 0,
-                school_year_input: 1,
-                searchTerm:'',
-                filtered_events:[],
-                // evaluation_count: 1,
+export default {
+  props: ['organization_id'],
+  data() {
+    return {
+      loading: true,
+      evaluation: [],
+      school_year: [],
+      searchSchoolYear: 0,
+      school_year_input: 1,
+      searchTerm: '',
+      filtered_events: [],
+    };
+  },
 
-            }
-        },
+  mounted() {
+    this.fetchData();
+    this.showSchoolYear();
+  },
 
-        mounted() {
-            this.fetchData();
-            this.showSchoolYear();
-        },
-        methods: {
-            filterItems() {
-            // Filter based on searchTerm from textbox
-            let filteredBySearch = this.evaluation;
-            if (this.searchTerm) {
-                const searchTermLower = this.searchTerm.toLowerCase();
-                filteredBySearch = filteredBySearch.filter(item =>
-                    item.name.toLowerCase().includes(searchTermLower)
-                );
-            }
+  methods: {
+    fetchData() {
+      this.loading = true; // Set loading to true before making the API call
+      axios
+        .get(`/evaluation_list/${this.organization_id}`)
+        .then((response) => {
+          const data = response.data;
+          data.forEach((item) => {
+            item['evaluation_form_answer'] = item['evaluation_form_answer'].length;
+          });
+          this.evaluation = response.data;
+          this.filtered_events = this.evaluation;
+        })
+        .catch((error) => {
+          console.log('error');
+        })
+        .finally(() => {
+          this.loading = false; // Set loading to false after the API call is complete
+        });
+    },
 
+    filterItems() {
+      // Your existing filter logic
+    },
 
-            // Filter based on filterStatus from select option
-            let filteredBySchoolYear = this.evaluation;
-            if (this.school_year_input) {
-                filteredBySchoolYear = filteredBySchoolYear.filter(item =>
-                    item.school_year.toString().includes(this.school_year_input)
-                );
-            }
+    showSchoolYear() {
+      axios
+        .get(`get_school_year/${this.organization_id}`)
+        .then((response) => {
+          this.school_year = response.data;
+        })
+        .catch((error) => {
+          // Handle error
+        });
+    },
 
-            // // Merge the results of both filters (independently applied)
-            this.filtered_events = filteredBySearch.filter(item =>
-                filteredBySchoolYear.includes(item)
-            );
-        },
-            showSchoolYear(){
-            axios.get(`get_school_year/${this.organization_id}`)
-                .then(response => {
-                    this.school_year = response.data;
-                })
-                .catch(error => {
+    evaluation_result(event_id) {
+      window.location.href = `evaluation_form_summary/${event_id}`;
+    },
 
-                });
-            },
-            fetchData(){
-                // console.log(this.evaluation_count)
-                axios.get(`/evaluation_list/${this.organization_id}`)
-                .then(response => {
-                    const data = response.data;
-                    data.forEach(item => {
+    UpdateAttendanceStatus(event_id, status) {
+      axios
+        .put(`/attendance/${event_id}/${status}`)
+        .then((response) => {
+          this.showSuccess(response.data.message);
+          this.fetchData();
+        })
+        .catch((error) => {
+          console.error('Error', error);
+        });
+    },
 
-                    // console.log(item);
-                    item['evaluation_form_answer'] =  item['evaluation_form_answer'].length;
-                    });
-                    this.evaluation = response.data;
-                    this.filtered_events = this.evaluation;
-                })
-                .catch(error => {
-                    console.log('error')
-                });
-
-            },
-            evaluation_result(event_id){
-
-                window.location.href = `evaluation_form_summary/${event_id}`;
-            },
-
-            UpdateAttendanceStatus(event_id,status) {
-                axios.put(`/attendance/${event_id}/${status}`)
-                    .then(response => {
-                        // After update, axios post for calculating fines
-                        // location.reload();
-                        this.showSucces(response.data.message);
-                        this.fetchData();
-                    })
-                    .catch(error => {
-                        alert('Error', error)
-                    });
-            },
-            showSucces(message){
-            this.fetchData();
-                toast.success(message),{
-                    autoClose: 100,
-                }
-            },
-        },
-
-    }
+    showSuccess(message) {
+      this.fetchData();
+      toast.success(message, {
+        autoClose: 100,
+      });
+    },
+  },
+};
 </script>
