@@ -395,7 +395,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success mt-2" data-bs-dismiss="modal">Add Officer</button>
+                        <div v-if="this.addOfficerSubmit == this.addOfficer">
+                            <button type="submit" class="btn btn-success mt-2" data-bs-dismiss="modal">Add Officer</button>
+                        </div>
+                        <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
+                            <button type="submit" class="btn btn-success mt-2" data-bs-dismiss="modal">Update Officer</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -696,7 +701,17 @@ export default{
                     });
         },
         updateOfficer(){
-
+            // console.log( this.OfficerId);
+            axios.put(`/update_officer/${this.OfficerId}`, this.addOfficersData)
+                .then(response => {
+                    console.log(response.data)
+                        this.showError(response.data.message);
+                        this.showOfficer();
+                        
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         },
         officerFetchUpdate(id){
             this.OfficerId = id;

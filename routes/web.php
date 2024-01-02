@@ -201,6 +201,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/view_users_org/{org_id}',[OrgProfileController::class, 'viewUsersOrg']);
             Route::post('/add_org_officer',[OrgProfileController::class, 'addOrgOfficer']);
             Route::get('/edit_officer/{id}',[OrgProfileController::class, 'fetchUpdateOfficer']);
+            Route::put('/update_officer/{id}',[OrgProfileController::class, 'updateOfficer']);
             Route::delete('/deleteOfficer/{id}',[OrgProfileController::class, 'DeleteOfficer']);
             Route::get('/view_roles',[OrgProfileController::class, 'viewRoles']);
             Route::post('/add_org_officer_role',[OrgProfileController::class, 'addOrgOfficerRole']);

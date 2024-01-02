@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Organization;
 use App\Models\OrganizationOfficer;
 use App\Models\Role;
 use App\Models\SchoolYear;
@@ -189,7 +190,7 @@ class OrgProfileController extends Controller
             $attendance = UserOrganization::find($id);
             $attendance->update(['role_id' => $request['role_id']]);
             
-            return response()->json(['message' => 'Role Edited Successfully','type' => 1]);
+            return response()->json(['message' => 'Role Updated Successfully','type' => 1]);
     
         }
             
@@ -201,6 +202,14 @@ class OrgProfileController extends Controller
         $id->delete();
         return response()->json(['message' => 'Role Deleted successfully']);
         // return $id;
+    }
+
+    public function updateOfficer($id, Request $request)
+    {
+            $orgOfficer = OrganizationOfficer::find($id);
+            $orgOfficer->update(['position' => $request['position']]);
+            return response()->json(['message' => 'Officer Updated Successfully']);
+
     }
 
 }
