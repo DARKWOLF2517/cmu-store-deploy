@@ -16,8 +16,8 @@
             <!-- Profile content -->
             <img id="profileImage" src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="profile photo">
             <div class="profile-details mt-2">
-                <h5><b> CSCo</b></h5>
-                <small>College of Information Sciences and Computing Student Council</small>
+                <h5><b> {{ this.orgProfile.name }}</b></h5>
+                <small>{{ this.orgProfile.description }}</small>
             </div>
         </div>
     </div>
@@ -46,8 +46,8 @@
                         <div class="student-org-info">
                             <!-- Student Organization Information -->
                             <h4><b>Student Organization Information</b></h4>
-                            <h6 class="mb-2"><b>Description: </b> <span id="description">College of Information Sciences and Computing</span></h6>
-                            <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">550</span></h6>
+                            <h6 class="mb-2"><b>Description: </b> <span id="description">{{ this.orgProfile.description }}</span></h6>
+                            <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">{{this.orgTotalMembers}}</span></h6>
                             <h6><b>Semester and Academic Year: </b> <span id="number-of-students">1st Semester</span></h6>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                                     <td>{{ officerRole.role.name }}</td>
                                     <td>
                                         <!-- Ellipsis Button -->
-                                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                        <a v-if="officerRole.student_id != this.user_id" class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
 
@@ -587,7 +587,7 @@ import 'vue3-toastify/dist/index.css';
 
 export default{
 
-    props:['org_id'],
+    props:['org_id','user_id'],
     data(){
         return{
             addSchoolYears: {
@@ -625,16 +625,43 @@ export default{
                 year_level_id: '',
             },
             updateOfficerRoleID:0,
+            orgProfile:[],
+            orgTotalMembers: 0,
         }
     },
     mounted(){
+        this.showOrgProfile();
         this.viewSchoolYear();
         this.showOfficer();
         this.showOrgUser();
         this.fetchRoles();
         this.showOfficerRole();
+        this.showOrgTotalMembers()
+
+
     },
     methods: {
+        showOrgTotalMembers(){
+            axios.get(`/view_org_total_members/${this.org_id}`)
+                .then(response => {
+                    this.orgTotalMembers = response.data;
+                    // console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        showOrgProfile(){
+            axios.get(`/view_org_profile/${this.org_id}`)
+                .then(response => {
+                    this.orgProfile = response.data;
+                    // console.log(this.orgProfile)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+
         deleteOfficerRole(){
             axios.delete(`/delete_officer_role/${this.updateOfficerRoleID}`)
                 .then(response => {

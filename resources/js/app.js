@@ -48,7 +48,7 @@ const app = createApp({});
 // org module
     app.component('event-card',EventCard);
     app.component('announcement-card',AnnouncementCard);
-    app.component('event-count', EventsCount);
+    app.component('org-dashboard-counter', EventsCount);
     app.component('event-dashboard', EventsDashboard);
     app.component('dashboard-calendar', CalendarCard);
     app.component('qr-scanner', QrScanner);

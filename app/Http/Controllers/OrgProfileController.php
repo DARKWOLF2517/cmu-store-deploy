@@ -211,5 +211,17 @@ class OrgProfileController extends Controller
             return response()->json(['message' => 'Officer Updated Successfully']);
 
     }
+    public function viewOrgProfile($org_id)
+    {
+        $orgProfile = Organization::where('org_id', $org_id)->first();
+        return response()->json($orgProfile);
+    
+    }
 
+    public function viewOrgTotalMembers($org_id)
+    {
+        $orgTotalMembers = UserOrganization::where('student_org_id', $org_id)->count();
+        return $orgTotalMembers;
+    
+    }
 }

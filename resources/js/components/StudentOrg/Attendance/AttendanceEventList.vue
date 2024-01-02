@@ -88,27 +88,27 @@ export default {
                     this.attendance_count = response.data;
                 })
                 .catch(error => {
-
+                    console.log(error)
                 });
 
     },
     fetchData() {
-      fetch(`/events/attendance/${this.org_id}`, {
+        fetch(`/events/attendance/${this.org_id}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+            "Content-Type": "application/json",
         },
-      })
+        })
         .then((response) => {
-          response.json().then((data) => {
+            response.json().then((data) => {
             data.forEach((element) => {
-              element["start_date"] = convertDate(element["start_date"]);
-              element["end_date"] = convertDate(element["end_date"]);
+                element["start_date"] = convertDate(element["start_date"]);
+                element["end_date"] = convertDate(element["end_date"]);
             });
             this.events = data;
             this.loading = false; // Set loading to false after data is loaded
             console.log(this.events);
-          });
+            });
         })
         .catch((error) => {
           // Handle error

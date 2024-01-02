@@ -70,11 +70,11 @@
                                             <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
                                             <!-- option 3 -->
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted attendees</a></li>
-                                            <div v-if="event.attendance_status === 0">
+                                            <div v-if="event.attendance_status === 0 || event.attendance_status === 2">
                                                 <li><a class="dropdown-item"  @click="this.id =(event.event_id), this.status = 1"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
                                             </div>
                                             <div v-else-if="event.attendance_status === 1">
-                                                <li><a class="dropdown-item"  @click="this.id =(event.event_id) , this.status = 0"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Stop Attendance</a></li>
+                                                <li><a class="dropdown-item"  @click="this.id =(event.event_id) , this.status = 2"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Stop Attendance</a></li>
                                             </div>
 
                                         </ul>
@@ -123,7 +123,7 @@
                                 <div class="modal-body">
                                     <p >
                                         <b v-if="this.status === 1">Are you sure you want to Start Attendance to this Event?</b>
-                                        <b v-if="this.status === 0">Are you sure you want to Stop Attendance to this Event?</b>
+                                        <b v-if="this.status === 2">Are you sure you want to Stop Attendance to this Event?</b>
                                     </p>
 
                                 </div>
@@ -132,7 +132,7 @@
 
                                     <button type="button" class="btn btn-primary" @click="startAttendance()" data-bs-dismiss="modal">
                                         <div v-if="this.status === 1 ">Start Attendance</div>
-                                        <div v-else-if="this.status === 0 ">Stop Attendance</div>
+                                        <div v-else-if="this.status === 2 ">Stop Attendance</div>
                                     </button>
                                 </div>
                                 </div>

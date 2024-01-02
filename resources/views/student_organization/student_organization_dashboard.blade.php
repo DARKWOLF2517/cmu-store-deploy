@@ -19,29 +19,33 @@
         <div class="row mt-2">
             <div class="col-md-4 col-sm-6 mb-2">
                 <div class="statistic">
-                    <event-count
+                    <org-dashboard-counter
+                        org_id = {{Session::get('org_id')}}
                         card_label="Members"
-                        target_route=""
+                        target_route="view_org_total_members"
                         icons="fas fa-users card-icon"
-                    ></event-count>
+
+                    ></org-dashboard-counter>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 mb-2">
                 <div class="statistic">
-                    <event-count
+                    <org-dashboard-counter
+                        org_id = {{Session::get('org_id')}}
                         card_label="Created Events"
-                        target_route=""
+                        target_route="events_count"
                         icons="fas fa-clock card-icon ongoing-events"
-                    ></event-count>
+                    ></org-dashboard-counter>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6 mb-2">
                 <div class="statistic">
-                    <event-count
+                    <org-dashboard-counter
+                        org_id = {{Session::get('org_id')}}
                         card_label="Completed Events"
                         target_route=""
                         icons="fas fa-check card-icon completed-events"
-                    ></event-count>
+                    ></org-dashboard-counter>
                 </div>
             </div>
         </div>

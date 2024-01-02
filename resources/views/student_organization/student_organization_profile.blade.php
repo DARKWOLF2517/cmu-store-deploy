@@ -164,6 +164,7 @@
 <div class="content">
 <org-profile
     :org_id = {{Session::get('org_id')}}
+    :user_id = {{Auth::id()}}
 >
 
 </org-profile>

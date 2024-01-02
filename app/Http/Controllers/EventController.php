@@ -36,10 +36,10 @@ class EventController extends Controller
         // return $org_id;
     }
 
-    public function getEventsCount()
+    public function getEventsCount($org_id)
     {   
-        $count = Event::count(); 
-        return response()->json(['count' => $count]);
+        $count = Event::where('org_id',$org_id)->count(); 
+        return $count;
         
     }    
     public function getMembersCount()
