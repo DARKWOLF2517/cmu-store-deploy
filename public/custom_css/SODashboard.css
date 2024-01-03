@@ -170,10 +170,13 @@ font-size: small;
 padding-left: 10px;
 margin-bottom: 5px;
 }
-
+#stat-cards-loading{
+    margin-left: 1.25rem;
+}
 .stat-number {
 font-size: 25px;
-color: #000000;
+color: #15292B;
+margin-left: 10px;
 }
 .square-span {
     width: 50px;
