@@ -19,8 +19,8 @@
                     <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
                         <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                         <div class="select-dropdown">
-                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="filterItems">
-                                <option value="" disabled selected>Select Semester</option>
+                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                                <option value="0" disabled selected>Select Semester</option>
                                 <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
 
                             </select>
@@ -48,8 +48,8 @@
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                             </div>
-                                <!-- Message if the container is empty -->
-                                <div class="Container-IfEmpty" v-if="!loading && events.length === 0">
+                            <!-- Message if the container is empty -->
+                            <div class="Container-IfEmpty" v-if="!loading && events.length === 0">
                                         <div class="Empty-Message">
                                         <i class="icon 	bi bi-calendar-event" id="icon-message"></i>
                                         <p class="text-muted"><b>Create Events when you're ready</b>
@@ -299,7 +299,7 @@
     import 'vue3-toastify/dist/index.css';
 
     export default {
-        props: ['organization_id'] ,
+        props: ['organization_id', 'school_year_session'] ,
         data() {
             return {
                 submit : this.sendData,
@@ -325,7 +325,7 @@
                     },
                     errors: {},
                     school_year:[],
-                    school_year_input: 1,
+                    school_year_input: this.school_year_session,
                     searchTerm:'',
                     searchSchoolYear:0,
                     filtered_events:[],
@@ -335,6 +335,7 @@
         created() {
             this.fetchData();
             this.showSchoolYear();
+            console.log(this.school_year_session)
         },
         methods: {
             filterItems() {
@@ -346,25 +347,26 @@
                         item.name.toLowerCase().includes(searchTermLower)
                     );
                 }
+                    this.filtered_events = filteredBySearch;
 
+                // // Filter based on filterStatus from select option
+                // let filteredBySchoolYear = this.events;
+                // if (this.school_year_input) {
+                //     filteredBySchoolYear = filteredBySchoolYear.filter(item =>
+                //         item.school_year.toString().includes(this.school_year_input)
+                //     );
+                // }
 
-                // Filter based on filterStatus from select option
-                let filteredBySchoolYear = this.events;
-                if (this.school_year_input) {
-                    filteredBySchoolYear = filteredBySchoolYear.filter(item =>
-                        item.school_year.toString().includes(this.school_year_input)
-                    );
-                }
-
-                // // Merge the results of both filters (independently applied)
-                this.filtered_events = filteredBySearch.filter(item =>
-                    filteredBySchoolYear.includes(item)
-                );
+                // // // Merge the results of both filters (independently applied)
+                // this.filtered_events = filteredBySearch.filter(item =>
+                //     filteredBySchoolYear.includes(item)
+                // );
+                // console.log(this.events)
             },
             showSchoolYear(){
                 axios.get(`get_school_year/${this.organization_id}`)
                     .then(response => {
-                        console.log(response.data)
+                        // console.log(response.data)
                         this.school_year = response.data;
                     })
                     .catch(error => {
@@ -444,8 +446,11 @@
                 // Now, the checkedValues array contains the values of the checked checkboxes
                 console.log('Checked values:', checkedValues);
 
-                // alert(this.formData.org_id);
-                axios.post('/events', this.formData)
+                if (this.school_year_input == 0) {
+                    alert('Please select School Year')
+                }
+                else{
+                    axios.post('/events', this.formData)
                     .then(response => {
                         this.showSucces(response.data.message);
                         // console.log(response.data)
@@ -454,22 +459,27 @@
                         alert(error)
 
                 });
+                }
+                
             },
 
 
             fetchData(){
                 this.loading = true;
-                axios.get(`/events/show/${this.organization_id}`)
+                // this.events = [];
+                // this.filtered_events = this.events;
+                axios.get(`/events/show/${this.organization_id}/${this.school_year_input}`)
                     .then(response => {
                     this.loading = false;
                     document.getElementById("event-spinner").classList.add("hidden");
                     console.log(response.data);
                     this.events = response.data;
                     this.filtered_events = this.events;
+                    
                     })
                     .catch(error => {
-                    this.loading = false;
-                    console.log('error');
+                    // this.loading = false;
+                    console.log(error)
                     });
                 },
 
@@ -503,7 +513,7 @@
                             // const closeButton = $('.modal button[data-bs-dismiss="modal"]');
                             // closeButton.trigger('click');
                             this.showSucces(response.data.message);
-
+                        
 
                         })
                         .catch(error => {

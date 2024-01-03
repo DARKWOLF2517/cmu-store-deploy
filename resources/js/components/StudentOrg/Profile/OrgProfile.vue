@@ -39,7 +39,7 @@
                 <div class="col">
                     <!-- Add an edit button on the top right -->
                     <div class="d-flex justify-content-end">
-                        <button class="btn button-secondary mr-2" id="editButton" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
+                        <button class="btn button-secondary mr-2" id="editButton" @click="this.orgProfileDetailsFetchUpdate()" data-bs-toggle="modal" data-bs-target="#editDetailsModal">Edit Details</button>
                     </div>
 
                     <div class="row student-details">
@@ -220,21 +220,29 @@
 <div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editDetailsModalLabel">Edit Student Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <label for="editDescription">Description:</label>
-                <input type="text" class="form-control" id="editDescription" value="College of Information Sciences and Computing">
-                <label for="profileImage" class="mt-2">Change Profile Image: </label>
-                <br>
-                <input type="file" id="profileImageInput" accept="image/*">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="updateProfileImage()">Save changes</button>
-            </div>
+            <form @submit.prevent="this.updateOrgProfileDetails">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDetailsModalLabel">Edit Student Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="editDescription">Description:</label>
+                    <input type="text" class="form-control" id="editDescription"  v-model="org_details_profile_input.description">
+                    <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label>
+                    <br>
+                    <input type="file" id="profileImageInput" accept="image/*"> -->
+                    <!-- <div class="select-dropdown">
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="org_details_profile_input.school_year">
+                            <option value="0" disabled selected>Select School Year</option>
+                            <option v-for="school_year in this.schoolYear" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                        </select>
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"   data-bs-dismiss="modal">Save changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -627,6 +635,11 @@ export default{
             updateOfficerRoleID:0,
             orgProfile:[],
             orgTotalMembers: 0,
+            org_details_profile_input: {
+                description:'',
+                school_year: 0
+                
+            },
         }
     },
     mounted(){
@@ -641,6 +654,23 @@ export default{
 
     },
     methods: {
+        updateOrgProfileDetails(){
+            axios.put(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input)
+                .then(response => {
+                    // console.log(response.data)
+                    this.showSucces(response.data.message);
+                    this.showOrgProfile();
+                
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        orgProfileDetailsFetchUpdate(){
+            this.org_details_profile_input.description = this.orgProfile.description;
+
+            console.log(this.orgProfile)
+        },
         showOrgTotalMembers(){
             axios.get(`/view_org_total_members/${this.org_id}`)
                 .then(response => {
@@ -655,7 +685,7 @@ export default{
             axios.get(`/view_org_profile/${this.org_id}`)
                 .then(response => {
                     this.orgProfile = response.data;
-                    // console.log(this.orgProfile)
+                    // console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error)
@@ -887,7 +917,7 @@ export default{
         viewSchoolYear(){
             axios.get(`/view_school_year/${this.org_id}`)
                 .then(response => {
-                    // console.log(response.data)
+                    console.log(response.data)
                     this.schoolYear = response.data
                 })
                 .catch(error => {

@@ -17,30 +17,37 @@ class UserOrgRoleMiddleware
     public function handle(Request $request, Closure $next, $role): Response
     {
 
-        $userOrganizationCount = UserOrganization::where('student_id', Auth::id())->count();
+        // $userOrganizationCount = UserOrganization::where('student_id', Auth::id())->count();
+        $userOrganizationRoleCount = UserOrganization::where([
+            ['student_id',Auth::id()],
+            ['role_id', $role]
+        ])->count();
 
-        if($userOrganizationCount > 1){
+        if($userOrganizationRoleCount > 0){
             if (Auth::check()){
                 return $next($request);
             }
         }
         else{
-            $student_id = Auth::id();
-            // $userOrganization = UserOrganization::where('student_id', $student_id)->get();
-            // Fetch the user organizations for a specific student ID
-            $userOrganizations = UserOrganization::where('student_id', $student_id)->first();
-                // Loop through each user organization using foreach
-                // foreach ($userOrganizations as $currentOrganization) {
-
-                // }
-                if (Auth::check() && $userOrganizations->role_id == $role){
-                    return $next($request);
-                }
-                //message to send to user when not enough permission
-                else{
-                    return response()->json(["You don't have permission to access this page"]);
-                }
+            return response()->json(["You don't have permission to access this page"]);
         }
+        // else{
+        //     $student_id = Auth::id();
+        //     // $userOrganization = UserOrganization::where('student_id', $student_id)->get();
+        //     // Fetch the user organizations for a specific student ID
+        //     $userOrganizations = UserOrganization::where('student_id', $student_id)->first();
+        //         // Loop through each user organization using foreach
+        //         // foreach ($userOrganizations as $currentOrganization) {
 
+        //         // }
+        //         if (Auth::check() && $userOrganizations->role_id == $role){
+        //             return $next($request);
+        //         }
+        //         //message to send to user when not enough permission
+        //         else{
+        //             return response()->json(["You don't have permission to access this page"]);
+        //         }
+        // }
+        // return response()->json([$userOrganizationRoleCount]);
     }
 }

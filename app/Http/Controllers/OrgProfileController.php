@@ -206,15 +206,16 @@ class OrgProfileController extends Controller
 
     public function updateOfficer($id, Request $request)
     {
-            $orgOfficer = OrganizationOfficer::find($id);
-            $orgOfficer->update(['position' => $request['position']]);
-            return response()->json(['message' => 'Officer Updated Successfully']);
+        $orgOfficer = OrganizationOfficer::find($id);
+        $orgOfficer->update(['position' => $request['position']]);
+        return response()->json(['message' => 'Officer Updated Successfully']);
 
     }
     public function viewOrgProfile($org_id)
     {
         $orgProfile = Organization::where('org_id', $org_id)->first();
         return response()->json($orgProfile);
+        
     
     }
 
@@ -223,5 +224,12 @@ class OrgProfileController extends Controller
         $orgTotalMembers = UserOrganization::where('student_org_id', $org_id)->count();
         return $orgTotalMembers;
     
+    }
+    public function updateOrgProfileDetails($id, Request $request)
+    {
+        $orgProfileDetails = Organization::find($id);
+        $orgProfileDetails->update(['description' => $request['description']]);
+        return response()->json(['message' => 'Org Profile Updated Successfully']);
+
     }
 }

@@ -38,7 +38,8 @@ Route::get('student_organization_profile', function () {
     Route::get('/login', function () {
         return view('layouts.login');
     })->name('login');
-    Route::get('/events/show/{org_id}',[EventController::class, 'getEvents'])->name('get-events');
+    Route::get('/events/show/{org_id}/{school_year?}',[EventController::class, 'getEvents'])->name('get-events');
+    Route::get('/get_school_year_default/{org_id}',[EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}',[EventController::class, 'getEventsAttendance']);
 
 
@@ -159,7 +160,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/evaluation_form_answer/{event_id}',[EvaluationController::class, 'EvaluationFormAnswer']);
             //get event total response
             Route::get('/evaluation_form_total_response/{event_id}',[EvaluationController::class, 'EvaluationTotalResponse']);
-            Route::get('/evaluation_list/{org_id}',[EvaluationController::class, 'EvaluationList']);
+            Route::get('/events/evaluation/{org_id}/{school_year?}',[EventController::class, 'getEventEvaluation']);
 
 
             #EVENT ROUTES
@@ -210,6 +211,7 @@ Route::middleware(['auth'])->group(function(){
             Route::delete('/delete_officer_role/{id}',[OrgProfileController::class, 'DeleteOfficerRole']);
             Route::get('/view_org_profile/{org_id}',[OrgProfileController::class, 'viewOrgProfile']);
             Route::get('/view_org_total_members/{org_id}',[OrgProfileController::class, 'viewOrgTotalMembers']);
+            Route::put('/updateOrgProfileDetails/{id}',[OrgProfileController::class, 'updateOrgProfileDetails']);
     });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){

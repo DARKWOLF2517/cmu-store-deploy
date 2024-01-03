@@ -40,6 +40,7 @@
         axios
           .get(`/events/show/${this.organization_id}`)
           .then((response) => {
+            console.log(response.data)
             const events = response.data;
             events.sort((a, b) => {
               const dateA = new Date(a.start_date);

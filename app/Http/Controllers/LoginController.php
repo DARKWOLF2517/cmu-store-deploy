@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Organization;
 use App\Models\Role;
+use App\Models\SchoolYear;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,11 @@ class LoginController extends Controller
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
                 
+                //get latest school year
+                $highestSchoolYear = SchoolYear::where('org_id', $userOrganization->student_org_id)
+                ->max('id');
+                session(['school_year' =>  $highestSchoolYear->id]);
+
                 //tells when there is only one user
                 session(['many_user' =>  'false']);
                 if($userOrganization->role_id == 1){
@@ -75,6 +81,10 @@ class LoginController extends Controller
 
     public function LoginOrganization($org_id, $role_id, $organization_name)
     {   
+        //get latest school year
+        $highestSchoolYear = SchoolYear::where('org_id', $org_id)
+            ->max('id');
+        session(['school_year' =>  $highestSchoolYear]);
         session(['org_id' =>  $org_id]);
         session(['org_name' =>  $organization_name]);
         return $role_id;

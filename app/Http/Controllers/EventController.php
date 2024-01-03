@@ -15,10 +15,17 @@ class EventController extends Controller
         return view('student_organization.student_organization_events');
     }
 
-    public function getEvents($org_id)
+    public function getEvents($org_id, $school_year = null)
     {        
-        $events = Event::where([['org_id', $org_id]])->get();
-        return $events->toJson();
+        if(!$school_year) {
+            $events = Event::where([['org_id', $org_id]])->get();
+            return $events->toJson();
+
+        }
+        else{
+            $events = Event::where([['org_id', $org_id],['school_year',$school_year]])->get();
+            return $events->toJson();
+        }
     }
     public function getEventsAttendance($org_id)
     {
