@@ -97,9 +97,9 @@ class EventController extends Controller
         // return $request;
     }
 
-    public function edit($event_id)
+    public function showEventDetails($event)
     {   
-        $events = Event::find($event_id);
+        $events = Event::find($event);
         return $events;
 
     }
@@ -137,6 +137,12 @@ class EventController extends Controller
     public function getEvaluationList($org_id, $school_year = null)
     {   
         $events = event::where([['org_id', $org_id],['school_year', $school_year]])->with('EvaluationFormAnswer')->get();
+        return response()->json($events);
+    }
+
+    public function getCompleteEventsCount($org_id)
+    {   
+        $events = event::where([['org_id', $org_id],['attendance_status', 2]])->count();
         return response()->json($events);
     }
 }

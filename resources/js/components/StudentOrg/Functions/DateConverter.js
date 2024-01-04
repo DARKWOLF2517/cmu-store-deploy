@@ -7,13 +7,12 @@
  * 
  * @returns {String} Converted date.
  */
-export function convertDate(date, option = 1)
+export function convertDate(date)
 {
     let new_date = "";
-    if(option = 1)
-    {
+
         new_date = new Date(date).toDateString();
-    }
+
 
     return new_date;
 }

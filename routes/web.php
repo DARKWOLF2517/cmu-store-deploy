@@ -147,34 +147,34 @@ Route::middleware(['auth'])->group(function(){
             return view('student_organization.student_organization_set_accountabilities');
         });
 
-        //QR SCANNER
-        Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
+        Route::get('student_organization_evaluation', function () {
+            return view('student_organization.student_organization_evaluation');
+        });
 
-        #EVALUATION ROUTES
+        Route::get('student_organization_events', function () {
+            return view('student_organization.student_organization_events');
+        });
+
+            #QR SCANNER
+            Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
+
+            #EVALUATION ROUTES
             Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
-            Route::get('student_organization_evaluation', function () {
-                return view('student_organization.student_organization_evaluation');
-            });
             Route::get('/evaluation_form{event_id}', [EvaluationController::class, 'GetEvaluationResult'])->name('fetchEvaluation');
             Route::get('/evaluation_form_answer/{event_id}',[EvaluationController::class, 'EvaluationFormAnswer']);
             Route::get('/evaluation_form_total_response/{event_id}',[EvaluationController::class, 'EvaluationTotalResponse']);
             Route::get('/events/evaluation/{org_id}/{school_year?}',[EventController::class, 'getEvaluationList'])->name('get-evaluation');
 
             #EVENT ROUTES
-            Route::get('student_organization_events', function () {
-                return view('student_organization.student_organization_events');
-            });
-
             Route::get('/events', [EventController::class, 'showEvents'])->name('events');
             Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events-destroy');
             Route::post('/events', [EventController::class, 'store'])->name('event-store');
-            Route::get('edit/events/{event}', [EventController::class, 'edit'])->name('events-edit');
+            Route::get('show_event_details/{event}', [EventController::class, 'showEventDetails'])->name('events-edit');
             Route::put('/events/{event}', [EventController::class, 'update'])->name('events-update');
-
             Route::get('/events_count/{org_id}',[EventController::class, 'getEventsCount']);
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
-            
             Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
+            Route::get('/complete_events_count/{organization_id}',[EventController::class, 'getCompleteEventsCount']);
 
 
 
