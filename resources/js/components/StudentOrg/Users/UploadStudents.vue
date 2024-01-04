@@ -145,20 +145,20 @@ data(){
 
 },
 mounted(){
-    this.upload();
+    // this.upload();
     this.fetchData();
-
+    console.log('mounted')
 },
 methods:{
     fetchData(){
-        axios.get(`/student_list/show/${this.org_id}`)
-            .then(response => {
+        // axios.get(`/student_list/show/${this.org_id}`)
+        //     .then(response => {
 
-                this.studentList = response.data;
-            })
-            .catch(error => {
+        //         this.studentList = response.data;
+        //     })
+        //     .catch(error => {
 
-            });
+        //     });
     },
     fetchDataEdit(){
         axios.get(`/student_list/edit/${this.fetchID}`)

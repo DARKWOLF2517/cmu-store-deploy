@@ -36,121 +36,84 @@
             </div>
         </div>
 
-    <h4><i class="fas fa-list mt-2"></i> Student List</h4>
-      <div class="container" id="table-container">
+        <h4><i class="fas fa-list mt-2"></i> Student List</h4>
+        <div class="container" id="table-container">
 
-            <div class="student-buttons d-flex justify-content-end">
-                <div class="btn-group" role="group">
-                    <button  class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-                        <i class="fas fa-plus"></i> Tag Student
-                    </button>
+                <div class="student-buttons d-flex justify-content-end">
+                    <div class="btn-group" role="group">
+                        <button  class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                            <i class="fas fa-plus"></i> Tag Student
+                        </button>
 
 
-                    {{-- <input type="file" id="fileInput" accept=".xlsx" style="display: none;">
-                    <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
-                    <i class="fas fa-file-excel"></i> Add student list
-                    </button> --}}
-                    <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" > <i class="fas fa-file-upload"></i> Upload List</button>
-                    <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+                        {{-- <input type="file" id="fileInput" accept=".xlsx" style="display: none;">
+                        <button class="btn me-2" id="add-student-button"  onclick="document.getElementById('fileInput').click()">
+                        <i class="fas fa-file-excel"></i> Add student list
+                        </button> --}}
+                        <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" > <i class="fas fa-file-upload"></i> Upload List</button>
+                        <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
 
-                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                        <!-- option 1 -->
-                        <li><a class="dropdown-item"  id="downloadButton">Download Template</a></li>
+                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                            <!-- option 1 -->
+                            <li><a class="dropdown-item"  id="downloadButton">Download Template</a></li>
 
-                    </ul>
-                </div>
-                </div>
+                        </ul>
+                    </div>
+                    </div>
 
-<!-- Add student Modal -->
-<div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- Add student Modal -->
+                    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <form>
+                                    <div class="mb-3">
+                                        <label for="studentId" class="form-label">Student ID</label>
+                                        <input type="text" class="form-control" id="studentId">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Student Name</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+
+                                    <div class="mb-3">
+                                    <label for="reason" class="form-label">Year-level</label>
+                                    <select class="form-select" id="yr-level">
+                                        <option value="1st">1st year level</option>
+                                        <option value="2nd">2nd year level</option>
+                                        <option value="3rd">3rd year level</option>
+                                        <option value="4th">4th year level</option>
+                                        <option value="4th">5th year level</option>
+                                        <option value="4th">6th year level</option>
+                                    </select>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            <upload-students
+            org_id = {{Session::get('org_id')}}
+            >
+            </upload-students>
         </div>
 
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label for="studentId" class="form-label">Student ID</label>
-              <input type="text" class="form-control" id="studentId">
-            </div>
-
-            <div class="mb-3">
-              <label for="name" class="form-label">Student Name</label>
-              <input type="text" class="form-control" id="name">
-            </div>
-
-            <div class="mb-3">
-          <label for="reason" class="form-label">Year-level</label>
-          <select class="form-select" id="yr-level">
-              <option value="1st">1st year level</option>
-              <option value="2nd">2nd year level</option>
-              <option value="3rd">3rd year level</option>
-              <option value="4th">4th year level</option>
-              <option value="4th">5th year level</option>
-              <option value="4th">6th year level</option>
-          </select>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-success">Save</button>
-          </div>
-          </form>
-        </div>
-
-      </div>
     </div>
-  </div>
-            {{-- <div class="scroll-pane"> --}}
-                {{-- <member-list
-                organization_id = {{Session::get('org_id')}}
-                >
-
-                </member-list> --}}
-            {{-- </div> --}}
-        {{-- <div class="scroll-pane">
-            <table id="student-list-table">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Name</th>
-                        <th>Institutional Email</th>
-                        <th>Year Level</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="studentTableBody">
-                    <!-- Student data will be added here -->
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>2</td>
-                        <td>Engineering</td>
-                        <td>
-                            <button class="btn btn-danger delete-button">Delete</button>
-                            <button class="btn btn-primary edit-button">Edit</button>
-                        </td>
-                        </tr>
-                </tbody>
-
-
-
-            </table>
-        </div> --}}
-
-        <upload-students
-        org_id = {{Session::get('org_id')}}
-        >
-
-        </upload-students>
-    </div>
-
-    </div>
-    </div>
+</div>
 
 
 
@@ -162,34 +125,32 @@
 
   <!-- Include exceljs for parsing Excel files -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
-  <script>
-    export default {
-      methods: {
-        downloadFile() {
-          // Define the file name
-          var fileName = 'template.xlsx';
-
-          // Create a Blob containing the Excel file data
-          var blob = new Blob([], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-
-          // Create a virtual link element
-          var link = document.createElement('a');
-          link.href = window.URL.createObjectURL(blob);
-          link.download = fileName;
-
-          // Trigger a click on the link element to initiate the download
-          document.body.appendChild(link);
-          link.click();
-
-          // Remove the link element from the DOM
-          document.body.removeChild(link);
-        },
-      },
-    };
-    </script>
 {{-- <script>
+    export default {
+        methods: {
+        downloadFile() {
+            // Define the file name
+            var fileName = 'template.xlsx';
 
+            // Create a Blob containing the Excel file data
+            var blob = new Blob([], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
+            // Create a virtual link element
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = fileName;
+
+            // Trigger a click on the link element to initiate the download
+            document.body.appendChild(link);
+            link.click();
+
+            // Remove the link element from the DOM
+            document.body.removeChild(link);
+        },
+        },
+    };
+</script> --}}
+<script>
             // Function to handle the file upload
             document.getElementById("uploadButton").addEventListener("click", function () {
                 document.getElementById("fileInput").click();
@@ -242,12 +203,12 @@
                     </td>
                 `;
 
-                tableBody.appendChild(newRow);
-            });
-        };
+                        tableBody.appendChild(newRow);
+                    });
+                };
 
-    reader.readAsArrayBuffer(file);
-    }
+                reader.readAsArrayBuffer(file);
+                }
 
         // Function to upload data from the modal to the main table
         document.getElementById("uploadToTableButton").addEventListener("click", function () {
@@ -335,7 +296,7 @@
                     });
                 }
             });
-</script> --}}
+</script>
 
 {{-- WALA NI LABOT ANG SA UBOS NA --}}
 

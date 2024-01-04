@@ -175,7 +175,9 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
             Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
             Route::get('/complete_events_count/{organization_id}',[EventController::class, 'getCompleteEventsCount']);
-
+            Route::post('/submitYearLevelExempted/{org_id}/{school_year}/{event_id}', [EventController::class, 'submitYearLevelExempted']);
+            Route::get('/get_year_level/{organization_id}',[EventController::class, 'getYearLevel']);
+            Route::get('/yearLevel/exempted/{org_id}/{id}',[EventController::class, 'getExempted']);
 
 
             #ACCOUNTABILITIES ROUTE
