@@ -1,5 +1,7 @@
 <template>
+    <div class="row head-container">
     <div class="col-md-6 col-sm-12">
+
         <div class="input-container">
             <i class="fa fa-search"></i>
             <input type="text" placeholder="Search" >
@@ -15,11 +17,11 @@
                 <option value="option3">1st Semester 2022-2023</option>
             </select>
         </div>
-
+    </div>
 
 <h4> <i class="fas fa-list mt-2"></i>  Student with Free Fines</h4>
 
-<div class="container" id="table-container">
+
 <div class="student-buttons d-flex justify-content-end">
 <div class="btn-group" role="group">
     <button  class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
@@ -100,7 +102,7 @@
     </div>
   </div>
 </div>
-</div>
+
 <!-- Edit Student Modal -->
 <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
   <div class="modal-dialog">

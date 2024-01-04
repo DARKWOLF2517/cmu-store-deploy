@@ -1,9 +1,11 @@
 
 @extends('layouts.student_organization_navigation_bar')
+<link href="/custom_css/SOAttendance.css" rel="stylesheet">
 @section('main-content')
-<div class="content">
-    <div class="container">
-        <div class="container breadcrumbs">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
+        <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
@@ -22,7 +24,7 @@
                 </show-student-attendance>
 </div>
 </div>
-
+</div>
 {{-- <div class="content">
     <div class="container">
         <div class="container breadcrumbs">

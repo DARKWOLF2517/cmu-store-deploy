@@ -5,8 +5,9 @@
 <link href="/custom_css/evaluation.css" rel="stylesheet">
 @endsection
 @section('main-content')
-<div class="content">
-  <div class="container">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
       <div class="container breadcrumbs">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -33,6 +34,9 @@
           </evaluation-chart>
       </div>
   </div>
+    </div>
+</div>
+
 </div>
 @endsection
 

@@ -3,9 +3,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
-<div class="content">
-    <div class="container">
-        <div class="container breadcrumbs">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
+        <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
@@ -14,10 +15,11 @@
             </ol>
             </nav>
         </div>
-    </div>
-                <h4> <i class="fas fa-list"></i> Organization Accountabilities</h4>
 
-                <div class="alert alert-info mt-4" role="alert">
+
+                <h4 class="mt-3"> <i class="fas fa-list"></i> Organization Accountabilities</h4>
+
+                <div class="alert alert-info mt-2" role="alert">
                    <b><i class="fas fa-info"></i> Note!</b>  This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
                     <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -101,6 +103,10 @@
                 </div>
             </div> --}}
 </div>
+</div>
+</div>
+
+
                     {{-- </div>
                     </div>
         </div> --}}

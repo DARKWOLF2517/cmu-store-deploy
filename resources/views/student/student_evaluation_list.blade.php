@@ -1,9 +1,10 @@
 @extends('layouts.student_navigation_bar')
 @section('main-content')
 <link href="/custom_css/evaluation.css" rel="stylesheet">
-<div class="content">
-    <div class="container">
-        <div class="container breadcrumbs">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
+        <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>

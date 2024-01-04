@@ -5,9 +5,10 @@
 @endsection
 @section('main-content')
 
-<div class="content">
-    <div class="container">
-        <div class="container breadcrumbs">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
+        <div class="col-md breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
@@ -41,8 +42,7 @@
             <div class="mt-4">
                 <h4><i class="fas fa-list"></i> Attendance Records</h4>
             </div>
-                <div class="col" id="record-container">
-                    <div class="recorded-event-cards">
+            <div class="col" id="record-container">
                         <attendance-record
                         organization_id = {{Session::get('org_id')}}
                         >
@@ -51,7 +51,7 @@
                 </div>
 
             </div>
-        </div>
+</div>
 
 
 

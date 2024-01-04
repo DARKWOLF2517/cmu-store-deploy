@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="scroll-pane">
-            <div class="container" id="accountabilities-table">
+            <div id="accountabilities-table">
                 <table class="student-accountabilities" id="accountabilities-table">
                         <tr>
                             <th style="width: 30%; background-color: #53967c; color: white;"> <h5> <b>Student Name</b></h5></th>

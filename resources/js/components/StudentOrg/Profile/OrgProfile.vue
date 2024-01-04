@@ -1,7 +1,5 @@
 <template>
-
-    <div class="container mt-4">
-        <div class="container breadcrumbs">
+        <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/student_organization_dashboard">Dashboard</a></li>
@@ -215,7 +213,7 @@
             </div>
         </div>
     </div>
-</div>
+
 <!-- Edit Student Details Modal -->
 <div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -638,7 +636,7 @@ export default{
             org_details_profile_input: {
                 description:'',
                 school_year: 0
-                
+
             },
         }
     },
@@ -660,7 +658,7 @@ export default{
                     // console.log(response.data)
                     this.showSucces(response.data.message);
                     this.showOrgProfile();
-                
+
                 })
                 .catch(error => {
                     console.error(error);
@@ -806,7 +804,7 @@ export default{
                     console.log(response.data)
                         this.showError(response.data.message);
                         this.showOfficer();
-                        
+
                 })
                 .catch(error => {
                     console.error(error);

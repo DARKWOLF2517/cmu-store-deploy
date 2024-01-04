@@ -1,5 +1,5 @@
 <template>
-        <div class="container mb-3" id="tablecontainer" v-for="(event , index) in this.events" :id="event.event_id">
+        <div class=" mb-3" id="tablecontainer" v-for="(event , index) in this.events" :id="event.event_id">
                 <h5> <span class="text-muted">Event name:</span>  <b>{{ event["name"] }} </b></h5>
                 <!-- <h6> Number of Days: 2</h6>
                 <h6> Total number of Attendance made: 4 </h6> -->

@@ -1,5 +1,5 @@
 <template>
-    <div class="container breadcrumbs">
+    <div class="col-md breadcrumbs">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
@@ -455,7 +455,7 @@
 
                 });
                 }
-                
+
             },
             fetchData(){
                 this.events = [];
@@ -475,7 +475,7 @@
                         console.log(response.data);
                         this.events = response.data;
                         this.filtered_events = this.events;
-                    
+
                     })
                     .catch(error => {
                     // this.loading = false;
@@ -514,7 +514,7 @@
                             // const closeButton = $('.modal button[data-bs-dismiss="modal"]');
                             // closeButton.trigger('click');
                             this.showSucces(response.data.message);
-                        
+
 
                         })
                         .catch(error => {
