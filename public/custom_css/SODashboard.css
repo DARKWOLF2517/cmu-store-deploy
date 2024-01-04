@@ -69,7 +69,20 @@
     border: none;
     border-radius: 10px;
     width: 100%;
-    height: 35vh;
+    height: 30vh;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+.welcome-card-student {
+    background-image: url('/assets/banner.png');
+    background-size: 100% 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 40px;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    height: 40vh;
     position: relative;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
@@ -152,14 +165,14 @@ margin-top: 5px;
 padding: 10px;
 margin-left: 3px;
 width: 100%;
-height: 100%;
+height: 80%;
 background-color: #ffffff;
 border-radius: 10px;
 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
 .card-icon {
-font-size: 36px;
+font-size: 30px;
 padding: 5px;
 /* margin-right: 10px; */
 flex-shrink: 0;
@@ -179,8 +192,8 @@ color: #15292B;
 margin-left: 10px;
 }
 .square-span {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -366,8 +379,9 @@ small{ /* Change <p> to <small> */
     }
 
 }
-@media only screen and (min-width: 768px) and (max-width: 1366px) {
-        /* Styles for tablets go here */
+/* tablet css */
+/* @media only screen and (min-width: 768px) and (max-width: 1366px) {
+
         .fc .fc-scrollgrid-liquid{
             height: 300px !important;
         }
@@ -384,19 +398,18 @@ small{ /* Change <p> to <small> */
         }
 
         .card {
-            max-height: 150px; /* Adjust the max-height as needed */
+            max-height: 150px;
             margin-top: 5px;
         }
 
         #calendar {
-            font-size: 10px; /* Adjust the font size as needed */
+            font-size: 10px;
             height: 25vh;
             margin-bottom: 10px;
         }
 
         .welcome-card {
             margin-top: 10px;
-            /* background-image: url('/assets/welcomesmall.png'); */
             background-image: url('/assets/bannersmall.png');
             padding: 20px;
             height: 18vh;
@@ -451,4 +464,4 @@ small{ /* Change <p> to <small> */
             margin: auto;
             margin-top: 15%;
         }
-      }
+      } */

@@ -1,5 +1,6 @@
 <template>
-<div class="container breadcrumbs">
+
+<div class="breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
@@ -162,7 +163,6 @@
                 </div>
             </div>
 
-
     <!-- Add Announcement Modal -->
     <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -269,7 +269,7 @@
 export default {
   data() {
     return {
-    
+
     }
   },
 

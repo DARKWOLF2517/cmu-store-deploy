@@ -1,8 +1,9 @@
 @extends('layouts.attedance_checker_navigation_bar')
 @section('main-content')
 <link href="/custom_css/SODashboard.css" rel="stylesheet">
-<div class="content">
-    <div class="container">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
         <div class="row">
             <div class="col mt-2">
                 <div class="welcome-card">
@@ -93,7 +94,7 @@
                 </div>
             </div>
         </div>
-
+        </div>
     </div>
 </div>
 

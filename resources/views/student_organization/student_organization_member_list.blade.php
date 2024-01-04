@@ -3,9 +3,10 @@
 
 @section('main-content')
 
-<div class="content">
-    <div class="container">
-        <div class="container breadcrumbs">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
+        <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
@@ -22,9 +23,9 @@
                         <input type="text" placeholder="Search Event">
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
+                <div class="col-md-6 col-sm-12" >
                     {{-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> --}}
-                    <div class="select-dropdown">
+                    <div class="select-dropdown d-flex justify-content-end">
                         <select id="sort-select" class="form-control" style="text-align: center;">
                             <option value="">Select Semester</option>
                             <option value="option1">1st Semester 2023-2024</option>
@@ -115,7 +116,7 @@
     </div>
 </div>
 
-
+</div>
 
 
 {{-- <script>

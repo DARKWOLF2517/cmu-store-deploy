@@ -31,7 +31,6 @@
 
 <h4> <i class="fas fa-list mt-2"></i>  Paid Accountabilities</h4>
 
-<div class="container" id="table-container">
     <div class="student-buttons d-flex justify-content-end">
         <div class="btn-group" role="group">
             <button class="btn me-2" id="add-student-list-button" @click="this.printTable()">
@@ -87,8 +86,6 @@
                 </div>
             </div>
         </div>
-</div>
-
 <!-- Confirmation Delete Modal -->
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -146,7 +143,7 @@ export default{
                 },
 
 
-        
+
         printTable() {
             // Clone the table element to avoid modifying the original table
             const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);

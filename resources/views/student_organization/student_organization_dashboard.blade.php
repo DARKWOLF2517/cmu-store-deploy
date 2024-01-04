@@ -5,8 +5,9 @@
 
 @section('main-content')
 
+<div class="page-content-wapper">
 <div class="content">
-    <div class="container">
+    <div class="page-container">
         <div class="row">
             <div class="col mt-2">
                 <div class="welcome-card">
@@ -17,7 +18,7 @@
             </div>
         </div>
         <div class="row mt-2">
-            <div class="col-md-4 col-sm-6 mb-2">
+            <div class="col-md-4 col-sm-6 ">
                 <div class="statistic">
                     <org-dashboard-counter
                         org_id = {{Session::get('org_id')}}
@@ -28,7 +29,7 @@
                     ></org-dashboard-counter>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 mb-2">
+            <div class="col-md-4 col-sm-6 ">
                 <div class="statistic">
                     <org-dashboard-counter
                         org_id = {{Session::get('org_id')}}
@@ -38,7 +39,7 @@
                     ></org-dashboard-counter>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 mb-2">
+            <div class="col-md-4 col-sm-6 ">
                 <div class="statistic">
                     <org-dashboard-counter
                         org_id = {{Session::get('org_id')}}
@@ -49,9 +50,9 @@
                 </div>
             </div>
         </div>
-        <div class=" mt-2">
+
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6 mb-2">
                     <div class="timeline-schedule">
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
@@ -88,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="col-lg-4 col-md-6 mb-2">
                     <div class="announcement">
                         <div class="announcement-header">
                             <i class="bi bi-list"></i> Announcement
@@ -131,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-12 mb-4">
+                <div class="col-lg-4 col-md-12 mb-2">
                     <div id="calendar">
                         <dashboard-calendar
                             :org_id = {{Session::get('org_id')}}
@@ -141,7 +142,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
     </div>
 </div>
 

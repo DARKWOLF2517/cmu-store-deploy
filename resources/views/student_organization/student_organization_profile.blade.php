@@ -161,14 +161,19 @@
                     </div>
     </div>
 </div> --}}
-<div class="content">
-<org-profile
-    :org_id = {{Session::get('org_id')}}
-    :user_id = {{Auth::id()}}
->
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
+            <org-profile
+                :org_id = {{Session::get('org_id')}}
+                :user_id = {{Auth::id()}}
+            >
 
-</org-profile>
+            </org-profile>
+        </div>
+    </div>
 </div>
+
 @endsection
 @section('custom-script')
     <!-- Add Bootstrap JS and jQuery for tab functionality -->

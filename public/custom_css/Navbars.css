@@ -206,10 +206,29 @@ margin-right: 0;
 .sidebar i{
     color: #283739;
 }
+#sidebarCollapse{
+    overflow-x: hidden;
+}
+.page-container{
+    margin-top: 25px;
+    padding: 10px;
+}
+
+.page-content-wrapper{
+    float: left;
+    width: 80%;
+    transition: margin 0.3s;
+    padding: 10px 20px 10px 10px !important;
+}
+
 .content {
     margin-left: 230px;
-    padding: 20px;
+    padding: 20px !important;
     transition: margin-left 0.3s ease-in-out;
+}
+.content.collapsed {
+    margin-left: 65px !important;
+    padding: 20px;
 }
 
 

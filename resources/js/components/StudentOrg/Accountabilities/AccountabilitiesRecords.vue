@@ -31,7 +31,6 @@
 
 <h4> <i class="fas fa-list mt-2"></i>  Student Accountabilities</h4>
 
-<div class="container" id="table-container">
 <div class="student-buttons d-flex justify-content-end">
 <div class="btn-group" role="group">
     <button class="btn me-2" id="add-student-list-button"  @click="printTable">
@@ -107,7 +106,6 @@
             </div>
         </div>
     </div>
-</div>
 <!-- View Modal -->
 <div class="modal fade" id="viewAllAccountabilitiesModal" tabindex="-1" aria-labelledby="viewAllAccountabilitiesModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered modal-lg "  style="max-width: 80%;">

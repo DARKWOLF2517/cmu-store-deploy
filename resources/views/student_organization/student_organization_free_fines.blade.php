@@ -5,9 +5,10 @@
 
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
 
-<div class="content">
-    <div class="container">
-        <div class="container breadcrumbs">
+<div class="page-content-wapper">
+    <div class="content">
+        <div class="page-container">
+        <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
@@ -18,7 +19,7 @@
             </nav>
         </div>
         <div class="mt-2">
-            <div class="row head-container">
+
                 <set-free-fines
                 :org_id = {{Session::get('org_id')}} />
                 </div>
@@ -26,6 +27,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @section('custom-script')
