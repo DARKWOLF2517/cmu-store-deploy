@@ -21,14 +21,14 @@
             </h3>
 
                 <div class="row">
-                <div class="col-lg-6 mb-2">
+                    <div class="col-lg-6 col-md-12 mb-2">
                     <div class="container" id="ScheduledEventContainer">
                         <event-attendance-list
                         org_id="{{Session::get('org_id')}}">
                         </event-attendance-list>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 col-md-12">
                     <div id="calendar">
                         <dashboard-calendar
                             :org_id={{Session::get('org_id')}}

@@ -62,13 +62,26 @@
     }
 
     .posted-by-title {
-      /* Add styles for posted-by-title at smaller screen sizes */
       padding: 3px;
     }
 
     .ellipsis-button {
-      /* Add styles for ellipsis-button at smaller screen sizes */
       top: 5px;
       right: 5px;
     }
+  }
+  @media only screen and (min-width: 768px) and (max-width: 1366px) {
+    .announcement-card {
+        width: 300px;
+        height: 230px;
+      }
+
+      .posted-by-title {
+        padding: 3px;
+      }
+
+      .ellipsis-button {
+        top: 5px;
+        right: 5px;
+      }
   }
