@@ -145,7 +145,7 @@ data(){
 
 },
 mounted(){
-    // this.upload();
+    this.upload();
     this.fetchData();
     console.log('mounted')
 },

@@ -117,14 +117,7 @@
 
 
 
-  <!-- Include Bootstrap and jQuery JavaScript -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-
-
-  <!-- Include exceljs for parsing Excel files -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 {{-- <script>
     export default {
         methods: {
@@ -150,7 +143,9 @@
         },
     };
 </script> --}}
-<script>
+{{-- <script>
+
+
             // Function to handle the file upload
             document.getElementById("uploadButton").addEventListener("click", function () {
                 document.getElementById("fileInput").click();
@@ -203,12 +198,12 @@
                     </td>
                 `;
 
-                        tableBody.appendChild(newRow);
-                    });
-                };
+                tableBody.appendChild(newRow);
+            });
+        };
 
-                reader.readAsArrayBuffer(file);
-                }
+    reader.readAsArrayBuffer(file);
+    }
 
         // Function to upload data from the modal to the main table
         document.getElementById("uploadToTableButton").addEventListener("click", function () {
@@ -296,20 +291,27 @@
                     });
                 }
             });
-</script>
+</script> --}}
 
 {{-- WALA NI LABOT ANG SA UBOS NA --}}
 
     <!-- Include Bootstrap and jQuery JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.min.js"></script> --}}
 
     <!-- Include exceljs for parsing Excel files -->
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script> --}}
+
+@endsection
+
+@section('custom-script')
+    <!-- Include Bootstrap and jQuery JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+    <!-- Include exceljs for parsing Excel files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
-
-    @endsection
-
-    @section('custom-script')
-
 
 @endsection
