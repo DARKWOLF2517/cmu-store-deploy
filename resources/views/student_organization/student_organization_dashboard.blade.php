@@ -43,7 +43,7 @@
                     <org-dashboard-counter
                         org_id = {{Session::get('org_id')}}
                         card_label="Completed Events"
-                        target_route=""
+                        target_route="complete_events_count"
                         icons="fas fa-check card-icon completed-events"
                     ></org-dashboard-counter>
                 </div>

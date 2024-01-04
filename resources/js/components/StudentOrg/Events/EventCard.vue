@@ -81,7 +81,8 @@
                                     </div>
                                             <h5 class="card-title mt-4 mb-2"><strong>{{ event["name"] }}</strong></h5>
                                             <p class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</p>
-                                            <p class="card-subtitle text-muted">Scheduled Time: {{ event["start_attendance"] }} </p>
+                                            <p class="card-subtitle text-muted">Start Time: {{ event["start_attendance"] }} </p>
+                                            <p class="card-subtitle text-muted">End Time: {{ event["end_attendance"] }} </p>
                                             <h6 class="card-text">Location: {{ event["location"] }} </h6>
                                             <!-- <h6 class="card-text">Description: {{ event["description"] }} </h6> -->
                                             <!-- <div class="card-actions">
@@ -187,7 +188,8 @@
                                         <h5 class="card-title"><strong>{{ this.showEvent["name"] }}</strong></h5>
                                         <div class="mt-2 mb-3">
                                         <h6 class="card-text text-muted">Scheduled Date: {{this.showEvent["start_date"]  }}</h6>
-                                        <h6 class="card-text text-muted">Scheduled Time: {{ this.showEvent["start_attendance"] }}</h6>
+                                        <h6 class="card-text text-muted">Start Time: {{ this.showEvent["start_attendance"] }}</h6>
+                                        <h6 class="card-text text-muted">End Time: {{ this.showEvent["end_attendance"] }}</h6>
                                         </div>
                                         <div class="mb-3">
                                         <h6 class="card-text">Location: {{ this.showEvent["location"] }}</h6>
@@ -297,6 +299,7 @@
     import {convertDate} from "../Functions/DateConverter.js";
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
+    import {converTime} from "../Functions/TimeConverter.js";
 
     export default {
         props: ['organization_id', 'school_year_session'] ,
@@ -335,7 +338,6 @@
         created() {
             this.fetchData();
             this.showSchoolYear();
-            console.log(this.school_year_session)
         },
         methods: {
             filterItems() {
@@ -348,20 +350,6 @@
                     );
                 }
                     this.filtered_events = filteredBySearch;
-
-                // // Filter based on filterStatus from select option
-                // let filteredBySchoolYear = this.events;
-                // if (this.school_year_input) {
-                //     filteredBySchoolYear = filteredBySchoolYear.filter(item =>
-                //         item.school_year.toString().includes(this.school_year_input)
-                //     );
-                // }
-
-                // // // Merge the results of both filters (independently applied)
-                // this.filtered_events = filteredBySearch.filter(item =>
-                //     filteredBySchoolYear.includes(item)
-                // );
-                // console.log(this.events)
             },
             showSchoolYear(){
                 axios.get(`get_school_year/${this.organization_id}`)
@@ -375,10 +363,17 @@
             },
             showEventDetails(event) {
                 console.log(event)
-                axios.get(`edit/events/${event}`)
+                axios.get(`show_event_details/${event}`)
                     .then(response => {
+                        const data = response.data;
+                        // data.forEach(item => {
+                            data["start_attendance"] = converTime(data["start_attendance"]);
+                            data["end_attendance"] = converTime(data["end_attendance"]);
+                            data["start_date"] = convertDate(data["start_date"]);
+                        // });
+                        console.log(data);
                         this.showEvent = response.data
-                        console.log(response.data)
+
                     })
                     .catch(error => {
 
@@ -462,16 +457,21 @@
                 }
                 
             },
-
-
             fetchData(){
+                this.events = [];
+                this.filtered_events = [];
                 this.loading = true;
-                // this.events = [];
-                // this.filtered_events = this.events;
+
                 axios.get(`/events/show/${this.organization_id}/${this.school_year_input}`)
                     .then(response => {
                         this.loading = false;
-                        // document.getElementById("event-spinner").classList.add("hidden");
+                        document.getElementById("event-spinner").classList.add("hidden");
+                        const data = response.data;
+                        data.forEach(item => {
+                            item["start_attendance"] = converTime(item["start_attendance"]);
+                            item["end_attendance"] = converTime(item["end_attendance"]);
+                            item["start_date"] = convertDate(item["start_date"]);
+                        });
                         console.log(response.data);
                         this.events = response.data;
                         this.filtered_events = this.events;
@@ -484,7 +484,8 @@
                 },
 
             FetchUpdateData(id){
-                axios.get(`edit/events/${id}`)
+                console.log(id)
+                axios.get(`show_event_details/${id}`)
                     .then(response => {
                         this.formData = response.data
                         this.id = id
