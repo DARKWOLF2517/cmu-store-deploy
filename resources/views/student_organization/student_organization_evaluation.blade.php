@@ -15,6 +15,7 @@
         </div>
                 <evaluation-list
                 organization_id = {{Session::get('org_id')}}
+                :school_year_session = {{Session::get('school_year')}}
                 ></evaluation-list>
     </div>
 </div>

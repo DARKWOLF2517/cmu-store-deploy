@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
                 <div class="select-dropdown">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="filterItems">
+                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
                             <option value="" disabled selected>Select Semester</option>
                             <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
 
@@ -33,7 +33,7 @@
 
 
             <!-- Message if the container is empty -->
-            <div class="Container-IfEmpty" v-if="this.evaluation.length === 0">
+            <div class="Container-IfEmpty" v-if="this.evaluation.length == 0">
                 <div class="Empty-Message">
                 <i class="icon 	far fa-file-alt" id="icon-message"></i>
                 <p class="text-muted">Evaluation cards show up here.</p>
@@ -75,14 +75,14 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 export default {
-  props: ['organization_id'],
+  props: ['organization_id','school_year_session'],
   data() {
     return {
       loading: true,
       evaluation: [],
       school_year: [],
       searchSchoolYear: 0,
-      school_year_input: 0,
+      school_year_input: this.school_year_session,
       searchTerm: '',
       filtered_events: [],
     };
@@ -95,40 +95,30 @@ export default {
 
   methods: {
     fetchData() {
-      // this.loading = true; // Set loading to true before making the API call
-      axios.get(`/get_school_year_default/${this.organization_id}`)
-        .then(response => {
-            this.school_year_input = response.data;
-            console.log(response.data)
+      this.filtered_events = [];
+      this.evaluation = [];
+      this.loading = true; // Set loading to true before making the API call
+        axios.get(`/events/evaluation/${this.organization_id}/${this.school_year_input}`)
+        .then((response) => {
+          this.loading = false; 
+          const data = response.data;
+          
+            if (data) {
+              data.forEach((item) => {
+              item['evaluation_form_answer'] = item['evaluation_form_answer'].length;
+              this.evaluation = response.data;
+              this.filtered_events = this.evaluation;
+            });
+            }
+            else{
+              this.filtered_events = [];
+            }
+            console.log(this.evaluation)
         })
-        .catch(error => {
-        // this.loading = false;
-        console.log(error)
+        .catch((error) => {
+          // Handle error
+          console.log(error)
         });
-
-      // console.log(this.school_year_input)
-      axios.get(`/events/evaluation/${this.organization_id}/${this.school_year_input}`)
-          .then(response => {
-            this.loading = false;
-              const data = response.data;
-              // console.log(data)
-              if (!data) {
-                data.forEach((item) => {
-                item['evaluation_form_answer'] = item['evaluation_form_answer'].length;
-                this.evaluation = response.data;
-                this.filtered_events = this.evaluation;
-              });
-              }
-              else{
-
-              }
-            
-            })
-          .catch(error => {
-            console.log(error)
-          });
-
-
     },
 
     filterItems() {

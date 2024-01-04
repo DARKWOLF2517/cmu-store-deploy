@@ -134,4 +134,9 @@ class EventController extends Controller
         $events = SchoolYear::where('org_id', $organization_id)->get();
         return response()->json($events);
     }
+    public function getEvaluationList($org_id, $school_year = null)
+    {   
+        $events = event::where([['org_id', $org_id],['school_year', $school_year]])->with('EvaluationFormAnswer')->get();
+        return response()->json($events);
+    }
 }

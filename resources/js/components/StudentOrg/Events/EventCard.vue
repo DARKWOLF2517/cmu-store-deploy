@@ -470,16 +470,16 @@
                 // this.filtered_events = this.events;
                 axios.get(`/events/show/${this.organization_id}/${this.school_year_input}`)
                     .then(response => {
-                    this.loading = false;
-                    document.getElementById("event-spinner").classList.add("hidden");
-                    console.log(response.data);
-                    this.events = response.data;
-                    this.filtered_events = this.events;
+                        this.loading = false;
+                        // document.getElementById("event-spinner").classList.add("hidden");
+                        console.log(response.data);
+                        this.events = response.data;
+                        this.filtered_events = this.events;
                     
                     })
                     .catch(error => {
                     // this.loading = false;
-                    console.log(error)
+                        console.log(error)
                     });
                 },
 

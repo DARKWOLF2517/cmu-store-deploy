@@ -131,4 +131,10 @@ class EvaluationController extends Controller
         // return $evaluation->toJson();
 
     }
+    public function getEvaluationList($org_id, $school_year)
+    {
+        $events = Event::where('org_id', $org_id)->with('organization')->get();
+        return $events->toJson();
+
+    }
 }

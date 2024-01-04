@@ -156,12 +156,9 @@ Route::middleware(['auth'])->group(function(){
                 return view('student_organization.student_organization_evaluation');
             });
             Route::get('/evaluation_form{event_id}', [EvaluationController::class, 'GetEvaluationResult'])->name('fetchEvaluation');
-            // Route::get('/evaluation_form_answer/{event_id}/{question_id}/{option}',[EvaluationController::class, 'EvaluationFormAnswer']);
             Route::get('/evaluation_form_answer/{event_id}',[EvaluationController::class, 'EvaluationFormAnswer']);
-            //get event total response
             Route::get('/evaluation_form_total_response/{event_id}',[EvaluationController::class, 'EvaluationTotalResponse']);
-            Route::get('/events/evaluation/{org_id}/{school_year?}',[EventController::class, 'getEventEvaluation']);
-
+            Route::get('/events/evaluation/{org_id}/{school_year?}',[EventController::class, 'getEvaluationList'])->name('get-evaluation');
 
             #EVENT ROUTES
             Route::get('student_organization_events', function () {
