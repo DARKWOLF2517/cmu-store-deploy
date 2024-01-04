@@ -15,5 +15,6 @@ class EventExempted extends Model
         'org_id',
         'event_id',
         'year_level_id',
+        'school_year',
     ];
 }

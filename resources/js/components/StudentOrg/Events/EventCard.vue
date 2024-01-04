@@ -69,7 +69,7 @@
                                             <!-- option 2 -->
                                             <li><a class="dropdown-item" @click="this.id =(event.event_id)"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a></li>
                                             <!-- option 3 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted attendees</a></li>
+                                            <li><a class="dropdown-item" @click="this.id =(event.event_id), this.showYearLevelExempted()" data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted attendees</a></li>
                                             <div v-if="event.attendance_status === 0 || event.attendance_status === 2">
                                                 <li><a class="dropdown-item"  @click="this.id =(event.event_id), this.status = 1"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
                                             </div>
@@ -143,35 +143,28 @@
                         <div class="modal fade" id="exemptModal" tabindex="-1" role="dialog" aria-labelledby="exemptModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
+                                <form @submit.prevent="this.submitYearLevelExempted">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exemptModalLabel">Exempted Year levels</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form>
-                                            <div class="form-check">
-                                                <h5>Select year level/s that is NOT required to attend the event.</h5>
-                                                <input type="checkbox" class="form-check-input" id="1stYearCheckbox">
-                                                <label class="form-check-label" for="1stYearCheckbox">1st Year</label>
+
+                                            <h5>Select year level/s that is NOT required to attend the event.</h5>
+                                            <!-- <div class="form-check" v-for="year_level in this.school_year">
+                                                <input type="checkbox" v-model="this.year_level_exempted"  :value="year_level.id" >{{ year_level.school_year }}
+                                            </div> -->
+                                            <div class="form-check" v-for="year_level in this.year_level_data">
+                                                <input type="checkbox" :value="year_level.id" v-model="this.year_level_exempted">
+                                                <label>{{ year_level.year_level }}</label>
                                             </div>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="2ndYearCheckbox">
-                                                <label class="form-check-label" for="2ndYearCheckbox">2nd Year</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="3rdYearCheckbox">
-                                                <label class="form-check-label" for="3rdYearCheckbox">3rd Year</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="4thYearCheckbox">
-                                                <label class="form-check-label" for="4thYearCheckbox">4th Year</label>
-                                            </div>
-                                        </form>
+                                            
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-success">Save</button>
+                                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save</button>
                                     </div>
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -267,14 +260,13 @@
                                             </div>
                                         </div>
 
-
-                                                <br>
+                                            <!-- <br> -->
                                                 <!-- CONTAINER OF THE CHECKBOX TO POPULATE -->
-                                                <b><p>Select the year level/s that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
+                                                <!-- <b><p>Select the year level/s that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
 
                                                 <div id="checkboxes-container">
 
-                                                </div>
+                                                </div> -->
 
                                             </div>
                                             <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
@@ -332,14 +324,61 @@
                     searchTerm:'',
                     searchSchoolYear:0,
                     filtered_events:[],
+                    year_level_data:[],
+                    year_level_exempted:[],
+                    year_level_fetch_update:[],
 
             }
         },
         created() {
             this.fetchData();
             this.showSchoolYear();
+            this.showYearLevelData();
         },
         methods: {
+            submitYearLevelExempted(){
+                if(this.year_level_exempted.length == 0){
+                    alert('Please check Year Level')
+                }
+                else{
+                    console.log(this.year_level_exempted)
+                    axios.post(`/submitYearLevelExempted/${this.organization_id}/${this.school_year_input}/${this.id}`, this.year_level_exempted)
+                    .then(response => {
+                        this.showSucces(response.data.message);
+                        // console.log(response.data)
+                    })
+                    .catch(error => {
+                        alert(error)
+
+                });
+                }
+                
+            },
+            showYearLevelData(){
+                axios.get(`get_year_level/${this.organization_id}`)
+                    .then(response => {
+                        // console.log(response.data)
+                        this.year_level_data = response.data;
+                    })
+                    .catch(error => {
+
+                    });
+            },
+            showYearLevelExempted(){
+                axios.get(`/yearLevel/exempted/${this.organization_id}/${this.id}`)
+                    .then(response => {
+                        // console.log(response.data)
+                        let data = response.data;
+                        data.forEach(element => {
+                            console.log(element)
+                            // this.year_level_exempted = element.school_year;
+                        });
+                        // this.year_level_exempted = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+            },
             filterItems() {
                 // Filter based on searchTerm from textbox
                 let filteredBySearch = this.events;
@@ -358,7 +397,7 @@
                         this.school_year = response.data;
                     })
                     .catch(error => {
-
+                        console.log(error)
                     });
             },
             showEventDetails(event) {
@@ -390,36 +429,36 @@
                     }
                 });
 
-                const user_orgs = [
-                    { id: 1, label: '1st Year', value: '1' },
-                    { id: 2, label: '2nd Year', value: '2' },
-                    { id: 3, label: '3rd Year', value: '3' },
-                    { id: 4, label: '4th Year', value: '4' },
-                    // Other checkbox data objects...
-                    ];
+                // const user_orgs = [
+                //     { id: 1, label: '1st Year', value: '1' },
+                //     { id: 2, label: '2nd Year', value: '2' },
+                //     { id: 3, label: '3rd Year', value: '3' },
+                //     { id: 4, label: '4th Year', value: '4' },
+                //     // Other checkbox data objects...
+                //     ];
 
-                    // Assuming you have a container element where checkboxes will be added
-                    const checkboxesContainer = document.getElementById('checkboxes-container');
-                    checkboxesContainer.innerHTML = '';
-                    // Loop through the user_orgs array to create checkboxes
-                    user_orgs.forEach(item => {
-                    // Create a checkbox element
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = 'checkbox_' + item.id; // Unique ID for each checkbox
-                    checkbox.name = 'checkboxes'; // Set the same name for checkboxes if part of a group
-                    checkbox.value = item.value; // Value associated with the checkbox
+                //     // Assuming you have a container element where checkboxes will be added
+                //     const checkboxesContainer = document.getElementById('checkboxes-container');
+                //     checkboxesContainer.innerHTML = '';
+                //     // Loop through the user_orgs array to create checkboxes
+                //     user_orgs.forEach(item => {
+                //     // Create a checkbox element
+                //     const checkbox = document.createElement('input');
+                //     checkbox.type = 'checkbox';
+                //     checkbox.id = 'checkbox_' + item.id; // Unique ID for each checkbox
+                //     checkbox.name = 'checkboxes'; // Set the same name for checkboxes if part of a group
+                //     checkbox.value = item.value; // Value associated with the checkbox
 
-                    // Create a label for the checkbox
-                    const label = document.createElement('label');
-                    label.htmlFor = 'checkbox_' + item.id;
-                    label.appendChild(document.createTextNode(item.label));
+                //     // Create a label for the checkbox
+                //     const label = document.createElement('label');
+                //     label.htmlFor = 'checkbox_' + item.id;
+                //     label.appendChild(document.createTextNode(item.label));
 
-                    // Append checkbox and label to the container
-                    checkboxesContainer.appendChild(checkbox);
-                    checkboxesContainer.appendChild(label);
-                    checkboxesContainer.appendChild(document.createElement('br')); // Line break between checkboxes
-                    });
+                //     // Append checkbox and label to the container
+                //     checkboxesContainer.appendChild(checkbox);
+                //     checkboxesContainer.appendChild(label);
+                //     checkboxesContainer.appendChild(document.createElement('br')); // Line break between checkboxes
+                //     });
             },
 
             sendData() {

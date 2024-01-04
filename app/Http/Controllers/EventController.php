@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\EventExempted;
 use App\Models\SchoolYear;
 use App\Models\User;
+use App\Models\YearLevel;
 use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
@@ -143,6 +145,37 @@ class EventController extends Controller
     public function getCompleteEventsCount($org_id)
     {   
         $events = event::where([['org_id', $org_id],['attendance_status', 2]])->count();
+        return response()->json($events);
+    }
+    public function submitYearLevelExempted($org_id, $year_level,$event_id, Request $request )
+    {   
+    
+
+        foreach ($request->all() as $data) {
+            $exempted = new EventExempted([
+                'org_id' => $org_id,
+                'event_id' => $event_id,
+                'year_level_id' => $data,
+                'school_year' => $year_level,
+                
+            ]);
+
+            // $validatedData = $this->validate($data,[
+            //     'school_year' => 'required',
+            // ]);
+            $exempted->save();
+        }
+        return response()->json(['message' => 'Year Level Added Successfully']);
+    }
+    public function getYearLevel($org_id)
+    {
+        $yearLevel = YearLevel::where('org_id', $org_id)->get();
+        return $yearLevel->toJson();
+    }
+    public function getExempted($org_id, $id)
+    {
+        // return 'asdfsdf';
+        $events = EventExempted::where([['org_id', $org_id],['event_id', $id]])->get();
         return response()->json($events);
     }
 }

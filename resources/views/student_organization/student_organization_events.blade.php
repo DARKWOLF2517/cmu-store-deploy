@@ -10,7 +10,7 @@
     <div class="content">
         <div class="page-container">
         <event-card
-        organization_id = {{Session::get('org_id')}}
+        :organization_id = {{Session::get('org_id')}}
         :school_year_session = {{Session::get('school_year')}}
         >
         </event-card>
