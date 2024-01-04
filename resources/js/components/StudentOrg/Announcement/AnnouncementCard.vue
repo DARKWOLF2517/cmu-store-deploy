@@ -52,17 +52,111 @@
                                 </div>
                                 <div class="d-flex align-items-center">
                                 <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                <strong class="posted-by-title ml-2">CSCo</strong>
+                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
                                 </div>
                                 <div class="card-body">
-                                <h6 class="card-title mt-2">Announcement: <strong>Lulinghayaw</strong> </h6>
-                                <small class="date-upload"> 11/9/2023 - 10:12 AM</small>
-                                <br>
-                                <small class="card-description">
-                                {{ truncatedDescription }}
-                                </small>
+                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
+                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
+                                <p class="card-short-description mt-2">
+                                    UCC on January 17, 2023
+                                </p>
                             </div>
-                            <button class="btn btn-success view-button" data-bs-toggle="modal" data-bs-target="#fullDetailsModal">Read more</button>
+                            </div>
+                            <div class="announcement-card">
+                                <div class="dropdown">
+                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <!-- option 1 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
+                                        <!-- option 2 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
+                                    </ul>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
+                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
+                                <p class="card-short-description mt-2">
+                                    UCC on January 17, 2023
+                                </p>
+                            </div>
+                            </div>
+                            <div class="announcement-card">
+                                <div class="dropdown">
+                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <!-- option 1 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
+                                        <!-- option 2 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
+                                    </ul>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
+                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
+                                <p class="card-short-description mt-2">
+                                    UCC on January 17, 2023
+                                </p>
+                            </div>
+                            </div>
+                            <div class="announcement-card">
+                                <div class="dropdown">
+                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <!-- option 1 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
+                                        <!-- option 2 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
+                                    </ul>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
+                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
+                                <p class="card-short-description mt-2">
+                                    UCC on January 17, 2023
+                                </p>
+                            </div>
+                            </div>
+                            <div class="announcement-card">
+                                <div class="dropdown">
+                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <!-- option 1 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
+                                        <!-- option 2 -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
+                                    </ul>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+                                </div>
+                                <div class="card-body">
+                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
+                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
+                                <p class="card-short-description mt-2">
+                                    UCC on January 17, 2023
+                                </p>
+                            </div>
                             </div>
                     </div>
                 </div>
@@ -81,11 +175,11 @@
                 <form>
                     <div class="mb-3">
                         <label class="form-label">Title</label>
-                        <input type="text" class="form-control" v-model="newAnnouncementTitle">
+                        <input type="text" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Description</label>
-                        <textarea class="form-control" v-model="newAnnouncementDescription"></textarea>
+                        <textarea class="form-control" ></textarea>
                     </div>
                 </form>
             </div>
@@ -97,7 +191,7 @@
     </div>
     </div>
   <!-- View Modal -->
-  <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
+  <!-- <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -116,7 +210,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -131,12 +225,12 @@
         <form>
           <div class="mb-3">
             <label class="form-label">Title</label>
-            <input type="text" class="form-control" v-model="editedTitle">
+            <input type="text" class="form-control" >
           </div>
 
           <div class="mb-3">
             <label class="form-label">Description</label>
-            <textarea class="form-control" v-model="editedDescription"></textarea>
+            <textarea class="form-control" ></textarea>
           </div>
 
         </form>
@@ -170,7 +264,7 @@
 </div>
 
 </template>
-
+<!--
 <script>
 export default {
   data() {
@@ -187,4 +281,4 @@ export default {
   },
 }
 
-</script>
+</script> -->

@@ -106,9 +106,9 @@
       }
 }
 @media only screen and (min-width: 768px) and (max-width: 1366px) {
-    .event-list, #event-container{
-        height: 30vh;
-        max-height: 30vh;
+    .event-list, .event-container{
+        height: 55vh;
+        max-height: 55vh;
         overflow-y: auto;
     }
     .card-title {
@@ -127,5 +127,6 @@
     }
     .event-card {
         width: calc(50% - 20px);
+        height: auto;
       }
 }

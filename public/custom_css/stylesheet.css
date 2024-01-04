@@ -83,12 +83,12 @@ body {
 
 .container {
     width: 100%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-top: 20px;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
     padding: 10px;
     /* background-color: #ffffff; */
-    border-radius: 10px;
+    /* border-radius: 10px; */
 }
 .col{
     width: 100%;
@@ -128,7 +128,7 @@ body {
     background-color: #ffffff;
 }
 .select-dropdown{
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin-top: 10px;
     position: relative;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
@@ -173,7 +173,7 @@ body {
     padding-left: 30px;
     width: 70%;
     height: 90%;
-    border-radius: 15px;
+    /* border-radius: 10px; */
     border: none;
     background-color: white;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
