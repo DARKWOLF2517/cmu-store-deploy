@@ -47,11 +47,10 @@
 
 .tab-content {
     padding: 20px;
-   box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: white;
-    height: 40vh;
-    max-height: 40vh;
+    height: 45vh;
 }
 
 
@@ -123,28 +122,34 @@
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background-color: white;
-height: 45.8vh;
+    height: 50vh;
+    max-height: 50vh;
+}
+#profile-details{
+    height: 50vh;
+    max-height: 50vh;
+    margin-bottom: 20px;
 }
 
 .profile img {
     margin-top: 10px;
-    width: 90%;
-    max-width: 200px;
+    width: 100%;
+    max-width: 35vh;
     height: auto;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #fff;
 }
 
-.roles , .semester{
+.roles , .additional-input{
     text-align: center;
     margin-top: 20px;
     padding: 10px;
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background-color: white;
-    height: 30vh;
-    max-height: 30vh;
+    height: 31vh;
+    max-height: 31vh;
     overflow-y: auto;
 }
 
@@ -153,7 +158,7 @@ height: 45.8vh;
     flex: 1;
     margin-right: 20px;
 }
-.organization-details{
+.organization-details, .additional-input{
     display: flex;
     height: 30vh;
     max-height: 30vh;

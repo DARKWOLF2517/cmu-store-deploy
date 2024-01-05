@@ -8,7 +8,8 @@
                 </ol>
             </nav>
         </div>
-<div class="row">
+<div id="profile-details">
+<div class="row" >
     <div class="col-md-3 col-sm-12">
         <div class="profile">
             <!-- Profile content -->
@@ -59,7 +60,7 @@
                         <!-- Organization Officers -->
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5><b>Organization Officers</b></h5>
-                            <button class="btn button-secondary" @click="this.addOfficerSubmit = this.addOfficer, this.clearAddOfficerData()" data-bs-toggle="modal" data-bs-target="#addOfficerModal">Add Officer</button>
+                            <button class="btn button-secondary" @click="this.addOfficerSubmit = this.addOfficer, this.clearAddOfficerData()" data-bs-toggle="modal" data-bs-target="#addOfficerModal"> <i class="fas fa-plus"></i></button>
                         </div>
 
                         <table class="table">
@@ -94,7 +95,7 @@
                     <div class="partner-organizations" style="width: 50%;">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5><b>Organizations Partners</b></h5>
-                            <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal">Set Partners</button>
+                            <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal"> <i class="fas fa-plus"></i> </button>
                         </div>
 
                         <table class="table">
@@ -130,7 +131,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <div class="containers">
         <div class="row">
             <!-- Organization Roles Table -->
@@ -138,7 +139,7 @@
                 <div class="roles">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
                         <h5><b>Organization Roles</b></h5>
-                        <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()">Set Roles</button>
+                        <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()"> <i class="fas fa-plus"></i> </button>
                     </div>
 
                     <div class="table-responsive">
@@ -174,13 +175,14 @@
                     </div>
                 </div>
             </div>
-
             <!-- Table for Semesters -->
             <div class="col-md-6">
-                <div class="semester">
+                <div class="row">
+                <div class="additional-input">
+                <div class="semester" style="width: 50%;">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
                         <h5><b>Semesters</b></h5>
-                        <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
+                        <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()"> <i class="fas fa-plus"></i> </button>
                     </div>
 
                     <div class="table-responsive">
@@ -210,9 +212,66 @@
                         </table>
                     </div>
                 </div>
+            <div class="year-level" style="width: 50%; padding-left: 10px" >
+                <div class="d-flex justify-content-between align-items-center mb-3 header">
+                    <h5><b>Year Levels</b></h5>
+                    <button class="btn button-secondary" id="addYearLevelButton" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" @click="this.yearLevelSubmit = this.addYearLevel, this.clearYearLevelData()"> <i class="fas fa-plus"></i>  </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Year Level</th>
+                                <th style="width: 10%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Adjust the v-for loop based on your data structure for year levels -->
+                            <tr>
+                                <td>1st Year</td>
+                                <td>
+                                    <!-- Adjust the actions based on your requirements -->
+                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdownYearLevel" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdownYearLevel">
+                                        <!-- Edit Year Level -->
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addYearLevelModal">Edit</a></li>
+                                        <!-- Delete Year Level -->
+                                        <li><a class="dropdown-item" @click="this.yearLevelId = yearLevel.id" data-bs-toggle="modal" data-bs-target="#deleteYearLevelConfirmation">Delete</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+                    </div>
+                </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Delete Year Level Confirmation Modal -->
+<div class="modal fade" id="deleteYearLevelConfirmation" tabindex="-1" aria-labelledby="deleteYearLevelConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteYearLevelConfirmationLabel">Delete Year Level</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this year level?</p>
+                <!-- Display additional information about the year level if needed -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" @click="deleteYearLevelConfirm">Delete</button>
             </div>
         </div>
     </div>
+</div>
 
 <!-- Edit Student Details Modal -->
 <div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
@@ -250,8 +309,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
-                <h5 class="modal-title" id="addSchoolYearModalLabel" v-else-if="this.schoolYearSubmit == this.updateSchoolYear">Edit School Year</h5>
+                <h5 class="modal-title" id="addSchoolYearModalLabel">Add School Year</h5>
+                <h5 class="modal-title" id="addSchoolYearModalLabel">Edit School Year</h5>
             </div>
             <div class="modal-body">
             <form @submit.prevent="this.schoolYearSubmit" >
@@ -286,6 +345,32 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" @click="this.deleteSchoolYear" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Year Level Modal -->
+<div class="modal fade" id="addYearLevelModal" tabindex="-1" aria-labelledby="addYearLevelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addYearLevelModalLabel">Add Year Level</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form fields for adding a year level -->
+                <form>
+                    <div class="mb-3">
+                        <label for="yearLevelInput" class="form-label">Year Level</label>
+                        <input type="text" class="form-control" id="yearLevelInput" v-model="newYearLevel" placeholder="Enter Year Level">
+                    </div>
+                    <!-- Add more form fields as needed -->
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="addYearLevel">Add Year Level</button>
+                </div>
+
+                </form>
             </div>
         </div>
     </div>
