@@ -53,8 +53,8 @@ Route::get('student_organization_profile', function () {
     })->name('login_options');
     Route::get('/GetOrgList/{userOrganization}', [LoginController::class, 'GetOrganizationList'])->name('get-user-organization');
 
-    //get into organization that been choosen
-    Route::get('/{org_id}/{role_id}/{organization_name}', [LoginController::class, 'LoginOrganization'])->name('login-organization');
+    //get into organization that been choosen in profile
+    Route::get('/profile_clicked/{id}', [LoginController::class, 'LoginOrganization'])->name('login-organization');
     Route::get('/evaluation_result', function () {
         return view('student_organization.student_organization_evaluation_results');
         });

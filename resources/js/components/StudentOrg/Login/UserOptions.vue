@@ -6,7 +6,7 @@
   </div>
     <div class="container">
         <div class="user-card"  v-for="userOrg in this.userOrgs" >
-            <div @click=" profileClicked( userOrg['student_org_id'],  userOrg['role_id'],userOrg['organization']['name'])">
+            <div @click=" profileClicked(userOrg['id'])">
             <h3> {{ userOrg['organization']['name'] }}</h3>
             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1">
             <p>
@@ -48,13 +48,11 @@ export default {
          * @param {*} org_id organization Id to identify which dashboard to render
          * @param {*} role_id Role id of the user on that organization
          */
-        profileClicked(org_id, role_id, organization_name){
-            axios.get(`/${org_id}/${role_id}/${organization_name}`)
+        profileClicked( id){
+            axios.get(`/profile_clicked/${id}`)
             .then(response => {
                 // console.log(response.data);
                 // userOrgs.value = response.data;
-                console.log(response.data)
-                // console.log(response.data.role)
                 if (response.data == 1){
 
                 window.location.href = '/org_dashboard';
@@ -65,6 +63,10 @@ export default {
                 else if (response.data == 3){
                     window.location.href = '/attendance_checker_dashboard';
                 }
+                else if (response.data == 'not_tagged_error'){
+                    alert ('User is not tagged in current School Year')
+                }
+
 
             })
             .catch(error => {

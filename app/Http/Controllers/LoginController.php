@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\Role;
 use App\Models\SchoolYear;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserOrganization;
 use Illuminate\Contracts\Session\Session;
-
+use PhpParser\Node\Stmt\Return_;
 
 class LoginController extends Controller
 {
@@ -22,12 +23,11 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $student_id = Auth::id();
-
-            $userOrganizationCount = UserOrganization::where('student_id', $student_id)->count();
+            $userOrganizationCount = UserOrganization::where('student_id', Auth::id())->count();
             //if the user has MANY org or role
             if ($userOrganizationCount > 1){
                 //tells when there is many user
+
                 session(['many_user' =>  'true']);
                 return '4';
 
@@ -36,36 +36,48 @@ class LoginController extends Controller
             else{
                 //if the user has only ONE org or role
                 $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization')->first();
-                session(['org_id' =>  $userOrganization->student_org_id]);
-                session(['org_name' =>  $userOrganization->organization->name]);
-                
-                //get latest school year
-                $highestSchoolYear = SchoolYear::where('org_id', $userOrganization->student_org_id)
-                ->max('id');
-                session(['school_year' =>  $highestSchoolYear->id]);
-
-                //tells when there is only one user
-                session(['many_user' =>  'false']);
-                if($userOrganization->role_id == 1){
-                    //for admin role when the user has 1 role
-                    return '1';
-                }
-                else if($userOrganization->role_id == 2){
-                    //for student role when the user has 1 role
-                    return '2';
-                }
-                else if($userOrganization->role_id == 3){
-                    //for attendance checker role when the user has 1 role
-                    return '3';
+                if($userOrganization){
+                    //get org default school year
+                    $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
+                    if($orgDefaultSchoolYear > 0){
+                        $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
+                        if ($userOrganization->school_year == $orgSchoolYear->school_year){
+                            $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
+                            session(['school_year' =>  $orgDefaultSchoolYear->school_year]);
+                            session(['org_id' =>  $userOrganization->student_org_id]);
+                            session(['org_name' =>  $userOrganization->organization->name]);
+                            //tells when there is only one user
+                            session(['many_user' =>  'false']);
+                            if($userOrganization->role_id == 1){
+                                //for admin role when the user has 1 role
+                                return '1';
+                            }
+                            else if($userOrganization->role_id == 2){
+                                //for student role when the user has 1 role
+                                return '2';
+                            }
+                            else if($userOrganization->role_id == 3){
+                                //for attendance checker role when the user has 1 role
+                                return '3';
+                            }
+                        }
+                        else{
+                            return 'not_tagged_error';
+                        }
+                    }
+                    else{
+                        return 'not_tagged_error';
+                    }
                 }
                 else{
-                    return 'no';
-                }
+                        return 'not_tagged_error';
+                    }
+                    
             }
             
         }
         else{
-            return 'error';
+            return 'user_creadential_error';
         }
 
         return back()->withErrors([
@@ -79,15 +91,53 @@ class LoginController extends Controller
         return $userOrganizations->toJson();
     }
 
-    public function LoginOrganization($org_id, $role_id, $organization_name)
+    public function LoginOrganization($id)
     {   
+        // return $id;
+        // $userOrganization = UserOrganization::where('id',$id)->with('organization')->first();
+        // if($userOrganization){
+        //     //get org default school year
+        //     $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$org_id)->count();
+        //     $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$org_id)->first();
+        //     if($orgDefaultSchoolYear > 0){
+        //         if ($userOrganization->school_year == $orgSchoolYear->school_year){
+        //             $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
+        //             session(['school_year' =>  $orgDefaultSchoolYear->school_year]);
+        //             session(['org_id' =>  $userOrganization->student_org_id]);
+        //             session(['org_name' =>  $organization_name]);
+        //             return $role_id;
+        //         }
+        //         else{
+        //             return 'not_tagged_error';
+        //         }
+        //     }
+        //     else{
+        //         return 'not_tagged_error';
+        //     }
+        // }
+        // else{
+        //         return 'not_tagged_error';
+        //     }
         //get latest school year
-        $highestSchoolYear = SchoolYear::where('org_id', $org_id)
-            ->max('id');
-        session(['school_year' =>  $highestSchoolYear]);
-        session(['org_id' =>  $org_id]);
-        session(['org_name' =>  $organization_name]);
-        return $role_id;
+
+        $userOrganization = UserOrganization::where('id', $id)->with('organization')->first();
+        $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
+        if($orgDefaultSchoolYear > 0){
+            $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
+            if ($userOrganization->school_year == $orgSchoolYear->school_year){
+                session(['school_year' =>  $userOrganization->school_year]);
+                session(['org_id' =>  $userOrganization->student_org_id]);
+                session(['org_name' =>  $userOrganization->organization->name]);
+                // return $userOrganization->school_year;
+                return $userOrganization->role_id;
+            }
+            else{
+                return 'not_tagged_error';
+            }
+        }
+        else{
+            return 'not_tagged_errors';
+        }
     }
 
     public function LoginDashboard()

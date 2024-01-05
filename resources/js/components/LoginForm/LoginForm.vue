@@ -30,7 +30,8 @@
             </label>
             </div>
         </div> -->
-        <p class="text-danger error-message" id="error-message" v-if="this.error == '1'">Incorrect username or password. Please try again.</p>
+        <p class="text-danger error-message" id="error-message" v-if="this.error == 'user_creadential_error'">Incorrect username or password. Please try again.</p>
+        <p class="text-danger error-message" id="error-message" v-else-if="this.error == 'not_tagged_error'">You Are Not Tagged in Any organization.</p>
         <div class="form-group text-right">
             <button type="submit" class="btn btn-primary rounded submit">Log In</button>
         </div>
@@ -69,8 +70,11 @@ methods: {
                 else if(response.data == 4){
                     window.location.href = '/options';
                 }
-                else if(response.data == 'error'){
-                    this.error = '1';
+                else if(response.data == 'user_creadential_error'){
+                    this.error = 'user_creadential_error';
+                }
+                else if(response.data == 'not_tagged_error'){
+                    this.error = 'not_tagged_error';
                 }
             })
             .catch(error => {
