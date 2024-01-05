@@ -137,7 +137,7 @@
             <div class="col-md-6">
                 <div class="roles">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
-                        <h5><b>Organization Roles</b></h5>
+                        <h5><b>Organization Member Roles</b></h5>
                         <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()">Set Roles</button>
                     </div>
 
@@ -179,7 +179,7 @@
             <div class="col-md-6">
                 <div class="semester">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
-                        <h5><b>Semesters</b></h5>
+                        <h5><b>School Year and Semester</b></h5>
                         <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
                     </div>
 
@@ -187,7 +187,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Semester and School Year</th>
+                                    <th>School Year</th>
                                     <th style="width: 10%;"></th>
                                 </tr>
                             </thead>
@@ -229,12 +229,13 @@
                     <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label>
                     <br>
                     <input type="file" id="profileImageInput" accept="image/*"> -->
-                    <!-- <div class="select-dropdown">
+                    <div class="select-dropdown">
+                        <label for="editDescription">Select Default School Year:</label>
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="org_details_profile_input.school_year">
-                            <option value="0" disabled selected>Select School Year</option>
+                            <option value="0" disabled selected>Select Default School Year</option>
                             <option v-for="school_year in this.schoolYear" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                         </select>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -653,7 +654,12 @@ export default{
     },
     methods: {
         updateOrgProfileDetails(){
-            axios.put(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input)
+            // console.log(this.org_details_profile_input) 
+            if(this.org_details_profile_input.school_year == 0){
+                alert('Please input School Year')
+            } 
+            else{
+                axios.put(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input)
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -663,6 +669,7 @@ export default{
                 .catch(error => {
                     console.error(error);
                 });
+            }
         },
         orgProfileDetailsFetchUpdate(){
             this.org_details_profile_input.description = this.orgProfile.description;

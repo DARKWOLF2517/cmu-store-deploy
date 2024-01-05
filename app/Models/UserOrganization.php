@@ -18,7 +18,8 @@ class UserOrganization extends Model
         'student_org_id',
         'student_id',
         'role_id',
-        'year_level_id'
+        'year_level_id',
+        'school_year',
     ];
 
     public function organization()

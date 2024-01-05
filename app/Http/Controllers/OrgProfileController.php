@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organization;
+use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\OrganizationOfficer;
 use App\Models\Role;
 use App\Models\SchoolYear;
@@ -227,9 +228,30 @@ class OrgProfileController extends Controller
     }
     public function updateOrgProfileDetails($id, Request $request)
     {
-        $orgProfileDetails = Organization::find($id);
-        $orgProfileDetails->update(['description' => $request['description']]);
-        return response()->json(['message' => 'Org Profile Updated Successfully']);
+      
+        $orgYearLevel = OrganizationDefaultSchoolYear::where('org_id',$id)->count();
+        if($orgYearLevel < 1){
+            $orgProfileDetails = Organization::find($id);
+            $orgProfileDetails->update(['description' => $request['description']]);
+
+            $orgDefaultSchoolYear = new OrganizationDefaultSchoolYear([
+                'org_id' => $id,
+                'school_year' => $request['school_year'],
+                
+            ]);
+            $orgDefaultSchoolYear->save();
+            return response()->json(['message' => 'Org Profile Updated Successfully']);
+        }
+        else{
+            $orgProfileDetails = Organization::find($id);
+            $orgProfileDetails->update(['description' => $request['description']]);
+
+            $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$id)->first();
+            $orgDefaultSchoolYear->update(['school_year' => $request['school_year']]);
+            return response()->json(['message' => 'Org Profile Updated Successfully']);
+        }
+
+    
 
     }
 }

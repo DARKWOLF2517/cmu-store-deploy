@@ -17,11 +17,13 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('year_level_id');
+            $table->unsignedBigInteger('school_year');
             $table->timestamps();
             $table->foreign('student_org_id')->references('org_id')->on('organizations');
             $table->foreign('student_id')->references('id')->on('users');
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->foreign('year_level_id')->references('id')->on('year_level');
+            $table->foreign('school_year')->references('id')->on('school_year');
 
         });
     }
