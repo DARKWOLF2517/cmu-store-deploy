@@ -61,6 +61,7 @@ class AccountabilitiesController extends Controller
             $accountability = OrganizationAccountability::where([['org_id', $org_id ],['school_year', $school_year]])->get();
             $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
             $exempted = EventExempted::where([['org_id', $org_id ],['school_year', $school_year]])->get();
+            $freeFines = FreeFinesStudent::where([['org_id', $org_id ],['school_year', $school_year]])->get();
             // return $accountabilities->toJson();
             return response()->json([
                 'accountabilities_fines' => $accountabilities, 
@@ -70,6 +71,7 @@ class AccountabilitiesController extends Controller
                 'accountabilities_other' => $accountability,
                 'year_level' => $yearLevel,
                 'year_level_exempted' => $exempted,
+                'free_fines' => $freeFines,
 
                 ]);
     }

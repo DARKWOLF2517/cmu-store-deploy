@@ -387,7 +387,7 @@ export default{
                         let user_orgs = response.data.user_orgs;
                         const year_level = response.data.year_level;
                         const year_level_exempted = response.data.year_level_exempted;
-
+                        let free_fines = response.data.free_fines;
                         const change_user_year_level = []
                         user_orgs.forEach(element => {
 
@@ -640,6 +640,35 @@ export default{
                             })
                     })
 
+                
+                    free_fines.forEach(fines_free => {
+                        // console.log(fines_free);
+                        this.fines_list.forEach(list_fines => {
+                            // console.log(list_fines)
+                            if (fines_free.student_id != list_fines.user_id ){
+                                this.fines_list.push({
+                                name: list_fines.name,
+                                user_id: list_fines.user_id,
+                                event_id: list_fines.event_id,
+                                total_fines: list_fines.total_fines,
+                                missing_session: list_fines.missing_session,
+                                accountability_type: list_fines.accountability_type
+                            })
+                            }
+                            else{
+                                this.fines_list=[]
+                            }
+                        });
+                    });
+                    console.log(this.fines_list)
+                    // this.fines_list.push({
+                    //             name: aggregated.name,
+                    //             user_id: aggregated.user_id,
+                    //             event_id: aggregated.event_id,
+                    //             total_fines: aggregated.total_amount,
+                    //             missing_session: aggregated.missing_session,
+                    //             accountability_type: aggregated.accountability_type
+                    //         })
 
                     this.filtered_items_for_fines = this.fines_list;
                     this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
