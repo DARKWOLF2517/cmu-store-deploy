@@ -568,13 +568,13 @@
 
             startAttendance() {
                 axios.put(`/update_event_attendance_status/${this.id}/${this.status}`)
-                        .then(response => {
-                            this.showSucces(response.data.message);
-                            this.fetchData();
-                        })
-                        .catch(error => {
-                            alert('Error', error)
-                        });
+                    .then(response => {
+                        this.showSucces(response.data.message);
+                        this.fetchData();
+                    })
+                    .catch(error => {
+                        alert('Error', error)
+                    });
             },
             showSucces(message){
                 this.fetchData();

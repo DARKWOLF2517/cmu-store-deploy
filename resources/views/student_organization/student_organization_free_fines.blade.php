@@ -1,10 +1,11 @@
 @extends('layouts.student_organization_navigation_bar')
 
+@section('custom-style')
+<link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+@endsection
+
 @section('main-content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
-
-<link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
-
 <div class="page-content-wapper">
     <div class="content">
         <div class="page-container">
@@ -21,7 +22,9 @@
         <div class="mt-2">
 
                 <set-free-fines
-                :org_id = {{Session::get('org_id')}} />
+                    :org_id = {{Session::get('org_id')}}
+                    :school_year_session = {{Session::get('school_year')}} 
+                    />
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Models\Accountability;
 use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\EventExempted;
+use App\Models\FreeFinesStudent;
 use App\Models\OrganizationAccountability;
 use App\Models\PaidAccountability;
 use App\Models\User;
@@ -165,5 +166,75 @@ class AccountabilitiesController extends Controller
     {
         $paidAccountabilities = PaidAccountability::where('student_org_id', $org_id )->with('user')->get();
         return $paidAccountabilities->toJson();
+    }
+
+    public function viewFreeFinesStudents($org_id, $school_year)
+    {
+        $freeFinesStudents = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]] )->with('user')->get();
+        return $freeFinesStudents->toJson();
+    }   
+    public function addFreeFinesStudents(Request $request)
+    {
+        if($this->addFreeFinesRepetition($request['student_id']) >= 1)
+        {
+            return response()->json(array("message"=>"Already in the list","error"=> 1));
+        }
+             // Validate the form data
+            $validatedData = $this->validate($request,[
+                'org_id' => 'required',
+                'reason' => 'required',
+                'school_year' => 'required',
+                'student_id' => 'required',
+            ]);
+    
+            // // Create a new free fines instance
+            $freeFines = new FreeFinesStudent([
+                'student_id' => $validatedData['student_id'],
+                'reason' => $validatedData['reason'],
+                'org_id' => $validatedData['org_id'],
+                'school_year' => $validatedData['school_year'],
+                
+            ]);
+            $freeFines->save();
+    
+            // Redirect or return a response
+            return response()->json(['message' => 'Free Fines Student Added Successfully']);
+            // return $request;
+    }
+    public function addFreeFinesRepetition($student_id)
+    {
+        $student = FreeFinesStudent::where([
+            ['student_id', $student_id],
+        ])->get();
+        $student = $student->count();
+        return $student;
+    }
+    public function getStudentName($student_id)
+    {
+        $student = UserOrganization::where([
+            ['student_id', $student_id],
+        ])->with('user')->first();
+        return $student;
+    }
+    public function deleteStudentFreeFines($student_id)
+    {
+        // $student_id->delete();
+        FreeFinesStudent::where('student_id',$student_id )->delete();
+        return response()->json(['message' => 'Student deleted successfully']);
+    }
+    public function fetchUpdateStudentData($student_id)
+    {
+        $student = FreeFinesStudent::where([
+            ['student_id', $student_id],
+        ])->with('user')->first();
+        return $student;
+    }
+    public function updateStudentData($student_id, $reason)
+    {
+        $attendance = FreeFinesStudent::find($student_id);
+        $attendance->update(['reason' => $reason]);
+
+    
+        return response()->json(['message' => 'Attendance Status of ']);
     }
 }

@@ -73,36 +73,10 @@ Route::get('student_organization_profile', function () {
 Route::middleware(['auth'])->group(function(){
 #ORG ROUTE
     Route::middleware(['user-role:1'])->group(function(){
-        #attendance
-        Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
-        Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
-        Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
-        Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
-
-        //check the repetition of the data using id number
-        Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
-
-        //attendance record list
-        Route::get('/attendance_record/{organization_id}/{school_year}',[AttendanceController::class, 'attendanceRecord']);
-
-        //attendance status route
-        Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
-
-        #USER ROUTE
-        Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
-
-        //show students list  in the main form
-        Route::get('/student_list/show/{org_id}/{school_year}',[UserController::class, 'showStudents']);
-        Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
-        Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
-
-        Route::post('/upload_students',[UserController::class, 'store']);
         #ORG DASHBOARD
-            Route::get('/org_dashboard', function () {
-                return view('student_organization.student_organization_dashboard');
-            })->name('org_dashboard');
-
-
+        Route::get('/org_dashboard', function () {
+            return view('student_organization.student_organization_dashboard');
+        })->name('org_dashboard');
 
         // Route::get('student_organization_attendance_record/{event_id}', function () {
         //     return view('student_organization.student_organization_attendance_record');
@@ -155,8 +129,27 @@ Route::middleware(['auth'])->group(function(){
             return view('student_organization.student_organization_events');
         });
 
-            #QR SCANNER
+    #FUNCTIONS WITH DATA ROUTES
+            #USER ROUTE
+            Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
+            //show students list  in the main form
+            Route::get('/student_list/show/{org_id}/{school_year}',[UserController::class, 'showStudents']);
+            Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
+            Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
+            Route::post('/upload_students',[UserController::class, 'store']);
+
+            #ATTENDANCE ROUTES
             Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
+            Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
+            Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
+            Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
+            Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
+            //check the repetition of the data using id number
+            Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
+            //attendance record list
+            Route::get('/attendance_record/{organization_id}/{school_year}',[AttendanceController::class, 'attendanceRecord']);
+            //attendance status route
+            Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
 
             #EVALUATION ROUTES
             Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
@@ -180,7 +173,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/yearLevel/exempted/{org_id}/{id}',[EventController::class, 'getExempted']);
 
 
-            #ACCOUNTABILITIES ROUTE
+            #ACCOUNTABILITIES ROUTES
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
             Route::get('/fines_list/{org_id}/{school_year}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
             Route::put('/update_event_attendance_status/{event_id}/{status}',[AccountabilitiesController::class, 'updateEventAttendanceStatus']);
@@ -191,7 +184,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/paid_accountabilities/{org_id}',[AccountabilitiesController::class, 'PaidAccountabilities']);
 
 
-            #ORG PROFILE ROUTE
+            #ORG PROFILE ROUTES
             Route::post('/add_school_year',[OrgProfileController::class, 'addSchoolYear']);
             Route::get('/view_school_year/{org_id}',[OrgProfileController::class, 'viewSchoolYear']);
             Route::get('/edit_school_year/{id}',[OrgProfileController::class, 'fetchUpdateSchoolYear']);
@@ -211,12 +204,18 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/view_org_profile/{org_id}',[OrgProfileController::class, 'viewOrgProfile']);
             Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
             Route::put('/updateOrgProfileDetails/{id}',[OrgProfileController::class, 'updateOrgProfileDetails']);
-    });
+    
+            #FREE FINES ROUTES
+            Route::get('/get_free_fines_students/{org_id}/{school_year}',[AccountabilitiesController::class, 'viewFreeFinesStudents']);
+            Route::post('/add_free_fines_students',[AccountabilitiesController::class, 'addFreeFinesStudents']);
+            Route::get('/get_student_name/{student_id}',[AccountabilitiesController::class, 'getStudentName']);
+            Route::delete('/delete_student_free_fines/{student_id}',[AccountabilitiesController::class, 'deleteStudentFreeFines']);
+            Route::get('/fetch_update_student_data/{student_id}',[AccountabilitiesController::class, 'fetchUpdateStudentData']);
+            Route::put('/update_student_data/{student_id}/{reason}',[AccountabilitiesController::class, 'updateStudentData']);
+        });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){
-
         //test route
-
         Route::get('student_profile', function () {
             return view('student.student_profile');
         });
