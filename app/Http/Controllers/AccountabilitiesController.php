@@ -175,7 +175,7 @@ class AccountabilitiesController extends Controller
     }   
     public function addFreeFinesStudents(Request $request)
     {
-        if($this->addFreeFinesRepetition($request['student_id']) >= 1)
+        if($this->addFreeFinesRepetition($request['student_id'],$request['school_year']) >= 1)
         {
             return response()->json(array("message"=>"Already in the list","error"=> 1));
         }
@@ -201,10 +201,11 @@ class AccountabilitiesController extends Controller
             return response()->json(['message' => 'Free Fines Student Added Successfully']);
             // return $request;
     }
-    public function addFreeFinesRepetition($student_id)
+    public function addFreeFinesRepetition($student_id, $school_year)
     {
         $student = FreeFinesStudent::where([
             ['student_id', $student_id],
+            ['school_year', $school_year]
         ])->get();
         $student = $student->count();
         return $student;

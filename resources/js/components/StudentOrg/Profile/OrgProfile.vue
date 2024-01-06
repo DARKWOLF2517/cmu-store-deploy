@@ -81,7 +81,7 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                             <!-- Edit Officer -->
-                                            <li><a class="dropdown-item" @click="this.addOfficerSubmit = this.updateOfficer ,this.fetchNameInputOrgOfficer(), this.officerFetchUpdate(officers.id)" data-bs-toggle="modal" data-bs-target="#addOfficerModal" >Edit Officer</a></li>
+                                            <li><a class="dropdown-item" @click="this.addOfficerSubmit = this.updateOfficer, this.OfficerId = officers['id'], this.officerFetchUpdate(officers.id)" data-bs-toggle="modal" data-bs-target="#addOfficerModal" >Edit Officer</a></li>
                                             <!-- Remove Officer -->
                                             <li><a class="dropdown-item" @click="this.OfficerId = officers['id']" data-bs-toggle="modal" data-bs-target="#removeOfficerModal">Remove Officer</a></li>
                                         </ul>
@@ -249,9 +249,9 @@
             </div>
                     </div>
                 </div>
+            </div>
     </div>
-    </div>
-    </div>
+</div>
 
     <!-- Delete Year Level Confirmation Modal -->
 <div class="modal fade" id="deleteYearLevelConfirmation" tabindex="-1" aria-labelledby="deleteYearLevelConfirmationLabel" aria-hidden="true">
@@ -473,9 +473,9 @@
                         </div>
                         <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
                             <label for="IDnumber"><b>ID number</b></label>
-                            <input type="text" class="form-control" id="IDnumber"  v-model="this.addOfficersData.student_id" @change="this.fetchNameInputOrgOfficer" disabled>
+                            <input type="text" class="form-control" id="IDnumber"  v-model="this.addOfficersData.student_id" disabled>
                         </div>
-                        <div v-if="this.addOfficerSubmit == this.addOfficer">
+                        <div>
                             <label for="IDnumber"><b>Name</b></label>
                             <input type="text" class="form-control" id="IDnumber" disabled v-model="this.nameFilterAddOfficer">
                         </div>
@@ -854,7 +854,7 @@ export default{
                 school_year: this.school_year_session,
             }
 
-            console.log(this.addOfficerRoleData)
+            // console.log(this.addOfficerRoleData)
             // submit data
             axios.post('/add_org_officer_role', this.addOfficerRoleData)
                 .then(response => {
@@ -901,8 +901,8 @@ export default{
             // console.log( this.OfficerId);
             axios.put(`/update_officer/${this.OfficerId}`, this.addOfficersData)
                 .then(response => {
-                    console.log(response.data)
-                        this.showError(response.data.message);
+                    // console.log(response.data)
+                        this.showSucces(response.data.message);
                         this.showOfficer();
 
                 })
@@ -916,7 +916,8 @@ export default{
             axios.get(`edit_officer/${id}`)
                 .then(response => {
                     this.addOfficersData = response.data;
-                    // console.log(response.data);
+                    this.nameFilterAddOfficer = response.data.user.name
+
                 })
                 .catch(error => {
                     console.log(error)
@@ -945,7 +946,7 @@ export default{
         showOrgUser(){
             axios.get(`/view_users_org/${this.org_id}`)
                 .then(response => {
-                    this.nameAddOfficer = response.data;
+                    // this.nameAddOfficer = response.data;
                     // console.log(this.nameAddOfficer)
                 })
                 .catch(error => {
@@ -953,12 +954,14 @@ export default{
                 });
         },
         fetchNameInputOrgOfficer(){
-            this.nameFilterAddOfficer = this.nameAddOfficer.filter(item => item.student_id == this.addOfficersData.student_id);
-            if (this.nameFilterAddOfficer != null && this.nameFilterAddOfficer['0'] && this.nameFilterAddOfficer['0']['user'] && this.nameFilterAddOfficer['0']['user']['name']) {
-                this.nameFilterAddOfficer = this.nameFilterAddOfficer['0']['user']['name'];
-
-            }
-
+            axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}`)
+                .then(response => {
+                    this.nameFilterAddOfficer = response.data.user.name;
+                    // console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
         },
         showOfficer(){
             this.orgOfficers = [];

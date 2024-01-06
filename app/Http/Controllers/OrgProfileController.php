@@ -124,7 +124,7 @@ class OrgProfileController extends Controller
         // $records = OrganizationOfficer::where([
         //     ['id', $id],
         // ])->get();
-        $officerUpdate = OrganizationOfficer::find($id);
+        $officerUpdate = OrganizationOfficer::where('id',$id)->with('user')->first();
         return response()->json($officerUpdate);
 
     }
@@ -265,4 +265,12 @@ class OrgProfileController extends Controller
     
 
     }
+    public function fetchNameOfficerInput($id)
+    {
+        $officerName = UserOrganization::where('student_id', $id)->with('user')->first();
+        return response()->json($officerName);
+        
+    
+    }
+
 }
