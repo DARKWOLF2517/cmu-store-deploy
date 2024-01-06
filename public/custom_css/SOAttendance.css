@@ -159,37 +159,3 @@
         margin-top: 30px;
     }
 }
-@media only screen and (min-width: 768px) and (max-width: 1366px) {
-    .record-card {
-        width: 100%;
-    }
-
-    .record-date-container {
-        width: auto;
-    }
-    #calendar {
-        font-size: 10px;
-        height: 50vh;
-        margin-bottom: 10px;
-    }
-    .btn-success{
-        margin-top: 30px;
-    }
-    .Message-IfEmpty{
-        margin-top: 20% !important;
-        height: 100px !important;
-    }
-    .schedule-list-container{
-        height: 20vh;
-        max-height: 20vh;
-        overflow-y: auto;
-    }
-    #calendar{
-        height: 20vh;
-        font-size: 10px;
-        margin-bottom: 10px;
-    }
-    .fc .fc-scrollgrid-liquid{
-        height: 300px !important;
-    }
-}

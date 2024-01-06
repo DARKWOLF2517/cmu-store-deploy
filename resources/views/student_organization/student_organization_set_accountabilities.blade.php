@@ -15,11 +15,8 @@
                 </ol>
                 </nav>
             </div>
-            <h4 class="mt-3"> <i class="fas fa-list"></i> Organization Accountabilities</h4>
-            <div class="alert alert-info mt-2" role="alert">
-                <b><i class="fas fa-info"></i> Note!</b>  This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
-                <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+
+
             <set-accountabilities
             :org_id = {{Session::get('org_id')}}
             :school_year_session = {{Session::get('school_year')}}
