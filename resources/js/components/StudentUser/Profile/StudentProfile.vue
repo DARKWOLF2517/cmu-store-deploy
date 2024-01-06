@@ -1,42 +1,27 @@
 <template>
-   <div class="row">
-        <div class="col-md-3">
+    <div class="col mt-2">
             <div class="qr-code">
-                <div class="qrcode-img">
-                    <qrcode-vue :value="value" :size="size" level="H" class="img-fluid" />
-                </div>
-                <h5>{{ this.profile.name }}</h5>
-                <small>{{ this.user_id }}</small>
-            </div>
-        </div>
-
-        <div class="col-md-9">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true"><b>Profile</b></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="organization-tab" data-toggle="tab" href="#organization" role="tab" aria-controls="organization" aria-selected="false"><b>Organization</b></a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <!-- Profile Tab Content -->
-                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="col">
-                        <div class="row student-details">
-                            <div class="student-info">
-                                <h3>Student Information</h3>
-                                <p><b>Full name: </b> <span id="full-name">{{ this.profile.name }}</span></p>
-                                <p><b>Year level: </b> <span id="year-level">{{ this.profile.year_level }}</span></p>
-                                <p><b>College: </b> <span id="college">{{ this.profile.college }}</span></p>
-                                <p><b>Department: </b> <span id="department"></span></p>
-                            </div>
+                <h4> <i class="far fa-copy"></i> Student Information</h4>
+                <div class="row">
+                    <div class="col-md-2"> <div class="qrcode-img">
+                            <qrcode-vue :value="value" :size="size" level="H" class="img-fluid" />
                         </div>
                     </div>
-                </div>
-                <!-- Clubs Tab Content -->
-                <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
-                    <h3>Organizations</h3>
+                    <div class="col-md-6 profile-details">
+                        <h4>{{ this.profile.name }}</h4>
+                        <p class="mb-0"> <b>Student ID: </b> {{ this.user_id }}</p>
+                        <p class="mb-0"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level }}</span></p>
+                        <p class="mb-0"><b>College: </b> <span id="college">{{ this.profile.college }}</span></p>
+                        <p><b>Department: </b> <span id="department"></span></p>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+        <div class="col mt-3">
+                <div class="organizations"  role="tabpanel" aria-labelledby="organization-tab">
+                    <h4> <b><i class="far fa-copy"></i> Organizations</b> </h4>
                     <div class="org-under-info">
                         <ul v-for="organization in this.organization" :id="organization.student_org_id">
                             <li><b>{{ organization['organization']['name'] }}</b></li>
@@ -44,9 +29,8 @@
                         </ul>
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
+
 </template>
 <!--
 <script>

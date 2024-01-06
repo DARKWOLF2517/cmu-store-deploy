@@ -12,11 +12,11 @@
     margin: 0 auto;
     background-color: #fff;
     width: 100%;
-    height: 50vh;
-    max-height: 50vh;
+    height: 48vh;
+    max-height: 48vh;
     bottom: 0;
     overflow: hidden;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 .fc-header-toolbar .fc-toolbar{
     padding: 0;
@@ -69,9 +69,9 @@
     border: none;
     border-radius: 10px;
     width: 100%;
-    height: 30vh;
+    height: 33vh;
     position: relative;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    /* box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px; */
 }
 .welcome-card-student {
     background-image: url('/assets/banner.png');
@@ -104,8 +104,8 @@
     background-color: #fff;
     padding: 10px;
     border-radius: 10px;
-    height: 50vh;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    height: 48vh;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 .announcement-header, .timeline-header{
     position: sticky;
@@ -124,7 +124,7 @@
 .announcement-card{
     border-radius: 8px;
     border: 1px solid #ccc;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     padding: 10px;
     margin-bottom: 10px;
 }
@@ -165,10 +165,10 @@ margin-top: 5px;
 padding: 10px;
 margin-left: 3px;
 width: 100%;
-height: 80%;
+height: 90%;
 background-color: #ffffff;
 border-radius: 10px;
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
 .card-icon {
@@ -233,8 +233,8 @@ ul, li{
  background-color: #ffffff;
   padding: 10px;
   border-radius: 15px;
-  height: 50vh;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 48vh;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 h1{
   font-size: 1.1rem;

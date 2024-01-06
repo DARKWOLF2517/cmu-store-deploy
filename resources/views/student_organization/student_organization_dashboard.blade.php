@@ -97,8 +97,8 @@
 
                         <div class="announcement-list">
                             <div class="Message-IfEmpty">
-                                <i class="icon 	far fa-calendar-times" id="icon-message"></i>
-                                <p class="empty-schedule">Nothing scheduled yet</p>
+                                <i class="icon 	fas fa-bullhorn" id="icon-message"></i>
+                                <p class="empty-schedule">Announcements show up here</p>
                             </div>
                              <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>

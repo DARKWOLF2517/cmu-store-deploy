@@ -9,7 +9,7 @@
     height: 80vh;
     bottom: 0;
     overflow: hidden;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 .schedule-card{
     border: white, 1px;
@@ -20,10 +20,9 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     height: 150px;
 
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
 #calendar th{
@@ -86,7 +85,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     width: calc(33.33% - 20px);
     height: 200px;
   }

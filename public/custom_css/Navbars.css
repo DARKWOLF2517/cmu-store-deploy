@@ -210,8 +210,8 @@ margin-right: 0;
     overflow-x: hidden;
 }
 .page-container{
-    margin-top: 25px;
-    padding: 10px;
+    margin-top: 30px;
+    /* padding: 10px; */
 }
 
 .page-content-wrapper{
@@ -249,6 +249,27 @@ margin-right: 0;
 
 }
 @media screen and (max-width: 768px) {
+    .page-container{
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    .page-content-wrapper{
+        float: left;
+        width: 80%;
+        transition: margin 0.3s;
+        padding: 10px 20px 10px 10px !important;
+    }
+
+    .content {
+        margin-left: 20px;
+        padding: 20px !important;
+    }
+    .content.collapsed {
+        margin-left: 10px !important;
+        padding: 20px;
+    }
+
 
     .top-nav {
     padding: 10px;

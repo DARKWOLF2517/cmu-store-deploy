@@ -47,26 +47,20 @@
 
 .tab-content {
     padding: 20px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     border-radius: 5px;
     background-color: white;
     height: 45vh;
 }
 
 
-#organization {
-    padding: 10px;
 
-}
-.qr-code {
-    text-align: center;
-    margin-top: 20px;
+.qr-code, .organizations{
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     border-radius: 10px;
     background-color: white;
-    height: 45vh;
-    max-height: 45vh;
+    height: 100%;
 }
 
 
@@ -82,7 +76,7 @@
     overflow-y: auto;
 }
 .qrcode-img {
-    margin-top: 10px;
+
     width: auto;
     padding: 10px;
 }
@@ -90,20 +84,20 @@
     padding: 10px;
     width: 100%;
 }
-.qr-code h5{
+.qr-code h4{
     font-weight: bold;
+
+}
+.profile-details{
+    margin-top: 20px;
 }
 .qr-code h5, small{
-    text-align: center;
     margin-top: 10px;
     padding: 0;
 }
 .student-details.flex {
     display: flex;
     justify-content: space-between;
-}
-.student-details p{
-    margin: 2px;
 }
 
 /* Student Organization CSS */
@@ -119,18 +113,20 @@
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     border-radius: 10px;
     background-color: white;
-    height: 50vh;
-    max-height: 50vh;
+    height: 51vh;
+
 }
 #profile-details{
     height: 50vh;
     max-height: 50vh;
     margin-bottom: 20px;
 }
-
+ .p{
+    margin-bottom: 0 !important;
+}
 .profile img {
     margin-top: 10px;
     width: 100%;
@@ -145,11 +141,11 @@
     text-align: center;
     margin-top: 20px;
     padding: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     border-radius: 10px;
     background-color: white;
-    height: 31vh;
-    max-height: 31vh;
+    height: 31.5vh;
+    max-height: 31.5vh;
     overflow-y: auto;
 }
 
@@ -172,23 +168,25 @@
 
 
     .qr-code {
-        text-align: center;
+
         margin-top: 20px;
         padding: 10px;
-        box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
         border-radius: 10px;
         background-color: white;
         height: auto;
     }
-
-
+    .profile-details{
+        text-align: center;
+        margin-top: 10px;
+    }
     .qrcode-img {
-        margin-top: 20px;
         width: auto;
         padding: 10px;
+        text-align: center;
     }
 
-    .qr-code h5 {
+    .qr-code h4 {
         font-weight: bold;
     }
 

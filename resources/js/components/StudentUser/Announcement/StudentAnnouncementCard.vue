@@ -30,11 +30,6 @@
                     </div>
                 </div>
             </div>
-            <div class="announcement-buttons d-flex justify-content-end">
-                <div class="btn-group" role="group">
-                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"><i class="fas fa-plus"></i> Add Announcement</button>
-                </div>
-            </div>
             <h3> <i class="fas fa-list mt-2"></i>  Announcements</h3>
             <div class="announcement-list">
                 <div class="col">
