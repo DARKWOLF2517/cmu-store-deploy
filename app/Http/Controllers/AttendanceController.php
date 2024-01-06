@@ -85,9 +85,10 @@ class AttendanceController extends Controller
         return response()->json(['message' => 'Evaluation Status of '. $attendance -> name .' Changed to '. $status ]);
 
     }
-    public function attendanceRecord($organization_id)
+    public function attendanceRecord($organization_id,$school_year)
     {   
         $attendance = Event::where('org_id', $organization_id)
+        ->where('school_year', $school_year)
         ->with(['Attendance' => function ($query) {
             $query->where('remarks', 0); 
         }])

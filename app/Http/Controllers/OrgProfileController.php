@@ -137,7 +137,9 @@ class OrgProfileController extends Controller
 
     public function viewRoles()
     {
-        $roles = Role::all();
+        // $roles = Role::all();
+        
+        $roles = Role::where('role_id', '!=', 2)->get();
         return response()->json($roles);
 
     }
@@ -155,6 +157,7 @@ class OrgProfileController extends Controller
                 'student_id' => 'required',
                 'student_org_id' => 'required',
                 'year_level_id' => 'required',
+                'school_year' => 'required',
             ]);
 
             // // Create a new School Year instance
@@ -163,7 +166,7 @@ class OrgProfileController extends Controller
                 'student_id' => $validatedData['student_id'],
                 'role_id' => $validatedData['role_id'],
                 'year_level_id' => $validatedData['year_level_id'],
-                
+                'school_year' => $validatedData['school_year'],
             ]);
             $OrganizationRole->save();
             return response()->json(['message' => 'Role added Successfully','type' => 1]);
@@ -174,10 +177,16 @@ class OrgProfileController extends Controller
     public function viewOfficerRole($org_id)
     {
         // $officerRole = UserOrganization::where('student_org_id', $org_id)->with('role')->get();
-        $officerRole = UserOrganization::where('student_org_id', $org_id)->with('role','user')->get();
+        // $officerRole = UserOrganization::where('student_org_id', $org_id)->with('role','user')->get();
         // $officerRole = UserOrganization::where('student_org_id', $org_id)
         //       ->with('role', 'user')
         //       ->get();
+        $officerRole = UserOrganization::where('student_org_id', $org_id)
+            ->with('role','user')
+            ->whereHas('role', function($query) {
+                $query->where('role_id', '!=', 2); 
+            })
+            ->get();
         return response()->json($officerRole);
     
     }
@@ -222,9 +231,12 @@ class OrgProfileController extends Controller
 
     public function viewOrgTotalMembers($org_id)
     {
-        $orgTotalMembers = UserOrganization::where('student_org_id', $org_id)->count();
-        return $orgTotalMembers;
-    
+        $orgTotalMembers = UserOrganization::select('student_id')
+            ->where('student_org_id', $org_id)
+            ->distinct()
+            ->get();
+        $orgTotalMembersCount =  $orgTotalMembers->count();
+        return $orgTotalMembersCount;
     }
     public function updateOrgProfileDetails($id, Request $request)
     {

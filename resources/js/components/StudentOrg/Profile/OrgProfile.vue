@@ -47,7 +47,7 @@
                             <h4><b>Student Organization Information</b></h4>
                             <h6 class="mb-2"><b>Description: </b> <span id="description">{{ this.orgProfile.description }}</span></h6>
                             <h6 class="mb-2"><b>Number of Members: </b> <span id="number-of-students">{{this.orgTotalMembers}}</span></h6>
-                            <h6><b>Semester and Academic Year: </b> <span id="number-of-students">1st Semester</span></h6>
+                            <h6><b>Semester and Academic Year: </b> <span id="number-of-students">{{ this.school_year_org_profile }}</span></h6>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                                     <td>{{ officerRole.role.name }}</td>
                                     <td>
                                         <!-- Ellipsis Button -->
-                                        <a v-if="officerRole.student_id != this.user_id" class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                        <a v-if="officerRole.student_id != this.user_id || officerRole.role_id != 1 " class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
 
@@ -215,7 +215,7 @@
             <div class="year-level" style="width: 50%; padding-left: 10px" >
                 <div class="d-flex justify-content-between align-items-center mb-3 header">
                     <h5><b>Year Levels</b></h5>
-                    <button class="btn button-secondary" id="addYearLevelButton" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" @click="this.yearLevelSubmit = this.addYearLevel, this.clearYearLevelData()"> <i class="fas fa-plus"></i>  </button>
+                    <button class="btn button-secondary" id="addYearLevelButton" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" > <i class="fas fa-plus"></i>  </button>
                 </div>
 
                 <div class="table-responsive">
@@ -363,11 +363,11 @@
                 <form>
                     <div class="mb-3">
                         <label for="yearLevelInput" class="form-label">Year Level</label>
-                        <input type="text" class="form-control" id="yearLevelInput" v-model="newYearLevel" placeholder="Enter Year Level">
+                        <input type="text" class="form-control" id="yearLevelInput" placeholder="Enter Year Level">
                     </div>
                     <!-- Add more form fields as needed -->
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" @click="addYearLevel">Add Year Level</button>
                 </div>
 
@@ -390,7 +390,7 @@
                     <div class="form-group">
                         <label for="selectOfficer"><b>Select Officer</b></label>
                         <select class="form-control" id="selectOfficer" v-model ="addOfficerRoleData.student_id">
-                            <option v-for="officer in this.orgOfficers" :value="officer.id" >{{ officer.name }}</option>
+                            <option v-for="officer in this.orgOfficers" :value="officer.student_id" >{{ officer.name }}</option>
                         </select>
                     </div>
                     <div class="form-group mt-4">
@@ -679,7 +679,7 @@ import 'vue3-toastify/dist/index.css';
 
 export default{
 
-    props:['org_id','user_id'],
+    props:['org_id','user_id','school_year_session'],
     data(){
         return{
             addSchoolYears: {
@@ -724,16 +724,18 @@ export default{
                 school_year: 0
 
             },
+            school_year_org_profile:'',
         }
     },
     mounted(){
-        this.showOrgProfile();
         this.viewSchoolYear();
+        this.showOrgProfile();
         this.showOfficer();
         this.showOrgUser();
         this.fetchRoles();
         this.showOfficerRole();
-        this.showOrgTotalMembers()
+        this.showOrgTotalMembers();
+        console.log(this.school_year_session )
 
 
     },
@@ -759,7 +761,7 @@ export default{
         orgProfileDetailsFetchUpdate(){
             this.org_details_profile_input.description = this.orgProfile.description;
 
-            console.log(this.orgProfile)
+            // console.log(this.orgProfile)
         },
         showOrgTotalMembers(){
             axios.get(`/view_org_total_members/${this.org_id}`)
@@ -780,6 +782,8 @@ export default{
                 .catch(error => {
                     console.log(error)
                 });
+
+                // this.school_year_org_profile = 
         },
 
         deleteOfficerRole(){
@@ -839,14 +843,18 @@ export default{
 
             },
         addOfficerRole(){
+            // console.log(this.orgOfficers)
             // initialize data
-            let year_level = this.orgOfficers.find(item => item.id == this.addOfficerRoleData.student_id);
+            let year_level = this.orgOfficers.find(item => item.student_id == this.addOfficerRoleData.student_id);
             this.addOfficerRoleData= {
                 student_org_id:  this.addOfficerRoleData.student_org_id,
                 student_id:  this.addOfficerRoleData.student_id,
                 role_id:  this.addOfficerRoleData.role_id,
                 year_level_id: year_level.year_level_id,
+                school_year: this.school_year_session,
             }
+
+            console.log(this.addOfficerRoleData)
             // submit data
             axios.post('/add_org_officer_role', this.addOfficerRoleData)
                 .then(response => {
@@ -959,6 +967,7 @@ export default{
                     response.data.forEach(element => {
                             this.orgOfficers.push({
                                 id: element.id,
+                                student_id: element.student_id,
                                 name: element.user.name,
                                 position: element.position,
                                 year_level_id: element.year_level_id,
@@ -966,7 +975,7 @@ export default{
 
 
                     });
-                    // console.log(response.data)
+                    // console.log(this.orgOfficers)
                 })
                 .catch(error => {
                     console.log(error)
@@ -1007,8 +1016,13 @@ export default{
         viewSchoolYear(){
             axios.get(`/view_school_year/${this.org_id}`)
                 .then(response => {
-                    console.log(response.data)
+
                     this.schoolYear = response.data
+                    this.schoolYear.forEach(element => {
+                        if (element.id == this.school_year_session ){
+                        this.school_year_org_profile = element.school_year;
+                    } 
+                    });
                 })
                 .catch(error => {
                     alert(error)

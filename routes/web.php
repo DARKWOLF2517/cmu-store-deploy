@@ -83,7 +83,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
 
         //attendance record list
-        Route::get('/attendance_record/{organization_id}',[AttendanceController::class, 'attendanceRecord']);
+        Route::get('/attendance_record/{organization_id}/{school_year}',[AttendanceController::class, 'attendanceRecord']);
 
         //attendance status route
         Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
@@ -92,7 +92,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
 
         //show students list  in the main form
-        Route::get('/student_list/show/{org_id}',[UserController::class, 'showStudents']);
+        Route::get('/student_list/show/{org_id}/{school_year}',[UserController::class, 'showStudents']);
         Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
         Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
 
