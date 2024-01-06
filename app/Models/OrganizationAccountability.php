@@ -14,6 +14,7 @@ class OrganizationAccountability extends Model
     protected $fillable = [
         'org_id',
         'accountability_name',
-        'amount'
+        'amount',
+        'school_year'
     ];
 }

@@ -735,7 +735,7 @@ export default{
         this.fetchRoles();
         this.showOfficerRole();
         this.showOrgTotalMembers();
-        console.log(this.school_year_session )
+
 
 
     },
@@ -764,7 +764,7 @@ export default{
             // console.log(this.orgProfile)
         },
         showOrgTotalMembers(){
-            axios.get(`/view_org_total_members/${this.org_id}`)
+            axios.get(`/view_org_total_members/${this.org_id}/${this.school_year_session}`)
                 .then(response => {
                     this.orgTotalMembers = response.data;
                     // console.log(response.data)

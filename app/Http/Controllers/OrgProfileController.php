@@ -229,10 +229,10 @@ class OrgProfileController extends Controller
     
     }
 
-    public function viewOrgTotalMembers($org_id)
+    public function viewOrgTotalMembers($org_id, $school_year)
     {
         $orgTotalMembers = UserOrganization::select('student_id')
-            ->where('student_org_id', $org_id)
+            ->where([['student_org_id', $org_id],['school_year', $school_year] ])
             ->distinct()
             ->get();
         $orgTotalMembersCount =  $orgTotalMembers->count();
@@ -240,7 +240,6 @@ class OrgProfileController extends Controller
     }
     public function updateOrgProfileDetails($id, Request $request)
     {
-      
         $orgYearLevel = OrganizationDefaultSchoolYear::where('org_id',$id)->count();
         if($orgYearLevel < 1){
             $orgProfileDetails = Organization::find($id);

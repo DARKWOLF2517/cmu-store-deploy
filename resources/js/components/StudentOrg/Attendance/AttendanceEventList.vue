@@ -62,11 +62,14 @@
 
 <script>
 
-import {convertDate} from "../Functions/DateConverter.js";
 
+import {convertDate} from "../Functions/DateConverter.js";
+    import { toast } from 'vue3-toastify';
+    import 'vue3-toastify/dist/index.css';
+    import {converTime} from "../Functions/TimeConverter.js";
 export default {
-    props: ['org_id'],
-    data() {
+    props: ['org_id','school_year_session'],
+data() {
         return {
             loading: true,
             attendance_count:null,
@@ -92,29 +95,26 @@ export default {
                 });
 
     },
-    fetchData() {
-        fetch(`/events/attendance/${this.org_id}`, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        })
-        .then((response) => {
-            response.json().then((data) => {
-            data.forEach((element) => {
-                element["start_date"] = convertDate(element["start_date"]);
-                element["end_date"] = convertDate(element["end_date"]);
+    fetchData(){
+        console.log(this.school_year_session)
+        axios.get(`/events/show/${this.org_id}/${this.school_year_session}`)
+            .then(response => {
+                this.loading = false;
+                const data = response.data;
+                data.forEach(item => {
+                    item["start_attendance"] = converTime(item["start_attendance"]);
+                    item["end_attendance"] = converTime(item["end_attendance"]);
+                    item["start_date"] = convertDate(item["start_date"]);
+                });
+                console.log(response.data);
+                this.events = response.data
+
+            })
+            .catch(error => {
+            // this.loading = false;
+                console.log(error)
             });
-            this.events = data;
-            this.loading = false; // Set loading to false after data is loaded
-            console.log(this.events);
-            });
-        })
-        .catch((error) => {
-          // Handle error
-          this.loading = false; // Set loading to false in case of an error
-        });
-    },
+                },
 
         startAttendance(event_id, org_id, session){
 

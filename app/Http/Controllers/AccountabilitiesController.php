@@ -29,6 +29,7 @@ class AccountabilitiesController extends Controller
                 'org_id' => 'required',
                 'description' => 'required',
                 'amount' => 'required',
+                'school_year'=> 'required',
             ]);
     
             // // Create a new Event instance
@@ -36,6 +37,7 @@ class AccountabilitiesController extends Controller
                 'org_id' => $validatedData['org_id'],
                 'accountability_name' => $validatedData['description'],
                 'amount' => $validatedData['amount'],
+                'school_year' => $validatedData['school_year'],
                 
             ]);
             $accountability->save();
@@ -44,20 +46,20 @@ class AccountabilitiesController extends Controller
             return response()->json(['message' => 'Accountability Created Successfully']);
             // return $request;
     }
-    public function getAccountabilitiesList($org_id)
+    public function getAccountabilitiesList($org_id, $school_year)
     {
-        $accountabilities = Accountability::where('org_id', $org_id )->get();
+        $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
         return $accountabilities->toJson();
     }
-    public function AccountabilitiesListInAdmin($org_id)
+    public function AccountabilitiesListInAdmin($org_id,$school_year)
     {
-            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1]])->with(['Attendance'])->get();
+            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['school_year', $school_year]])->with(['Attendance'])->get();
             $users = User::all();
             $userOrgs = UserOrganization::all();
-            $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ]])->get();
-            $accountability = OrganizationAccountability::where([['org_id', $org_id ]])->get();
+            $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ],['school_year', $school_year]])->get();
+            $accountability = OrganizationAccountability::where([['org_id', $org_id ],['school_year', $school_year]])->get();
             $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
-            $exempted = EventExempted::where([['org_id', $org_id ]])->get();
+            $exempted = EventExempted::where([['org_id', $org_id ],['school_year', $school_year]])->get();
             // return $accountabilities->toJson();
             return response()->json([
                 'accountabilities_fines' => $accountabilities, 
@@ -150,8 +152,6 @@ class AccountabilitiesController extends Controller
                 ]);
                 $attendance->save();
                 
-    
-
             }
             return response()->json(['message' => 'Accountability Paid Successfully']);
     

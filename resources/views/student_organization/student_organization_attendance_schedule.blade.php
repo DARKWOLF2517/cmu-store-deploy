@@ -25,16 +25,20 @@
                     <div class="col-lg-6 col-md-12 mb-2">
                     <div class="container" id="ScheduledEventContainer">
                         <event-attendance-list
-                        org_id="{{Session::get('org_id')}}">
+                            :org_id="{{Session::get('org_id')}}"
+                            :school_year_session = {{Session::get('school_year')}}
+                            >
+                            
                         </event-attendance-list>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div id="calendar">
                         <dashboard-calendar
-                            :org_id={{Session::get('org_id')}}
-                        >
-                        </dashboard-calendar>
+                        :org_id = {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
+                    >
+                    </dashboard-calendar>
                     </div>
                 </div>
         </div>

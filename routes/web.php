@@ -40,7 +40,7 @@ Route::get('student_organization_profile', function () {
     })->name('login');
     Route::get('/events/show/{org_id}/{school_year?}',[EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}',[EventController::class, 'getSchoolYearDefault']);
-    Route::get('/events/attendance/{org_id}',[EventController::class, 'getEventsAttendance']);
+    Route::get('/events/attendance/{org_id}/{school_year}',[EventController::class, 'getEventsAttendance']);
 
 
     //get student org list
@@ -64,10 +64,10 @@ Route::get('student_organization_profile', function () {
     });
 
     //calendar events
-    Route::get('/calendar/{org_id}',[EventController::class, 'getEventsForCalendar']);
+    Route::get('/calendar/{org_id}/{school_year}',[EventController::class, 'getEventsForCalendar']);
     #ACCOUNTABILITIES ROUTE
     Route::get('/accountabilities/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
-    Route::get('/get_accountabilities/{org_id}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
+    Route::get('/get_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
 
 
 Route::middleware(['auth'])->group(function(){
@@ -171,10 +171,10 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/events', [EventController::class, 'store'])->name('event-store');
             Route::get('show_event_details/{event}', [EventController::class, 'showEventDetails'])->name('events-edit');
             Route::put('/events/{event}', [EventController::class, 'update'])->name('events-update');
-            Route::get('/events_count/{org_id}',[EventController::class, 'getEventsCount']);
+            Route::get('/events_count/{org_id}/{school_year}',[EventController::class, 'getEventsCount']);
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
             Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
-            Route::get('/complete_events_count/{organization_id}',[EventController::class, 'getCompleteEventsCount']);
+            Route::get('/complete_events_count/{organization_id}/{school_year}',[EventController::class, 'getCompleteEventsCount']);
             Route::post('/submitYearLevelExempted/{org_id}/{school_year}/{event_id}', [EventController::class, 'submitYearLevelExempted']);
             Route::get('/get_year_level/{organization_id}',[EventController::class, 'getYearLevel']);
             Route::get('/yearLevel/exempted/{org_id}/{id}',[EventController::class, 'getExempted']);
@@ -182,7 +182,7 @@ Route::middleware(['auth'])->group(function(){
 
             #ACCOUNTABILITIES ROUTE
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
-            Route::get('/fines_list/{org_id}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
+            Route::get('/fines_list/{org_id}/{school_year}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
             Route::put('/update_event_attendance_status/{event_id}/{status}',[AccountabilitiesController::class, 'updateEventAttendanceStatus']);
             Route::post('/OtherAccountabilityPayment',[AccountabilitiesController::class, 'OtherAccountabilityPayment']);
             Route::post('/FinesAccountabilityPayment',[AccountabilitiesController::class, 'FinesAccountabilityPayment']);
@@ -209,7 +209,7 @@ Route::middleware(['auth'])->group(function(){
             Route::put('/update_officer_role/{id}',[OrgProfileController::class, 'updateOfficerRole']);
             Route::delete('/delete_officer_role/{id}',[OrgProfileController::class, 'DeleteOfficerRole']);
             Route::get('/view_org_profile/{org_id}',[OrgProfileController::class, 'viewOrgProfile']);
-            Route::get('/view_org_total_members/{org_id}',[OrgProfileController::class, 'viewOrgTotalMembers']);
+            Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
             Route::put('/updateOrgProfileDetails/{id}',[OrgProfileController::class, 'updateOrgProfileDetails']);
     });
 //STUDENT ROUTE

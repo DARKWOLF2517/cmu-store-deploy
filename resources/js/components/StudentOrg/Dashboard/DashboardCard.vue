@@ -17,7 +17,7 @@
 
   <script>
   export default {
-    props: ['org_id', 'target_route', 'card_label', 'icons'],
+    props: ['org_id', 'target_route', 'card_label', 'icons','school_year_session'],
 
     data() {
       return {
@@ -29,7 +29,7 @@
     methods: {
       fetchDataCount() {
         axios
-          .get(`/${this.target_route}/${this.org_id}`)
+          .get(`/${this.target_route}/${this.org_id}/${this.school_year_session}`)
           .then((response) => {
             this.count = response.data;
           })
