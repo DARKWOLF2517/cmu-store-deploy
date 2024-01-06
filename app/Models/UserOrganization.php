@@ -36,6 +36,10 @@ class UserOrganization extends Model
     {
         return $this->hasOne(Role::class, 'role_id', 'role_id');
     }
+    public function yearLevel()
+    {
+        return $this->belongsTo(YearLevel::class, 'year_level_id');
+    }
 
     
 }

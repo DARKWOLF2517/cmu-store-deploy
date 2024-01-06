@@ -42,8 +42,7 @@ class LoginController extends Controller
                     if($orgDefaultSchoolYear > 0){
                         $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
                         if ($userOrganization->school_year == $orgSchoolYear->school_year){
-                            $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
-                            session(['school_year' =>  $orgDefaultSchoolYear->school_year]);
+                            session(['school_year' =>  $orgSchoolYear->school_year]);
                             session(['org_id' =>  $userOrganization->student_org_id]);
                             session(['org_name' =>  $userOrganization->organization->name]);
                             //tells when there is only one user
@@ -61,9 +60,25 @@ class LoginController extends Controller
                                 return '3';
                             }
                         }
+                         //if the user is admin it will bypass the school year
+                        else if ($userOrganization->role_id == 1){
+                            session(['school_year' =>  $orgSchoolYear->school_year]);
+                            session(['org_id' =>  $userOrganization->student_org_id]);
+                            session(['org_name' =>  $userOrganization->organization->name]);
+                            // return $userOrganization->school_year;
+                            return $userOrganization->role_id;
+                        }
                         else{
                             return 'not_tagged_error';
                         }
+                    }
+                    //if the user is admin it will bypass if there is null organization default school year
+                    else if ($userOrganization->role_id == 1){
+                        session(['school_year' =>  0]);
+                        session(['org_id' =>  $userOrganization->student_org_id]);
+                        session(['org_name' =>  $userOrganization->organization->name]);
+                        // return $userOrganization->school_year;
+                        return $userOrganization->role_id;
                     }
                     else{
                         return 'not_tagged_error';
@@ -125,7 +140,15 @@ class LoginController extends Controller
         if($orgDefaultSchoolYear > 0){
             $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
             if ($userOrganization->school_year == $orgSchoolYear->school_year){
-                session(['school_year' =>  $userOrganization->school_year]);
+                session(['school_year' =>  $orgSchoolYear->school_year]);
+                session(['org_id' =>  $userOrganization->student_org_id]);
+                session(['org_name' =>  $userOrganization->organization->name]);
+                // return $userOrganization->school_year;
+                return $userOrganization->role_id;
+            }
+            //if the user is admin it will bypass the school year
+            else if ($userOrganization->role_id == 1){
+                session(['school_year' =>  $orgSchoolYear->school_year]);
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
                 // return $userOrganization->school_year;
@@ -134,6 +157,14 @@ class LoginController extends Controller
             else{
                 return 'not_tagged_error';
             }
+        }
+        //if the user is admin it will bypass if there is null organization default school year
+        else if ($userOrganization->role_id == 1){
+            session(['school_year' =>  0]);
+            session(['org_id' =>  $userOrganization->student_org_id]);
+            session(['org_name' =>  $userOrganization->organization->name]);
+            // return $userOrganization->school_year;
+            return $userOrganization->role_id;
         }
         else{
             return 'not_tagged_errors';

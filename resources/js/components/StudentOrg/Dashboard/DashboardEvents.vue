@@ -25,7 +25,7 @@
   import { convertDate } from '../Functions/DateConverter.js';
 
   export default {
-    props: ['organization_id'],
+    props: ['organization_id', 'school_year_session'],
     data() {
       return {
         events: [],
@@ -38,10 +38,17 @@
     methods: {
       fetchData() {
         axios
-          .get(`/events/show/${this.organization_id}`)
+          .get(`/events/show/${this.organization_id}/${this.school_year_session}`)
           .then((response) => {
             console.log(response.data)
-            const events = response.data;
+
+            //convert date to specific format that is readable
+            const data = response.data;
+            data.forEach(element => {
+              element["start_date"] = convertDate(element["start_date"]);
+            });
+            //sort event chronologically
+            const events = data;
             events.sort((a, b) => {
               const dateA = new Date(a.start_date);
               const dateB = new Date(b.start_date);

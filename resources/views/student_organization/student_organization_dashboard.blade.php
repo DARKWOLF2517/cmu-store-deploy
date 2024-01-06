@@ -21,7 +21,8 @@
             <div class="col-md-4 col-sm-6 ">
                 <div class="statistic">
                     <org-dashboard-counter
-                        org_id = {{Session::get('org_id')}}
+                        :org_id = {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
                         card_label="Members"
                         target_route="view_org_total_members"
                         icons="fas fa-users card-icon"
@@ -32,7 +33,8 @@
             <div class="col-md-4 col-sm-6 ">
                 <div class="statistic">
                     <org-dashboard-counter
-                        org_id = {{Session::get('org_id')}}
+                        :org_id = {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
                         card_label="Created Events"
                         target_route="events_count"
                         icons="fas fa-clock card-icon ongoing-events"
@@ -42,7 +44,8 @@
             <div class="col-md-4 col-sm-6 ">
                 <div class="statistic">
                     <org-dashboard-counter
-                        org_id = {{Session::get('org_id')}}
+                        :org_id = {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
                         card_label="Completed Events"
                         target_route="complete_events_count"
                         icons="fas fa-check card-icon completed-events"
@@ -57,8 +60,9 @@
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
                         </div>
-                        <event-dashboard
-                        organization_id =  {{Session::get('org_id')}}
+                    <event-dashboard
+                        :organization_id =  {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
                         >
 
                         </event-dashboard>
@@ -136,6 +140,7 @@
                     <div id="calendar">
                         <dashboard-calendar
                             :org_id = {{Session::get('org_id')}}
+                            :school_year_session = {{Session::get('school_year')}}
                         >
                         </dashboard-calendar>
                     </div>

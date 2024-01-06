@@ -14,5 +14,6 @@ class Accountability extends Model
         'org_id',
         'accountability_name',
         'amount',
+        'school_year'
     ];
 }

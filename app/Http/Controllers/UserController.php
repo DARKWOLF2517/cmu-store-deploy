@@ -70,15 +70,17 @@ class UserController extends Controller
             // return $request;
         }
 
-        public function showStudents($org_id)
+        public function showStudents($org_id, $school_year)
         {
             $student_list = UserOrganization::where([
                 ['student_org_id', $org_id],
-                ['role_id', '2']
-            ])->with('user')
+                ['role_id', '2'],
+                ['school_year', $school_year],
+            ])->with(['yearLevel','user'])
             ->get();
             
             return $student_list->toJson();
+            // return $school_year;
         }
         public function showforEdit($student_id)
         {

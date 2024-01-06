@@ -19,12 +19,10 @@
 
                     <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 270px;">
                         <!-- Second dropdown -->
-                        <select id="sort-select" class="form-control" style="text-align: center; ">
-                            <option value="">Select Semester</option>
-                            <option value="option1">1st Semester 2023-2024</option>
-                            <option value="option2">2nd Semester 2022-2023</option>
-                            <option value="option3">1st Semester 2022-2023</option>
-                        </select>
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                                <option value="0" disabled selected>Select Semester</option>
+                                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                            </select>
                     </div>
                 </div>
 
@@ -62,7 +60,7 @@
                         <td>{{ fines_list.total_fines }}</td>
                         <td>
                             <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id),
-                             this.finesPay = {
+                                this.finesPay = {
                                     student_id: fines_list.user_id,
                                     student_name: fines_list.name,
                                     accountability_name: fines_list.accountability_type,
@@ -218,7 +216,7 @@ import { convertDate } from '../Functions/DateConverter';
 import * as XLSX from 'xlsx';
 
 export default{
-    props: ['org_id', 'user_id'],
+    props: ['org_id', 'user_id','school_year_session'],
     data(){
         return{
             events: [],
@@ -236,22 +234,34 @@ export default{
             otherAccountabilitiesPaymentDetails: [],
             attendanceFill: [],
             finesPay: [],
+            school_year: [],
+            school_year_input: this.school_year_session,
 
 
         }
     },
 
     mounted(){
-        this.filtered_items_for_fines = this.fines_list;
-        this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
+     
+     
 
     },
     created(){
         this.fetchData();
+        this.showSchoolYear();
 
     },
 
     methods:{
+        showSchoolYear(){
+            axios.get(`get_school_year/${this.org_id}`)
+                .then(response => {
+                    this.school_year = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         getTableData1(){
             // Get a reference to the table
             var table = document.getElementById('temporaryList');
@@ -362,9 +372,15 @@ export default{
 
 
         fetchData(){
-            axios.get(`/fines_list/${this.org_id}`)
-                    .then(response => {
+            this.events = [];
+            this.attendance = [];
+            this.overall_fines_list = [];
+            this.fines_list = [];
+            this.other_accountabilities_list = [];
+            axios.get(`/fines_list/${this.org_id}/${this.school_year_input}`)
 
+                    .then(response => {
+                        
                         //FOR FINES LOGIC
                         const events_with_attendance = response.data.accountabilities_fines;
                         let users = response.data.user;
@@ -412,57 +428,53 @@ export default{
                             }
                         }
                     });
-
-
-
-
-                        events_with_attendance.forEach(attend=> {
-                            if (attend.attendance_count == 1){
-                                for (let index = 1; index <= 1; index++) {
-                                    const session_count = {
-                                        event_id: attend.event_id,
-                                        session: index,
-                                        fines: attend.fines,
-                                        date: attend.start_date,
-                                    }
-                                this.events.push(session_count);
+                    events_with_attendance.forEach(attend=> {
+                        if (attend.attendance_count == 1){
+                            for (let index = 1; index <= 1; index++) {
+                                const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index,
+                                    fines: attend.fines,
+                                    date: attend.start_date,
                                 }
+                            this.events.push(session_count);
                             }
-                            else if (attend.attendance_count == 2) {
-                                for (let index = 1; index <= 2; index++) {
-                                    const session_count = {
-                                        event_id: attend.event_id,
-                                        session: index,
-                                        fines: attend.fines,
-                                        date: attend.start_date,
-                                    }
-                                this.events.push(session_count);
+                        }
+                        else if (attend.attendance_count == 2) {
+                            for (let index = 1; index <= 2; index++) {
+                                const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index,
+                                    fines: attend.fines,
+                                    date: attend.start_date,
                                 }
+                            this.events.push(session_count);
                             }
-                            else if (attend.attendance_count == 3) {
-                                for (let index = 1; index <= 3; index++) {
-                                    const session_count = {
-                                        event_id: attend.event_id,
-                                        session: index,
-                                        fines: attend.fines,
-                                        date: attend.start_date,
+                        }
+                        else if (attend.attendance_count == 3) {
+                            for (let index = 1; index <= 3; index++) {
+                                const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index,
+                                    fines: attend.fines,
+                                    date: attend.start_date,
 
-                                    }
-                                this.events.push(session_count);
                                 }
+                            this.events.push(session_count);
                             }
-                            else if (attend.attendance_count == 4) {
-                                for (let index = 1; index <= 4; index++) {
-                                    const session_count = {
-                                        event_id: attend.event_id,
-                                        session: index,
-                                        fines: attend.fines,
-                                        date: attend.start_date,
+                        }
+                        else if (attend.attendance_count == 4) {
+                            for (let index = 1; index <= 4; index++) {
+                                const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index,
+                                    fines: attend.fines,
+                                    date: attend.start_date,
 
-                                    }
-                                this.events.push(session_count);
                                 }
+                            this.events.push(session_count);
                             }
+                        }
 
                             const attendance = attend.attendance;
                                 attendance.forEach(data=> {
@@ -475,8 +487,7 @@ export default{
 
                                 })
 
-
-                        })
+                    })
                         const userSessionsPresent = this.attendance.reduce((acc, entry) => {
                         if (!acc[entry.user_id]) {
                             acc[entry.user_id] = {};
@@ -493,6 +504,7 @@ export default{
                         usersInOrg.forEach(user => {
 
                             this.events.forEach(event => {
+                                //exclude the exempted students
                                 for (const exemption of year_level_exempted) {
                                     if (user.year_level === exemption.year_level_id && event.event_id === exemption.event_id) {
                                         // Do nothing
@@ -500,10 +512,9 @@ export default{
                                     }
                                 }
 
-                                // Your existing logic for missing sessions
+                                //logic for missing sessions
                                 if (!userSessionsPresent[user.id] || !userSessionsPresent[user.id][event.event_id] ||
                                     !userSessionsPresent[user.id][event.event_id].has(event.session)) {
-
                                     missingSessions.push({
                                         name: user.name,
                                         user_id: user.id,
@@ -514,9 +525,6 @@ export default{
                                         date: event.date,
                                     });
                                 }
-
-
-
                             });
                         });
                         // console.log(missingSessions)
@@ -589,6 +597,9 @@ export default{
                             })
                         })
 
+
+
+                        
                         //FOR OTHER ACCOUNTABILITIES LOGIC
                         const accountability_paid = response.data.paid_accountabilities;
                         const organization_accountability_set = response.data.accountabilities_other;
@@ -630,7 +641,8 @@ export default{
                     })
 
 
-
+                    this.filtered_items_for_fines = this.fines_list;
+                    this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 
                     })
                     .catch(error => {

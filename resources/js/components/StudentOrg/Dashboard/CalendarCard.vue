@@ -35,7 +35,7 @@ export default {
     components: {
         FullCalendar // make the <FullCalendar> tag available
     },
-    props: ['org_id'],
+    props: ['org_id','school_year_session'],
     data() {
         return {
             events: [],
@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         fetchData(){
-                axios.get(`/calendar/${this.org_id}`)
+                axios.get(`/calendar/${this.org_id}/${this.school_year_session}`)
                     .then(response => {
                         this.calendarOptions.events = response.data;
                     })

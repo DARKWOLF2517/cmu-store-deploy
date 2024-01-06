@@ -123,7 +123,7 @@
 import { toast } from 'vue3-toastify';
 
 export default {
-  props: ['org_id'],
+  props: ['org_id', 'school_year_session'],
   data() {
     return {
       loading: false, // Add loading variable
@@ -132,6 +132,7 @@ export default {
         description: '',
         amount: '',
         org_id: '',
+        school_year: this.school_year_session,
       },
       submit: null,
       accountabilityList: [],
@@ -152,11 +153,11 @@ export default {
         description: '',
         amount: '',
         org_id: this.org_id,
+        school_year: this.school_year_session,
       };
     },
     submitData() {
-      axios
-        .post('/set_accountabilities', this.formData)
+      axios.post('/set_accountabilities', this.formData)
         .then((response) => {
           this.showSuccess(response.data.message);
         })
@@ -166,21 +167,17 @@ export default {
     },
     fetchData() {
       this.loading = true; // Set loading to true before making the request
-      axios
-        .get(`/get_accountabilities/${this.org_id}`)
+      axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_session}`)
         .then((response) => {
           this.accountabilityList = response.data;
+          this.loading = false; //
         })
         .catch((error) => {
           alert(error);
         })
-        .finally(() => {
-          this.loading = false; // Set loading to false after the request is completed
-        });
     },
     deleteAccountability() {
-      axios
-        .delete(`/delete_organization_accountability/${this.deleteId}`)
+      axios.delete(`/delete_organization_accountability/${this.deleteId}`)
         .then((response) => {
           this.showSuccess(response.data.message);
         })
