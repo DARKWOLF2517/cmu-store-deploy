@@ -7,11 +7,9 @@
                 </div>
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
                     <div class="select-dropdown">
-                        <select id="sort-select" class="form-control" style="text-align: center;">
-                            <option value="">Select Semester</option>
-                            <option value="option1">1st Semester 2023-2024</option>
-                            <option value="option2">2nd Semester 2022-2023</option>
-                            <option value="option3">1st Semester 2022-2023</option>
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                            <option value="0" disabled selected>Select School Year</option>
+                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                         </select>
                     </div>
                 </div>
@@ -30,11 +28,11 @@
                         </tr>
                         <tr>
                             <th>Fines</th>
-                            <td class="paid">{{fines}}</td>
+                            <td>{{fines}}</td>
                         </tr>
                         <tr v-for="accountability in this.accountabilityList">
                             <th>{{ accountability['accountability_name'] }}</th>
-                            <td class="unpaid">{{ accountability['amount'] }}</td>
+                            <td >{{ accountability['amount'] }}</td>
                         </tr>
                     </table>
             </div>
@@ -43,28 +41,44 @@
 
 <script>
 export default{
-    props: {
-        user_id: Number,
-        name: String,
-        org_id: Number
-
-},
+    props: ['user_id', 'name', 'org_id','school_year_session'],
     data(){
         return{
             attendanceCount: [],
             fines: 0,
             accountabilityList:[],
+            school_year: [],
+            school_year_input: this.school_year_session,
+            accountabilityList: [],
+            searchTerm: '',
+            filtered_accountabilities: [],
         }
     },
     mounted() {
-        this.fetchEventsWithAttendance();
         this.fetchData();
+        this.showSchoolYear();
         // console.log(this.name)
 
     },
     methods:{
+        showSchoolYear(){
+            
+            axios.get(`get_school_year/${this.org_id}`)
+                .then(response => {
+                    // console.log(response.data)
+                    this.school_year = response.data;
+                    // console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
+        },
         fetchData(){
-            axios.get(`/get_accountabilities/${this.org_id}`)
+            this.attendanceCount= [],
+            this.fines= 0,
+            this.accountabilityList=[],
+            axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_input}`)
                     .then(response => {
                         this.accountabilityList = response.data;
                     })
@@ -72,11 +86,14 @@ export default{
                         alert(error)
 
                 });
+               
+                this.fetchEventsWithAttendance();
         },
 
         fetchEventsWithAttendance(){
-            axios.get(`/accountabilities/${this.org_id}`)
+            axios.get(`/accountabilities/${this.org_id}/${this.school_year_input}`)
                 .then(response => {
+                    console.log(response.data)
                     const data = response.data;
                     data.forEach(events => {
                         //get the data of the student attendance and compile it to the array

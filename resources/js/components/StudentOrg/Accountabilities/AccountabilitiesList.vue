@@ -639,37 +639,47 @@ export default{
                                 accountability_type: items.accountability_type
                             })
                     })
-
-                
-                    free_fines.forEach(fines_free => {
-                        // console.log(fines_free);
-                        this.fines_list.forEach(list_fines => {
-                            // console.log(list_fines)
-                            if (fines_free.student_id != list_fines.user_id ){
-                                this.fines_list.push({
-                                name: list_fines.name,
-                                user_id: list_fines.user_id,
-                                event_id: list_fines.event_id,
-                                total_fines: list_fines.total_fines,
-                                missing_session: list_fines.missing_session,
-                                accountability_type: list_fines.accountability_type
-                            })
-                            }
-                            else{
-                                this.fines_list=[]
-                            }
-                        });
-                    });
-                    console.log(this.fines_list)
-                    // this.fines_list.push({
-                    //             name: aggregated.name,
-                    //             user_id: aggregated.user_id,
-                    //             event_id: aggregated.event_id,
-                    //             total_fines: aggregated.total_amount,
-                    //             missing_session: aggregated.missing_session,
-                    //             accountability_type: aggregated.accountability_type
+                    // free_fines.forEach(fines_free => {
+                    //     // console.log(fines_free);
+                    //     this.fines_list.forEach(list_fines => {
+                    //         // console.log(list_fines)
+                    //         if (fines_free.student_id != list_fines.user_id ){
+                    //             this.fines_list.push({
+                    //             name: list_fines.name,
+                    //             user_id: list_fines.user_id,
+                    //             event_id: list_fines.event_id,
+                    //             total_fines: list_fines.total_fines,
+                    //             missing_session: list_fines.missing_session,
+                    //             accountability_type: list_fines.accountability_type
                     //         })
+                    //         }
+                    //     });
+                    // });
+                    let filteredFines = [];
+                    this.fines_list.forEach(list_fines => {
+                    let found = false;
 
+                    free_fines.forEach(fines_free => {
+                        if (fines_free.student_id === list_fines.user_id) {
+                            found = true;
+                        }
+                    });
+
+                    if (!found) {
+                        filteredFines.push({
+                            name: list_fines.name,
+                            user_id: list_fines.user_id,
+                            event_id: list_fines.event_id,
+                            total_fines: list_fines.total_fines,
+                            missing_session: list_fines.missing_session,
+                            accountability_type: list_fines.accountability_type
+                        });
+                    }
+                });
+
+                // Assign the filtered fines back to this.fines_list
+                this.fines_list = filteredFines;
+                    console.log(this.fines_list)
                     this.filtered_items_for_fines = this.fines_list;
                     this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 

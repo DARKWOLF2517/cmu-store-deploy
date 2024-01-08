@@ -19,6 +19,7 @@
         :user_id = {{Auth::id()}}
         :name ="{{ json_encode(Auth::user()->name) }}"
         :org_id = {{Session::get('org_id')}}
+        :school_year_session = {{Session::get('school_year')}}
         >
 
         </show-fines>

@@ -20,30 +20,12 @@
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
                         </div>
-                        <div class="timeline-body">
-                            <ul class="sessions">
-                                <li>
-                                    <div class="date">October 07, 2023</div>
-                                    <small>Acquaintance Party</small>
-                                </li>
-                                <li>
-                                    <div class="date">September 30, 2023</div>
-                                    <small>Bayanihan</small>
-                                </li>
-                                <li>
-                                    <div class="date">September 20, 2023</div>
-                                    <small>Palaro</small>
-                                </li>
-                                <li>
-                                    <div class="date">July 30, 2023</div>
-                                    <small>General Assembly</small>
-                                </li>
-                                <li>
-                                    <div class="date">July 30, 2023</div>
-                                    <small>General Assembly</small>
-                                </li>
-                            </ul>
-                        </div>
+                        <event-dashboard
+                        :organization_id =  {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
+                        >
+
+                        </event-dashboard>
                     </div>
                 </div>
 
@@ -87,7 +69,8 @@
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div id="calendar">
                         <dashboard-calendar
-                            :org_id={{Session::get('org_id')}}
+                            :org_id = {{Session::get('org_id')}}
+                            :school_year_session = {{Session::get('school_year')}}
                         >
                         </dashboard-calendar>
                     </div>
