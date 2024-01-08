@@ -14,12 +14,12 @@
                 <div class="col-md-6 col-sm-12">
                     <div class="input-container">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search Announcement">
+                        <input type="text" placeholder="Search">
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
+                <div class="col-md-6 col-sm-12" >
                     <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
-                    <div class="select-dropdown">
+                    <div class="select-dropdown" style="width: 70%;">
                         <select id="sort-select" class="form-control" style="text-align: center;">
                             <option value="">Select Semester</option>
                             <option value="option1">1st Semester 2023-2024</option>
@@ -30,16 +30,24 @@
                 </div>
             </div>
         </div>
-        <div class="announcement-buttons d-flex justify-content-end">
+        <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center ">
+        <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
+        <div class="announcement-buttons d-flex">
             <div class="btn-group" role="group">
-                <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"><i class="fas fa-plus"></i> Add Announcement</button>
+                <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
+                    <i class="fas fa-plus"></i> Add Announcement
+                </button>
             </div>
         </div>
-        <h3> <i class="fas fa-list mt-2"></i>  Announcements</h3>
+    </div>
+</div>
+
+
         <div class="announcement-list">
             <div class="col">
                     <div class="announcement-cards-list ">
-                            <div class="announcement-card">
+                            <div class="announcement-card border-top border-5 border-success border-bottom-0 py-3">
                                 <div class="dropdown">
                                     <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-ellipsis-h"></i>
@@ -63,105 +71,11 @@
                                 </p>
                             </div>
                             </div>
-                            <div class="announcement-card">
-                                <div class="dropdown">
-                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                        <!-- option 2 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                </div>
-                                <div class="card-body">
-                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                <p class="card-short-description mt-2">
-                                    UCC on January 17, 2023
-                                </p>
-                            </div>
-                            </div>
-                            <div class="announcement-card">
-                                <div class="dropdown">
-                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                        <!-- option 2 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                </div>
-                                <div class="card-body">
-                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                <p class="card-short-description mt-2">
-                                    UCC on January 17, 2023
-                                </p>
-                            </div>
-                            </div>
-                            <div class="announcement-card">
-                                <div class="dropdown">
-                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                        <!-- option 2 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                </div>
-                                <div class="card-body">
-                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                <p class="card-short-description mt-2">
-                                    UCC on January 17, 2023
-                                </p>
-                            </div>
-                            </div>
-                            <div class="announcement-card">
-                                <div class="dropdown">
-                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                        <!-- option 2 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                </div>
-                                <div class="card-body">
-                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                <p class="card-short-description mt-2">
-                                    UCC on January 17, 2023
-                                </p>
-                            </div>
+
                             </div>
                     </div>
                 </div>
-            </div>
+
 
     <!-- Add Announcement Modal -->
     <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">

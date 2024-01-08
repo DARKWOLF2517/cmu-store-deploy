@@ -16,26 +16,39 @@
                             <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
+                    <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
                         <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
-                        <div class="select-dropdown">
+                        <div class="select-dropdown" style="width: 70%;">
                             <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
                                 <option value="0" disabled selected>Select Semester</option>
                                 <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-
                             </select>
+                        </div>
+                        <div class="select-dropdown" style="width: 30%;">
+                        <select id="sort-select" class="form-control" style="text-align: center;">
+                            <option value="">All</option>
+                            <option value="option1">Pending</option>
+                            <option value="option2">Completed</option>
+                        </select>
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="mt-2"><i class="fas fa-list"></i> Events</h3>
+                    <div class="event-buttons d-flex">
+                        <div class="btn-group" role="group">
+                            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">
+                                <i class="fas fa-calendar-plus"></i> Add Event
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="event-buttons d-flex justify-content-end">
-                <div class="btn-group" role="group">
-                <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">
-                    <i class="fas fa-calendar-plus"></i> Add Event
-                </button>
-                </div>
-            </div>
-            <h3> <i class="fas fa-list mt-2"></i>  Events</h3>
+
+
             <div class="event-list">
                 <div class="col">
 
@@ -58,7 +71,18 @@
                                         <a class="btn btn-success" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">Add Event</a>
                                     </div>
                             </div>
-                                <div class="event-card" v-for="event in this.filtered_events" :id="event.event_id" >
+                            <!-- EVENT CARD -->
+                                <!-- <div class="event-card border-top border-5 border-success border-bottom-0" v-for="event in this.filtered_events" :id="event.event_id" > -->
+                                    <div class="event-card"
+       :class="[
+          'border-top',
+          'border-5',
+          {'border-success': status === 1, 'border-warning': status === 2},
+          'border-bottom-0'
+       ]"
+       v-for="event in filtered_events" :id="event.event_id">
+
+
                                     <div class="dropdown">
                                         <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-ellipsis-h" ></i>
@@ -83,7 +107,7 @@
                                             <p class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</p>
                                             <p class="card-subtitle text-muted">Start Time: {{ event["start_attendance"] }} </p>
                                             <p class="card-subtitle text-muted">End Time: {{ event["end_attendance"] }} </p>
-                                            <h6 class="card-text">Location: {{ event["location"] }} </h6>
+                                            <h6 class="card-text mb-0">Location: {{ event["location"] }} </h6>
                                             <!-- <h6 class="card-text">Description: {{ event["description"] }} </h6> -->
                                             <!-- <div class="card-actions">
                                                 <button class="ellipsis-button" @click=" FetchUpdateData(event.event_id) "   type="button"  data-bs-toggle="modal" data-bs-target="#event-modal" > <i class="bi bi-pencil-square"></i></button> -->
@@ -158,7 +182,7 @@
                                                 <input type="checkbox" :value="year_level.id" v-model="this.year_level_exempted">
                                                 <label>{{ year_level.year_level }}</label>
                                             </div>
-                                            
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -352,7 +376,7 @@
 
                 });
                 }
-                
+
             },
             showYearLevelData(){
                 axios.get(`get_year_level/${this.organization_id}`)

@@ -5,9 +5,16 @@
                         <input type="text" v-model="searchTerm"   @input="filterItems" placeholder="Search Accountabilities" >
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; margin-right: 20px;">
+                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
+                    <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 60%;">
+                        <!-- Firts dropdown -->
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                                <option value="0" disabled selected>Select Semester</option>
+                                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                            </select>
+                    </div>
                     <div class="select-dropdown">
-                        <!-- First dropdown -->
+                        <!-- Second dropdown -->
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="this.select_accountability">
                             <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                             <option value="fines">Fines</option>
@@ -17,20 +24,14 @@
 
                     <!-- {{-- <button class="btn sort-btn"><i class="fas fa-filter"></i></button> --}} -->
 
-                    <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 270px;">
-                        <!-- Second dropdown -->
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                                <option value="0" disabled selected>Select Semester</option>
-                                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                            </select>
-                    </div>
+
                 </div>
 
 
-    <h4> <i class="fas fa-list mt-2"></i>  Student Accountabilities</h4>
-
-
-        <div class="student-buttons d-flex justify-content-end">
+                <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
+        <div class="student-buttons d-flex">
             <div class="btn-group" role="group">
                 <button class="btn me-2" id="add-student-list-button" @click="printTable">
                     <i class="fas fa-print"></i> Print
@@ -40,6 +41,10 @@
                 </button>
             </div>
         </div>
+    </div>
+</div>
+
+<div id="table-container" style="margin-left: 10px;">
             <div class="scroll-pane">
                 <!-- fines accountabilities -->
                 <table  id="accountabilities-table" v-if="this.select_accountability === 'fines' ">
@@ -74,6 +79,7 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <!-- other accountabilities -->
                 <table  id="accountabilities-table" v-if="this.select_accountability === 'others' ">
                     <thead>
@@ -130,7 +136,7 @@
                     </li>
                 </ul>
             </div>
-
+        </div>
                 <div id="edit-modal" class="modal">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -242,8 +248,8 @@ export default{
     },
 
     mounted(){
-     
-     
+
+
 
     },
     created(){
@@ -380,7 +386,7 @@ export default{
             axios.get(`/fines_list/${this.org_id}/${this.school_year_input}`)
 
                     .then(response => {
-                        
+
                         //FOR FINES LOGIC
                         const events_with_attendance = response.data.accountabilities_fines;
                         let users = response.data.user;
@@ -599,7 +605,7 @@ export default{
 
 
 
-                        
+
                         //FOR OTHER ACCOUNTABILITIES LOGIC
                         const accountability_paid = response.data.paid_accountabilities;
                         const organization_accountability_set = response.data.accountabilities_other;
@@ -640,7 +646,7 @@ export default{
                             })
                     })
 
-                
+
                     free_fines.forEach(fines_free => {
                         // console.log(fines_free);
                         this.fines_list.forEach(list_fines => {

@@ -8,13 +8,21 @@
                     <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                <div class="select-dropdown">
+            <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
+                <div class="select-dropdown" style="width: 70%;">
                     <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
                             <option value="" disabled selected>Select Semester</option>
                             <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
 
                         </select>
+                </div>
+                <div class="select-dropdown" style="width: 30%;">
+                    <!-- First dropdown -->
+                    <select id="sort-select" class="form-control" style="text-align: center;">
+                        <option value="" disabled selected><i class="fas fa-filter"></i> All</option>
+                        <option value="ongoing">Ongoing</option>
+                        <option value="completed">Other Accountability</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -40,9 +48,19 @@
             </div>
             </div>
 
-            <div class="event-card" v-for="evaluation in this.filtered_events" :id="evaluation.event_id">
+            <!-- Status EVALUATION CARD -->
+            <!-- <div class="event-card border-top border-5 border-success border-bottom-0 py-3" v-for="evaluation in this.filtered_events" :id="evaluation.event_id"> -->
+                <div v-for="evaluation in filtered_events" :id="evaluation.event_id"
+                    :class="[
+                        'event-card',
+                        'border-top',
+                        'border-5',
+                        {'border-success': evaluation.evaluation_status === 0, 'border-warning': evaluation.evaluation_status === 1},
+                        'py-3'
+                    ]">
 
-                <!-- <h5> {{ evaluation['event_id'] }}</h5> -->
+
+                    <!-- <h5> {{ evaluation['event_id'] }}</h5> -->
                 <div class="dropdown">
                     <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
@@ -60,7 +78,7 @@
                 <div class="event-title">{{ evaluation['name'] }}</div>
                 <div class="event-description">Total Response: <b>{{evaluation['evaluation_form_answer']}}</b></div>
                 <div>
-                    <div class="event-status" v-if="evaluation['evaluation_status'] == 0">Status: <b>Closed</b> </div>
+                    <div class="event-status text-muted" v-if="evaluation['evaluation_status'] == 0">Status: <b>Closed</b> </div>
                     <div class="event-status" v-else="evaluation['evaluation_status'] == 1">Status: <b>Ongoing</b></div>
                 </div>
 
@@ -100,9 +118,9 @@ export default {
       this.loading = true; // Set loading to true before making the API call
         axios.get(`/events/evaluation/${this.organization_id}/${this.school_year_input}`)
         .then((response) => {
-          this.loading = false; 
+          this.loading = false;
           const data = response.data;
-          
+
             if (data) {
               data.forEach((item) => {
               item['evaluation_form_answer'] = item['evaluation_form_answer'].length;

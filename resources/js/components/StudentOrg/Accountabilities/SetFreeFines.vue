@@ -7,32 +7,37 @@
               <input type="text" placeholder="Search Student" v-model="searchTerm" @input="filterItems">
           </div>
       </div>
-
-      <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 270px;">
-          <!-- Second dropdown -->
-          <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-            <option value="0" disabled selected>Select Semester</option>
-            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-          </select>
-      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="select-dropdown" id= "semester-btn" >
+            <!-- Second dropdown -->
+            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                <option value="0" disabled selected>Select Semester</option>
+                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+            </select>
+        </div>
+    </div>
     </div>
 
-    <h4> <i class="fas fa-list mt-2"></i>  Student with Free Fines</h4>
 
-
-    <div class="student-buttons d-flex justify-content-end">
-      <div class="btn-group" role="group">
-          <button  class="btn me-2" data-bs-toggle="modal" @click="this.clearData()" data-bs-target="#addStudentModal">
-              <i class="fas fa-plus"></i> Add Student
-          </button>
-          <button class="btn me-2" id="add-student-list-button" onclick="printTableData()">
-              <i class="fas fa-print"></i> Print
-          </button>
-          <button class="btn me-2" id="add-student-button" onclick="  downloadTableData()">
-              <i class="fas fa-download"></i> Download
-          </button>
-      </div>
+    <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student with Free Fines</h4>
+        <div class="student-buttons d-flex">
+            <div class="btn-group" role="group">
+                <button class="btn me-2" data-bs-toggle="modal" @click="this.clearData()" data-bs-target="#addStudentModal">
+                    <i class="fas fa-plus"></i> Add Student
+                </button>
+                <button class="btn me-2" id="add-student-list-button" onclick="printTableData()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn me-2" id="add-student-button" onclick="downloadTableData()">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        </div>
     </div>
+</div>
+<div id="table-container">
     <div class="scroll-pane">
         <table  id="accountabilities-table">
             <thead>
@@ -56,7 +61,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
       <div class="pagination-container mt-3">
         <ul class="pagination justify-content-center">
           <li class="page-item disabled">
@@ -263,7 +268,7 @@ export default{
         .catch((error) => {
           alert(error);
         })
-    },  
+    },
     sendData(){
       // console.log(this.free_fines_input)
       axios.post('/add_free_fines_students', this.free_fines_input)
@@ -276,7 +281,7 @@ export default{
             this.fetchData();
             // console.log(response.data)
           }
-            
+
         })
         .catch(error => {
             alert(error)

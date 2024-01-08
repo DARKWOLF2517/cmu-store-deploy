@@ -5,20 +5,13 @@
             <input type="text" >
         </div>
     </div>
-    <div class="col-md-4 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; margin-right: 20px;">
-        <div class="select-dropdown">
-            <!-- First dropdown -->
-            <select id="sort-select" class="form-control" style="text-align: center;">
-                <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
-                <option value="fines">Fines</option>
-                <option value="others">Other Accountability</option>
-            </select>
-        </div>
+    <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
+
 
         <!-- {{-- <button class="btn sort-btn"><i class="fas fa-filter"></i></button> --}} -->
 
-        <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 270px;">
-            <!-- Second dropdown -->
+        <div class="select-dropdown" id= "semester-btn" style="width: 70%;">
+            <!-- First dropdown -->
             <select id="sort-select" class="form-control" style="text-align: center; ">
                 <option value="">Select Semester</option>
                 <option value="option1">1st Semester 2023-2024</option>
@@ -26,21 +19,34 @@
                 <option value="option3">1st Semester 2022-2023</option>
             </select>
         </div>
-    </div>
-
-
-<h4> <i class="fas fa-list mt-2"></i>  Paid Accountabilities</h4>
-
-    <div class="student-buttons d-flex justify-content-end">
-        <div class="btn-group" role="group">
-            <button class="btn me-2" id="add-student-list-button" @click="this.printTable()">
-                <i class="fas fa-print"></i> Print
-            </button>
-            <button class="btn me-2" id="add-student-button" @click="this.downloadTable()">
-                <i class="fas fa-download"></i> Download
-            </button>
+        <div class="select-dropdown" style="width: 30%;">
+            <!-- Second dropdown -->
+            <select id="sort-select" class="form-control" style="text-align: center;">
+                <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
+                <option value="fines">Fines</option>
+                <option value="others">Other Accountability</option>
+            </select>
         </div>
     </div>
+
+
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center ">
+            <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
+            <div class="student-buttons d-flex">
+                <div class="btn-group" role="group">
+                    <button class="btn me-2" id="add-student-list-button" @click="printTable">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button class="btn me-2" id="add-student-button" @click="downloadTable">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="table-container" style="margin-left: 10px;">
     <div class="scroll-pane">
         <!-- fines accountabilities -->
         <table  id="accountabilities-table"  >
@@ -62,7 +68,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
     <div class="pagination-container mt-3">
         <ul class="pagination justify-content-center">
             <li class="page-item disabled">

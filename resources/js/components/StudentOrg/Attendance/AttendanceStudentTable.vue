@@ -8,7 +8,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                        
+
                         <div class="select-dropdown">
                             <select id="sort-select" class="form-control" style="text-align: center;">
                                 <option value="">Select Semester</option>
@@ -20,18 +20,24 @@
                     </div>
                 </div>
     </div> -->
-        <h4> <i class="fas fa-list mt-2"></i> Attendance Record</h4>
-        <div class="container" id="table-container">
-                <div class=" student-buttons d-flex justify-content-end">
-                    <div class="btn-group" role="group">
-                        <button class="btn me-2" id="add-student-list-button">
-                            <i class="fas fa-print"></i> Print
-                        </button>
-                        <button class="btn me-2" id="add-student-button">
-                            <i class="fas fa-download"></i> Download
-                        </button>
-                    </div>
-                </div>
+    <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Attendance Record</h4>
+        <div class="student-buttons d-flex mt-2">
+            <div class="btn-group" role="group">
+                <button class="btn me-2" id="add-student-list-button">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn me-2" id="add-student-button">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div id="table-container">
+
                 <div class="scroll-pane">
             <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
             <p>Date: <b>{{ this.event.event_date }}</b> </p>
@@ -41,7 +47,7 @@
                         <th class="sortable-header" style="width: 10%;">Student ID</th>
                         <th class="sortable-header">Student Name</th>
                         <th class="sortable-header">Session</th>
-                        <th class="sortable-header" style="width: 20%;">Actions</th>
+                        <!-- <th class="sortable-header" style="width: 5%;"> </th> -->
                     </tr>
                 </thead>
                 <tbody v-for="attendance in this.attendance" :id="attendance.user_id">
@@ -49,19 +55,22 @@
                         <td>{{ attendance['user_id'] }}</td>
                         <td>{{ attendance['user']['name'] }}</td>
                         <td>In</td>
-                        <td>
-                            <button class="edit-button ellipsis-button" >
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="delete-button ellipsis-button">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </td>
+                        <!-- <td>
+                            <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal" >Edit</a></li>
+                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
+                            </ul>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
             </div>
-            <div class="pagination-container mt-3">
+
+        </div>
+        <div class="pagination-container mt-2">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -76,8 +85,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
-
 </template>
 
 <script>

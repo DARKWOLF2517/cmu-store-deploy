@@ -7,47 +7,62 @@ table {
   }
 
   .scroll-pane{
-    height: 100vh;
-    max-height: 100vh;
+    height: 100%;
+    width: 100%;
+
+  }
+  #table-list{
+    height: 60vh;
+    max-height: 60vh;
+    overflow-y: auto;
   }
   #student-list-table, #accountabilities-table th{
     /* background-color: #69a09d; */
     font-size: 15px;
     font-weight: bold;
   }
+thead{
+    background-color: #f5f8fd;
+}
+
 thead th{
     position: sticky;
     top: 0;
     /* background-color: #60b192; */
     /* color: white; */
-    color: black;
+    padding: 10px;
+    color: rgb(26, 26, 26);
+    border-bottom: none !important;
 }
-  td{
+  /* td{
     font-size: 14px;
-  }
+  } */
   th, td {
-    padding: 5px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    padding: 5px;
   }
   tr:hover {
-    background-color: #eee8e8;
+    background-color: #ddeee4;
   }
 
   tr:nth-child(even){
     background-color: #e9f5f3;
 }
-
+.edit-button, .delete-button{
+    border: 1px solid #ddf0ed;
+    background-color: #e9f5f3;
+}
   .edit-button i, .delete-button i {
-    font-size: 16px;
+    font-size: 13px;
   }
 
-  .pagination {
+  /* .pagination {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+  } */
 
   .pagination button {
     /* padding: 8px 12px; */
@@ -57,13 +72,18 @@ thead th{
     border: 1px solid #ddd;
   }
   #table-container{
-    /* border-radius: 10px; */
+    border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 10px;
+    /* padding: 5px; */
     height: 70vh;
     max-height: 70vh;
+    width: 100%;
     background-color: #ffffff;
 
+}
+.pagination-container, .pagination{
+    margin-bottom: 0 !important;
 }
 
 /* #table-container{
@@ -91,11 +111,11 @@ thead th{
     color: #fff;
   } */
 
-  .scroll-pane {
+  /* .scroll-pane {
     height: 55vh;
     max-height: 55vh;
     overflow: auto;
-  }
+  } */
 
   .pagination .page-link {
     color: #000000;

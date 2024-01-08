@@ -119,6 +119,12 @@
     height: 51vh;
 
 }
+.description-container {
+    height: 50px;
+    max-height: 50px;
+    overflow-y: auto;
+    display: block;
+}
 #profile-details{
     height: 50vh;
     max-height: 50vh;

@@ -15,11 +15,11 @@
                     <div class="col-md-6 col-sm-12">
                         <div class="input-container">
                             <i class="fa fa-search"></i>
-                            <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
+                            <input type="text" placeholder="Search Student" v-model="searchTerm" @input="filterItems">
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12" >
-                    
+
                         <div class="select-dropdown d-flex justify-content-end">
                             <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
                                 <option value="0" disabled selected>Select School Year</option>
@@ -30,28 +30,32 @@
                 </div>
             </div>
 
-            <h4><i class="fas fa-list mt-2"></i> Student List</h4>
-            <div class="container" id="table-container">
+            <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student List</h4>
+        <div class="student-buttons d-flex">
+            <div class="btn-group" role="group">
+                <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                    <i class="fas fa-plus"></i> Tag Student
+                </button>
+                <button id="uploadButton" class="btn me-2">
+                    <i class="fas fa-file-upload"></i> Upload List
+                </button>
+                <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
 
-                <div class="student-buttons d-flex justify-content-end">
-                    <div class="btn-group" role="group">
-                        <button  class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-                            <i class="fas fa-plus"></i> Tag Student
-                        </button>
-                        <button id="uploadButton" class="btn me-2"> <i class="fas fa-file-upload"></i> Upload List</button>
-                        <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+                <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                    <i class="fas fa-ellipsis-v"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                    <!-- option 1 -->
+                    <li><a class="dropdown-item" id="downloadButton" href="https://github.com/DARKWOLF2517/cmu-store-deploy/raw/main/template.xlsx">Download Template</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                            <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                            <!-- option 1 -->
-                            <li><a class="dropdown-item"  id="downloadButton">Download Template</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-
+            <div id="table-container">
                 <!-- Add student Modal -->
                 <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -94,15 +98,15 @@
                     </div>
                 </div>
 
-                <div class="scroll-pane">
-                    <table id="student-list-table">
+                <div class="scroll-pane" id="table-list">
+                    <table  id="student-list-table">
                     <thead>
                         <tr>
                             <th>Student ID</th>
                                             <!-- <th>Last Name</th> -->
                             <th>Full Name</th>
                             <th>Year Level</th>
-                            <th style="width: 20%;">Actions</th>
+                            <th style="width: 10%;"></th>
                         </tr>
                     </thead>
                         <tbody id="studentTableBody" v-for="students in this.filtered_student_list" :id="students.student_id">
@@ -113,8 +117,10 @@
 
 
                                 <td>
-                                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#studentmodal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-edit"></i> Edit</button>
-                                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i> Delete</button>
+                                    <span class="table-buttons">
+                                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#studentmodal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
+                                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i></button>
+                                    </span>
                                 </td>
                         </tbody>
                     </table>
@@ -218,7 +224,7 @@
 
             </div>
         </div>
-    </div> 
+    </div>
 
 
 </template>

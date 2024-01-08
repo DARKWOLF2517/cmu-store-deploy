@@ -29,18 +29,23 @@
     </div>
 
 
-<h4> <i class="fas fa-list mt-2"></i>  Student Accountabilities</h4>
+    <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
+        <div class="student-buttons d-flex">
+            <div class="btn-group" role="group">
+                <button class="btn me-2" id="add-student-list-button" @click="printTable">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn me-2" id="add-student-button" @click="downloadTable">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="student-buttons d-flex justify-content-end">
-<div class="btn-group" role="group">
-    <button class="btn me-2" id="add-student-list-button"  @click="printTable">
-        <i class="fas fa-print"></i> Print
-    </button>
-    <button class="btn me-2" id="add-student-button" @click="downloadTable">
-        <i class="fas fa-download"></i> Download
-    </button>
-</div>
-</div>
+<div id="table-container">
 <div class="scroll-pane">
     <!-- fines accountabilities -->
     <table  id="accountabilities-table" v-if="this.select_accountability === 'fines' ">
@@ -61,6 +66,7 @@
             </tr>
         </tbody>
     </table>
+
     <!-- other accountabilities -->
     <table  id="accountabilities-table" v-if="this.select_accountability === 'others' ">
         <thead>
@@ -98,7 +104,7 @@
         </li>
     </ul>
 </div>
-
+</div>
     <div id="edit-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">

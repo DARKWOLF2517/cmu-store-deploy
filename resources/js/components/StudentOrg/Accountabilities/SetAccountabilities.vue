@@ -8,28 +8,35 @@
         </div>
     </div>
 
-        <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 300px; margin-right: 0px;">
-            <!-- Second dropdown -->
-            <select id="sort-select" class="form-control" style="text-align: center; ">
-                <option value="">Select Semester</option>
-                <option value="option1">1st Semester 2023-2024</option>
-                <option value="option2">2nd Semester 2022-2023</option>
-                <option value="option3">1st Semester 2022-2023</option>
-            </select>
-        </div>
+    <div class="col-md-6 col-sm-12" >
+                    <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
+                    <div class="select-dropdown" style="width: 70%;">
+                        <select id="sort-select" class="form-control" style="text-align: center;">
+                            <option value="">Select Semester</option>
+                            <option value="option1">1st Semester 2023-2024</option>
+                            <option value="option2">2nd Semester 2022-2023</option>
+                            <option value="option3">1st Semester 2022-2023</option>
+                        </select>
+                    </div>
+                </div>
     </div>
     <div class="alert alert-info mt-2" role="alert">
                 <b><i class="fas fa-info"></i> Note!</b>  This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
                 <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <h4 class="mt-3"> <i class="fas fa-list"></i> Organization Accountabilities</h4>
-    <div class="event-buttons d-flex justify-content-end">
-            <div class="btn-group" role="group">
-            <button class="btn me-2" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">
-                <i class="fas fa-clipboard"></i> Add Accountabilities
-            </button>
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mt-3"><i class="fas fa-list"></i> Organization Accountabilities</h4>
+                    <div class="event-buttons d-flex">
+                        <div class="btn-group" role="group">
+                            <button class="btn me-2" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">
+                                <i class="fas fa-clipboard"></i> Add Accountabilities
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+
     <!-- <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button> -->
                     <!-- Card 1 -->
 <div class="accountabilities-container">

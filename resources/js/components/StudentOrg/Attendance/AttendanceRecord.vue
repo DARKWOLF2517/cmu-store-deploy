@@ -20,9 +20,9 @@
                               <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
                           </div>
                       </div>
-                      <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                        
-                          <div class="select-dropdown">
+                      <div class="col-md-6 col-sm-12">
+
+                          <div class="select-dropdown" style="width: 70%;">
                             <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
                                 <option value="0" disabled selected>Select School Year</option>
                                 <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
@@ -87,7 +87,7 @@
     mounted() {
       this.fetchData();
       this.showSchoolYear()
-      // console.log(this.school_year)  
+      // console.log(this.school_year)
     },
     methods: {
       showSchoolYear(){
@@ -120,7 +120,7 @@
             //   const firstItem = nonEmptyRecords[0];
             //   firstItem.attendance = firstItem.attendance.length;
             //   this.attendance = firstItem;
-              
+
             // }
             this.loading = false;
           })
@@ -141,7 +141,7 @@
             filtered = filtered.filter(item =>
                 item.name.toLowerCase().includes(searchTermLower)
             );
-          } 
+          }
               this.filtered_attendance = filtered;
       },
       attendance_result(event_id) {

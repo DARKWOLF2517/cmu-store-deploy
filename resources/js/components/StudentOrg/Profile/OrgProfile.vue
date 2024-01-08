@@ -16,7 +16,9 @@
             <img id="profileImage" src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="profile photo">
             <div class="profile-details mt-2">
                 <h5><b> {{ this.orgProfile.name }}</b></h5>
-                <small>{{ this.orgProfile.description }}</small>
+                <span class="description-container">
+                <small >{{ this.orgProfile.description }}</small>
+            </span>
             </div>
         </div>
     </div>
@@ -783,7 +785,7 @@ export default{
                     console.log(error)
                 });
 
-                // this.school_year_org_profile = 
+                // this.school_year_org_profile =
         },
 
         deleteOfficerRole(){
@@ -1024,7 +1026,7 @@ export default{
                     this.schoolYear.forEach(element => {
                         if (element.id == this.school_year_session ){
                         this.school_year_org_profile = element.school_year;
-                    } 
+                    }
                     });
                 })
                 .catch(error => {
