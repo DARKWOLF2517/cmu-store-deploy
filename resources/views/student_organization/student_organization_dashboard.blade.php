@@ -104,7 +104,7 @@
                                 <i class="icon 	fas fa-bullhorn" id="icon-message"></i>
                                 <p class="empty-schedule">Announcements show up here</p>
                             </div>
-                             <div class="announcement-card">
+                            {{-- <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
@@ -131,7 +131,7 @@
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
                                 <div class="announcement-description">Bayanihan.</div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

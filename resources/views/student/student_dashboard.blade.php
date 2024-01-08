@@ -20,7 +20,13 @@
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
                         </div>
-                        <div class="timeline-body">
+                        <event-dashboard
+                        :organization_id =  {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
+                        >
+
+                        </event-dashboard>
+                        {{-- <div class="timeline-body">
                             <ul class="sessions">
                                 <li>
                                     <div class="date">October 07, 2023</div>
@@ -43,7 +49,7 @@
                                     <small>General Assembly</small>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -52,7 +58,7 @@
                         <div class="announcement-header">
                             <i class="bi bi-list"></i> Announcements
                         </div>
-                        <div class="announcement-list">
+                        {{-- <div class="announcement-list">
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
@@ -81,13 +87,14 @@
                                 </div>
                                 <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div id="calendar">
                         <dashboard-calendar
                             :org_id={{Session::get('org_id')}}
+                            :school_year_session = {{Session::get('school_year')}}
                         >
                         </dashboard-calendar>
                     </div>

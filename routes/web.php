@@ -66,7 +66,7 @@ Route::get('student_organization_profile', function () {
     //calendar events
     Route::get('/calendar/{org_id}/{school_year}',[EventController::class, 'getEventsForCalendar']);
     #ACCOUNTABILITIES ROUTE
-    Route::get('/accountabilities/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
+    Route::get('/accountabilities/{org_id}/{school_year}',[AccountabilitiesController::class, 'getAccountabilities']);
     Route::get('/get_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
 
 
@@ -182,6 +182,8 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/attendanceFill',[AccountabilitiesController::class, 'attendanceFill']);
             Route::delete('/delete_organization_accountability/{accountability_id}',[AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
             Route::get('/paid_accountabilities/{org_id}',[AccountabilitiesController::class, 'PaidAccountabilities']);
+            Route::get('/accountabilities_fetch_update/{id}',[AccountabilitiesController::class, 'accountabilitiesFetchUpdate']);
+            Route::put('/update_accountabilities/{id}',[AccountabilitiesController::class, 'updateAccountabilities']);
 
 
             #ORG PROFILE ROUTES

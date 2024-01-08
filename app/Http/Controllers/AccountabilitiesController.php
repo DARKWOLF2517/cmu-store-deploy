@@ -17,9 +17,9 @@ use Illuminate\Http\Response;
 
 class AccountabilitiesController extends Controller
 {
-    public function getAccountabilities($org_id)
+    public function getAccountabilities($org_id, $school_year)
     {
-        $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1]])->with(['Attendance'])->get();
+        $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['school_year', $school_year]])->with(['Attendance'])->get();
         return $accountabilities->toJson();
     }
 
@@ -28,7 +28,7 @@ class AccountabilitiesController extends Controller
              // Validate the form data
             $validatedData = $this->validate($request,[
                 'org_id' => 'required',
-                'description' => 'required',
+                'accountability_name' => 'required',
                 'amount' => 'required',
                 'school_year'=> 'required',
             ]);
@@ -36,7 +36,7 @@ class AccountabilitiesController extends Controller
             // // Create a new Event instance
             $accountability = new Accountability([
                 'org_id' => $validatedData['org_id'],
-                'accountability_name' => $validatedData['description'],
+                'accountability_name' => $validatedData['accountability_name'],
                 'amount' => $validatedData['amount'],
                 'school_year' => $validatedData['school_year'],
                 
@@ -239,5 +239,26 @@ class AccountabilitiesController extends Controller
 
     
         return response()->json(['message' => 'Attendance Status of ']);
+    }
+    public function accountabilitiesFetchUpdate($id)
+    {
+        $accountability = Accountability::where([
+            ['accountability_id', $id],
+        ])->first();
+        return $accountability;
+    }
+    public function updateAccountabilities(Request $request, Accountability $id)
+    {   
+        $request->validate([
+            'accountability_name' => 'required',
+            'amount' => 'required',
+        ]);
+
+        // $id->update([['accountability_name' => $request['accountability_name']], ['amount' => $request['amount']]]);
+        $id->update([
+            'accountability_name' => $request['accountability_name'],
+            'amount' => $request['amount']
+        ]);
+        return response()->json(['message' => 'Accountability Updated Successfully']);
     }
 }
