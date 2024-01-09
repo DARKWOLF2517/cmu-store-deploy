@@ -14,7 +14,7 @@
             <!-- <a class="btn btn-success" href="/student_organization_events">Go to Events</a> -->
         </div>
 
-        <div class="schedule-card" v-for="event in this.events" :id="event.event_id">
+        <div class="schedule-card " v-for="event in this.events" :id="event.event_id">
             <div class="card-body d-flex justify-content-between align-items-start">
                 <div>
                     <h5><b>{{ event["name"] }}</b></h5>
@@ -22,7 +22,7 @@
                     <h6 >Time starts at: {{ event["start_attendance"] }}</h6>
                     <h6 class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</h6>
                 </div>
-                <div class="ml-auto">
+                <div class="mt-auto">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceModal" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
                 </div>
             </div>

@@ -36,41 +36,39 @@
     </div>
 </div>
 
-        <div id="table-container">
+        <div id="table-container" style="height: 150vh !important;">
 
-                <div class="scroll-pane">
-            <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
-            <p>Date: <b>{{ this.event.event_date }}</b> </p>
-            <table  id="accountabilities-table">
-                <thead>
-                    <tr>
-                        <th class="sortable-header" style="width: 10%;">Student ID</th>
-                        <th class="sortable-header">Student Name</th>
-                        <th class="sortable-header">Session</th>
-                        <!-- <th class="sortable-header" style="width: 5%;"> </th> -->
-                    </tr>
-                </thead>
-                <tbody v-for="attendance in this.attendance" :id="attendance.user_id">
-                    <tr>
-                        <td>{{ attendance['user_id'] }}</td>
-                        <td>{{ attendance['user']['name'] }}</td>
-                        <td>In</td>
-                        <!-- <td>
-                            <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal" >Edit</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
-                            </ul>
-                        </td> -->
-                    </tr>
-                </tbody>
-            </table>
+                <div class="scroll-pane" >
+                    <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
+                    <p>Date: <b>{{ this.event.event_date }}</b> </p>
+                    <table  id="accountabilities-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable-header" style="width: 10%;">Student ID</th>
+                                <th class="sortable-header">Student Name</th>
+                                <th class="sortable-header">Session</th>
+                                <!-- <th class="sortable-header" style="width: 5%;"> </th> -->
+                            </tr>
+                        </thead>
+                        <tbody v-for="attendance in this.attendance" :id="attendance.user_id">
+                            <tr>
+                                <td>{{ attendance['user_id'] }}</td>
+                                <td>{{ attendance['user']['name'] }}</td>
+                                <td>In</td>
+                                <!-- <td>
+                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal" >Edit</a></li>
+                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
+                                    </ul>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
             </div>
-
-        </div>
-        <div class="pagination-container mt-2">
+            <div class="pagination-container mt-2">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -85,6 +83,8 @@
                     </li>
                 </ul>
             </div>
+        </div>
+
 </template>
 
 <script>

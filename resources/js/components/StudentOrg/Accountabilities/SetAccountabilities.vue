@@ -7,13 +7,15 @@
               <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
           </div>
       </div>
-      <div class="select-dropdown" id= "semester-btn" style="margin-left: 20px; width: 300px; margin-right: 0px;">
+      <div class="col-md-6 col-sm-12">
+<div class="select-dropdown" style="width: 70%;">
           <!-- Second dropdown -->
           <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
               <option value="0" disabled selected>Select School Year</option>
               <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
           </select>
       </div>
+    </div>
     </div>
     <div class="alert alert-info mt-2" role="alert">
                 <b><i class="fas fa-info"></i> Note!</b>  This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.

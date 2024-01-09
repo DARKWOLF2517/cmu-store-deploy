@@ -77,7 +77,7 @@
        :class="[
           'border-top',
           'border-5',
-          {'border-success': status === 1, 'border-warning': status === 2},
+          {'border-warning': event.attendance_status === 1, 'border-success': event.attendance_status === 2},
           'border-bottom-0'
        ]"
        v-for="event in filtered_events" :id="event.event_id">
@@ -155,7 +155,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-                                    <button type="button" class="btn btn-primary" @click="startAttendance()" data-bs-dismiss="modal">
+                                    <button type="button" class="btn btn-secondary" @click="startAttendance()" data-bs-dismiss="modal">
                                         <div v-if="this.status === 1 ">Start Attendance</div>
                                         <div v-else-if="this.status === 2 ">Stop Attendance</div>
                                     </button>
