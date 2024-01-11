@@ -160,7 +160,7 @@
     flex: 1;
     margin-right: 20px;
 }
-.organization-details, .additional-input{
+.organization-details{
     display: flex;
     height: 30vh;
     max-height: 30vh;
@@ -168,7 +168,9 @@
 }
 
 
-
+.additional-input{
+    display: flex;
+}
 
 @media (max-width: 768px) {
 

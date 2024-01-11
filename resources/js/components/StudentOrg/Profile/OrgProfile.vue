@@ -184,7 +184,7 @@
                 <div class="semester" style="width: 50%;">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
                         <h5><b>Semesters</b></h5>
-                        <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()">Add School Year</button>
+                        <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()"><i class="fas fa-plus"></i></button>
                     </div>
 
                     <div class="table-responsive">
