@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\UserOrganization;
+use Illuminate\Support\Facades\Redirect;
 
 class AttendanceController extends Controller
 {
@@ -111,6 +112,11 @@ class AttendanceController extends Controller
             ['org_id', $org_id],
         ])->value('attendance_count');
         return $attendance;
+
+    }
+    public function back()
+    {   
+        return Redirect::back();
 
     }
 }

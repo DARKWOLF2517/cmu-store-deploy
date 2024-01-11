@@ -58,8 +58,12 @@
 </div>
 
             <div id="table-container">
-
-                <div class="scroll-pane" id="table-list">
+                <div v-if="this.loading == true" class="loading-spinner-container">
+                    <div class="spinner-border text-success" id="event-spinner" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="scroll-pane" id="table-list" v-if="this.loading == false">
                     <table  id="student-list-table">
                     <thead>
                         <tr>
@@ -87,7 +91,7 @@
                     </table>
                 </div>
                 <div class="pagination-container mt-3">
-                <ul class="pagination justify-content-center">
+                <!-- <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                     </li>
@@ -99,7 +103,7 @@
                     <li class="page-item">
                     <a class="page-link" href="#">Next</a>
                     </li>
-                </ul>
+                </ul> -->
             </div>
  <!-- Add student Modal -->
  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
@@ -235,7 +239,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-success" id="uploadToTableButton" @click="this.uploadData()">Upload</button>
+                                <button type="button" class="btn btn-success" id="uploadToTableButton" data-bs-dismiss="modal" @click="this.uploadData()" >Upload</button>
                             </div>
                         </div>
                     </div>
@@ -247,25 +251,31 @@
 
 
 </template>
+
 <script>
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 export default {
-  props: ['org_id', 'school_year_session'],
-  data() {
-    return {
-      fetchID: '',
-      studentList: [],
-      editData: {
-        student_id: '',
-        name: '',
-        email: '',
-        year_level: '',
-      },
-      school_year: [],
-      school_year_input: this.school_year_session,
-      searchTerm: '',
-      filtered_student_list: [],
-    };
-  },
+    props: ['org_id', 'school_year_session'],
+    data() {
+        return {
+            fetchID: '',
+            studentList: [],
+            editData: {
+            student_id: '',
+            name: '',
+            email: '',
+            year_level: '',
+            },
+            school_year: [],
+            school_year_input: this.school_year_session,
+            searchTerm: '',
+            filtered_student_list: [],
+            loading : false,
+
+        };
+    },
 mounted(){
     this.upload();
     this.fetchData();
@@ -277,17 +287,18 @@ methods:{
         let filteredBySearch = this.studentList;
         if (this.searchTerm) {
             const searchTermLower = this.searchTerm.toLowerCase();
-            filteredBySearch = filteredBySearch.filter(item =>
-                item.user.name.toLowerCase().includes(searchTermLower)
+            filteredBySearch = filteredBySearch.filter(item => item.user.name.toLowerCase().includes(searchTermLower)
             );
         }
             this.filtered_student_list = filteredBySearch;
     },
     fetchData(){
+        this.loading = true;
         axios.get(`/student_list/show/${this.org_id}/${this.school_year_input}`)
             .then(response => {
                 this.studentList = response.data;
                 this.filtered_student_list = this.studentList;
+                this.loading = false;
             })
             .catch(error => {
 
@@ -341,34 +352,33 @@ methods:{
         for (var i = 1; i < table.rows.length; i++) {
             var row = table.rows[i];
             var rowData = [];
-
             for (var j = 0; j < row.cells.length; j++) {
                 var cell = row.cells[j];
-
                 rowData.push(cell.textContent);
 
             }
-
         data.push(rowData);
         }
-        // data.forEach((data=>{
-        //
-        // }));
-        this.collectedData = data;
-        // console.log(data)
-        // Display the extracted data in the console
 
-            axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
-                .then(response => {
-                    console.log(response.data)
-                    // location.reload();
-                    // this.showSucces(response.data.message);
-                    // this.fetchData();
-                })
-                .catch(error => {
-                    console.log(error)
-
+            if (data[0].length == 2){
+                this.collectedData = data;
+                // console.log(data)
+                // Display the extracted data in the console
+                this.loading = true;
+                axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
+                    .then(response => {
+                        console.log(response.data)
+                        this.fetchData();
+                        // location.reload();
+                        // this.showSucces(response.data.message);
+                    })
+                    .catch(error => {
+                        console.log(error)
                     });
+            }
+            else {
+                this.showError('excel incorrect format');
+            }
 
 
     },
@@ -488,6 +498,12 @@ methods:{
                 autoClose: 100,
             }
         },
+    showError(message){
+        toast.error(message),{
+            autoClose: 100,
+        }
+    },
+
 
 
 }
