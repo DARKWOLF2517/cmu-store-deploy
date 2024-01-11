@@ -82,7 +82,7 @@
                     <div class="event-status" v-else="evaluation['evaluation_status'] == 1">Status: <b>Ongoing</b></div>
                 </div>
 
-                <button v-if="evaluation['evaluation_form_answer'] !== 0"  class="view-button" @click="evaluation_result(evaluation.event_id)"> <i class="fas fa-chevron-right button-icon"></i></button>
+                <button v-if="evaluation['evaluation_form_answer'] !== 0"  class="see-button" @click="evaluation_result(evaluation.event_id)"> <i class="fas fa-chevron-right button-icon"></i></button>
             </div>
 
         </div>

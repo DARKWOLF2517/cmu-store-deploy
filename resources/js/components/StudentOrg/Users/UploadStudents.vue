@@ -39,7 +39,8 @@
                 <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
                     <i class="fas fa-plus"></i> Tag Student
                 </button>
-                <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal">
+                <button id="uploadButton" class="btn me-2">
+                    <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
                     <i class="fas fa-file-upload"></i> Upload List
                 </button>
                 <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
@@ -193,20 +194,38 @@
                     </div>
                 </div>
                 <!-- Modal for displaying Excel data before Uploading -->
+
                 <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="excelDataModalLabel">Excel Data</h5>
+                                <h5 class="modal-title" id="excelDataModalLabel">Excel Student List</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
+
+                                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-right: 0;">
+                        <div class="select-dropdown" >
+                            <select id="sort-select" class="form-control" style="text-align: center;">
+                                <option value="0" disabled selected>Select Year Level</option>
+                                <option>1st Year Level</option>
+                                <option>2nd Year Level</option>
+                            </select>
+                        </div>
+                        <div class="select-dropdown" >
+                        <select id="sort-select" class="form-control" style="text-align: center;">
+                            <option value="">Select College</option>
+                            <option value="option1">CISC</option>
+                            <option value="option2">CAS</option>
+                        </select>
+                    </div>
+                    </div>
                                 <table class="table" id="tableModal" >
                                     <thead>
                                         <tr>
                                             <th>Student ID</th>
                                             <th>Full Name</th>
-                                            <th>Year Level</th>
+                                            <!-- <th>Year Level</th> -->
                                         </tr>
                                     </thead>
                                     <tbody id="modalStudentTableBody" >

@@ -1,5 +1,5 @@
 
-body {
+body, .modal-body {
     background-color: #f3f7fb;
     font-family: sans-serif;
 

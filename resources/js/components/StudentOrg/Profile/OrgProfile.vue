@@ -94,47 +94,7 @@
                     </div>
 
                     <!-- Partner Organizations -->
-                    <div class="partner-organizations" style="width: 50%;">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5><b>Organizations Partners</b></h5>
-                            <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setPartnersModal"> <i class="fas fa-plus"></i> </button>
-                        </div>
-
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 50%;">Partner</th>
-                                    <th style="width: 10%; "></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- <tr>
-                                    <td>JPIA</td>
-                                    <td>
-                                        
-                                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editPartnerModal">Edit Partner</a></li>
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removePartnerModal">Delete Partner</a></li>
-                                        </ul>
-                                    </td>
-                                </tr> -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<div class="containers">
-        <div class="row">
-            <!-- Organization Roles Table -->
-            <div class="col-md-6">
-                <div class="roles">
+                    <div class="roles" style="width: 50%;">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
                         <h5><b>Organization Member Roles</b></h5>
                         <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()">Set Roles</button>
@@ -172,12 +132,17 @@
                         </table>
                     </div>
                 </div>
+                </div>
             </div>
-            <!-- Table for Semesters -->
-            <div class="col-md-6">
+        </div>
+    </div>
+</div>
+</div>
+<div class="container">
+            <div class="col">
                 <div class="row">
                 <div class="additional-input">
-                <div class="semester" style="width: 50%;">
+                <div class="semester" style="width: 100%;">
                     <div class="d-flex justify-content-between align-items-center mb-3 header">
                         <h5><b>Semesters</b></h5>
                         <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()"><i class="fas fa-plus"></i></button>
@@ -210,7 +175,7 @@
                         </table>
                     </div>
                 </div>
-            <div class="year-level" style="width: 50%; padding-left: 10px" >
+            <div class="year-level" style="width: 100%; padding-left: 10px" >
                 <div class="d-flex justify-content-between align-items-center mb-3 header">
                     <h5><b>Year Levels</b></h5>
                     <button class="btn button-secondary" id="addYearLevelButton" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" > <i class="fas fa-plus"></i>  </button>
@@ -245,9 +210,8 @@
                     </table>
                 </div>
             </div>
-                    </div>
-                </div>
             </div>
+        </div>
     </div>
 </div>
 
@@ -296,7 +260,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary"   data-bs-dismiss="modal">Save changes</button>
+                    <button type="submit" class="btn btn-success"   data-bs-dismiss="modal">Save changes</button>
                 </div>
             </form>
         </div>
@@ -308,8 +272,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSchoolYearModalLabel">Add School Year</h5>
-                <h5 class="modal-title" id="addSchoolYearModalLabel">Edit School Year</h5>
+                <h5 class="modal-title" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
+                <h5 class="modal-title" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.updateSchoolYear">Edit School Year</h5>
             </div>
             <div class="modal-body">
             <form @submit.prevent="this.schoolYearSubmit" >
@@ -321,7 +285,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Save Changes</button>
+                        <button type="submit" class="btn btn-succes" data-bs-dismiss="modal" >Save Changes</button>
                     </div>
             </form>
             </div>
@@ -518,7 +482,7 @@
 </div>
 
 <!-- Set Partners Modal -->
-<div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -625,9 +589,9 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Edit Partner Modal -->
-<div class="modal fade" id="editPartnerModal" tabindex="-1" aria-labelledby="editPartnerModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="editPartnerModal" tabindex="-1" aria-labelledby="editPartnerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -648,10 +612,10 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- Delete Partner Modal -->
-<div class="modal fade" id="removePartnerModal" tabindex="-1" aria-labelledby="removePartnerModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="removePartnerModal" tabindex="-1" aria-labelledby="removePartnerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -667,7 +631,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 </template>
 

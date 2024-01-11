@@ -125,6 +125,11 @@ Route::middleware(['auth'])->group(function(){
             return view('student_organization.student_organization_evaluation');
         });
 
+        Route::get('student_organization_evaluation_forms', function () {
+            return view('student_organization.student_organization_evaluation_forms');
+        });
+
+
         Route::get('student_organization_events', function () {
             return view('student_organization.student_organization_events');
         });
@@ -206,7 +211,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
             Route::put('/updateOrgProfileDetails/{id}',[OrgProfileController::class, 'updateOrgProfileDetails']);
             Route::get('/fetch_name_officer_input/{id}',[OrgProfileController::class, 'fetchNameOfficerInput']);
-    
+
             #FREE FINES ROUTES
             Route::get('/get_free_fines_students/{org_id}/{school_year}',[AccountabilitiesController::class, 'viewFreeFinesStudents']);
             Route::post('/add_free_fines_students',[AccountabilitiesController::class, 'addFreeFinesStudents']);
