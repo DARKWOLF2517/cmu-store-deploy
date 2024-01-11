@@ -352,10 +352,10 @@ methods:{
 
             axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
                 .then(response => {
-                    // console.log(response.data)
+                    console.log(response.data)
                     // location.reload();
-                    this.showSucces(response.data.message);
-                    this.fetchData();
+                    // this.showSucces(response.data.message);
+                    // this.fetchData();
                 })
                 .catch(error => {
                     console.log(error)

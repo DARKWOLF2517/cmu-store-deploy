@@ -108,23 +108,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td>JPIA</td>
                                     <td>
-                                        <!-- Ellipsis Button -->
+                                        
                                         <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
-
-                                        <!-- Dropdown Menu -->
                                         <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                            <!-- Edit Partner -->
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editPartnerModal">Edit Partner</a></li>
-                                            <!-- Delete Partner -->
                                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removePartnerModal">Delete Partner</a></li>
                                         </ul>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
