@@ -32,37 +32,35 @@ class UserController extends Controller
 
         public function store($school_year ,Request $request)
         {
+
             $org_id = Session::get('org_id');
             $data = $request->input('data');
 
             foreach ($data as $row) {
                 $user = new User();
                 $user->id = $row[0];
-                $user->name = $row[3].' '.$row[2].' '.$row[1];
-
-                $row[1] = strtolower(preg_replace('/\s+/', '', $row[1]));
-                $row[2] = strtolower(preg_replace('/\s+/', '', $row[2]));
-                $row[3] = strtolower(preg_replace('/\s+/', '', $row[3]));       
-
-
-                $user->email = $row[1].$row[3];
+                $user->name = $row[1];
+                $user->email = strtolower(str_replace(' ', '', $row[1]));;
                 $user->password = Hash::make($row[0]);
                 $user->save();
             }
 
             foreach ($data as $row) {
-                $user = new UserOrganization();
-                $user->student_org_id = $org_id;
-                $user->student_id = $row[0];
-                $user->role_id = '2' ;
-                $user->year_level_id = '1';
-                $user->school_year = $school_year;
-                $user->save();
+                
+                // $row[1] = strtolower(str_replace(' ', '', $row[1]));
+                // return $row[1];
+                $userOrg = new UserOrganization();
+                $userOrg->student_org_id = $org_id;
+                $userOrg->student_id = $row[0];
+                $userOrg->role_id = '2' ;
+                $userOrg->year_level_id = '1';
+                $userOrg->school_year = $school_year;
+                $userOrg->save();
             }
 
             return response()->json(['message' => 'Students Added Successfully']);
             // Optionally, you can return a response indicating success or redirection
-            // return $request;
+            
         }
 
         public function showStudents($org_id, $school_year)

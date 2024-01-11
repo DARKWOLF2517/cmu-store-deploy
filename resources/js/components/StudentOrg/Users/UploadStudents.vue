@@ -210,7 +210,6 @@
                                         <tr>
                                             <th>Student ID</th>
                                             <th>Full Name</th>
-                                            <th>Year Level</th>
                                         </tr>
                                     </thead>
                                     <tbody id="modalStudentTableBody" >
@@ -238,25 +237,25 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 export default {
-  props: ['org_id', 'school_year_session'],
-  data() {
-    return {
-        fetchID: '',
-        studentList: [],
-        editData: {
-        student_id: '',
-        name: '',
-        email: '',
-        year_level: '',
-        },
-        school_year: [],
-        school_year_input: this.school_year_session,
-        searchTerm: '',
-        filtered_student_list: [],
-        loading : false,
+    props: ['org_id', 'school_year_session'],
+    data() {
+        return {
+            fetchID: '',
+            studentList: [],
+            editData: {
+            student_id: '',
+            name: '',
+            email: '',
+            year_level: '',
+            },
+            school_year: [],
+            school_year_input: this.school_year_session,
+            searchTerm: '',
+            filtered_student_list: [],
+            loading : false,
 
-    };
-  },
+        };
+    },
 mounted(){
     this.upload();
     this.fetchData();
@@ -333,36 +332,34 @@ methods:{
         for (var i = 1; i < table.rows.length; i++) {
             var row = table.rows[i];
             var rowData = [];
-
             for (var j = 0; j < row.cells.length; j++) {
                 var cell = row.cells[j];
-
                 rowData.push(cell.textContent);
 
             }
-
         data.push(rowData);
         }
-        // data.forEach((data=>{
-        //
-        // }));
-        this.collectedData = data;
-        // console.log(data)
-        // Display the extracted data in the console
-            this.loading = true;
-            axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
-                .then(response => {
-                    console.log(response.data)
-                    this.fetchData();
-                    // location.reload();
-                    this.showSucces(response.data.message);
-                    
-                })
-                .catch(error => {
-                    console.log(error)
 
+            if (data[0].length == 2){
+                this.collectedData = data;
+                // console.log(data)
+                // Display the extracted data in the console
+                this.loading = true;
+                axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
+                    .then(response => {
+                        console.log(response.data)
+                        this.fetchData();
+                        // location.reload();
+                        // this.showSucces(response.data.message);
+                    })
+                    .catch(error => {
+                        console.log(error)
                     });
-
+            }
+            else {
+                this.showError('excel incorrect format');
+            }
+        
 
     },
     upload(){
@@ -481,6 +478,12 @@ methods:{
                 autoClose: 100,
             }
         },
+    showError(message){
+        toast.error(message),{
+            autoClose: 100,
+        }
+    },
+
 
 
 }

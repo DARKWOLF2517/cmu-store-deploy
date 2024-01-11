@@ -61,7 +61,12 @@
 <body>
   <!-- Bootstrap Top Navigation Bar -->
 <div class="top-nav">
+  @if (Session::get('role') === 3)
+    <a class="btn back-button link-light"  href="/attendance_checker_attendance_schedule"><i class="fas fa-arrow-left"></i></a>
+  @else
     <a class="btn back-button link-light"  href="/student_organization_attendance_schedule"><i class="fas fa-arrow-left"></i></a>
+  @endif
+    
     <a href="#" class="nav-link link-light">
 
         <span class="nav-link-text"> CMU-STORE-AMS</span>

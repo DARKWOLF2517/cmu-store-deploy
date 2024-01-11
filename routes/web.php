@@ -38,11 +38,14 @@ Route::get('student_organization_profile', function () {
     Route::get('/login', function () {
         return view('layouts.login');
     })->name('login');
+
+Route::middleware(['auth'])->group(function(){
+    //can access to all roles
     Route::get('/events/show/{org_id}/{school_year?}',[EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}',[EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}',[EventController::class, 'getEventsAttendance']);
     Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
-
+    Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
     //get student org list
     Route::get('/usercards', function () {
         return view('layouts.organization_cards');
@@ -70,7 +73,12 @@ Route::get('student_organization_profile', function () {
     Route::get('/get_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
 
 
-Route::middleware(['auth'])->group(function(){
+    #attendance route
+    Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
+    Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
+    Route::get('back_to_schedule', [AttendanceController::class, 'back']);
+
+
 #ORG ROUTE
     Route::middleware(['user-role:1'])->group(function(){
         #ORG DASHBOARD
@@ -139,11 +147,8 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/upload_students/{school_year}',[UserController::class, 'store']);
 
             #ATTENDANCE ROUTES
-            Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
-            Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
             Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
             Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
-            Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
             //check the repetition of the data using id number
             Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
             //attendance record list
