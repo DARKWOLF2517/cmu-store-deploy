@@ -85,26 +85,21 @@
                         </tbody>
                     </table>
                 </div>
-<!-- Pagination -->
-<nav aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item">
-          <button type="button" class="page-link" :disabled="currentPage === 1" @click="changePage(currentPage - 1)">
-            Previous
-          </button>
-        </li>
-        <li class="page-item" v-for="page in totalPages" :key="page" :class="{ 'active': currentPage === page }">
-          <button type="button" class="page-link" @click="changePage(page)">
-            {{ page }}
-          </button>
-        </li>
-        <li class="page-item">
-          <button type="button" class="page-link" :disabled="currentPage === totalPages" @click="changePage(currentPage + 1)">
-            Next
-          </button>
-        </li>
-      </ul>
-    </nav>
+                <div class="pagination-container mt-3">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </div>
  <!-- Add student Modal -->
  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -234,30 +229,24 @@
 
 </template>
 <script>
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-
-export default{
-props: ['org_id','school_year_session'],
-data(){
-    return{
-        submit: this.updateData,
-        fetchID: '',
-        collectedData:[],
-        studentList:[],
-        editData: {
-            student_id: '',
-            name: '',
-            email: '',
-            year_level: '',
-        },
-        school_year:[],
-        school_year_input: this.school_year_session,
-        searchTerm: '',
-        filtered_student_list: [],
-    }
-
-},
+export default {
+  props: ['org_id', 'school_year_session'],
+  data() {
+    return {
+      fetchID: '',
+      studentList: [],
+      editData: {
+        student_id: '',
+        name: '',
+        email: '',
+        year_level: '',
+      },
+      school_year: [],
+      school_year_input: this.school_year_session,
+      searchTerm: '',
+      filtered_student_list: [],
+    };
+  },
 mounted(){
     this.upload();
     this.fetchData();
@@ -364,21 +353,6 @@ methods:{
 
 
     },
-    changePage(page) {
-        this.currentPage = page;
-        this.fetchData(page);
-    },
-    fetchData(page = 1) {
-    axios.get(`/student_list/show/${this.org_id}/${this.school_year_input}?page=${page}`)
-      .then(response => {
-        this.studentList = response.data.data;
-        this.totalPages = response.data.last_page;
-        this.currentPage = response.data.current_page;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  },
     upload(){
         document.getElementById("uploadButton").addEventListener("click", function () {
             document.getElementById("fileInput").click();
