@@ -17,7 +17,7 @@
             <div class="profile-details mt-2">
                 <h5><b> {{ this.orgProfile.name }}</b></h5>
                 <span class="description-container">
-                <small >{{ this.orgProfile.description }}</small>
+                <!-- <small >{{ this.orgProfile.description }}</small> -->
             </span>
             </div>
         </div>

@@ -22,7 +22,7 @@ table {
     font-weight: bold;
   }
 thead{
-    background-color: #f5f8fd;
+    background-color: #e4f8ee;
 }
 
 thead th{
@@ -43,11 +43,11 @@ thead th{
     padding: 5px;
   }
   tr:hover {
-    background-color: #ddeee4;
+    background-color: #e8faf0;
   }
 
   tr:nth-child(even){
-    background-color: #e9f5f3;
+    background-color: #f6faf9;
 }
 .edit-button, .delete-button{
     border: 1px solid #ddf0ed;
