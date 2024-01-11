@@ -28,12 +28,18 @@
                         </tr>
                         <tr>
                             <th>Fines</th>
-                            <td>{{fines}}</td>
+                            <td>{{fines}}
+                                <!-- <i class="fas fa-eye ml-6">see more</i> -->
+                            </td>
                         </tr>
-                        <tr v-for="accountability in this.accountabilityList">
+                        <!-- <tr v-for="accountability in this.accountabilityList">
                             <th>{{ accountability['accountability_name'] }}</th>
                             <td >{{ accountability['amount'] }}</td>
-                        </tr>
+                            
+                        </tr> -->
+
+                        
+                        
                     </table>
             </div>
         </div>
