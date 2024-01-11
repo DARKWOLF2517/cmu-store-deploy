@@ -41,7 +41,7 @@ Route::get('student_organization_profile', function () {
     Route::get('/events/show/{org_id}/{school_year?}',[EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}',[EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}',[EventController::class, 'getEventsAttendance']);
-
+    Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
 
     //get student org list
     Route::get('/usercards', function () {
@@ -136,7 +136,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/student_list/show/{org_id}/{school_year}',[UserController::class, 'showStudents']);
             Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
             Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
-            Route::post('/upload_students',[UserController::class, 'store']);
+            Route::post('/upload_students/{school_year}',[UserController::class, 'store']);
 
             #ATTENDANCE ROUTES
             Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
@@ -166,7 +166,6 @@ Route::middleware(['auth'])->group(function(){
             Route::put('/events/{event}', [EventController::class, 'update'])->name('events-update');
             Route::get('/events_count/{org_id}/{school_year}',[EventController::class, 'getEventsCount']);
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
-            Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
             Route::get('/complete_events_count/{organization_id}/{school_year}',[EventController::class, 'getCompleteEventsCount']);
             Route::post('/submitYearLevelExempted/{org_id}/{school_year}/{event_id}', [EventController::class, 'submitYearLevelExempted']);
             Route::get('/get_year_level/{organization_id}',[EventController::class, 'getYearLevel']);

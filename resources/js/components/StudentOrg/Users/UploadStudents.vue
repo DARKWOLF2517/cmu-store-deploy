@@ -234,45 +234,34 @@
 
 </template>
 <script>
-export default {
-  props: ['org_id', 'school_year_session'],
-  data() {
-    return {
-      fetchID: '',
-      studentList: [],
-      editData: {
-        student_id: '',
-        name: '',
-        email: '',
-        year_level: '',
-      },
-      school_year: [],
-      school_year_input: this.school_year_session,
-      searchTerm: '',
-      filtered_student_list: [],
-      itemsPerPage: 10,
-      currentPage: 1,
-      totalPages: 0,
-    };
-  },
-computed: {
-    filtered_student_list() {
-        let filteredBySearch = this.studentList;
-        if (this.searchTerm) {
-            const searchTermLower = this.searchTerm.toLowerCase();
-            filteredBySearch = filteredBySearch.filter(item =>
-                item.user.name.toLowerCase().includes(searchTermLower)
-            );
-        }
-        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-        return filteredBySearch.slice(startIndex, startIndex + this.itemsPerPage);
-    },
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
+export default{
+props: ['org_id','school_year_session'],
+data(){
+    return{
+        submit: this.updateData,
+        fetchID: '',
+        collectedData:[],
+        studentList:[],
+        editData: {
+            student_id: '',
+            name: '',
+            email: '',
+            year_level: '',
+        },
+        school_year:[],
+        school_year_input: this.school_year_session,
+        searchTerm: '',
+        filtered_student_list: [],
+    }
+
 },
 mounted(){
     this.upload();
     this.fetchData();
     this.showSchoolYear();
-    console.log('mounted')
 },
 methods:{
     filterItems() {
@@ -361,10 +350,12 @@ methods:{
         // console.log(data)
         // Display the extracted data in the console
 
-            axios.post('/upload_students', { data: this.collectedData })
+            axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     // location.reload();
+                    this.showSucces(response.data.message);
+                    this.fetchData();
                 })
                 .catch(error => {
                     console.log(error)
@@ -498,7 +489,12 @@ methods:{
         //         });
         //     }
         // });
-    }
+    },
+    showSucces(message){
+            toast.success(message),{
+                autoClose: 100,
+            }
+        },
 
 
 }
