@@ -30,14 +30,12 @@ class UserController extends Controller
         }
 
 
-        public function store(Request $request)
+        public function store($school_year ,Request $request)
         {
             $org_id = Session::get('org_id');
             $data = $request->input('data');
+
             foreach ($data as $row) {
-                
-         
-                
                 $user = new User();
                 $user->id = $row[0];
                 $user->name = $row[3].' '.$row[2].' '.$row[1];
@@ -50,22 +48,19 @@ class UserController extends Controller
                 $user->email = $row[1].$row[3];
                 $user->password = Hash::make($row[0]);
                 $user->save();
-
             }
 
             foreach ($data as $row) {
-
-
                 $user = new UserOrganization();
                 $user->student_org_id = $org_id;
                 $user->student_id = $row[0];
                 $user->role_id = '2' ;
-                $user->year_level = $row[5];
+                $user->year_level_id = '1';
+                $user->school_year = $school_year;
                 $user->save();
-
             }
 
-            return "Data inserted successfully!";
+            return response()->json(['message' => 'Students Added Successfully']);
             // Optionally, you can return a response indicating success or redirection
             // return $request;
         }

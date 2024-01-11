@@ -230,6 +230,8 @@
 </template>
 
 <script>
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default{
 props: ['org_id','school_year_session'],
@@ -256,7 +258,6 @@ mounted(){
     this.upload();
     this.fetchData();
     this.showSchoolYear();
-    console.log('mounted')
 },
 methods:{
     filterItems() {
@@ -345,10 +346,12 @@ methods:{
         // console.log(data)
         // Display the extracted data in the console
 
-            axios.post('/upload_students', { data: this.collectedData })
+            axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     // location.reload();
+                    this.showSucces(response.data.message);
+                    this.fetchData();
                 })
                 .catch(error => {
                     console.log(error)
@@ -467,7 +470,12 @@ methods:{
         //         });
         //     }
         // });
-    }
+    },
+    showSucces(message){
+            toast.success(message),{
+                autoClose: 100,
+            }
+        },
 
 
 }
