@@ -1,4 +1,5 @@
 <template>
+
     <div class="content">
         <div class="page-container">
             <div class="col breadcrumbs">
@@ -38,7 +39,7 @@
                 <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
                     <i class="fas fa-plus"></i> Tag Student
                 </button>
-                <button id="uploadButton" class="btn me-2">
+                <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal">
                     <i class="fas fa-file-upload"></i> Upload List
                 </button>
                 <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
@@ -56,8 +57,56 @@
 </div>
 
             <div id="table-container">
-                <!-- Add student Modal -->
-                <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+
+                <div class="scroll-pane" id="table-list">
+                    <table  id="student-list-table">
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                                            <!-- <th>Last Name</th> -->
+                            <th>Full Name</th>
+                            <th>Year Level</th>
+                            <th style="width: 10%;"></th>
+                        </tr>
+                    </thead>
+                        <tbody id="studentTableBody" v-for="students in this.filtered_student_list" :id="students.student_id">
+                            <!-- Student data will be added here -->
+                                <td>{{ students.student_id }}</td>
+                                <td>{{ students.user.name }}</td>
+                                <td>{{ students.year_level.year_level }}</td>
+
+
+                                <td>
+                                    <span class="table-buttons">
+                                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#studentmodal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
+                                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i></button>
+                                    </span>
+                                </td>
+                        </tbody>
+                    </table>
+                </div>
+<!-- Pagination -->
+<nav aria-label="Page navigation">
+      <ul class="pagination">
+        <li class="page-item">
+          <button type="button" class="page-link" :disabled="currentPage === 1" @click="changePage(currentPage - 1)">
+            Previous
+          </button>
+        </li>
+        <li class="page-item" v-for="page in totalPages" :key="page" :class="{ 'active': currentPage === page }">
+          <button type="button" class="page-link" @click="changePage(page)">
+            {{ page }}
+          </button>
+        </li>
+        <li class="page-item">
+          <button type="button" class="page-link" :disabled="currentPage === totalPages" @click="changePage(currentPage + 1)">
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+ <!-- Add student Modal -->
+ <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -97,50 +146,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="scroll-pane" id="table-list">
-                    <table  id="student-list-table">
-                    <thead>
-                        <tr>
-                            <th>Student ID</th>
-                                            <!-- <th>Last Name</th> -->
-                            <th>Full Name</th>
-                            <th>Year Level</th>
-                            <th style="width: 10%;"></th>
-                        </tr>
-                    </thead>
-                        <tbody id="studentTableBody" v-for="students in this.filtered_student_list" :id="students.student_id">
-                            <!-- Student data will be added here -->
-                                <td>{{ students.student_id }}</td>
-                                <td>{{ students.user.name }}</td>
-                                <td>{{ students.year_level.year_level }}</td>
-
-
-                                <td>
-                                    <span class="table-buttons">
-                                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#studentmodal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
-                                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i></button>
-                                    </span>
-                                </td>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="pagination-container mt-3">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </div>
-
                 <!-- Edit Student -->
                 <div class="modal fade" id="studentmodal" tabindex="-1" aria-labelledby="student-modal-label" aria-hidden="true">
                     <div class="modal-dialog">
@@ -200,8 +205,8 @@
                                 <h5 class="modal-title" id="excelDataModalLabel">Excel Data</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <table class="table" id="tableModal">
+                            <div class="modal-body" style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
+                                <table class="table" id="tableModal" >
                                     <thead>
                                         <tr>
                                             <th>Student ID</th>
@@ -209,13 +214,13 @@
                                             <th>Year Level</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="modalStudentTableBody">
+                                    <tbody id="modalStudentTableBody" >
                                         <!-- Excel data will be displayed here -->
                                     </tbody>
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="excelDataModal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-success" id="uploadToTableButton" @click="this.uploadData()">Upload</button>
                             </div>
                         </div>
@@ -228,29 +233,40 @@
 
 
 </template>
-
 <script>
-
-export default{
-props: ['org_id','school_year_session'],
-data(){
-    return{
-        submit: this.updateData,
-        fetchID: '',
-        collectedData:[],
-        studentList:[],
-        editData: {
-            student_id: '',
-            name: '',
-            email: '',
-            year_level: '',
-        },
-        school_year:[],
-        school_year_input: this.school_year_session,
-        searchTerm: '',
-        filtered_student_list: [],
-    }
-
+export default {
+  props: ['org_id', 'school_year_session'],
+  data() {
+    return {
+      fetchID: '',
+      studentList: [],
+      editData: {
+        student_id: '',
+        name: '',
+        email: '',
+        year_level: '',
+      },
+      school_year: [],
+      school_year_input: this.school_year_session,
+      searchTerm: '',
+      filtered_student_list: [],
+      itemsPerPage: 10,
+      currentPage: 1,
+      totalPages: 0,
+    };
+  },
+computed: {
+    filtered_student_list() {
+        let filteredBySearch = this.studentList;
+        if (this.searchTerm) {
+            const searchTermLower = this.searchTerm.toLowerCase();
+            filteredBySearch = filteredBySearch.filter(item =>
+                item.user.name.toLowerCase().includes(searchTermLower)
+            );
+        }
+        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+        return filteredBySearch.slice(startIndex, startIndex + this.itemsPerPage);
+    },
 },
 mounted(){
     this.upload();
@@ -357,6 +373,21 @@ methods:{
 
 
     },
+    changePage(page) {
+        this.currentPage = page;
+        this.fetchData(page);
+    },
+    fetchData(page = 1) {
+    axios.get(`/student_list/show/${this.org_id}/${this.school_year_input}?page=${page}`)
+      .then(response => {
+        this.studentList = response.data.data;
+        this.totalPages = response.data.last_page;
+        this.currentPage = response.data.current_page;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
     upload(){
         document.getElementById("uploadButton").addEventListener("click", function () {
             document.getElementById("fileInput").click();
@@ -473,3 +504,16 @@ methods:{
 }
 }
 </script>
+<style>
+button.page-link {
+	display: inline-block;
+}
+button.page-link {
+    font-size: 20px;
+    color: #29b3ed;
+    font-weight: 500;
+}
+.offset{
+  width: 500px !important;
+  margin: 20px auto;
+}</style>

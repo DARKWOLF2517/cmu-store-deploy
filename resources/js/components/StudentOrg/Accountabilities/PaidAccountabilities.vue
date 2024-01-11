@@ -150,98 +150,109 @@ export default{
 
 
 
-        printTable() {
-            // Clone the table element to avoid modifying the original table
-            const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+                printTable() {
+    // Clone the table element to avoid modifying the original table
+    const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
 
-            // Remove or hide the "Actions" column in each row
-            const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
-            const rows = tableToPrint.getElementsByTagName('tr');
+    // Remove or hide the "Actions" column in each row
+    const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
+    const rows = tableToPrint.getElementsByTagName('tr');
 
-            for (let i = 0; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                if (cells.length > actionsColumnIndex) {
-                    // Remove the cell from the DOM
-                    cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
-                }
-            }
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        if (cells.length > actionsColumnIndex) {
+            // Remove the cell from the DOM
+            cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
+        }
+    }
 
-            // Hide the header cell for the "Actions" column
-            const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-            if (headerRow) {
-                const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
-                if (headerCell) {
-                    headerCell.style.display = 'none';
-                }
-            }
+    // Hide the header cell for the "Actions" column
+    const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+    if (headerRow) {
+        const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
+        if (headerCell) {
+            headerCell.style.display = 'none';
+        }
+    }
 
-            // Open a new window for printing
-            const printWindow = window.open('', '_blank');
+    // Create a hidden iframe for printing
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
 
-            // Create a new HTML document in the print window
-            printWindow.document.write(`
-                <html>
-                <head>
-                    <title>Print</title>
-                    <!-- Include Bootstrap stylesheet link -->
-                    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-                </head>
-                <body>
-                    <!-- Add a title before the table -->
-                    <h2>Unpaid Accountabilities</h2>
+    // Generate the printable HTML document in the iframe
+    const iframeDoc = iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write(`
+        <html>
+        <head>
+            <title>Print</title>
+            <!-- Include Bootstrap stylesheet link -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        </head>
+        <body>
+            <!-- Add a title before the table -->
+            <h2>Paid Accountabilities</h2>
 
-                    <!-- Add Bootstrap table classes -->
-                    <table class="table table-bordered table-striped">
-                        ${tableToPrint.innerHTML}
-                    </table>
-                </body>
-                </html>
-            `);
+            <!-- Add Bootstrap table classes -->
+            <table class="table table-bordered table-striped">
+                ${tableToPrint.innerHTML}
+            </table>
+        </body>
+        </html>
+    `);
+    iframeDoc.close();
 
-            // Close the HTML document
-            printWindow.document.close();
-            printWindow.print();
-        },
+    // Print the iframe content
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
 
-        downloadTable() {
-            // Get the table data
-            const tableData = this.getTableData();
+    // Remove the iframe after printing
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+    }, 1000);
+},
 
-            // Create a worksheet
-            const ws = XLSX.utils.aoa_to_sheet(tableData);
+    downloadTable() {
+        // Get the table data
+        const tableData = this.getTableData();
 
-            // Create a workbook
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+        // Create a worksheet
+        const ws = XLSX.utils.aoa_to_sheet(tableData);
 
-            // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
-        },
+        // Create a workbook
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
 
-        getTableData() {
-            // Get a reference to the table
-            const table = document.getElementById('accountabilities-table');
-
-            // Initialize an array to store the table data
-            const tableData = [];
-
-            // Iterate through the rows of the table
-            for (let i = 0; i < table.rows.length; i++) {
-                const rowData = [];
-
-                // Iterate through the cells of the current row, excluding the last one
-                for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
-                // Push the cell value to the rowData array
-                rowData.push(table.rows[i].cells[j].textContent);
-                }
-
-                // Push the row data to the tableData array
-                tableData.push(rowData);
-            }
-
-            // Return the table data
-            return tableData;
+        // Save the workbook as an Excel file
+        XLSX.writeFile(wb, 'PaidAccountabilitiesList.xlsx');
     },
+
+    getTableData() {
+        // Get a reference to the table
+        const table = document.getElementById('accountabilities-table');
+
+        // Initialize an array to store the table data
+        const tableData = [];
+
+        // Iterate through the rows of the table
+        for (let i = 0; i < table.rows.length; i++) {
+            const rowData = [];
+
+            // Iterate through the cells of the current row, excluding the last one
+            for (let j = 0; j < table.rows[i].cells.length; j++) {
+            // Push the cell value to the rowData array
+            rowData.push(table.rows[i].cells[j].textContent);
+            }
+
+            // Push the row data to the tableData array
+            tableData.push(rowData);
+        }
+
+        // Return the table data
+        return tableData;
+},
+
 
 
 

@@ -1,25 +1,4 @@
 <template>
-    <!-- <div class="mt-2">
-                <div class="row head-container">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="input-container">
-                            <i class="fa fa-search"></i>
-                            <input type="text" placeholder="Search Event">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-
-                        <div class="select-dropdown">
-                            <select id="sort-select" class="form-control" style="text-align: center;">
-                                <option value="">Select Semester</option>
-                                <option value="option1">1st Semester 2023-2024</option>
-                                <option value="option2">2nd Semester 2022-2023</option>
-                                <option value="option3">1st Semester 2022-2023</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-    </div> -->
     <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-2">
         <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Attendance Record</h4>
@@ -36,9 +15,9 @@
     </div>
 </div>
 
-        <div id="table-container" style="height: 150vh !important;">
+        <div id="table-container" style="height: 800vh !important; max-height: 80vh;">
 
-                <div class="scroll-pane" >
+                <div class="scroll-pane" id="table-list" style="height: 70vh !important; max-height: 70vh;" >
                     <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
                     <p>Date: <b>{{ this.event.event_date }}</b> </p>
                     <table  id="accountabilities-table">
@@ -55,57 +34,59 @@
                                 <td>{{ attendance['user_id'] }}</td>
                                 <td>{{ attendance['user']['name'] }}</td>
                                 <td>In</td>
-                                <!-- <td>
-                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal" >Edit</a></li>
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
-                                    </ul>
-                                </td> -->
+
                             </tr>
                         </tbody>
                     </table>
             </div>
             <div class="pagination-container mt-2">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </div>
+      <ul class="pagination justify-content-center">
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click="changePage(currentPage - 1)">Previous</a>
+        </li>
+        <li v-for="page in totalPages" :key="page" class="page-item" :class="{ active: currentPage === page }">
+          <a class="page-link" href="#" @click="changePage(page)">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <a class="page-link" href="#" @click="changePage(currentPage + 1)">Next</a>
+        </li>
+      </ul>
+    </div>
         </div>
 
 </template>
 
+
 <script>
-import {converTime} from "../Functions/TimeConverter.js";
-import {convertDate} from "../Functions/DateConverter.js";
-export default{
-    props:['organization_id', 'event_id'],
-    data(){
-        return{
-            attendance: [],
-            event: {
-                event_title : '',
-                event_date: '',
-            },
-        }
+import { converTime } from "../Functions/TimeConverter.js";
+import { convertDate } from "../Functions/DateConverter.js";
+
+export default {
+  props: ['organization_id', 'event_id'],
+  data() {
+    return {
+      attendance: [],
+      event: {
+        event_title: '',
+        event_date: '',
+      },
+      rowsPerPage: 7,
+      currentPage: 1,
+    };
+  },
+  computed: {
+    paginatedAttendance() {
+      const startIndex = (this.currentPage - 1) * this.rowsPerPage;
+      const endIndex = startIndex + this.rowsPerPage;
+      return this.attendance.slice(startIndex, endIndex);
     },
-    mounted() {
-        console.log('mounted')
-        this.fetchData();
-        // console.log(this.event_id)
+    totalPages() {
+      return Math.ceil(this.attendance.length / this.rowsPerPage);
     },
+  },
+  mounted() {
+    this.fetchData();
+  },
     methods:{
         fetchData(){
         axios.get(`/attendance/list/${this.organization_id}/${this.event_id}`)
@@ -125,7 +106,11 @@ export default{
 
             });
     },
-
+    changePage(page) {
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+      }
+    },
     },
 }
 

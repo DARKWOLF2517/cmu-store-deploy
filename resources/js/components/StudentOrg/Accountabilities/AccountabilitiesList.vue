@@ -702,58 +702,68 @@ export default{
         },
 
 
-    printTable() {
-        // Clone the table element to avoid modifying the original table
-        const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+        printTable() {
+    // Clone the table element to avoid modifying the original table
+    const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
 
-        // Remove or hide the "Actions" column in each row
-        const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
-        const rows = tableToPrint.getElementsByTagName('tr');
+    // Remove or hide the "Actions" column in each row
+    const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
+    const rows = tableToPrint.getElementsByTagName('tr');
 
-        for (let i = 0; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName('td');
-            if (cells.length > actionsColumnIndex) {
-                // Remove the cell from the DOM
-                cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
-            }
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        if (cells.length > actionsColumnIndex) {
+            // Remove the cell from the DOM
+            cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
         }
+    }
 
-        // Hide the header cell for the "Actions" column
-        const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-        if (headerRow) {
-            const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
-            if (headerCell) {
-                headerCell.style.display = 'none';
-            }
+    // Hide the header cell for the "Actions" column
+    const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+    if (headerRow) {
+        const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
+        if (headerCell) {
+            headerCell.style.display = 'none';
         }
+    }
 
-        // Open a new window for printing
-        const printWindow = window.open('', '_blank');
+    // Create a hidden iframe for printing
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
 
-        // Create a new HTML document in the print window
-        printWindow.document.write(`
-            <html>
-            <head>
-                <title>Print</title>
-                <!-- Include Bootstrap stylesheet link -->
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-            </head>
-            <body>
-                <!-- Add a title before the table -->
-                <h2>Unpaid Accountabilities</h2>
+    // Generate the printable HTML document in the iframe
+    const iframeDoc = iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write(`
+        <html>
+        <head>
+            <title>Print</title>
+            <!-- Include Bootstrap stylesheet link -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        </head>
+        <body>
+            <!-- Add a title before the table -->
+            <h2>Unpaid Accountabilities</h2>
 
-                <!-- Add Bootstrap table classes -->
-                <table class="table table-bordered table-striped">
-                    ${tableToPrint.innerHTML}
-                </table>
-            </body>
-            </html>
-        `);
+            <!-- Add Bootstrap table classes -->
+            <table class="table table-bordered table-striped">
+                ${tableToPrint.innerHTML}
+            </table>
+        </body>
+        </html>
+    `);
+    iframeDoc.close();
 
-        // Close the HTML document
-        printWindow.document.close();
-        printWindow.print();
-    },
+    // Print the iframe content
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Remove the iframe after printing
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+    }, 1000);
+},
 
     downloadTable() {
         // Get the table data
