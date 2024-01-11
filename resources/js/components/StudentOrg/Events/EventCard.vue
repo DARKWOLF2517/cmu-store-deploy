@@ -73,14 +73,14 @@
                             </div>
                             <!-- EVENT CARD -->
                                 <!-- <div class="event-card border-top border-5 border-success border-bottom-0" v-for="event in this.filtered_events" :id="event.event_id" > -->
-                                    <div class="event-card"
-       :class="[
-          'border-top',
-          'border-5',
-          {'border-warning': event.attendance_status === 1, 'border-success': event.attendance_status === 2},
-          'border-bottom-0'
-       ]"
-       v-for="event in filtered_events" :id="event.event_id">
+                                    <div v-for="event in filtered_events" :id="event.event_id" class="event-card"
+                                        :class="[
+                                            'border-top',
+                                            'border-5',
+                                            {'border-warning':  event.attendance_status == 1, 'border-success': event.attendance_status == 2},
+                                            'border-bottom-0'
+                                        ]"
+                                        >
 
 
                                     <div class="dropdown">
@@ -535,10 +535,10 @@
                             item["end_attendance"] = converTime(item["end_attendance"]);
                             item["start_date"] = convertDate(item["start_date"]);
                         });
-                        console.log(response.data);
+                        
                         this.events = response.data;
                         this.filtered_events = this.events;
-
+                        console.log(this.filtered_events);
                     })
                     .catch(error => {
                     // this.loading = false;
