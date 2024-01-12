@@ -11,7 +11,7 @@
         </div>
         <br>
 
-        <table class="table"  >
+        <!-- <table class="table"  >
         <thead>
         <tr>
             <th >Events</th>
@@ -28,11 +28,12 @@
             <td v-if="showDiv1">Present</td>
             <th v-if="showDiv1">Pending</th>
             <th><a  class="btn btn-warning" href ="/student_evaluationform">Evaluate Now</a></th>
-            <!-- <th>Evaluated</th> -->
+
         </tr>
 
         </tbody>
-    </table>
+    </table> -->
+
     </div>
 
 

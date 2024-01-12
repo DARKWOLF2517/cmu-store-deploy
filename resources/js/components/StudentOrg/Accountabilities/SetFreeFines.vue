@@ -38,61 +38,103 @@
         </div>
     </div>
 </div>
-<div id="table-container">
-    <div class="scroll-pane">
-        <table  id="accountabilities-table">
-            <thead>
-                <tr>
-                    <th style="width: 15%;">Student ID</th>
-                    <th>Student Name</th>
-                    <th>Reason</th>
-                    <th style="width: 20%;">Actions</th>
-                </tr>
-            </thead>
-            <tbody >
+    <!-- <tbody >
+                <div v-if="this.loading == true" class="loading-spinner-container">
+                    <div class="spinner-border text-success" id="event-spinner" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 <tr v-for="free_fines in this.filtered_free_fines">
                     <td>{{ free_fines.student_id }}</td>
                     <td>{{ free_fines.user.name }}</td>
                     <td>{{ free_fines.reason }}</td>
                     <td>
                         <span class="table-buttons">
-                                    <button class="btn edit-button" @click="this.submit = this.updateData, this.id = free_fines.student_id,fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
-                                    <button class="btn delete-button" @click="this.submit = this.updateData, this.id = free_fines.student_id,fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-edit"></i></button>
+                                    <button class="btn edit-button" @click="this.submit = this.updateData, this.id = free_fines.student_id,fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button> -->
+                                    <!-- <button class="btn delete-button" @click="this.submit = this.updateData, this.id = free_fines.student_id,fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-edit"></i></button> -->
+                                    <!-- <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button> -->
+                        <!-- </span>
+                    </td>
+                </tr>
+            </tbody> -->
+<div id="table-container">
+
+    <div class="scroll-pane">
+        <table  id="accountabilities-table">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Student ID</th>
+                    <th style="width: 30%;">Student Name</th>
+                    <th style="width: 20%;">Reason</th>
+                    <th style="width: 10%;"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr v-if="loading" class="loading-spinner-container">
+                    <td colspan="4">
+                        <div class="spinner-border text-success" id="event-spinner" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr v-if="!loading && filtered_free_fines.length === 0">
+                    <td colspan="4">
+                        <div class="Container-IfEmpty mb-6">
+                            <div class="Empty-Message">
+                                <i class="icon fas fa-table" id="icon-message"></i>
+                                <p class="mb-0"> <b> Table is Empty</b></p>
+                                <small class="text-muted">Add a student to this list.</small>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!-- <tr v-for="free_fines in filtered_free_fines" :key="free_fines.student_id"> -->
+                    <tr v-for="free_fines in paginatedData" :key="free_fines.student_id">
+                    <td>{{ free_fines.student_id }}</td>
+                    <td>{{ free_fines.user.name }}</td>
+                    <td>{{ free_fines.reason }}</td>
+                    <td>
+                        <span class="table-buttons">
+                            <button class="btn edit-button" @click="submit = updateData, id = free_fines.student_id, fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
+                            <button class="btn delete-button" @click="" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
                         </span>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <div class="pagination-container mt-2">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
+        </li>
+        <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
+          <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+          <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
+        </li>
+      </ul>
+    </div>
+
 </div>
-      <div class="pagination-container mt-3">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-          <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </div>
+
 
       <!-- Delete Confirmation Modal -->
       <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="deleteConfirmModalLabel">Confirm Delete</h5>
+              <!-- <h5 class="modal-title" id="deleteConfirmModalLabel">Confirm Delete</h5> -->
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              Are you sure you want to delete this record?
-            </div>
-            <div class="modal-footer">
+            <div class="modal-body text-center">
+        <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+        <h4><b>Remove Student</b></h4>
+          <p>Are you sure you want to remove this student in this list?</p>
+      </div>
+            <div class="modal-footer ">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
               <button type="button" class="btn btn-danger" @click="this.deleteStudentData()" data-bs-dismiss="modal">Confirm Delete</button>
             </div>
@@ -197,37 +239,41 @@ export default{
       school_year: [],
       searchTerm: '',
       filtered_free_fines: [],
+      currentPage: 1,
+      itemsPerPage: 6,
     }
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.filtered_free_fines.length / this.itemsPerPage);
+    },
+    pageRange() {
+      return Array.from({ length: this.totalPages }, (_, index) => index + 1);
+    },
+    paginatedData() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.filtered_free_fines.slice(start, end);
+    },
   },
   mounted() {
     this.fetchData();
     this.showSchoolYear();
   },
   methods: {
-    printTable() {
+    prevPage() { if (this.currentPage > 1) { this.currentPage--; this.paginatedData = this.filtered_free_fines.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
+    }
+ },
+ nextPage() { if (this.currentPage < this.totalPages) { this.currentPage++; this.paginatedData = this.filtered_free_fines.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
+}
+},
+gotoPage(page) { this.currentPage = page; this.paginatedData = this.filtered_free_fines.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
+ },
+
+
+ printTable() {
     // Clone the table element to avoid modifying the original table
     const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
-
-    // Remove or hide the "Actions" column in each row
-    const actionsColumnIndex = 3; // Assuming "Actions" is the fifth column (index 4)
-    const rows = tableToPrint.getElementsByTagName('tr');
-
-    for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName('td');
-        if (cells.length > actionsColumnIndex) {
-            // Remove the cell from the DOM
-            cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
-        }
-    }
-
-    // Hide the header cell for the "Actions" column
-    const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-    if (headerRow) {
-        const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
-        if (headerCell) {
-            headerCell.style.display = 'none';
-        }
-    }
 
     // Create a hidden iframe for printing
     const iframe = document.createElement('iframe');
@@ -266,7 +312,6 @@ export default{
         document.body.removeChild(iframe);
     }, 1000);
 },
-
     downloadTable() {
         // Get the table data
         const tableData = this.getTableData();

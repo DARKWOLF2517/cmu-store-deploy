@@ -74,12 +74,12 @@
                             <th style="width: 10%;"></th>
                         </tr>
                     </thead>
-                        <tbody id="studentTableBody" v-for="students in this.filtered_student_list" :id="students.student_id">
+                    <tbody>
+                        <tr v-for="student in paginatedData" :key="student.student_id">
                             <!-- Student data will be added here -->
-                                <td>{{ students.student_id }}</td>
-                                <td>{{ students.user.name }}</td>
-                                <td>{{ students.year_level.year_level }}</td>
-
+                            <td>{{ student.student_id }}</td>
+<td>{{ student.user.name }}</td>
+<td>{{ student.year_level.year_level }}</td>
 
                                 <td>
                                     <span class="table-buttons">
@@ -87,23 +87,23 @@
                                     <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i></button>
                                     </span>
                                 </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="pagination-container mt-3">
-                <!-- <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul> -->
+
+                <ul class="pagination justify-content-center">
+  <li class="page-item" :class="{ disabled: currentPage === 1 }">
+    <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
+  </li>
+  <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
+    <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
+  </li>
+  <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+    <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
+  </li>
+</ul>
+
             </div>
  <!-- Add student Modal -->
  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
@@ -247,7 +247,6 @@
 
             </div>
         </div>
-    </div>
 
 
 </template>
@@ -273,9 +272,86 @@ export default {
             searchTerm: '',
             filtered_student_list: [],
             loading : false,
+            currentPage: 1,
+            itemsPerPage: 10,
 
         };
     },
+    computed: {
+    totalPages() {
+      return Math.ceil(this.filtered_student_list.length / this.itemsPerPage);
+    },
+    pageRange() {
+  const start = Math.max(1, this.currentPage - 5);
+  const end = Math.min(this.totalPages, this.currentPage + 5);
+  const range = [];
+
+  if (start > 1) {
+    range.push(1);
+    if (start > 2) {
+      range.push("...");
+    }
+  }
+
+  for (let i = start; i <= end; i++) {
+    range.push(i);
+  }
+
+  if (end < this.totalPages) {
+    if (end < this.totalPages - 1) {
+      range.push("...");
+    }
+    range.push(this.totalPages);
+  }
+
+  return range;
+},
+  paginatedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filtered_student_list.slice(start, start + this.itemsPerPage);
+  },
+    hasEllipsisBefore() {
+    return this.currentPage > 3 && this.totalPages > 5;
+  },
+
+  hasEllipsisAfter() {
+    return this.currentPage < this.totalPages - 2 && this.totalPages > 5;
+  },
+  ellipsisRange() {
+  const range = [];
+  const start = Math.max(this.currentPage - 2, 1);
+  const end = Math.min(start + 4, this.totalPages);
+
+  if (this.hasEllipsisBefore) {
+    range.push(this.ellipsisBefore);
+  }
+
+  for (let i = start; i <= end; i++) {
+    range.push(i);
+  }
+
+  if (end < this.totalPages) {
+    if (end < this.totalPages - 1) {
+      range.push(this.ellipsisAfter);
+    }
+    range.push(this.totalPages);
+  }
+
+  // If there are more than 5 page numbers, remove the ones in the middle
+  if (range.length > 5) {
+    range.splice(3, range.length - 5);
+  }
+
+  return range;
+},
+    ellipsisBefore() {
+      return Math.max(this.currentPage - 5, 1);
+    },
+    ellipsisAfter() {
+      return Math.min(this.currentPage + 5, this.totalPages);
+    },
+  },
+
 mounted(){
     this.upload();
     this.fetchData();
@@ -304,6 +380,29 @@ methods:{
 
             });
     },
+    prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  },
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  },
+
+  gotoPage(page) {
+  if (page === "...") {
+    if (this.currentPage > this.totalPages / 2) {
+      this.currentPage = this.totalPages;
+    } else {
+      this.currentPage = 1;
+    }
+  } else {
+    this.currentPage = page;
+  }
+},
     showSchoolYear(){
         axios.get(`get_school_year/${this.org_id}`)
             .then(response => {

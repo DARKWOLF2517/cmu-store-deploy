@@ -37,9 +37,9 @@ thead th{
     color: rgb(26, 26, 26);
     border-bottom: none !important;
 }
-  /* td{
-    font-size: 14px;
-  } */
+  td{
+    font-weight: normal;
+  }
   th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
