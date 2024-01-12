@@ -10,7 +10,25 @@ td {
     padding: 8px;
     /* border: 1px solid #ddd; */
 }
-
+.accountability-cards-list {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 70vh;
+  }
+.stud-accountability-card{
+    background-color: #ffffff;
+border-radius: 8px;
+margin: 10px;
+padding: 10px;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+width: calc(33.33% - 20px);
+height: 25vh;
+}
 
 
 td{
@@ -181,4 +199,8 @@ max-height: 65vh;
         height: auto;
         margin-bottom: 10px;
     }
+    .stud-accountability-card {
+        width: 100%;
+    }
+
 }

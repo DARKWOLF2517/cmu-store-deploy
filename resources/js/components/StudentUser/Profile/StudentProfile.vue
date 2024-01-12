@@ -1,36 +1,54 @@
 <template>
-    <div class="col mt-2">
+<div class="container d-flex mt-2">
+    <div class="row w-100">
+        <div class="col-md-4 mt-3">
             <div class="qr-code">
-                <h4> <i class="far fa-copy"></i> Student Information</h4>
+                <h5> <i class="far fa-copy"></i> Student Information</h5>
                 <div class="row">
-                    <div class="col-md-2"> <div class="qrcode-img">
+                    <div class="col">
+                        <div class="qrcode-img">
+
                             <qrcode-vue :value="value" :size="size" level="H" class="img-fluid" />
                         </div>
-                    </div>
-                    <div class="col-md-6 profile-details">
-                        <h4>{{ this.profile.name }}</h4>
-                        <p class="mb-0"> <b>Student ID: </b> {{ this.user_id }}</p>
-                        <p class="mb-0"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level }}</span></p>
+                        <h4 class="text-center">{{ this.profile.name }}</h4>
+                        <h5 class="mb-0 text-center text-muted"> <b></b> {{ this.user_id }}</h5>
+                        <p class="mb-0 mt-2"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level }}</span></p>
                         <p class="mb-0"><b>College: </b> <span id="college">{{ this.profile.college }}</span></p>
-                        <p><b>Department: </b> <span id="department"></span></p>
+                        <!-- <p><b>Department: </b> <span id="department"></span></p> -->
                     </div>
 
             </div>
+            <div class="mt-3">
+            <div class="profile-buttons">
+                <button class="btn btn-light w-100"> <i class="fas fa-download"></i> Download QR</button>
+                <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button>
+                <button class="btn btn-light w-100 mt-2"> <i class="fas fa-sun"></i> Reset Password</button>
+            </div>
+        </div>
         </div>
     </div>
 
-        <div class="col mt-3">
+    <div class="col mt-3">
+
                 <div class="organizations"  role="tabpanel" aria-labelledby="organization-tab">
-                    <h4> <b><i class="far fa-copy"></i> Organizations</b> </h4>
+
+                    <h5> <i class="far fa-copy"></i> Organizations </h5>
                     <div class="org-under-info">
+                        <div v-if="loading" class="loading-spinner">
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
                         <ul v-for="organization in this.organization" :id="organization.student_org_id">
-                            <li><b>{{ organization['organization']['name'] }}</b></li>
+                            <li>{{ organization['organization']['name'] }}</li>
                             <!-- Add more club items here -->
                         </ul>
                     </div>
                 </div>
         </div>
+</div>
 
+</div>
 </template>
 <!--
 <script>
@@ -56,7 +74,7 @@
 
 
 
-
+<!--
 <script>
 import QrcodeVue from 'qrcode.vue';
 
@@ -80,6 +98,7 @@ export default {
     },
     methods: {
         FetchUserData() {
+
             axios.get(`/organization/${this.user_org}`)
                 .then(response => {
 
@@ -128,4 +147,77 @@ export default {
     QrcodeVue,
     },
 }
+</script> -->
+<script>
+import axios from 'axios';
+import QrcodeVue from 'qrcode.vue';
+
+export default {
+  props: ['user_id', 'user_org'],
+  data() {
+    return {
+      loading: false, // Added loading property
+      profile: {
+        name: '',
+        year_level: '',
+        college: '',
+        department: '',
+      },
+      organization: [],
+      size: 150,
+      value: this.user_id,
+    };
+  },
+  created() {
+    this.FetchUserData();
+  },
+  methods: {
+    FetchUserData() {
+      this.loading = true; // Set loading to true before making the API call
+
+      axios.get(`/organization/${this.user_org}`)
+        .then(response => {
+          this.profile.college = response.data['name'];
+        })
+        .catch(error => {})
+        .finally(() => {
+          // Set loading to false after the API call is complete
+          this.loading = false;
+        });
+
+      axios.get(`profile/${this.user_id}`)
+        .then(response => {
+          const data = response.data;
+          data.forEach(item => {
+            this.profile.name = item['user']['name'];
+            this.profile.year_level = item['year_level'];
+          });
+
+          //get the organization list
+          this.organization = response.data;
+          // Create a Map to store unique objects based on student_org_id
+          const uniqueOrganizationMap = new Map();
+
+          this.organization.forEach(item => {
+            const student_org_id = item.student_org_id;
+
+            // Check if the student_org_id is not already in the Map
+            if (!uniqueOrganizationMap.has(student_org_id)) {
+              // Add the item to the Map with student_org_id as the key
+              uniqueOrganizationMap.set(student_org_id, item);
+            }
+          });
+
+          // Convert the Map values back to an array
+          this.organization = Array.from(uniqueOrganizationMap.values());
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+  },
+  components: {
+    QrcodeVue,
+  },
+};
 </script>

@@ -47,7 +47,7 @@
         <div class="announcement-list">
             <div class="col">
                     <div class="announcement-cards-list ">
-                            <div class="announcement-card border-top border-5 border-success border-bottom-0 py-3">
+                            <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
                                 <div class="dropdown">
                                     <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fas fa-ellipsis-h"></i>

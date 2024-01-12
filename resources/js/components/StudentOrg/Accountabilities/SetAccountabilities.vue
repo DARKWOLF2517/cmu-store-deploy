@@ -64,8 +64,13 @@
                       <li @click="this.id = accountability.accountability_id"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation" ><a class="dropdown-item">Delete Accountability</a></li>
                   </ul>
               </div>
-              <h2 class="text-center mt-5">{{ accountability['accountability_name']}}</h2>
-              <h4 class="text-center">Php {{ accountability['amount'] }}</h4>
+              <span class="mt-4">
+                <span> <h2 class="text-center"><i class="bi bi-wallet2"></i></h2></span>
+
+              <h2 class="text-center "> <b>{{ accountability['accountability_name']}}</b> </h2>
+              <h4 class="text-center" style="color: #69ab9d; font-weight: bold;">&#8369; {{ accountability['amount'] }}</h4>
+              </span>
+
               </div>
       </div>
     </div>

@@ -1,16 +1,18 @@
 @extends('layouts.student_navigation_bar')
-@section('main-content')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+@section('custom-style')
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+@endsection
+@section('main-content')
 <div class="page-content-wapper">
     <div class="content">
         <div class="page-container">
-        <div class="col breadcrumbs">
+        <div class=" breadcrumbs">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item">Student Organization</li>
+                <li class="breadcrumb-item"><a href="/student_dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item">Student</li>
                 <li class="breadcrumb-item active" aria-current="page">Accountabilities</li>
             </ol>
             </nav>
