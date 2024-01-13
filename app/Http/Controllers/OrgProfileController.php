@@ -8,6 +8,7 @@ use App\Models\OrganizationOfficer;
 use App\Models\Role;
 use App\Models\SchoolYear;
 use App\Models\UserOrganization;
+use App\Models\YearLevel;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
 
@@ -279,5 +280,45 @@ class OrgProfileController extends Controller
         
     
     }
+    public function fetchYearLevel($org_id)
+    {
+        $YearLevel = YearLevel::where([['org_id', $org_id] ])->get();
+        return $YearLevel;
+    }
 
+    public function addYearLevel(Request $request)
+    {
+        // Validate the form data
+        $validatedData = $this->validate($request,[
+            'org_id' => 'required',
+            'year_level' => 'required',
+        ]);
+
+        // // Create a new School Year instance
+        $YearLevel = new YearLevel([
+            'org_id' => $validatedData['org_id'],
+            'year_level' => $validatedData['year_level'],
+            
+        ]);
+        $YearLevel->save();
+        return response()->json(['message' => 'School Year added Successfully']);
+
+    }
+    public function DeleteYearLevel(YearLevel $id)
+    {
+        $id->delete();
+        return response()->json(['message' => 'Year Level Deleted successfully']);
+        // return $id;
+    }
+    public function yearLevelFetchUpdate($id)
+    {   
+        $YearLevel = YearLevel::find($id);
+        return $YearLevel;
+    }
+    public function updateYearLevel($id, Request $request)
+    {
+            $updateYearLevel = YearLevel::find($id);
+            $updateYearLevel->update(['year_level' => $request['year_level']]);
+            return response()->json(['message' => 'Role Updated Successfully']);
+    }
 }
