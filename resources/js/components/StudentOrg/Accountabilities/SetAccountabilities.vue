@@ -17,8 +17,11 @@
       </div>
     </div>
     </div>
-    <div class="alert alert-info mt-2" role="alert">
-                <b><i class="fas fa-info"></i> Note!</b>  This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
+    <div class="alert alert-light mt-2" role="alert" style=" border-left-style: solid; border-left-color: #007bff; border-left-width: 4px;">
+        <span style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #007bff; text-align: center; line-height: 30px;">
+    <i class="fas fa-info text-white"></i>
+</span>
+ This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
                 <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <div class="container-fluid">
@@ -52,7 +55,7 @@
         </div>
       </div>
       <div class="accountabilities-cards">
-          <div class="accountability-card" v-for="accountability in this.filtered_accountabilities">
+          <div class="accountability-card border-top border-5 border-success border-bottom-0" v-for="accountability in this.filtered_accountabilities">
               <div class="dropdown">
                   <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                       <i class="fas fa-ellipsis-h"></i>
@@ -65,10 +68,14 @@
                   </ul>
               </div>
               <span class="mt-4">
-                <span> <h2 class="text-center"><i class="bi bi-wallet2"></i></h2></span>
+                <!-- <div style="text-align: center;">
+                    <span style="display: inline-block; border-radius: 10px; width: 50px; height: 50px; background-color: #357960; padding: 5px;"> -->
+                        <h2 class="text-center bold"><i class="bi bi-wallet2 text-secondary"></i></h2>
+                    <!-- </span>
+                </div> -->
 
               <h2 class="text-center "> <b>{{ accountability['accountability_name']}}</b> </h2>
-              <h4 class="text-center" style="color: #69ab9d; font-weight: bold;">&#8369; {{ accountability['amount'] }}</h4>
+              <h4 class="text-center" style="color: #357960; font-weight: bold;">&#8369; {{ accountability['amount'] }}</h4>
               </span>
 
               </div>
@@ -110,25 +117,29 @@
         </div>
     </div>
 
-
-    <!-- Add this modal code after your existing modal -->
-    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <p>Are you sure you want to delete this student?</p>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-danger" @click="deleteAccountability()" data-bs-dismiss="modal">Delete</button>
-          </div>
-        </div>
+<!-- Add this modal code after your existing modal -->
+<div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+          <!-- <h5 class="modal-title" id="deleteConfirmationLabel">
+         Confirm Delete
+          </h5> -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+        <h4><b>Delete accountability</b></h4>
+          <p>Are you sure you want to delete this Accountability?</p>
+      </div>
+      <div class="modal-footer ">
+          <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger px-4" @click="deleteAccountability()" data-bs-dismiss="modal">Delete</button>
       </div>
     </div>
+  </div>
+</div>
+
 
 </template>
 <script>
