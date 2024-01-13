@@ -220,13 +220,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteYearLevelConfirmationLabel">Delete Year Level</h5>
+                <!-- <h5 class="modal-title" id="deleteYearLevelConfirmationLabel">Delete Year Level</h5> -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this year level?</p>
-                <!-- Display additional information about the year level if needed -->
-            </div>
+            <div class="modal-body text-center">
+                                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                                <h4><b>Delete Year level</b></h4>
+                                <p>Are you sure you want to remove this year level?</p>
+                            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" @click="this.deleteYearLevel()" data-bs-dismiss="modal">Delete</button>
@@ -299,12 +300,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5>
+                <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete this School Year</p>
-            </div>
+            <div class="modal-body text-center">
+                                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                                <h4><b>You are about to delete a semester</b></h4>
+                                <p>Are you sure you want to remove this semester? This will be permanently deleted, along with its data.</p>
+                            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-danger" @click="this.deleteSchoolYear" data-bs-dismiss="modal">Delete</button>
@@ -404,11 +407,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="removeUserModalLabel">Delete User</h5>
+                <!-- <h5 class="modal-title" id="removeUserModalLabel">Delete User</h5> -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure to remove this User this role?</p>
+            <div class="modal-body text-center">
+                                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                                <h4><b> Remove a role to this user</b></h4>
+                                <p>Are you sure you want to remove role to this user? This user will no longer have privelege.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -468,11 +473,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="removeOfficerModalLabel">Remove Officer</h5>
+                <!-- <h5 class="modal-title" id="removeOfficerModalLabel">Remove Officer</h5> -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to remove this officer?</p>
+            <div class="modal-body text-center">
+                                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                                <h4><b>You are about to remove this Officer</b></h4>
+                                <p>Are you sure you want to remove this Officer?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
