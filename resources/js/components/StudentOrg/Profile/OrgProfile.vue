@@ -17,7 +17,7 @@
             <div class="profile-details mt-2">
                 <h5><b> {{ this.orgProfile.name }}</b></h5>
                 <span class="description-container">
-                <!-- <small >{{ this.orgProfile.description }}</small> -->
+                <small >{{ this.orgProfile.description }}</small>
             </span>
             </div>
         </div>
@@ -178,7 +178,7 @@
             <div class="year-level" style="width: 100%; padding-left: 10px" >
                 <div class="d-flex justify-content-between align-items-center mb-3 header">
                     <h5><b>Year Levels</b></h5>
-                    <button class="btn button-secondary" id="addYearLevelButton" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" > <i class="fas fa-plus"></i>  </button>
+                    <button class="btn button-secondary" id="addYearLevelButton" @click="this.clearAddYearLevel(),  this.year_level_submit = this.addYearLevel" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" > <i class="fas fa-plus"></i>  </button>
                 </div>
 
                 <div class="table-responsive">
@@ -191,8 +191,8 @@
                         </thead>
                         <tbody>
                             <!-- Adjust the v-for loop based on your data structure for year levels -->
-                            <tr>
-                                <td>1st Year</td>
+                            <tr v-for="year_level in this.year_level_data">
+                                <td>{{ year_level.year_level }}</td>
                                 <td>
                                     <!-- Adjust the actions based on your requirements -->
                                     <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdownYearLevel" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
@@ -200,9 +200,9 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdownYearLevel">
                                         <!-- Edit Year Level -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addYearLevelModal">Edit</a></li>
+                                        <li><a class="dropdown-item" @click="this.year_level_id = year_level.id,this.year_level_submit = this.updateYearLevel, this.yearLevelFetchUpdate()" data-bs-toggle="modal" data-bs-target="#addYearLevelModal">Edit</a></li>
                                         <!-- Delete Year Level -->
-                                        <li><a class="dropdown-item" @click="this.yearLevelId = yearLevel.id" data-bs-toggle="modal" data-bs-target="#deleteYearLevelConfirmation">Delete</a></li>
+                                        <li><a class="dropdown-item" @click="this.year_level_id = year_level.id" data-bs-toggle="modal" data-bs-target="#deleteYearLevelConfirmation">Delete</a></li>
                                     </ul>
                                 </td>
                             </tr>
@@ -230,7 +230,7 @@
                             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" @click="deleteYearLevelConfirm">Delete</button>
+                <button type="button" class="btn btn-danger" @click="this.deleteYearLevel()" data-bs-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
@@ -320,20 +320,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addYearLevelModalLabel">Add Year Level</h5>
+                <h5 class="modal-title" id="addYearLevelModalLabel" v-if="this.year_level_submit == this.addYearLevel" >Add Year Level</h5>
+                <h5 class="modal-title" id="addYearLevelModalLabel" v-else-if="this.year_level_submit == this.updateYearLevel" >Edit Year Level</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Your form fields for adding a year level -->
-                <form>
+                <form @submit.prevent="this.year_level_submit">
                     <div class="mb-3">
                         <label for="yearLevelInput" class="form-label">Year Level</label>
-                        <input type="text" class="form-control" id="yearLevelInput" placeholder="Enter Year Level">
+                        <input type="text" class="form-control" id="yearLevelInput" placeholder="Enter Year Level" v-model="year_level_input.year_level">
                     </div>
                     <!-- Add more form fields as needed -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="addYearLevel">Add Year Level</button>
+                    <button type="submimt" class="btn btn-primary"  data-bs-dismiss="modal">Add Year Level</button>
                 </div>
 
                 </form>
@@ -648,7 +649,7 @@ import 'vue3-toastify/dist/index.css';
 
 export default{
 
-    props:['org_id','user_id','school_year_session'],
+    props:['org_id','user_id','school_year_session', 'college_id'],
     data(){
         return{
             addSchoolYears: {
@@ -694,6 +695,13 @@ export default{
 
             },
             school_year_org_profile:'',
+            year_level_submit: this.addYearLevel,
+            year_level_id: 0,
+            year_level_data:[],
+            year_level_input:{
+                org_id: this.org_id,
+                year_level: ''
+            }
         }
     },
     mounted(){
@@ -704,11 +712,64 @@ export default{
         this.fetchRoles();
         this.showOfficerRole();
         this.showOrgTotalMembers();
+        this.showYearLevel();
 
 
 
     },
     methods: {
+        updateYearLevel(){
+            axios.put(`/update_year_level/${this.year_level_id}`, this.year_level_input)
+                .then(response => {
+                    // console.log(response.data)
+                    this.showSucces(response.data.message);
+                    this.showYearLevel();
+
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        yearLevelFetchUpdate(){
+            axios.get(`/year_level_fetch_update/${this.year_level_id}`)
+                .then(response => {
+                    this.year_level_input = response.data;
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        deleteYearLevel(){
+            axios.delete(`/delete_year_level/${this.year_level_id}`)
+                .then(response => {
+                    // console.log(response.data)
+                    this.showSucces(response.data.message);
+                    this.showYearLevel();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        addYearLevel(){
+            axios.post('/add_year_level', this.year_level_input)
+                .then(response => {
+                    this.showSucces(response.data.message);
+                    this.showYearLevel();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        showYearLevel(){
+            axios.get(`/view_year_level/${this.org_id}`)
+                .then(response => {
+                    this.year_level_data = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         updateOrgProfileDetails(){
             // console.log(this.org_details_profile_input)
             if(this.org_details_profile_input.school_year == 0){
@@ -815,12 +876,13 @@ export default{
             // console.log(this.orgOfficers)
             // initialize data
             let year_level = this.orgOfficers.find(item => item.student_id == this.addOfficerRoleData.student_id);
-            this.addOfficerRoleData= {
+            this.addOfficerRoleData = {
                 student_org_id:  this.addOfficerRoleData.student_org_id,
                 student_id:  this.addOfficerRoleData.student_id,
                 role_id:  this.addOfficerRoleData.role_id,
                 year_level_id: year_level.year_level_id,
                 school_year: this.school_year_session,
+                college_id: this.college_id,
             }
 
             // console.log(this.addOfficerRoleData)
@@ -925,8 +987,14 @@ export default{
         fetchNameInputOrgOfficer(){
             axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}`)
                 .then(response => {
-                    this.nameFilterAddOfficer = response.data.user.name;
+                    if(response.data != 1){
+                        this.nameFilterAddOfficer = response.data.user.name;
+                    }
+                    else{
+                        this.nameFilterAddOfficer = [];
+                    }
                     // console.log(response.data)
+                
                 })
                 .catch(error => {
                     console.log(error)
@@ -1045,6 +1113,13 @@ export default{
                 role_id: '',
                 year_level_id: '',
             }
+        },
+        clearAddYearLevel(){
+            this.year_level_input={
+                org_id: this.org_id,
+                year_level: ''
+            }
+
         },
     },
 

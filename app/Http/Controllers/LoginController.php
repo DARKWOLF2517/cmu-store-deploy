@@ -30,8 +30,6 @@ class LoginController extends Controller
 
                 session(['many_user' =>  'true']);
                 return '4';
-
-                
             }
             else{
                 //if the user has only ONE org or role
@@ -46,6 +44,7 @@ class LoginController extends Controller
                             session(['org_id' =>  $userOrganization->student_org_id]);
                             session(['org_name' =>  $userOrganization->organization->name]);
                             session(['role' =>  $userOrganization->role_id]);
+                            session(['college_id' =>  $userOrganization->college_id]);
                             //tells when there is only one user
                             session(['many_user' =>  'false']);
                             if($userOrganization->role_id == 1){
@@ -67,6 +66,7 @@ class LoginController extends Controller
                             session(['org_id' =>  $userOrganization->student_org_id]);
                             session(['org_name' =>  $userOrganization->organization->name]);
                             session(['role' =>  $userOrganization->role_id]);
+                            session(['college_id' =>  $userOrganization->college_id]);
                             // return $userOrganization->school_year;
                             return $userOrganization->role_id;
                         }
@@ -80,6 +80,7 @@ class LoginController extends Controller
                         session(['org_id' =>  $userOrganization->student_org_id]);
                         session(['org_name' =>  $userOrganization->organization->name]);
                         session(['role' =>  $userOrganization->role_id]);
+                        session(['college_id' =>  $userOrganization->college_id]);
                         // return $userOrganization->school_year;
                         return $userOrganization->role_id;
                     }
@@ -147,6 +148,7 @@ class LoginController extends Controller
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
                 session(['role' =>  $userOrganization->role_id]);
+                session(['college_id' =>  $userOrganization->college_id]);
                 // return $userOrganization->school_year;
                 return $userOrganization->role_id;
             }
@@ -156,6 +158,7 @@ class LoginController extends Controller
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
                 session(['role' =>  $userOrganization->role_id]);
+                session(['college_id' =>  $userOrganization->college_id]);
                 // return $userOrganization->school_year;
                 return $userOrganization->role_id;
             }
@@ -168,6 +171,8 @@ class LoginController extends Controller
             session(['school_year' =>  0]);
             session(['org_id' =>  $userOrganization->student_org_id]);
             session(['org_name' =>  $userOrganization->organization->name]);
+            session(['role' =>  $userOrganization->role_id]);
+            session(['college_id' =>  $userOrganization->college_id]);
             // return $userOrganization->school_year;
             return $userOrganization->role_id;
         }

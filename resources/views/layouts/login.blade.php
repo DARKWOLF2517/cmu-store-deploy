@@ -7,15 +7,35 @@
   <title>Login Page</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link href="{{ asset('custom_css/Login.css') }}" rel="stylesheet">
+  <link href="custom_css/Login.css" rel="stylesheet">
   {{-- <script src="{{ asset('js/app.js') }}" defer> --}}
 
-  {{-- icon for webpage tab --}}
+
   <link rel="icon" href="{{ url('https://i.pinimg.com/736x/00/eb/c7/00ebc7ed5034e9f18acae56a19966099--flat-illustration-stock-illustrations.jpg') }}">
 
   {{-- @vite('resources/js/app.js''vendor/courier/build') --}}
   @vite('resources/js/app.js', 'build')
+  <style>
+    .top-nav {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: #42b385;
+    color: #ffffff;
+    padding: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.125rem;
 
+    }
+    .top-nav {
+        align-items: center;
+        color: #ffffff;
+        text-decoration: none;
+        margin-right: 0.625rem;
+    }
+  </style>
 </head>
 
 <body>

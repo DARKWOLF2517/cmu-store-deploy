@@ -36,11 +36,10 @@ class EventController extends Controller
     }
     public function getEventsForCalendar($org_id, $school_year)
     {
-        $events = Event::select(DB::raw('name as title', 'start_date as start', 'end_date as end'))->get();
+        $events = Event::select(DB::raw('name as title', 'start_date as start'))->get();
         
         $events = Event::select(('name as title'),
-                                DB::raw("CONCAT(start_date, 'T', start_attendance) as start"),
-                                DB::raw("CONCAT(end_date, 'T', end_attendance) as end"))->where([['org_id', $org_id], ['school_year', $school_year]])->get();
+                                DB::raw("CONCAT(start_date, 'T', start_attendance) as start"))->where([['org_id', $org_id], ['school_year', $school_year]])->get();
         return $events->toJson();
         // return $org_id;
     }
@@ -65,7 +64,6 @@ class EventController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'start_date' => 'required|date',
-            'end_date' => 'required|date',
             'start_attendance' => 'required',
             'end_attendance' => 'required',
             'location' => 'required',
@@ -81,7 +79,6 @@ class EventController extends Controller
         $event = new Event();
         $event->name = $validatedData['name'];
         $event->start_date = $validatedData['start_date'];
-        $event->end_date = $validatedData['end_date'];
         $event->start_attendance = $validatedData['start_attendance'];
         $event->end_attendance = $validatedData['end_attendance'];
         $event->location = $validatedData['location'];

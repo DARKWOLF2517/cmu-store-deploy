@@ -14,7 +14,6 @@
                 <div class="modal-body">
                     <p><strong>Title:</strong> <span id="eventTitle"></span></p>
                     <p><strong>Start:</strong> <span id="eventStart"></span></p>
-                    <p><strong>End:</strong> <span id="eventEnd"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -59,6 +58,7 @@ export default {
                 axios.get(`/calendar/${this.org_id}/${this.school_year_session}`)
                     .then(response => {
                         this.calendarOptions.events = response.data;
+                        console.log(response.data)
                     })
                     .catch(error => {
 
@@ -71,7 +71,6 @@ export default {
             // Display event details in the modal
             document.getElementById('eventTitle').textContent = info.event.title;
             document.getElementById('eventStart').textContent = info.event.start;
-            document.getElementById('eventEnd').textContent = info.event.end;
 
             // Show the modal
             let modal = new Modal(document.getElementById('eventModal'));

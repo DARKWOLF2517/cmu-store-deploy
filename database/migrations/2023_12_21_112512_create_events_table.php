@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id('event_id');
             $table->string('name');
             $table->date('start_date');
-            $table->date('end_date');
             $table->time('start_attendance');
             $table->time('end_attendance');
             $table->string('location');
