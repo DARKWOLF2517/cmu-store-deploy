@@ -78,6 +78,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/attendance/show/{event_id}/{org_id}/{session}',[AttendanceController::class, 'showAttendanceList']);
     Route::get('back_to_schedule', [AttendanceController::class, 'back']);
 
+    #Change password Page
+    Route::get('change_password', function () {
+        return view('layouts.set_new_password');
+    });
 
 #ORG ROUTE
     Route::middleware(['user-role:1'])->group(function(){

@@ -15,7 +15,7 @@
             <!-- Profile content -->
             <img id="profileImage" src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="profile photo">
             <div class="profile-details mt-2">
-                <h5><b> {{ this.orgProfile.name }}</b></h5>
+                <h6><b> {{ this.orgProfile.name }}</b></h6>
                 <span class="description-container">
                 <small >{{ this.orgProfile.description }}</small>
             </span>
@@ -994,7 +994,7 @@ export default{
                         this.nameFilterAddOfficer = [];
                     }
                     // console.log(response.data)
-                
+
                 })
                 .catch(error => {
                     console.log(error)

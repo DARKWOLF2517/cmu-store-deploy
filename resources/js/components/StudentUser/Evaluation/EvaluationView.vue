@@ -5,9 +5,7 @@
                 <h6> Total number of Attendance made: 4 </h6> -->
                 <table class="mt-4">
                     <thead >
-                        <!-- <tr>
-                            <th class="sortable-header center" colspan="5">September 3, 2023</th>
-                        </tr> -->
+
                         <tr>
                             <th class="sortable-header">Log in</th>
                             <th class="sortable-header"> Log out</th>

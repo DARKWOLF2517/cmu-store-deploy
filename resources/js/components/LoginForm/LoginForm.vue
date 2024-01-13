@@ -21,6 +21,7 @@
             </div>
             <input type="password" class="form-control rounded-left" placeholder="Password" required name="password" v-model="form.password">
             </div>
+
         </div>
         <!-- <div class="form-group d-md-flex">
             <div class="w-50">
@@ -29,6 +30,9 @@
                 Remember Me
             </label>
             </div>
+        </div> -->
+        <!-- <div class="form-group d-md-flex">
+                <a href="#" class="text-primary">Forgot Password</a>
         </div> -->
         <p class="text-danger error-message" id="error-message" v-if="this.error == 'user_creadential_error'">Incorrect username or password. Please try again.</p>
         <p class="text-danger error-message" id="error-message" v-else-if="this.error == 'not_tagged_error'">You Are Not Tagged in Any organization.</p>
@@ -43,7 +47,7 @@
 export default {
 data() {
     return {
-        
+
     form: {
         email: '',
         password: ''

@@ -130,7 +130,7 @@
 }
 
 .top-nav .profile-dropdown .profile-name {
-    margin-right: 0.3125rem; /* Converted from 5px */
+    margin-right: 0.3125rem;
 }
 .rotate-icon .fas.fa-chevron-down {
     transition: transform 0.5s ease-in-out;
@@ -328,6 +328,10 @@ margin-right: 0;
 
     .nav-link-text {
         margin-left: 35px;
+        font-size: 15px;
+    }
+    .profile-name{
+        font-size: 14px;
     }
 }
 

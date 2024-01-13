@@ -1,5 +1,5 @@
 <template>
-<div class="container d-flex mt-2">
+<div class="student-profile-container mt-2">
     <div class="row w-100">
         <div class="col-md-4 mt-3">
             <div class="qr-code">
@@ -18,17 +18,16 @@
                     </div>
 
             </div>
-            <div class="mt-3">
-            <div class="profile-buttons">
-                <button class="btn btn-light w-100"> <i class="fas fa-download"></i> Download QR</button>
-                <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button>
-                <button class="btn btn-light w-100 mt-2"> <i class="fas fa-sun"></i> Reset Password</button>
+
+            <div class="profile-buttons mt-2">
+                <button class="btn btn-primary w-100"> <i class="fas fa-download"></i> Download QR</button>
+                <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
+                <a class="btn btn-secondary w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Reset Password</a>
             </div>
-        </div>
         </div>
     </div>
 
-    <div class="col mt-3">
+    <div class=" col-md-8 mt-3">
 
                 <div class="organizations"  role="tabpanel" aria-labelledby="organization-tab">
 
