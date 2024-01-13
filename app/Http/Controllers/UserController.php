@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
-    public function GetMemberList($org_id)
-    {
-        $memberList = UserOrganization::where([['student_org_id', $org_id],['role_id', 2]])->with(['user','organization'])->get();
-        return $memberList->toJson();
-    }
+        public function GetMemberList($org_id)
+        {
+            $memberList = UserOrganization::where([['student_org_id', $org_id],['role_id', 2]])->with(['user','organization'])->get();
+            return $memberList->toJson();
+        }
 
         //fetch user profile
         public function getUserOrganization($org_id){
@@ -27,7 +27,7 @@ class UserController extends Controller
 
         }
         public function getUserProfile($student_id){
-            $user_organization = UserOrganization::where('student_id',$student_id)->with(['organization','user'])->get();
+            $user_organization = UserOrganization::where('student_id',$student_id)->with(['organization','user','yearLevel'])->get();
                 return $user_organization;
 
         }
