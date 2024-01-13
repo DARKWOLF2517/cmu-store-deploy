@@ -475,7 +475,6 @@ methods:{
 
             // Get a reference to the table
             var table = document.getElementById("tableModal");
-
             // Initialize an empty array to store the data
             var data = [];
 
@@ -483,17 +482,27 @@ methods:{
             for (var i = 1; i < table.rows.length; i++) {
                 var row = table.rows[i];
                 var rowData = [];
+
                 for (var j = 0; j < row.cells.length; j++) {
                     var cell = row.cells[j];
-                    rowData.push(cell.textContent);
+                    var cellContent = cell.textContent.trim(); // Trim to remove leading/trailing whitespaces
 
+                    // Check if the cell is not empty before pushing it into the rowData array
+                    if (cellContent !== "") {
+                        rowData.push(cellContent);
+                    }
                 }
-            data.push(rowData);
+
+                // Check if the rowData array is not empty before pushing it into the data array
+                if (rowData.length > 0) {
+                    data.push(rowData);
+                }
             }
+
 
                 if (data[0].length == 3){
                     this.collectedData = data;
-                    // console.log(data)
+                    
                     // Display the extracted data in the console
                     this.loading = true;
                     axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input}/${this.year_level_data_input}`, { data: this.collectedData })
@@ -504,7 +513,7 @@ methods:{
                             // Hide modal 
                         
                             if (response.data.type == 0) {
-                                this.showError(response.data.message);
+                                this.showError('Error File');
                             }
                             else{
                                 this.showSucces(response.data.message);

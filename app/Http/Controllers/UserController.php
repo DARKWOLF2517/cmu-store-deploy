@@ -6,6 +6,8 @@ use App\Models\College;
 use App\Models\Organization;
 use App\Models\User;
 use App\Models\UserOrganization;
+use Error;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -38,10 +40,13 @@ class UserController extends Controller
             return $count;
         }
     
-        public function UserOrgRepitition($id)
+        public function UserOrgRepitition($id , $org_id, $school_year)
         {
             $records = UserOrganization::where([
                 ['student_id', $id],
+                ['student_org_id', $org_id],
+                ['school_year', $school_year], 
+
             ])->get();
             $count = $records->count();
             return $count;
@@ -52,41 +57,53 @@ class UserController extends Controller
 
             $org_id = Session::get('org_id');
             $data = $request->input('data');
-            foreach ($data as $row) {
-                if($this->UserRepitition($row[0]) >= 1)
-                {
-                    // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
-                }
-                else{
-                    $user = new User();
-                    $user->id = $row[0];
-                    $user->name = $row[1] . ' '. $row[2] ;
-                    $user->email = strtolower(str_replace(' ', '', $row[1]. $row[0]));
-                    $user->password = Hash::make($row[0]);
-                    $user->save();
-                }
-            }
-            foreach ($data as $row) {
-                
-                if($this->UserOrgRepitition($row[0]) >= 1)
-                {
-                    // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
-                }
-                else{
-                    $userOrg = new UserOrganization();
-                    $userOrg->student_org_id = $org_id;
-                    $userOrg->student_id = $row[0];
-                    $userOrg->role_id = '2' ;
-                    $userOrg->year_level_id = $year_level;
-                    $userOrg->school_year = $school_year;
-                    $userOrg->college_id = $college;
-                    $userOrg->save();
-                }
 
+
+            try {
+                // Code that may throw an exception
+                foreach ($data as $row) {
+                    if($this->UserRepitition($row[0]) >= 1 )
+                    {
+                        // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                    }
+                    else{
+                        $user = new User();
+                        $user->id = $row[0];
+                        $user->name = $row[1] . ' '. $row[2] ;
+                        $user->email = strtolower(str_replace(' ', '', $row[1]. $row[0]));
+                        $user->password = Hash::make($row[0]);
+                        $user->save();
+                    }
+                }
+                foreach ($data as $row) {
+                    
+                    if($this->UserOrgRepitition($row[0], $org_id, $school_year)  >= 1) 
+                    {
+                        // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                    }
+                    else{
+                        $userOrg = new UserOrganization();
+                        $userOrg->student_org_id = $org_id;
+                        $userOrg->student_id = $row[0];
+                        $userOrg->role_id = '2' ;
+                        $userOrg->year_level_id = $year_level;
+                        $userOrg->school_year = $school_year;
+                        $userOrg->college_id = $college;
+                        $userOrg->save();
+                    }
+    
+                }
+    
+                return response()->json(['message' => 'Students Added Successfully','type' => 1]);
+                // Optionally, you can return a response indicating success or redirection
+            } catch (Exception $e) {
+                // Code to handle the exception
+                return response()->json(['message' => "An exception occurred: " . $e,'type' => 0]);
+            } catch (Error $e) {
+                // Code to handle errors (PHP 7 and later)
+                return response()->json(['message' => "An error occurred: " . $e,'type' => 0]);
             }
 
-            return response()->json(['message' => 'Students Added Successfully','type' => 1]);
-            // Optionally, you can return a response indicating success or redirection
             
         }
 
