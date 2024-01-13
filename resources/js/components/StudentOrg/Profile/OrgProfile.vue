@@ -17,7 +17,7 @@
             <div class="profile-details mt-2">
                 <h5><b> {{ this.orgProfile.name }}</b></h5>
                 <span class="description-container">
-                <!-- <small >{{ this.orgProfile.description }}</small> -->
+                <small >{{ this.orgProfile.description }}</small>
             </span>
             </div>
         </div>
@@ -641,7 +641,7 @@ import 'vue3-toastify/dist/index.css';
 
 export default{
 
-    props:['org_id','user_id','school_year_session'],
+    props:['org_id','user_id','school_year_session', 'college_id'],
     data(){
         return{
             addSchoolYears: {
@@ -808,12 +808,13 @@ export default{
             // console.log(this.orgOfficers)
             // initialize data
             let year_level = this.orgOfficers.find(item => item.student_id == this.addOfficerRoleData.student_id);
-            this.addOfficerRoleData= {
+            this.addOfficerRoleData = {
                 student_org_id:  this.addOfficerRoleData.student_org_id,
                 student_id:  this.addOfficerRoleData.student_id,
                 role_id:  this.addOfficerRoleData.role_id,
                 year_level_id: year_level.year_level_id,
                 school_year: this.school_year_session,
+                college_id: this.college_id,
             }
 
             // console.log(this.addOfficerRoleData)
@@ -918,8 +919,14 @@ export default{
         fetchNameInputOrgOfficer(){
             axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}`)
                 .then(response => {
-                    this.nameFilterAddOfficer = response.data.user.name;
+                    if(response.data != 1){
+                        this.nameFilterAddOfficer = response.data.user.name;
+                    }
+                    else{
+                        this.nameFilterAddOfficer = [];
+                    }
                     // console.log(response.data)
+                
                 })
                 .catch(error => {
                     console.log(error)

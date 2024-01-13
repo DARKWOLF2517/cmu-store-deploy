@@ -158,6 +158,7 @@ class OrgProfileController extends Controller
                 'student_org_id' => 'required',
                 'year_level_id' => 'required',
                 'school_year' => 'required',
+                'college_id' => 'required',
             ]);
 
             // // Create a new School Year instance
@@ -167,6 +168,7 @@ class OrgProfileController extends Controller
                 'role_id' => $validatedData['role_id'],
                 'year_level_id' => $validatedData['year_level_id'],
                 'school_year' => $validatedData['school_year'],
+                'college_id' => $validatedData['college_id'],
             ]);
             $OrganizationRole->save();
             return response()->json(['message' => 'Role added Successfully','type' => 1]);
@@ -268,7 +270,12 @@ class OrgProfileController extends Controller
     public function fetchNameOfficerInput($id)
     {
         $officerName = UserOrganization::where('student_id', $id)->with('user')->first();
-        return response()->json($officerName);
+        if($officerName){
+            return response()->json($officerName);
+        }
+        else{
+            return response('1');
+        }
         
     
     }

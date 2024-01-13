@@ -332,7 +332,6 @@
                 formData:{
                         name:'',
                         start_date:'',
-                        end_date:'',
                         start_attendance:'',
                         end_attendance:'',
                         location:'',

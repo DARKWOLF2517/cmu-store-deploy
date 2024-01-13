@@ -65,7 +65,6 @@ class EventController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'start_date' => 'required|date',
-            'end_date' => 'required|date',
             'start_attendance' => 'required',
             'end_attendance' => 'required',
             'location' => 'required',
@@ -81,7 +80,6 @@ class EventController extends Controller
         $event = new Event();
         $event->name = $validatedData['name'];
         $event->start_date = $validatedData['start_date'];
-        $event->end_date = $validatedData['end_date'];
         $event->start_attendance = $validatedData['start_attendance'];
         $event->end_attendance = $validatedData['end_attendance'];
         $event->location = $validatedData['location'];

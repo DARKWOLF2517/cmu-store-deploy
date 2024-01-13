@@ -1,5 +1,4 @@
 <template>
-
     <div class="content">
         <div class="page-container">
             <div class="col breadcrumbs">
@@ -104,9 +103,9 @@
                     <a class="page-link" href="#">Next</a>
                     </li>
                 </ul> -->
-            </div>
- <!-- Add student Modal -->
- <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+                </div>
+                <!-- Add student Modal -->
+                <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -198,7 +197,6 @@
                     </div>
                 </div>
                 <!-- Modal for displaying Excel data before Uploading -->
-
                 <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -207,23 +205,22 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
-
                                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-right: 0;">
-                        <div class="select-dropdown" >
-                            <select id="sort-select" class="form-control" style="text-align: center;">
-                                <option value="0" disabled selected>Select Year Level</option>
-                                <option>1st Year Level</option>
-                                <option>2nd Year Level</option>
-                            </select>
-                        </div>
-                        <div class="select-dropdown" >
-                        <select id="sort-select" class="form-control" style="text-align: center;">
-                            <option value="">Select College</option>
-                            <option value="option1">CISC</option>
-                            <option value="option2">CAS</option>
-                        </select>
-                    </div>
-                    </div>
+                                    <div class="select-dropdown" >
+                                        <select id="sort-select" class="form-control" style="text-align: center;">
+                                            <option value="0" disabled selected>Select Year Level</option>
+                                            <option>1st Year Level</option>
+                                            <option>2nd Year Level</option>
+                                        </select>
+                                    </div>
+                                    <div class="select-dropdown" >
+                                        <select id="sort-select" class="form-control" style="text-align: center;">
+                                            <option value="">Select College</option>
+                                            <option value="option1">CISC</option>
+                                            <option value="option2">CAS</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <table class="table" id="tableModal" >
                                     <thead>
                                         <tr>
@@ -239,7 +236,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-success" id="uploadToTableButton" data-bs-dismiss="modal" @click="this.uploadData()" >Upload</button>
+                                <button type="button" class="btn btn-success" id="uploadToTableButton" @click="this.uploadData()" >Upload</button>
                             </div>
                         </div>
                     </div>
@@ -287,7 +284,8 @@ methods:{
         let filteredBySearch = this.studentList;
         if (this.searchTerm) {
             const searchTermLower = this.searchTerm.toLowerCase();
-            filteredBySearch = filteredBySearch.filter(item => item.user.name.toLowerCase().includes(searchTermLower)
+            filteredBySearch = filteredBySearch.filter(item => item.user.name.toLowerCase().includes(searchTermLower) ||
+                    item.student_id.toString().includes(this.searchTerm)
             );
         }
             this.filtered_student_list = filteredBySearch;
@@ -342,6 +340,10 @@ methods:{
                 });
     },
     uploadData(){
+        const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
+        // excelDataModal.show();
+        excelDataModal.hide();
+
         // Get a reference to the table
         var table = document.getElementById("tableModal");
 
@@ -368,9 +370,18 @@ methods:{
                 axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
                     .then(response => {
                         console.log(response.data)
-                        this.fetchData();
-                        // location.reload();
-                        // this.showSucces(response.data.message);
+                        this.loading = false;
+
+                        // Hide modal 
+                       
+                        if (response.data.type == 0) {
+                            this.showError(response.data.message);
+                        }
+                        else{
+                            this.showSucces(response.data.message);
+                            this.fetchData();
+                        }
+                        
                     })
                     .catch(error => {
                         console.log(error)
@@ -436,6 +447,11 @@ methods:{
             // Show the modal
             const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"), { keyboard: false });
             excelDataModal.show();
+            
+
+                // var myModal = new bootstrap.Modal(document.getElementById('excelDataModal'));
+                // myModal.show();
+        
         };
 
         reader.readAsArrayBuffer(file);

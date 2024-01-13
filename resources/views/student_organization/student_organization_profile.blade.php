@@ -168,6 +168,7 @@
                 :org_id = {{Session::get('org_id')}}
                 :user_id = {{Auth::id()}}
                 :school_year_session = {{Session::get('school_year')}}
+                :college_id = {{Session::get('college_id')}}
             >
 
             </org-profile>
