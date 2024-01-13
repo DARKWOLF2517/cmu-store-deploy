@@ -60,8 +60,8 @@ class UserController extends Controller
                 else{
                     $user = new User();
                     $user->id = $row[0];
-                    $user->name = $row[1];
-                    $user->email = strtolower(str_replace(' ', '', $row[1]));;
+                    $user->name = $row[1] . ' '. $row[2] ;
+                    $user->email = strtolower(str_replace(' ', '', $row[1]. $row[0]));
                     $user->password = Hash::make($row[0]);
                     $user->save();
                 }
@@ -70,6 +70,7 @@ class UserController extends Controller
                 
                 if($this->UserOrgRepitition($row[0]) >= 1)
                 {
+                    // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
                 }
                 else{
                     $userOrg = new UserOrganization();

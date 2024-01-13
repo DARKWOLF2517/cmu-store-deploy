@@ -225,7 +225,8 @@
                                     <thead>
                                         <tr>
                                             <th>Student ID</th>
-                                            <th>Full Name</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
                                             <!-- <th>Year Level</th> -->
                                         </tr>
                                     </thead>
@@ -273,8 +274,8 @@ export default {
             itemsPerPage: 10,
             year_level_data:[],
             college_list: [],
-            college_data_input: '',
-            year_level_data_input: '',
+            college_data_input: 0,
+            year_level_data_input: 0,
 
 
         };
@@ -465,56 +466,63 @@ methods:{
                 });
     },
     uploadData(){
-        const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
-        // excelDataModal.show();
-        excelDataModal.hide();
 
-        // Get a reference to the table
-        var table = document.getElementById("tableModal");
+        if (this.college_data_input == 0 || this.year_level_data_input == 0){
+            alert('Please Choose Year Level and  College')
+        }
+        else{
+            const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
+            // excelDataModal.show();
+            excelDataModal.hide();
 
-        // Initialize an empty array to store the data
-        var data = [];
+            // Get a reference to the table
+            var table = document.getElementById("tableModal");
 
-        // Iterate through the table rows and cells
-        for (var i = 1; i < table.rows.length; i++) {
-            var row = table.rows[i];
-            var rowData = [];
-            for (var j = 0; j < row.cells.length; j++) {
-                var cell = row.cells[j];
-                rowData.push(cell.textContent);
+            // Initialize an empty array to store the data
+            var data = [];
 
+            // Iterate through the table rows and cells
+            for (var i = 1; i < table.rows.length; i++) {
+                var row = table.rows[i];
+                var rowData = [];
+                for (var j = 0; j < row.cells.length; j++) {
+                    var cell = row.cells[j];
+                    rowData.push(cell.textContent);
+
+                }
+            data.push(rowData);
             }
-        data.push(rowData);
+
+                if (data[0].length == 3){
+                    this.collectedData = data;
+                    // console.log(data)
+                    // Display the extracted data in the console
+                    this.loading = true;
+                    axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input}/${this.year_level_data_input}`, { data: this.collectedData })
+                        .then(response => {
+                            console.log(response.data)
+                            this.loading = false;
+
+                            // Hide modal
+
+                            if (response.data.type == 0) {
+                                this.showError(response.data.message);
+                            }
+                            else{
+                                this.showSucces(response.data.message);
+                                this.fetchData();
+                            }
+
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        });
+                }
+                else {
+                    this.showError('excel incorrect format');
+                }
         }
 
-            if (data[0].length == 2){
-                this.collectedData = data;
-                // console.log(data)
-                // Display the extracted data in the console
-                this.loading = true;
-                axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input}/${this.year_level_data_input}`, { data: this.collectedData })
-                    .then(response => {
-                        console.log(response.data)
-                        this.loading = false;
-
-                        // Hide modal
-
-                        if (response.data.type == 0) {
-                            this.showError(response.data.message);
-                        }
-                        else{
-                            this.showSucces(response.data.message);
-                            this.fetchData();
-                        }
-
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    });
-            }
-            else {
-                this.showError('excel incorrect format');
-            }
 
 
     },
