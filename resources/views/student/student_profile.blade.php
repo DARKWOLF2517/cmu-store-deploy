@@ -1,6 +1,10 @@
 @extends('layouts.student_navigation_bar')
-@section('main-content')
+
+@section('custom-style')
 <link href="/custom_css/studentProfile.css" rel="stylesheet">
+@endsection
+
+@section('main-content')
 <div class="page-content-wapper">
     <div class="content">
         <div class="page-container">
@@ -68,10 +72,4 @@
         </div> --}}
     </div>
 </div>
-@endsection
-@section('custom-script')
-    <!-- Add Bootstrap JS and jQuery for tab functionality -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 @endsection

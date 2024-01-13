@@ -13,7 +13,7 @@
                         <h4 class="text-center">{{ this.profile.name }}</h4>
                         <h5 class="mb-0 text-center text-muted"> <b></b> {{ this.user_id }}</h5>
                         <p class="mb-0 mt-2"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level }}</span></p>
-                        <p class="mb-0"><b>College: </b> <span id="college">{{ this.profile.college }}</span></p>
+                        <!-- <p class="mb-0"><b>Organization: </b> <span id="college">{{ this.profile.college }}</span></p> -->
                         <!-- <p><b>Department: </b> <span id="department"></span></p> -->
                     </div>
 
@@ -176,6 +176,7 @@ export default {
 
       axios.get(`/organization/${this.user_org}`)
         .then(response => {
+          console.log(response.data)
           this.profile.college = response.data['name'];
         })
         .catch(error => {})
@@ -186,10 +187,11 @@ export default {
 
       axios.get(`profile/${this.user_id}`)
         .then(response => {
+          console.log(response.data)
           const data = response.data;
           data.forEach(item => {
             this.profile.name = item['user']['name'];
-            this.profile.year_level = item['year_level'];
+            this.profile.year_level = item.year_level.year_level;
           });
 
           //get the organization list
