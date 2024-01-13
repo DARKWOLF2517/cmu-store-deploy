@@ -145,11 +145,11 @@ Route::middleware(['auth'])->group(function(){
     #FUNCTIONS WITH DATA ROUTES
             #USER ROUTE
             Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
-            //show students list  in the main form
             Route::get('/student_list/show/{org_id}/{school_year}',[UserController::class, 'showStudents']);
             Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
             Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
-            Route::post('/upload_students/{school_year}',[UserController::class, 'store']);
+            Route::post('/upload_students/{school_year}/{college}/{year_level}',[UserController::class, 'store']);
+            Route::get('/view_college',[UserController::class, 'viewCollege']);
 
             #ATTENDANCE ROUTES
             Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);

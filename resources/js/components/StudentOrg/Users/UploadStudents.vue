@@ -77,8 +77,8 @@
                         <tr v-for="student in paginatedData" :key="student.student_id">
                             <!-- Student data will be added here -->
                             <td>{{ student.student_id }}</td>
-<td>{{ student.user.name }}</td>
-<td>{{ student.year_level.year_level }}</td>
+                            <td>{{ student.user.name }}</td>
+                            <td>{{ student.year_level.year_level }}</td>
 
                                 <td>
                                     <span class="table-buttons">
@@ -92,16 +92,16 @@
                 </div>
 
                 <ul class="pagination justify-content-center">
-  <li class="page-item" :class="{ disabled: currentPage === 1 }">
-    <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
-  </li>
-  <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
-    <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
-  </li>
-  <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-    <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
-  </li>
-</ul>
+                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
+                    </li>
+                    <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
+                        <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
+                    </li>
+                    <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                        <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
+                    </li>
+                </ul>
 
             </div>
  <!-- Add student Modal -->
@@ -207,17 +207,15 @@
                             <div class="modal-body" style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
                                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-right: 0;">
                                     <div class="select-dropdown" >
-                                        <select id="sort-select" class="form-control" style="text-align: center;">
+                                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="year_level_data_input">
                                             <option value="0" disabled selected>Select Year Level</option>
-                                            <option>1st Year Level</option>
-                                            <option>2nd Year Level</option>
+                                            <option v-for="year_level in this.year_level_data" :value="year_level.id" >{{ year_level.year_level }}</option>
                                         </select>
                                     </div>
                                     <div class="select-dropdown" >
-                                        <select id="sort-select" class="form-control" style="text-align: center;">
-                                            <option value="">Select College</option>
-                                            <option value="option1">CISC</option>
-                                            <option value="option2">CAS</option>
+                                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
+                                            <option value="0" disabled selected >Select College</option>
+                                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -271,90 +269,116 @@ export default {
             loading : false,
             currentPage: 1,
             itemsPerPage: 10,
+            year_level_data:[],
+            college_list: [],
+            college_data_input: '',
+            year_level_data_input: '',
+
 
         };
     },
     computed: {
     totalPages() {
-      return Math.ceil(this.filtered_student_list.length / this.itemsPerPage);
+        return Math.ceil(this.filtered_student_list.length / this.itemsPerPage);
     },
     pageRange() {
-  const start = Math.max(1, this.currentPage - 5);
-  const end = Math.min(this.totalPages, this.currentPage + 5);
-  const range = [];
+        const start = Math.max(1, this.currentPage - 5);
+        const end = Math.min(this.totalPages, this.currentPage + 5);
+        const range = [];
 
-  if (start > 1) {
-    range.push(1);
-    if (start > 2) {
-      range.push("...");
-    }
-  }
+        if (start > 1) {
+            range.push(1);
+            if (start > 2) {
+            range.push("...");
+            }
+        }
 
-  for (let i = start; i <= end; i++) {
-    range.push(i);
-  }
+        for (let i = start; i <= end; i++) {
+            range.push(i);
+        }
 
-  if (end < this.totalPages) {
-    if (end < this.totalPages - 1) {
-      range.push("...");
-    }
-    range.push(this.totalPages);
-  }
+        if (end < this.totalPages) {
+            if (end < this.totalPages - 1) {
+            range.push("...");
+            }
+            range.push(this.totalPages);
+        }
 
-  return range;
-},
-  paginatedData() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filtered_student_list.slice(start, start + this.itemsPerPage);
-  },
+        return range;
+    },
+    paginatedData() {
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        return this.filtered_student_list.slice(start, start + this.itemsPerPage);
+    },
     hasEllipsisBefore() {
-    return this.currentPage > 3 && this.totalPages > 5;
-  },
+        return this.currentPage > 3 && this.totalPages > 5;
+    },
 
-  hasEllipsisAfter() {
-    return this.currentPage < this.totalPages - 2 && this.totalPages > 5;
-  },
-  ellipsisRange() {
-  const range = [];
-  const start = Math.max(this.currentPage - 2, 1);
-  const end = Math.min(start + 4, this.totalPages);
+    hasEllipsisAfter() {
+        return this.currentPage < this.totalPages - 2 && this.totalPages > 5;
+    },
+    ellipsisRange() {
+        const range = [];
+        const start = Math.max(this.currentPage - 2, 1);
+        const end = Math.min(start + 4, this.totalPages);
 
-  if (this.hasEllipsisBefore) {
-    range.push(this.ellipsisBefore);
-  }
+        if (this.hasEllipsisBefore) {
+            range.push(this.ellipsisBefore);
+        }
 
-  for (let i = start; i <= end; i++) {
-    range.push(i);
-  }
+        for (let i = start; i <= end; i++) {
+            range.push(i);
+        }
 
-  if (end < this.totalPages) {
-    if (end < this.totalPages - 1) {
-      range.push(this.ellipsisAfter);
-    }
-    range.push(this.totalPages);
-  }
+        if (end < this.totalPages) {
+            if (end < this.totalPages - 1) {
+            range.push(this.ellipsisAfter);
+            }
+            range.push(this.totalPages);
+        }
 
-  // If there are more than 5 page numbers, remove the ones in the middle
-  if (range.length > 5) {
-    range.splice(3, range.length - 5);
-  }
+        // If there are more than 5 page numbers, remove the ones in the middle
+        if (range.length > 5) {
+            range.splice(3, range.length - 5);
+        }
 
-  return range;
-},
+        return range;
+    },
     ellipsisBefore() {
-      return Math.max(this.currentPage - 5, 1);
+        return Math.max(this.currentPage - 5, 1);
     },
     ellipsisAfter() {
-      return Math.min(this.currentPage + 5, this.totalPages);
+        return Math.min(this.currentPage + 5, this.totalPages);
     },
-  },
+    },
 
 mounted(){
     this.upload();
     this.fetchData();
     this.showSchoolYear();
+    this.showYearLevel();
+    this.showCollege();
 },
 methods:{
+    showCollege(){
+        axios.get(`/view_college`)
+            .then(response => {
+                this.college_list = response.data;
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    },
+    showYearLevel(){
+        axios.get(`/view_year_level/${this.org_id}`)
+            .then(response => {
+                this.year_level_data = response.data;
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    },
     filterItems() {
         // Filter based on searchTerm from textbox
         let filteredBySearch = this.studentList;
@@ -379,28 +403,28 @@ methods:{
             });
     },
     prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  },
+        if (this.currentPage > 1) {
+        this.currentPage--;
+        }
+    },
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
-  },
+    nextPage() {
+        if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        }
+    },
 
-  gotoPage(page) {
-  if (page === "...") {
-    if (this.currentPage > this.totalPages / 2) {
-      this.currentPage = this.totalPages;
-    } else {
-      this.currentPage = 1;
-    }
-  } else {
-    this.currentPage = page;
-  }
-},
+    gotoPage(page) {
+        if (page === "...") {
+            if (this.currentPage > this.totalPages / 2) {
+            this.currentPage = this.totalPages;
+            } else {
+            this.currentPage = 1;
+            }
+        } else {
+            this.currentPage = page;
+        }
+    },
     showSchoolYear(){
         axios.get(`get_school_year/${this.org_id}`)
             .then(response => {
@@ -466,7 +490,7 @@ methods:{
                 // console.log(data)
                 // Display the extracted data in the console
                 this.loading = true;
-                axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
+                axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input}/${this.year_level_data_input}`, { data: this.collectedData })
                     .then(response => {
                         console.log(response.data)
                         this.loading = false;

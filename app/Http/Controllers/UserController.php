@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\College;
 use App\Models\Organization;
 use App\Models\User;
 use App\Models\UserOrganization;
@@ -46,7 +47,7 @@ class UserController extends Controller
             return $count;
         }
 
-        public function store($school_year ,Request $request)
+        public function store($school_year, $college, $year_level ,Request $request)
         {
 
             $org_id = Session::get('org_id');
@@ -75,8 +76,9 @@ class UserController extends Controller
                     $userOrg->student_org_id = $org_id;
                     $userOrg->student_id = $row[0];
                     $userOrg->role_id = '2' ;
-                    $userOrg->year_level_id = '1';
+                    $userOrg->year_level_id = $year_level;
                     $userOrg->school_year = $school_year;
+                    $userOrg->college_id = $college;
                     $userOrg->save();
                 }
 
@@ -127,5 +129,11 @@ class UserController extends Controller
 
             // return $request;
             return 'success';
+        }
+        public function viewCollege()
+        {
+            $collegeList = College::all();
+            
+            return $collegeList->toJson();
         }
 }

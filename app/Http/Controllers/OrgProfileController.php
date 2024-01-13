@@ -235,7 +235,7 @@ class OrgProfileController extends Controller
     public function viewOrgTotalMembers($org_id, $school_year)
     {
         $orgTotalMembers = UserOrganization::select('student_id')
-            ->where([['student_org_id', $org_id],['school_year', $school_year] ])
+            ->where([['student_org_id', $org_id],['school_year', $school_year],['role_id', 2]  ])
             ->distinct()
             ->get();
         $orgTotalMembersCount =  $orgTotalMembers->count();
