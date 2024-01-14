@@ -130,7 +130,7 @@ class AccountabilitiesController extends Controller
             return response()->json(['message' => 'Accountability Paid Successfully']);
             // return $request;
     }
-    public function FinesAccountabilityPayment(Request $request)
+    public function FinesAccountabilityPayment($school_year,Request $request)
     {
              // Validate the form data
             $validatedData = $this->validate($request,[
@@ -146,7 +146,7 @@ class AccountabilitiesController extends Controller
                 'student_org_id' => $validatedData['student_org_id'],
                 'accountability_name' => $validatedData['accountability_name'],
                 'amount' => $validatedData['amount'],
-                
+                'school_year' => $school_year,
             ]);
             $accountability->save();
     
