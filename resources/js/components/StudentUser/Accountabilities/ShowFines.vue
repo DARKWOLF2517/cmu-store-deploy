@@ -15,13 +15,13 @@
                                 <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                             </select>
                         </div>
-                        <div class="select-dropdown" style="width: 30%;">
+                        <!-- <div class="select-dropdown" style="width: 30%;">
                         <select id="sort-select" class="form-control" style="text-align: center;">
                             <option value="">All</option>
                             <option value="option1">Pending</option>
                             <option value="option2">Completed</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     </div>
                 </div>
