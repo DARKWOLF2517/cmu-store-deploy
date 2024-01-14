@@ -303,9 +303,16 @@ Route::middleware(['auth'])->group(function(){
                 return view('attendance_checker.student_attendance_schedule');
             });
 
+        
+            
+            Route::get('/attendance_checker_attendance_records_list', function () {
+                return view('attendance_checker.student_attendance');
+            });
+
             Route::get('/attendance_checker_attendance_records', function () {
                 return view('attendance_checker.student_attendance_records');
             });
+
 
 
     });

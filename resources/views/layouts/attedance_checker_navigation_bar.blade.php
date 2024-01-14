@@ -88,7 +88,7 @@
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="	fas fa-calendar-alt"></i>
-                            <a href="/attendance_checker_attendance_records">
+                            <a href="/attendance_checker_attendance_records_list">
                             <span class="link-title">Records</span>
                             </a>
                         </button>

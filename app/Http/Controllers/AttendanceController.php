@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\UserOrganization;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class AttendanceController extends Controller
 {
@@ -34,7 +35,12 @@ class AttendanceController extends Controller
     }
     public function events($event_id)
     {
-        return view('student_organization.student_organization_attendance_record', ['event_id' => $event_id]);
+        if ( Session::get('role') == 3){
+            return view('attendance_checker.student_attendance_records', ['event_id' => $event_id]);
+        }
+        else if ( Session::get('role') == 1){
+            return view('student_organization.student_organization_attendance_record', ['event_id' => $event_id]);
+        }
     }
 
     public function store(Request $request){
