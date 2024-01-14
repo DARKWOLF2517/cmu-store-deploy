@@ -19,20 +19,15 @@
         <div class="input-group">
             <input type="password" class="form-control rounded-left" placeholder="Retype New Password" required name="password" v-model="change_password_data.confirm_new_password">
         </div>
-        <div class="form-group d-md-flex">
-            <div>
-                <!-- {{-- <small>When you change your password, you gain full control of your account.</small>
+        <!-- <div class="form-group d-md-flex"> -->
+             <!-- {{-- <small>When you change your password, you gain full control of your account.</small>
                 <small>If you have forgotten your password, please contact the organization that created your account for assistance.</small> --}} -->
-                <label>
-                    <input type="checkbox" checked="">
-                    By pressing this, you have agreed to our conditions.
-                </label>
-            </div>
-        </div>
 
-        <div class="form-group text-right">
-            <button type="button" class="btn btn-secondary rounded submit">Cancel</button>
-            <button type="button" class="btn btn-primary rounded submit"  @click="checkNewPassword()">Save Changes</button>
+        <!-- </div> -->
+
+        <div class="form-group text-right mt-4">
+            <a class="btn btn-secondary rounded mr-2 text-light" href="/student_profile">Cancel</a>
+            <button class="btn btn-primary rounded submit"  @click="checkNewPassword()">Save Changes</button>
         </div>
     </form>
 
@@ -41,7 +36,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            
+
                             <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                         </div>
                         <div class="modal-body text-center">
@@ -50,12 +45,13 @@
                             <p>Are you sure you want to Change Password?</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                            <button type="button" class="btn btn-danger" @click="submitData()" data-bs-dismiss="modal">Yes</button>
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <button class="btn btn-danger" @click="submitData()" data-bs-dismiss="modal">Yes</button>
                         </div>
                     </div>
                 </div>
             </div>
+
 </template>
 
 <script>
@@ -64,7 +60,7 @@ import 'vue3-toastify/dist/index.css';
 
 export default{
     mounted(){
-        
+
     },
 
     data(){
@@ -96,7 +92,7 @@ export default{
         submitData(){
             axios.post('/change_password_data', this.change_password_data)
                 .then(response => {
-                    
+
                     console.log(response.data)
                     if (response.data.status == 0){
                         this.showError(response.data.message);

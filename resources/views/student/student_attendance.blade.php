@@ -22,7 +22,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     width: calc(33.33% - 20px);
 height: 33vh;
   }
@@ -43,16 +43,19 @@ height: 33vh;
 
 @media (max-width: 767px) {
     .evaluation-attendance-card {
-        width: 100%; /* Make the cards full width on smaller screens */
-        margin-bottom: 15px; /* Add some spacing between cards */
+        width: 100%;
+        margin-bottom: 15px;
         height: 250px;
     }
 
     .card-body {
-        padding: 15px; /* Add padding to the card body for better spacing */
+        padding: 15px;
     }
     h5{
         font-size: 15px;
+    }
+    .btn{
+        font-size: 13px !important;
     }
 
 }

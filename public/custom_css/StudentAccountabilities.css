@@ -25,7 +25,7 @@ padding: 10px;
 box-sizing: border-box;
 display: flex;
 flex-direction: column;
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 width: calc(33.33% - 20px);
 height: auto;
 }
@@ -97,7 +97,7 @@ max-height: 65vh;
 
 .modal{
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 .form-control:disabled, .form-control[readonly] {
     background-color: #ececec;
@@ -186,7 +186,7 @@ max-height: 65vh;
     .modal {
         margin-top: 50px;
         border-radius: 5px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     }
 
     .form-control:disabled,
@@ -201,6 +201,9 @@ max-height: 65vh;
     }
     .stud-accountability-card {
         width: 100%;
+    }
+    .total-payment, #totalPayment{
+        font-size: 15px !important;
     }
 
 }

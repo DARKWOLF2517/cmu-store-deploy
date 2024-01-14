@@ -31,17 +31,54 @@
 
             </change-password>
         </div>
-        
+
+        </div>
+
+    </div>
+    <div class="text-center mt-2">
+        <small>
+            By changing the password, you have agreed to our
+            <a type="button" data-toggle="modal" data-target="#conditionsModal" href="#">conditions</a>.
+        </small>
+    </div>
+<!-- Condition Bootstrap Modal -->
+<div class="modal fade" id="conditionsModal" tabindex="-1" role="dialog" aria-labelledby="conditionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                {{-- <h5 class="modal-title" id="conditionsModalLabel">Terms and Conditions</h5> --}}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="modal-title text-primary text-center" id="conditionsModalLabel">Terms and Conditions</h4>
+                <h5 class="mt-2"> Welcome to CMU-STORE-AMS! </h5>
+                <p>By changing the password, you agree to the following terms and conditions:</p>
+
+                <h6 style="font-weight: bold;">1. Account Security:</h6>
+                <p>Changing your password grants you full control of your account. It is essential to keep your password secure and not share it with others.</p>
+
+                <h6 style="font-weight: bold;">2. Remember Your Password:</h6>
+                <p>It is your responsibility to remember and safeguard your password. The student organization is not responsible for password retrieval or recovery.</p>
+
+                <h6 style="font-weight: bold;">3. Personal Responsibility:</h6>
+                <p>You are solely responsible for maintaining the confidentiality of your password and account information. Any activities that occur under your account are your responsibility.</p>
+
+                <p>These terms and conditions may be subject to change. Please review them periodically for any updates.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
-
-
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
 
-    
+
 
 </body>
 

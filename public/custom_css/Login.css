@@ -4,7 +4,7 @@ body {
     /* background-image: url('/assets/loginbg.png'); */
     background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
-
+    color: #4a5864;
 }
 /* .top-nav {
     position: absolute;
@@ -84,4 +84,12 @@ body {
 
   .logo img {
     width: 100px; /* Adjust the width as needed */
+  }
+  @media (max-width: 768px) {
+    .h3{
+        height: 18px !important;
+    }
+    .b{
+        height: 15px !important;
+    }
   }
