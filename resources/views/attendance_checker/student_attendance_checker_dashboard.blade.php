@@ -1,72 +1,142 @@
 @extends('layouts.attedance_checker_navigation_bar')
+@section('custom-style')
+    <link href="/custom_css/SODashboard.css" rel="stylesheet">
+@endsection
+
 @section('main-content')
-<link href="/custom_css/SODashboard.css" rel="stylesheet">
+
 <div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+<div class="content">
+    <div class="page-container">
         <div class="row">
             <div class="col mt-2">
                 <div class="welcome-card">
                     <div class="welcome-text">
-                        <p>Welcome, Attendance Checker</p>
+                        <p>{{Session::get('org_name')}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="mt-4">
+        <div class="row mt-2">
+            <div class="col-md-4 col-sm-6 ">
+                <div class="statistic">
+                    <org-dashboard-counter
+                        :org_id = {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
+                        card_label="Members"
+                        target_route="view_org_total_members"
+                        icons="fas fa-users card-icon"
+
+                    ></org-dashboard-counter>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 ">
+                <div class="statistic">
+                    <org-dashboard-counter
+                        :org_id = {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
+                        card_label="Created Events"
+                        target_route="events_count"
+                        icons="fas fa-clock card-icon ongoing-events"
+                    ></org-dashboard-counter>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 ">
+                <div class="statistic">
+                    <org-dashboard-counter
+                        :org_id = {{Session::get('org_id')}}
+                        :school_year_session = {{Session::get('school_year')}}
+                        card_label="Completed Events"
+                        target_route="complete_events_count"
+                        icons="fas fa-check card-icon completed-events"
+                    ></org-dashboard-counter>
+                </div>
+            </div>
+        </div>
+
             <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4">
+                <div class="col-lg-4 col-md-6 mb-2">
                     <div class="timeline-schedule">
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
                         </div>
-                        <event-dashboard
+                    <event-dashboard
                         :organization_id =  {{Session::get('org_id')}}
                         :school_year_session = {{Session::get('school_year')}}
                         >
 
                         </event-dashboard>
+                        {{-- <div class="timeline-body">
+                            <ul class="sessions">
+                                <li>
+                                    <div class="date">October 07, 2023</div>
+                                    <small>Acquaintance Party</small>
+                                </li>
+                                <li>
+                                    <div class="date">September 30, 2023</div>
+                                    <small>Bayanihan</small>
+                                </li>
+                                <li>
+                                    <div class="date">September 20, 2023</div>
+                                    <small>Palaro</small>
+                                </li>
+                                <li>
+                                    <div class="date">July 30, 2023</div>
+                                    <small>General Assembly</small>
+                                </li>
+                                <li>
+                                    <div class="date">July 30, 2023</div>
+                                    <small>General Assembly</small>
+                                </li>
+                            </ul>
+                        </div> --}}
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-12 mb-4">
+                <div class="col-lg-4 col-md-6 mb-2">
                     <div class="announcement">
                         <div class="announcement-header">
-                            <i class="bi bi-list"></i> Announcements
+                            <i class="bi bi-list"></i> Announcement
                         </div>
+
                         <div class="announcement-list">
-                            <div class="announcement-card">
+                            <div class="Message-IfEmpty">
+                                <i class="icon 	fas fa-bullhorn" id="icon-message"></i>
+                                <p class="empty-schedule">Announcements show up here</p>
+                            </div>
+                            {{-- <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
+                                <div class="announcement-description">Bayanihan.</div>
                             </div>
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
+                                <div class="announcement-description">Bayanihan.</div>
                             </div>
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
+                                <div class="announcement-description">Bayanihan.</div>
                             </div>
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
-                                <div class="announcement-description">Naay Bayanihan Way labot free fines.</div>
-                            </div>
+                                <div class="announcement-description">Bayanihan.</div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 mb-4">
+
+                <div class="col-lg-4 col-md-12 mb-2">
                     <div id="calendar">
                         <dashboard-calendar
                             :org_id = {{Session::get('org_id')}}
@@ -77,7 +147,7 @@
                 </div>
             </div>
         </div>
-        </div>
+    </div>
     </div>
 </div>
 

@@ -27,7 +27,7 @@
                         <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
               </a>
               <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                  <side-nav-button
+                  {{-- <side-nav-button
                   link_name="Settings"
                   link_route = "#"
                   show_icon = "{{false}}"
@@ -41,7 +41,7 @@
                   >
                   </side-nav-button>
 
-                  <li><hr class="dropdown-divider"></li>
+                  <li><hr class="dropdown-divider"></li> --}}
 
                   <side-nav-button
                   link_name="Sign out"

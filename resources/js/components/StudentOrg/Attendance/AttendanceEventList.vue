@@ -17,10 +17,10 @@
         <div class="schedule-card " v-for="event in this.events" :id="event.event_id">
             <div class="card-body d-flex justify-content-between align-items-start">
                 <div>
-                    <h5><b>{{ event["name"] }}</b></h5>
-                    <h6 >Start Date: {{ event["start_date"] }}</h6>
-                    <h6 >Time starts at: {{ event["start_attendance"] }}</h6>
-                    <h6 class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</h6>
+                    <h5 class="mb-2"><b>{{ event["name"] }}</b></h5>
+                    <p class="mt-2">Start Date: {{ event["start_date"] }}</p>
+                    <p>Time starts at: {{ event["start_attendance"] }}</p>
+                    <p class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</p>
                 </div>
                 <div class="mt-auto">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceModal" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
