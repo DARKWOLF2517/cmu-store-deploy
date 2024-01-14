@@ -59,6 +59,17 @@
                 </tr>
             </thead>
             <tbody>
+                <div v-if="this.loading == true" class="loading-spinner-container ">
+                    <span class="loader"></span>
+                </div>
+                <div class="Container-IfEmpty" v-if="!loading && paidList.length === 0">
+                                        <div class="Empty-Message text-center">
+                                        <i class="icon 	bi bi-table" id="icon-message"></i>
+                                        <p class="text-muted"><b>Paid table is empty.</b>
+                                        <br>
+                                        Students with cleared accountabilities are listed here</p>
+                                    </div>
+                </div>
                 <tr v-for="paid in paginatedData" :key="paid.student_id">
                 <td >{{ paid['student_id'] }}</td>
                 <td> {{ paid.user['name'] }}</td>
@@ -120,6 +131,7 @@ export default{
             paidList: [],
             currentPage: 1,
             itemsPerPage: 10,
+            loading : false,
 
         }
     },
@@ -208,10 +220,12 @@ export default{
 
     methods:{
         fetchData(){
+            this.loading = true;
                     axios.get(`/paid_accountabilities/${this.org_id}`)
                     .then(response => {
                         this.paidList = response.data;
                         console.log(this.paidList)
+                        this.loading = false;
                     })
                     .catch(error => {
                         console.log('error')

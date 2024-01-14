@@ -46,14 +46,15 @@
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-
-      <!-- Message if the container is empty -->
-      <div v-if="!loading && accountabilityList.length === 0" class="Container-IfEmpty">
-        <div class="Empty-Message">
-          <i class="icon fas fa-money-check" id="icon-message"></i>
-          <p class="text-muted">Accountability cards show up here.</p>
+      <div class="Container-IfEmpty" v-if="!loading && accountabilityList.length === 0">
+            <div class="Empty-Message text-center">
+            <i class="icon 	fas fa-wallet" id="icon-message"></i>
+            <p class="text-muted"><b>Set up an Accountability</b>
+            <br>
+            Student Organization accountablities show up here.</p>
         </div>
-      </div>
+        </div>
+
       <div class="accountabilities-cards">
           <div class="accountability-card border-top border-5 border-success border-bottom-0" v-for="accountability in this.filtered_accountabilities">
               <div class="dropdown">

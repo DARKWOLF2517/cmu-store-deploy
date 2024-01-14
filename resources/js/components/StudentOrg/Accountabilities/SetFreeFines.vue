@@ -71,14 +71,26 @@
             </thead>
 
             <tbody>
-                <tr v-if="loading" class="loading-spinner-container">
+                <!-- <tr v-if="loading" class="loading-spinner-container">
                     <td colspan="4">
                         <div class="spinner-border text-success" id="event-spinner" role="status">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </td>
-                </tr>
-                <tr v-if="!loading && filtered_free_fines.length === 0">
+                </tr> -->
+                 <!-- Loading spinner -->
+            <div v-if="this.loading == true" class="loading-spinner-container ">
+                <span class="loader"></span>
+            </div>
+                <div class="Container-IfEmpty" v-if="!loading && free_fines_students.length === 0">
+                        <div class="Empty-Message text-center">
+                        <i class="icon 	bi bi-table" id="icon-message"></i>
+                        <p class="text-muted"><b>Students with free fines.</b>
+                        <br>
+                        Students with free fines are listed here</p>
+                    </div>
+                </div>
+                <!-- <tr v-if="!loading && filtered_free_fines.length === 0">
                     <td colspan="4">
                         <div class="Container-IfEmpty mb-6">
                             <div class="Empty-Message">
@@ -88,7 +100,7 @@
                             </div>
                         </div>
                     </td>
-                </tr>
+                </tr> -->
                 <!-- <tr v-for="free_fines in filtered_free_fines" :key="free_fines.student_id"> -->
                     <tr v-for="free_fines in paginatedData" :key="free_fines.student_id">
                     <td>{{ free_fines.student_id }}</td>

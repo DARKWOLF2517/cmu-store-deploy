@@ -81,8 +81,15 @@
         <!-- Loading spinner -->
         <div v-if="this.loading == true" class="loading-spinner-container ">
             <span class="loader"></span>
-
         </div>
+        <div class="Container-IfEmpty" v-if="!loading && studentList.length === 0">
+                                        <div class="Empty-Message text-center">
+                                        <i class="icon 	bi bi-table" id="icon-message"></i>
+                                        <p class="text-muted"><b>Member list is Empty</b>
+                                        <br>
+                                        Student members show up here.</p>
+                                    </div>
+                                    </div>
         <!-- Table rows -->
         <tr v-for="student in paginatedData" :key="student.student_id">
                         <!-- <tr v-for="student in paginatedData" :key="student.student_id"> -->

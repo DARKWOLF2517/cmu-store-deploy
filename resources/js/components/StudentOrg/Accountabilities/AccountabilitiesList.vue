@@ -62,6 +62,14 @@
     <div v-if="loading" class="loading-spinner-container mt-2">
         <span class="loader"></span>
     </div>
+    <div class="Container-IfEmpty" v-if="!loading && fines_list.length === 0">
+                        <div class="Empty-Message text-center">
+                        <i class="icon 	bi bi-table" id="icon-message"></i>
+                        <p class="text-muted"><b>Accountability table is empty.</b>
+                        <br>
+                        Students with fines are listed here</p>
+                    </div>
+                </div>
     <tr v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" :key="fines_list.user_id">
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>

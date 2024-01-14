@@ -24,7 +24,7 @@ body {
     font-size: 15px;
     /* box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
     margin: auto;
-    margin-top: 30%;
+    margin-top: 20%;
 }
 
 
@@ -39,7 +39,7 @@ body {
     margin-top: 10px;
 }
 
-.Container-IfEmpty {
+/* .Container-IfEmpty {
     text-align: center;
     padding: 10px;
     width: 350px;
@@ -47,10 +47,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
     margin: auto;
     margin-top: 10%;
-  }
+  } */
 
   .Empty-Message {
     font-size: 1.2em;
@@ -76,12 +75,6 @@ body {
 .hidden
 {
     display: none;
-}
-.loader-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
 /* .container {
@@ -234,25 +227,41 @@ body {
     height: 50px;
 }
 
-/* Message if empty */
+
 .Message-IfEmpty {
     text-align: center;
     background-color: transparent;
     padding: 20px;
     border-radius: 10px;
 }
-/* .spinner-grow{
-    width: 1rem;
-    height: 1rem;
-    padding-right: 10px;
-} */
+
+  .Container-IfEmpty{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+  }
+  /* .Empty-Message {
+    display: block;
+    margin: 15px auto;
+    position: relative;
+  } */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .loading-spinner-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 999; /* Ensure it's on top of other elements */
+    z-index: 999;
   }
+
 
   #table-container, #event-container, #schedule-list, #evaluation-container, #set-accountabilities{
     position: relative;
