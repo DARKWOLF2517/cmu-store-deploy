@@ -214,18 +214,14 @@ class LoginController extends Controller
         // }
     }
 
-    public function changePassword(User $user, Request $request) {
+    public function changePassword(Request $request) {
+        $user = User::find(Auth::id());
+        if (! Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'The provided password does not match our records.' , 'status'=> 0]);
+        }
 
-        // $user = Auth::user();
-        
-        // if (! Hash::check($request->current_password, $user->password)) {
-        //   return back()->withErrors(['current_password' => 'The provided password does not match our records.']);
-        // }
-      
-        // $user->password = Hash::make($request->new_password);
-        $user->update(['password' => $user->password]);
-        
-        return redirect()->route('password.update')->with('success', 'Password changed successfully.');
-    
+        $user->update(['password' => Hash::make($request->new_password)]);
+        return response()->json(['message' => 'Change Password Success', 'status' => 1 ]);
+            // return $user->password;
     }
 }

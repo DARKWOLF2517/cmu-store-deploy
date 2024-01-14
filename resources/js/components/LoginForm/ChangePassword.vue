@@ -59,6 +59,8 @@
 </template>
 
 <script>
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default{
     mounted(){
@@ -94,14 +96,26 @@ export default{
         submitData(){
             axios.post('/change_password_data', this.change_password_data)
                 .then(response => {
-                    // this.showSucces(response.data.message);
+                    
                     console.log(response.data)
+                    if (response.data.status == 0){
+                        this.showError(response.data.message);
+                    }
+                    else if(response.data.status == 1){
+                        window.location.href = '/student_profile';
+                        console.log('hello ')
+                    }
                 })
                 .catch(error => {
                     alert(error)
 
             });
+        },
+        showError(message){
+        toast.error(message),{
+            autoClose: 100,
         }
+    },
     },
 }
 </script>
