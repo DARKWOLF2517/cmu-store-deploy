@@ -109,14 +109,19 @@
                 </div>
 
                 <table class="student-accountabilities" id="accountabilities-table">
-                    <tr style="background-color: #84c0b4; color: #fefffe;">
+                    <thead style="background-color: #84c0b4; color: #fefffe;">
+                        <th > <h6><b>Accountabilities</b> </h6></th>
+                            <th><h6><b>Amount</b></h6>  </th>
+                    </thead>
+                    <!-- <tr style="background-color: #84c0b4; color: #fefffe;">
                             <th> <h6><b>Accountabilities</b> </h6></th>
                             <td> <h6><b>Amount</b></h6>  </td>
-                        </tr>
+                        </tr> -->
+                    <tbody>
                         <tr>
                             <th>Fines</th>
                             <td>{{fines}}
-                                <i class="fas fa-eye ml-6">see more</i>
+                                <!-- <i class="fas fa-eye ml-6">see more</i> -->
                             </td>
                         </tr>
                         <tr v-for="accountability in this.accountabilityList">
@@ -124,7 +129,7 @@
                             <td >{{ accountability['amount'] }}</td>
 
                         </tr>
-
+                        </tbody>
                 </table>
             </div>
             <div class="modal-footer">
