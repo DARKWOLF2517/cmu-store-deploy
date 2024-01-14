@@ -38,6 +38,7 @@ height: 33vh;
 .posted-by-title{
     padding: 5px;
  }
+
 /* Add your existing styles here */
 
 @media (max-width: 767px) {
@@ -53,6 +54,7 @@ height: 33vh;
     h5{
         font-size: 15px;
     }
+
 }
 
 </style>

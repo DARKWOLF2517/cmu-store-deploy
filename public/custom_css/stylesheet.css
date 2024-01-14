@@ -289,6 +289,9 @@ body {
         width: 60%;
         font-size: 9px;
     }
+    #sort-select{
+        font-size: 13px;
+    }
     .container{
         margin-top: 10px;
     }
