@@ -55,7 +55,7 @@
                     <div class="event-container" id="event-container">
 
                             <div class="event-cards-list " >
-                                  <!-- Loading spinner -->
+                                <!-- Loading spinner -->
                             <div v-if="loading" class="loading-spinner-container">
                                     <div class="spinner-border text-success" id="event-spinner" role="status">
                                         <span class="visually-hidden">Loading...</span>

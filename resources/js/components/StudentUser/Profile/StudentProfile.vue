@@ -22,7 +22,7 @@
             <div class="profile-buttons mt-2">
                 <button class="btn btn-primary w-100"> <i class="fas fa-download"></i> Download QR</button>
                 <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
-                <a class="btn btn-secondary w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Reset Password</a>
+                <a class="btn btn-secondary w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Change Password</a>
             </div>
         </div>
     </div>
