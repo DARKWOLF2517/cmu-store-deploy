@@ -7,7 +7,7 @@ import { createApp } from 'vue';
     import LoginForm from './components/LoginForm/LoginForm.vue';
     import UserOrganization from './components/StudentOrg/Login/UserOptions.vue';
     import SideNav from './components/SideNav/NavBar.vue';
-
+    import ChangePassword from './components/LoginForm/ChangePassword.vue';
 // org module
     import EventsDashboard from './components/StudentOrg/Dashboard/DashboardEvents.vue';
     import EventsCount from './components/StudentOrg/Dashboard/DashboardCard.vue';
@@ -45,6 +45,7 @@ const app = createApp({});
     app.component('login-form',LoginForm);
     app.component('user-organization',UserOrganization);
     app.component('side-nav',SideNav);
+    app.component('change-password', ChangePassword);
 
 // org module
     app.component('event-card',EventCard);

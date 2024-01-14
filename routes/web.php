@@ -82,6 +82,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('change_password', function () {
         return view('layouts.set_new_password');
     });
+    Route::post('/change_password_data',[AttendanceController::class, 'store'])->name('add-attendance');
 
 #ORG ROUTE
     Route::middleware(['user-role:1'])->group(function(){
@@ -93,7 +94,7 @@ Route::middleware(['auth'])->group(function(){
         // Route::get('student_organization_attendance_record/{event_id}', function () {
         //     return view('student_organization.student_organization_attendance_record');
         // });
-        Route::get('student_organization_attendance_record/{event_id}',[AttendanceController::class, 'events']);
+        Route::get('student_organization_attendance_record/{event_id}',[LoginController::class, 'events']);
 
         Route::get('student_organization_attendance', function () {
             return view('student_organization.student_organization_attendance');

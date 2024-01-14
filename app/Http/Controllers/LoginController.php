@@ -6,11 +6,13 @@ use App\Models\Organization;
 use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\Role;
 use App\Models\SchoolYear;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserOrganization;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Stmt\Return_;
 
 class LoginController extends Controller
@@ -210,5 +212,20 @@ class LoginController extends Controller
 
         //     };
         // }
+    }
+
+    public function changePassword(User $user, Request $request) {
+
+        // $user = Auth::user();
+        
+        // if (! Hash::check($request->current_password, $user->password)) {
+        //   return back()->withErrors(['current_password' => 'The provided password does not match our records.']);
+        // }
+      
+        // $user->password = Hash::make($request->new_password);
+        $user->update(['password' => $user->password]);
+        
+        return redirect()->route('password.update')->with('success', 'Password changed successfully.');
+    
     }
 }
