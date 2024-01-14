@@ -82,7 +82,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('change_password', function () {
         return view('layouts.set_new_password');
     });
-    Route::post('/change_password_data',[AttendanceController::class, 'store'])->name('add-attendance');
+    Route::post('/change_password_data',[LoginController::class, 'changePassword']);
 
 #ORG ROUTE
     Route::middleware(['user-role:1'])->group(function(){
