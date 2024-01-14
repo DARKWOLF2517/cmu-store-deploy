@@ -6,6 +6,7 @@
                 <h5> <i class="far fa-copy"></i> Student Information</h5>
                 <div class="row">
                     <div class="col">
+                        <div class="qr-code-container">
                         <div class="qrcode-img">
 
                             <qrcode-vue :value="value" :size="size" level="H" class="img-fluid" />
@@ -16,11 +17,14 @@
                         <!-- <p class="mb-0"><b>Organization: </b> <span id="college">{{ this.profile.college }}</span></p> -->
                         <!-- <p><b>Department: </b> <span id="department"></span></p> -->
                     </div>
-
+                </div>
             </div>
 
             <div class="profile-buttons mt-2">
-                <button class="btn btn-primary w-100"> <i class="fas fa-download"></i> Download QR</button>
+                <button class="btn btn-primary w-100" @click="downloadQRCode">
+  <i class="fas fa-download"></i> Download QR
+</button>
+
                 <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
                 <a class="btn btn-secondary w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Reset Password</a>
             </div>
@@ -150,7 +154,7 @@ export default {
 <script>
 import axios from 'axios';
 import QrcodeVue from 'qrcode.vue';
-
+import html2canvas from 'html2canvas';
 export default {
   props: ['user_id', 'user_org'],
   data() {
@@ -171,6 +175,17 @@ export default {
     this.FetchUserData();
   },
   methods: {
+    downloadQRCode() {
+  const qrCodeContainer = document.querySelector('.qr-code-container');
+
+  html2canvas(qrCodeContainer).then(canvas => {
+    const imageURL = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = imageURL;
+    link.download = 'profile-qr-code.png';
+    link.click();
+  });
+},
     FetchUserData() {
       this.loading = true; // Set loading to true before making the API call
 
