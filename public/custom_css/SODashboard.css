@@ -326,7 +326,7 @@ small{ /* Change <p> to <small> */
         /* background-image: url('/assets/welcomesmall.png'); */
         background-image: url('/assets/bannersmall.png');
         padding: 20px;
-        height: 15vh;
+        height: 20vh;
         background-size: cover;
     }
     .welcome-card-student{
