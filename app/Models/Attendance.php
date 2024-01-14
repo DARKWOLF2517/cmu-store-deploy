@@ -17,6 +17,7 @@ class Attendance extends Model
         'officer_id',
         'session',
         'remarks',
+        'college_id',
         'created_at',
         'updated_at'
     ];
@@ -28,5 +29,9 @@ class Attendance extends Model
     public function events()
     {
         return $this->hasOne(Event::class,'event_id','event_id');
+    }
+    public function college()
+    {
+        return $this->belongsTo(College::class,'college_id','id');
     }
 }

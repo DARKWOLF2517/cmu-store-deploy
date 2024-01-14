@@ -26,15 +26,16 @@
                                 <th class="sortable-header" style="width: 10%;">Student ID</th>
                                 <th class="sortable-header">Student Name</th>
                                 <th class="sortable-header">Session</th>
+                                <th class="sortable-header">College</th>
                                 <!-- <th class="sortable-header" style="width: 5%;"> </th> -->
                             </tr>
                         </thead>
                         <tbody v-for="attendance in this.attendance" :id="attendance.user_id">
                             <tr>
-                                <td>{{ attendance['user_id'] }}</td>
-                                <td>{{ attendance['user']['name'] }}</td>
+                                <td>{{ attendance.user_id }}</td>
+                                <td>{{ attendance.user.name }}</td>
                                 <td>In</td>
-
+                                <td>{{ attendance.college.college}}</td>
                             </tr>
                         </tbody>
                     </table>

@@ -72,7 +72,7 @@
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded dashboard-button">
                             <i class="fas fa-tachometer-alt"></i>
-                            <a href="attendance_checker_dashboard">
+                            <a href="/attendance_checker_dashboard">
                             <span class="link-title">Dashboard</span>
                             </a>
                         </button>
