@@ -34,120 +34,13 @@
             <div class="announcement-list">
                 <div class="col">
                         <div class="announcement-cards-list ">
-                                <div class="announcement-card">
-                                    <div class="dropdown">
-                                        <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                            <!-- option 1 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                            <!-- option 2 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                        </ul>
-                                    </div>
+                                <div class="announcement-card"  style=" border-left-style: solid; border-left-color: #1b9587;">
                                     <div class="d-flex align-items-center">
-                                    <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                    <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+                                    <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
+                                    <strong class="posted-by-title ml-2">USSCO</strong>
                                     </div>
                                     <div class="card-body">
-                                    <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                    <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                    <p class="card-short-description mt-2">
-                                        UCC on January 17, 2023
-                                    </p>
-                                </div>
-                                </div>
-                                <div class="announcement-card">
-                                    <div class="dropdown">
-                                        <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                            <!-- option 1 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                            <!-- option 2 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                    <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                    <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                    </div>
-                                    <div class="card-body">
-                                    <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                    <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                    <p class="card-short-description mt-2">
-                                        UCC on January 17, 2023
-                                    </p>
-                                </div>
-                                </div>
-                                <div class="announcement-card">
-                                    <div class="dropdown">
-                                        <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                            <!-- option 1 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                            <!-- option 2 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                    <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                    <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                    </div>
-                                    <div class="card-body">
-                                    <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                    <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                    <p class="card-short-description mt-2">
-                                        UCC on January 17, 2023
-                                    </p>
-                                </div>
-                                </div>
-                                <div class="announcement-card">
-                                    <div class="dropdown">
-                                        <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                            <!-- option 1 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                            <!-- option 2 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                    <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                    <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                    </div>
-                                    <div class="card-body">
-                                    <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                    <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                    <p class="card-short-description mt-2">
-                                        UCC on January 17, 2023
-                                    </p>
-                                </div>
-                                </div>
-                                <div class="announcement-card">
-                                    <div class="dropdown">
-                                        <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                            <!-- option 1 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                            <!-- option 2 -->
-                                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex align-items-center">
-                                    <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                    <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                    </div>
-                                    <div class="card-body">
-                                    <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
+                                    <h5 class="card-title mt-4"><strong>USSCO General Assembly</strong> </h5>
                                     <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
                                     <p class="card-short-description mt-2">
                                         UCC on January 17, 2023

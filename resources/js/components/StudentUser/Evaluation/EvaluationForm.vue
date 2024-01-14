@@ -197,10 +197,13 @@
                 <label for="feedback">Please write below any suggestions/recommendations on how we can improve the Activity:</label>
                 <textarea class="form-control" id="feedback" rows="3" placeholder="Enter your feedback" required  v-model="formData.q16"></textarea>
             </div >
-            <br>
-            <button type="submit" class="btn btn-primary">Save</button>
+
+            <div class="d-flex justify-content-end">
+  <button type="submit" class="btn btn-success mt-2 mb-2 ml-auto">  Submit</button>
+</div>
+
         </div>
-        
+
     </form>
 </template>
 
@@ -272,7 +275,7 @@ export default {
                     this.event_title['location'] =  item['location'];
                     });
                     console.log(this.event_title);
-                    
+
 
                 })
                 .catch(error => {

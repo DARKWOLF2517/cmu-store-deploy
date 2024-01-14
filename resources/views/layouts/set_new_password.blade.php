@@ -48,7 +48,7 @@
             <div class="input-group">
                 <input type="retype-new-password" class="form-control rounded-left" placeholder="Retype New Password" required name="password" >
             </div>
-                <div class="form-group d-md-flex">
+                <div class="form-group d-md-flex mt-2">
                     <div>
                         {{-- <small>When you change your password, you gain full control of your account.</small>
                         <small>If you have forgotten your password, please contact the organization that created your account for assistance.</small> --}}
@@ -57,10 +57,10 @@
                             By pressing this, you have agreed to our conditions.
                         </label>
                     </div>
-</div
+                </div>
 
             <div class="form-group text-right">
-                <button type="submit" class="btn btn-secondary rounded submit">Cancel</button>
+                <button  class="btn btn-secondary rounded submit">Cancel</button>
                 <button type="submit" class="btn btn-primary rounded submit">Save Changes</button>
             </div>
         </form>
