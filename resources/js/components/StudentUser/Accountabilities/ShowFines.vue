@@ -37,7 +37,7 @@
                             <!-- Use "&#8369;" for the peso sign -->
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn button-secondary" style="background-color: #4fb98e; color: #fefffe;" data-bs-toggle="modal" data-bs-target="#seeMoreAccountability" @click="this.org_id = user_orgs.student_org_id ,this.fetchData()">
+                            <button class="btn button-secondary" style="background-color: #4fb98e; color: #fefffe;" data-bs-toggle="modal" data-bs-target="#seeMoreAccountability" @click="this.org_id = user_orgs.student_org_id ,this.org_name = user_orgs.organization.description,this.fetchData()">
                                 <i class="fas fa-eye"></i> See more
                             </button>
                         </div>
@@ -97,14 +97,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content modal-lg">
             <div class="modal-header">
-                <h6 class="modal-title" id="seeMoreAccountabilityLabel">USSCO - CMU University Senior Students' Council</h6>
+                <h6 class="modal-title" id="seeMoreAccountabilityLabel">{{this.org_name}}</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Detailed Information -->
                 <div class="mb-3">
-                    <label for="totalPayment" class="form-label">Total Payment</label>
-                    <h3 id="totalPayment">&#8369; 10,000</h3>
+                    <label for="totalPayment" class="form-label">Total Accountabilities</label>
+                    <h3 id="totalPayment">&#8369; {{ this.total_accountability }}</h3>
                     <!-- Use "&#8369;" for the peso sign -->
                 </div>
 
@@ -143,6 +143,7 @@ export default{
         return{
             attendanceCount: [],
             fines: 0,
+            total_accountability: 0,
             accountabilityList:[],
             school_year: [],
             school_year_input: this.school_year_session,
@@ -150,6 +151,7 @@ export default{
             searchTerm: '',
             filtered_accountabilities: [],
             org_id: 0,
+            org_name: '',
             user_organization: [],
         }
     },
@@ -176,8 +178,8 @@ export default{
         getUserOrgs(){
             axios.get(`/get_user_orgs`)
                     .then(response => {
-                        console.log(response.data)
                         this.user_organization = response.data;
+                        console.log(response.data)
                     })
                     .catch(error => {
                         alert(error)
@@ -188,9 +190,11 @@ export default{
             this.attendanceCount= [],
             this.fines= 0,
             this.accountabilityList=[],
+            this.total_accountability = 0,
             axios.get(`/get_accountabilities/${this.org_id}`)
                     .then(response => {
                         this.accountabilityList = response.data;
+                
                     })
                     .catch(error => {
                         alert(error)
@@ -203,7 +207,7 @@ export default{
         fetchEventsWithAttendance(){
             axios.get(`/accountabilities_students/${this.org_id}`)
                 .then(response => {
-                    console.log(response.data)
+
                     const data = response.data;
                     data.forEach(events => {
                         //get the data of the student attendance and compile it to the array
@@ -235,9 +239,13 @@ export default{
                         }
 
                         this.attendanceCount.push(attendanceRecord);
-                    });
-                    console.log(this.attendanceCount);
 
+                    });
+                
+                    this.accountabilityList.forEach(element => {
+                        this.total_accountability += element.amount;
+                    });
+                        this.total_accountability = this.total_accountability+ this.fines;
 
                 })
                 .catch(error => {

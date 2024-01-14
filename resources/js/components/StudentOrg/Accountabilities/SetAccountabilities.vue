@@ -232,7 +232,7 @@ export default {
     fetchData() {
       this.accountabilityList = [];
       this.loading = true; // Set loading to true before making the request
-      axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_input}`)
+      axios.get(`/get_org_accountability/${this.org_id}/${this.school_year_input}`)
         .then((response) => {
           this.accountabilityList = response.data;
           this.filtered_accountabilities = this.accountabilityList;

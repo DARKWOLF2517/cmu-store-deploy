@@ -69,7 +69,7 @@ class AccountabilitiesController extends Controller
     }
     public function AccountabilitiesListInAdmin($org_id,$school_year)
     {
-            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['school_year', $school_year]])->with(['Attendance'])->get();
+            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
             $users = User::all();
             $userOrgs = UserOrganization::all();
             $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ],['school_year', $school_year]])->get();
@@ -282,5 +282,16 @@ class AccountabilitiesController extends Controller
         $student = Auth::id();
         $userOrgs = UserOrganization::where([['student_id', $student], ['role_id', 2]])->with('organization')->get();
         return $userOrgs->toJson();
+    }
+    public function getOrgAccountability($org_id, $school_year)
+    {
+        $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
+        if ($org_default_school_year){
+            $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
+            return $accountabilities->toJson();
+        }else{
+            return response()->json([]);
+        }
+
     }
 }

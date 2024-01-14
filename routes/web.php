@@ -198,7 +198,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/paid_accountabilities/{org_id}',[AccountabilitiesController::class, 'PaidAccountabilities']);
             Route::get('/accountabilities_fetch_update/{id}',[AccountabilitiesController::class, 'accountabilitiesFetchUpdate']);
             Route::put('/update_accountabilities/{id}',[AccountabilitiesController::class, 'updateAccountabilities']);
-
+            Route::get('/get_org_accountability/{org_id}/{school_year}', [AccountabilitiesController::class, 'getOrgAccountability']);
 
             #ORG PROFILE ROUTES
             Route::post('/add_school_year',[OrgProfileController::class, 'addSchoolYear']);
