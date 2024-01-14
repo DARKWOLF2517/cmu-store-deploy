@@ -69,9 +69,9 @@ Route::middleware(['auth'])->group(function(){
     //calendar events
     Route::get('/calendar/{org_id}/{school_year}',[EventController::class, 'getEventsForCalendar']);
     #ACCOUNTABILITIES ROUTE
-    Route::get('/accountabilities/{org_id}/{school_year}',[AccountabilitiesController::class, 'getAccountabilities']);
-    Route::get('/get_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
-
+    Route::get('/accountabilities_students/{org_id}',[AccountabilitiesController::class, 'getAccountabilities']);
+    Route::get('/get_accountabilities/{org_id}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
+    Route::get('/get_user_orgs', [AccountabilitiesController::class, 'getUserOrgs']);
 
     #attendance route
     Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);

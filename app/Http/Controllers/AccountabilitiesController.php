@@ -8,19 +8,28 @@ use App\Models\Event;
 use App\Models\EventExempted;
 use App\Models\FreeFinesStudent;
 use App\Models\OrganizationAccountability;
+use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\PaidAccountability;
 use App\Models\User;
 use App\Models\UserOrganization;
 use App\Models\YearLevel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
 
 class AccountabilitiesController extends Controller
 {
-    public function getAccountabilities($org_id, $school_year)
+    public function getAccountabilities($org_id)
     {
-        $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['school_year', $school_year]])->with(['Attendance'])->get();
-        return $accountabilities->toJson();
+        $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
+        if ( $org_default_school_year){
+            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $org_default_school_year->school_year]])->with(['Attendance'])->get();
+            return $accountabilities->toJson();
+        }else{
+            return response()->json([]);
+        }
+
     }
 
     public function store(Request $request)
@@ -47,10 +56,16 @@ class AccountabilitiesController extends Controller
             return response()->json(['message' => 'Accountability Created Successfully']);
             // return $request;
     }
-    public function getAccountabilitiesList($org_id, $school_year)
+    public function getAccountabilitiesList($org_id)
     {
-        $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
-        return $accountabilities->toJson();
+        $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
+        if ($org_default_school_year){
+            $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $org_default_school_year->school_year]] )->get();
+            return $accountabilities->toJson();
+        }else{
+            return response()->json([]);
+        }
+
     }
     public function AccountabilitiesListInAdmin($org_id,$school_year)
     {
@@ -260,5 +275,12 @@ class AccountabilitiesController extends Controller
             'amount' => $request['amount']
         ]);
         return response()->json(['message' => 'Accountability Updated Successfully']);
+    }
+
+    public function getUserOrgs()
+    {
+        $student = Auth::id();
+        $userOrgs = UserOrganization::where([['student_id', $student], ['role_id', 2]])->with('organization')->get();
+        return $userOrgs->toJson();
     }
 }
