@@ -297,7 +297,7 @@ export default{
 
         FinesPayment(){
             // for adding payment database
-            axios.post('/FinesAccountabilityPayment', this.finesPay)
+            axios.post(`/FinesAccountabilityPayment/${this.school_year_input}`, this.finesPay)
                     .then(response => {
                         // this.showSucces(response.data.message);
                         // this.fetchData();
@@ -312,17 +312,17 @@ export default{
                 console.log(this.attendanceFill)
 
             // //for adding to attendance to remove the list but leave remarks of 1
-            axios.post('/attendanceFill', this.attendanceFill)
-                .then(response => {
-                    // this.showSucces(response.data.message);
-                    // this.fetchData();
-                    // location.reload();
-                    console.log(response.data)
-                })
-                .catch(error => {
-                    alert(error)
+            // axios.post('/attendanceFill', this.attendanceFill)
+            //     .then(response => {
+            //         // this.showSucces(response.data.message);
+            //         // this.fetchData();
+            //         // location.reload();
+            //         console.log(response.data)
+            //     })
+            //     .catch(error => {
+            //         alert(error)
 
-            });
+            // });
 
         },
         OtherAccountabilityPayment(){

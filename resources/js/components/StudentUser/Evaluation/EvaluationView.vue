@@ -4,13 +4,13 @@
         <div class="evaluation-cards-list ">
             <!-- <div v-for="(event, index) in this.events" :id="event.event_id" class="evaluation-attendance-card"> -->
                 <div class="evaluation-attendance-card" v-for="(event, index) in this.events" :id="event.event_id"
-     :class="[
-        'event-card',
-        'border-top',
-        'border-5',
-        {'border-success': hasResponded(event.event_id), 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0},
-        'py-3'
-     ]">
+            :class="[
+                'event-card',
+                'border-top',
+                'border-5',
+                {'border-success': this.hasResponded(event.event_id), 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0},
+                'py-3'
+            ]">
                 <div class="card-body d-flex flex-column">
                     <div class="info">
                         <div class="d-flex align-items-center">
@@ -26,7 +26,7 @@
 
                     <div class=" text-right buttons mt-2 d-flex justify-content-end">
                         <div v-if="this.user_answer_student_id.length > 0">
-                            <div v-if="hasResponded(event['event_id'])">
+                            <div v-if="this.hasResponded(event['event_id'])">
                                 <button class="btn btn-success">Responded</button>
                             </div>
                             <div v-else-if="event['evaluation_status'] == 0">
@@ -114,6 +114,7 @@ export default {
         hasResponded(eventId) {
             // Check if any element in user_answer_student_id has a matching event_id
             return this.user_answer_student_id.some(item => item.event_id === eventId);
+            
         },
         fetchData(){
                 axios.get(`/events/show/${this.organization_id}`)
