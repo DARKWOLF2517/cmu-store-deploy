@@ -57,8 +57,12 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" >
-                        <tr>
+                    <!-- <tbody v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" > -->
+                        <tbody>
+    <div v-if="loading" class="loading-spinner-container mt-2">
+        <span class="loader"></span>
+    </div>
+    <tr v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" :key="fines_list.user_id">
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>
                         <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
@@ -91,8 +95,15 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody v-for="fines_list in this.filtered_items_for_other_accountabilities" :id="fines_list.user_id" >
-                        <tr>
+                    <!-- <tbody v-for="fines_list in this.filtered_items_for_other_accountabilities" :id="fines_list.user_id" >
+                         -->
+                         <tbody>
+    <!-- Loading spinner -->
+    <div v-if="loading" class="loading-spinner-container mt-2"  id="spinner">
+        <span class="loader"></span>
+    </div>
+    <!-- Table rows -->
+    <tr v-for="fines_list in this.filtered_items_for_other_accountabilities" :id="fines_list.user_id" :key="fines_list.user_id">
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>
                         <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
@@ -242,6 +253,7 @@ export default{
             finesPay: [],
             school_year: [],
             school_year_input: this.school_year_session,
+            loading: true,
 
 
         }
@@ -378,6 +390,7 @@ export default{
 
 
         fetchData(){
+            this.loading = true;
             this.events = [];
             this.attendance = [];
             this.overall_fines_list = [];
@@ -386,7 +399,7 @@ export default{
             axios.get(`/fines_list/${this.org_id}/${this.school_year_input}`)
 
                     .then(response => {
-
+                        this.loading = false;
                         //FOR FINES LOGIC
                         const events_with_attendance = response.data.accountabilities_fines;
                         let users = response.data.user;
@@ -691,7 +704,7 @@ export default{
                     })
                     .catch(error => {
                         console.log(error)
-
+                        this.loading = false;
                 });
         },
 

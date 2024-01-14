@@ -240,7 +240,7 @@ export default{
       searchTerm: '',
       filtered_free_fines: [],
       currentPage: 1,
-      itemsPerPage: 6,
+      itemsPerPage: 10,
     }
   },
   computed: {
@@ -272,85 +272,109 @@ gotoPage(page) { this.currentPage = page; this.paginatedData = this.filtered_fre
 
 
  printTable() {
-    // Clone the table element to avoid modifying the original table
-    const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+  // Create a hidden iframe for printing
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
 
-    // Create a hidden iframe for printing
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
+  // Generate the printable HTML document in the iframe
+  const iframeDoc = iframe.contentWindow.document;
+  iframeDoc.open();
+  iframeDoc.write(`
+      <html>
+      <head>
+          <title>Print</title>
+          <!-- Include Bootstrap stylesheet link -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      </head>
+      <body>
+          <!-- Add a title before the table -->
+          <h2>Student With Free Fines</h2>
 
-    // Generate the printable HTML document in the iframe
-    const iframeDoc = iframe.contentWindow.document;
-    iframeDoc.open();
-    iframeDoc.write(`
-        <html>
-        <head>
-            <title>Print</title>
-            <!-- Include Bootstrap stylesheet link -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        </head>
-        <body>
-            <!-- Add a title before the table -->
-            <h2>Student With Free Fines</h2>
+          <!-- Add Bootstrap table classes -->
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th style="width: 10%;">Student ID</th>
+                      <th style="width: 30%;">Student Name</th>
+                      <th style="width: 20%;">Reason</th>
+                      <th style="width: 10%;"></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${this.generateTableRows(this.free_fines_students)}
+              </tbody>
+          </table>
+      </body>
+      </html>
+  `);
+  iframeDoc.close();
 
-            <!-- Add Bootstrap table classes -->
-            <table class="table table-bordered table-striped">
-                ${tableToPrint.innerHTML}
-            </table>
-        </body>
-        </html>
-    `);
-    iframeDoc.close();
+  // Print the iframe content
+  iframe.contentWindow.focus();
+  iframe.contentWindow.print();
 
-    // Print the iframe content
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
-
-    // Remove the iframe after printing
-    setTimeout(() => {
-        document.body.removeChild(iframe);
-    }, 1000);
-},
-    downloadTable() {
-        // Get the table data
-        const tableData = this.getTableData();
-
-        // Create a worksheet
-        const ws = XLSX.utils.aoa_to_sheet(tableData);
-
-        // Create a workbook
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-        // Save the workbook as an Excel file
-        XLSX.writeFile(wb, 'StudentWithFreeFines.xlsx');
-    },
-    getTableData() {
-        // Get a reference to the table
-        const table = document.getElementById('accountabilities-table');
-
-        // Initialize an array to store the table data
-        const tableData = [];
-
-        // Iterate through the rows of the table
-        for (let i = 0; i < table.rows.length; i++) {
-            const rowData = [];
-
-            // Iterate through the cells of the current row, excluding the last one
-            for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
-            // Push the cell value to the rowData array
-            rowData.push(table.rows[i].cells[j].textContent);
-            }
-
-            // Push the row data to the tableData array
-            tableData.push(rowData);
-        }
-
-        // Return the table data
-        return tableData;
+  // Remove the iframe after printing
+  setTimeout(() => {
+      document.body.removeChild(iframe);
+  }, 1000);
 },
 
+generateTableRows(data) {
+  let rows = '';
+  data.forEach(item => {
+      rows += `
+          <tr>
+              <td>${item.student_id}</td>
+              <td>${item.user.name}</td>
+              <td>${item.reason}</td>
+              <td>
+                  <span class="table-buttons">
+                      <button class="btn edit-button" @click="submit = updateData, id = ${item.student_id},fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
+                      <button class="btn delete-button" @click="" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                  </span>
+              </td>
+          </tr>
+      `;
+  });
+  return rows;
+},
+downloadTable() {
+  // Get the table data specifically from free_fines_students
+  const tableData = this.getFreeFinesTableData();
+
+  // Create a workbook
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(tableData);
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  // Save the workbook as an Excel file
+  XLSX.writeFile(wb, 'StudentWithFreeFines.xlsx');
+},
+
+getFreeFinesTableData() {
+  // Get a reference to the free_fines_students data
+  const data = this.free_fines_students;
+
+  // Initialize an array to store the table data
+  const tableData = [];
+
+  // Iterate through the free_fines_students data
+  for (let i = 0; i < data.length; i++) {
+    const rowData = [];
+
+    // Add the desired data fields to the rowData array
+    rowData.push(data[i].student_id);
+    rowData.push(data[i].user.name);
+    rowData.push(data[i].reason);
+
+    // Push the row data to the tableData array
+    tableData.push(rowData);
+  }
+
+  // Return the table data
+  return tableData;
+},
 
 
     filterItems() {

@@ -39,7 +39,7 @@
 
     <!-- <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button> -->
                     <!-- Card 1 -->
-    <div class="accountabilities-container">
+    <div class="accountabilities-container" id="set-accountabilities">
       <!-- Loading spinner -->
       <div v-if="loading" class="loading-spinner-container">
         <div class="spinner-border text-success" id="event-spinner" role="status">

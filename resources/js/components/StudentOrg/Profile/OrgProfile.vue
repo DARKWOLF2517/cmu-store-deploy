@@ -74,6 +74,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                  <div v-if="loading" class="loading-spinner-container">
+                                    <div class="spinner-border text-success" id="event-spinner" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                            </div>
                                 <tr v-for="officers in this.orgOfficers">
                                     <td>{{ officers['name'] }}</td>
                                     <td>{{ officers['position'] }}</td>

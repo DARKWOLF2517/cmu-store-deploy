@@ -157,7 +157,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-                                    <button type="button" class="btn btn-secondary" @click="startAttendance()" data-bs-dismiss="modal">
+                                    <button type="button" class="btn btn-success" @click="startAttendance()" data-bs-dismiss="modal">
                                         <div v-if="this.status === 1 ">Start Attendance</div>
                                         <div v-else-if="this.status === 2 ">Stop Attendance</div>
                                     </button>

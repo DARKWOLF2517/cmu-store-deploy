@@ -40,13 +40,7 @@
       </div>
 
 
-            <!-- Message if the container is empty -->
-            <div class="Container-IfEmpty" v-if="this.evaluation.length == 0">
-                <div class="Empty-Message">
-                <i class="icon 	far fa-file-alt" id="icon-message"></i>
-                <p class="text-muted">Evaluation cards show up here.</p>
-            </div>
-            </div>
+
 
             <!-- Status EVALUATION CARD -->
             <!-- <div class="event-card border-top border-5 border-success border-bottom-0 py-3" v-for="evaluation in this.filtered_events" :id="evaluation.event_id"> -->
@@ -59,7 +53,13 @@
                         'py-3'
                     ]">
 
-
+   <!-- Message if the container is empty -->
+   <div class="Container-IfEmpty" v-if="filtered_events.length === 0">
+                <div class="Empty-Message">
+                <i class="icon 	far fa-file-alt" id="icon-message"></i>
+                <p class="text-muted">Evaluation cards show up here.</p>
+            </div>
+            </div>
                     <!-- <h5> {{ evaluation['event_id'] }}</h5> -->
                 <div class="dropdown">
                     <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">

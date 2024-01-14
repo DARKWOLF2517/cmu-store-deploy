@@ -56,13 +56,17 @@
     </div>
 </div>
 
-            <div id="table-container">
-                <div v-if="this.loading == true" class="loading-spinner-container">
+            <!-- <div id="table-container"> -->
+                <!-- <div v-if="this.loading == true" class="loading-spinner-container">
                     <div class="spinner-border text-success" id="event-spinner" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="scroll-pane" id="table-list" v-if="this.loading == false">
+                <div class="scroll-pane" id="table-list" v-if="this.loading == false"> -->
+            <div id="table-container">
+
+                <div class="scroll-pane" id="table-list" >
+
                     <table  id="student-list-table">
                     <thead>
                         <tr>
@@ -74,7 +78,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="student in paginatedData" :key="student.student_id">
+        <!-- Loading spinner -->
+        <div v-if="this.loading == true" class="loading-spinner-container ">
+            <span class="loader"></span>
+
+        </div>
+        <!-- Table rows -->
+        <tr v-for="student in paginatedData" :key="student.student_id">
+                        <!-- <tr v-for="student in paginatedData" :key="student.student_id"> -->
                             <!-- Student data will be added here -->
                             <td>{{ student.student_id }}</td>
                             <td>{{ student.user.name }}</td>
@@ -91,7 +102,7 @@
                     </table>
                 </div>
 
-                <ul class="pagination justify-content-center">
+                <ul class="pagination justify-content-center mt-2">
                     <li class="page-item" :class="{ disabled: currentPage === 1 }">
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
                     </li>
@@ -504,7 +515,7 @@ methods:{
 
                 if (data[0].length == 3){
                     this.collectedData = data;
-                    
+
                     // Display the extracted data in the console
                     this.loading = true;
                     axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input}/${this.year_level_data_input}`, { data: this.collectedData })

@@ -167,8 +167,8 @@
 }
 .organization-details{
     display: flex;
-    height: 30vh;
-    max-height: 30vh;
+    height: 40vh;
+    max-height: 40vh;
     overflow-y: auto;
 }
 

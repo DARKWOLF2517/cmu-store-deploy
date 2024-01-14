@@ -20,6 +20,11 @@ table {
     /* background-color: #69a09d; */
     font-size: 15px;
     font-weight: bold;
+    padding: 5px !important;
+  }
+  #student-list-table td, #accountabilities-table td{
+
+    padding: 5px !important;
   }
 thead{
     background-color: #e4f8ee;
@@ -43,7 +48,7 @@ thead th{
   th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
-    padding: 5px;
+    padding: 15px;
   }
   tr:hover {
     background-color: #e8faf0;
@@ -76,7 +81,7 @@ thead th{
   }
   #table-container{
     border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     padding: 10px;
     /* padding: 5px; */
     height: 70vh;

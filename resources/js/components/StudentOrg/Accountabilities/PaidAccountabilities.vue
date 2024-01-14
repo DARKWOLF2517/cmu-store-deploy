@@ -35,10 +35,10 @@
             <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
             <div class="student-buttons d-flex">
                 <div class="btn-group" role="group">
-                    <button class="btn me-2" id="add-student-list-button" @click="printTable">
+                    <button class="btn me-2"  @click="printTable">
                         <i class="fas fa-print"></i> Print
                     </button>
-                    <button class="btn me-2" id="add-student-button" @click="downloadTable">
+                    <button class="btn me-2" @click="downloadTable">
                         <i class="fas fa-download"></i> Download
                     </button>
                 </div>
@@ -49,7 +49,7 @@
     <div id="table-container" style="margin-left: 10px;">
     <div class="scroll-pane">
         <!-- fines accountabilities -->
-        <table  id="accountabilities-table"  >
+        <table   >
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -58,8 +58,8 @@
                     <th>Amount</th>
                 </tr>
             </thead>
-            <tbody v-for="paid in this.paidList">
-                <tr>
+            <tbody>
+                <tr v-for="paid in paginatedData" :key="paid.student_id">
                 <td >{{ paid['student_id'] }}</td>
                 <td> {{ paid.user['name'] }}</td>
                 <td>{{ paid['accountability_name'] }}</td>
@@ -68,22 +68,18 @@
             </tbody>
         </table>
     </div>
+    <ul class="pagination justify-content-center mt-2">
+                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
+                    </li>
+                    <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
+                        <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
+                    </li>
+                    <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                        <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
+                    </li>
+                </ul>
 </div>
-    <div class="pagination-container mt-3">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item active" aria-current="page">
-            <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </div>
 
         <div id="edit-modal" class="modal">
             <div class="modal-content">
@@ -122,9 +118,84 @@ export default{
     data(){
         return{
             paidList: [],
-
+            currentPage: 1,
+            itemsPerPage: 10,
 
         }
+    },
+    computed: {
+    totalPages() {
+        return Math.ceil(this.paidList.length / this.itemsPerPage);
+    },
+    pageRange() {
+        const start = Math.max(1, this.currentPage - 5);
+        const end = Math.min(this.totalPages, this.currentPage + 5);
+        const range = [];
+
+        if (start > 1) {
+            range.push(1);
+            if (start > 2) {
+            range.push("...");
+            }
+        }
+
+        for (let i = start; i <= end; i++) {
+            range.push(i);
+        }
+
+        if (end < this.totalPages) {
+            if (end < this.totalPages - 1) {
+            range.push("...");
+            }
+            range.push(this.totalPages);
+        }
+
+        return range;
+    },
+    paginatedData() {
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        return this.paidList.slice(start, start + this.itemsPerPage);
+    },
+    hasEllipsisBefore() {
+        return this.currentPage > 3 && this.totalPages > 5;
+    },
+
+    hasEllipsisAfter() {
+        return this.currentPage < this.totalPages - 2 && this.totalPages > 5;
+    },
+    ellipsisRange() {
+        const range = [];
+        const start = Math.max(this.currentPage - 2, 1);
+        const end = Math.min(start + 4, this.totalPages);
+
+        if (this.hasEllipsisBefore) {
+            range.push(this.ellipsisBefore);
+        }
+
+        for (let i = start; i <= end; i++) {
+            range.push(i);
+        }
+
+        if (end < this.totalPages) {
+            if (end < this.totalPages - 1) {
+            range.push(this.ellipsisAfter);
+            }
+            range.push(this.totalPages);
+        }
+
+        // If there are more than 5 page numbers, remove the ones in the middle
+        if (range.length > 5) {
+            range.splice(3, range.length - 5);
+        }
+
+        return range;
+    },
+    ellipsisBefore() {
+        return Math.max(this.currentPage - 5, 1);
+    },
+    ellipsisAfter() {
+        return Math.min(this.currentPage + 5, this.totalPages);
+    },
     },
 
     mounted(){
@@ -147,110 +218,132 @@ export default{
                     });
 
                 },
-
-
-
-                printTable() {
-    // Clone the table element to avoid modifying the original table
-    const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
-
-    // Remove or hide the "Actions" column in each row
-    const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
-    const rows = tableToPrint.getElementsByTagName('tr');
-
-    for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName('td');
-        if (cells.length > actionsColumnIndex) {
-            // Remove the cell from the DOM
-            cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
+                prevPage() {
+        if (this.currentPage > 1) {
+        this.currentPage--;
         }
-    }
-
-    // Hide the header cell for the "Actions" column
-    const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-    if (headerRow) {
-        const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
-        if (headerCell) {
-            headerCell.style.display = 'none';
-        }
-    }
-
-    // Create a hidden iframe for printing
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    // Generate the printable HTML document in the iframe
-    const iframeDoc = iframe.contentWindow.document;
-    iframeDoc.open();
-    iframeDoc.write(`
-        <html>
-        <head>
-            <title>Print</title>
-            <!-- Include Bootstrap stylesheet link -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        </head>
-        <body>
-            <!-- Add a title before the table -->
-            <h2>Paid Accountabilities</h2>
-
-            <!-- Add Bootstrap table classes -->
-            <table class="table table-bordered table-striped">
-                ${tableToPrint.innerHTML}
-            </table>
-        </body>
-        </html>
-    `);
-    iframeDoc.close();
-
-    // Print the iframe content
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
-
-    // Remove the iframe after printing
-    setTimeout(() => {
-        document.body.removeChild(iframe);
-    }, 1000);
-},
-
-    downloadTable() {
-        // Get the table data
-        const tableData = this.getTableData();
-
-        // Create a worksheet
-        const ws = XLSX.utils.aoa_to_sheet(tableData);
-
-        // Create a workbook
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
-
-        // Save the workbook as an Excel file
-        XLSX.writeFile(wb, 'PaidAccountabilitiesList.xlsx');
     },
 
-    getTableData() {
-        // Get a reference to the table
-        const table = document.getElementById('accountabilities-table');
-
-        // Initialize an array to store the table data
-        const tableData = [];
-
-        // Iterate through the rows of the table
-        for (let i = 0; i < table.rows.length; i++) {
-            const rowData = [];
-
-            // Iterate through the cells of the current row, excluding the last one
-            for (let j = 0; j < table.rows[i].cells.length; j++) {
-            // Push the cell value to the rowData array
-            rowData.push(table.rows[i].cells[j].textContent);
-            }
-
-            // Push the row data to the tableData array
-            tableData.push(rowData);
+    nextPage() {
+        if (this.currentPage < this.totalPages) {
+        this.currentPage++;
         }
+    },
 
-        // Return the table data
-        return tableData;
+    gotoPage(page) {
+        if (page === "...") {
+            if (this.currentPage > this.totalPages / 2) {
+            this.currentPage = this.totalPages;
+            } else {
+            this.currentPage = 1;
+            }
+        } else {
+            this.currentPage = page;
+        }
+    },
+                printTable() {
+  // Create a hidden iframe for printing
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+
+  // Generate the printable HTML document in the iframe
+  const iframeDoc = iframe.contentWindow.document;
+  iframeDoc.open();
+  iframeDoc.write(`
+      <html>
+      <head>
+          <title>Print</title>
+          <!-- Include Bootstrap stylesheet link -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      </head>
+      <body>
+          <!-- Add a title before the table -->
+          <h2>Student With Free Fines</h2>
+
+          <!-- Add Bootstrap table classes -->
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th style="width: 10%;">Student ID</th>
+                      <th style="width: 30%;">Student Name</th>
+                      <th style="width: 20%;">Reason</th>
+                      <th style="width: 10%;"></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${this.generateTableRows(this.paidList)}
+              </tbody>
+          </table>
+      </body>
+      </html>
+  `);
+  iframeDoc.close();
+
+  // Print the iframe content
+  iframe.contentWindow.focus();
+  iframe.contentWindow.print();
+
+  // Remove the iframe after printing
+  setTimeout(() => {
+      document.body.removeChild(iframe);
+  }, 1000);
+},
+
+generateTableRows(data) {
+  let rows = '';
+  data.forEach(item => {
+      rows += `
+          <tr>
+              <td>${item.student_id}</td>
+              <td>${item.user.name}</td>
+              <td>${item.reason}</td>
+              <td>
+                  <span class="table-buttons">
+                      <button class="btn edit-button" @click="submit = updateData, id = ${item.student_id},fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
+                      <button class="btn delete-button" @click="" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                  </span>
+              </td>
+          </tr>
+      `;
+  });
+  return rows;
+},
+downloadTable() {
+  // Get the table data specifically from paidList
+  const tableData = this.getPaidListTableData();
+
+  // Create a workbook
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(tableData);
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  // Save the workbook as an Excel file
+  XLSX.writeFile(wb, 'StudentWithFreeFines.xlsx');
+},
+
+getPaidListTableData() {
+  // Get a reference to the paidList data
+  const data = this.paidList;
+
+  // Initialize an array to store the table data
+  const tableData = [];
+
+  // Iterate through the paidList data
+  for (let i = 0; i < data.length; i++) {
+    const rowData = [];
+
+    // Add the desired data fields to the rowData array
+    rowData.push(data[i].student_id);
+    rowData.push(data[i].user.name);
+    rowData.push(data[i].reason);
+
+    // Push the row data to the tableData array
+    tableData.push(rowData);
+  }
+
+  // Return the table data
+  return tableData;
 },
 
 

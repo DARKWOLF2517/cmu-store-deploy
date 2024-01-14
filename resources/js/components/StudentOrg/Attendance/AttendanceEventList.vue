@@ -1,7 +1,7 @@
 <template>
-    <div class="schedule-list-container">
+    <div class="schedule-list-container" id="schedule-list">
         <!-- Loading spinner -->
-        <div v-if="loading" class="loading-spinner">
+        <div v-if="loading" class="loading-spinner-container">
             <div class="spinner-border text-success" role="status">
             <span class="visually-hidden">Loading...</span>
             </div>
