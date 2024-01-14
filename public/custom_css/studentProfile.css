@@ -233,6 +233,12 @@
     .table{
         width: 100%;
     }
+    .org-under-info{
+        font-size: 13px;
+    }
+    .btn{
+        font-size: 15px;
+    }
     /* .container.d-flex.mt-2 {
         margin-right: 0 !important;
         margin-top: 0 !important;

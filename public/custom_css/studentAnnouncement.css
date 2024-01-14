@@ -69,5 +69,10 @@
       top: 5px;
       right: 5px;
     }
-
+    h5{
+        font-size: 18px !important;
+    }
+    .card-short-description{
+        font-size: 15px;
+    }
   }

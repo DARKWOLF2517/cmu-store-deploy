@@ -17,7 +17,7 @@
                             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
                             <strong class="posted-by-title ml-2">USSCO</strong>
                         </div>
-                        <h5 class="card-title mt-2"><strong><b>{{ event["name"] }} </b></strong></h5>
+                        <h5 class="card-title mt-2"><b>{{ event["name"] }} </b></h5>
                         <small class="date-upload text-muted">Date: 11/9/2023 - 10:12 AM</small>
                         <h6>Total number of Attendance made: 4</h6>
                         <h6 class="evaluation-status" v-if="event['evaluation_status'] === 1">Status: <b>Ongoing</b></h6>
