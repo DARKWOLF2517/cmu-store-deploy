@@ -78,7 +78,7 @@
             </ol>
             </nav>
         </div>
-        <div class="mt-2">
+        {{-- <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
                     <h4><i class="fas fa-list mt-2"></i>  Evaluation</h4>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <student-event-card
         organization_id = {{Session::get('org_id')}}

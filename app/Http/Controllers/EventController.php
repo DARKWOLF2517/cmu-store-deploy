@@ -20,12 +20,12 @@ class EventController extends Controller
     public function getEvents($org_id, $school_year = null)
     {        
         if(!$school_year) {
-            $events = Event::where([['org_id', $org_id]])->get();
+            $events = Event::where([['org_id', $org_id]])->with('organization')->get();
             return $events->toJson();
 
         }
         else{
-            $events = Event::where([['org_id', $org_id],['school_year',$school_year]])->get();
+            $events = Event::where([['org_id', $org_id],['school_year',$school_year]])->with('organization')->get();
             return $events->toJson();
         }
     }
