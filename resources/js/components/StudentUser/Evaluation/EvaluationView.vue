@@ -15,7 +15,7 @@
             <div class="info">
                 <div class="d-flex align-items-center">
                     <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
-                    <strong class="posted-by-title ml-2">USSCO</strong>
+                    <strong class="posted-by-title ml-2">{{ event.organization.name }}</strong>
                 </div>
                 <h5 class="card-title mt-2"><b>{{ event["name"] }} </b></h5>
                 <small class="date-upload text-muted">Date: 11/9/2023 - 10:12 AM</small>
