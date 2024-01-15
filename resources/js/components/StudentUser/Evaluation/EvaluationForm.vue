@@ -253,7 +253,7 @@ export default {
                 console.log(this.formData);
                 axios.post('/submit_evaluation', this.formData)
                     .then(response => {
-                        window.location.href = "/student_attendance"
+                        window.location.href = "/student_evaluation_list"
                     })
                     .catch(error => {
                         alert(error)

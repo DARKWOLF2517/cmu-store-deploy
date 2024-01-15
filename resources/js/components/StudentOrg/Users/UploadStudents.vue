@@ -4,7 +4,7 @@
             <div class="col breadcrumbs">
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item">Student Organization</li>
                     <li class="breadcrumb-item active" aria-current="page">Student List</li>
                 </ol>
@@ -18,20 +18,20 @@
                             <input type="text" placeholder="Search Student" v-model="searchTerm" @input="filterItems">
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12" >
+                    <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
 
+                            <div class="select-dropdown d-flex justify-content-end">
+                                <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                                    <option value="0" disabled selected>Select School Year</option>
+                                    <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                                </select>
+                            </div>
                         <div class="select-dropdown d-flex justify-content-end">
-                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                                <option value="0" disabled selected>Select School Year</option>
-                                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
+                                <option value="0" disabled selected >Select College</option>
+                                <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                             </select>
                         </div>
-                    <div class="select-dropdown d-flex justify-content-end">
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
-                            <option value="0" disabled selected >Select College</option>
-                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
-                        </select>
-                    </div>
                     </div>
                 </div>
             </div>

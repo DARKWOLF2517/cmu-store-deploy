@@ -1,5 +1,18 @@
 <template>
-
+  <div class="mt-2 student-buttons d-flex justify-content-end">
+            <div class="btn-group" role="group">
+            <button class="btn me-2" id="print-results-button">
+                <i class="fas fa-print"></i> Print Results
+            </button>
+            <button class="btn me-2" id="download-results-button">
+                <i class="fas fa-download"></i> Download Results
+            </button>
+            <a class="btn me-2" href="/student_organization_evaluation_results_table">
+                <i class="fas fa-eye"></i> View Table
+            </a>
+        </div>
+        </div>
+        <div class="col mt-2" id="evaluation-summary">
     <h3>STUDENT ORGANIZATIONS & ACTIVITIES EVALUATION FORM</h3>
         <hr>
         <h6 for="Activity">Event: <b>{{this.event_title['name']}}</b>   </h6>
@@ -83,6 +96,7 @@
             </ul>
         </div>
     </div>
+</div>
 </div>
 </template>
 

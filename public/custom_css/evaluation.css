@@ -132,6 +132,7 @@ option {
     overflow-y: auto;
     overflow-x: hidden;
     background-color: white;
+    padding: 10px;
 }
 .feedbacklist-card{
     border: 1px solid #ddd;

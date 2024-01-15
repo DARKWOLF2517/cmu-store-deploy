@@ -103,7 +103,7 @@ Route::middleware(['auth'])->group(function(){
         // Route::get('student_organization_attendance_record/{event_id}', function () {
         //     return view('student_organization.student_organization_attendance_record');
         // });
-    
+
 
         Route::get('student_organization_attendance', function () {
             return view('student_organization.student_organization_attendance');
@@ -145,6 +145,10 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('student_organization_evaluation', function () {
             return view('student_organization.student_organization_evaluation');
+        });
+
+        Route::get('student_organization_evaluation_results_table', function () {
+            return view('student_organization.student_organization_evaluation_result_table');
         });
 
         Route::get('student_organization_evaluation_forms', function () {
@@ -225,7 +229,7 @@ Route::middleware(['auth'])->group(function(){
             Route::put('/update_officer_role/{id}',[OrgProfileController::class, 'updateOfficerRole']);
             Route::delete('/delete_officer_role/{id}',[OrgProfileController::class, 'DeleteOfficerRole']);
             Route::get('/view_org_profile/{org_id}',[OrgProfileController::class, 'viewOrgProfile']);
-           
+
             Route::put('/updateOrgProfileDetails/{id}',[OrgProfileController::class, 'updateOrgProfileDetails']);
             Route::get('/fetch_name_officer_input/{id}',[OrgProfileController::class, 'fetchNameOfficerInput']);
             Route::get('/view_year_level/{org_id}',[OrgProfileController::class, 'fetchYearLevel']);
@@ -310,8 +314,8 @@ Route::middleware(['auth'])->group(function(){
                 return view('attendance_checker.student_attendance_schedule');
             });
 
-        
-            
+
+
             Route::get('/attendance_checker_attendance_records_list', function () {
                 return view('attendance_checker.student_attendance');
             });

@@ -82,9 +82,10 @@
                         <!-- Add more dropdown items as needed -->
                     </ul>
                 </div>
-                <div class="event-date-container"><span class="event-date">{{evaluation['start_date']}}</span></div>
+                <div class="event-date-container"><span class="event-date"> <i class="bi bi-calendar"></i> {{evaluation['start_date']}}</span></div>
                 <div class="event-title"><b>{{ evaluation['name'] }}</b></div>
-                <div class="event-description">Total Response: <b>{{evaluation['evaluation_form_answer']}}</b></div>
+                <div class="event-desc">Total Response: <b>{{evaluation['evaluation_form_answer']}}</b></div>
+
                 <div>
                     <div class="event-status text-muted" v-if="evaluation['evaluation_status'] == 0">Status: <b>Closed</b> </div>
                     <div class="event-status" v-else="evaluation['evaluation_status'] == 1">Status: <b>Ongoing</b></div>

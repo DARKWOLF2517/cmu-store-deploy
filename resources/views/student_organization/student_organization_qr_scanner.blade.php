@@ -66,17 +66,17 @@
   @else
     <a class="btn back-button link-light"  href="/student_organization_attendance_schedule"><i class="fas fa-arrow-left"></i></a>
   @endif
-    
+
     <a href="#" class="nav-link link-light">
 
         <span class="nav-link-text"> CMU-STORE-AMS</span>
     </a>
 
-        <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+        <a href="#" class="d-flex align-items-center link-light text-decoration-none " id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="" width="32" height="32" class="rounded-circle me-2">
             <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
         </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+        {{-- <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
             <side-nav-button
                 link_name="Settings"
                 link_route = "#"
@@ -99,7 +99,7 @@
                 show_icon = "{{false}}"
                 >
                 </side-nav-button>
-        </ul>
+        </ul> --}}
     </div>
 </div>
 </div>

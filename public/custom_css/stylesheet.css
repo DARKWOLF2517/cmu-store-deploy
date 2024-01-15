@@ -16,6 +16,10 @@ body {
 .btn{
     border: none;
 }
+.btn-danger{
+    background-color: #f1625f !important;
+    color: #ffff;
+}
 .btn-success{
     background-color: #347961 !important;
     color: #ffff;
@@ -111,7 +115,7 @@ body {
 /* } */
 .col{
     width: 100%;
-    height: 100%;
+    height: auto;
 }
 
 #tablecontainer{

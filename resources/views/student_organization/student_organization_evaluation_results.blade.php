@@ -5,30 +5,32 @@
 <link href="/custom_css/evaluation.css" rel="stylesheet">
 @endsection
 @section('main-content')
+
 <div class="page-content-wapper">
     <div class="content">
         <div class="page-container">
-      <div class="container breadcrumbs">
+      <div class=" breadcrumbs">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
               <li class="breadcrumb-item">Student Organization</li>
               <li class="breadcrumb-item"><a href="/student_organization_evaluation">Evaluation</a></li>
               <li class="breadcrumb-item active" aria-current="page">Evaluation Results</li>
             </ol>
           </nav>
       </div>
-      <div class="mt-2 student-buttons d-flex justify-content-end">
-          <div class="btn-group" role="group">
-            <button class="btn me-2" id="print-results-button">
-                <i class="fas fa-print"></i> Print Results
-            </button>
-              <button class="btn me-2" id="download-results-button">
-                  <i class="fas fa-download"></i> Download Results
-              </button>
-          </div>
-      </div>
-        <div class="container mt-2" id="evaluation-summary">
+        {{-- <div class="mt-2 student-buttons d-flex justify-content-end">
+            <div class="btn-group" role="group">
+                <button class="btn me-2" id="print-results-button">
+                    <i class="fas fa-print"></i> Print Results
+                </button>
+                <button class="btn me-2" id="download-results-button">
+                    <i class="fas fa-download"></i> Download Results
+                </button>
+
+            </div>
+        </div> --}}
+
           <evaluation-chart
               event_id={{$id}}>
           </evaluation-chart>
@@ -37,7 +39,7 @@
     </div>
 </div>
 
-</div>
+
 @endsection
 
 @section('custom-script')
@@ -56,7 +58,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <!-- Add your custom script with inline CSS -->
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             // Create a style element and append it to the head
             var customStyles = '<style>' +
@@ -89,9 +91,7 @@
                 printWindow.print();
             }
         });
-    </script>
-</head>
-
+    </script> --}}
 
   @endsection
 
