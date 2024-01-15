@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
     Route::get('/attendance_record/{organization_id}/{school_year}',[AttendanceController::class, 'attendanceRecord']);
     Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
+    Route::get('student_organization_attendance_record/{event_id}',[AttendanceController::class, 'events']);
     #dashboard
     Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
     Route::get('/events_count/{org_id}/{school_year}',[EventController::class, 'getEventsCount']);
@@ -102,7 +103,7 @@ Route::middleware(['auth'])->group(function(){
         // Route::get('student_organization_attendance_record/{event_id}', function () {
         //     return view('student_organization.student_organization_attendance_record');
         // });
-        Route::get('student_organization_attendance_record/{event_id}',[AttendanceController::class, 'events']);
+    
 
         Route::get('student_organization_attendance', function () {
             return view('student_organization.student_organization_attendance');
