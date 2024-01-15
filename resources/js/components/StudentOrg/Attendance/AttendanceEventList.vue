@@ -22,8 +22,11 @@
                     <p>Time starts at: {{ event["start_attendance"] }}</p>
                     <p class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</p>
                 </div>
-                <div class="mt-auto">
+                <div class="mt-auto" v-if="event.attendance_status == 1">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceModal" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
+                </div>
+                <div class="mt-auto" v-else-if="event.attendance_status == 0|| event.attendance_status == 2">
+                    <p>Attendance Is Unavailable</p>
                 </div>
             </div>
         </div>
