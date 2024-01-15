@@ -27,7 +27,7 @@
 
         <div class="form-group text-right mt-4">
             <a class="btn btn-secondary rounded mr-2 text-light" href="/student_profile">Cancel</a>
-            <button class="btn btn-primary rounded submit"  @click="checkNewPassword()">Save Changes</button>
+            <button class="btn btn-primary rounded submit" data-bs-toggle="modal" data-bs-target="#changePassword"  @click="checkNewPassword()">Save Changes</button>
         </div>
     </form>
 
@@ -76,6 +76,7 @@ export default{
 
     methods:{
         checkNewPassword(){
+            console.log('asdfsdaf')
             let newPassword = document.getElementById('newPassword');
             if (this.change_password_data.new_password != this.change_password_data.confirm_new_password){
                 alert('New Passwords do not match.')
