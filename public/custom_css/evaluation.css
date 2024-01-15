@@ -4,7 +4,7 @@
     border: none;
 }
 
-.evaluation-event-cards {
+.evaluation-event-cards, .evaluation-attendance-cards {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;

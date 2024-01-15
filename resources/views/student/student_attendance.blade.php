@@ -95,13 +95,13 @@
                 </div>
             </div>
         </div> --}}
-
+{{--
         <student-event-card
         organization_id = {{Session::get('org_id')}}
         student_id = {{Auth::id()}}
         >
 
-        </student-event-card>
+        </student-event-card> --}}
 
 
 

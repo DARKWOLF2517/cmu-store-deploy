@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="container" id="tablecontainer">
         <div class="col-md-3">
             <div class="sort">
@@ -9,7 +9,7 @@
             </select>
             </div>
         </div>
-        <br>
+        <br> -->
 
         <!-- <table class="table"  >
         <thead>
@@ -34,7 +34,7 @@
         </tbody>
     </table> -->
 
-    </div>
+    <!-- </div>
 
 
 
@@ -61,24 +61,27 @@ export default {
         fetchData() {
             fetch(this.target_route, {
                 method: "GET",
-                headers: {
-                    //TYPE OF DATA THAT THE SERVER SHOULD RESPOND
-                    "Content-Type":"application/json"
-                }
-            }).then( (response) => {
-                response.json().then((data) => {
-                    data.forEach(element => {
+                headers: { -->
+                    <!-- //TYPE OF DATA THAT THE SERVER SHOULD RESPOND
+                    // "Content-Type":"application/json"
+            //     }
+            // }).then( (response) => {
+            //     response.json().then((data) => {
+            //         data.forEach(element => {
                         // console.log(element);
                         // console.log(element[])
-                        element["start_date"] = convertDate(element["start_date"]);
-                        element["end_date"] = convertDate(element["end_date"]);
-                        this.count  = this.count + 1
-                    });
-                    this.events = data;
+//                         element["start_date"] = convertDate(element["start_date"]);
+//                         element["end_date"] = convertDate(element["end_date"]);
+//                         this.count  = this.count + 1
+//                     });
+//                     this.events = data;
 
-                })
-            })
-        },
-    }
-}
-</script>
+//                 })
+//             })
+//         },
+//     }
+// }
+// </script> -->
+<template>
+
+</template>

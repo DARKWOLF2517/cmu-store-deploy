@@ -6,6 +6,29 @@ body {
     color: #4a5864;
 
 }
+
+#calendar button{
+    background-color: #60b192 !important;
+}
+.modal-header .btn-close{
+    background-color: transparent !important;
+}
+.btn{
+    border: none;
+}
+.btn-success{
+    background-color: #347961 !important;
+    color: #ffff;
+}
+
+.btn-secondary{
+    background-color: #e0e0e1 !important;
+    color: #4a5864;
+    transition: background-color 0.3s, color 0.3s;
+}
+.btn-secondary:hover {
+    background-color: #a8a8a9 !important;
+}
 .button-secondary{
     background-color: #e9eef3;
 }
