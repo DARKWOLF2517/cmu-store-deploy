@@ -41,6 +41,9 @@ class UserOrganization extends Model
     {
         return $this->belongsTo(YearLevel::class, 'year_level_id');
     }
-
+    public function college()
+    {
+        return $this->belongsTo(College::class, 'college_id');
+    }
     
 }

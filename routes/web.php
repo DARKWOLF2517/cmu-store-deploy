@@ -163,6 +163,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
             Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
             Route::post('/upload_students/{school_year}/{college}/{year_level}',[UserController::class, 'store']);
+            Route::post('/upload_single_student/{school_year}',[UserController::class, 'addSingleStudent']);
             Route::get('/view_college',[UserController::class, 'viewCollege']);
 
             #ATTENDANCE ROUTES

@@ -113,6 +113,7 @@ export default {
     methods: {
         hasResponded(eventId) {
             // Check if any element in user_answer_student_id has a matching event_id
+            
             return this.user_answer_student_id.some(item => item.event_id === eventId);
             
         },
@@ -130,7 +131,7 @@ export default {
         getEvaluationStatus(){
             axios.get(`/evaluation/user/status/${this.student_id}`)
             .then(response => {
-                // console.log(response.data)
+                console.log('hello'+response.data)
                 this.user_answer_student_id = response.data;
                 // if (console.data == '0'){
 
