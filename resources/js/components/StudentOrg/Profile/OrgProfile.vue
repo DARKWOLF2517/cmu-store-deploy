@@ -247,17 +247,19 @@
         <div class="modal-content">
             <form @submit.prevent="this.updateOrgProfileDetails">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editDetailsModalLabel">Edit Student Details</h5>
+
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <h5 class="modal-title fw-bold text-center" id="editDetailsModalLabel">Edit Student Organization Details</h5>
                     <label for="editDescription">Description:</label>
                     <input type="text" class="form-control" id="editDescription"  v-model="org_details_profile_input.description">
                     <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label>
                     <br>
                     <input type="file" id="profileImageInput" accept="image/*"> -->
-                    <div class="select-dropdown">
-                        <label for="editDescription">Select Default School Year:</label>
+                    <label class="mt-2" for="editDescription">Select Default School Year:</label>
+                    <div class="select-dropdown" style="width: 80% !important; border: 1px solid #ccc;">
+
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="org_details_profile_input.school_year">
                             <option value="0" disabled selected>Select Default School Year</option>
                             <option v-for="school_year in this.schoolYear" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
@@ -278,11 +280,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
-                <h5 class="modal-title" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.updateSchoolYear">Edit School Year</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
             <form @submit.prevent="this.schoolYearSubmit" >
+                  <h5 class="modal-title fw-bold text-center" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
+                <h5 class="modal-title fw-bold text-center" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.updateSchoolYear">Edit School Year</h5>
                 <!-- Semester and Academic Year Input -->
                 <label for="editYearSemester">Semester and Academic Year :</label>
                     <br>
@@ -291,7 +294,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-succes" data-bs-dismiss="modal" >Save Changes</button>
+                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" >Save Changes</button>
                     </div>
             </form>
             </div>
@@ -325,11 +328,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addYearLevelModalLabel" v-if="this.year_level_submit == this.addYearLevel" >Add Year Level</h5>
-                <h5 class="modal-title" id="addYearLevelModalLabel" v-else-if="this.year_level_submit == this.updateYearLevel" >Edit Year Level</h5>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h5 class="modal-title fw-bold text-center" id="addYearLevelModalLabel" v-if="this.year_level_submit == this.addYearLevel" >Add Year Level</h5>
+                <h5 class="modal-title fw-bold text-center" id="addYearLevelModalLabel" v-else-if="this.year_level_submit == this.updateYearLevel" >Edit Year Level</h5>
                 <!-- Your form fields for adding a year level -->
                 <form @submit.prevent="this.year_level_submit">
                     <div class="mb-3">
@@ -339,7 +343,7 @@
                     <!-- Add more form fields as needed -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submimt" class="btn btn-primary"  data-bs-dismiss="modal">Add Year Level</button>
+                    <button type="submimt" class="btn btn-success"  data-bs-dismiss="modal">Add Year Level</button>
                 </div>
 
                 </form>
@@ -354,9 +358,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="setRolesModalLabel">Set Roles</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h5 class="modal-title text-center fw-bold" id="setRolesModalLabel">Set Roles</h5>
                 <form @submit.prevent="this.addOfficerRoleSubmit">
                     <div class="form-group">
                         <label for="selectOfficer"><b>Select Officer</b></label>
@@ -372,7 +377,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success mt-2"  data-bs-dismiss="modal">Save</button>
+                        <button type="submit" class="btn btn-success"  data-bs-dismiss="modal">Save</button>
                     </div>
                 </form>
             </div>
@@ -385,9 +390,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h5 class="modal-title fw-bold text-center" id="editRoleModalLabel">Edit Role</h5>
                 <form id="editRoleForm" @submit.prevent="this.updateOfficerRole">
                     <div class="form-group">
                         <label for="editRole">Select Role:</label>
@@ -433,11 +439,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addOfficerModalLabel" v-if="this.addOfficerSubmit == this.addOfficer">Add Officer</h5>
-                <h5 class="modal-title" id="addOfficerModalLabel" v-else-if="this.addOfficerSubmit == this.updateOfficer">Edit Officer</h5>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h5 class="modal-title fw-bold text-center" id="addOfficerModalLabel" v-if="this.addOfficerSubmit == this.addOfficer">Add Officer</h5>
+                <h5 class="modal-title fw-bold text-center" id="addOfficerModalLabel" v-else-if="this.addOfficerSubmit == this.updateOfficer">Edit Officer</h5>
                 <form @submit.prevent="this.addOfficerSubmit">
                     <div class="form-group">
                         <div v-if="this.addOfficerSubmit == this.addOfficer">

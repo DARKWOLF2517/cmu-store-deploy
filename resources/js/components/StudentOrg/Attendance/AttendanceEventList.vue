@@ -33,21 +33,36 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5> Start an Attendance?</h5>
+
 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div class="text-center">
+                        <h4> <i class="fas fa-question-circle text-warning"></i> </h4>
+                        <h5 class="fw-bold text-center"> Start an Attendance?</h5>
+                    </div>
                         <!-- <p>Are you sure you want to start attendance?</p> -->
-                        <div class="form-group">
+                        <label class="mt-2">Select Attendance Type:</label>
+                        <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;">
+
+                        <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session">
+                            <option value="0" disabled selected>Select Attendace Type</option>
+                            <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                                        <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                                        <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                                        <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
+                        </select>
+                        </div>
+                        <!-- <div class="form-group">
                                     <label for="attendanceType">Select Attendance Type:</label>
-                                    <select class="form-select" id="attendanceType" v-model="session">
+                                    <select class="form-select " id="attendanceType" v-model="session">
                                         <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
                                         <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
                                         <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
                                         <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
                                     </select>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

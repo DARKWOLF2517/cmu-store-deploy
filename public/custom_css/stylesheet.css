@@ -261,9 +261,11 @@ body {
     transform: translate(-50%, -50%);
     z-index: 999;
   }
+.option{
+padding: 20px !important;
+}
 
-
-  #table-container, #event-container, #schedule-list, #evaluation-container, #set-accountabilities{
+  #table-container, #event-container, #schedule-list, #evaluation-container, #set-accountabilities, #record-container{
     position: relative;
   }
 

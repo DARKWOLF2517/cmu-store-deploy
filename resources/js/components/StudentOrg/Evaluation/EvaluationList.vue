@@ -39,7 +39,15 @@
         </div>
       </div>
 
-
+       <!-- Message if the container is empty -->
+       <div class="Container-IfEmpty text-center" v-if="!loading && evaluation.length === 0">
+                    <div class="Empty-Message">
+                    <i class="icon 	fas fa-folder" id="icon-message"></i>
+                    <p class="text-muted"><b>Evaluation is Empty</b>
+                    <br>
+                    Evaluation Cards show up here</p>
+                </div>
+        </div>
 
 
             <!-- Status EVALUATION CARD -->

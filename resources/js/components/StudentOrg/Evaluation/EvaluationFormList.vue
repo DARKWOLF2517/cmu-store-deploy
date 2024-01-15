@@ -52,11 +52,11 @@
             </div>
 
                 <div class="evaluation-title mt-4"><h5> <b>Evaluation Form</b></h5> </div>
-                <div class="event-description">Total Questions: <b>16</b></div>
+                <div class="evaluation-description">Total Questions: <b>16</b></div>
                 <div>
                     <div class="evaluation-status text-muted" >Status: <b>Default</b> </div>
                 </div>
-                <button class="btn button-secondary view-button" data-bs-toggle="modal" data-bs-target="#evaluation-form-modal"> <i class="fas fa-eye"></i></button>
+                <button class="btn btn-success view-button" data-bs-toggle="modal" data-bs-target="#evaluation-form-modal"> View</button>
                 <!-- <button class="view-button"> <i class="fas fa-chevron-right button-icon"></i></button> -->
         </div>
                 </div>
@@ -66,14 +66,14 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Create Evaluation Form</h5>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h5 class="modal-title fw-bold text-center" id="exampleModalLabel">Create Evaluation Form</h5>
                 <!-- Evaluation Form Title Label -->
                 <div class="mb-3">
                     <label for="evaluationTitle" class="form-label">Evaluation Form Title</label>
-                    <!-- Evaluation Form Title Input -->
                     <input type="text" class="form-control" id="evaluationTitle" placeholder="Enter title">
                 </div>
 
@@ -84,10 +84,16 @@
                         <!-- Input for Question -->
                         <input type="text" class="form-control" id="question" placeholder="Enter your question" required>
 
-                        <!-- Button to Remove Input -->
+                        <!-- Checkbox for Multiple Choice -->
+                        <div class="input-group-text">
+                            <input type="checkbox" id="multipleChoice" aria-label="Add multiple choice">
+                            <label class="form-check-label" for="multipleChoice">Add Multiple Choice</label>
+                        </div>
+
                         <button type="button" class="btn btn-danger"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
+
 
 
             </div>
@@ -109,7 +115,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Evaluation Form</h5>
+                <!-- <h5 class="modal-title" id="exampleModalLabel">View Evaluation Form</h5> -->
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

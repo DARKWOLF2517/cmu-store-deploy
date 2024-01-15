@@ -37,21 +37,22 @@
                   <h4><i class="fas fa-list"></i> Attendance Records</h4>
               </div>
               <div class="col" id="record-container">
-                  <div class="recorded-event-cards">
-                    <!-- Loading spinner -->
-                      <div v-if="loading" class="loading-spinner-container">
+                 <!-- Loading spinner -->
+                 <div v-if="loading" class="loading-spinner-container">
                         <div class="spinner-border text-success" id="event-spinner" role="status">
                           <span class="visually-hidden">Loading...</span>
                         </div>
                       </div>
 
                       <!-- Message if the container is empty -->
-                      <div v-if="!loading && Object.keys(attendance).length === 0" class="Container-IfEmpty">
+                      <div  class="Container-IfEmpty text-center" v-if="!loading && Object.keys(attendance).length === 0">
                         <div class="Empty-Message">
                           <i class="icon fas fa-file-alt" id="icon-message"></i>
                           <p class="text-muted"><b>No Attendance Recorded yet</b><br>Attendance records show up here.</p>
                         </div>
                       </div>
+
+                  <div class="recorded-event-cards">
 
                       <!-- Render attendance records -->
                       <div v-for="attendance_list in this.filtered_attendance" class="record-card" :id="attendance.event_id">

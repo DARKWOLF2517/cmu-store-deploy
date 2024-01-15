@@ -62,7 +62,7 @@
                                     </div>
                             </div>
                             <!-- Message if the container is empty -->
-                            <div class="Container-IfEmpty" v-if="!loading && events.length === 0">
+                            <div class="Container-IfEmpty text-center" v-if="!loading && events.length === 0">
                                         <div class="Empty-Message">
                                         <i class="icon 	bi bi-calendar-event" id="icon-message"></i>
                                         <p class="text-muted"><b>Create Events when you're ready</b>
@@ -147,11 +147,14 @@
                                 <div class="modal-header">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <p >
-                                        <b v-if="this.status === 1">Are you sure you want to Start Attendance to this Event?</b>
-                                        <b v-if="this.status === 2">Are you sure you want to Stop Attendance to this Event?</b>
-                                    </p>
+                                <div class="modal-body text-center">
+                                    <h4><i v-if="status === 1" class="fas fa-question-circle text-warning"></i>
+                                        <i v-if="status === 2" class="fas fa-exclamation-triangle text-danger"></i>
+                                    </h4>
+
+                                        <p v-if="this.status === 1">Are you sure you want to Start Attendance to this Event?</p>
+                                        <p v-if="this.status === 2">Are you sure you want to Stop Attendance to this Event?</p>
+
 
                                 </div>
                                 <div class="modal-footer">
@@ -171,18 +174,25 @@
                                 <div class="modal-content">
                                 <form @submit.prevent="this.submitYearLevelExempted">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exemptModalLabel">Exempted Year levels</h5>
+                                        <!-- <h5 class="modal-title" id="exemptModalLabel">Exempted Year levels</h5> -->
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-
-                                            <h5>Select year level/s that is NOT required to attend the event.</h5>
+                                        <h4 class="text-center fw-bold">
+                                            <i class="fas fa-info-circle text-info"></i>
+                                        </h4>
+                                            <h5 class="text-center fw-bold">You are about to exclude a Year level</h5>
+                                            <h6>Check the year level/s excused from required participation in the event</h6>
                                             <!-- <div class="form-check" v-for="year_level in this.school_year">
                                                 <input type="checkbox" v-model="this.year_level_exempted"  :value="year_level.id" >{{ year_level.school_year }}
                                             </div> -->
-                                            <div class="form-check" v-for="year_level in this.year_level_data">
-                                                <input type="checkbox" :value="year_level.id" v-model="this.year_level_exempted">
+                                            <!-- <div class="form-check" v-for="year_level in this.year_level_data">
+                                                <input type="checkbox" :value="year_level.id" v-model="this.year_level_exempted" class="mr-2">
                                                 <label>{{ year_level.year_level }}</label>
+                                            </div> -->
+                                            <div v-for="year_level in year_level_data" :key="year_level.id" class="form-check">
+                                                <input type="checkbox" :value="year_level.id" v-model="year_level_exempted" class="form-check-input mr-2">
+                                                <label class="form-check-label fw-bold">{{ year_level.year_level }}</label>
                                             </div>
 
                                     </div>
@@ -227,12 +237,12 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-
-                                        <h5 v-if="this.submit == this.sendData" class="modal-title" id="event-modal-label">Create Event</h5>
-                                        <h5 v-else-if="this.submit == this.UpdateData" class="modal-title" id="event-modal-label">Edit Event</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
+                                        <h5 v-if="this.submit == this.sendData" class="modal-title text-center fw-bold" id="event-modal-label">Create Event</h5>
+                                        <h5 v-else-if="this.submit == this.UpdateData" class="modal-title text-center fw-bold" id="event-modal-label">Edit Event</h5>
+
                                         <form @submit.prevent="this.submit"  id="eventsForm"  >
                                             <div class="mb-3">
                                                 <label for="event-title" class="form-label">Event Name</label>

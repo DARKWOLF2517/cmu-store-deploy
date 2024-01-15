@@ -82,10 +82,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addAnnouncementModalLabel">Add Announcement</h5>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel">Add Announcement</h5>
                 <form>
                     <div class="mb-3">
                         <label class="form-label">Title</label>
@@ -131,11 +132,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Edit Announcement</h5>
+
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-
+        <h5 class="modal-title fw-bold text-center" id="editModalLabel">Edit Announcement</h5>
         <form>
           <div class="mb-3">
             <label class="form-label">Title</label>

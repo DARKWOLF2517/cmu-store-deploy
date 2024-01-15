@@ -168,10 +168,11 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="student-modal-label">Edit Student</h5>
+
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                                <h5 class="modal-title text-center fw-bold" id="student-modal-label">Edit Student</h5>
                                 <!-- Your form for editing student details goes here -->
                                 <form>
                                     <div class="mb-3">
