@@ -26,6 +26,12 @@
                                 <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                             </select>
                         </div>
+                    <div class="select-dropdown d-flex justify-content-end">
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
+                            <option value="0" disabled selected >Select College</option>
+                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
+                        </select>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -35,7 +41,7 @@
         <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student List</h4>
         <div class="student-buttons d-flex">
             <div class="btn-group" role="group">
-                <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                <button class="btn me-2" @click="this.submit = this.addSingleStudent" data-bs-toggle="modal" data-bs-target="#addStudentModal">
                     <i class="fas fa-plus"></i> Tag Student
                 </button>
                 <button id="uploadButton" class="btn me-2">
@@ -74,7 +80,8 @@
                                             <!-- <th>Last Name</th> -->
                             <th>Full Name</th>
                             <th>Year Level</th>
-                            <th style="width: 10%;"></th>
+                            <th>College</th>
+                            <th style="width: 10%;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,30 +90,30 @@
             <span class="loader"></span>
         </div>
         <div class="Container-IfEmpty" v-if="!loading && studentList.length === 0">
-                                        <div class="Empty-Message text-center">
-                                        <i class="icon 	bi bi-table" id="icon-message"></i>
-                                        <p class="text-muted"><b>Member list is Empty</b>
-                                        <br>
-                                        Student members show up here.</p>
-                                    </div>
-                                    </div>
+            <div class="Empty-Message text-center">
+                <i class="icon 	bi bi-table" id="icon-message"></i>
+                <p class="text-muted"><b>Member list is Empty</b>
+                <br>
+                Student members show up here.</p>
+            </div>
+        </div>
         <!-- Table rows -->
         <tr v-for="student in paginatedData" :key="student.student_id">
-                        <!-- <tr v-for="student in paginatedData" :key="student.student_id"> -->
-                            <!-- Student data will be added here -->
-                            <td>{{ student.student_id }}</td>
-                            <td>{{ student.user.name }}</td>
-                            <td>{{ student.year_level.year_level }}</td>
-
-                                <td>
-                                    <span class="table-buttons">
-                                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#studentmodal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
-                                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i></button>
-                                    </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <!-- <tr v-for="student in paginatedData" :key="student.student_id"> -->
+            <!-- Student data will be added here -->
+            <td>{{ student.student_id }}</td>
+            <td>{{ student.user.name }}</td>
+            <td>{{ student.year_level.year_level }}</td>
+            <td>{{ student.college.college }}</td>
+                <td>
+                    <span class="table-buttons">
+                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#studentmodal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
+                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i></button>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
                 </div>
 
                 <ul class="pagination justify-content-center mt-2">
@@ -122,8 +129,8 @@
                 </ul>
 
             </div>
- <!-- Add student Modal -->
- <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+                <!-- Add student Modal -->
+                <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -132,27 +139,34 @@
                             </div>
 
                             <div class="modal-body">
-                                <form>
+                                <form @submit.prevent="this.submit">
                                 <div class="mb-3">
                                     <label for="studentId" class="form-label">Student ID</label>
-                                    <input type="text" class="form-control" id="studentId">
+                                    <input type="text" class="form-control" id="studentId" v-model="student_data.student_id">
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="name" class="form-label">Student Name</label>
-                                    <input type="text" class="form-control" id="name">
+                                    <label for="name" class="form-label">Student Last Name</label>
+                                    <input type="text" class="form-control" id="lastname" v-model="student_data.lastname" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Student First Name</label>
+                                    <input type="text" class="form-control" id="firstname" v-model="student_data.firstname" >
                                 </div>
 
                                 <div class="mb-3">
-                                <label for="reason" class="form-label">Year-level</label>
-                                <select class="form-select" id="yr-level">
-                                    <option value="1st">1st year level</option>
-                                    <option value="2nd">2nd year level</option>
-                                    <option value="3rd">3rd year level</option>
-                                    <option value="4th">4th year level</option>
-                                    <option value="4th">5th year level</option>
-                                    <option value="4th">6th year level</option>
-                                </select>
+                                    <label for="reason" class="form-label">Year-level</label>
+                                    <select  class="form-select" id="yr-level" v-model="student_data.year_level_id">
+                                        <option value="0" disabled selected>Select Year Level</option>
+                                        <option v-for="year_level in this.year_level_data" :value="year_level.id" >{{ year_level.year_level }}</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reason" class="form-label">College</label>
+                                    <select  class="form-select" id="college" v-model="student_data.college_id">
+                                            <option value="0" disabled selected >Select College</option>
+                                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
+                                        </select>
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -244,8 +258,8 @@
                                     <thead>
                                         <tr>
                                             <th>Student ID</th>
-                                            <th>First Name</th>
                                             <th>Last Name</th>
+                                            <th>First Name</th>
                                             <!-- <th>Year Level</th> -->
                                         </tr>
                                     </thead>
@@ -295,6 +309,14 @@ export default {
             college_list: [],
             college_data_input: 0,
             year_level_data_input: 0,
+            student_data: {
+                student_id: '',
+                lastname:'',
+                firstname:'',
+                year_level_id: 0,
+                college_id: 0
+            },
+            submit: this.addSingleStudent,
 
 
         };
@@ -382,6 +404,24 @@ mounted(){
     this.showCollege();
 },
 methods:{
+    addSingleStudent(){
+        axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
+            .then(response => {
+                console.log(response.data)
+                this.loading = false;
+                if (response.data.type == 0) {
+                    this.showError('Error');
+                }
+                else{
+                    this.showSucces(response.data.message);
+                    this.fetchData();
+                }
+
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    },
     showCollege(){
         axios.get(`/view_college`)
             .then(response => {

@@ -107,13 +107,60 @@ class UserController extends Controller
             
         }
 
+        public function addSingleStudent($school_year,Request $request)
+        {
+
+            $org_id = Session::get('org_id');
+            try {
+                // Code that may throw an exception
+                    if($this->UserRepitition($request->student_id) >= 1 )
+                    {
+                        // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                    }
+                    else{
+                        $user = new User();
+                        $user->id = $request->student_id;
+                        $user->name = $request->lastname . ' '.$request->firstname;
+                        $user->email = strtolower(str_replace(' ', '', $request->lastname. $request->student_id));
+                        $user->password = Hash::make($request->student_id);
+                        $user->save();
+                    }
+                
+                    
+                    if($this->UserOrgRepitition($request->student_id, $org_id, $school_year)  >= 1) 
+                    {
+                        // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                    }
+                    else{
+                        $userOrg = new UserOrganization();
+                        $userOrg->student_org_id = $org_id;
+                        $userOrg->student_id = $request->student_id;
+                        $userOrg->role_id = '2' ;
+                        $userOrg->year_level_id = $request->year_level_id;
+                        $userOrg->school_year = $school_year;
+                        $userOrg->college_id = $request->college_id;
+                        $userOrg->save();
+                    }
+    
+                return response()->json(['message' => 'Students Added Successfully','type' => 1]);
+                // Optionally, you can return a response indicating success or redirection
+            } catch (Exception $e) {
+                // Code to handle the exception
+                return response()->json(['message' => "An exception occurred: " . $e,'type' => 0]);
+            } catch (Error $e) {
+                // Code to handle errors (PHP 7 and later)
+                return response()->json(['message' => "An error occurred: " . $e,'type' => 0]);
+            }
+
+            
+        }
         public function showStudents($org_id, $school_year)
         {
             $student_list = UserOrganization::where([
                 ['student_org_id', $org_id],
                 ['role_id', '2'],
                 ['school_year', $school_year],
-            ])->with(['yearLevel','user'])
+            ])->with(['yearLevel','user','college'])
             ->get();
             
             return $student_list->toJson();
