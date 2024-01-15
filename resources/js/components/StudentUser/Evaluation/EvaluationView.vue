@@ -8,7 +8,7 @@
                 'event-card',
                 'border-top',
                 'border-5',
-                {'border-success': this.hasResponded(event.event_id), 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0},
+                { 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0},
                 'py-3'
             ]">
                 <div class="card-body ">
