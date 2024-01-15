@@ -31,7 +31,8 @@
                 <div class="accountability-cards-list">
                     <div class="stud-accountability-card" v-for="user_orgs in this.user_organization">
                         <div class="card-body text-center">
-                            <h5 class="card-title mt-4"><strong>{{user_orgs.organization.name}} </strong></h5>
+                            <h2 class="text-center bold mt-2"><i class="bi bi-wallet2 text-secondary"></i></h2>
+                            <h5 class="card-title mt-2"><strong>{{user_orgs.organization.name}} </strong></h5>
                             <small>{{user_orgs.organization.description}}</small>
                             <!-- <h2 class="total-payment bold">&#8369; 10,000</h2> -->
                             <!-- Use "&#8369;" for the peso sign -->
@@ -199,7 +200,7 @@ export default{
             axios.get(`/get_accountabilities/${this.org_id}`)
                     .then(response => {
                         this.accountabilityList = response.data;
-                
+
                     })
                     .catch(error => {
                         alert(error)
@@ -246,7 +247,7 @@ export default{
                         this.attendanceCount.push(attendanceRecord);
 
                     });
-                
+
                     this.accountabilityList.forEach(element => {
                         this.total_accountability += element.amount;
                     });
