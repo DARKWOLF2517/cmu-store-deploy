@@ -24,6 +24,7 @@
                         <h6 class="evaluation-status text-muted" v-else-if="event['evaluation_status'] === 0">Status: <b>Close</b></h6>
                     </div>
 
+                    <div class="card-footer">
                     <div class=" text-right buttons mt-2 d-flex justify-content-end">
                         <div v-if="this.user_answer_student_id.length > 0">
                             <div v-if="this.hasResponded(event['event_id'])">
@@ -47,7 +48,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 <!--
        <div class=" mb-3" id="tablecontainer" v-for="(event , index) in this.events" :id="event.event_id">
@@ -114,7 +115,7 @@ export default {
         hasResponded(eventId) {
             // Check if any element in user_answer_student_id has a matching event_id
             return this.user_answer_student_id.some(item => item.event_id === eventId);
-            
+
         },
         fetchData(){
                 axios.get(`/events/show/${this.organization_id}`)

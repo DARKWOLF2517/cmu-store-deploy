@@ -2,16 +2,16 @@
 @section('custom-style')
 <style>
     .evaluation-list {
-    max-height: 60vh;
-    height: 60vh;
+    max-height: 70vh;
+    height: 70vh;
     }
 .evaluation-cards-list {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 65vh;
-    height: 65vh;
+    max-height: 70vh;
+    height: 70vh;
   }
 
   .evaluation-attendance-card{
@@ -24,7 +24,8 @@
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     width: calc(33.33% - 20px);
-    height: 30vh;
+    height: auto;
+    max-height: 31vh;
   }
   .bottom-right-content {
     position: absolute;
