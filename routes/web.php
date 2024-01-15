@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/events/attendance/{org_id}/{school_year}',[EventController::class, 'getEventsAttendance']);
     Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
     Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
+    Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
     //get student org list
     Route::get('/usercards', function () {
         return view('layouts.organization_cards');
@@ -158,7 +159,7 @@ Route::middleware(['auth'])->group(function(){
 
             #ATTENDANCE ROUTES
             Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
-            Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
+
             //check the repetition of the data using id number
             Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
             //attendance record list
