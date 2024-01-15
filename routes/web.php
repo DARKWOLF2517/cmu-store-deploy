@@ -166,7 +166,6 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/view_college',[UserController::class, 'viewCollege']);
 
             #ATTENDANCE ROUTES
-           
 
             //check the repetition of the data using id number
             Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
@@ -188,9 +187,7 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/events', [EventController::class, 'store'])->name('event-store');
             Route::get('show_event_details/{event}', [EventController::class, 'showEventDetails'])->name('events-edit');
             Route::put('/events/{event}', [EventController::class, 'update'])->name('events-update');
-           
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
-           
             Route::post('/submitYearLevelExempted/{org_id}/{school_year}/{event_id}', [EventController::class, 'submitYearLevelExempted']);
             Route::get('/get_year_level/{organization_id}',[EventController::class, 'getYearLevel']);
             Route::get('/yearLevel/exempted/{org_id}/{id}',[EventController::class, 'getExempted']);
