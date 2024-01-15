@@ -1,10 +1,75 @@
 @extends('layouts.student_navigation_bar')
-@section('main-content')
+@section('custom-style')
+
 <link href="/custom_css/evaluation.css" rel="stylesheet">
+{{-- <style>
+    .evaluation-list {
+    max-height: 70vh;
+    height: 70vh;
+    }
+.evaluation-cards-list {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 70vh;
+    height: 70vh;
+  }
+
+  .evaluation-attendance-card{
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    width: calc(33.33% - 20px);
+    height: auto;
+    max-height: 230px;
+  }
+  .bottom-right-content {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+}
+.circular-image {
+    border-radius: 50%;
+}
+.posted-by-title{
+    padding: 5px;
+ }
+
+/* Add your existing styles here */
+
+@media (max-width: 767px) {
+    .evaluation-attendance-card {
+        width: 100%;
+        margin-bottom: 15px;
+        height: 250px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+    h5{
+        font-size: 15px;
+    }
+    .btn{
+        font-size: 13px !important;
+    }
+
+}
+
+</style> --}}
+@endsection
+@section('main-content')
 <div class="page-content-wapper">
     <div class="content">
         <div class="page-container">
-        <div class="col breadcrumbs">
+        <div class="breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="student_dashboard">Dashboard</a></li>
@@ -13,67 +78,21 @@
                 </ol>
             </nav>
         </div>
-            <div class="container" id="tablecontainer">
-                <div class="row head-container">
-                    <div class="col-md-6 col-sm-12">
-                        <div class="input-container">
-                            <i class="fa fa-search"></i>
-                            <input type="text" placeholder="Search Event">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                        <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button>
-                        <div class="select-dropdown">
-                            <select id="sort-select" class="form-control" style="text-align: center;">
-                                <option value="">Select Semester</option>
-                                <option value="option1">1st Semester 2023-2024</option>
-                                <option value="option2">2nd Semester 2022-2023</option>
-                                <option value="option3">1st Semester 2022-2023</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-4">
-                <h3><i class="fas fa-list"></i> Evaluation</h3>
-            </div>
+                <h3 class="mt-2"><i class="fas fa-list"></i> Evaluation</h3>
 
-            <div id="evaluation-container">
-                <div class="evaluation-event-cards">
-                    {{-- <div class="event-card">
-                        <div class="event-date-container"><span class="event-date">August 31, 2023</span></div>
-                        <div class="event-title">Event 1</div>
-                        <div class="event-description">Total Responses: 120</div>
-                        <a class="view-button" href="/student_organization_evaluation_results"><i class="fas fa-chevron-right button-icon"></i></a>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-date-container"><span class="event-date">September 10, 2023</span></div>
-                        <div class="event-title">Event 2</div>
-                        <div class="event-description">Total Responses: 120</div>
-                        <button class="view-button"><i class="fas fa-chevron-right button-icon"></i></button>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-date-container"><span class="event-date">October 5, 2023</span></div>
-                        <div class="event-title">Event 3</div>
-                        <div class="event-description">Total Responses: 120</div>
-                        <button class="view-button"><i class="fas fa-chevron-right button-icon"></i></button>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-date-container"><span class="event-date">October 5, 2023</span></div>
-                        <div class="event-title">Event 3</div>
-                        <div class="event-description">Total Responses: 120</div>
-                        <button class="view-button"><i class="fas fa-chevron-right button-icon"></i></button>
-                    </div> --}}
-                    <evaluation-list
-                        organization_id = {{Session::get('org_id')}}
-                    ></evaluation-list>
-                    </div>
-                </div>
+
+        <student-event-card
+        organization_id = {{Session::get('org_id')}}
+        student_id = {{Auth::id()}}
+        >
+
+        </student-event-card>
+
 
         </div>
         </div>
-
+{{--
     </div>
-    </div>
+    </div> --}}
 
 @endsection

@@ -26,7 +26,7 @@
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceModal" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
                 </div>
                 <div class="mt-auto" v-else-if="event.attendance_status == 0|| event.attendance_status == 2">
-                    <p>Attendance Is Unavailable</p>
+                    <button class="btn btn-secondary">Attendance Is Unavailable</button>
                 </div>
             </div>
         </div>

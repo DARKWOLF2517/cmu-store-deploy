@@ -1,8 +1,10 @@
 <template>
-<div class="evaluation-list">
-    <div class="container">
-        <div class="evaluation-cards-list">
-    <div v-for="(event, index) in this.events" :id="event.event_id" class="evaluation-attendance-card"
+    <div id="evaluation-container">
+        <div class="evaluation-event-cards">
+<!-- <div class="evaluation-list">
+        <div class="evaluation-container" id="evaluation-container">
+            <div class="evaluation-cards-list"> -->
+        <div v-for="(event, index) in this.events" :id="event.event_id"
         :class="[
             'event-card',
             'border-top',
@@ -47,8 +49,9 @@
         </div>
     </div>
 </div>
+<!-- </div> -->
 
-</div>
+
 
 
 <!--
