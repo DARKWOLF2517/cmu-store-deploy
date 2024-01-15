@@ -45,8 +45,15 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/get_school_year_default/{org_id}',[EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}',[EventController::class, 'getEventsAttendance']);
     Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
+    #attendance
     Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
     Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
+    Route::get('/attendance_record/{organization_id}/{school_year}',[AttendanceController::class, 'attendanceRecord']);
+    Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
+    #dashboard
+    Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
+    Route::get('/events_count/{org_id}/{school_year}',[EventController::class, 'getEventsCount']);
+    Route::get('/complete_events_count/{organization_id}/{school_year}',[EventController::class, 'getCompleteEventsCount']);
     //get student org list
     Route::get('/usercards', function () {
         return view('layouts.organization_cards');
@@ -158,12 +165,12 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/view_college',[UserController::class, 'viewCollege']);
 
             #ATTENDANCE ROUTES
-            Route::get('/attendance/list/{organization_id}/{event_id}',[AttendanceController::class, 'AttendanceList']);
+           
 
             //check the repetition of the data using id number
             Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
             //attendance record list
-            Route::get('/attendance_record/{organization_id}/{school_year}',[AttendanceController::class, 'attendanceRecord']);
+
             //attendance status route
             Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
 
@@ -180,9 +187,9 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/events', [EventController::class, 'store'])->name('event-store');
             Route::get('show_event_details/{event}', [EventController::class, 'showEventDetails'])->name('events-edit');
             Route::put('/events/{event}', [EventController::class, 'update'])->name('events-update');
-            Route::get('/events_count/{org_id}/{school_year}',[EventController::class, 'getEventsCount']);
+           
             Route::get('/user/count',[EventController::class, 'getMembersCount'])->name('get-user-count');
-            Route::get('/complete_events_count/{organization_id}/{school_year}',[EventController::class, 'getCompleteEventsCount']);
+           
             Route::post('/submitYearLevelExempted/{org_id}/{school_year}/{event_id}', [EventController::class, 'submitYearLevelExempted']);
             Route::get('/get_year_level/{organization_id}',[EventController::class, 'getYearLevel']);
             Route::get('/yearLevel/exempted/{org_id}/{id}',[EventController::class, 'getExempted']);
@@ -219,7 +226,7 @@ Route::middleware(['auth'])->group(function(){
             Route::put('/update_officer_role/{id}',[OrgProfileController::class, 'updateOfficerRole']);
             Route::delete('/delete_officer_role/{id}',[OrgProfileController::class, 'DeleteOfficerRole']);
             Route::get('/view_org_profile/{org_id}',[OrgProfileController::class, 'viewOrgProfile']);
-            Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
+           
             Route::put('/updateOrgProfileDetails/{id}',[OrgProfileController::class, 'updateOrgProfileDetails']);
             Route::get('/fetch_name_officer_input/{id}',[OrgProfileController::class, 'fetchNameOfficerInput']);
             Route::get('/view_year_level/{org_id}',[OrgProfileController::class, 'fetchYearLevel']);
