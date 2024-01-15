@@ -1,8 +1,33 @@
 <template>
-    <div class="container-fluid">
+    
+        <div class="mt-2">
+                  <div class="row head-container">
+                      <div class="col-md-6 col-sm-12">
+                          <div class="input-container">
+                              <i class="fa fa-search"></i>
+                              <input type="text" placeholder="Search"  v-model="searchTerm" @input="filterItems">
+                          </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+
+                        <div class="select-dropdown">
+                        <!-- Second dropdown -->
+                        <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session"  @change="filterItems">
+                            <option value="0" disabled selected>Select Attendace Type</option>
+                            <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                            <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                            <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                            <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
+                        </select>
+                    </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center">
         <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Attendance Record</h4>
         <div class="student-buttons d-flex">
+
             <div class="btn-group" role="group">
             <button class="btn me-2" @click="printTable">
                 <i class="fas fa-print"></i> Print
@@ -24,7 +49,6 @@
                             <tr>
                                 <th class="sortable-header" style="width: 10%;">Student ID</th>
                                 <th class="sortable-header">Student Name</th>
-                                <th class="sortable-header">Session</th>
                                 <th class="sortable-header">College</th>
                                 <!-- <th class="sortable-header" style="width: 5%;"> </th> -->
                             </tr>
@@ -33,7 +57,6 @@
                             <tr v-for="attendance in paginatedData" :key="attendance.user_id">
                                 <td>{{ attendance.user_id }}</td>
                                 <td>{{ attendance.user.name }}</td>
-                                <td>In</td>
                                 <td>{{ attendance.college.college}}</td>
 
                             </tr>
@@ -71,6 +94,10 @@ export default {
       },
       currentPage: 1,
       itemsPerPage: 10,
+      attendance_count: 0,
+      session: 0,
+      searchTerm: '',
+      filtered_attendance: [],
     };
   },
   computed: {
@@ -104,7 +131,7 @@ export default {
     },
     paginatedData() {
         const start = (this.currentPage - 1) * this.itemsPerPage;
-        return this.attendance.slice(start, start + this.itemsPerPage);
+        return this.filtered_attendance.slice(start, start + this.itemsPerPage);
     },
     hasEllipsisBefore() {
         return this.currentPage > 3 && this.totalPages > 5;
@@ -152,19 +179,53 @@ export default {
     this.fetchData();
   },
     methods:{
+      filterItems() {
+            let filteredBySearch = this.attendance;
+            if (this.searchTerm) {
+                const searchTermLower = this.searchTerm.toLowerCase();
+                filteredBySearch = filteredBySearch.filter(item =>
+                    item.user.name.toLowerCase().includes(searchTermLower) ||
+                    item.user_id.toString().includes(this.searchTerm)
+                );
+            }
+            // Filter based on filterStatus from select option
+            let filteredByStatus = this.attendance;
+            if (this.session) {
+                filteredByStatus = filteredByStatus.filter(item =>
+                    item.session.toString().includes(this.session)
+                );
+            }
+            // Merge the results of both filters (independently applied)
+            this.filtered_attendance = filteredBySearch.filter(item =>
+                filteredByStatus.includes(item)
+            );
+
+            // this.filtered_attendance = filteredBySearch
+
+        },
         fetchData(){
         axios.get(`/attendance/list/${this.organization_id}/${this.event_id}`)
             .then(response => {
-                console.log(response.data)
-
+              this.filtered_attendance = [],
+              console.log(response.data)
                 const data = response.data;
                     data.forEach(item => {
                         // console.log(item);
                         item['events']['start_date'] = convertDate(item['events']['start_date']);
                         this.event.event_title = item['events']['name'];
                         this.event.event_date = item['events']['start_date'];
+                        this.attendance_count = item.events.attendance_count; 
                     });
                     this.attendance = response.data;
+                    this.filtered_attendance = this.attendance;
+                  //   this.attendance.forEach(element => {
+                  //     this.attendance_list.push({
+                  //       student_id : element.user_id,
+                  //       student_name: element.user.name,
+                  //       college: element.college.college,
+                  //     })
+                  //   });
+
             })
             .catch(error => {
 
@@ -214,14 +275,13 @@ export default {
           <table class="table table-bordered table-striped">
               <thead>
                   <tr>
-                      <th style="width: 10%;">Student ID</th>
-                      <th style="width: 30%;">Student Name</th>
-                      <th style="width: 20%;">Session</th>
-                      <th style="width: 10%;">College</th>
+                      <th>Student ID</th>
+                      <th>Student Name</th>
+                      <th>College</th>
                   </tr>
               </thead>
               <tbody>
-                  ${this.generateTableRows(this.attendance)}
+                  ${this.generateTableRows(this.filtered_attendance)}
               </tbody>
           </table>
       </body>
@@ -244,15 +304,9 @@ generateTableRows(data) {
   data.forEach(item => {
       rows += `
           <tr>
-              <td>${item.student_id}</td>
+              <td>${item.user_id}</td>
               <td>${item.user.name}</td>
-              <td>${item.reason}</td>
-              <td>
-                  <span class="table-buttons">
-                      <button class="btn edit-button" @click="submit = updateData, id = ${item.student_id},fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
-                      <button class="btn delete-button" @click="" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
-                  </span>
-              </td>
+              <td>${item.college.college} </td>
           </tr>
       `;
   });
