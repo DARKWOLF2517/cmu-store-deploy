@@ -1,54 +1,55 @@
 <template>
 <div class="evaluation-list">
     <div class="container">
-        <div class="evaluation-cards-list ">
-            <!-- <div v-for="(event, index) in this.events" :id="event.event_id" class="evaluation-attendance-card"> -->
-                <div class="evaluation-attendance-card" v-for="(event, index) in this.events" :id="event.event_id"
-            :class="[
-                'event-card',
-                'border-top',
-                'border-5',
-                { 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0},
-                'py-3'
-            ]">
-                <div class="card-body ">
-                    <div class="info">
-                        <div class="d-flex align-items-center">
-                            <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
-                            <strong class="posted-by-title ml-2">USSCO</strong>
+        <div class="evaluation-cards-list">
+    <div v-for="(event, index) in this.events" :id="event.event_id" class="evaluation-attendance-card"
+        :class="[
+            'event-card',
+            'border-top',
+            'border-5',
+            { 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0},
+            'py-3'
+        ]">
+
+        <div class="card-body">
+            <div class="info">
+                <div class="d-flex align-items-center">
+                    <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
+                    <strong class="posted-by-title ml-2">USSCO</strong>
+                </div>
+                <h5 class="card-title mt-2"><b>{{ event["name"] }} </b></h5>
+                <small class="date-upload text-muted">Date: 11/9/2023 - 10:12 AM</small>
+                <h6>Total number of Attendance made: 4</h6>
+                <h6 class="evaluation-status" v-if="event['evaluation_status'] === 1">Status: <b>Ongoing</b></h6>
+                <h6 class="evaluation-status text-muted" v-else-if="event['evaluation_status'] === 0">Status: <b>Close</b></h6>
+            </div>
+
+
+                <div class="card-footer text-right buttons mt-2 d-flex justify-content-end">
+                    <div v-if="this.user_answer_student_id.length > 0">
+                        <div v-if="this.hasResponded(event['event_id'])">
+                            <button class="btn btn-success">Responded</button>
                         </div>
-                        <h5 class="card-title mt-2"><b>{{ event["name"] }} </b></h5>
-                        <small class="date-upload text-muted">Date: 11/9/2023 - 10:12 AM</small>
-                        <h6>Total number of Attendance made: 4</h6>
-                        <h6 class="evaluation-status" v-if="event['evaluation_status'] === 1">Status: <b>Ongoing</b></h6>
-                        <h6 class="evaluation-status text-muted" v-else-if="event['evaluation_status'] === 0">Status: <b>Close</b></h6>
+                        <div v-else-if="event['evaluation_status'] == 0">
+                            <button class="btn btn-secondary">Close</button>
+                        </div>
+                        <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if="event['evaluation_status'] == 1">Evaluate</button>
                     </div>
 
-                    <div class="card-footer">
-                    <div class=" text-right buttons mt-2 d-flex justify-content-end">
-                        <div v-if="this.user_answer_student_id.length > 0">
-                            <div v-if="this.hasResponded(event['event_id'])">
-                                <button class="btn btn-success">Responded</button>
-                            </div>
-                            <div v-else-if="event['evaluation_status'] == 0">
-                                <button class="btn btn-secondary">Close</button>
-                            </div>
-                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if="event['evaluation_status'] == 1">Evaluate</button>
+                    <div v-else>
+                        <div v-if="event['evaluation_status'] == 0">
+                            <button class="btn btn-secondary">Unavailable</button>
                         </div>
-
-                        <div v-else>
-                            <div v-if="event['evaluation_status'] == 0">
-                                <button class="btn btn-secondary">Unavailable</button>
-                            </div>
-                            <button class="btn btn-warning  " @click="this.showEvaluationForm(event.event_id)" v-else-if="event['evaluation_status'] == 1">Evaluate</button>
-                        </div>
+                        <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if="event['evaluation_status'] == 1">Evaluate</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 </div>
+
 
 <!--
        <div class=" mb-3" id="tablecontainer" v-for="(event , index) in this.events" :id="event.event_id">
@@ -114,7 +115,7 @@ export default {
     methods: {
         hasResponded(eventId) {
             // Check if any element in user_answer_student_id has a matching event_id
-            
+
             return this.user_answer_student_id.some(item => item.event_id === eventId);
 
         },
