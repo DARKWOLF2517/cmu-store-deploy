@@ -38,7 +38,8 @@
     <div class="text-center mt-2">
         <small>
             By changing the password, you have agreed to our
-            <a type="button" data-toggle="modal" data-target="#conditionsModal" href="#">conditions</a>.
+            <label class="text-primary" data-toggle="modal" data-target="#conditionsModal">conditions</label>
+
         </small>
     </div>
 <!-- Condition Bootstrap Modal -->

@@ -1,6 +1,6 @@
 <template>
 <div class="evaluation-list">
-    <div class="col">
+    <div class="container">
         <div class="evaluation-cards-list ">
             <!-- <div v-for="(event, index) in this.events" :id="event.event_id" class="evaluation-attendance-card"> -->
                 <div class="evaluation-attendance-card" v-for="(event, index) in this.events" :id="event.event_id"
@@ -11,7 +11,7 @@
                 {'border-success': this.hasResponded(event.event_id), 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0},
                 'py-3'
             ]">
-                <div class="card-body d-flex flex-column">
+                <div class="card-body ">
                     <div class="info">
                         <div class="d-flex align-items-center">
                             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image">
@@ -39,7 +39,7 @@
                             <div v-if="event['evaluation_status'] == 0">
                                 <button class="btn btn-secondary">Unavailable</button>
                             </div>
-                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)" v-else-if="event['evaluation_status'] == 1">Evaluate</button>
+                            <button class="btn btn-warning  " @click="this.showEvaluationForm(event.event_id)" v-else-if="event['evaluation_status'] == 1">Evaluate</button>
                         </div>
                     </div>
                 </div>

@@ -24,7 +24,7 @@
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     width: calc(33.33% - 20px);
-height: 33vh;
+    height: 30vh;
   }
   .bottom-right-content {
     position: absolute;
@@ -71,7 +71,7 @@ height: 33vh;
         <div class="breadcrumbs">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/student_dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item">Student</li>
                 <li class="breadcrumb-item active" aria-current="page">Evaluation</li>
             </ol>
