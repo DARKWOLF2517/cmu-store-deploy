@@ -33,7 +33,7 @@
               </div>
 
 
-              <div class="mt-4">
+              <div class="mt-2">
                   <h4><i class="fas fa-list"></i> Attendance Records</h4>
               </div>
               <div class="col" id="record-container">

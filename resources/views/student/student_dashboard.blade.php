@@ -16,7 +16,7 @@
         <div class="mt-3">
             <div class="row">
                 <div class="col-lg-4 col-md-12 mb-2">
-                    <div class="timeline-schedule">
+                    <div class="timeline-schedule" >
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
                         </div>
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-12 mb-3">
-                    <div class="announcement">
+                    <div class="announcement" >
                         <div class="announcement-header">
                             <i class="bi bi-list"></i> Announcements
                         </div>
@@ -90,8 +90,8 @@
                         </div> --}}
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <div id="calendar">
+                <div class="col-lg-4 col-md-12 mb-4" >
+                    <div id="calendar"  >
                         <dashboard-calendar
                             :org_id={{Session::get('org_id')}}
                             :school_year_session = {{Session::get('school_year')}}

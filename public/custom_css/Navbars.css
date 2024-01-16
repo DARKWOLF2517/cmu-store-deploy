@@ -167,6 +167,7 @@ display: flex;
 width: 200px;
 margin-bottom: 10px;
 padding-left: 0;
+
 }
 .link-title {
 color: #4a5864;
@@ -223,7 +224,7 @@ margin-right: 0;
 
 .content {
     margin-left: 230px;
-    padding: 20px !important;
+    padding: 15px !important;
     transition: margin-left 0.3s ease-in-out;
 }
 .content.collapsed {
@@ -306,6 +307,7 @@ margin-right: 0;
     .toggle-button {
         display: block;
         position: absolute;
+        height: 50px !important;
         top: 5px;
         left: 2px;
         background-color: #ffffff;
@@ -320,6 +322,7 @@ margin-right: 0;
 
     .btn-toggle .link-title {
         margin-left: 3px;
+        font-size: 14px;
     }
 
     .btn-toggle .link-arrow {
@@ -328,10 +331,13 @@ margin-right: 0;
 
     .nav-link-text {
         margin-left: 35px;
-        font-size: 15px;
+        font-size: 14px;
     }
     .profile-name{
         font-size: 14px;
+    }
+    .toggle-button{
+        height: 30px !important;
     }
 }
 

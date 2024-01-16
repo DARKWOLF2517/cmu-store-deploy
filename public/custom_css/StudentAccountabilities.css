@@ -15,6 +15,7 @@ td {
     flex-wrap: wrap;
     overflow-y: auto;
     overflow-x: hidden;
+    height: 70vh;
     max-height: 70vh;
   }
 .stud-accountability-card{
@@ -26,8 +27,8 @@ box-sizing: border-box;
 display: flex;
 flex-direction: column;
 box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-width: 35vh;
-height: auto;
+width: 40vh;
+height: 170px;
 }
 
 
@@ -110,8 +111,8 @@ max-height: 65vh;
 
 /* Set Accountabilities */
 .accountabilities-container {
-    height: 60vh;
-    max-height: 60vh;
+    height: 50vh;
+    max-height: 50vh;
     overflow-y: auto;
     border: none;
 }
@@ -204,5 +205,11 @@ max-height: 65vh;
     .total-payment, #totalPayment{
         font-size: 15px !important;
     }
-
+    .accountability-card{
+        width: 100%;
+        height: auto;
+    }
+    .alert{
+        font-size: 13px;
+    }
 }

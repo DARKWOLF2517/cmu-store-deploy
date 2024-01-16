@@ -39,44 +39,6 @@
                     <button class="btn toggle-button" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
-                {{-- <div class="profile-dropdown dropdown dropdown ms-auto">
-                    <button class="notification-button btn btn-link">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge"></span>
-                    </button>
-                    <div class="popover">
-                        <div class="popover-header">
-                            <b>Notifications</b>
-                            <a href="/student_announcement">See All</a>
-                        </div>
-                        <div class="notifications">
-                            <div class="Message-IfEmpty">
-                                <i class="icon 	far fa-frown" id="icon-message"></i>
-                                <p class="empty-schedule">Nothing posted yet</p>
-                            </div>
-                            <ul>
-                                <li>
-                                    <a class="btn text-start" href="">
-                                        <p><strong>SSC</strong> posted an announcement.</p>
-                                        <small class="time-posted">9:46 AM</small>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn text-start" href="">
-                                    <p><strong>CSCo</strong> posted an announcement.</p>
-                                    <small class="time-posted">9:46 AM</small>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn text-start" href="">
-                                    <p><strong>CSCo</strong> posted an announcement.</p>
-                                    <small class="time-posted">9:46 AM</small>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> --}}
 
                 <div>
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -185,8 +147,12 @@
                 </div>
         <div>
             @yield('main-content')
+
         </div>
     </div>
+    <footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px; margin-top: 20px;">
+        <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
+      </footer>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}

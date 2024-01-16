@@ -8,6 +8,7 @@
                 </ol>
             </nav>
         </div>
+        <div class="student-profile-page">
 <div id="profile-details">
     <div class="row" >
         <div class="col-md-3 col-sm-12">
@@ -102,7 +103,7 @@
                         <div class="roles" style="width: 50%;">
                         <div class="d-flex justify-content-between align-items-center mb-3 header">
                             <h5><b>Organization Member Roles</b></h5>
-                            <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()">Set Roles</button>
+                            <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()"> <i class="fas fa-plus"></i> </button>
                         </div>
 
                         <div class="table-responsive">
@@ -216,7 +217,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
 
     <!-- Delete Year Level Confirmation Modal -->
