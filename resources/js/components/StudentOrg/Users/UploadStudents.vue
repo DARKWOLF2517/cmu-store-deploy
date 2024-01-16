@@ -27,7 +27,7 @@
                                 </select>
                             </div>
                         <div class="select-dropdown d-flex justify-content-end">
-                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
+                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input" @change="filterItems">
                                 <option value="0" disabled selected >Select College</option>
                                 <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                             </select>
@@ -41,7 +41,7 @@
         <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student List</h4>
         <div class="student-buttons d-flex">
             <div class="btn-group" role="group">
-                <button class="btn me-2" @click="this.submit = this.addSingleStudent" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                <button class="btn me-2" @click="this.submit = this.addSingleStudent, this.clearData()" data-bs-toggle="modal" data-bs-target="#addStudentModal">
                     <i class="fas fa-plus"></i> Tag Student
                 </button>
                 <button id="uploadButton" class="btn me-2">
@@ -107,8 +107,8 @@
             <td>{{ student.college.college }}</td>
                 <td>
                     <span class="table-buttons">
-                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#studentmodal" @click="this.fetchID = students.student_id, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
-                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation"> <i class="fas fa-trash"></i></button>
+                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#addStudentModal" @click="this.fetchID = student.student_id,this.submit = this.updateSingleAddStudents, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
+                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation" @click="this.fetchID = student.student_id"> <i class="fas fa-trash"></i></button>
                     </span>
                 </td>
             </tr>
@@ -134,24 +134,34 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addStudentModalLabel">Add Student</h5>
+                                <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.addSingleStudent">Add Student</h5>
+                                <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.updateSingleAddStudents">Edit Student</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
                             <div class="modal-body">
                                 <form @submit.prevent="this.submit">
-                                <div class="mb-3">
+                                <div class="mb-3" v-if="this.submit == this.addSingleStudent">
                                     <label for="studentId" class="form-label">Student ID</label>
                                     <input type="text" class="form-control" id="studentId" v-model="student_data.student_id">
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Student Last Name</label>
-                                    <input type="text" class="form-control" id="lastname" v-model="student_data.lastname" >
+                                <div class="mb-3" v-if="this.submit == this.updateSingleAddStudents">
+                                    <label for="studentId" class="form-label">Student ID</label>
+                                    <input type="text" class="form-control" id="studentId" v-model="student_data.student_id" disabled>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Student First Name</label>
-                                    <input type="text" class="form-control" id="firstname" v-model="student_data.firstname" >
+                                <div v-if="this.submit == this.addSingleStudent">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Student Last Name</label>
+                                        <input type="text" class="form-control" id="lastname" v-model="student_data.lastname" >
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Student First Name</label>
+                                        <input type="text" class="form-control" id="firstname" v-model="student_data.firstname" >
+                                    </div>
+                                </div>
+                                <div class="mb-3" v-if="this.submit == this.updateSingleAddStudents">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="firstname" v-model="student_data.fullname" >
                                 </div>
 
                                 <div class="mb-3">
@@ -177,40 +187,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- Edit Student -->
-                <div class="modal fade" id="studentmodal" tabindex="-1" aria-labelledby="student-modal-label" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5 class="modal-title text-center fw-bold" id="student-modal-label">Edit Student</h5>
-                                <!-- Your form for editing student details goes here -->
-                                <form>
-                                    <div class="mb-3">
-                                        <label for="editStudentID" class="form-label">Student ID</label>
-                                        <input type="text" class="form-control" id="editStudentID" >
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="editFullName" class="form-label">Full Name</label>
-                                        <input type="text" class="form-control" id="editFullName">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="editYearLevel" class="form-label">Year Level</label>
-                                        <input type="text" class="form-control" id="editYearLevel">
-                                    </div>
-                                    <!-- Add other fields as needed -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-success" >Save Changes</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!-- Delete Confirmation Modal -->
                 <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -226,7 +202,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger" @click="deleteStudent()">Delete</button>
+                                <button type="button" class="btn btn-danger" @click="deleteSingleStudents()" data-bs-dismiss="modal">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -290,14 +266,14 @@ export default {
     props: ['org_id', 'school_year_session'],
     data() {
         return {
-            fetchID: '',
+            fetchID: 0,
             studentList: [],
-            editData: {
-            student_id: '',
-            name: '',
-            email: '',
-            year_level: '',
-            },
+            // editData: {
+            // student_id: '',
+            // name: '',
+            // email: '',
+            // year_level: '',
+            // },
             school_year: [],
             school_year_input: this.school_year_session,
             searchTerm: '',
@@ -314,8 +290,10 @@ export default {
                 lastname:'',
                 firstname:'',
                 year_level_id: 0,
-                college_id: 0
+                college_id: 0,
+                fullname: '',
             },
+            
             submit: this.addSingleStudent,
 
 
@@ -404,11 +382,37 @@ mounted(){
     this.showCollege();
 },
 methods:{
+    deleteSingleStudents(){
+        axios.delete(`/delete_single_student/${this.fetchID}`)
+            .then(response => {
+                console.log(response.data)
+                this.showSucces(response.data.message);
+                this.fetchData();
+            })
+            .catch(error => {
+                console.log(error)
+        });
+    },
+    updateSingleAddStudents(){
+        axios.put(`/update_single_student`, this.student_data)
+            .then(response => {
+                console.log(response.data)
+                if (response.data.type == 0) {
+                    this.showError('Error');
+                }
+                else{
+                    this.showSucces(response.data.message);
+                    this.fetchData();
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    },
     addSingleStudent(){
         axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
             .then(response => {
                 console.log(response.data)
-                this.loading = false;
                 if (response.data.type == 0) {
                     this.showError('Error');
                 }
@@ -450,10 +454,25 @@ methods:{
                     item.student_id.toString().includes(this.searchTerm)
             );
         }
-            this.filtered_student_list = filteredBySearch;
+            // Filter based on filterStatus from select option
+            let filteredByCollege = this.studentList;
+            if (this.college_data_input) {
+                filteredByCollege = filteredByCollege.filter(item =>
+                    item.college_id.toString().includes(this.college_data_input)
+                );
+            }
+
+            // this.filtered_student_list = filteredBySearch;
+
+            this.filtered_student_list = filteredBySearch.filter(item =>
+            filteredByCollege.includes(item)
+            );
     },
     fetchData(){
+        this.studentList = [];
+        this.filtered_student_list = [];
         this.loading = true;
+        
         axios.get(`/student_list/show/${this.org_id}/${this.school_year_input}`)
             .then(response => {
                 this.studentList = response.data;
@@ -501,13 +520,12 @@ methods:{
     fetchDataEdit(){
         axios.get(`/student_list/edit/${this.fetchID}`)
             .then(response => {
-                const data = response.data;
-                    data.forEach(item => {
-                    this.editData.student_id = item['student_id'];
-                    this.editData.name = item['user']['name'];
-                    this.editData.email = item['user']['email'];
-                    this.editData.year_level = item['year_level']
-                    });
+                console.log(response.data)
+                    this.student_data.student_id = response.data.student_id;
+                    this.student_data.fullname = response.data.user.name;
+                    this.student_data.year_level_id = response.data.year_level_id;
+                    this.student_data.college_id = response.data.college_id;
+                
             })
             .catch(error => {
 
@@ -719,6 +737,16 @@ methods:{
         toast.error(message),{
             autoClose: 100,
         }
+    },
+    clearData(){
+        this.student_data = {
+                student_id: '',
+                lastname:'',
+                firstname:'',
+                year_level_id: 0,
+                college_id: 0,
+                fullname: '',
+            };
     },
 
 

@@ -172,7 +172,7 @@ class UserController extends Controller
                 ['student_id', $student_id],
                 ['role_id', '2']
             ])->with('user')
-            ->get();
+            ->first();
             
             return $student_list->toJson();
         }
@@ -201,4 +201,38 @@ class UserController extends Controller
             
             return $collegeList->toJson();
         }
+
+        public function updateSingleStudent(Request $request)
+        {  
+            try {
+                $user = User::find($request->student_id); 
+                $user_org = UserOrganization::where('student_id', $request->student_id)->first(); 
+
+                $user->name = $request->fullname;
+                $user->save();
+                $user_org->year_level_id = $request->year_level_id;
+                $user_org->college_id = $request->college_id;
+                $user_org->save();
+    
+                // return $request;
+                return response()->json(['message' => 'Students Updated Successfully','type' => 1]);
+                // Optionally, you can return a response indicating success or redirection
+            } catch (Exception $e) {
+                // Code to handle the exception
+                return response()->json(['message' => "An exception occurred: " . $e,'type' => 0]);
+            } catch (Error $e) {
+                // Code to handle errors (PHP 7 and later)
+                return response()->json(['message' => "An error occurred: " . $e,'type' => 0]);
+            }
+
+
+
+        }
+        public function deleteSingleStudent($id)
+        {
+            $userOrg = UserOrganization::where('student_id', $id);
+            $userOrg->delete();
+            return response()->json(['message' => 'Student Deleted successfully']);
+        }
+    
 }
