@@ -97,8 +97,11 @@
                     </ul>
                 </div>
             </div>
+
         </div>
+
         <div>
+
             @yield('main-content')
         </div>
     </div>
@@ -206,6 +209,11 @@
         }
     </script>
     @yield('custom-script')
+    <footer >
+        <div>
+            <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
+        </div>
+    </footer>
 
 </body>
 </html>

@@ -8,7 +8,7 @@
 <div class="page-content-wapper">
 <div class="content">
     <div class="page-container">
-        <div class="row">
+        <div class="row mb-0">
             <div class="col mt-2">
                 <div class="welcome-card">
                     <div class="welcome-text">

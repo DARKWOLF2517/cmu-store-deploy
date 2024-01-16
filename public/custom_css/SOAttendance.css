@@ -64,17 +64,18 @@
     margin-left: 20px;
 }
 #record-container {
-    height: 65vh;
-    max-height: 65vh;
+    height: 70vh;
+    max-height: 70vh;
     border: none;
-    padding: 0;
+    padding: 5px;
 
 }
 .recorded-event-cards{
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
-    max-height: 65vh;
+    height: 70vh;
+    max-height: 70vh;
 }
 p{
     margin-bottom: 0 !important;
@@ -146,22 +147,25 @@ p{
 
 /* Media query for screens with a maximum width of 768px */
 @media (max-width: 768px) {
-    .record-card {
+    .record-card, .record-card {
         width: 100%;
     }
-
+    #ScheduledEventContainer
     .record-date-container {
-        width: auto;
+       padding: 0 !important;
     }
     #calendar {
         font-size: 10px;
         height: 50vh;
         margin-bottom: 10px;
     }
-    .btn-success{
+    .btn-success, .btn-secondary{
         margin-top: 30px;
     }
-    h5{
+    .btn-secondary{
+        font-size: 10px;
+    }
+    h5, .record-title{
         font-size: 18px !important;
     }
     p, .record-description{

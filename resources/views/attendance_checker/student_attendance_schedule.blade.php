@@ -26,7 +26,7 @@
 
                 <div class="row">
                 <div class="col-lg-6 mb-2">
-                    <div class="container" id="ScheduledEventContainer">
+                    <div id="ScheduledEventContainer">
                         <event-attendance-list
                         :org_id="{{Session::get('org_id')}}"
                         :school_year_session="{{Session::get('school_year')}}"
