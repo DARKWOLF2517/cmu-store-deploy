@@ -412,9 +412,9 @@ methods:{
     addSingleStudent(){
         axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
             .then(response => {
-                console.log(response.data)
+                console.log(response.data)  
                 if (response.data.type == 0) {
-                    this.showError('Error');
+                    this.showError(response.data.message);
                 }
                 else{
                     this.showSucces(response.data.message);

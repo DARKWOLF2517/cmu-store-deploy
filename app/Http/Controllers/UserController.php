@@ -46,6 +46,7 @@ class UserController extends Controller
                 ['student_id', $id],
                 ['student_org_id', $org_id],
                 ['school_year', $school_year], 
+                ['role_id', 2], 
 
             ])->get();
             $count = $records->count();
@@ -57,8 +58,6 @@ class UserController extends Controller
 
             $org_id = Session::get('org_id');
             $data = $request->input('data');
-
-
             try {
                 // Code that may throw an exception
                 foreach ($data as $row) {
@@ -115,7 +114,7 @@ class UserController extends Controller
                 // Code that may throw an exception
                     if($this->UserRepitition($request->student_id) >= 1 )
                     {
-                        // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                        // return response()->json(['message' =>'Student is already in the list','type' => 0]);
                     }
                     else{
                         $user = new User();
@@ -129,7 +128,7 @@ class UserController extends Controller
                     
                     if($this->UserOrgRepitition($request->student_id, $org_id, $school_year)  >= 1) 
                     {
-                        // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                        return response()->json(['message' =>'Student is already in the list','type' => 0]);
                     }
                     else{
                         $userOrg = new UserOrganization();
