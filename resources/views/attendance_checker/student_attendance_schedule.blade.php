@@ -11,7 +11,7 @@
         <div class="col-md breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/login/org_dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item">Attendance Checker</li>
                 <li class="breadcrumb-item active" aria-current="page">Attendance</li>
                 <li class="breadcrumb-item active" aria-current="page">Schedule</li>
