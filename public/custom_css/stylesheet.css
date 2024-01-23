@@ -5,14 +5,14 @@ body {
     font-family: sans-serif;
     /* font-family: "Trebuchet MS", Helvetica, sans-serif; */
     color: #4a5864;
-    padding-bottom: 40px;
+    padding-bottom: 0;
 }
 footer {
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width: 100%;
     height: 30px;
-    z-index: 1000;
+    /* z-index: 1000; */
 }
 #calendar button{
     background-color: #60b192 !important;
