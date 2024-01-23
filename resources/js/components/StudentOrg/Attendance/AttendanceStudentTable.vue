@@ -8,7 +8,7 @@
                         <input type="text" placeholder="Search"  v-model="searchTerm" @input="filterItems">
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
 
                 <div class="select-dropdown">
                 <!-- Second dropdown -->
@@ -19,7 +19,13 @@
                     <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
                     <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
                 </select>
-            </div>
+                </div>
+                <div class="select-dropdown d-flex justify-content-end">
+                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input" @change="filterItems">
+                                <option value="0" disabled selected >Select College</option>
+                                <option >CISC </option>
+                            </select>
+                        </div>
                 </div>
             </div>
         </div>
