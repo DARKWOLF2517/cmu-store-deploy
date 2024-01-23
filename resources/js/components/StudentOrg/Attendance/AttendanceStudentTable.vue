@@ -1,43 +1,43 @@
 <template>
     
         <div class="mt-2">
-                  <div class="row head-container">
-                      <div class="col-md-6 col-sm-12">
-                          <div class="input-container">
-                              <i class="fa fa-search"></i>
-                              <input type="text" placeholder="Search"  v-model="searchTerm" @input="filterItems">
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-sm-12">
-
-                        <div class="select-dropdown">
-                        <!-- Second dropdown -->
-                        <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session"  @change="filterItems">
-                            <option value="0" disabled selected>Select Attendace Type</option>
-                            <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
-                            <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
-                            <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
-                            <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
-                        </select>
+            <div class="row head-container">
+                <div class="col-md-6 col-sm-12">
+                    <div class="input-container">
+                        <i class="fa fa-search"></i>
+                        <input type="text" placeholder="Search"  v-model="searchTerm" @input="filterItems">
                     </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center">
-        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Attendance Record</h4>
-        <div class="student-buttons d-flex">
+                </div>
+                <div class="col-md-6 col-sm-12">
 
-            <div class="btn-group" role="group">
-            <button class="btn me-2" @click="printTable">
-                <i class="fas fa-print"></i> Print
-            </button>
-            <button class="btn me-2" @click="downloadTable">
-                <i class="fas fa-download"></i> Download
-            </button>
+                <div class="select-dropdown">
+                <!-- Second dropdown -->
+                <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session"  @change="filterItems">
+                    <option value="0" disabled selected>Select Attendace Type</option>
+                    <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                    <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                    <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                    <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
+                </select>
+            </div>
+                </div>
             </div>
         </div>
-        </div>
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Attendance Record</h4>
+                <div class="student-buttons d-flex">
+
+                    <div class="btn-group" role="group">
+                    <button class="btn me-2" @click="printTable">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button class="btn me-2" @click="downloadTable">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="table-container" style="height: 800vh !important; max-height: 80vh;">
 
