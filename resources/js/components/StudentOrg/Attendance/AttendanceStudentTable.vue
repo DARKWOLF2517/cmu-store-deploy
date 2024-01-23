@@ -216,11 +216,12 @@ export default {
         }
 
         let filteredByCollege = this.attendance;
-        if (this.college_data_input) {
+        if (this.college_data_input !== undefined && this.college_data_input !== null) {
             filteredByCollege = filteredByCollege.filter(item =>
-                item.college_id.toString().includes(this.college_data_input)
+                item.college_id === parseInt(this.college_data_input, 10)
             );
         }
+
 
         // Merge the results of all three filters (independently applied)
         this.filtered_attendance = filteredBySearch.filter(item =>
