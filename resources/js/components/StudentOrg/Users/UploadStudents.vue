@@ -20,12 +20,12 @@
                     </div>
                     <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
 
-                            <div class="select-dropdown d-flex justify-content-end">
-                                <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                                    <option value="0" disabled selected>Select School Year</option>
-                                    <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                                </select>
-                            </div>
+                        <div class="select-dropdown d-flex justify-content-end">
+                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                                <option value="0" disabled selected>Select School Year</option>
+                                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                            </select>
+                        </div>
                         <div class="select-dropdown d-flex justify-content-end">
                             <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input" @change="filterItems">
                                 <option value="0" disabled selected >Select College</option>
@@ -447,13 +447,13 @@ methods:{
     },
     filterItems() {
         // Filter based on searchTerm from textbox
-        let filteredBySearch = this.studentList;
-        if (this.searchTerm) {
-            const searchTermLower = this.searchTerm.toLowerCase();
-            filteredBySearch = filteredBySearch.filter(item => item.user.name.toLowerCase().includes(searchTermLower) ||
-                    item.student_id.toString().includes(this.searchTerm)
-            );
-        }
+            let filteredBySearch = this.studentList;
+            if (this.searchTerm) {
+                const searchTermLower = this.searchTerm.toLowerCase();
+                filteredBySearch = filteredBySearch.filter(item => item.user.name.toLowerCase().includes(searchTermLower) ||
+                        item.student_id.toString().includes(this.searchTerm)
+                );
+            }
             // Filter based on filterStatus from select option
             let filteredByCollege = this.studentList;
             if (this.college_data_input) {

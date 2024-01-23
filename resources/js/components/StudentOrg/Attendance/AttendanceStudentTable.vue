@@ -9,23 +9,22 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
-
-                <div class="select-dropdown">
-                <!-- Second dropdown -->
-                <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session"  @change="filterItems">
-                    <option value="0" disabled selected>Select Attendace Type</option>
-                    <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
-                    <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
-                    <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
-                    <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
-                </select>
-                </div>
-                <div class="select-dropdown d-flex justify-content-end">
-                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input" @change="filterItems">
-                                <option value="0" disabled selected >Select College</option>
-                                <option >CISC </option>
-                            </select>
-                        </div>
+                    <div class="select-dropdown">
+                    <!-- Second dropdown -->
+                    <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session"  @change="filterItems">
+                        <option value="0" disabled selected>Select Attendace Type</option>
+                        <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                        <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                        <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                        <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
+                    </select>
+                    </div>
+                    <div class="select-dropdown d-flex justify-content-end">
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input" @change="filterItems">
+                            <option value="0" disabled selected >Select College</option>
+                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,17 +92,19 @@ export default {
   props: ['organization_id', 'event_id'],
   data() {
     return {
-      attendance: [],
-      event: {
-        event_title: '',
-        event_date: '',
-      },
-      currentPage: 1,
-      itemsPerPage: 10,
-      attendance_count: 0,
-      session: 0,
-      searchTerm: '',
-      filtered_attendance: [],
+        attendance: [],
+        event: {
+            event_title: '',
+            event_date: '',
+        },
+        currentPage: 1,
+        itemsPerPage: 10,
+        attendance_count: 0,
+        session: 0,
+        searchTerm: '',
+        filtered_attendance: [],
+        college_list: [],
+        college_data_input: 0,
     };
   },
   computed: {
@@ -183,54 +184,75 @@ export default {
 
   mounted() {
     this.fetchData();
+    this.showCollege();
   },
     methods:{
-      filterItems() {
-            let filteredBySearch = this.attendance;
-            if (this.searchTerm) {
-                const searchTermLower = this.searchTerm.toLowerCase();
-                filteredBySearch = filteredBySearch.filter(item =>
-                    item.user.name.toLowerCase().includes(searchTermLower) ||
-                    item.user_id.toString().includes(this.searchTerm)
-                );
-            }
-            // Filter based on filterStatus from select option
-            let filteredByStatus = this.attendance;
-            if (this.session) {
-                filteredByStatus = filteredByStatus.filter(item =>
-                    item.session.toString().includes(this.session)
-                );
-            }
-            // Merge the results of both filters (independently applied)
-            this.filtered_attendance = filteredBySearch.filter(item =>
-                filteredByStatus.includes(item)
+    showCollege(){
+        axios.get(`/view_college`)
+            .then(response => {
+                this.college_list = response.data;
+                // console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    },
+    filterItems() {
+        let filteredBySearch = this.attendance;
+        if (this.searchTerm) {
+            const searchTermLower = this.searchTerm.toLowerCase();
+            filteredBySearch = filteredBySearch.filter(item =>
+                item.user.name.toLowerCase().includes(searchTermLower) ||
+                item.user_id.toString().includes(this.searchTerm)
             );
+        }
 
-            // this.filtered_attendance = filteredBySearch
+        // Filter based on filterStatus from select option
+        let filteredByStatus = this.attendance;
+        if (this.session) {
+            filteredByStatus = filteredByStatus.filter(item =>
+                item.session.toString().includes(this.session)
+            );
+        }
 
-        },
+        let filteredByCollege = this.attendance;
+        if (this.college_data_input) {
+            filteredByCollege = filteredByCollege.filter(item =>
+                item.college_id.toString().includes(this.college_data_input)
+            );
+        }
+
+        // Merge the results of all three filters (independently applied)
+        this.filtered_attendance = filteredBySearch.filter(item =>
+            filteredByStatus.includes(item) && filteredByCollege.includes(item)
+        );
+
+        // this.filtered_attendance = filteredBySearch
+
+    },
         fetchData(){
         axios.get(`/attendance/list/${this.organization_id}/${this.event_id}`)
             .then(response => {
-              this.filtered_attendance = [],
-              console.log(response.data)
-                const data = response.data;
-                    data.forEach(item => {
-                        // console.log(item);
-                        item['events']['start_date'] = convertDate(item['events']['start_date']);
-                        this.event.event_title = item['events']['name'];
-                        this.event.event_date = item['events']['start_date'];
-                        this.attendance_count = item.events.attendance_count;
-                    });
-                    this.attendance = response.data;
-                    this.filtered_attendance = this.attendance;
-                  //   this.attendance.forEach(element => {
-                  //     this.attendance_list.push({
-                  //       student_id : element.user_id,
-                  //       student_name: element.user.name,
-                  //       college: element.college.college,
-                  //     })
-                  //   });
+                this.filtered_attendance = [],
+                console.log(response.data)
+                    const data = response.data;
+                        data.forEach(item => {
+                            // console.log(item);
+                            item['events']['start_date'] = convertDate(item['events']['start_date']);
+                            this.event.event_title = item['events']['name'];
+                            this.event.event_date = item['events']['start_date'];
+                            this.attendance_count = item.events.attendance_count;
+                        });
+                        this.attendance = response.data;
+                        this.filtered_attendance = this.attendance;
+                        console.log(this.attendance);
+                    //   this.attendance.forEach(element => {
+                    //     this.attendance_list.push({
+                    //       student_id : element.user_id,
+                    //       student_name: element.user.name,
+                    //       college: element.college.college,
+                    //     })
+                    //   });
 
             })
             .catch(error => {
