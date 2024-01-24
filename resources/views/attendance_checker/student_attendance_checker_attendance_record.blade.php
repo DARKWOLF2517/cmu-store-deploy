@@ -5,9 +5,7 @@
 @endsection
 
 @section('main-content')
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+
             <div class="col breadcrumbs">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -25,9 +23,7 @@
                     >
 
                     </show-student-attendance>
-        </div>
-    </div>
-</div>
+
 
 
 @endsection

@@ -65,6 +65,7 @@
             </div>
         </div>
 <!-- SIDE NAV BAR -->
+<aside>
         <div class="wrapper">
             <div class=" p-3  sidebar" id="sidebarCollapse">
                 <div class="d-md-flex flex-shrink-0">
@@ -99,15 +100,29 @@
             </div>
 
         </div>
+</aside>
+    <section>
+        <div class="page-content-wapper">
+            <div class="content">
+                <div class="page-container">
+                    <div>
 
-        <div>
-
-            @yield('main-content')
+                        @yield('main-content')
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    </section>
+    <footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px;">
+        <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
+    </footer>
+
+
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}
+    @yield('custom-script')
     <script>
 
         document.onreadystatechange = () => {
@@ -120,10 +135,10 @@
                 const toggleSidebarButton = document.getElementById('sidebar-toggle');
                 const sidebar = document.getElementById('sidebarCollapse');
                 const content = document.querySelector('.content');
-                // const icon = document.querySelector('#sidebar-toggle i');
+                const icon = document.querySelector('#sidebar-toggle i'); // Uncomment this line
 
                 // Buttons with chevron icons
-                const rotateButtons = document.querySelectorAll('.rotate-icon');
+                // const rotateButtons = document.querySelectorAll('.rotate-icon');
 
                 // Function to close any open btn-toggle elements
                 function closeOpenBtnToggle() {
@@ -133,7 +148,7 @@
                         const collapseElement = document.querySelector(collapseTarget);
                         if (collapseElement && collapseElement.classList.contains('show')) {
                             collapseElement.classList.remove('show');
-                            rotateChevron(button);
+                            // rotateChevron(button);
                             button.classList.remove('collapsed');
                         }
                     });
@@ -152,36 +167,20 @@
                     closeOpenBtnToggle();
                     sidebar.classList.toggle('collapsed');
                     content.classList.toggle('collapsed');
-                    icon.classList.toggle('fa-bars');
-                    // icon.classList.toggle('fa-times');
-                    if (!isCollapsed) {
-                        rotateButtons.forEach((button) => {
-                            if (!button.classList.contains('collapsed')) {
-                                const collapseTarget = button.getAttribute('data-bs-target');
-                                const collapseElement = document.querySelector(collapseTarget);
-                                if (collapseElement) {
-                                    collapseElement.classList.add('show');
-                                }
-                            }
-                        });
-                    }
-                });
+                    icon.classList.add('fa-bars');
 
-                    // Event listener for rotating chevron icons on btn-toggle click
-                        rotateButtons.forEach((button) => {
-                        button.addEventListener('click', function () {
-                            this.classList.toggle('collapsed');
-                            rotateChevron(this);
-                            if (sidebar.classList.contains('collapsed')) {
-                                sidebar.classList.remove('collapsed');
-                                content.classList.remove('collapsed');
-                                //icon.classList.add('fa-bars');
-                                // icon.classList.add('fa-times');
-                            } else {
-                                closeOpenBtnToggle();
-                            }
-                        });
-                    });
+                    // if (!isCollapsed) {
+                    //     rotateButtons.forEach((button) => {
+                    //         if (!button.classList.contains('collapsed')) {
+                    //             const collapseTarget = button.getAttribute('data-bs-target');
+                    //             const collapseElement = document.querySelector(collapseTarget);
+                    //             if (collapseElement) {
+                    //                 collapseElement.classList.add('show');
+                    //             }
+                    //         }
+                    //     });
+                    // }
+                });
 
 
                 // Event listener for toggling the notification popover
@@ -189,31 +188,27 @@
                 //     popover.style.display = popover.style.display === 'block' ? 'none' : 'block';
                 // });
 
-                    // Check screen width and collapse/expand sidebar accordingly
-                    function checkScreenWidth() {
-                        if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
-                            sidebar.classList.add('collapsed');
-                            content.classList.add('collapsed');
-                            icon.classList.add('fa-bars');
-                            // icon.classList.remove('fa-times');
-                        } else {
-                            sidebar.classList.remove('collapsed');
-                            content.classList.remove('collapsed');
-                            icon.classList.add('fa-bars');
-                            // icon.classList.add('fa-times');
-                        }
+                // Check screen width and collapse/expand sidebar accordingly
+                function checkScreenWidth() {
+                    if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
+                        sidebar.classList.add('collapsed');
+                        content.classList.add('collapsed');
+                        icon.classList.add('fa-bars');
+                        // icon.classList.remove('fa-times');
+                    } else {
+                        sidebar.classList.remove('collapsed');
+                        content.classList.remove('collapsed');
+                        icon.classList.add('fa-bars');
+                        // icon.classList.add('fa-times');
                     }
-                    // Initial check on page load
-                    checkScreenWidth();
+                }
+                // Initial check on page load
+                checkScreenWidth();
             }
         }
     </script>
-    @yield('custom-script')
-    <footer >
-        <div>
-            <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
-        </div>
-    </footer>
+
+
 
 </body>
 </html>

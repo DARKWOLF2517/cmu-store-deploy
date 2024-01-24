@@ -4,8 +4,8 @@
     border: none;
   }
   .event-list{
-    height: 70vh;
-    max-height: 70vh;
+    height: 71vh;
+    max-height: 71vh;
   }
 
   .event-cards-list {
@@ -13,7 +13,7 @@
     flex-wrap: wrap;
     overflow-y: auto;
     overflow-x: hidden;
-    max-height: 70vh;
+    max-height: 72vh;
   }
 
   .event-card {

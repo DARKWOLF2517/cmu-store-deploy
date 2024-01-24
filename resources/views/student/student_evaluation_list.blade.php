@@ -66,9 +66,7 @@
 </style> --}}
 @endsection
 @section('main-content')
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+
         <div class="breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -80,17 +78,15 @@
         </div>
                 <h3 class="mt-2"><i class="fas fa-list"></i> Evaluation</h3>
 
-
+<div class="col" style="height: 80vh !important;">
         <student-event-card
         organization_id = {{Session::get('org_id')}}
         student_id = {{Auth::id()}}
         >
 
         </student-event-card>
+    </div>
 
-
-        </div>
-        </div>
 {{--
     </div>
     </div> --}}

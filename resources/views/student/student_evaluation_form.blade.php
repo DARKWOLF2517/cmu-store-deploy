@@ -1,9 +1,6 @@
 @extends('layouts.student_navigation_bar')
 @section('main-content')
 <link href="/custom_css/studentEvaluation.css" rel="stylesheet">
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
     <div class="container" id="evaluation-form">
         <student-evaluation-form
             user_id = {{ Auth::id()}}
@@ -213,8 +210,6 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form> --}}
-    </div>
-</div>
 
 @endsection
 

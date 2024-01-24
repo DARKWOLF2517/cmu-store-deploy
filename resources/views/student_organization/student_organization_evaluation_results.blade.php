@@ -6,19 +6,16 @@
 @endsection
 @section('main-content')
 
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
-      <div class=" breadcrumbs">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
-              <li class="breadcrumb-item">Student Organization</li>
-              <li class="breadcrumb-item"><a href="/student_organization_evaluation">Evaluation</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Evaluation Results</li>
-            </ol>
-          </nav>
-      </div>
+    <div class=" breadcrumbs">
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item">Student Organization</li>
+            <li class="breadcrumb-item"><a href="/student_organization_evaluation">Evaluation</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Evaluation Results</li>
+        </ol>
+        </nav>
+    </div>
         {{-- <div class="mt-2 student-buttons d-flex justify-content-end">
             <div class="btn-group" role="group">
                 <button class="btn me-2" id="print-results-button">
@@ -31,13 +28,10 @@
             </div>
         </div> --}}
 
-          <evaluation-chart
-              event_id={{$id}}>
-          </evaluation-chart>
-      </div>
-  </div>
-    </div>
-</div>
+                <evaluation-chart
+                    event_id={{$id}}>
+                </evaluation-chart>
+
 
 
 @endsection

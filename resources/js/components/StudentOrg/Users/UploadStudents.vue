@@ -1,6 +1,5 @@
 <template>
-    <div class="content">
-        <div class="page-container">
+
             <div class="col breadcrumbs">
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -252,9 +251,6 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
-
 
 </template>
 
@@ -293,7 +289,7 @@ export default {
                 college_id: 0,
                 fullname: '',
             },
-            
+
             submit: this.addSingleStudent,
 
 
@@ -412,7 +408,7 @@ methods:{
     addSingleStudent(){
         axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
             .then(response => {
-                console.log(response.data)  
+                console.log(response.data)
                 if (response.data.type == 0) {
                     this.showError(response.data.message);
                 }
@@ -472,7 +468,7 @@ methods:{
         this.studentList = [];
         this.filtered_student_list = [];
         this.loading = true;
-        
+
         axios.get(`/student_list/show/${this.org_id}/${this.school_year_input}`)
             .then(response => {
                 this.studentList = response.data;
@@ -525,7 +521,7 @@ methods:{
                     this.student_data.fullname = response.data.user.name;
                     this.student_data.year_level_id = response.data.year_level_id;
                     this.student_data.college_id = response.data.college_id;
-                
+
             })
             .catch(error => {
 

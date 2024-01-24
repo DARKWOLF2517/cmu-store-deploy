@@ -161,9 +161,7 @@
                     </div>
     </div>
 </div> --}}
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+
             <org-profile
                 :org_id = {{Session::get('org_id')}}
                 :user_id = {{Auth::id()}}
@@ -172,9 +170,6 @@
             >
 
             </org-profile>
-        </div>
-    </div>
-</div>
 
 @endsection
 @section('custom-script')

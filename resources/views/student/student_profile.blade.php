@@ -5,9 +5,7 @@
 @endsection
 
 @section('main-content')
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+
         <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -17,10 +15,12 @@
                 </ol>
             </nav>
         </div>
+        <div class="col" style="height: 85vh !important;">
         <student-profile
         user_id = {{Auth::id()}}
         user_org = {{Session::get('org_id')}}
         ></student-profile>
+    </div>
         {{-- <div class="row">
             <div class="col-md-3">
                 <div class="qr-code">
@@ -70,6 +70,5 @@
                 </div>
             </div>
         </div> --}}
-    </div>
-</div>
+
 @endsection

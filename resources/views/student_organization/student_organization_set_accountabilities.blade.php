@@ -3,9 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+
             <div class="col breadcrumbs">
                 <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -23,9 +21,7 @@
             >
 
             </set-accountabilities>
-        </div>
-    </div>
-</div>
+
 
 @endsection
         <!-- Bootstrap JavaScript -->

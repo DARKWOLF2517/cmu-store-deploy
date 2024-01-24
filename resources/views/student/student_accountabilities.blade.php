@@ -5,9 +5,6 @@
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
 @endsection
 @section('main-content')
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
         <div class=" breadcrumbs">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -17,6 +14,7 @@
             </ol>
             </nav>
         </div>
+        <div class="col" style="height: 85vh !important;">
         <show-fines
         :user_id = {{Auth::id()}}
         :name ="{{ json_encode(Auth::user()->name) }}"
@@ -24,6 +22,7 @@
         >
 
         </show-fines>
+        </div>
         {{-- <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
@@ -59,7 +58,5 @@
                 </table>
             </div>
         </div> --}}
-    </div>
-</div>
-</div>
+
 @endsection

@@ -1,75 +1,70 @@
 <template>
-  <div class="page-content-wapper">
-      <div class="content">
-          <div class="page-container">
-              <div class="col-md breadcrumbs">
-                  <nav aria-label="breadcrumb">
-                      <ol class="breadcrumb">
-                      <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
-                      <li class="breadcrumb-item">Student Organization</li>
-                      <li class="breadcrumb-item active" aria-current="page">Attendance</li>
-                      <li class="breadcrumb-item active" aria-current="page">Attendance Records</li>
-                      </ol>
-                  </nav>
-              </div>
-              <div class="mt-2">
-                  <div class="row head-container">
-                      <div class="col-md-6 col-sm-12">
-                          <div class="input-container">
-                              <i class="fa fa-search"></i>
-                              <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
-                          </div>
-                      </div>
-                      <div class="col-md-6 col-sm-12">
 
-                          <div class="select-dropdown" style="width: 70%;">
-                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                                <option value="0" disabled selected>Select School Year</option>
-                                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                            </select>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div class="mt-2">
-                  <h4><i class="fas fa-list"></i> Attendance Records</h4>
-              </div>
-              <div class="col" id="record-container">
-                 <!-- Loading spinner -->
-                 <div v-if="loading" class="loading-spinner-container">
-                        <div class="spinner-border text-success" id="event-spinner" role="status">
-                          <span class="visually-hidden">Loading...</span>
+            <div class="col-md breadcrumbs">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item">Student Organization</li>
+                    <li class="breadcrumb-item active" aria-current="page">Attendance</li>
+                    <li class="breadcrumb-item active" aria-current="page">Attendance Records</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="mt-2">
+                <div class="row head-container">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="input-container">
+                            <i class="fa fa-search"></i>
+                            <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
                         </div>
-                      </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
 
-                      <!-- Message if the container is empty -->
-                      <div  class="Container-IfEmpty text-center" v-if="!loading && Object.keys(attendance).length === 0">
-                        <div class="Empty-Message">
-                          <i class="icon fas fa-file-alt" id="icon-message"></i>
-                          <p class="text-muted"><b>No Attendance Recorded yet</b><br>Attendance records show up here.</p>
+                        <div class="select-dropdown" style="width: 70%;">
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                            <option value="0" disabled selected>Select School Year</option>
+                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                        </select>
                         </div>
-                      </div>
+                    </div>
+                </div>
+            </div>
 
-                  <div class="recorded-event-cards">
 
-                      <!-- Render attendance records -->
-                      <div v-for="attendance_list in this.filtered_attendance" class="record-card" :id="attendance.event_id">
-                        <div class="record-date-container"><span class="event-date">{{ attendance_list.start_date }}</span></div>
-                        <div class="record-title"><h5><b>{{ attendance_list.name }}</b></h5></div>
-                        <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b></div>
-                        <button v-if="attendance_list.attendance !== 0" class="view-button" @click="attendance_result(attendance_list.event_id)">
-                          <i class="fas fa-chevron-right button-icon"></i>
-                        </button>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-</div>
+            <div class="mt-2">
+                <h4><i class="fas fa-list"></i> Attendance Records</h4>
+            </div>
+            <div class="col" id="record-container">
+                <!-- Loading spinner -->
+                <div v-if="loading" class="loading-spinner-container">
+                    <div class="spinner-border text-success" id="event-spinner" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    </div>
 
-  </template>
+                    <!-- Message if the container is empty -->
+                    <div  class="Container-IfEmpty text-center" v-if="!loading && Object.keys(attendance).length === 0">
+                    <div class="Empty-Message">
+                        <i class="icon fas fa-file-alt" id="icon-message"></i>
+                        <p class="text-muted"><b>No Attendance Recorded yet</b><br>Attendance records show up here.</p>
+                    </div>
+                    </div>
+
+                <div class="recorded-event-cards">
+
+                    <!-- Render attendance records -->
+                    <div v-for="attendance_list in this.filtered_attendance" class="record-card" :id="attendance.event_id">
+                    <div class="record-date-container"><span class="event-date">{{ attendance_list.start_date }}</span></div>
+                    <div class="record-title"><h5><b>{{ attendance_list.name }}</b></h5></div>
+                    <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b></div>
+                    <button v-if="attendance_list.attendance !== 0" class="view-button" @click="attendance_result(attendance_list.event_id)">
+                        <i class="fas fa-chevron-right button-icon"></i>
+                    </button>
+                    </div>
+                </div>
+            </div>
+
+</template>
 
   <script>
   export default {
