@@ -4,9 +4,7 @@
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
 @endsection
 @section('main-content')
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+
         <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -78,15 +76,12 @@
                                 <td>CISC</td>
                             </tr>
                         </tbody>
+                </div>
             </div>
+        </div>
+    </div>
+</div>
 
-        </div>
-        </div>
-    </div>
-</div>
-    </div>
-</div>
-</div>
 @endsection
 
 @section('custom-script')

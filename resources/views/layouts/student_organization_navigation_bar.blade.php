@@ -125,6 +125,7 @@
             </div>
         </div>
 <!-- SIDE NAV BAR -->
+<aside>
         <div class="wrapper">
             <div class=" p-3  sidebar" id="sidebarCollapse">
                 <div class="d-md-flex flex-shrink-0">
@@ -224,117 +225,124 @@
                 </div>
             </div>
         </div>
-        <div>
+</aside>
+<section>
+    <div class="page-content-wapper">
+            <div class="content">
+                <div class="page-container">
+                    <div>
 
-            @yield('main-content')
+                        @yield('main-content')
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</section>
+<footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px;">
+    <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
+</footer>
 
-    <footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px;">
-        <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
-      </footer>
+
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
     <!-- FullCalendar JS -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script> --}}
     <script>
+document.onreadystatechange = () => {
+    if (document.readyState === "complete") {
+        // Notification button and popover
+        // const notificationButton = document.querySelector('.notification-button');
+        // const popover = document.querySelector('.popover');
 
-        document.onreadystatechange = () => {
-            if (document.readyState === "complete") {
-                // Notification button and popover
-                // const notificationButton = document.querySelector('.notification-button');
-                // const popover = document.querySelector('.popover');
+        // Sidebar and toggle button
+        const toggleSidebarButton = document.getElementById('sidebar-toggle');
+        const sidebar = document.getElementById('sidebarCollapse');
+        const content = document.querySelector('.content');
+        const icon = document.querySelector('#sidebar-toggle i');
 
-                // Sidebar and toggle button
-                const toggleSidebarButton = document.getElementById('sidebar-toggle');
-                const sidebar = document.getElementById('sidebarCollapse');
-                const content = document.querySelector('.content');
-                // const icon = document.querySelector('#sidebar-toggle i');
+        // Buttons with chevron icons
+        const rotateButtons = document.querySelectorAll('.rotate-icon');
 
-                // Buttons with chevron icons
-                const rotateButtons = document.querySelectorAll('.rotate-icon');
+        // Function to close any open btn-toggle elements
+        function closeOpenBtnToggle() {
+            const btnToggle = document.querySelectorAll('.btn-toggle');
 
-                // Function to close any open btn-toggle elements
-                function closeOpenBtnToggle() {
-                    const btnToggle = document.querySelectorAll('.btn-toggle');
-                    btnToggle.forEach((button) => {
-                        const collapseTarget = button.getAttribute('data-bs-target');
-                        const collapseElement = document.querySelector(collapseTarget);
-                        if (collapseElement && collapseElement.classList.contains('show')) {
-                            collapseElement.classList.remove('show');
-                            rotateChevron(button);
-                            button.classList.remove('collapsed');
-                        }
-                    });
+            btnToggle.forEach((button) => {
+                const collapseTarget = button.getAttribute('data-bs-target');
+                const collapseElement = document.querySelector(collapseTarget);
+                if (collapseElement && collapseElement.classList.contains('show')) {
+                    collapseElement.classList.remove('show');
+                    rotateChevron(button);
+                    button.classList.remove('collapsed');
+
                 }
+            });
+        }
 
-                // Function to rotate the chevron icon
-                function rotateChevron(button) {
-                    const chevron = button.querySelector('.link-arrow i');
-                    chevron.classList.toggle('fa-chevron-down');
-                    chevron.classList.toggle('fa-chevron-up');
+        // Function to rotate the chevron icon
+        function rotateChevron(button) {
+            const chevron = button.querySelector('.link-arrow i');
+            chevron.classList.toggle('fa-chevron-down');
+            chevron.classList.toggle('fa-chevron-up');
+        }
+
+        // Event listener for toggling the sidebar
+        toggleSidebarButton.addEventListener('click', function () {
+    const isCollapsed = sidebar.classList.contains('collapsed');
+    closeOpenBtnToggle();
+    sidebar.classList.toggle('collapsed');
+    content.classList.toggle('collapsed');
+    icon.classList.add('fa-bars');
+    if (!isCollapsed) {
+        rotateButtons.forEach((button) => {
+            if (button.classList.contains('collapsed')) {
+                const collapseTarget = button.getAttribute('data-bs-target');
+                const collapseElement = document.querySelector(collapseTarget);
+                if (collapseElement) {
+                    collapseElement.classList.add('show');
+
                 }
+            }
+        });
+    }
+    if (window.innerWidth <= 768) {
+        icon.classList.add('fa-bars');
+    } else {
+        icon.classList.add('fa-bars');
+    }
+});
 
-                // Event listener for toggling the sidebar
-                toggleSidebarButton.addEventListener('click', function () {
-                    const isCollapsed = sidebar.classList.contains('collapsed');
+        // Event listener for rotating chevron icons on btn-toggle click
+        rotateButtons.forEach((button) => {
+            button.addEventListener('click', function () {
+                this.classList.toggle('collapsed');
+                rotateChevron(this);
+                if (sidebar.classList.contains('collapsed')) {
+                    sidebar.classList.remove('collapsed');
+                    content.classList.remove('collapsed');
+
+                } else {
                     closeOpenBtnToggle();
-                    sidebar.classList.toggle('collapsed');
-                    content.classList.toggle('collapsed');
-                    icon.classList.toggle('fa-bars');
-                    // icon.classList.toggle('fa-times');
-                    if (!isCollapsed) {
-                        rotateButtons.forEach((button) => {
-                            if (!button.classList.contains('collapsed')) {
-                                const collapseTarget = button.getAttribute('data-bs-target');
-                                const collapseElement = document.querySelector(collapseTarget);
-                                if (collapseElement) {
-                                    collapseElement.classList.add('show');
-                                }
-                            }
-                        });
-                    }
-                });
+                }
+            });
+        });
 
-                    // Event listener for rotating chevron icons on btn-toggle click
-                        rotateButtons.forEach((button) => {
-                        button.addEventListener('click', function () {
-                            this.classList.toggle('collapsed');
-                            rotateChevron(this);
-                            if (sidebar.classList.contains('collapsed')) {
-                                sidebar.classList.remove('collapsed');
-                                content.classList.remove('collapsed');
-                                //icon.classList.add('fa-bars');
-                                // icon.classList.add('fa-times');
-                            } else {
-                                closeOpenBtnToggle();
-                            }
-                        });
-                    });
-
-
-                // Event listener for toggling the notification popover
-                // notificationButton.addEventListener('click', () => {
-                //     popover.style.display = popover.style.display === 'block' ? 'none' : 'block';
-                // });
-
-                    // Check screen width and collapse/expand sidebar accordingly
-                    function checkScreenWidth() {
-                        if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
-                            sidebar.classList.add('collapsed');
-                            content.classList.add('collapsed');
-                            icon.classList.add('fa-bars');
-                            // icon.classList.remove('fa-times');
-                        } else {
-                            sidebar.classList.remove('collapsed');
-                            content.classList.remove('collapsed');
-                            icon.classList.add('fa-bars');
-                            // icon.classList.add('fa-times');
-                        }
-                    }
-                    // Initial check on page load
-                    checkScreenWidth();
+        // Check screen width and collapse/expand sidebar accordingly
+        function checkScreenWidth() {
+            if (window.innerWidth <= 768) { // Adjust the breakpoint as needed
+                sidebar.classList.add('collapsed');
+                content.classList.add('collapsed');
+                icon.classList.add('fa-bars');
+            } else {
+                sidebar.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+                // icon.classList.remove('fa-bars');
             }
         }
+        // Initial check on page load
+        checkScreenWidth();
+    }
+}
     </script>
     @yield('custom-script')
 

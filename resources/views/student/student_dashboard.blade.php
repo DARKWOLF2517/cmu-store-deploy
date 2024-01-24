@@ -1,11 +1,9 @@
 @extends('layouts.student_navigation_bar')
 @section('main-content')
 <link href="/custom_css/SODashboard.css" rel="stylesheet">
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
+
         <div class="row">
-            <div class="col mt-2">
+            <div class="col mt-3">
                 <div class="welcome-card-student">
                     <div class="welcome-text">
                         <p>Welcome, {{Auth::user()->name}}</p>
@@ -13,7 +11,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-3">
+        <div class="col mt-3">
             <div class="row">
                 <div class="col-lg-4 col-md-12 mb-2">
                     <div class="timeline-schedule" >
@@ -103,9 +101,7 @@
         </div>
         </div>
     </div>
-</div>
-    </div>
-</div>
+
 
 @endsection
 @section('custom-script')

@@ -66,9 +66,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 @endsection
 @section('main-content')
-<div class="page-content-wapper">
-    <div class="content">
-        <div class="page-container">
         <div class="breadcrumbs">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -129,8 +126,5 @@
                     </tbody>
                 </table>
                 </div> --}}
-    </div>
-</div>
-</div>
 
 @endsection

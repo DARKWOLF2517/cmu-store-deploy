@@ -5,9 +5,6 @@
 
 @section('main-content')
 
-<div class="page-content-wapper">
-<div class="content">
-    <div class="page-container">
         <div class="row">
             <div class="col mt-2">
                 <div class="welcome-card">
@@ -147,9 +144,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-</div>
 
 @endsection
 @section('custom-script')

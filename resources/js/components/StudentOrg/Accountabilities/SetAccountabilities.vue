@@ -17,13 +17,13 @@
       </div>
     </div>
     </div>
-    <div class="alert alert-light mt-2" role="alert" style=" border-left-style: solid; border-left-color: #007bff; border-left-width: 4px;">
+    <!-- <div class="alert alert-light mt-2" role="alert" style=" border-left-style: solid; border-left-color: #007bff; border-left-width: 4px;">
         <span style="display: inline-block; width: 30px; height: 30px; border-radius: 50%; background-color: #007bff; text-align: center; line-height: 30px;">
     <i class="fas fa-info text-white"></i>
 </span>
  This is where the student organization accountability is set. If you haven't set anything yet, please click the button to set accountabilities.
                 <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            </div> -->
             <div class="container-fluid">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h4 class="mt-3"><i class="fas fa-list"></i> Organization Accountabilities</h4>

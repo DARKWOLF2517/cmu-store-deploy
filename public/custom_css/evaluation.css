@@ -1,6 +1,6 @@
 #evaluation-container {
-    height: 70vh;
-    max-height: 70vh;
+    height: 73vh;
+    max-height: 73vh;
     border: none;
 }
 
@@ -8,7 +8,7 @@
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
-    max-height: 70vh;
+    max-height: 73vh;
 }
 
 .event-card {
