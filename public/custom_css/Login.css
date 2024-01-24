@@ -1,11 +1,48 @@
-
 body {
-    background-color: #f3f7fb;
-    /* background-image: url('/assets/loginbg.png'); */
-    background-size: cover;
+    position: relative;
     font-family: Arial, Helvetica, sans-serif;
     color: #4a5864;
+    background-color: #cacaca;
+    opacity: 0;
+    animation: fadeIn 1s ease-in-out forwards; /* Add a smooth fade-in animation */
 }
+
+body::after {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://isms.cmu.edu.ph/general/getThemePhoto?tid=1&field=login_bg') center center/cover no-repeat;
+    filter: blur(1px);
+    filter: saturate(90%);
+    opacity: 0.8;
+    z-index: -1;
+    animation: fadeInOverlay 1s ease-in-out forwards; /* Add a smooth fade-in animation for the overlay */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.8;
+    }
+}
+
+/* Rest of your CSS remains unchanged */
+
 /* .top-nav {
     position: absolute;
     width: 100%;
@@ -27,7 +64,7 @@ body {
 } */
 .login-wrap {
     max-width: 400px;
-    margin: 100px auto 0;
+    margin: 150px auto 0;
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -85,6 +122,13 @@ body {
   .logo img {
     width: 100px; /* Adjust the width as needed */
   }
+  .flex-container {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: center; /* Center the content horizontally */
+    height: 100vh; /* Optional: Set a specific height for the container */
+}
+
   @media (max-width: 768px) {
     .h3{
         font-size: 15px !important;
@@ -92,4 +136,44 @@ body {
     .b{
         font-size: 15px !important;
     }
+    body {
+        position: relative;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #4a5864;
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    body::after {
+        content: "";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://isms.cmu.edu.ph/general/getThemePhoto?tid=1&field=login_bg') center center/cover no-repeat;
+        opacity: 0.8;
+        z-index: -1;
+        animation: fadeInOverlay 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInOverlay {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 0.8;
+        }
+    }
+
   }

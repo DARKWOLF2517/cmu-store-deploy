@@ -42,10 +42,10 @@
   <div id="app">
       <!-- TOP NAV BAR -->
       <div class="wrapper">
-        <div class="top-nav">
+        <div class="top-nav text-center">
             <span class="nav-link-text"> CMU-STORE-AMS</span>
         </div>
-
+    </div>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6 col-lg-5">
