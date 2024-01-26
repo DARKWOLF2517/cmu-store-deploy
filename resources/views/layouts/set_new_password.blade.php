@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password</title>
+    <title>Change Password @yield('title')</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="custom_css/Login.css" rel="stylesheet">
+
     {{-- <script src="{{ asset('js/app.js') }}" defer> --}}
 
 
@@ -20,7 +20,72 @@
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
         }
+        .login-wrap {
+    max-width: 400px;
+    margin: 150px auto 0;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 5px;
+  }
 
+  .login-form .form-group {
+    margin-bottom: 20px;
+  }
+
+  .login-form label {
+    font-weight: bold;
+  }
+
+  .login-form .input-group-prepend .input-group-text {
+    background-color: #fff;
+  }
+
+  .login-form .form-control {
+    border-radius: 3px;
+    border-color: #ccc;
+  }
+
+  .login-form .submit {
+    background-color: #42B385;
+    border-color: #42B385;
+    font-weight: bold;
+  }
+
+  .login-form .submit:hover {
+    background-color: #53967c;
+    border-color: #53967c;
+  }
+
+  .login-form a {
+    color: #53967c;
+  }
+
+  .login-form a:hover {
+    color: #48be8f;
+  }
+
+  .login-wrap h5 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #42B385;
+  }
+
+  .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .logo img {
+    width: 100px; /* Adjust the width as needed */
+  }
+  .flex-container {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: center; /* Center the content horizontally */
+    height: 100vh; /* Optional: Set a specific height for the container */
+}
         .wrapper {
             position: relative;
         }

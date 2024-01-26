@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>User Organizations</title>
+  <title>Users</title>
   <link href="/custom_css/usercard.css" rel="stylesheet">
   {{-- <link href="/custom_css/Navbars.css" rel="stylesheet"> --}}
   {{-- <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/"> --}}

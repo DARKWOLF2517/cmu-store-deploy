@@ -1,6 +1,8 @@
 @extends('layouts.student_organization_navigation_bar')
 
 @section('custom-style')
+
+<title>Accountability list @yield('title')</title>
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
 @endsection
 @section('main-content')

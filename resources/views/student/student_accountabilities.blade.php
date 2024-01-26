@@ -3,6 +3,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 @section('custom-style')
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+<title>Student Accountabilities @yield('title')</title>
 @endsection
 @section('main-content')
         <div class=" breadcrumbs">

@@ -56,7 +56,7 @@
 <link href="/custom_css/qrscanner.css" rel="stylesheet">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 @vite('resources/js/app.js')
-<title>Document</title>
+<title>Student Organization QR Scan @yield('title')</title>
 </head>
 <body>
   <!-- Bootstrap Top Navigation Bar -->

@@ -1,5 +1,6 @@
 
 @extends('layouts.attedance_checker_navigation_bar')
+<title>Attendance @yield('title')</title>
 @section('custom-script')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
 @endsection

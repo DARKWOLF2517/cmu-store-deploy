@@ -3,7 +3,7 @@
 @section('custom-style')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
 @endsection
-
+<title>Student Organization Attendance Record @yield('title')</title>
 @section('main-content')
             <div class="col breadcrumbs">
                 <nav aria-label="breadcrumb">

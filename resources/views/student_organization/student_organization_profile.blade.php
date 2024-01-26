@@ -1,5 +1,5 @@
 @extends('layouts.student_organization_navigation_bar')
-
+<title>Student Organization Profile @yield('title')</title>
 @section('main-content')
 {{-- CSS Stylesheet link --}}
 <link href="/custom_css/studentProfile.css" rel="stylesheet">

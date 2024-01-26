@@ -1,6 +1,7 @@
 
 @extends('layouts.student_organization_navigation_bar')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
+<title>Student Organization Schedule @yield('title')</title>
 @section('main-content')
 
         <div class="col-md breadcrumbs">

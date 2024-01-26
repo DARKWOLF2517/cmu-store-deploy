@@ -1,4 +1,5 @@
 @extends('layouts.student_navigation_bar')
+<title>Student Attendance @yield('title')</title>
 @section('custom-style')
 <style>
     .evaluation-list {
