@@ -114,9 +114,9 @@
         </div>
     </div>
     </section>
-    <footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px;">
+    {{-- <footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px;">
         <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
-    </footer>
+    </footer> --}}
 
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}

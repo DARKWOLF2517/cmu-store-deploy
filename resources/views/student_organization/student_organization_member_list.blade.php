@@ -1,6 +1,6 @@
 
 @extends('layouts.student_organization_navigation_bar')
-
+<title>Student Organization Members @yield('title')</title>
 @section('main-content')
 
 <div class="page-content-wapper">

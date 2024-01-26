@@ -1,5 +1,5 @@
 @extends('layouts.student_organization_navigation_bar')
-
+<title>Student Organization Evaluation Results  @yield('title')</title>
 @section('custom-style')
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
 @endsection

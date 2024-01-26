@@ -1,6 +1,7 @@
 @extends('layouts.student_navigation_bar')
-@section('main-content')
+
 <link href="/custom_css/studentAnnouncement.css" rel="stylesheet">
+<title>Student Announcement @yield('title')</title>
 @section('main-content')
 
         <student-announcement-card

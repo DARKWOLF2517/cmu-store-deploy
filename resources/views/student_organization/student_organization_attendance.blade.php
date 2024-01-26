@@ -1,7 +1,7 @@
 
 @extends('layouts.student_organization_navigation_bar')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
-
+<title>Student Organization Attendance @yield('title')</title>
 @section('main-content')
     <attendance-record
     :organization_id = {{Session::get('org_id')}}

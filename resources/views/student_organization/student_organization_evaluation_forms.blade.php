@@ -1,5 +1,6 @@
 
 @extends('layouts.student_organization_navigation_bar')
+<title>Student Organization Evaluation Forms @yield('title')</title>
 @section('main-content')
 <link href="/custom_css/evaluation.css" rel="stylesheet">
 

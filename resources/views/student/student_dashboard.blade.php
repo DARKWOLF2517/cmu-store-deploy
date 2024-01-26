@@ -1,4 +1,5 @@
 @extends('layouts.student_navigation_bar')
+<title>Student Dashboard @yield('title')</title>
 @section('main-content')
 <link href="/custom_css/SODashboard.css" rel="stylesheet">
 

@@ -3,6 +3,7 @@
 {{-- @section('custom-style')
   <link href="/custom_css/SOEvents.css" rel="stylesheet">
 @endsection --}}
+<title>Student Organization Events @yield('title')</title>
 <link href="/custom_css/SOEvents.css" rel="stylesheet">
 @section('main-content')
 

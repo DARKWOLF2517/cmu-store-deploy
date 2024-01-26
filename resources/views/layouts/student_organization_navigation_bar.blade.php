@@ -21,7 +21,9 @@
     <link href="{{ asset('custom_css/Navbars.css') }}" rel="stylesheet">
     <link href="{{ asset('custom_css/tables.css') }}" rel="stylesheet">
     @yield('custom-style')
-    <title>Student Organization Dashboard</title>
+
+
+
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     @vite('resources/js/app.js', 'build')
 </head>
@@ -185,15 +187,15 @@
                             </a>
                         </button>
                     </li>
-                    {{-- <li class="mb-1">
+                    <li class="mb-1">
                         <button class="btn btn-toggle align-items-center studentlist-button">
                             <i class="fas fa-chart-line"></i>
                             <a href="/student_organization_evaluation">
                             <span class="link-title">Evaluation</span>
                             </a>
                         </button>
-                    </li> --}}
-                    <li class="mb-1">
+                    </li>
+                    {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#evaluation-collapse" aria-expanded="false">
                             <i class="fas fa-chart-line"></i>
                              <span class="link-title">Evaluation</span>
@@ -205,7 +207,7 @@
                                 <li><a href="/student_organization_evaluation_forms" class="link-dark rounded"><i class="fas fa-file"></i> Evaluation forms</a></li>
                             </ul>
                         </div>
-                    </li>
+                    </li> --}}
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse" aria-expanded="false">
                             <i class="fas fa-clipboard-check"></i>
@@ -239,9 +241,9 @@
         </div>
     </div>
 </section>
-<footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px;">
+{{-- <footer class="text-center text-muted" style="font-size: 13px; background-color: #4e9d73; padding: 10px;">
     <small class="text-light">&copy; 2024, CMU-STORE-AMS. All Rights Reserved.</small>
-</footer>
+</footer> --}}
 
 
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}

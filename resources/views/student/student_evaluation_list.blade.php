@@ -1,4 +1,5 @@
 @extends('layouts.student_navigation_bar')
+<title>Student Evaluation List @yield('title')</title>
 @section('custom-style')
 
 <link href="/custom_css/evaluation.css" rel="stylesheet">

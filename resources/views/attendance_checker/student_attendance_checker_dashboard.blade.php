@@ -1,6 +1,7 @@
 @extends('layouts.attedance_checker_navigation_bar')
 @section('custom-style')
     <link href="/custom_css/SODashboard.css" rel="stylesheet">
+    <title>Dashboard @yield('title')</title>
 @endsection
 
 @section('main-content')
