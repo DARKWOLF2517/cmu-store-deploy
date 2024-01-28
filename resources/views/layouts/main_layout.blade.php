@@ -185,8 +185,58 @@
                             </ul>
                         </div>
                     </li>
+                    {{-- Student Nav bar --}}
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded dashboard-button">
+                            <i class="fas fa-home"></i>
+                            <a href="/student_dashboard">
+                            <span class="link-title">Home</span>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-bullhorn"></i>
+                            <a href="/student_announcement">
+                            <span class="link-title">Announcements</span>
+                            </a>
+                        </button>
+                    </li>
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-user"></i>
+                            <a href="/student_profile">
+                            <span class="link-title">Profile</span>
+                            </a>
+                        </button>
+                    </li>
 
+                    {{-- <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-clipboard-check"></i>
+                            <a href="/student_attendance">
+                            <span class="link-title">Evaluation</span>
+                            </a>
+                        </button>
+                    </li> --}}
 
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded events-button">
+                            <i class="fas fa-clipboard-check"></i>
+                            <a href="/student_evaluation_list">
+                            <span class="link-title">Evaluation</span>
+                            </a>
+                        </button>
+                    </li>
+
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center studentlist-button">
+                            <i class="fas fa-money-check"></i>
+                            <a href="/student_accountabilities">
+                            <span class="link-title">Accountabilities</span>
+                            </a>
+                        </button>
+                    </li>
                     </ul>
                 </div>
             </div>

@@ -1,5 +1,4 @@
-
-@extends('layouts.attedance_checker_navigation_bar')
+@extends('layouts.main_layout')
 @section('custom-style')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
 <title>Attendance Records @yield('title')</title>

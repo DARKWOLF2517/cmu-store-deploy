@@ -1,4 +1,4 @@
-@extends('layouts.student_navigation_bar')
+@extends('layouts.main_layout')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 @section('custom-style')

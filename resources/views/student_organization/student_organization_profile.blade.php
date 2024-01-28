@@ -1,4 +1,4 @@
-@extends('layouts.student_organization_navigation_bar')
+@extends('layouts.main_layout')
 <title>Student Organization Profile @yield('title')</title>
 @section('main-content')
 {{-- CSS Stylesheet link --}}

@@ -1,4 +1,4 @@
-@extends('layouts.student_navigation_bar')
+@extends('layouts.main_layout')
 <title>Student Profile @yield('title')</title>
 @section('custom-style')
 <link href="/custom_css/studentProfile.css" rel="stylesheet">

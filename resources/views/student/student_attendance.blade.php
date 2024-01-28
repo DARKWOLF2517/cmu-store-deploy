@@ -1,4 +1,4 @@
-@extends('layouts.student_navigation_bar')
+@extends('layouts.main_layout')
 <title>Student Attendance @yield('title')</title>
 @section('custom-style')
 <style>

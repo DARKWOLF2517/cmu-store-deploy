@@ -1,4 +1,4 @@
-@extends('layouts.student_organization_navigation_bar')
+@extends('layouts.main_layout')
 
 @section('custom-style')
 

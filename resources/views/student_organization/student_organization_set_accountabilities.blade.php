@@ -1,4 +1,4 @@
-@extends('layouts.student_organization_navigation_bar')
+@extends('layouts.main_layout')
 <title>Student Organization Accountabilities @yield('title')</title>
 @section('main-content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>

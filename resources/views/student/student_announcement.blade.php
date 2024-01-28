@@ -1,4 +1,4 @@
-@extends('layouts.student_navigation_bar')
+@extends('layouts.main_layout')
 
 <link href="/custom_css/studentAnnouncement.css" rel="stylesheet">
 <title>Student Announcement @yield('title')</title>

@@ -1,4 +1,4 @@
-@extends('layouts.student_navigation_bar')
+@extends('layouts.main_layout')
 <title>Student Evaluation Form @yield('title')</title>
 @section('main-content')
 <link href="/custom_css/studentEvaluation.css" rel="stylesheet">

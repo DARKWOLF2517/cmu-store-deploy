@@ -1,4 +1,4 @@
-@extends('layouts.student_organization_navigation_bar')
+@extends('layouts.main_layout')
 @section('custom-style')
 <link id="load-css-0" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/51/css/core/tooltip.css">
 <link id="load-css-1" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/51/css/util/util.css">

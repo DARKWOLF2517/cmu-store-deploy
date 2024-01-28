@@ -1,5 +1,4 @@
-
-@extends('layouts.student_organization_navigation_bar')
+@extends('layouts.main_layout')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
 <title>Student Organization Attendance @yield('title')</title>
 @section('main-content')
