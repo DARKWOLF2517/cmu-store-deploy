@@ -198,7 +198,7 @@
                     {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#evaluation-collapse" aria-expanded="false">
                             <i class="fas fa-chart-line"></i>
-                             <span class="link-title">Evaluation</span>
+                                <span class="link-title">Evaluation</span>
                             <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                         </button>
                         <div class="collapse" id="evaluation-collapse">
