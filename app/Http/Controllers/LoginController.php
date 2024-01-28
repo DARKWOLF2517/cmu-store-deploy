@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserOrganization;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Stmt\Return_;
 
@@ -29,9 +30,60 @@ class LoginController extends Controller
             //if the user has MANY org or role
             if ($userOrganizationCount > 1){
                 //tells when there is many user
+                session(['many_user' =>  'false']);
+                //filter if the user has the same org
+                $userOrgRoles = UserOrganization::select(DB::raw('COUNT(*) as count'))
+                    ->where('student_id', Auth::id())
+                    ->groupBy('student_org_id')
+                    ->havingRaw('COUNT(*) > 1')
+                    ->pluck('count')
+                    ->first();
+                // if($userOrgRoles > 1 ){
+                    //if the user has many organization and 2 or more roles on the said organization
+                    if ($userOrganizationCount != $userOrgRoles){
+                        session(['many_user' =>  'true']);
+                        return '4';
+                    }
+                    else{
+                    $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization')->get();
+                        //if the user is admin
+                        foreach ($userOrganization as $userOrganizations) {
+                            // return $userOrganizations;
+                            //filter role admin
+                            if ($userOrganizations->role_id == 1){
+                                //   return $userOrganizations->student_org_id;
+                                $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganizations->student_org_id)->first();
+                                session(['school_year' =>  $orgSchoolYear->school_year]);
+                                session(['org_id' =>  $userOrganizations->student_org_id]);
+                                session(['org_name' =>  $userOrganizations->organization->name]);
+                                session(['role' =>  $userOrganizations->role_id]);
+                                session(['college_id' =>  $userOrganizations->college_id]);
+                                // return $userOrganization->school_year;
+                                return '1';
+                            }
+                        }
+                        foreach ($userOrganization as $userOrganizations) {
+                            // return $userOrganizations;
+                            //filter the role attendance checker
+                            if ($userOrganizations->role_id == 3){
+                                //   return $userOrganizations->student_org_id;
+                                $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganizations->student_org_id)->first();
+                                session(['school_year' =>  $orgSchoolYear->school_year]);
+                                session(['org_id' =>  $userOrganizations->student_org_id]);
+                                session(['org_name' =>  $userOrganizations->organization->name]);
+                                session(['role' =>  $userOrganizations->role_id]);
+                                session(['college_id' =>  $userOrganizations->college_id]);
+                                // return $userOrganization->school_year;
+                                return '3';
+                            }
+                        }
 
-                session(['many_user' =>  'true']);
-                return '4';
+                    }
+                // }
+                // else{
+                //     return '4';
+                // }
+
             }
             else{
                 //if the user has only ONE org or role
@@ -53,14 +105,15 @@ class LoginController extends Controller
                                 //for admin role when the user has 1 role
                                 return '1';
                             }
-                            else if($userOrganization->role_id == 2){
-                                //for student role when the user has 1 role
-                                return '2';
-                            }
                             else if($userOrganization->role_id == 3){
                                 //for attendance checker role when the user has 1 role
                                 return '3';
                             }
+                            else if($userOrganization->role_id == 2){
+                                //for student role when the user has 1 role
+                                return '2';
+                            }
+
                         }
                          //if the user is admin it will bypass the school year
                         else if ($userOrganization->role_id == 1){

@@ -61,6 +61,7 @@ methods: {
 
         axios.post('/authenticate_user', this.form)
             .then(response => {
+                console.log(response.data)
                 if(response.data == 1){
                     window.location.href = '/org_dashboard';
                 }
