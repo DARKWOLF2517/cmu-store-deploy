@@ -63,7 +63,7 @@
 
                         @if(Session::get('many_user') == 'true')
                             <li><hr class="dropdown-divider"></li>
-                            {{-- <li>
+                            <li>
 
                                 <side-nav-button
                                 link_name="Switch User"
@@ -71,7 +71,7 @@
                                 show_icon = "{{false}}"
                                 >
                                 </side-nav-button>
-                            </li> --}}
+                            </li>
 
                         @else
                             <li><hr class="dropdown-divider"></li>
