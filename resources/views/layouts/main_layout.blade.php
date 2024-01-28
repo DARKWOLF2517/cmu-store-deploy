@@ -39,44 +39,6 @@
                     <button class="btn toggle-button" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
-                {{-- <div class="profile-dropdown dropdown dropdown ms-auto">
-                    <button class="notification-button btn btn-link">
-                        <i class="fas fa-bell"></i>
-                        <span class="notification-badge"></span>
-                    </button>
-                    <div class="popover">
-                        <div class="popover-header">
-                            <b>Notifications</b>
-                            <a href="/student_announcement">See All</a>
-                        </div>
-                        <div class="notifications">
-                            <div class="Message-IfEmpty">
-                                <i class="icon 	far fa-frown" id="icon-message"></i>
-                                <p class="empty-schedule">Nothing posted yet</p>
-                            </div>
-                            <ul>
-                                <li>
-                                    <a class="btn text-start" href="">
-                                        <p><strong>SSC</strong> posted an announcement.</p>
-                                        <small class="time-posted">9:46 AM</small>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn text-start" href="">
-                                    <p><strong>CSCo</strong> posted an announcement.</p>
-                                    <small class="time-posted">9:46 AM</small>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="btn text-start" href="">
-                                    <p><strong>CSCo</strong> posted an announcement.</p>
-                                    <small class="time-posted">9:46 AM</small>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div> --}}
 
                 <div>
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,7 +63,7 @@
 
                         @if(Session::get('many_user') == 'true')
                             <li><hr class="dropdown-divider"></li>
-                            <li>
+                            {{-- <li>
 
                                 <side-nav-button
                                 link_name="Switch User"
@@ -109,7 +71,7 @@
                                 show_icon = "{{false}}"
                                 >
                                 </side-nav-button>
-                            </li>
+                            </li> --}}
 
                         @else
                             <li><hr class="dropdown-divider"></li>
@@ -224,84 +186,7 @@
                         </div>
                     </li>
 
-                    {{-- Student Nav Bar  --}}
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded dashboard-button">
-                            <i class="fas fa-home"></i>
-                            <a href="/student_dashboard">
-                            <span class="link-title">Home</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-bullhorn"></i>
-                            <a href="/student_announcement">
-                            <span class="link-title">Announcements</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-user"></i>
-                            <a href="/student_profile">
-                            <span class="link-title">Profile</span>
-                            </a>
-                        </button>
-                    </li>
 
-                    {{-- <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-clipboard-check"></i>
-                            <a href="/student_attendance">
-                            <span class="link-title">Evaluation</span>
-                            </a>
-                        </button>
-                    </li> --}}
-
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-clipboard-check"></i>
-                            <a href="/student_evaluation_list">
-                            <span class="link-title">Evaluation</span>
-                            </a>
-                        </button>
-                    </li>
-
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center studentlist-button">
-                            <i class="fas fa-money-check"></i>
-                            <a href="/student_accountabilities">
-                            <span class="link-title">Accountabilities</span>
-                            </a>
-                        </button>
-                    </li>
-
-                    {{-- Attendance Checker  --}}
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded dashboard-button">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <a href="/attendance_checker_dashboard">
-                            <span class="link-title">Dashboard</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="fas fa-calendar-check"></i>
-                            <a href="/attendance_checker_attendance_schedule">
-                            <span class="link-title">Schedule</span>
-                            </a>
-                        </button>
-                    </li>
-                    <li class="mb-1">
-                        <button class="btn btn-toggle align-items-center rounded events-button">
-                            <i class="	fas fa-calendar-alt"></i>
-                            <a href="/attendance_checker_attendance_records_list">
-                            <span class="link-title">Records</span>
-                            </a>
-                        </button>
-                    </li>
                     </ul>
                 </div>
             </div>

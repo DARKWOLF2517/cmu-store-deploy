@@ -1,4 +1,4 @@
-@extends('layouts.student_organization_navigation_bar')
+@extends('layouts.main_layout')
 @section('custom-style')
     <link href="/custom_css/SODashboard.css" rel="stylesheet">
     <title>Student Organization Dashboard @yield('title')</title>
