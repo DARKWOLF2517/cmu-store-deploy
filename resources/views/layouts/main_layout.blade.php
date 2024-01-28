@@ -110,14 +110,27 @@
                             </a>
                         </button>
                     </li>
-                    <li class="mb-1">
+                    {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-user"></i>
                             <a href="/student_organization_profile">
                             <span class="link-title">Profile</span>
                             </a>
                         </button>
-                    </li>
+                    </li> --}}
+                    {{-- <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#profile-collapse" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                             <span class="link-title">Profile</span>
+                            <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="collapse" id="profile-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="/student_organization_profile" class="link-dark rounded"><i class="fas fa-building"></i> Organization</a></li>
+                                <li><a href="/student_profile" class="link-dark rounded"><i class="fas fa-user"></i> My Profile</a></li>
+                            </ul>
+                        </div>
+                    </li> --}}
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="	fas fa-calendar-alt"></i>
@@ -149,15 +162,15 @@
                             </a>
                         </button>
                     </li>
-                    <li class="mb-1">
+                    {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center studentlist-button">
                             <i class="fas fa-chart-line"></i>
                             <a href="/student_organization_evaluation">
                             <span class="link-title">Evaluation</span>
                             </a>
                         </button>
-                    </li>
-                    {{-- <li class="mb-1">
+                    </li> --}}
+                    <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#evaluation-collapse" aria-expanded="false">
                             <i class="fas fa-chart-line"></i>
                              <span class="link-title">Evaluation</span>
@@ -169,7 +182,7 @@
                                 <li><a href="/student_organization_evaluation_forms" class="link-dark rounded"><i class="fas fa-file"></i> Evaluation forms</a></li>
                             </ul>
                         </div>
-                    </li> --}}
+                    </li>
                     <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse" aria-expanded="false">
                             <i class="fas fa-clipboard-check"></i>
@@ -186,29 +199,44 @@
                         </div>
                     </li>
                     {{-- Student Nav bar --}}
-                    <li class="mb-1">
+                    {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded dashboard-button">
                             <i class="fas fa-home"></i>
                             <a href="/student_dashboard">
                             <span class="link-title">Home</span>
                             </a>
                         </button>
-                    </li>
-                    <li class="mb-1">
+                    </li> --}}
+                    {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-bullhorn"></i>
                             <a href="/student_announcement">
                             <span class="link-title">Announcements</span>
                             </a>
                         </button>
-                    </li>
-                    <li class="mb-1">
+                    </li> --}}
+                    {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-user"></i>
                             <a href="/student_profile">
                             <span class="link-title">Profile</span>
                             </a>
                         </button>
+                    </li> --}}
+                    <li class="mb-1">
+                        <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#student-collapse" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                             <span class="link-title">Student</span>
+                            <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
+                        </button>
+                        <div class="collapse" id="student-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li><a href="/student_announcement" class="link-dark rounded"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+                                <li><a href="/student_profile" class="link-dark rounded"><i class="fas fa-user"></i> My Profile</a></li>
+                                <li><a href="/student_evalustion_list" class="link-dark rounded"><i class="fas fa-clipboard-check"></i> Evaluation</a></li>
+                                <li><a href="/student_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> My Accountabilities</a></li>
+                            </ul>
+                        </div>
                     </li>
 
                     {{-- <li class="mb-1">
@@ -220,7 +248,7 @@
                         </button>
                     </li> --}}
 
-                    <li class="mb-1">
+                    {{-- <li class="mb-1">
                         <button class="btn btn-toggle align-items-center rounded events-button">
                             <i class="fas fa-clipboard-check"></i>
                             <a href="/student_evaluation_list">
@@ -236,7 +264,7 @@
                             <span class="link-title">Accountabilities</span>
                             </a>
                         </button>
-                    </li>
+                    </li> --}}
                     </ul>
                 </div>
             </div>
