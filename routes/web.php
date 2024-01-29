@@ -202,7 +202,7 @@ Route::middleware(['auth'])->group(function(){
 
             #ACCOUNTABILITIES ROUTES
             Route::post('/set_accountabilities',[AccountabilitiesController::class, 'store']);
-            Route::get('/fines_list/{org_id}/{school_year}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
+            Route::get('/fees_list/{org_id}/{school_year}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
             Route::put('/update_event_attendance_status/{event_id}/{status}',[AccountabilitiesController::class, 'updateEventAttendanceStatus']);
             Route::post('/OtherAccountabilityPayment',[AccountabilitiesController::class, 'OtherAccountabilityPayment']);
             Route::post('/FinesAccountabilityPayment/{school_year}',[AccountabilitiesController::class, 'FinesAccountabilityPayment']);

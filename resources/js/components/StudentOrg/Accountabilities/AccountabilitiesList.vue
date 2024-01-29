@@ -13,14 +13,14 @@
                                 <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                             </select>
                     </div>
-                    <div class="select-dropdown">
-                        <!-- Second dropdown -->
+                    <!-- <div class="select-dropdown">
+
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="this.select_accountability">
                             <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                             <option value="fines">Fines</option>
                             <option value="others">Other Accountability</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <!-- {{-- <button class="btn sort-btn"><i class="fas fa-filter"></i></button> --}} -->
 
@@ -29,20 +29,20 @@
 
 
                 <div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center">
-        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
-        <div class="student-buttons d-flex">
-            <div class="btn-group" role="group">
-                <button class="btn me-2" id="add-student-list-button" @click="printTable">
-                    <i class="fas fa-print"></i> Print
-                </button>
-                <button class="btn me-2" id="add-student-button" @click="downloadTable">
-                    <i class="fas fa-download"></i> Download
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
+                        <div class="student-buttons d-flex">
+                            <div class="btn-group" role="group">
+                                <button class="btn me-2" id="add-student-list-button" @click="printTable">
+                                    <i class="fas fa-print"></i> Print
+                                </button>
+                                <button class="btn me-2" id="add-student-button" @click="downloadTable">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 <div id="table-container" style="margin-left: 10px;">
             <div class="scroll-pane">
@@ -52,48 +52,48 @@
                         <tr>
                             <th>Student ID</th>
                             <th>Student Name</th>
-                            <th>Accountabilities</th>
+                            <!-- <th>Accountabilities</th> -->
                             <th>Amount</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <!-- <tbody v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" > -->
+                    <!-- <tbody v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id" > -->
                         <tbody>
-    <div v-if="loading" class="loading-spinner-container mt-2">
-        <span class="loader"></span>
-    </div>
-    <div class="Container-IfEmpty" v-if="!loading && fines_list.length === 0">
-                        <div class="Empty-Message text-center">
-                        <i class="icon 	bi bi-table" id="icon-message"></i>
-                        <p class="text-muted"><b>Accountability table is empty.</b>
-                        <br>
-                        Students with fines are listed here</p>
-                    </div>
-                </div>
-    <tr v-for="fines_list in this.filtered_items_for_fines" :id="fines_list.user_id" :key="fines_list.user_id">
-                        <td >{{ fines_list.user_id }}</td>
-                        <td> {{ fines_list.name }}</td>
-                        <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
-                        <td> &#8369; {{ fines_list.total_fines }}</td>
-                        <td>
-                            <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id),
-                                this.finesPay = {
-                                    student_id: fines_list.user_id,
-                                    student_name: fines_list.name,
-                                    accountability_name: fines_list.accountability_type,
-                                    amount: fines_list.total_fines,
-                                    student_org_id: this.org_id,
-                                }
-                            ">
-                            <i class="fas fa-eye"></i> See More
-                            </button>
-                        </td>
-                        </tr>
-                    </tbody>
+                            <div v-if="loading" class="loading-spinner-container mt-2">
+                                <span class="loader"></span>
+                            </div>
+                            <div class="Container-IfEmpty" v-if="!loading && fees_list.length === 0">
+                                <div class="Empty-Message text-center">
+                                    <i class="icon 	bi bi-table" id="icon-message"></i>
+                                    <p class="text-muted"><b>Accountability table is empty.</b>
+                                    <br>
+                                    Students with fines are listed here</p>
+                                </div>
+                            </div>
+                            <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id" :key="fees_list.user_id">
+                                <td >{{ fees_list.user_id }}</td>
+                                <td> {{ fees_list.name }}</td>
+                                <!-- <td>{{ fees_list.accountability_type.toUpperCase()}}</td> -->
+                                <td> &#8369; {{ fees_list.total_fines }}</td>
+                                <td>
+                                    <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fees_list.user_id),
+                                        this.finesPay = {
+                                            student_id: fees_list.user_id,
+                                            student_name: fees_list.name,
+                                            accountability_name: fees_list.accountability_type,
+                                            amount: fees_list.total_fines,
+                                            student_org_id: this.org_id,
+                                        }
+                                    ">
+                                    <i class="fas fa-eye"></i> See More
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
                 </table>
 
                 <!-- other accountabilities -->
-                <table  id="accountabilities-table" v-if="this.select_accountability === 'others' ">
+                <!-- <table  id="accountabilities-table" v-if="this.select_accountability === 'others' ">
                     <thead>
                         <tr>
                             <th>Student ID</th>
@@ -103,34 +103,33 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <!-- <tbody v-for="fines_list in this.filtered_items_for_other_accountabilities" :id="fines_list.user_id" >
-                         -->
-                         <tbody>
-    <!-- Loading spinner -->
-    <div v-if="loading" class="loading-spinner-container mt-2"  id="spinner">
-        <span class="loader"></span>
-    </div>
-    <!-- Table rows -->
-    <tr v-for="fines_list in this.filtered_items_for_other_accountabilities" :id="fines_list.user_id" :key="fines_list.user_id">
-                        <td >{{ fines_list.user_id }}</td>
-                        <td> {{ fines_list.name }}</td>
-                        <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
-                        <td> &#8369; {{ fines_list.amount }}</td>
-                        <td>
+                    
+                    <tbody>
+                    
+                        <div v-if="loading" class="loading-spinner-container mt-2"  id="spinner">
+                            <span class="loader"></span>
+                        </div>
+                    
+                        <tr v-for="fees_list in this.filtered_items_for_other_accountabilities" :id="fees_list.user_id" :key="fees_list.user_id">
+                            <td >{{ fees_list.user_id }}</td>
+                            <td> {{ fees_list.name }}</td>
+                            <td>{{ fees_list.accountability_type.toUpperCase()}}</td>
+                            <td> &#8369; {{ fees_list.amount }}</td>
+                            <td>
 
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 2,
-                                this.otherAccountabilitiesPaymentDetails = {
-                                    student_id: fines_list.user_id,
-                                    student_name: fines_list.name,
-                                    accountability_name: fines_list.accountability_type,
-                                    amount: fines_list.amount,
-                                    student_org_id: this.org_id,
-                                }">
-                                Mark As Paid</button>
-                        </td>
-                        </tr>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 2,
+                                    this.otherAccountabilitiesPaymentDetails = {
+                                        student_id: fees_list.user_id,
+                                        student_name: fees_list.name,
+                                        accountability_name: fees_list.accountability_type,
+                                        amount: fees_list.amount,
+                                        student_org_id: this.org_id,
+                                    }">
+                                    Mark As Paid</button>
+                            </td>
+                            </tr>
                     </tbody>
-                </table>
+                </table> -->
             </div>
             <!-- <div class="pagination">
                 <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
@@ -247,9 +246,9 @@ export default{
         return{
             events: [],
             attendance: [],
-            overall_fines_list:[],
-            // overall_fines_list_with_event_id:[],
-            fines_list:[],
+            overall_fees_list:[],
+            // overall_fees_list_with_event_id:[],
+            fees_list:[],
             other_accountabilities_list: [],
             temporary_list:[],
             select_accountability: 'fines',
@@ -289,32 +288,32 @@ export default{
                     console.log(error)
                 });
         },
-        getTableData1(){
-            // Get a reference to the table
-            var table = document.getElementById('temporaryList');
+        // getTableData1(){
+        //     // Get a reference to the table
+        //     var table = document.getElementById('temporaryList');
 
-            // Initialize an array to store the table data without the first row
-            var tableDataWithoutFirstRow = [];
+        //     // Initialize an array to store the table data without the first row
+        //     var tableDataWithoutFirstRow = [];
 
-            // Iterate through the rows of the table, starting from the second row
-            for (var i = 1; i < table.rows.length; i++) {
-            var rowData = [];
+        //     // Iterate through the rows of the table, starting from the second row
+        //     for (var i = 1; i < table.rows.length; i++) {
+        //     var rowData = [];
 
-            // Iterate through the cells of the current row
-            for (var j = 0; j < table.rows[i].cells.length; j++) {
-                // Push the cell value to the rowData array
-                rowData.push(table.rows[i].cells[j].textContent);
-            }
+        //     // Iterate through the cells of the current row
+        //     for (var j = 0; j < table.rows[i].cells.length; j++) {
+        //         // Push the cell value to the rowData array
+        //         rowData.push(table.rows[i].cells[j].textContent);
+        //     }
 
-            // Push the row data to the tableDataWithoutFirstRow array
-            tableDataWithoutFirstRow.push(rowData);
-            }
+        //     // Push the row data to the tableDataWithoutFirstRow array
+        //     tableDataWithoutFirstRow.push(rowData);
+        //     }
 
-            // Output the tableDataWithoutFirstRow array
-            // console.log(tableDataWithoutFirstRow);
-            this.attendanceFill = tableDataWithoutFirstRow;
-            // console.log(this.attendanceFill)
-        },
+        //     // Output the tableDataWithoutFirstRow array
+        //     // console.log(tableDataWithoutFirstRow);
+        //     this.attendanceFill = tableDataWithoutFirstRow;
+        //     // console.log(this.attendanceFill)
+        // },
 
         FinesPayment(){
             // for adding payment database
@@ -362,25 +361,25 @@ export default{
         },
         filterItems() {
             //FILTER OF FINES
-            this.filtered_items_for_fines = this.fines_list.filter(item => {
+            this.filtered_items_for_fines = this.fees_list.filter(item => {
                 return (
                     item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
                     item.user_id.toString().includes(this.searchTerm)
                 );
             });
-            //FILTER FOR OTHER ACCOUNTABILITIES
-            this.filtered_items_for_other_accountabilities = this.other_accountabilities_list.filter(item => {
-                return (
-                    item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
-                    item.user_id.toString().includes(this.searchTerm)
-                );
-            });
+            // //FILTER FOR OTHER ACCOUNTABILITIES
+            // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list.filter(item => {
+            //     return (
+            //         item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
+            //         item.user_id.toString().includes(this.searchTerm)
+            //     );
+            // });
         },
 
         viewAccountabilities(user_id){
-            console.log(this.overall_fines_list)
+            console.log(this.overall_fees_list)
             this.temporary_list= [];
-            this.overall_fines_list.forEach(fines=>{
+            this.overall_fees_list.forEach(fines=>{
                 if (fines.user_id == user_id){
                     this.temporary_list.push({
                         name: fines.name,
@@ -402,10 +401,10 @@ export default{
             this.loading = true;
             this.events = [];
             this.attendance = [];
-            this.overall_fines_list = [];
-            this.fines_list = [];
+            this.overall_fees_list = [];
+            this.fees_list = [];
             this.other_accountabilities_list = [];
-            axios.get(`/fines_list/${this.org_id}/${this.school_year_input}`)
+            axios.get(`/fees_list/${this.org_id}/${this.school_year_input}`)
 
                     .then(response => {
                         this.loading = false;
@@ -419,6 +418,7 @@ export default{
                         const change_user_year_level = []
                         user_orgs.forEach(element => {
 
+                            //change the year level id to year level name
                             const findYear =  year_level.find(year => year.id === element.year_level_id)
                                 if(findYear){
                                     change_user_year_level.push({
@@ -435,9 +435,8 @@ export default{
                         //CHANGE THE YEAR LEVEL TO NAME INSTEAD OF ID
                         // user_orgs = change_user_year_level;
 
-                    // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
-                    const usersInOrg = [];
-
+                // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
+                const usersInOrg = [];
                 //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
                     user_orgs.forEach(userOrg => {
 
@@ -555,25 +554,21 @@ export default{
                                 }
                             });
                         });
-                        // console.log(missingSessions)
-
-
-                        // console.log("Missing sessions:", missingSessions);
-                        missingSessions.forEach(overall_fines_list=>{
+                        missingSessions.forEach(overall_fees_list=>{
                                 events_with_attendance.forEach(event_name=>{
-                                    if(overall_fines_list.event_id === event_name.event_id){
+                                    if(overall_fees_list.event_id === event_name.event_id){
                                         const missing = {
-                                            name: overall_fines_list.name,
-                                            user_id: overall_fines_list.user_id,
+                                            name: overall_fees_list.name,
+                                            user_id: overall_fees_list.user_id,
                                             event_name: event_name.name,
                                             event_id: event_name.event_id,
-                                            amount: overall_fines_list.amount,
-                                            missing_session: overall_fines_list.missing_session,
-                                            accountability_type: overall_fines_list.accountability_type,
-                                            date: overall_fines_list.date
+                                            amount: overall_fees_list.amount,
+                                            missing_session: overall_fees_list.missing_session,
+                                            accountability_type: overall_fees_list.accountability_type,
+                                            date: overall_fees_list.date
                                         }
 
-                                        this.overall_fines_list.push(missing);
+                                        this.overall_fees_list.push(missing);
 
                                     }
                                 })
@@ -581,49 +576,31 @@ export default{
 
 
 
-                        // Function to aggregate data by user ID
+                        // Function to sort the data and display on table and remove repetition of data
                         const aggregateData = (dataArray) => {
                         const aggregated = {};
 
-                        // Loop through the array and aggregate data by user ID
                         dataArray.forEach((item) => {
                             const { user_id, name, event_id, amount, missing_session, accountability_type } = item;
 
-                            // Check if the user ID already exists in the aggregated data
                             if (!aggregated[user_id]) {
-                            // If it doesn't exist, create a new entry
                             aggregated[user_id] = {
                                 name,
                                 user_id,
                                 event_id,
                                 missing_session,
                                 accountability_type,
-                                total_amount: amount, // Initialize total amount for the user ID
+                                total_amount: amount, 
                             };
                             } else {
-                            // If it exists, update the total amount by merging with the existing amount
                             aggregated[user_id].total_amount += amount;
-                            aggregated[user_id].amount += amount; // Merge total_amount with amount
+                            aggregated[user_id].amount += amount; 
                             }
                         });
-
-                        // Convert aggregated object to an array of objects
                         const aggregatedArray = Object.values(aggregated);
                         return aggregatedArray;
                         };
 
-                        // Call the function with your data array
-                        const aggregatedDataArray = aggregateData(this.overall_fines_list);
-                        aggregatedDataArray.forEach(aggregated=>{
-                            this.fines_list.push({
-                                name: aggregated.name,
-                                user_id: aggregated.user_id,
-                                event_id: aggregated.event_id,
-                                total_fines: aggregated.total_amount,
-                                missing_session: aggregated.missing_session,
-                                accountability_type: aggregated.accountability_type
-                            })
-                        })
 
 
 
@@ -656,19 +633,17 @@ export default{
                         return acc;
                         }, []);
 
-                     // this.other_accountabilities_list = [];
-                    // Display students who have not paid for their accountabilities with replaced accountability_type
                     studentsNotPaid.forEach(items =>{
-                            this.other_accountabilities_list.push({
-                                accountability_id: items.accountability_id,
-                                name: items.name,
-                                user_id: items.user_id,
-                                amount: items.amount,
-                                accountability_type: items.accountability_type
-                            })
+                            // this.other_accountabilities_list.push({
+                            //     accountability_id: items.accountability_id,
+                            //     name: items.name,
+                            //     user_id: items.user_id,
+                            //     amount: items.amount,
+                            //     accountability_type: items.accountability_type
+                            // })
 
                             //combine fines and other accountabilities
-                            this.overall_fines_list.push({
+                            this.overall_fees_list.push({
                                 name: items.name,
                                 user_id: items.user_id,
                                 event_name: 'N/A',
@@ -681,8 +656,23 @@ export default{
 
                     })
 
+                    // to total the fees list of the student
+                    const aggregatedDataArray = aggregateData(this.overall_fees_list);
+                        aggregatedDataArray.forEach(aggregated=>{
+                            this.fees_list.push({
+                                name: aggregated.name,
+                                user_id: aggregated.user_id,
+                                event_id: aggregated.event_id,
+                                total_fines: aggregated.total_amount,
+                                missing_session: aggregated.missing_session,
+                                accountability_type: aggregated.accountability_type
+                            })
+                        })
+
+
+                    //to set free fines
                     let filteredFinesByFreeFines = [];
-                    this.fines_list.forEach(list_fines => {
+                    this.fees_list.forEach(list_fines => {
                     let found = false;
 
                     free_fines.forEach(fines_free => {
@@ -703,9 +693,9 @@ export default{
                     }
                 }); 
 
-                    // Assign the filtered fines back to this.fines_list
-                    this.fines_list = filteredFinesByFreeFines;
-                    this.filtered_items_for_fines = this.fines_list;
+                    // Assign the filtered fines back to this.fees_list
+                    this.fees_list = filteredFinesByFreeFines;
+                    this.filtered_items_for_fines = this.fees_list;
                     this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 
                     })
