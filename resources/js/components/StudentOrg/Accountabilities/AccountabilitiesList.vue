@@ -74,7 +74,7 @@
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>
                         <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
-                        <td>{{ fines_list.total_fines }}</td>
+                        <td> &#8369; {{ fines_list.total_fines }}</td>
                         <td>
                             <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fines_list.user_id),
                                 this.finesPay = {
@@ -115,7 +115,7 @@
                         <td >{{ fines_list.user_id }}</td>
                         <td> {{ fines_list.name }}</td>
                         <td>{{ fines_list.accountability_type.toUpperCase()}}</td>
-                        <td>{{ fines_list.amount }}</td>
+                        <td> &#8369; {{ fines_list.amount }}</td>
                         <td>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 2,
@@ -200,7 +200,7 @@
                                 <td style="display: none;">{{ this.org_id }}</td>
                                 <td style="display: none;">{{ this.user_id }}</td>
                                 <td>{{temporary_list.date }} </td>
-                                <td>{{temporary_list.amount }} </td>
+                                <td style="text-align: right;">&#8369; {{temporary_list.amount }} </td>
                                 </tr>
                             </tbody>
                             </table>

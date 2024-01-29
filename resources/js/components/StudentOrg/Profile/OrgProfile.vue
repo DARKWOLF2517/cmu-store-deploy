@@ -146,7 +146,7 @@
     <div class="col">
 
                 <div class="additional-input">
-                <div class="semester " style="width: 100%;">
+                <!-- <div class="semester " style="width: 100%;">
                     <div class="d-flex justify-content-between align-items-center mb-2 header">
                         <h5><b>Semesters</b></h5>
                         <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()"><i class="fas fa-plus"></i></button>
@@ -167,18 +167,18 @@
                                         <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown"> -->
                                             <!-- Edit School Year -->
-                                            <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id, SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">Edit</a></li>
+                                            <!-- <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id, SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">Edit</a></li> -->
                                             <!-- Delete School Year -->
-                                            <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete</a></li>
+                                            <!-- <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete</a></li>
                                         </ul>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> -->
             <div class="year-level" style="width: 100%; padding-left: 10px" >
                 <div class="d-flex justify-content-between align-items-center mb-2 header">
                     <h5><b>Year Levels</b></h5>
