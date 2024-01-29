@@ -724,32 +724,47 @@ export default{
                     //to set free fines
                     let filteredFinesByFreeFines = [];
                     this.fees_list.forEach(list_fines => {
-                    let found = false;
+                        let found = false;
 
-                    free_fines.forEach(fines_free => {
-                        if (fines_free.student_id === list_fines.user_id) {
-                            found = true;
-                        }
-                    });
-
-                    if (!found) {
-                        filteredFinesByFreeFines.push({
-                            name: list_fines.name,
-                            user_id: list_fines.user_id,
-                            event_id: list_fines.event_id,
-                            total_fines: list_fines.total_fines,
-                            // missing_session: list_fines.missing_session,
-                            accountability_type: list_fines.accountability_type
+                        free_fines.forEach(fines_free => {
+                            if (fines_free.student_id === list_fines.user_id) {
+                                found = true;
+                            }
                         });
-                    }
-                });
 
+                        if (!found) {
+                            filteredFinesByFreeFines.push({
+                                name: list_fines.name,
+                                user_id: list_fines.user_id,
+                                event_id: list_fines.event_id,
+                                total_fines: list_fines.total_fines,
+                                // missing_session: list_fines.missing_session,
+                                accountability_type: list_fines.accountability_type
+                            });
+                    }
+                    });
                     // Assign the filtered fines back to this.fees_list
                     this.fees_list = filteredFinesByFreeFines;
 
+                    
+
                     //when paid minus it to  the capital ammount
                     const accountability_paid = response.data.paid_accountabilities;
-                    if (accountability_paid.length == 0) {
+
+                    //for total the amount paid in each student
+                    const uniqueStudents = {};
+                    accountability_paid.forEach(item => {
+                        const { amount, student_id, ...otherFields } = item;
+                        if (!uniqueStudents[student_id]) {
+                            uniqueStudents[student_id] = { amount, student_id, ...otherFields };
+                        } else {
+                            uniqueStudents[student_id].amount += amount;
+                        }
+                    });
+                    const paid_accountabilities_with_total = Object.values(uniqueStudents);
+
+    
+                    if (paid_accountabilities_with_total.length == 0) {
                         this.total_fees = this.fees_list
                     }
                     else {
@@ -779,7 +794,7 @@ export default{
                         // });
 
                         this.fees_list.forEach(studentFees => {
-                            const paidForStudent = accountability_paid.find(paid => paid.student_id === studentFees.user_id);
+                            const paidForStudent = paid_accountabilities_with_total.find(paid => paid.student_id === studentFees.user_id);
                             if (paidForStudent) {
                                 const updatedTotalFines = studentFees.total_fines - paidForStudent.amount;
                                 this.total_fees.push({
@@ -801,7 +816,10 @@ export default{
                             }
                         });
                     }
-                    this.filtered_items_for_fines = this.total_fees;
+                    // this.filtered_items_for_fines = this.total_fees;
+                    // Assuming this.total_fees is an array of objects with 'amount' field
+                    this.filtered_items_for_fines = this.total_fees.filter(item => item.total_fines != 0);
+
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 
                     })
