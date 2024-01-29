@@ -15,7 +15,6 @@ class PaidAccountability extends Model
     protected $fillable = [
         'student_id',
         'student_org_id',
-        'accountability_name',
         'amount',
         'school_year'
     ];

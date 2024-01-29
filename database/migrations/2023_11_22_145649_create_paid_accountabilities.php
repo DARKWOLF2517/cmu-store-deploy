@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('student_org_id');
-            $table->string('accountability_name');
             $table->double('amount');
             $table->unsignedBigInteger('school_year');
             $table->timestamps();

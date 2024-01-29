@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-<div id="table-container" style="margin-left: 10px;">
+        <div id="table-container" style="margin-left: 10px;">
             <div class="scroll-pane">
                 <!-- fines accountabilities -->
                 <table  id="accountabilities-table" >
@@ -53,7 +53,7 @@
                             <th>Student ID</th>
                             <th>Student Name</th>
                             <!-- <th>Accountabilities</th> -->
-                            <th>Amount</th>
+                            <th>Total Amount</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -207,7 +207,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ReceiveModal" @click="this.PaymentDecision = 1, this.getTableData1()">Receive Payment</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ReceiveModal">Receive Payment</button>
                         </div>
                     </div>
             </div>
@@ -226,49 +226,49 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button v-if="this.PaymentDecision == 2" type="button" class="btn btn-success" data-bs-dismiss="modal"  @click="OtherAccountabilityPayment()">Yes, Mark as Paid</button>
-                            <button v-else-if="this.PaymentDecision == 1" type="button" class="btn btn-success" data-bs-dismiss="modal"  @click="FinesPayment()">Yes, Mark as Paid</button>
+                            <button v-else-if="this.PaymentDecision == 1" type="button" class="btn btn-success" data-bs-dismiss="modal"  @click="SubmitPayment()">Yes, Mark as Paid</button>
                         </div>
                     </div>
                 </div>
             </div> -->
-<!-- Receive PaymentModal -->
-<div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Your static content related to "Input amount received" goes here -->
-        <p>Enter the amount you have received:</p>
-        <input type="text" class="form-control" >
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ConfirmationModal">Receive</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Confirmation Modal -->
-<div class="modal fade" id="ConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to receive the payment?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ReceiveModal">Cancel</button>
-        <button type="button" class="btn btn-success" @click="handlePayment">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
+            <!-- Receive PaymentModal -->
+            <div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Your static content related to "Input amount received" goes here -->
+                        <p>Enter the amount you have received:</p>
+                        <input type="number" class="form-control" >
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ConfirmationModal">Receive</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Confirmation Modal -->
+            <div class="modal fade" id="ConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to receive the payment?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ReceiveModal">Cancel</button>
+                        <button type="button" class="btn btn-success" @click="handlePayment">Confirm</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
 </template>
 
 <script>
@@ -286,13 +286,14 @@ export default{
             overall_fees_list:[],
             // overall_fees_list_with_event_id:[],
             fees_list:[],
+            total_fees:[],
             other_accountabilities_list: [],
             temporary_list:[],
             // select_accountability: 'fines',
             searchTerm: '',
             filtered_items_for_fines: [],
             filtered_items_for_other_accountabilities: [],
-            PaymentDecision: 0,
+            // PaymentDecision: 0,
             otherAccountabilitiesPaymentDetails: [],
             attendanceFill: [],
             finesPay: [],
@@ -352,7 +353,7 @@ export default{
         //     // console.log(this.attendanceFill)
         // },
 
-        FinesPayment(){
+        SubmitPayment(){
             // for adding payment database
             axios.post(`/FinesAccountabilityPayment/${this.school_year_input}`, this.finesPay)
                     .then(response => {
@@ -366,7 +367,7 @@ export default{
 
                 });
 
-                console.log(this.attendanceFill)
+                // console.log(this.attendanceFill)
 
             // //for adding to attendance to remove the list but leave remarks of 1
             // axios.post('/attendanceFill', this.attendanceFill)
@@ -414,7 +415,7 @@ export default{
         },
 
         viewAccountabilities(user_id){
-            console.log(this.overall_fees_list)
+            // console.log(this.overall_fees_list)
             this.temporary_list= [];
             this.overall_fees_list.forEach(fines=>{
                 if (fines.user_id == user_id){
@@ -625,7 +626,7 @@ export default{
                                 name,
                                 user_id,
                                 event_id,
-                                missing_session,
+                                // missing_session,
                                 accountability_type,
                                 total_amount: amount,
                             };
@@ -642,56 +643,69 @@ export default{
 
 
 
-                        //FOR OTHER ACCOUNTABILITIES LOGIC
-                        const accountability_paid = response.data.paid_accountabilities;
-                        const organization_accountability_set = response.data.accountabilities_other;
-                        // console.log(accountability_paid)
-                        // console.log(organization_accountability_set)
-                        const studentsWhoPaid = new Set(accountability_paid.map(entry => entry.student_id));
-
-                        // Get a Set of unique accountability types from organization_accountability_set
-                        const accountabilityTypes = new Set(organization_accountability_set.map(entry => entry.accountability_name));
-
-                        // Find students who have not paid for their accountabilities and replace accountability_type
-                        const studentsNotPaid = usersInOrg.reduce((acc, user) => {
-                        if (!studentsWhoPaid.has(user.id) ) {
-                            // Push user details with an indication of not being paid and relevant accountability info
-                            organization_accountability_set.forEach(entry => {
-                            acc.push({
-                                accountability_id: entry.accountability_id,
-                                user_id: user.id,
-                                name: user.name,
-                                org_id: entry.org_id,
-                                accountability_type: entry.accountability_name,
-                                amount: entry.amount,
+                        //FOR MERGING OTHER ACCOUNTABILITIES TO FINES
+                        const other_accountabilities = response.data.accountabilities_other;
+                        usersInOrg.forEach(user => {
+                            other_accountabilities.forEach(otherAccountabilities => {
+                                // console.log(otherAccountabilities)
+                                this.overall_fees_list.push({
+                                    name: user.name,
+                                    user_id: user.id,
+                                    event_name: 'N/A',
+                                    event_id: 'N/A',
+                                    amount: otherAccountabilities.amount,
+                                    missing_session: 'N/A',
+                                    accountability_type: otherAccountabilities.accountability_name,
+                                    date: 'N/A'
+                                });
                             });
-                            });
-                        }
-                        return acc;
-                        }, []);
+                        });
+                        // const studentsWhoPaid = new Set(accountability_paid.map(entry => entry.student_id));
 
-                    studentsNotPaid.forEach(items =>{
-                            // this.other_accountabilities_list.push({
-                            //     accountability_id: items.accountability_id,
-                            //     name: items.name,
-                            //     user_id: items.user_id,
-                            //     amount: items.amount,
-                            //     accountability_type: items.accountability_type
-                            // })
+                        // // Get a Set of unique accountability types from organization_accountability_set
+                        // const accountabilityTypes = new Set(organization_accountability_set.map(entry => entry.accountability_name));
 
-                            //combine fines and other accountabilities
-                            this.overall_fees_list.push({
-                                name: items.name,
-                                user_id: items.user_id,
-                                event_name: 'N/A',
-                                event_id: 'N/A',
-                                amount: items.amount,
-                                missing_session: 'N/A',
-                                accountability_type: items.accountability_type,
-                                date: 'N/A'
-                            });
+                    //     // Find students who have not paid for their accountabilities and replace accountability_type
+                    //     const studentsNotPaid = usersInOrg.reduce((acc, user) => {
+                    //     if (!studentsWhoPaid.has(user.id) ) {
+                    //         // Push user details with an indication of not being paid and relevant accountability info
+                    //         organization_accountability_set.forEach(entry => {
+                    //         acc.push({
+                    //             accountability_id: entry.accountability_id,
+                    //             user_id: user.id,
+                    //             name: user.name,
+                    //             org_id: entry.org_id,
+                    //             accountability_type: entry.accountability_name,
+                    //             amount: entry.amount,
+                    //         });
+                    //         });
+                    //     }
+                    //     return acc;
+                    //     }, []);
+                    // console.log(    )
 
-                    })
+                    // studentsNotPaid.forEach(items =>{
+                    //         // this.other_accountabilities_list.push({
+                    //         //     accountability_id: items.accountability_id,
+                    //         //     name: items.name,
+                    //         //     user_id: items.user_id,
+                    //         //     amount: items.amount,
+                    //         //     accountability_type: items.accountability_type
+                    //         // })
+
+                    //         //combine fines and other accountabilities
+                    //         this.overall_fees_list.push({
+                    //             name: items.name,
+                    //             user_id: items.user_id,
+                    //             event_name: 'N/A',
+                    //             event_id: 'N/A',
+                    //             amount: items.amount,
+                    //             missing_session: 'N/A',
+                    //             accountability_type: items.accountability_type,
+                    //             date: 'N/A'
+                    //         });
+
+                    // })
 
                     // to total the fees list of the student
                     const aggregatedDataArray = aggregateData(this.overall_fees_list);
@@ -701,7 +715,7 @@ export default{
                                 user_id: aggregated.user_id,
                                 event_id: aggregated.event_id,
                                 total_fines: aggregated.total_amount,
-                                missing_session: aggregated.missing_session,
+                                // missing_session: aggregated.missing_session,
                                 accountability_type: aggregated.accountability_type
                             })
                         })
@@ -724,7 +738,7 @@ export default{
                             user_id: list_fines.user_id,
                             event_id: list_fines.event_id,
                             total_fines: list_fines.total_fines,
-                            missing_session: list_fines.missing_session,
+                            // missing_session: list_fines.missing_session,
                             accountability_type: list_fines.accountability_type
                         });
                     }
@@ -732,8 +746,63 @@ export default{
 
                     // Assign the filtered fines back to this.fees_list
                     this.fees_list = filteredFinesByFreeFines;
-                    this.filtered_items_for_fines = this.fees_list;
-                    this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
+
+                    //when paid minus it to  the capital ammount
+                    const accountability_paid = response.data.paid_accountabilities;
+                    if (accountability_paid.length == 0) {
+                        this.total_fees = this.fees_list
+                    }
+                    else {
+                        // accountability_paid.forEach(paid => {
+                        //     this.fees_list.forEach(studentFees => {
+                        //         // console.log(studentFees)
+                        //         if (studentFees.user_id == paid.student_id){
+                        //             this.total_fees.push({
+                        //                 user_id: studentFees.user_id,
+                        //                 accountability_type : studentFees.accountability_type,
+                        //                 event_id: studentFees.event_id,
+                        //                 name: studentFees.name,
+                        //                 total_fines : studentFees.total_fines - paid.amount
+                        //             });
+                        //         }
+                        //         else{
+                        //             this.total_fees.push({
+                        //                 user_id: studentFees.user_id,
+                        //                 accountability_type : studentFees.accountability_type,
+                        //                 event_id: studentFees.event_id,
+                        //                 name: studentFees.name,
+                        //                 total_fines : studentFees.total_fines
+                        //             });
+                        //         }
+                            
+                        //     });
+                        // });
+
+                        this.fees_list.forEach(studentFees => {
+                            const paidForStudent = accountability_paid.find(paid => paid.student_id === studentFees.user_id);
+                            if (paidForStudent) {
+                                const updatedTotalFines = studentFees.total_fines - paidForStudent.amount;
+                                this.total_fees.push({
+                                    user_id: studentFees.user_id,
+                                    accountability_type: studentFees.accountability_type,
+                                    event_id: studentFees.event_id,
+                                    name: studentFees.name,
+                                    total_fines: updatedTotalFines >= 0 ? updatedTotalFines : 0
+                                });
+                            }
+                            else {
+                                this.total_fees.push({
+                                    user_id: studentFees.user_id,
+                                    accountability_type: studentFees.accountability_type,
+                                    event_id: studentFees.event_id,
+                                    name: studentFees.name,
+                                    total_fines: studentFees.total_fines
+                                });
+                            }
+                        });
+                    }
+                    this.filtered_items_for_fines = this.total_fees;
+                    // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 
                     })
                     .catch(error => {
