@@ -103,13 +103,13 @@
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
-                    
+
                         <div v-if="loading" class="loading-spinner-container mt-2"  id="spinner">
                             <span class="loader"></span>
                         </div>
-                    
+
                         <tr v-for="fees_list in this.filtered_items_for_other_accountabilities" :id="fees_list.user_id" :key="fees_list.user_id">
                             <td >{{ fees_list.user_id }}</td>
                             <td> {{ fees_list.name }}</td>
@@ -207,13 +207,13 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmationModal" @click="this.PaymentDecision = 1, this.getTableData1()">Mark As Paid</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ReceiveModal" @click="this.PaymentDecision = 1, this.getTableData1()">Receive Payment</button>
                         </div>
                     </div>
             </div>
             </div>
             <!-- Confirmation Modal -->
-            <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <!-- <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -230,8 +230,45 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div> -->
+<!-- Receive PaymentModal -->
+<div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Your static content related to "Input amount received" goes here -->
+        <p>Enter the amount you have received:</p>
+        <input type="text" class="form-control" >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ConfirmationModal">Receive</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirmation Modal -->
+<div class="modal fade" id="ConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to receive the payment?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ReceiveModal">Cancel</button>
+        <button type="button" class="btn btn-success" @click="handlePayment">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -590,11 +627,11 @@ export default{
                                 event_id,
                                 missing_session,
                                 accountability_type,
-                                total_amount: amount, 
+                                total_amount: amount,
                             };
                             } else {
                             aggregated[user_id].total_amount += amount;
-                            aggregated[user_id].amount += amount; 
+                            aggregated[user_id].amount += amount;
                             }
                         });
                         const aggregatedArray = Object.values(aggregated);
@@ -691,7 +728,7 @@ export default{
                             accountability_type: list_fines.accountability_type
                         });
                     }
-                }); 
+                });
 
                     // Assign the filtered fines back to this.fees_list
                     this.fees_list = filteredFinesByFreeFines;
