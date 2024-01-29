@@ -59,7 +59,52 @@
                 <!-- Organization Tab Content -->
                 <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
                     <div class="organization-details">
-                        <div class="org-officers" style="width: 50%;">
+                        <div class="year-level" style="width: 100%; padding-left: 10px" >
+                <div class="d-flex justify-content-between align-items-center mb-2 header">
+                    <h5><b>Year Levels</b></h5>
+                    <button class="btn button-secondary" id="addYearLevelButton" @click="this.clearAddYearLevel(),  this.year_level_submit = this.addYearLevel" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" > <i class="fas fa-plus"></i>  </button>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Year Level</th>
+                                <th style="width: 10%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Adjust the v-for loop based on your data structure for year levels -->
+                            <tr v-for="year_level in this.year_level_data">
+                                <td>{{ year_level.year_level }}</td>
+                                <td>
+                                    <!-- Adjust the actions based on your requirements -->
+                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdownYearLevel" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdownYearLevel">
+                                        <!-- Edit Year Level -->
+                                        <li><a class="dropdown-item" @click="this.year_level_id = year_level.id,this.year_level_submit = this.updateYearLevel, this.yearLevelFetchUpdate()" data-bs-toggle="modal" data-bs-target="#addYearLevelModal">Edit</a></li>
+                                        <!-- Delete Year Level -->
+                                        <li><a class="dropdown-item" @click="this.year_level_id = year_level.id" data-bs-toggle="modal" data-bs-target="#deleteYearLevelConfirmation">Delete</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+
+                <div class="additional-input" style="padding: 10px;">
+                    <div class="org-officers" style="width: 50%; padding-right: 10px;">
                             <!-- Organization Officers -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h5><b>Organization Officers</b></h5>
@@ -98,9 +143,8 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        <!-- Partner Organizations -->
-                        <div class="roles" style="width: 50%;">
+  <!-- Organizations roles-->
+  <div class="roles" style="width: 50%;">
                         <div class="d-flex justify-content-between align-items-center mb-3 header">
                             <h5><b>Organization Member Roles</b></h5>
                             <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()"> <i class="fas fa-plus"></i> </button>
@@ -138,14 +182,6 @@
                             </table>
                         </div>
                     </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-
-                <div class="additional-input">
                 <!-- <div class="semester " style="width: 100%;">
                     <div class="d-flex justify-content-between align-items-center mb-2 header">
                         <h5><b>Semesters</b></h5>
@@ -179,41 +215,7 @@
                         </table>
                     </div>
                 </div> -->
-            <div class="year-level" style="width: 100%; padding-left: 10px" >
-                <div class="d-flex justify-content-between align-items-center mb-2 header">
-                    <h5><b>Year Levels</b></h5>
-                    <button class="btn button-secondary" id="addYearLevelButton" @click="this.clearAddYearLevel(),  this.year_level_submit = this.addYearLevel" data-bs-toggle="modal" data-bs-target="#addYearLevelModal" > <i class="fas fa-plus"></i>  </button>
-                </div>
 
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Year Level</th>
-                                <th style="width: 10%;"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Adjust the v-for loop based on your data structure for year levels -->
-                            <tr v-for="year_level in this.year_level_data">
-                                <td>{{ year_level.year_level }}</td>
-                                <td>
-                                    <!-- Adjust the actions based on your requirements -->
-                                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdownYearLevel" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdownYearLevel">
-                                        <!-- Edit Year Level -->
-                                        <li><a class="dropdown-item" @click="this.year_level_id = year_level.id,this.year_level_submit = this.updateYearLevel, this.yearLevelFetchUpdate()" data-bs-toggle="modal" data-bs-target="#addYearLevelModal">Edit</a></li>
-                                        <!-- Delete Year Level -->
-                                        <li><a class="dropdown-item" @click="this.year_level_id = year_level.id" data-bs-toggle="modal" data-bs-target="#deleteYearLevelConfirmation">Delete</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             </div>
         </div>
     </div>
