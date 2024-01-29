@@ -47,7 +47,7 @@
 <div id="table-container" style="margin-left: 10px;">
             <div class="scroll-pane">
                 <!-- fines accountabilities -->
-                <table  id="accountabilities-table" v-if="this.select_accountability === 'fines' ">
+                <table  id="accountabilities-table" >
                     <thead>
                         <tr>
                             <th>Student ID</th>
@@ -131,13 +131,13 @@
                     </tbody>
                 </table> -->
             </div>
-            <!-- <div class="pagination">
-                <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
-                <button id="previous-page-button" onclick="previousPage()" disabled>&lt; Previous</button>
-                <span id="pagination-numbers"></span>
-                <button id="next-page-button" onclick="nextPage()">Next &gt;</button>
-                <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
-            </div> -->
+                        <!-- <div class="pagination">
+                            <button id="first-page-button" onclick="goToPage(1)" disabled>&lt;&lt;</button>
+                            <button id="previous-page-button" onclick="previousPage()" disabled>&lt; Previous</button>
+                            <span id="pagination-numbers"></span>
+                            <button id="next-page-button" onclick="nextPage()">Next &gt;</button>
+                            <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
+                        </div> -->
 
             <div class="pagination-container mt-3">
                 <ul class="pagination justify-content-center">
@@ -251,7 +251,7 @@ export default{
             fees_list:[],
             other_accountabilities_list: [],
             temporary_list:[],
-            select_accountability: 'fines',
+            // select_accountability: 'fines',
             searchTerm: '',
             filtered_items_for_fines: [],
             filtered_items_for_other_accountabilities: [],
@@ -345,20 +345,20 @@ export default{
             // });
 
         },
-        OtherAccountabilityPayment(){
+        // OtherAccountabilityPayment(){
 
-            // console.log(this.otherAccountabilitiesPaymentDetails)
-            axios.post('/OtherAccountabilityPayment', this.otherAccountabilitiesPaymentDetails)
-                    .then(response => {
-                        // this.showSucces(response.data.message);
-                        // this.fetchData();
-                        location.reload();
-                    })
-                    .catch(error => {
-                        alert(error)
+        //     // console.log(this.otherAccountabilitiesPaymentDetails)
+        //     axios.post('/OtherAccountabilityPayment', this.otherAccountabilitiesPaymentDetails)
+        //             .then(response => {
+        //                 // this.showSucces(response.data.message);
+        //                 // this.fetchData();
+        //                 location.reload();
+        //             })
+        //             .catch(error => {
+        //                 alert(error)
 
-                });
-        },
+        //         });
+        // },
         filterItems() {
             //FILTER OF FINES
             this.filtered_items_for_fines = this.fees_list.filter(item => {
