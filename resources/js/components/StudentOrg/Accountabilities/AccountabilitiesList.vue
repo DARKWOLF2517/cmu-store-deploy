@@ -195,6 +195,7 @@
                                 <td v-else-if="temporary_list.missing_session === 2">Morning (out)</td>
                                 <td v-else-if="temporary_list.missing_session === 3">Afternoon (in)</td>
                                 <td v-else-if="temporary_list.missing_session === 4">Afternoon (out)</td>
+                                <td v-else-if="temporary_list.missing_session === 'N/A'">N/A</td>
                                 <td style="display: none;">{{ temporary_list.missing_session }}</td>
                                 <td style="display: none;">{{ temporary_list.event_id }}</td>
                                 <td style="display: none;">{{ this.org_id }}</td>
@@ -247,7 +248,7 @@ export default{
             events: [],
             attendance: [],
             overall_fines_list:[],
-            overall_fines_list_with_event_id:[],
+            // overall_fines_list_with_event_id:[],
             fines_list:[],
             other_accountabilities_list: [],
             temporary_list:[],
@@ -377,7 +378,7 @@ export default{
         },
 
         viewAccountabilities(user_id){
-            // console.log(this.overall_fines_list)
+            console.log(this.overall_fines_list)
             this.temporary_list= [];
             this.overall_fines_list.forEach(fines=>{
                 if (fines.user_id == user_id){
@@ -658,30 +659,28 @@ export default{
                      // this.other_accountabilities_list = [];
                     // Display students who have not paid for their accountabilities with replaced accountability_type
                     studentsNotPaid.forEach(items =>{
-                        this.other_accountabilities_list.push({
+                            this.other_accountabilities_list.push({
                                 accountability_id: items.accountability_id,
                                 name: items.name,
                                 user_id: items.user_id,
                                 amount: items.amount,
                                 accountability_type: items.accountability_type
                             })
+
+                            //combine fines and other accountabilities
+                            this.overall_fines_list.push({
+                                name: items.name,
+                                user_id: items.user_id,
+                                event_name: 'N/A',
+                                event_id: 'N/A',
+                                amount: items.amount,
+                                missing_session: 'N/A',
+                                accountability_type: items.accountability_type,
+                                date: 'N/A'
+                            });
+
                     })
-                    // free_fines.forEach(fines_free => {
-                    //     // console.log(fines_free);
-                    //     this.fines_list.forEach(list_fines => {
-                    //         // console.log(list_fines)
-                    //         if (fines_free.student_id != list_fines.user_id ){
-                    //             this.fines_list.push({
-                    //             name: list_fines.name,
-                    //             user_id: list_fines.user_id,
-                    //             event_id: list_fines.event_id,
-                    //             total_fines: list_fines.total_fines,
-                    //             missing_session: list_fines.missing_session,
-                    //             accountability_type: list_fines.accountability_type
-                    //         })
-                    //         }
-                    //     });
-                    // });
+
                     let filteredFinesByFreeFines = [];
                     this.fines_list.forEach(list_fines => {
                     let found = false;
@@ -702,7 +701,7 @@ export default{
                             accountability_type: list_fines.accountability_type
                         });
                     }
-                });
+                }); 
 
                     // Assign the filtered fines back to this.fines_list
                     this.fines_list = filteredFinesByFreeFines;
