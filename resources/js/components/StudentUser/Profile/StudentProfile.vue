@@ -15,18 +15,20 @@
                         <h5 class="mb-0 text-center text-muted"> <b></b> {{ this.user_id }}</h5>
                         <p class="mb-0 mt-2"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level }}</span></p>
                         <!-- <p class="mb-0"><b>Organization: </b> <span id="college">{{ this.profile.college }}</span></p> -->
-                        <!-- <p><b>Department: </b> <span id="department"></span></p> -->
+                        <p><b>Email: </b> <span id="email"></span></p>
                     </div>
                 </div>
             </div>
 
             <div class="profile-buttons mt-2">
-                <button class="btn btn-primary w-100" @click="downloadQRCode">
-  <i class="fas fa-download"></i> Download QR
-</button>
-
+                <button class="btn btn-secondary w-100" @click="downloadQRCode">
+                <i class="fas fa-download"></i> Download QR
+                </button>
+                <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal" data-bs-target="#EditProfileModal">
+                    <i class="fas fa-edit"></i> Edit Email
+                </button>
                 <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
-                <a class="btn btn-secondary w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Change Password</a>
+                <a class="btn btn-light w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Change Password</a>
             </div>
         </div>
     </div>
@@ -50,7 +52,33 @@
                 </div>
         </div>
 </div>
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="EditProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <h3> <i class="fas fa-envelope text-primary"></i></h3>
+                    <h4><b>Edit Email</b></h4>
+                    <small id="emailHelp" class="form-text text-muted mt-2"> Receive notifications about your attendance by providing your email. We'll keep you informed about important updates.</small>
+                </div>
+                <div class="mb-3">
 
+                    <label for="editEmail" class="form-label fw-bold">Email</label>
+                    <input type="email" class="form-control" id="editEmail" placeholder="Enter Email">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </template>
 <!--
