@@ -70,38 +70,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5 class="modal-title fw-bold text-center" id="exampleModalLabel">Create Evaluation Form</h5>
-                <!-- Evaluation Form Title Label -->
                 <div class="mb-3">
-                    <label for="evaluationTitle" class="form-label">Evaluation Form Title</label>
-                    <input type="text" class="form-control" id="evaluationTitle" placeholder="Enter title">
+                    <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
+                    <input type="text" class="form-control" id="formTitle">
                 </div>
-
-                <!-- Additional Input for Questions -->
                 <div class="mb-3">
-                    <label for="question" class="form-label">Question</label>
-                    <div class="input-group mb-3">
-                        <!-- Input for Question -->
-                        <input type="text" class="form-control" id="question" placeholder="Enter your question" required>
-
-                        <!-- Checkbox for Multiple Choice -->
-                        <div class="input-group-text">
-                            <input type="checkbox" id="multipleChoice" aria-label="Add multiple choice">
-                            <label class="form-check-label" for="multipleChoice">Add Multiple Choice</label>
+                    <label for="formDescription" class="form-label">Input Description</label>
+                    <textarea class="form-control" id="formDescription" rows="3"></textarea>
+                </div>
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="btn btn-light"> <i class="fas fa-plus"></i> Add Question</button>
+                </div>
+                <div class="mb-3">
+                    <label for="question1" class="form-label fw-bold">Question 1</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="question1">
+                        <button class="btn btn-danger" type="button">X</button>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="multipleChoice1">
+                        <label class="form-check-label" for="multipleChoice1">Multiple Choice</label>
+                        <div id="choicesContainer1" class="mt-2">
+                            <label for="choices1" class="form-label">Choices</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="choices1">
+                                <button class="btn btn-danger" type="button">X</button>
+                            </div>
                         </div>
-
-                        <button type="button" class="btn btn-danger"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
-
-
-
             </div>
             <div class="modal-footer">
-                 <!-- Add More Question Button -->
-                 <button type="button" class="btn btn-primary" id="addQuestionBtn">
-                    <i class="fas fa-plus"></i>
-                    Add Question</button>
+
 
                 <!-- Submit Button -->
                 <button type="button" class="btn btn-success">Save Form</button>
@@ -119,27 +119,84 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Evaluation Form Title -->
-                <h4 id="viewEvaluationTitle">Evaluation Title</h4>
-
-                <!-- List of Questions -->
-                <ul id="viewQuestionList" class="list-group mt-2">
-
-                    <div>
-                    <label for="additionalQuestion" class="form-label">Question 1</label>
-                    <input type="text" class="form-control" id="additionalQuestion" placeholder="Enter your question" readonly>
+                <div class="mb-3">
+                    <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
                 </div>
-                </ul>
-
-
+                <div class="mb-3">
+                    <label for="formDescription" class="form-label">Description</label>
+                    <textarea class="form-control" id="formDescription" rows="3" ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="question1" class="form-label fw-bold">Question 1</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="question1" readonly>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <div id="choicesContainer1" class="mt-2">
+                            <label for="choices1" class="form-label">*Choices</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="choices1" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                 <!-- Edit Button -->
-                 <button type="button" class="btn btn-warning" id="editFormBtn"> <i class="fas fa-pen"></i> Edit Form</button>
+
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 <!-- Edit Button -->
+                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit-evaluation-form-modal">
+                    <i class="fas fa-pen"></i> Edit Form
+                </button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Edit Evaluation Form Modal -->
+<div class="modal fade" id="edit-evaluation-form-modal" tabindex="-1" aria-labelledby="editFormLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editFormLabel">Edit Evaluation Form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
+                    <input type="text" class="form-control" id="formTitle">
+                </div>
+                <div class="mb-3">
+                    <label for="formDescription" class="form-label">Input Description</label>
+                    <textarea class="form-control" id="formDescription" rows="3"></textarea>
+                </div>
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="btn btn-light"> <i class="fas fa-plus"></i> Add Question</button>
+                </div>
+                <div class="mb-3">
+                    <label for="question1" class="form-label fw-bold">Question 1</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="question1">
+                        <button class="btn btn-danger" type="button">X</button>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="multipleChoice1">
+                        <label class="form-check-label" for="multipleChoice1">Multiple Choice</label>
+                        <div id="choicesContainer1" class="mt-2">
+                            <label for="choices1" class="form-label">Choices</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="choices1">
+                                <button class="btn btn-danger" type="button">X</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Save Form</button>
+            </div>
+        </div>
+    </div>
+</div>
 </template>
