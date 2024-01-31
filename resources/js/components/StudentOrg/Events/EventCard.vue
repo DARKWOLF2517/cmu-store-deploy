@@ -25,10 +25,11 @@
                             </select>
                         </div>
                         <div class="select-dropdown" style="width: 30%;">
-                        <select id="sort-select" class="form-control" style="text-align: center;">
-                            <option value="">All</option>
-                            <option value="option1">Pending</option>
-                            <option value="option2">Completed</option>
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="status_filter" @change="filterItems">
+                            <option :value="''">All</option>
+                            <option :value=0>Pending</option>
+                            <option :value=1>Ongoing</option>
+                            <option :value=2>Completed</option>
                         </select>
                     </div>
 
@@ -359,6 +360,7 @@
                     school_year:[],
                     school_year_input: this.school_year_session,
                     searchTerm:'',
+                    status_filter: '',
                     searchSchoolYear:0,
                     filtered_events:[],
                     year_level_data:[],
@@ -425,10 +427,24 @@
                         item.name.toLowerCase().includes(searchTermLower)
                     );
                 }
-                    this.filtered_events = filteredBySearch;
+                // Filter based on filterStatus from select option
+                console.log(this.status_filter)
+                let filteredByStatus = this.events;
+                if (this.status_filter) {
+                    filteredByStatus = filteredByStatus.filter(item =>
+                        item.attendance_status.toString().includes(this.status_filter)
+                    );
+                }
+
+            // this.filtered_student_list = filteredBySearch;
+
+            this.filtered_events = filteredBySearch.filter(item =>
+            filteredByStatus.includes(item)
+            );
+                    // this.filtered_events = filteredBySearch;
             },
             showSchoolYear(){
-                axios.get(`get_school_year/${this.organization_id}`)
+                axios.get(`get_school_year`)
                     .then(response => {
                         // console.log(response.data)
                         this.school_year = response.data;

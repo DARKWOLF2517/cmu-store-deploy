@@ -19,8 +19,8 @@ class OrganizationOfficer extends Model
         'year_level_id',
     ];
 
-    public function user()
+    public function user_profile()
     {
-        return $this->belongsTo(User::class, 'student_id','id');
+        return $this->belongsTo(UserProfile::class, 'student_id','user_id');
     }
 }

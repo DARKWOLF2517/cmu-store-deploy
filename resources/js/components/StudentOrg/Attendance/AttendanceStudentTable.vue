@@ -61,8 +61,8 @@
                         <tbody>
                             <tr v-for="attendance in paginatedData" :key="attendance.user_id">
                                 <td>{{ attendance.user_id }}</td>
-                                <td>{{ attendance.user.name }}</td>
-                                <td>{{ attendance.college.college}}</td>
+                                <td>{{ attendance.user_profile.first_name }}</td>
+                                <td>{{ attendance.user_profile.college.college}}</td>
 
                             </tr>
                         </tbody>

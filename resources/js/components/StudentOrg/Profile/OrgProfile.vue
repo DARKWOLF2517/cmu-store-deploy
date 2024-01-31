@@ -143,9 +143,9 @@
                                 </tbody>
                             </table>
                         </div>
-  <!-- Organizations roles-->
-  <div class="roles" style="width: 50%;">
-                        <div class="d-flex justify-content-between align-items-center mb-3 header">
+                    <!-- Organizations roles-->
+                    <div class="roles" style="width: 50%;">
+                                            <div class="d-flex justify-content-between align-items-center mb-3 header">
                             <h5><b>Organization Member Roles</b></h5>
                             <button class="btn button-secondary" data-bs-toggle="modal" data-bs-target="#setRolesModal" @click="this.clearAddOfficerRole()"> <i class="fas fa-plus"></i> </button>
                         </div>
@@ -161,7 +161,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="officerRole in this.officerRoles">
-                                        <td>{{ officerRole.user.name }}</td>
+                                        <td>{{ officerRole.user_profile.first_name }}{{ officerRole.user_profile.last_name }}</td>
                                         <td>{{ officerRole.role.name }}</td>
                                         <td>
                                             <!-- Ellipsis Button -->
@@ -286,7 +286,7 @@
             </div>
             <div class="modal-body">
             <form @submit.prevent="this.schoolYearSubmit" >
-                  <h5 class="modal-title fw-bold text-center" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
+                <h5 class="modal-title fw-bold text-center" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
                 <h5 class="modal-title fw-bold text-center" id="addSchoolYearModalLabel" v-if="this.schoolYearSubmit == this.updateSchoolYear">Edit School Year</h5>
                 <!-- Semester and Academic Year Input -->
                 <label for="editYearSemester">Semester and Academic Year :</label>
@@ -663,7 +663,7 @@ import 'vue3-toastify/dist/index.css';
 
 export default{
 
-    props:['org_id','user_id','school_year_session', 'college_id'],
+    props:['org_id','user_id','school_year_session'],
     data(){
         return{
             addSchoolYears: {
@@ -674,7 +674,7 @@ export default{
             schoolYearSubmit : this.addSchoolYear,
             schoolYearId: 0,
             orgOfficers: [],
-
+            loading : false,
             addOfficerSubmit: this.addOfficer,
             nameAddOfficer: [],
             nameFilterAddOfficer: [],
@@ -715,7 +715,9 @@ export default{
             year_level_input:{
                 org_id: this.org_id,
                 year_level: ''
-            }
+            },
+
+            
         }
     },
     mounted(){
@@ -879,7 +881,6 @@ export default{
             axios.get(`/view_officer_role/${this.org_id}`)
                 .then(response => {
                     this.officerRoles = response.data;
-                    // console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error)
@@ -887,7 +888,6 @@ export default{
 
             },
         addOfficerRole(){
-            // console.log(this.orgOfficers)
             // initialize data
             let year_level = this.orgOfficers.find(item => item.student_id == this.addOfficerRoleData.student_id);
             this.addOfficerRoleData = {
@@ -896,7 +896,7 @@ export default{
                 role_id:  this.addOfficerRoleData.role_id,
                 year_level_id: year_level.year_level_id,
                 school_year: this.school_year_session,
-                college_id: this.college_id,
+                // college_id: this.college_id,
             }
 
             // console.log(this.addOfficerRoleData)
@@ -961,7 +961,7 @@ export default{
             axios.get(`edit_officer/${id}`)
                 .then(response => {
                     this.addOfficersData = response.data;
-                    this.nameFilterAddOfficer = response.data.user.name
+                    this.nameFilterAddOfficer = response.data.user_profile.first_name + response.data.user_profile.last_name 
 
                 })
                 .catch(error => {
@@ -1002,7 +1002,7 @@ export default{
             axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}`)
                 .then(response => {
                     if(response.data != 1){
-                        this.nameFilterAddOfficer = response.data.user.name;
+                        this.nameFilterAddOfficer = response.data.user_profile.first_name +  response.data.user_profile.last_name;
                     }
                     else{
                         this.nameFilterAddOfficer = [];
@@ -1022,14 +1022,13 @@ export default{
                             this.orgOfficers.push({
                                 id: element.id,
                                 student_id: element.student_id,
-                                name: element.user.name,
+                                name: element.user_profile.first_name + element.user_profile.last_name,
                                 position: element.position,
                                 year_level_id: element.year_level_id,
                             })
 
 
                     });
-                    // console.log(this.orgOfficers)
                 })
                 .catch(error => {
                     console.log(error)

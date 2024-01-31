@@ -17,21 +17,21 @@ class Attendance extends Model
         'officer_id',
         'session',
         'remarks',
-        'college_id',
+        // 'college_id',
         'created_at',
         'updated_at'
     ];
 
-    public function user()
+    public function user_profile()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(UserProfile::class, 'user_id','user_id');
     }
     public function events()
     {
         return $this->hasOne(Event::class,'event_id','event_id');
     }
-    public function college()
-    {
-        return $this->belongsTo(College::class,'college_id','id');
-    }
+    // public function college()
+    // {
+    //     return $this->belongsTo(College::class,'college_id','id');
+    // }
 }

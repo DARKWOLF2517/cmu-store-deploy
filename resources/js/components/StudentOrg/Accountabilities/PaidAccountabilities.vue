@@ -2,7 +2,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="input-container">
             <i class="fa fa-search"></i>
-            <input type="text" >
+            <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
         </div>
     </div>
     <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
@@ -12,21 +12,20 @@
 
         <div class="select-dropdown" id= "semester-btn" style="width: 70%;">
             <!-- First dropdown -->
-            <select id="sort-select" class="form-control" style="text-align: center; ">
-                <option value="">Select Semester</option>
-                <option value="option1">1st Semester 2023-2024</option>
-                <option value="option2">2nd Semester 2022-2023</option>
-                <option value="option3">1st Semester 2022-2023</option>
+            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                <option value="" disabled selected>Select Semester</option>
+                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+
             </select>
         </div>
-        <div class="select-dropdown" style="width: 30%;">
-            <!-- Second dropdown -->
+        <!-- <div class="select-dropdown" style="width: 30%;">
+
             <select id="sort-select" class="form-control" style="text-align: center;">
                 <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                 <option value="fines">Fines</option>
                 <option value="others">Other Accountability</option>
             </select>
-        </div>
+        </div> -->
     </div>
 
 
@@ -54,7 +53,7 @@
                 <tr>
                     <th>Student ID</th>
                     <th>Student Name</th>
-                    <th>Accountabilities</th>
+                    <!-- <th>Accountabilities</th> -->
                     <th>Amount</th>
                 </tr>
             </thead>
@@ -63,17 +62,17 @@
                     <span class="loader"></span>
                 </div>
                 <div class="Container-IfEmpty" v-if="!loading && paidList.length === 0">
-                                        <div class="Empty-Message text-center">
-                                        <i class="icon 	bi bi-table" id="icon-message"></i>
-                                        <p class="text-muted"><b>Paid table is empty.</b>
-                                        <br>
-                                        Students with cleared accountabilities are listed here</p>
-                                    </div>
+                    <div class="Empty-Message text-center">
+                    <i class="icon 	bi bi-table" id="icon-message"></i>
+                    <p class="text-muted"><b>Paid table is empty.</b>
+                    <br>
+                    Students with cleared accountabilities are listed here</p>
+                </div>
                 </div>
                 <tr v-for="paid in paginatedData" :key="paid.student_id">
                 <td >{{ paid['student_id'] }}</td>
                 <td> {{ paid.user['name'] }}</td>
-                <td>{{ paid['accountability_name'] }}</td>
+                <!-- <td>{{ paid['accountability_name'] }}</td> -->
                 <td>{{ paid['amount'] }}</td>
                 </tr>
             </tbody>
@@ -125,14 +124,17 @@ import { convertDate } from '../Functions/DateConverter';
 
 export default{
 
-    props: ['org_id'],
+    props: ['org_id', 'school_year_session'],
     data(){
         return{
             paidList: [],
             currentPage: 1,
             itemsPerPage: 10,
             loading : false,
-
+            school_year_input: this.school_year_session,
+            school_year: [],
+            searchTerm: '',
+            filtered_paid_accountabilities: [],
         }
     },
     computed: {
@@ -166,7 +168,7 @@ export default{
     },
     paginatedData() {
         const start = (this.currentPage - 1) * this.itemsPerPage;
-        return this.paidList.slice(start, start + this.itemsPerPage);
+        return this.filtered_paid_accountabilities.slice(start, start + this.itemsPerPage);
     },
     hasEllipsisBefore() {
         return this.currentPage > 3 && this.totalPages > 5;
@@ -212,6 +214,7 @@ export default{
 
     mounted(){
         this.fetchData();
+        this.showSchoolYear();
     },
     created(){
 
@@ -219,13 +222,36 @@ export default{
     },
 
     methods:{
+        
+    filterItems() {
+        let filteredBySearch = this.paidList;
+                if (this.searchTerm) {
+                    const searchTermLower = this.searchTerm.toLowerCase();
+                    filteredBySearch = filteredBySearch.filter(item =>
+                        item.user.name.toLowerCase().includes(searchTermLower) ||
+                        item.student_id.toString().includes(this.searchTerm)
+                    );
+                }
+        this.filtered_paid_accountabilities = filteredBySearch;
+    },
+        showSchoolYear() {
+            axios.get(`get_school_year`)
+                .then((response) => {
+                    this.school_year = response.data;
+                    
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        },
         fetchData(){
             this.loading = true;
-                    axios.get(`/paid_accountabilities/${this.org_id}`)
+                    axios.get(`/paid_accountabilities/${this.org_id}/${this.school_year_input}`)
                     .then(response => {
                         this.paidList = response.data;
                         console.log(this.paidList)
                         this.loading = false;
+                        this.filtered_paid_accountabilities = this.paidList;
                     })
                     .catch(error => {
                         console.log('error')

@@ -101,12 +101,12 @@
         <!-- <tr v-for="student in paginatedData" :key="student.student_id"> -->
             <!-- Student data will be added here -->
             <td>{{ student.student_id }}</td>
-            <td>{{ student.user.name }}</td>
-            <td>{{ student.year_level.year_level }}</td>
-            <td>{{ student.college.college }}</td>
+            <td>{{ student.user_profile.first_name }} {{ student.user_profile.last_name }}</td>
+            <td>{{ student.user_profile.year_level.year_level }}</td>
+            <td>{{ student.user_profile.college.college }}</td>
                 <td>
                     <span class="table-buttons">
-                    <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#addStudentModal" @click="this.fetchID = student.student_id,this.submit = this.updateSingleAddStudents, this.fetchDataEdit()" > <i class="fas fa-pen"></i></button>
+                    <!-- <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#addStudentModal" @click="this.fetchID = student.student_id,this.submit = this.updateSingleAddStudents, this.fetchDataDisplayName()" > <i class="fas fa-pen"></i></button> -->
                     <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation" @click="this.fetchID = student.student_id"> <i class="fas fa-trash"></i></button>
                     </span>
                 </td>
@@ -134,7 +134,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.addSingleStudent">Add Student</h5>
-                                <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.updateSingleAddStudents">Edit Student</h5>
+                                <!-- <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.updateSingleAddStudents">Edit Student</h5> -->
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
 
@@ -142,28 +142,42 @@
                                 <form @submit.prevent="this.submit">
                                 <div class="mb-3" v-if="this.submit == this.addSingleStudent">
                                     <label for="studentId" class="form-label">Student ID</label>
-                                    <input type="text" class="form-control" id="studentId" v-model="student_data.student_id">
+                                    <input type="text" class="form-control" id="studentId" v-model="student_data.student_id" @change="this.fetchDataDisplayName">
                                 </div>
-                                <div class="mb-3" v-if="this.submit == this.updateSingleAddStudents">
+                                <!-- <div class="mb-3" v-if="this.submit == this.updateSingleAddStudents">
                                     <label for="studentId" class="form-label">Student ID</label>
                                     <input type="text" class="form-control" id="studentId" v-model="student_data.student_id" disabled>
-                                </div>
-                                <div v-if="this.submit == this.addSingleStudent">
+                                </div> -->
+                                <!-- <div v-if="this.submit == this.updateSingleAddStudents">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Student Last Name</label>
+                                        <label for="name" class="form-label">Last Name</label>
                                         <input type="text" class="form-control" id="lastname" v-model="student_data.lastname" >
                                     </div>
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Student First Name</label>
+                                        <label for="name" class="form-label">First Name</label>
                                         <input type="text" class="form-control" id="firstname" v-model="student_data.firstname" >
                                     </div>
-                                </div>
-                                <div class="mb-3" v-if="this.submit == this.updateSingleAddStudents">
-                                    <label for="name" class="form-label">Full Name</label>
-                                    <input type="text" class="form-control" id="firstname" v-model="student_data.fullname" >
+                                    <div class="mb-3" >
+                                        <label for="name" class="form-label">Middle Name</label>
+                                        <input type="text" class="form-control" id="firstname" v-model="student_data.middlename" >
+                                    </div>
+                                </div> -->
+                                <div v-if="this.submit == this.addSingleStudent">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastname" v-model="student_data.lastname" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstname" v-model="student_data.firstname" disabled>
+                                    </div>
+                                    <div class="mb-3" >
+                                        <label for="name" class="form-label">Middle Name</label>
+                                        <input type="text" class="form-control" id="firstname" v-model="student_data.middlename" disabled>
+                                    </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label for="reason" class="form-label">Year-level</label>
                                     <select  class="form-select" id="yr-level" v-model="student_data.year_level_id">
                                         <option value="0" disabled selected>Select Year Level</option>
@@ -176,7 +190,7 @@
                                             <option value="0" disabled selected >Select College</option>
                                             <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                                         </select>
-                                </div>
+                                </div> -->
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-success"  data-bs-dismiss="modal">Save</button>
@@ -215,7 +229,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
-                                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-right: 0;">
+                                <!-- <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-right: 0;">
                                     <div class="select-dropdown" >
                                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="year_level_data_input">
                                             <option value="0" disabled selected>Select Year Level</option>
@@ -228,13 +242,13 @@
                                             <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
                                 <table class="table" id="tableModal" >
                                     <thead>
                                         <tr>
                                             <th>Student ID</th>
-                                            <th>Last Name</th>
-                                            <th>First Name</th>
+                                            <!-- <th>Last Name</th>
+                                            <th>First Name</th> -->
                                             <!-- <th>Year Level</th> -->
                                         </tr>
                                     </thead>
@@ -287,7 +301,7 @@ export default {
                 firstname:'',
                 year_level_id: 0,
                 college_id: 0,
-                fullname: '',
+                middlename: '',
             },
 
             submit: this.addSingleStudent,
@@ -296,78 +310,78 @@ export default {
         };
     },
     computed: {
-    totalPages() {
-        return Math.ceil(this.filtered_student_list.length / this.itemsPerPage);
-    },
-    pageRange() {
-        const start = Math.max(1, this.currentPage - 5);
-        const end = Math.min(this.totalPages, this.currentPage + 5);
-        const range = [];
+            totalPages() {
+                return Math.ceil(this.filtered_student_list.length / this.itemsPerPage);
+            },
+            pageRange() {
+                const start = Math.max(1, this.currentPage - 5);
+                const end = Math.min(this.totalPages, this.currentPage + 5);
+                const range = [];
 
-        if (start > 1) {
-            range.push(1);
-            if (start > 2) {
-            range.push("...");
-            }
-        }
+                if (start > 1) {
+                    range.push(1);
+                    if (start > 2) {
+                    range.push("...");
+                    }
+                }
 
-        for (let i = start; i <= end; i++) {
-            range.push(i);
-        }
+                for (let i = start; i <= end; i++) {
+                    range.push(i);
+                }
 
-        if (end < this.totalPages) {
-            if (end < this.totalPages - 1) {
-            range.push("...");
-            }
-            range.push(this.totalPages);
-        }
+                if (end < this.totalPages) {
+                    if (end < this.totalPages - 1) {
+                    range.push("...");
+                    }
+                    range.push(this.totalPages);
+                }
 
-        return range;
-    },
-    paginatedData() {
-        const start = (this.currentPage - 1) * this.itemsPerPage;
-        return this.filtered_student_list.slice(start, start + this.itemsPerPage);
-    },
-    hasEllipsisBefore() {
-        return this.currentPage > 3 && this.totalPages > 5;
-    },
+                return range;
+            },
+            paginatedData() {
+                const start = (this.currentPage - 1) * this.itemsPerPage;
+                return this.filtered_student_list.slice(start, start + this.itemsPerPage);
+            },
+            hasEllipsisBefore() {
+                return this.currentPage > 3 && this.totalPages > 5;
+            },
 
-    hasEllipsisAfter() {
-        return this.currentPage < this.totalPages - 2 && this.totalPages > 5;
-    },
-    ellipsisRange() {
-        const range = [];
-        const start = Math.max(this.currentPage - 2, 1);
-        const end = Math.min(start + 4, this.totalPages);
+            hasEllipsisAfter() {
+                return this.currentPage < this.totalPages - 2 && this.totalPages > 5;
+            },
+            ellipsisRange() {
+                const range = [];
+                const start = Math.max(this.currentPage - 2, 1);
+                const end = Math.min(start + 4, this.totalPages);
 
-        if (this.hasEllipsisBefore) {
-            range.push(this.ellipsisBefore);
-        }
+                if (this.hasEllipsisBefore) {
+                    range.push(this.ellipsisBefore);
+                }
 
-        for (let i = start; i <= end; i++) {
-            range.push(i);
-        }
+                for (let i = start; i <= end; i++) {
+                    range.push(i);
+                }
 
-        if (end < this.totalPages) {
-            if (end < this.totalPages - 1) {
-            range.push(this.ellipsisAfter);
-            }
-            range.push(this.totalPages);
-        }
+                if (end < this.totalPages) {
+                    if (end < this.totalPages - 1) {
+                    range.push(this.ellipsisAfter);
+                    }
+                    range.push(this.totalPages);
+                }
 
-        // If there are more than 5 page numbers, remove the ones in the middle
-        if (range.length > 5) {
-            range.splice(3, range.length - 5);
-        }
+                // If there are more than 5 page numbers, remove the ones in the middle
+                if (range.length > 5) {
+                    range.splice(3, range.length - 5);
+                }
 
-        return range;
-    },
-    ellipsisBefore() {
-        return Math.max(this.currentPage - 5, 1);
-    },
-    ellipsisAfter() {
-        return Math.min(this.currentPage + 5, this.totalPages);
-    },
+                return range;
+            },
+            ellipsisBefore() {
+                return Math.max(this.currentPage - 5, 1);
+            },
+            ellipsisAfter() {
+                return Math.min(this.currentPage + 5, this.totalPages);
+            },
     },
 
 mounted(){
@@ -389,22 +403,22 @@ methods:{
                 console.log(error)
         });
     },
-    updateSingleAddStudents(){
-        axios.put(`/update_single_student`, this.student_data)
-            .then(response => {
-                console.log(response.data)
-                if (response.data.type == 0) {
-                    this.showError('Error');
-                }
-                else{
-                    this.showSucces(response.data.message);
-                    this.fetchData();
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    },
+    // updateSingleAddStudents(){
+    //     axios.put(`/update_single_student`, this.student_data)
+    //         .then(response => {
+    //             console.log(response.data)
+    //             if (response.data.type == 0) {
+    //                 this.showError('Error');
+    //             }
+    //             else{
+    //                 this.showSucces(response.data.message);
+    //                 this.fetchData();
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         });
+    // },
     addSingleStudent(){
         axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
             .then(response => {
@@ -426,7 +440,7 @@ methods:{
         axios.get(`/view_college`)
             .then(response => {
                 this.college_list = response.data;
-                console.log(response.data)
+                // console.log(response.data)
             })
             .catch(error => {
                 console.log(error)
@@ -446,7 +460,7 @@ methods:{
             let filteredBySearch = this.studentList;
             if (this.searchTerm) {
                 const searchTermLower = this.searchTerm.toLowerCase();
-                filteredBySearch = filteredBySearch.filter(item => item.user.name.toLowerCase().includes(searchTermLower) ||
+                filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name +''+ item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
                         item.student_id.toString().includes(this.searchTerm)
                 );
             }
@@ -454,7 +468,7 @@ methods:{
             let filteredByCollege = this.studentList;
             if (this.college_data_input) {
                 filteredByCollege = filteredByCollege.filter(item =>
-                    item.college_id.toString().includes(this.college_data_input)
+                    item.user_profile.college.id.toString().includes(this.college_data_input)
                 );
             }
 
@@ -471,9 +485,11 @@ methods:{
 
         axios.get(`/student_list/show/${this.org_id}/${this.school_year_input}`)
             .then(response => {
+                console.log(response.data)
                 this.studentList = response.data;
                 this.filtered_student_list = this.studentList;
                 this.loading = false;
+
             })
             .catch(error => {
 
@@ -503,7 +519,7 @@ methods:{
         }
     },
     showSchoolYear(){
-        axios.get(`get_school_year/${this.org_id}`)
+        axios.get(`get_school_year`)
             .then(response => {
                 // console.log(response.data)
                 this.school_year = response.data;
@@ -513,18 +529,25 @@ methods:{
                 console.log(error)
             });
     },
-    fetchDataEdit(){
-        axios.get(`/student_list/edit/${this.fetchID}`)
+    fetchDataDisplayName(){
+        // console.log(this.student_data.student_id)
+        axios.get(`/student_list/show_name/${this.student_data.student_id}`)
             .then(response => {
                 console.log(response.data)
-                    this.student_data.student_id = response.data.student_id;
-                    this.student_data.fullname = response.data.user.name;
-                    this.student_data.year_level_id = response.data.year_level_id;
-                    this.student_data.college_id = response.data.college_id;
-
-            })
+                if(response.data.length != 0){
+                    this.student_data.student_id = response.data.user_id;
+                    this.student_data.firstname = response.data.first_name;
+                    this.student_data.lastname = response.data.last_name;
+                    this.student_data.middlename = response.data.middle_name;
+                }
+                else{
+                    this.student_data = [];
+                }
+                    // this.student_data.year_level_id = response.data.user_profile.year_level_id;
+                    // this.student_data.college_id = response.data.user_profile.college_id;
+            })          
             .catch(error => {
-
+                console.log(error)
             });
     },
     updateData(){
@@ -540,10 +563,10 @@ methods:{
     },
     uploadData(){
 
-        if (this.college_data_input == 0 || this.year_level_data_input == 0){
-            alert('Please Choose Year Level and  College')
-        }
-        else{
+        // if (this.college_data_input == 0 || this.year_level_data_input == 0){
+        //     alert('Please Choose Year Level and  College')
+        // }
+        // else{
             const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
             // excelDataModal.show();
             excelDataModal.hide();
@@ -575,12 +598,12 @@ methods:{
             }
 
 
-                if (data[0].length == 3){
+                if (data[0].length == 1){
                     this.collectedData = data;
 
                     // Display the extracted data in the console
                     this.loading = true;
-                    axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input}/${this.year_level_data_input}`, { data: this.collectedData })
+                    axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
                         .then(response => {
                             console.log(response.data)
                             this.loading = false;
@@ -603,7 +626,7 @@ methods:{
                 else {
                     this.showError('excel incorrect format');
                 }
-        }
+        // }
 
 
 
@@ -751,15 +774,15 @@ methods:{
 }
 </script>
 <style>
-button.page-link {
-	display: inline-block;
-}
-button.page-link {
-    font-size: 20px;
-    color: #29b3ed;
-    font-weight: 500;
-}
-.offset{
-  width: 500px !important;
-  margin: 20px auto;
+    button.page-link {
+        display: inline-block;
+    }
+    button.page-link {
+        font-size: 20px;
+        color: #29b3ed;
+        font-weight: 500;
+    }
+    .offset{
+    width: 500px !important;
+    margin: 20px auto;
 }</style>

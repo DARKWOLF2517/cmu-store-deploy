@@ -127,9 +127,9 @@ class EventController extends Controller
         return response()->json(['message' => 'Event '. $event-> name.' Deleted successfully']);
     }
 
-    public function getSchoolYear($organization_id)
+    public function getSchoolYear()
     {   
-        $events = SchoolYear::where('org_id', $organization_id)->get();
+        $events = SchoolYear::get();
         return response()->json($events);
     }
     public function getEvaluationList($org_id, $school_year = null)

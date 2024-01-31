@@ -87,7 +87,7 @@
     },
     methods: {
       showSchoolYear(){
-        axios.get(`get_school_year/${this.organization_id}`)
+        axios.get(`get_school_year`)
             .then(response => {
                 // console.log(response.data)
                 this.school_year = response.data;

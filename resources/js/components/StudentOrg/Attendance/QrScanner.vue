@@ -107,6 +107,7 @@ methods: {
         axios.post("/attendance", this.formData)
             .then(response =>
             {
+                console.log(response.data)
                 alert(response.data.message)
                 this.fetchData();
                 this.scanner.resume();

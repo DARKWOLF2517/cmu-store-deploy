@@ -160,7 +160,7 @@ export default {
     },
 
     showSchoolYear() {
-      axios.get(`get_school_year/${this.organization_id}`)
+      axios.get(`get_school_year`)
         .then((response) => {
           this.school_year = response.data;
         })

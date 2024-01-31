@@ -18,7 +18,10 @@
         <div class="mt-2">
             <div class="row head-container">
             <paid-accountabilities
-            :org_id = {{Session::get('org_id')}} >
+                :org_id = {{Session::get('org_id')}} 
+                :school_year_session = {{Session::get('school_year')}}
+                >
+                
             </paid-accountabilities>
             </div>
         </div>

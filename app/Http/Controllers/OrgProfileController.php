@@ -61,13 +61,13 @@ class OrgProfileController extends Controller
     }
     public function viewOrgOfficer($org_id)
     {
-        $orgOfficer = OrganizationOfficer::where('org_id', $org_id)->with('user')->get();
+        $orgOfficer = OrganizationOfficer::where('org_id', $org_id)->with('user_profile')->get();
         return response()->json($orgOfficer);
 
     }
     public function viewUsersOrg($org_id)
     {
-        $orgUser = UserOrganization::where('student_org_id', $org_id)->with('user')->get();
+        $orgUser = UserOrganization::where('student_org_id', $org_id)->with('user_profile')->get();
         return response()->json($orgUser);
     
     }
@@ -125,7 +125,7 @@ class OrgProfileController extends Controller
         // $records = OrganizationOfficer::where([
         //     ['id', $id],
         // ])->get();
-        $officerUpdate = OrganizationOfficer::where('id',$id)->with('user')->first();
+        $officerUpdate = OrganizationOfficer::where('id',$id)->with('user_profile')->first();
         return response()->json($officerUpdate);
 
     }
@@ -159,7 +159,7 @@ class OrgProfileController extends Controller
                 'student_org_id' => 'required',
                 'year_level_id' => 'required',
                 'school_year' => 'required',
-                'college_id' => 'required',
+                // 'college_id' => 'required',
             ]);
 
             // // Create a new School Year instance
@@ -169,7 +169,7 @@ class OrgProfileController extends Controller
                 'role_id' => $validatedData['role_id'],
                 'year_level_id' => $validatedData['year_level_id'],
                 'school_year' => $validatedData['school_year'],
-                'college_id' => $validatedData['college_id'],
+                // 'college_id' => $validatedData['college_id'],
             ]);
             $OrganizationRole->save();
             return response()->json(['message' => 'Role added Successfully','type' => 1]);
@@ -185,7 +185,7 @@ class OrgProfileController extends Controller
         //       ->with('role', 'user')
         //       ->get();
         $officerRole = UserOrganization::where('student_org_id', $org_id)
-            ->with('role','user')
+            ->with('role','user_profile')
             ->whereHas('role', function($query) {
                 $query->where('role_id', '!=', 2); 
             })
@@ -270,7 +270,7 @@ class OrgProfileController extends Controller
     }
     public function fetchNameOfficerInput($id)
     {
-        $officerName = UserOrganization::where('student_id', $id)->with('user')->first();
+        $officerName = UserOrganization::where('student_id', $id)->with('user_profile')->first();
         if($officerName){
             return response()->json($officerName);
         }

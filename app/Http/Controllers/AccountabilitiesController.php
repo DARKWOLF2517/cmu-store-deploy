@@ -12,6 +12,7 @@ use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\PaidAccountability;
 use App\Models\User;
 use App\Models\UserOrganization;
+use App\Models\UserProfile;
 use App\Models\YearLevel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -70,7 +71,7 @@ class AccountabilitiesController extends Controller
     public function AccountabilitiesListInAdmin($org_id,$school_year)
     {
             $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
-            $users = User::all();
+            $users = UserProfile::all();
             $userOrgs = UserOrganization::all();
             $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ],['school_year', $school_year]])->get();
             $accountability = OrganizationAccountability::where([['org_id', $org_id ],['school_year', $school_year]])->get();
@@ -130,29 +131,35 @@ class AccountabilitiesController extends Controller
             return response()->json(['message' => 'Accountability Paid Successfully']);
             // return $request;
     }
-    public function FinesAccountabilityPayment($school_year,Request $request)
+    public function FinesAccountabilityPayment($school_year,$amount,Request $request)
     {
-             // Validate the form data
-            $validatedData = $this->validate($request,[
-                'student_id' => 'required',
-                'student_org_id' => 'required',
-                'accountability_name' => 'required',
-                'amount' => 'required',
-            ]);
-    
-            // // Create a new Event instance
-            $accountability = new PaidAccountability([
-                'student_id' => $validatedData['student_id'],
-                'student_org_id' => $validatedData['student_org_id'],
-                'accountability_name' => $validatedData['accountability_name'],
-                'amount' => $validatedData['amount'],
-                'school_year' => $school_year,
-            ]);
-            $accountability->save();
-    
-            // Redirect or return a response
-            return response()->json(['message' => 'Accountability Paid Successfully']);
-            // return $request;
+        if($amount > $request->total_amount){
+            return response()->json(['message' => 'Amount is Greater than the balance', 'status' => 0]);
+        }
+        else if ($amount < 0){
+            return response()->json(['message' => 'Cannot Accept Negative Value', 'status' => 0]);
+        }
+        else{
+                // Validate the form data
+                $validatedData = $this->validate($request,[
+                    'student_id' => 'required',
+                    'student_org_id' => 'required',
+                ]);
+
+                // // Create a new Event instance
+                $accountability = new PaidAccountability([
+                    'student_id' => $validatedData['student_id'],
+                    'student_org_id' => $validatedData['student_org_id'],
+                    'amount' => $amount,
+                    'school_year' => $school_year,
+                ]);
+                $accountability->save();
+
+                // Redirect or return a response
+                return response()->json(['message' => 'Accountability Paid Successfully', 'status' => 1]);
+
+            }
+
     }
     public function attendanceFill(Request $request)
     {
@@ -179,9 +186,9 @@ class AccountabilitiesController extends Controller
         $accountability_id->delete();
         return response()->json(['message' => 'Accountability '. $accountability_id-> accountability_name.' Deleted successfully']);
     }
-    public function PaidAccountabilities($org_id)
+    public function PaidAccountabilities($org_id, $school_year)
     {
-        $paidAccountabilities = PaidAccountability::where('student_org_id', $org_id )->with('user')->get();
+        $paidAccountabilities = PaidAccountability::where([['student_org_id', $org_id], ['school_year', $school_year]] )->with('user')->get();
         return $paidAccountabilities->toJson();
     }
 

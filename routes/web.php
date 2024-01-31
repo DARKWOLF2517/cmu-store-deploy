@@ -44,7 +44,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/events/show/{org_id}/{school_year?}',[EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}',[EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}',[EventController::class, 'getEventsAttendance']);
-    Route::get('/get_school_year/{organization_id}',[EventController::class, 'getSchoolYear']);
+    Route::get('/get_school_year',[EventController::class, 'getSchoolYear']);
     #attendance
     Route::get('/attendance/count/{event_id}/{org_id}',[AttendanceController::class, 'AttendanceCount']);
     Route::post('/attendance',[AttendanceController::class, 'store'])->name('add-attendance');
@@ -164,9 +164,9 @@ Route::middleware(['auth'])->group(function(){
             #USER ROUTE
             Route::get('getMemberRoute/{org_id}',[UserController::class, 'GetMemberList'])->name('member-list');
             Route::get('/student_list/show/{org_id}/{school_year}',[UserController::class, 'showStudents']);
-            Route::get('/student_list/edit/{student_id}',[UserController::class, 'showforEdit']);
+            Route::get('/student_list/show_name/{student_id}',[UserController::class, 'showforEdit']);
             Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
-            Route::post('/upload_students/{school_year}/{college}/{year_level}',[UserController::class, 'store']);
+            Route::post('/upload_students/{school_year}',[UserController::class, 'store']);
             Route::post('/upload_single_student/{school_year}',[UserController::class, 'addSingleStudent']);
             Route::put('/update_single_student',[UserController::class, 'updateSingleStudent']);
             Route::delete('/delete_single_student/{id}',[UserController::class, 'deleteSingleStudent']);
@@ -205,10 +205,10 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/fees_list/{org_id}/{school_year}',[AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
             Route::put('/update_event_attendance_status/{event_id}/{status}',[AccountabilitiesController::class, 'updateEventAttendanceStatus']);
             Route::post('/OtherAccountabilityPayment',[AccountabilitiesController::class, 'OtherAccountabilityPayment']);
-            Route::post('/FinesAccountabilityPayment/{school_year}',[AccountabilitiesController::class, 'FinesAccountabilityPayment']);
+            Route::post('/FinesAccountabilityPayment/{school_year}/{amount}',[AccountabilitiesController::class, 'FinesAccountabilityPayment']);
             Route::post('/attendanceFill',[AccountabilitiesController::class, 'attendanceFill']);
             Route::delete('/delete_organization_accountability/{accountability_id}',[AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
-            Route::get('/paid_accountabilities/{org_id}',[AccountabilitiesController::class, 'PaidAccountabilities']);
+            Route::get('/paid_accountabilities/{org_id}/{school_year}',[AccountabilitiesController::class, 'PaidAccountabilities']);
             Route::get('/accountabilities_fetch_update/{id}',[AccountabilitiesController::class, 'accountabilitiesFetchUpdate']);
             Route::put('/update_accountabilities/{id}',[AccountabilitiesController::class, 'updateAccountabilities']);
             Route::get('/get_org_accountability/{org_id}/{school_year}', [AccountabilitiesController::class, 'getOrgAccountability']);

@@ -204,7 +204,7 @@ export default {
             this.filtered_accountabilities = filteredBySearch;
     },
     showSchoolYear(){
-      axios.get(`get_school_year/${this.org_id}`)
+      axios.get(`get_school_year`)
         .then(response => {
             // console.log(response.data)
             this.school_year = response.data;

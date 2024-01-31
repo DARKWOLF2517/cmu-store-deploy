@@ -74,14 +74,14 @@
                                 <td >{{ fees_list.user_id }}</td>
                                 <td> {{ fees_list.name }}</td>
                                 <!-- <td>{{ fees_list.accountability_type.toUpperCase()}}</td> -->
-                                <td> &#8369; {{ fees_list.total_fines }}</td>
+                                <td> &#8369; {{ fees_list.total_fees }}</td>
                                 <td>
                                     <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fees_list.user_id),
                                         this.finesPay = {
                                             student_id: fees_list.user_id,
-                                            student_name: fees_list.name,
-                                            accountability_name: fees_list.accountability_type,
-                                            amount: fees_list.total_fines,
+                                            // student_name: fees_list.name,
+                                            // accountability_name: fees_list.accountability_type,
+                                            total_amount: fees_list.total_fees,
                                             student_org_id: this.org_id,
                                         }
                                     ">
@@ -242,7 +242,7 @@
                     <div class="modal-body">
                         <!-- Your static content related to "Input amount received" goes here -->
                         <p>Enter the amount you have received:</p>
-                        <input type="number" class="form-control" >
+                        <input type="number" class="form-control" v-model="this.paymentAmount" >
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
@@ -264,7 +264,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ReceiveModal">Cancel</button>
-                        <button type="button" class="btn btn-success" @click="handlePayment">Confirm</button>
+                        <button type="button" class="btn btn-success" @click="this.SubmitPayment()">Confirm</button>
                     </div>
                     </div>
                 </div>
@@ -273,8 +273,8 @@
 
 <script>
 import { convertDate } from '../Functions/DateConverter';
-// import { toast } from 'vue3-toastify';
-// import 'vue3-toastify/dist/index.css';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import * as XLSX from 'xlsx';
 
 export default{
@@ -300,6 +300,7 @@ export default{
             school_year: [],
             school_year_input: this.school_year_session,
             loading: true,
+            paymentAmount: '',
 
 
         }
@@ -318,7 +319,7 @@ export default{
 
     methods:{
         showSchoolYear(){
-            axios.get(`get_school_year/${this.org_id}`)
+            axios.get(`get_school_year`)
                 .then(response => {
                     this.school_year = response.data;
                 })
@@ -355,12 +356,18 @@ export default{
 
         SubmitPayment(){
             // for adding payment database
-            axios.post(`/FinesAccountabilityPayment/${this.school_year_input}`, this.finesPay)
+            axios.post(`/FinesAccountabilityPayment/${this.school_year_input}/${this.paymentAmount}`, this.finesPay)
                     .then(response => {
-                        // this.showSucces(response.data.message);
+                        if(response.data.status == 0){
+                            this.showError(response.data.message);
+                        }
+                        else if(response.data.status == 1){
+                            this.showSucces(response.data.message);
+                            location.reload();
+                        }
+                        
+
                         // this.fetchData();
-                        location.reload();
-                        console.log(response.data)
                     })
                     .catch(error => {
                         alert(error)
@@ -481,11 +488,11 @@ export default{
                         if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
 
                         const userId = userOrg.student_id;
-                        const foundUser = users.find(user => user.id === userId);
+                        const foundUser = users.find(user => user.user_id === userId);
                             if (foundUser) {
                                 const user = {
-                                id: foundUser.id,
-                                name: foundUser.name,
+                                id: foundUser.user_id,
+                                name: foundUser.first_name + ' '+foundUser.last_name,
                                 year_level: userOrg.year_level_id,
                                 org_id: userOrg.student_org_id
                                 };
@@ -714,7 +721,7 @@ export default{
                                 name: aggregated.name,
                                 user_id: aggregated.user_id,
                                 event_id: aggregated.event_id,
-                                total_fines: aggregated.total_amount,
+                                total_fees: aggregated.total_amount,
                                 // missing_session: aggregated.missing_session,
                                 accountability_type: aggregated.accountability_type
                             })
@@ -737,7 +744,7 @@ export default{
                                 name: list_fines.name,
                                 user_id: list_fines.user_id,
                                 event_id: list_fines.event_id,
-                                total_fines: list_fines.total_fines,
+                                total_fees: list_fines.total_fees,
                                 // missing_session: list_fines.missing_session,
                                 accountability_type: list_fines.accountability_type
                             });
@@ -777,7 +784,7 @@ export default{
                         //                 accountability_type : studentFees.accountability_type,
                         //                 event_id: studentFees.event_id,
                         //                 name: studentFees.name,
-                        //                 total_fines : studentFees.total_fines - paid.amount
+                        //                 total_fees : studentFees.total_fees - paid.amount
                         //             });
                         //         }
                         //         else{
@@ -786,7 +793,7 @@ export default{
                         //                 accountability_type : studentFees.accountability_type,
                         //                 event_id: studentFees.event_id,
                         //                 name: studentFees.name,
-                        //                 total_fines : studentFees.total_fines
+                        //                 total_fees : studentFees.total_fees
                         //             });
                         //         }
                             
@@ -796,13 +803,13 @@ export default{
                         this.fees_list.forEach(studentFees => {
                             const paidForStudent = paid_accountabilities_with_total.find(paid => paid.student_id === studentFees.user_id);
                             if (paidForStudent) {
-                                const updatedTotalFines = studentFees.total_fines - paidForStudent.amount;
+                                const updatedTotalFines = studentFees.total_fees - paidForStudent.amount;
                                 this.total_fees.push({
                                     user_id: studentFees.user_id,
                                     accountability_type: studentFees.accountability_type,
                                     event_id: studentFees.event_id,
                                     name: studentFees.name,
-                                    total_fines: updatedTotalFines >= 0 ? updatedTotalFines : 0
+                                    total_fees: updatedTotalFines >= 0 ? updatedTotalFines : 0
                                 });
                             }
                             else {
@@ -811,14 +818,14 @@ export default{
                                     accountability_type: studentFees.accountability_type,
                                     event_id: studentFees.event_id,
                                     name: studentFees.name,
-                                    total_fines: studentFees.total_fines
+                                    total_fees: studentFees.total_fees
                                 });
                             }
                         });
                     }
                     // this.filtered_items_for_fines = this.total_fees;
                     // Assuming this.total_fees is an array of objects with 'amount' field
-                    this.filtered_items_for_fines = this.total_fees.filter(item => item.total_fines != 0);
+                    this.filtered_items_for_fines = this.total_fees.filter(item => item.total_fees != 0);
 
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 
@@ -834,6 +841,12 @@ export default{
                 autoClose: 100,
             }
         },
+        showError(message){
+            toast.error(message),{
+                autoClose: 100,
+            }
+        },
+
 
 
         printTable() {

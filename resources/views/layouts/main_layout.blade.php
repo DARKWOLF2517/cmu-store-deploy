@@ -43,7 +43,7 @@
                 <div>
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="user-image" width="32" height="32" class="rounded-circle me-2">
-                        <span class="profile-name"><strong>{{Auth::user()->name}}</strong></span>
+                        <span class="profile-name"><strong>{{Session::get('user_name')}}</strong></span>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         {{-- <side-nav-button
@@ -226,6 +226,8 @@
                                     </ul>
                                 </div>
                             </li>
+
+
                             <li class="mb-1">
                                 <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse" aria-expanded="false">
                                     <i class="fas fa-wallet"></i>
@@ -237,7 +239,7 @@
                                         <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-file-invoice-dollar"></i> Set Fee</a></li>
                                         <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
                                         <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
-                                        <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i> Paid list</a></li>
+                                        <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i> Payment list</a></li>
                                     </ul>
                                 </div>
                             </li>

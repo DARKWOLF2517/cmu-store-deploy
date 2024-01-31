@@ -9,7 +9,7 @@
                 <i class="fas fa-user"></i>
                 </span>
             </div>
-            <input type="text" class="form-control rounded-left"  placeholder="Username" required name="email" v-model="form.email" >
+            <input type="text" class="form-control rounded-left"  placeholder="Username" required name="email" v-model="form.username" >
             </div>
         </div>
         <div class="form-group d-flex">
@@ -49,7 +49,7 @@ data() {
     return {
 
     form: {
-        email: '',
+        username: '',
         password: ''
     },
     error: '',

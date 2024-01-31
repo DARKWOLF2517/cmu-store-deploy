@@ -21,7 +21,7 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => ['required'],
+            'username' => ['required'],
             'password' => ['required'],
         ]);
         if (Auth::attempt($credentials)) {
@@ -42,10 +42,12 @@ class LoginController extends Controller
                     //if the user has many organization and 2 or more roles on the said organization
                     if ($userOrganizationCount != $userOrgRoles){
                         session(['many_user' =>  'true']);
+                        $userOrganization = UserOrganization::where('student_id', Auth::id())->with('user_profile')->first();
+                        session(['user_name' =>  $userOrganization->user_profile->first_name]);
                         return '4';
                     }
                     else{
-                    $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization')->get();
+                    $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization','user_profile'])->get();
                         //if the user is admin
                         foreach ($userOrganization as $userOrganizations) {
                             // return $userOrganizations;
@@ -57,7 +59,8 @@ class LoginController extends Controller
                                 session(['org_id' =>  $userOrganizations->student_org_id]);
                                 session(['org_name' =>  $userOrganizations->organization->name]);
                                 session(['role' =>  $userOrganizations->role_id]);
-                                session(['college_id' =>  $userOrganizations->college_id]);
+                                session(['user_name' =>  $userOrganizations->user_profile->first_name]);
+                                // session(['college_id' =>  $userOrganizations->college_id]);
                                 // return $userOrganization->school_year;
                                 return '1';
                             }
@@ -72,7 +75,8 @@ class LoginController extends Controller
                                 session(['org_id' =>  $userOrganizations->student_org_id]);
                                 session(['org_name' =>  $userOrganizations->organization->name]);
                                 session(['role' =>  $userOrganizations->role_id]);
-                                session(['college_id' =>  $userOrganizations->college_id]);
+                                session(['user_name' =>  $userOrganizations->user_profile->first_name]);
+                                // session(['college_id' =>  $userOrganizations->college_id]);
                                 // return $userOrganization->school_year;
                                 return '3';
                             }
@@ -87,7 +91,7 @@ class LoginController extends Controller
             }
             else{
                 //if the user has only ONE org or role
-                $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization')->first();
+                $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization','user_profile')->first();
                 if($userOrganization){
                     //get org default school year
                     $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
@@ -98,7 +102,8 @@ class LoginController extends Controller
                             session(['org_id' =>  $userOrganization->student_org_id]);
                             session(['org_name' =>  $userOrganization->organization->name]);
                             session(['role' =>  $userOrganization->role_id]);
-                            session(['college_id' =>  $userOrganization->college_id]);
+                            session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                            // session(['college_id' =>  $userOrganization->college_id]);
                             //tells when there is only one user
                             session(['many_user' =>  'false']);
                             if($userOrganization->role_id == 1){
@@ -121,7 +126,8 @@ class LoginController extends Controller
                             session(['org_id' =>  $userOrganization->student_org_id]);
                             session(['org_name' =>  $userOrganization->organization->name]);
                             session(['role' =>  $userOrganization->role_id]);
-                            session(['college_id' =>  $userOrganization->college_id]);
+                            session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                            // session(['college_id' =>  $userOrganization->college_id]);
                             // return $userOrganization->school_year;
                             return $userOrganization->role_id;
                         }
@@ -135,7 +141,8 @@ class LoginController extends Controller
                         session(['org_id' =>  $userOrganization->student_org_id]);
                         session(['org_name' =>  $userOrganization->organization->name]);
                         session(['role' =>  $userOrganization->role_id]);
-                        session(['college_id' =>  $userOrganization->college_id]);
+                        session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                        // session(['college_id' =>  $userOrganization->college_id]);
                         // return $userOrganization->school_year;
                         return $userOrganization->role_id;
                     }
@@ -194,7 +201,7 @@ class LoginController extends Controller
         //     }
         //get latest school year
 
-        $userOrganization = UserOrganization::where('id', $id)->with('organization')->first();
+        $userOrganization = UserOrganization::where('id', $id)->with('organization','user_profile')->first();
         $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
         if($orgDefaultSchoolYear > 0){
             $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
@@ -203,7 +210,8 @@ class LoginController extends Controller
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
                 session(['role' =>  $userOrganization->role_id]);
-                session(['college_id' =>  $userOrganization->college_id]);
+                session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                // session(['college_id' =>  $userOrganization->college_id]);
                 // return $userOrganization->school_year;
                 return $userOrganization->role_id;
             }
@@ -213,7 +221,8 @@ class LoginController extends Controller
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
                 session(['role' =>  $userOrganization->role_id]);
-                session(['college_id' =>  $userOrganization->college_id]);
+                session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                // session(['college_id' =>  $userOrganization->college_id]);
                 // return $userOrganization->school_year;
                 return $userOrganization->role_id;
             }
@@ -227,7 +236,8 @@ class LoginController extends Controller
             session(['org_id' =>  $userOrganization->student_org_id]);
             session(['org_name' =>  $userOrganization->organization->name]);
             session(['role' =>  $userOrganization->role_id]);
-            session(['college_id' =>  $userOrganization->college_id]);
+            session(['user_name' =>  $userOrganization->user_profile->first_name]);
+            // session(['college_id' =>  $userOrganization->college_id]);
             // return $userOrganization->school_year;
             return $userOrganization->role_id;
         }

@@ -30,7 +30,7 @@ class AttendanceController extends Controller
             ['org_id', $organization_id],
             ['event_id', $event_id],
             ['remarks', 0]
-        ])->with(['user','events','college'])->get();
+        ])->with(['user_profile.college','events'])->get();
 
         return $attendance->toJson();
     }
@@ -60,7 +60,7 @@ class AttendanceController extends Controller
             'officer_id'  => 'required',
             'session'  => 'required',
         ]);
-        $userOrganization = UserOrganization::where('student_id', $request->user_id)->first();
+        // $userOrganization = UserOrganization::where('student_id', $request->user_id)->first();
         $attendances = new Attendance();
         $attendances->user_id = $validatedData['user_id'];
         $attendances->org_id = $validatedData['org_id'];
@@ -68,7 +68,7 @@ class AttendanceController extends Controller
         $attendances->officer_id = $validatedData['officer_id'];
         $attendances->session = $validatedData['session'];
         $attendances->remarks = 0;
-        $attendances->college_id = $userOrganization->college_id;
+        // $attendances->college_id = $userOrganization->college_id;
         $attendances->save();
 
         return response()->json(array("result"=>"success","message"=>"Student successfully logged in..."));

@@ -14,6 +14,7 @@ class Organization extends Model
     protected $fillable = [
         'name',
         'description',
+        'college_id',
     ];
     public function user_organization()
     {
@@ -23,6 +24,10 @@ class Organization extends Model
     public function events()
     {
         return $this->hasMany(Event::class,'org_id','org_id');
+    }
+    public function college()
+    {
+        return $this->belongsTo(College::class,'college_id','id');
     }
 
 }
