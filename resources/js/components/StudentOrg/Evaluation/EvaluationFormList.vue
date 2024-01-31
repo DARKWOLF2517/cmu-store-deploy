@@ -124,7 +124,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="formDescription" class="form-label">Description</label>
-                    <textarea class="form-control" id="formDescription" rows="3" ></textarea>
+                    <br>
+                  <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos, libero maiores nostrum explicabo tenetur molestiae non impedit quibusdam doloremque repellendus, blanditiis exercitationem ipsum delectus iste alias quo. Accusamus, sequi quos.</small>
                 </div>
                 <div class="mb-3">
                     <label for="question1" class="form-label fw-bold">Question 1</label>
