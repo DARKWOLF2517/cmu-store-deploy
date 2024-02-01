@@ -599,10 +599,29 @@ export default{
                                 }
                             });
                         });
+                        //for exempting the free fines
                         missingSessions.forEach(overall_fees_list=>{
-                                events_with_attendance.forEach(event_name=>{
-                                    if(overall_fees_list.event_id === event_name.event_id){
-                                        const missing = {
+                            events_with_attendance.forEach(event_name=>{
+                                console.log()
+                                if(overall_fees_list.event_id === event_name.event_id){
+                                    if(free_fines.length !=0){
+                                        free_fines.forEach(free => {
+                                            if(free.student_id != overall_fees_list.user_id){
+                                                this.overall_fees_list.push({
+                                                    name: overall_fees_list.name,
+                                                    user_id: overall_fees_list.user_id,
+                                                    event_name: event_name.name,
+                                                    event_id: event_name.event_id,
+                                                    amount: overall_fees_list.amount,
+                                                    missing_session: overall_fees_list.missing_session,
+                                                    accountability_type: overall_fees_list.accountability_type,
+                                                    date: overall_fees_list.date
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        this.overall_fees_list.push({
                                             name: overall_fees_list.name,
                                             user_id: overall_fees_list.user_id,
                                             event_name: event_name.name,
@@ -611,12 +630,10 @@ export default{
                                             missing_session: overall_fees_list.missing_session,
                                             accountability_type: overall_fees_list.accountability_type,
                                             date: overall_fees_list.date
-                                        }
-
-                                        this.overall_fees_list.push(missing);
-
+                                        });
                                     }
-                                })
+                                }
+                            })
                         })
 
 
@@ -647,7 +664,8 @@ export default{
                         };
 
 
-
+                        // console.log(this.overall_fees_list)
+                        
 
 
                         //FOR MERGING OTHER ACCOUNTABILITIES TO FINES
@@ -667,6 +685,7 @@ export default{
                                 });
                             });
                         });
+                       
                         // const studentsWhoPaid = new Set(accountability_paid.map(entry => entry.student_id));
 
                         // // Get a Set of unique accountability types from organization_accountability_set
@@ -730,29 +749,29 @@ export default{
 
                     //to set free fines
                     // to debug tommorow
-                    let filteredFinesByFreeFines = [];
-                    this.fees_list.forEach(list_fines => {
-                        let found = false;
+                    // let filteredFinesByFreeFines = [];
+                    // this.fees_list.forEach(list_fines => {
+                    //     let found = false;
 
-                        free_fines.forEach(fines_free => {
-                            if (fines_free.student_id === list_fines.user_id) {
-                                found = true;
-                            }
-                        });
+                    //     free_fines.forEach(fines_free => {
+                    //         if (fines_free.student_id === list_fines.user_id) {
+                    //             found = true;
+                    //         }
+                    //     });
 
-                        if (!found) {
-                            filteredFinesByFreeFines.push({
-                                name: list_fines.name,
-                                user_id: list_fines.user_id,
-                                event_id: list_fines.event_id,
-                                total_fees: list_fines.total_fees,
-                                // missing_session: list_fines.missing_session,
-                                accountability_type: list_fines.accountability_type
-                            });
-                    }
-                    });
-                    // Assign the filtered fines back to this.fees_list
-                    this.fees_list = filteredFinesByFreeFines;
+                    //     if (!found) {
+                    //         filteredFinesByFreeFines.push({
+                    //             name: list_fines.name,
+                    //             user_id: list_fines.user_id,
+                    //             event_id: list_fines.event_id,
+                    //             total_fees: list_fines.total_fees,
+                    //             // missing_session: list_fines.missing_session,
+                    //             accountability_type: list_fines.accountability_type
+                    //         });
+                    // }
+                    // });
+                    // // Assign the filtered fines back to this.fees_list
+                    // this.fees_list = filteredFinesByFreeFines;
 
                     
 
