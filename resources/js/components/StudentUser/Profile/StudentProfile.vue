@@ -219,7 +219,7 @@ export default {
 
       axios.get(`/organization/${this.user_org}`)
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           this.profile.college = response.data['name'];
         })
         .catch(error => {})
@@ -233,8 +233,8 @@ export default {
           console.log(response.data)
           const data = response.data;
           data.forEach(item => {
-            this.profile.name = item['user']['name'];
-            this.profile.year_level = item.year_level.year_level;
+            this.profile.name = item.user_profile.first_name+ ' ' + item.user_profile.last_name;
+            this.profile.year_level = item.user_profile.year_level.year_level;
           });
 
           //get the organization list

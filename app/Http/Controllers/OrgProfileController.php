@@ -33,9 +33,9 @@ class OrgProfileController extends Controller
             return response()->json(['message' => 'School Year added Successfully']);
     
     }
-    public function viewSchoolYear($org_id)
+    public function viewSchoolYear()
     {
-        $schoolYear = SchoolYear::where('org_id', $org_id)->get();
+        $schoolYear = SchoolYear::get();
         return response()->json($schoolYear);
     
     }
@@ -243,27 +243,28 @@ class OrgProfileController extends Controller
     }
     public function updateOrgProfileDetails($id, Request $request)
     {
-        $orgYearLevel = OrganizationDefaultSchoolYear::where('org_id',$id)->count();
-        if($orgYearLevel < 1){
-            $orgProfileDetails = Organization::find($id);
-            $orgProfileDetails->update(['description' => $request['description']]);
+        // return $id;
+        // $orgYearLevel = OrganizationDefaultSchoolYear::where('org_id',$id)->count();
+        // if($orgYearLevel < 1){
+        //     $orgProfileDetails = Organization::find($id);
+        //     $orgProfileDetails->update(['description' => $request['description']]);
 
-            $orgDefaultSchoolYear = new OrganizationDefaultSchoolYear([
-                'org_id' => $id,
-                'school_year' => $request['school_year'],
+        //     $orgDefaultSchoolYear = new OrganizationDefaultSchoolYear([
+        //         'org_id' => $id,
+        //         'school_year' => $request['school_year'],
                 
-            ]);
-            $orgDefaultSchoolYear->save();
-            return response()->json(['message' => 'Org Profile Updated Successfully']);
-        }
-        else{
+        //     ]);
+        //     $orgDefaultSchoolYear->save();
+        //     return response()->json(['message' => 'Org Profile Updated Successfully']);
+        // }
+        // else{
             $orgProfileDetails = Organization::find($id);
             $orgProfileDetails->update(['description' => $request['description']]);
 
-            $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$id)->first();
-            $orgDefaultSchoolYear->update(['school_year' => $request['school_year']]);
+            // $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$id)->first();
+            // $orgDefaultSchoolYear->update(['school_year' => $request['school_year']]);
             return response()->json(['message' => 'Org Profile Updated Successfully']);
-        }
+        // }
 
     
 

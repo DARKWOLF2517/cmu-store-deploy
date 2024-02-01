@@ -729,6 +729,7 @@ export default{
 
 
                     //to set free fines
+                    // to debug tommorow
                     let filteredFinesByFreeFines = [];
                     this.fees_list.forEach(list_fines => {
                         let found = false;

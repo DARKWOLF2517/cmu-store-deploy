@@ -104,12 +104,12 @@
                 <!-- <tr v-for="free_fines in filtered_free_fines" :key="free_fines.student_id"> -->
                     <tr v-for="free_fines in paginatedData" :key="free_fines.student_id">
                     <td>{{ free_fines.student_id }}</td>
-                    <td>{{ free_fines.user.name }}</td>
+                    <td>{{ free_fines.user_profile.first_name }} {{ free_fines.user_profile.last_name }}</td>
                     <td>{{ free_fines.reason }}</td>
                     <td>
                         <span class="table-buttons">
                             <button class="btn edit-button" @click="submit = updateData, id = free_fines.student_id, fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
-                            <button class="btn delete-button" @click="" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                            <button class="btn delete-button" @click="id = free_fines.student_id" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
                         </span>
                     </td>
                 </tr>
@@ -154,7 +154,7 @@
         </div>
       </div>
 
-      <!-- Edit Student Modal -->
+      <!-- Edit Student Modal
       <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -188,7 +188,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Add student Modal -->
       <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
@@ -203,7 +203,7 @@
               <form @submit.prevent="this.submit">
                 <div class="mb-3" v-if="this.submit == sendData">
                   <label for="studentId" class="form-label"><b>Student ID</b></label>
-                  <input type="text" class="form-control" id="studentId" v-model="free_fines_input.student_id" @change="this.fetchNameStudent">
+                  <input type="number" class="form-control" id="studentId" v-model="free_fines_input.student_id" @change="this.fetchNameStudent">
                 </div>
                 <div class="mb-3" v-else-if="this.submit == updateData">
                   <label for="studentId" class="form-label"><b>Student ID</b></label>
@@ -387,8 +387,6 @@ getFreeFinesTableData() {
   // Return the table data
   return tableData;
 },
-
-
     filterItems() {
       // Filter based on searchTerm from textbox
       let filteredBySearch = this.free_fines_students;
@@ -415,12 +413,14 @@ getFreeFinesTableData() {
       axios.get(`/fetch_update_student_data/${this.id}`)
         .then((response) => {
           console.log(response.data)
-          this.nameFilterStudent = response.data.user.name;
-          this.free_fines_input = response.data;
+            this.nameFilterStudent = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
+            this.free_fines_input = response.data;
+        
+          
           // this.loading = false; //
         })
         .catch((error) => {
-          alert(error);
+          console.log(error)
         })
     },
     updateData(){
@@ -449,13 +449,19 @@ getFreeFinesTableData() {
     fetchNameStudent(){
       axios.get(`/get_student_name/${this.free_fines_input.student_id}`)
         .then((response) => {
-          console.log(response.data.user.name)
-          this.nameFilterStudent = response.data.user.name;
+          console.log(response.data)
+          if (response.data != 0){
+            this.nameFilterStudent = response.data.user_profile.first_name + ' '+ response.data.user_profile.last_name;
+          }
+          else{
+            this.nameFilterStudent  = '';
+          }
+          
           // this.free_fines_students = response.data;
           // this.loading = false; //
         })
         .catch((error) => {
-          alert(error);
+          console.log(error)
         })
     },
     sendData(){

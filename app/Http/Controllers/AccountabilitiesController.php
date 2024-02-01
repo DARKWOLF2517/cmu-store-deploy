@@ -194,7 +194,7 @@ class AccountabilitiesController extends Controller
 
     public function viewFreeFinesStudents($org_id, $school_year)
     {
-        $freeFinesStudents = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]] )->with('user')->get();
+        $freeFinesStudents = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]] )->with('user_profile')->get();
         return $freeFinesStudents->toJson();
     }   
     public function addFreeFinesStudents(Request $request)
@@ -238,7 +238,7 @@ class AccountabilitiesController extends Controller
     {
         $student = UserOrganization::where([
             ['student_id', $student_id],
-        ])->with('user')->first();
+        ])->with('user_profile')->first();
         return $student;
     }
     public function deleteStudentFreeFines($student_id)
@@ -251,7 +251,7 @@ class AccountabilitiesController extends Controller
     {
         $student = FreeFinesStudent::where([
             ['student_id', $student_id],
-        ])->with('user')->first();
+        ])->with('user_profile')->first();
         return $student;
     }
     public function updateStudentData($student_id, $reason)

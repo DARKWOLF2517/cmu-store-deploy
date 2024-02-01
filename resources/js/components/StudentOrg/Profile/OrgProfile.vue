@@ -161,7 +161,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="officerRole in this.officerRoles">
-                                        <td>{{ officerRole.user_profile.first_name }}{{ officerRole.user_profile.last_name }}</td>
+                                        <td>{{ officerRole.user_profile.first_name }} {{ officerRole.user_profile.last_name }}</td>
                                         <td>{{ officerRole.role.name }}</td>
                                         <td>
                                             <!-- Ellipsis Button -->
@@ -259,14 +259,14 @@
                     <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label>
                     <br>
                     <input type="file" id="profileImageInput" accept="image/*"> -->
-                    <label class="mt-2" for="editDescription">Select Default School Year:</label>
+                    <!-- <label class="mt-2" for="editDescription">Select Default School Year:</label>
                     <div class="select-dropdown" style="width: 80% !important; border: 1px solid #ccc;">
 
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="org_details_profile_input.school_year">
                             <option value="0" disabled selected>Select Default School Year</option>
                             <option v-for="school_year in this.schoolYear" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -705,7 +705,7 @@ export default{
             orgTotalMembers: 0,
             org_details_profile_input: {
                 description:'',
-                school_year: 0
+                // school_year: 0
 
             },
             school_year_org_profile:'',
@@ -788,10 +788,10 @@ export default{
         },
         updateOrgProfileDetails(){
             // console.log(this.org_details_profile_input)
-            if(this.org_details_profile_input.school_year == 0){
-                alert('Please input School Year')
-            }
-            else{
+            // if(this.org_details_profile_input.school_year == 0){
+            //     alert('Please input School Year')
+            // }
+            // else{
                 axios.put(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input)
                 .then(response => {
                     // console.log(response.data)
@@ -802,7 +802,7 @@ export default{
                 .catch(error => {
                     console.error(error);
                 });
-            }
+            // }
         },
         orgProfileDetailsFetchUpdate(){
             this.org_details_profile_input.description = this.orgProfile.description;
@@ -1022,7 +1022,7 @@ export default{
                             this.orgOfficers.push({
                                 id: element.id,
                                 student_id: element.student_id,
-                                name: element.user_profile.first_name + element.user_profile.last_name,
+                                name: element.user_profile.first_name +' ' + element.user_profile.last_name,
                                 position: element.position,
                                 year_level_id: element.year_level_id,
                             })
@@ -1067,7 +1067,7 @@ export default{
                 });
         },
         viewSchoolYear(){
-            axios.get(`/view_school_year/${this.org_id}`)
+            axios.get(`/view_school_year`)
                 .then(response => {
 
                     this.schoolYear = response.data
