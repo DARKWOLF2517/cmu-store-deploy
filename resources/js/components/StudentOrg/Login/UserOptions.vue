@@ -7,13 +7,14 @@
     <div class="container">
         <div class="user-card"  v-for="userOrg in this.userOrgs" >
             <div @click=" profileClicked(userOrg['id'])">
-            <h6> {{ userOrg['organization']['name'] }}</h6>
+            <!-- <h6> {{ userOrg['organization']['name'] }}</h6> -->
             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1">
-            <p>
+            <!-- <p>
                 <span v-if="userOrg['role']['role_id'] == 1">Admin</span>
                 <span v-else-if="userOrg['role']['role_id'] == 2">Student</span>
                 <span v-else-if="userOrg['role']['role_id'] == 3">Attendance Checker</span>
-            </p>
+            </p> -->
+            <h6> {{ userOrg['organization']['name'] }}</h6>
             </div>
         </div>
     </div>
@@ -94,7 +95,7 @@ export default {
                     const matchingIndex = self.findIndex((otherItem) =>
                         otherItem.student_org_id === item.student_org_id &&
                         otherItem.role_id !== item.role_id &&
-                        otherItem.role_id === 1
+                        (otherItem.role_id === 1 || otherItem.role_id === 3)
                     );
 
                     // If matchingIndex is -1, it means there is no item with the same student_org_id but different role_id
