@@ -17,7 +17,7 @@ use App\Models\YearLevel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Session;
 
 class AccountabilitiesController extends Controller
 {
@@ -72,7 +72,7 @@ class AccountabilitiesController extends Controller
     {
             $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
             $users = UserProfile::all();
-            $userOrgs = UserOrganization::where([['school_year', $school_year],['role_id', 2]])->get();
+            $userOrgs = UserOrganization::where([['school_year', $school_year],['role_id', 2],['student_org_id', $org_id ]])->get();
             $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ],['school_year', $school_year]])->get();
             $accountability = OrganizationAccountability::where([['org_id', $org_id ],['school_year', $school_year]])->get();
             $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
@@ -287,7 +287,16 @@ class AccountabilitiesController extends Controller
     public function getUserOrgs()
     {
         $student = Auth::id();
-        $userOrgs = UserOrganization::where([['student_id', $student], ['role_id', 2]])->with('organization')->get();
+        $school_year = Session::get('school_year');
+        $userOrgs = UserOrganization::where([
+            ['student_id', $student],
+            ['role_id', 2],
+            ['school_year', $school_year]
+            
+        ])
+        ->with('organization')
+        ->get();
+        
         return $userOrgs->toJson();
     }
     public function getOrgAccountability($org_id, $school_year)

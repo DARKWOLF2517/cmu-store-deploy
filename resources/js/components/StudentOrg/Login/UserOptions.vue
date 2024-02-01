@@ -88,25 +88,28 @@ export default {
         axios.get(`/GetOrgList/${props.id}`)
             .then(response => {
                 console.log(response.data);
-                userOrgs.value = response.data;
+                // Assuming your data is stored in an array named 'data'
+                const filteredData = response.data.filter((item, index, self) => {
+                    // Find the index of the matching item with the same student_org_id but different role_id
+                    const matchingIndex = self.findIndex((otherItem) =>
+                        otherItem.student_org_id === item.student_org_id &&
+                        otherItem.role_id !== item.role_id &&
+                        otherItem.role_id === 1
+                    );
+
+                    // If matchingIndex is -1, it means there is no item with the same student_org_id but different role_id
+                    // Or the role_id of the matching item is not 1
+                    // In either case, keep the current item
+                    return matchingIndex === -1 || item.role_id !== 2;
+                });
+
+                console.log(filteredData);
+
+                userOrgs.value = filteredData;
             })
             .catch(error => {
-
+                console.log(error)
             });
-
-        // id.value = axios.get(`GetOrgList/${props.id}`)
-        //         .then(response => {
-        //             // // console.log(response.data)
-        //             // // console.log(this.userOrganizations)
-        //             // this.userOrganizations.forEach(userOrg => {
-        //             //     // console.log(response)
-        //             // console.log(userOrg['role_id'])
-        //             // });
-        //         })
-        //         .catch(error => {
-
-        //         });
-
         return { userOrgs };
     }
 }

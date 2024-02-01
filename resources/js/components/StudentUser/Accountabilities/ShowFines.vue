@@ -185,7 +185,7 @@ export default{
             axios.get(`/get_user_orgs`)
                     .then(response => {
                         this.user_organization = response.data;
-                        // console.log(response.data)
+                        console.log(response.data)
                     })
                     .catch(error => {
                         alert(error)
@@ -200,7 +200,7 @@ export default{
             axios.get(`/get_accountabilities/${this.org_id}`)
                     .then(response => {
                         this.accountabilityList = response.data;
-                        console.log(this.accountabilityList)
+                        // console.log(this.accountabilityList)
                     })
                     .catch(error => {
                         alert(error)

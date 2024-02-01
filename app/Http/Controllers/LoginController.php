@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserOrganization;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use PhpParser\Node\Stmt\Return_;
 
 class LoginController extends Controller
@@ -168,7 +168,8 @@ class LoginController extends Controller
 
     public function GetOrganizationList($student_id)
     {   
-        $userOrganizations = UserOrganization::where('student_id', $student_id)->with(['organization','role'])->get();
+        $school_year = Session::get('school_year');
+        $userOrganizations = UserOrganization::where([['student_id', $student_id],['school_year', $school_year]])->with(['organization','role'])->get();
         return $userOrganizations->toJson();
     }
 
