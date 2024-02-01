@@ -222,7 +222,7 @@
                 </div>
                 <!-- Modal for displaying Excel data before Uploading -->
                 <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
+                    <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="excelDataModalLabel">Excel Student List</h5>
@@ -243,10 +243,15 @@
                                         </select>
                                     </div>
                                 </div> -->
+                                <div class="text-center">
+                                <h5 class="fw-bold"> Enter Student ID</h5>
+                                <small>Submit an Excel file containing only student ID numbers.</small>
+                            </div>
+                                <br>
                                 <table class="table" id="tableModal" >
                                     <thead>
                                         <tr>
-                                            <th>Student ID</th>
+                                            <th>Student ID Number</th>
                                             <!-- <th>Last Name</th>
                                             <th>First Name</th> -->
                                             <!-- <th>Year Level</th> -->
@@ -545,7 +550,7 @@ methods:{
                 }
                     // this.student_data.year_level_id = response.data.user_profile.year_level_id;
                     // this.student_data.college_id = response.data.user_profile.college_id;
-            })          
+            })
             .catch(error => {
                 console.log(error)
             });
