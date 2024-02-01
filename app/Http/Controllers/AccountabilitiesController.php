@@ -72,7 +72,7 @@ class AccountabilitiesController extends Controller
     {
             $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
             $users = UserProfile::all();
-            $userOrgs = UserOrganization::all();
+            $userOrgs = UserOrganization::where([['school_year', $school_year],['role_id', 2]])->get();
             $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ],['school_year', $school_year]])->get();
             $accountability = OrganizationAccountability::where([['org_id', $org_id ],['school_year', $school_year]])->get();
             $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();

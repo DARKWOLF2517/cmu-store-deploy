@@ -247,7 +247,7 @@ class UserController extends Controller
         }
         public function deleteSingleStudent($id)
         {
-            $userOrg = UserOrganization::where([['student_id', $id],['role_id',2]]);
+            $userOrg = UserOrganization::where([['id', $id],['role_id',2]]);
             $userOrg->delete();
             return response()->json(['message' => 'Student Deleted successfully']);
         }

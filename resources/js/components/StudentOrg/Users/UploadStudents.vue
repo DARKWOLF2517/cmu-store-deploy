@@ -107,7 +107,7 @@
                 <td>
                     <span class="table-buttons">
                     <!-- <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#addStudentModal" @click="this.fetchID = student.student_id,this.submit = this.updateSingleAddStudents, this.fetchDataDisplayName()" > <i class="fas fa-pen"></i></button> -->
-                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation" @click="this.fetchID = student.student_id"> <i class="fas fa-trash"></i></button>
+                    <button class="btn delete-button" data-bs-toggle="modal" data-bs-target="#deleteConfirmation" @click="this.fetchID = student.id"> <i class="fas fa-trash"></i></button>
                     </span>
                 </td>
             </tr>
