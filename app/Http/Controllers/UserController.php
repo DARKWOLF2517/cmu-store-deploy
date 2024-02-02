@@ -56,7 +56,7 @@ class UserController extends Controller
             return $count;
         }
 
-        public function store($school_year ,Request $request)
+        public function store($school_year,$year_level ,Request $request)
         {
 
             $org_id = Session::get('org_id');
@@ -88,7 +88,7 @@ class UserController extends Controller
                         $userOrg->student_org_id = $org_id;
                         $userOrg->student_id = $row[0];
                         $userOrg->role_id = '2' ;
-                        // $userOrg->year_level_id = $year_level;
+                        $userOrg->year_level_id = $year_level;
                         $userOrg->school_year = $school_year;
                         // $userOrg->college_id = $college;
                         $userOrg->save();
@@ -138,6 +138,7 @@ class UserController extends Controller
                         $userOrg->student_org_id = $org_id;
                         $userOrg->student_id = $request->student_id;
                         $userOrg->role_id = '2';
+                        $userOrg->year_level_id = $request->year_level_id;
                         $userOrg->school_year = $school_year;
                         $userOrg->save();
 
@@ -161,7 +162,7 @@ class UserController extends Controller
                 ['student_org_id', $org_id],
                 ['role_id', '2'],
                 ['school_year', $school_year],
-            ])->with(['user_profile.college','user_profile.year_level','organization'])
+            ])->with(['user_profile.college','yearLevel','organization'])
             ->get();
             
             return $student_list->toJson();

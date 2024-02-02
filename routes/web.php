@@ -166,7 +166,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/student_list/show/{org_id}/{school_year}',[UserController::class, 'showStudents']);
             Route::get('/student_list/show_name/{student_id}',[UserController::class, 'showforEdit']);
             Route::put('/student_list/edit/commit/{student_id}',[UserController::class, 'UpdateData']);
-            Route::post('/upload_students/{school_year}',[UserController::class, 'store']);
+            Route::post('/upload_students/{school_year}/{year_level}',[UserController::class, 'store']);
             Route::post('/upload_single_student/{school_year}',[UserController::class, 'addSingleStudent']);
             Route::put('/update_single_student',[UserController::class, 'updateSingleStudent']);
             Route::delete('/delete_single_student/{id}',[UserController::class, 'deleteSingleStudent']);
@@ -227,7 +227,7 @@ Route::middleware(['auth'])->group(function(){
             Route::delete('/deleteOfficer/{id}',[OrgProfileController::class, 'DeleteOfficer']);
             Route::get('/view_roles',[OrgProfileController::class, 'viewRoles']);
             Route::post('/add_org_officer_role',[OrgProfileController::class, 'addOrgOfficerRole']);
-            Route::get('/view_officer_role/{org_id}',[OrgProfileController::class, 'viewOfficerRole']);
+            Route::get('/view_officer_role',[OrgProfileController::class, 'viewOfficerRole']);
             Route::put('/update_officer_role/{id}',[OrgProfileController::class, 'updateOfficerRole']);
             Route::delete('/delete_officer_role/{id}',[OrgProfileController::class, 'DeleteOfficerRole']);
             Route::get('/view_org_profile/{org_id}',[OrgProfileController::class, 'viewOrgProfile']);

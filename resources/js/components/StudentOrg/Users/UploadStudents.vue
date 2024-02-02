@@ -102,7 +102,7 @@
             <!-- Student data will be added here -->
             <td>{{ student.student_id }}</td>
             <td>{{ student.user_profile.first_name }} {{ student.user_profile.last_name }}</td>
-            <td>{{ student.user_profile.year_level.year_level }}</td>
+            <td>{{ student.year_level.year_level }}</td>
             <td>{{ student.user_profile.college.college }}</td>
                 <td>
                     <span class="table-buttons">
@@ -307,6 +307,8 @@ export default {
                 year_level_id: 0,
                 college_id: 0,
                 middlename: '',
+                year_level_id:0,
+
             },
 
             submit: this.addSingleStudent,
@@ -608,7 +610,7 @@ methods:{
 
                     // Display the extracted data in the console
                     this.loading = true;
-                    axios.post(`/upload_students/${this.school_year_input}`, { data: this.collectedData })
+                    axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}`, { data: this.collectedData })
                         .then(response => {
                             console.log(response.data)
                             this.loading = false;

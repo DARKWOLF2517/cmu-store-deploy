@@ -18,7 +18,7 @@ class UserOrganization extends Model
         'student_org_id',
         'student_id',
         'role_id',
-        // 'year_level_id',
+        'year_level_id',
         'school_year',
         // 'college_id'
     ];
@@ -27,7 +27,6 @@ class UserOrganization extends Model
     {
         return $this->belongsTo(Organization::class, 'student_org_id', 'org_id');
     }
-
     public function user_profile()
     {
         return $this->belongsTo(UserProfile::class, 'student_id','user_id');
@@ -41,9 +40,6 @@ class UserOrganization extends Model
     {
         return $this->belongsTo(YearLevel::class, 'year_level_id');
     }
-    // public function user_profile()
-    // {
-    //     return $this->belongsTo(College::class, 'college_id');
-    // }
+
     
 }

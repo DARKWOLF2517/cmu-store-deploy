@@ -177,15 +177,14 @@ class OrgProfileController extends Controller
 
         // return $request;
     }
-    public function viewOfficerRole($org_id)
+    public function viewOfficerRole()
     {
         // $officerRole = UserOrganization::where('student_org_id', $org_id)->with('role')->get();
         // $officerRole = UserOrganization::where('student_org_id', $org_id)->with('role','user')->get();
         // $officerRole = UserOrganization::where('student_org_id', $org_id)
         //       ->with('role', 'user')
         //       ->get();
-        $officerRole = UserOrganization::where('student_org_id', $org_id)
-            ->with('role','user_profile')
+        $officerRole = UserOrganization::with('role','user_profile')
             ->whereHas('role', function($query) {
                 $query->where('role_id', '!=', 2); 
             })
