@@ -177,19 +177,19 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="mb-3">
+                                <div class="mb-3">
                                     <label for="reason" class="form-label">Year-level</label>
                                     <select  class="form-select" id="yr-level" v-model="student_data.year_level_id">
                                         <option value="0" disabled selected>Select Year Level</option>
                                         <option v-for="year_level in this.year_level_data" :value="year_level.id" >{{ year_level.year_level }}</option>
                                     </select>
                                 </div>
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label for="reason" class="form-label">College</label>
                                     <select  class="form-select" id="college" v-model="student_data.college_id">
                                             <option value="0" disabled selected >Select College</option>
                                             <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
-                                        </select>
+                                    </select>
                                 </div> -->
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -229,20 +229,20 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body" style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
-                                <!-- <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-right: 0;">
+                                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px; margin-right: 0;">
                                     <div class="select-dropdown" >
                                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="year_level_data_input">
                                             <option value="0" disabled selected>Select Year Level</option>
                                             <option v-for="year_level in this.year_level_data" :value="year_level.id" >{{ year_level.year_level }}</option>
                                         </select>
                                     </div>
-                                    <div class="select-dropdown" >
+                                    <!-- <div class="select-dropdown" >
                                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
                                             <option value="0" disabled selected >Select College</option>
                                             <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                                         </select>
-                                    </div>
-                                </div> -->
+                                    </div> -->
+                                </div>
                                 <div class="text-center">
                                 <h5 class="fw-bold"> Enter Student ID</h5>
                                 <small>Submit an Excel file containing only student ID numbers.</small>

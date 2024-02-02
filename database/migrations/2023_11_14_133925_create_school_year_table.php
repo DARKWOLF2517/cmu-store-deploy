@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('school_year', function (Blueprint $table) {
             $table->id();
             $table->string('school_year');
-            $table->unsignedBigInteger('org_id');
-            $table->foreign('org_id')->references('org_id')->on('organizations')->cascadeOnDelete();
+            // $table->unsignedBigInteger('org_id');
+            // $table->foreign('org_id')->references('org_id')->on('organizations')->cascadeOnDelete();
             $table->timestamps();
         });
     }
