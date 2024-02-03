@@ -878,7 +878,7 @@ export default{
 
 
         showOfficerRole(){
-            axios.get(`/view_officer_role/${this.org_id}`)
+            axios.get(`/view_officer_role`)
                 .then(response => {
                     this.officerRoles = response.data;
                 })

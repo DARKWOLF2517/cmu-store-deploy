@@ -56,6 +56,7 @@
   </div>
       <user-organization
         id={{Auth::id()}}
+        school_year_session={{Session::get('school_year')}}
       ></user-organization>
   </div>
   {{-- <div class="container" id = "usercards">

@@ -27,6 +27,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $userOrganizationCount = UserOrganization::where('student_id', Auth::id())->count();
+            $defaultSchoolYear = SchoolYear::latest()->get()->last();
+
             //if the user has MANY org or role
             if ($userOrganizationCount > 1){
                 //tells when there is many user
@@ -44,6 +46,7 @@ class LoginController extends Controller
                         session(['many_user' =>  'true']);
                         $userOrganization = UserOrganization::where('student_id', Auth::id())->with('user_profile')->first();
                         session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                        session(['school_year' =>  $defaultSchoolYear->id]);
                         return '4';
                     }
                     else{
@@ -54,8 +57,8 @@ class LoginController extends Controller
                             //filter role admin
                             if ($userOrganizations->role_id == 1){
                                 //   return $userOrganizations->student_org_id;
-                                $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganizations->student_org_id)->first();
-                                session(['school_year' =>  $orgSchoolYear->school_year]);
+                                // $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganizations->student_org_id)->first();
+                                session(['school_year' =>  $defaultSchoolYear->id]);
                                 session(['org_id' =>  $userOrganizations->student_org_id]);
                                 session(['org_name' =>  $userOrganizations->organization->name]);
                                 session(['role' =>  $userOrganizations->role_id]);
@@ -70,8 +73,8 @@ class LoginController extends Controller
                             //filter the role attendance checker
                             if ($userOrganizations->role_id == 3){
                                 //   return $userOrganizations->student_org_id;
-                                $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganizations->student_org_id)->first();
-                                session(['school_year' =>  $orgSchoolYear->school_year]);
+                                // $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganizations->student_org_id)->first();
+                                session(['school_year' =>  $defaultSchoolYear->id]);
                                 session(['org_id' =>  $userOrganizations->student_org_id]);
                                 session(['org_name' =>  $userOrganizations->organization->name]);
                                 session(['role' =>  $userOrganizations->role_id]);
@@ -79,6 +82,22 @@ class LoginController extends Controller
                                 // session(['college_id' =>  $userOrganizations->college_id]);
                                 // return $userOrganization->school_year;
                                 return '3';
+                            }
+                        }
+                        foreach ($userOrganization as $userOrganizations) {
+                            // return $userOrganizations;
+                            //filter the role attendance checker
+                            if ($userOrganizations->role_id == 2 && $defaultSchoolYear->id == $userOrganizations->school_year){
+                                //   return $userOrganizations->student_org_id;
+                                // $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganizations->student_org_id)->first();
+                                session(['school_year' =>  $defaultSchoolYear->id]);
+                                session(['org_id' =>  $userOrganizations->student_org_id]);
+                                session(['org_name' =>  $userOrganizations->organization->name]);
+                                session(['role' =>  $userOrganizations->role_id]);
+                                session(['user_name' =>  $userOrganizations->user_profile->first_name]);
+                                // session(['college_id' =>  $userOrganizations->college_id]);
+                                // return $userOrganization->school_year;
+                                return '2';
                             }
                         }
 
@@ -94,11 +113,11 @@ class LoginController extends Controller
                 $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization','user_profile')->first();
                 if($userOrganization){
                     //get org default school year
-                    $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
-                    if($orgDefaultSchoolYear > 0){
-                        $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
-                        if ($userOrganization->school_year == $orgSchoolYear->school_year){
-                            session(['school_year' =>  $orgSchoolYear->school_year]);
+                    // $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
+                    // if($orgDefaultSchoolYear > 0){
+                        // $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
+                        // if ($userOrganization->school_year == $defaultSchoolYear->id){
+                            session(['school_year' =>  $defaultSchoolYear->id]);
                             session(['org_id' =>  $userOrganization->student_org_id]);
                             session(['org_name' =>  $userOrganization->organization->name]);
                             session(['role' =>  $userOrganization->role_id]);
@@ -119,36 +138,36 @@ class LoginController extends Controller
                                 return '2';
                             }
 
-                        }
-                         //if the user is admin it will bypass the school year
-                        else if ($userOrganization->role_id == 1){
-                            session(['school_year' =>  $orgSchoolYear->school_year]);
-                            session(['org_id' =>  $userOrganization->student_org_id]);
-                            session(['org_name' =>  $userOrganization->organization->name]);
-                            session(['role' =>  $userOrganization->role_id]);
-                            session(['user_name' =>  $userOrganization->user_profile->first_name]);
-                            // session(['college_id' =>  $userOrganization->college_id]);
-                            // return $userOrganization->school_year;
-                            return $userOrganization->role_id;
-                        }
-                        else{
-                            return 'not_tagged_error';
-                        }
-                    }
-                    //if the user is admin it will bypass if there is null organization default school year
-                    else if ($userOrganization->role_id == 1){
-                        session(['school_year' =>  0]);
-                        session(['org_id' =>  $userOrganization->student_org_id]);
-                        session(['org_name' =>  $userOrganization->organization->name]);
-                        session(['role' =>  $userOrganization->role_id]);
-                        session(['user_name' =>  $userOrganization->user_profile->first_name]);
-                        // session(['college_id' =>  $userOrganization->college_id]);
-                        // return $userOrganization->school_year;
-                        return $userOrganization->role_id;
-                    }
-                    else{
-                        return 'not_tagged_error';
-                    }
+                        // }
+                        //  //if the user is admin it will bypass the school year
+                        // else if ($userOrganization->role_id == 1){
+                        //     session(['school_year' =>  $defaultSchoolYear->id]);
+                        //     session(['org_id' =>  $userOrganization->student_org_id]);
+                        //     session(['org_name' =>  $userOrganization->organization->name]);
+                        //     session(['role' =>  $userOrganization->role_id]);
+                        //     session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                        //     // session(['college_id' =>  $userOrganization->college_id]);
+                        //     // return $userOrganization->school_year;
+                        //     return $userOrganization->role_id;
+                        // }
+                        // else{
+                        //     return 'not_tagged_error';
+                        // }
+                    // }
+                    // //if the user is admin it will bypass if there is null organization default school year
+                    // else if ($userOrganization->role_id == 1){
+                    //     session(['school_year' =>  0]);
+                    //     session(['org_id' =>  $userOrganization->student_org_id]);
+                    //     session(['org_name' =>  $userOrganization->organization->name]);
+                    //     session(['role' =>  $userOrganization->role_id]);
+                    //     session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                    //     // session(['college_id' =>  $userOrganization->college_id]);
+                    //     // return $userOrganization->school_year;
+                    //     return $userOrganization->role_id;
+                    // }
+                    // else{
+                    //     return 'not_tagged_error';
+                    // }
                 }
                 else{
                         return 'not_tagged_error';
@@ -168,57 +187,36 @@ class LoginController extends Controller
 
     public function GetOrganizationList($student_id)
     {   
-        $school_year = Session::get('school_year');
-        $userOrganizations = UserOrganization::where([['student_id', $student_id],['school_year', $school_year]])->with(['organization','role'])->get();
+
+        
+        // $school_year = Session::get('school_year');
+        $userOrganizations = UserOrganization::where([['student_id', $student_id]])->with(['organization','role'])->get();
         return $userOrganizations->toJson();
     }
 
     public function LoginOrganization($id)
     {   
-        // return $id;
-        // $userOrganization = UserOrganization::where('id',$id)->with('organization')->first();
-        // if($userOrganization){
-        //     //get org default school year
-        //     $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$org_id)->count();
-        //     $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$org_id)->first();
-        //     if($orgDefaultSchoolYear > 0){
-        //         if ($userOrganization->school_year == $orgSchoolYear->school_year){
-        //             $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
-        //             session(['school_year' =>  $orgDefaultSchoolYear->school_year]);
-        //             session(['org_id' =>  $userOrganization->student_org_id]);
-        //             session(['org_name' =>  $organization_name]);
-        //             return $role_id;
-        //         }
-        //         else{
-        //             return 'not_tagged_error';
-        //         }
-        //     }
-        //     else{
-        //         return 'not_tagged_error';
-        //     }
-        // }
-        // else{
-        //         return 'not_tagged_error';
-        //     }
-        //get latest school year
+
 
         $userOrganization = UserOrganization::where('id', $id)->with('organization','user_profile')->first();
-        $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
-        if($orgDefaultSchoolYear > 0){
-            $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
-            if ($userOrganization->school_year == $orgSchoolYear->school_year){
-                session(['school_year' =>  $orgSchoolYear->school_year]);
-                session(['org_id' =>  $userOrganization->student_org_id]);
-                session(['org_name' =>  $userOrganization->organization->name]);
-                session(['role' =>  $userOrganization->role_id]);
-                session(['user_name' =>  $userOrganization->user_profile->first_name]);
-                // session(['college_id' =>  $userOrganization->college_id]);
-                // return $userOrganization->school_year;
-                return $userOrganization->role_id;
-            }
+        // $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
+        // if($orgDefaultSchoolYear > 0){
+            // $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
+            $defaultSchoolYear = SchoolYear::latest()->get()->last();
+
+            // if ($userOrganization->school_year == $defaultSchoolYear->school_year){
+            //     session(['school_year' =>  $orgSchoolYear->school_year]);
+            //     session(['org_id' =>  $userOrganization->student_org_id]);
+            //     session(['org_name' =>  $userOrganization->organization->name]);
+            //     session(['role' =>  $userOrganization->role_id]);
+            //     session(['user_name' =>  $userOrganization->user_profile->first_name]);
+            //     // session(['college_id' =>  $userOrganization->college_id]);
+            //     // return $userOrganization->school_year;
+            //     return $userOrganization->role_id;
+            // }
             //if the user is admin it will bypass the school year
-            else if ($userOrganization->role_id == 1){
-                session(['school_year' =>  $orgSchoolYear->school_year]);
+            // else if ($userOrganization->role_id == 1){
+                session(['school_year' => $defaultSchoolYear->id]);
                 session(['org_id' =>  $userOrganization->student_org_id]);
                 session(['org_name' =>  $userOrganization->organization->name]);
                 session(['role' =>  $userOrganization->role_id]);
@@ -226,25 +224,25 @@ class LoginController extends Controller
                 // session(['college_id' =>  $userOrganization->college_id]);
                 // return $userOrganization->school_year;
                 return $userOrganization->role_id;
-            }
-            else{
-                return 'not_tagged_error';
-            }
-        }
-        //if the user is admin it will bypass if there is null organization default school year
-        else if ($userOrganization->role_id == 1){
-            session(['school_year' =>  0]);
-            session(['org_id' =>  $userOrganization->student_org_id]);
-            session(['org_name' =>  $userOrganization->organization->name]);
-            session(['role' =>  $userOrganization->role_id]);
-            session(['user_name' =>  $userOrganization->user_profile->first_name]);
-            // session(['college_id' =>  $userOrganization->college_id]);
-            // return $userOrganization->school_year;
-            return $userOrganization->role_id;
-        }
-        else{
-            return 'not_tagged_errors';
-        }
+            // }
+            // else{
+            //     return 'not_tagged_error';
+            // }
+        // }
+        // //if the user is admin it will bypass if there is null organization default school year
+        // else if ($userOrganization->role_id == 1){
+        //     session(['school_year' =>  0]);
+        //     session(['org_id' =>  $userOrganization->student_org_id]);
+        //     session(['org_name' =>  $userOrganization->organization->name]);
+        //     session(['role' =>  $userOrganization->role_id]);
+        //     session(['user_name' =>  $userOrganization->user_profile->first_name]);
+        //     // session(['college_id' =>  $userOrganization->college_id]);
+        //     // return $userOrganization->school_year;
+        //     return $userOrganization->role_id;
+        // }
+        // else{
+        //     return 'not_tagged_errors';
+        // }
     }
 
     public function LoginDashboard()

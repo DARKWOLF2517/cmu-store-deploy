@@ -20,7 +20,7 @@ class UserProfile extends Model
         'last_name',
         'email',
         'college_id',
-        'year_level_id',
+        // 'year_level_id',
     ];
     public function college()
     {
