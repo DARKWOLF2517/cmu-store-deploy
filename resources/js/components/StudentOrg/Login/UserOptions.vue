@@ -8,6 +8,7 @@
         <div class="user-card"  v-for="userOrg in this.userOrgs" >
             <div @click=" profileClicked(userOrg['id'])">
             <!-- <h6> {{ userOrg['organization']['name'] }}</h6> -->
+            <br>
             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1">
             <!-- <p>
                 <span v-if="userOrg['role']['role_id'] == 1">Admin</span>
