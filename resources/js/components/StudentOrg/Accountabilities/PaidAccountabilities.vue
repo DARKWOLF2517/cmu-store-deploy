@@ -79,16 +79,16 @@
         </table>
     </div>
     <ul class="pagination justify-content-center mt-2">
-                    <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
-                    </li>
-                    <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
-                        <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
-                    </li>
-                    <li class="page-item" :class="{ disabled: currentPage === totalPages }">
-                        <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
-                    </li>
-                </ul>
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
+        </li>
+        <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
+        <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
+        </li>
+        <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+        <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
+        </li>
+    </ul>
 </div>
 
         <div id="edit-modal" class="modal">
@@ -222,7 +222,7 @@ export default{
     },
 
     methods:{
-        
+
     filterItems() {
         let filteredBySearch = this.paidList;
                 if (this.searchTerm) {
@@ -238,7 +238,7 @@ export default{
             axios.get(`get_school_year`)
                 .then((response) => {
                     this.school_year = response.data;
-                    
+
                 })
                 .catch((error) => {
                     console.log(error)

@@ -139,21 +139,17 @@
                             <button id="last-page-button" onclick="goToPage(pageCount)">&gt;&gt;</button>
                         </div> -->
 
-            <div class="pagination-container mt-3">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">1 <span class="visually-hidden">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </div>
+                        <ul class="pagination justify-content-center mt-2">
+                            <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
+                            </li>
+                            <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
+                            <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
+                            </li>
+                            <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                            <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
+                            </li>
+                        </ul>
         </div>
                 <div id="edit-modal" class="modal">
                     <div class="modal-content">
@@ -286,6 +282,8 @@ export default{
             overall_fees_list:[],
             // overall_fees_list_with_event_id:[],
             fees_list:[],
+            currentPage: 1,
+            itemsPerPage: 10,
             total_fees:[],
             other_accountabilities_list: [],
             temporary_list:[],
@@ -305,7 +303,80 @@ export default{
 
         }
     },
+    computed: {
+    totalPages() {
+        return Math.ceil(this.fees_list.length / this.itemsPerPage);
+    },
+    pageRange() {
+        const start = Math.max(1, this.currentPage - 5);
+        const end = Math.min(this.totalPages, this.currentPage + 5);
+        const range = [];
 
+        if (start > 1) {
+            range.push(1);
+            if (start > 2) {
+            range.push("...");
+            }
+        }
+
+        for (let i = start; i <= end; i++) {
+            range.push(i);
+        }
+
+        if (end < this.totalPages) {
+            if (end < this.totalPages - 1) {
+            range.push("...");
+            }
+            range.push(this.totalPages);
+        }
+
+        return range;
+    },
+    paginatedData() {
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        return this.this.filtered_items_for_fines.slice(start, start + this.itemsPerPage);
+    },
+    hasEllipsisBefore() {
+        return this.currentPage > 3 && this.totalPages > 5;
+    },
+
+    hasEllipsisAfter() {
+        return this.currentPage < this.totalPages - 2 && this.totalPages > 5;
+    },
+    ellipsisRange() {
+        const range = [];
+        const start = Math.max(this.currentPage - 2, 1);
+        const end = Math.min(start + 4, this.totalPages);
+
+        if (this.hasEllipsisBefore) {
+            range.push(this.ellipsisBefore);
+        }
+
+        for (let i = start; i <= end; i++) {
+            range.push(i);
+        }
+
+        if (end < this.totalPages) {
+            if (end < this.totalPages - 1) {
+            range.push(this.ellipsisAfter);
+            }
+            range.push(this.totalPages);
+        }
+
+        // If there are more than 5 page numbers, remove the ones in the middle
+        if (range.length > 5) {
+            range.splice(3, range.length - 5);
+        }
+
+        return range;
+    },
+    ellipsisBefore() {
+        return Math.max(this.currentPage - 5, 1);
+    },
+    ellipsisAfter() {
+        return Math.min(this.currentPage + 5, this.totalPages);
+    },
+    },
     mounted(){
 
 
@@ -365,7 +436,7 @@ export default{
                             this.showSucces(response.data.message);
                             location.reload();
                         }
-                        
+
 
                         // this.fetchData();
                     })
@@ -457,7 +528,7 @@ export default{
                         const events_with_attendance = response.data.accountabilities_fines;
                         let users = response.data.user;
                         let user_orgs = response.data.user_orgs;
-                       
+
                         const year_level = response.data.year_level;
                         const year_level_exempted = response.data.year_level_exempted;
                         let free_fines = response.data.free_fines;
@@ -667,7 +738,7 @@ export default{
 
 
                         // console.log(this.overall_fees_list)
-                        
+
 
 
                         //FOR MERGING OTHER ACCOUNTABILITIES TO FINES
@@ -687,7 +758,7 @@ export default{
                                 });
                             });
                         });
-                       
+
                         // const studentsWhoPaid = new Set(accountability_paid.map(entry => entry.student_id));
 
                         // // Get a Set of unique accountability types from organization_accountability_set
@@ -775,7 +846,7 @@ export default{
                     // // Assign the filtered fines back to this.fees_list
                     // this.fees_list = filteredFinesByFreeFines;
 
-                    
+
 
                     //when paid minus it to  the capital ammount
                     const accountability_paid = response.data.paid_accountabilities;
@@ -792,7 +863,7 @@ export default{
                     });
                     const paid_accountabilities_with_total = Object.values(uniqueStudents);
 
-    
+
                     if (paid_accountabilities_with_total.length == 0) {
                         this.total_fees = this.fees_list
                     }
@@ -818,7 +889,7 @@ export default{
                         //                 total_fees : studentFees.total_fees
                         //             });
                         //         }
-                            
+
                         //     });
                         // });
 
@@ -868,7 +939,29 @@ export default{
                 autoClose: 100,
             }
         },
+        prevPage() {
+        if (this.currentPage > 1) {
+        this.currentPage--;
+        }
+    },
 
+    nextPage() {
+        if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        }
+    },
+
+    gotoPage(page) {
+        if (page === "...") {
+            if (this.currentPage > this.totalPages / 2) {
+            this.currentPage = this.totalPages;
+            } else {
+            this.currentPage = 1;
+            }
+        } else {
+            this.currentPage = page;
+        }
+    },
 
 
         printTable() {

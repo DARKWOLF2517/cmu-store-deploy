@@ -10,6 +10,8 @@
             <div class="user-card" >
                 <div @click=" profileClicked(userOrg['id'])">
                 <!-- <h6> {{ userOrg['organization']['name'] }}</h6> -->
+                <h6>Central Mindanao University</h6>
+                <hr>
                 <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1">
                 <!-- <p>
                     <span v-if="userOrg['role']['role_id'] == 1">Admin</span>
