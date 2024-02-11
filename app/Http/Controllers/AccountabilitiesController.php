@@ -188,7 +188,7 @@ class AccountabilitiesController extends Controller
     }
     public function PaidAccountabilities($org_id, $school_year)
     {
-        $paidAccountabilities = PaidAccountability::where([['student_org_id', $org_id], ['school_year', $school_year]] )->with('user')->get();
+        $paidAccountabilities = PaidAccountability::where([['student_org_id', $org_id], ['school_year', $school_year]] )->with('user_profile')->get();
         return $paidAccountabilities->toJson();
     }
 
