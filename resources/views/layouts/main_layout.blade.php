@@ -66,7 +66,7 @@
                             <li>
 
                                 <side-nav-button
-                                link_name="Switch User"
+                                link_name="Switch Role"
                                 link_route = "{{url('/options')}}"
                                 show_icon = "{{false}}"
                                 >
@@ -291,7 +291,6 @@
                                         </ul>
                                     </div>
                                 </li>
-
                                 <li class="mb-1">
                                     <button class="btn btn-toggle align-items-center rounded rotate-icon" data-bs-toggle="collapse" data-bs-target="#student-collapse" aria-expanded="false">
                                         <i class="fas fa-user"></i>
