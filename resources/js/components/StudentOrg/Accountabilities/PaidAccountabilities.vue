@@ -71,7 +71,7 @@
                 </div>
                 <tr v-for="paid in paginatedData" :key="paid.student_id">
                 <td >{{ paid['student_id'] }}</td>
-                <td> {{ paid.user['name'] }}</td>
+                <td> {{ paid.user_profile.first_name  + ' '+ paid.user_profile.last_name}}</td>
                 <!-- <td>{{ paid['accountability_name'] }}</td> -->
                 <td>{{ paid['amount'] }}</td>
                 </tr>
