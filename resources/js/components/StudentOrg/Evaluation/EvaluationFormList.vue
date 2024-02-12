@@ -99,9 +99,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">as
-
-
+            <div class="modal-footer">
                 <!-- Submit Button -->
                 <button type="button" class="btn btn-success">Save Form</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
