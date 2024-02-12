@@ -20,11 +20,9 @@
                 <div class="col-md-6 col-sm-12" >
                     <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                     <div class="select-dropdown" style="width: 70%;">
-                        <select id="sort-select" class="form-control" style="text-align: center;">
-                            <option value="">Select Semester</option>
-                            <option value="option1">1st Semester 2023-2024</option>
-                            <option value="option2">2nd Semester 2022-2023</option>
-                            <option value="option3">1st Semester 2022-2023</option>
+                      <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                            <option value="0" disabled selected>Select School Year</option>
+                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                         </select>
                     </div>
                 </div>
@@ -45,65 +43,64 @@
 
 
         <div class="announcement-list">
-            <div class="col">
-                    <div class="announcement-cards-list ">
-                            <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
-                                <div class="dropdown">
-                                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-h"></i>
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                        <!-- option 1 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
-                                        <!-- option 2 -->
-                                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-                                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
-                                </div>
-                                <div class="card-body">
-                                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-                                <p class="card-short-description mt-2">
-                                    UCC on January 17, 2023
-                                </p>
-                            </div>
-                            </div>
-
-                            </div>
-                    </div>
+          <div class="col">
+            <div class="announcement-cards-list ">
+              <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
+                <div class="dropdown">
+                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                        <!-- option 1 -->
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
+                        <!-- option 2 -->
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
+                    </ul>
                 </div>
+                <div class="d-flex align-items-center">
+                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+                </div>
+                <div class="card-body">
+                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
+                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
+                <p class="card-short-description mt-2">
+                    UCC on January 17, 2023
+                </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
     <!-- Add Announcement Modal -->
     <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+      <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-header">
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel">Add Announcement</h5>
-                <form>
-                    <div class="mb-3">
-                        <label class="form-label">Title</label>
-                        <input type="text" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" ></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Add Announcement</button>
-            </div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel">Add Announcement</h5>
+              <form>
+                  <div class="mb-3">
+                      <label class="form-label">Title</label>
+                      <input type="text" class="form-control">
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea class="form-control" ></textarea>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success">Add Announcement</button>
+          </div>
         </div>
-    </div>
+      </div>
     </div>
   <!-- View Modal -->
   <!-- <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
@@ -168,10 +165,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center">
-                                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
-                                <h4><b>Remove Announcement</b></h4>
-                                <p>Are you sure you want to remove this announcement?</p>
-                            </div>
+          <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+          <h4><b>Remove Announcement</b></h4>
+          <p>Are you sure you want to remove this announcement?</p>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-danger">Delete</button>
@@ -181,16 +178,35 @@
 </div>
 
 </template>
-<!--
+
 <script>
 export default {
+  props: ['org_id', 'school_year_session'],
   data() {
     return {
-
+      school_year_input: this.school_year_session,
+      school_year: []
     }
   },
+  mounted() {
+      this.showSchoolYear();
+  
+    },
+
+  methods: {
+    showSchoolYear(){
+      axios.get(`get_school_year`)
+        .then(response => {
+            // console.log(response.data)
+            this.school_year = response.data;
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    },
+  },  
 
 
 }
 
-</script> -->
+</script>
