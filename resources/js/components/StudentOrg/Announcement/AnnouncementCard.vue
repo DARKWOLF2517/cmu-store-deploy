@@ -80,7 +80,7 @@
         <div class="modal-content">
           <div class="modal-header">
 
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel">Add Announcement</h5>
@@ -93,15 +93,26 @@
                       <label class="form-label">Description</label>
                       <textarea class="form-control" ></textarea>
                   </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success">Add Announcement</button>
-          </div>
+                  <div class="mb-3">
+                        <label for="starts_at" class="form-label fw-bold">Starts at</label>
+                        <div class="mb-2">
+                            <label for="date">Date:</label>
+                            <input type="date" name="start_date" class="form-control" id="date" required>
+                        </div>
+                        <div>
+                            <label for="time">Time:</label>
+                                                <input type="time" name="start_attendance" class="form-control" id="time" required>
+                        </div>
+                </div>
+            </form>
         </div>
-      </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success">Add Announcement</button>
+        </div>
     </div>
+    </div>
+</div>
   <!-- View Modal -->
   <!-- <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -190,7 +201,7 @@ export default {
   },
   mounted() {
       this.showSchoolYear();
-  
+
     },
 
   methods: {
@@ -204,7 +215,7 @@ export default {
             console.log(error)
         });
     },
-  },  
+  },
 
 
 }
