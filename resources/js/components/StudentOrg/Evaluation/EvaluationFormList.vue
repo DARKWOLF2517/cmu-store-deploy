@@ -87,20 +87,19 @@
                         <input type="text" class="form-control" id="question1">
                         <button class="btn btn-danger" type="button">X</button>
                     </div>
+                    <div class="mb-3 mt-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="multipleChoice">
+                        <label class="form-check-label" for="multipleChoice">Multiple Choice</label>
+                        <br>
+                        <small class="fw-bold">1 - Needs Improvements | 2 - Satisfactory | 3 - Good | 4 - Very Good | 5 - Excellent</small>
+                    </div>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="multipleChoice1">
-                        <label class="form-check-label" for="multipleChoice1">Multiple Choice</label>
-                        <div id="choicesContainer1" class="mt-2">
-                            <label for="choices1" class="form-label">Choices</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="choices1">
-                                <button class="btn btn-danger" type="button">X</button>
-                            </div>
-                        </div>
+                        <input type="checkbox" class="form-check-input" id="feedback">
+                        <label for="feedback">Accept Feedback?</label>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer">as
 
 
                 <!-- Submit Button -->
@@ -134,12 +133,15 @@
                     </div>
                     <div class="mb-3 form-check">
                         <div id="choicesContainer1" class="mt-2">
-                            <label for="choices1" class="form-label">*Choices</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="choices1" readonly>
-                            </div>
+                            <label for="choices1" class="form-label">*Multiple Choice</label>
+                            <br>
+                            <small class="fw-bold">1 - Needs Improvements | 2 - Satisfactory | 3 - Good | 4 - Very Good | 5 - Excellent</small>
                         </div>
                     </div>
+                </div>
+                <div class="feedback mb-3">
+                    <label for="feedback">Feedback</label>
+                    <textarea class="form-control" name="composeContent" id="Textarea1" row="7" placeholder="Type here.." readonly></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -183,13 +185,8 @@
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" id="multipleChoice1">
                         <label class="form-check-label" for="multipleChoice1">Multiple Choice</label>
-                        <div id="choicesContainer1" class="mt-2">
-                            <label for="choices1" class="form-label">Choices</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="choices1">
-                                <button class="btn btn-danger" type="button">X</button>
-                            </div>
-                        </div>
+                        <br>
+                       <small class="fw-bold">1 - Needs Improvements | 2 - Satisfactory | 3 - Good | 4 - Very Good | 5 - Excellent</small>
                     </div>
                 </div>
             </div>

@@ -74,7 +74,8 @@
                                 <td >{{ fees_list.user_id }}</td>
                                 <td> {{ fees_list.name }}</td>
                                 <!-- <td>{{ fees_list.accountability_type.toUpperCase()}}</td> -->
-                                <td> &#8369; {{ fees_list.total_fees }}</td>
+                                <td style="text-align: right;">&#8369; {{ fees_list.total_fees }}</td>
+
                                 <td>
                                     <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fees_list.user_id),
                                         this.finesPay = {
