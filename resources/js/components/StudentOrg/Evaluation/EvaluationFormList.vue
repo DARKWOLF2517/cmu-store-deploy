@@ -152,49 +152,4 @@
     </div>
 </div>
 
-<!-- Edit Evaluation Form Modal -->
-<div class="modal fade" id="edit-evaluation-form-modal" tabindex="-1" aria-labelledby="editFormLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editFormLabel">Edit Evaluation Form</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
-                    <input type="text" class="form-control" id="formTitle">
-                </div>
-                <div class="mb-3">
-                    <label for="formDescription" class="form-label">Input Description</label>
-                    <textarea class="form-control" id="formDescription" rows="3"></textarea>
-                </div>
-                <div class="d-flex justify-content-end mb-3">
-                    <button type="button" class="btn btn-light"> <i class="fas fa-plus"></i> Add Question</button>
-                </div>
-                <div class="mb-3">
-                    <label for="question1" class="form-label fw-bold">Question 1</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="question1">
-                        <button class="btn btn-danger" type="button">X</button>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="multipleChoice1">
-                        <label class="form-check-label" for="multipleChoice1">Multiple Choice</label>
-                        <br>
-                       <small class="fw-bold">1 - Needs Improvements | 2 - Satisfactory | 3 - Good | 4 - Very Good | 5 - Excellent</small>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="feedback">
-                        <label for="feedback">Accept Feedback?</label>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Save Form</button>
-            </div>
-        </div>
-    </div>
-</div>
 </template>
