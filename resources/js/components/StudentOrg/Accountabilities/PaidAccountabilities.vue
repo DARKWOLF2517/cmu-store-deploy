@@ -74,7 +74,7 @@
                 <td >{{ paid['student_id'] }}</td>
                 <td> {{ paid.user_profile.first_name  + ' '+ paid.user_profile.last_name}}</td>
                 <!-- <td>{{ paid['accountability_name'] }}</td> -->
-                <td style="text-align: right;"> &#8369; {{ paid['amount'] }}</td>
+                <td style="text-align: right;"> &#8369; {{ paid['amount'] }}.00</td>
                 <td> Date here</td>
                 </tr>
 
