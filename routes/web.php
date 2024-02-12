@@ -149,6 +149,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('student_organization_set_accountabilities', function () {
             return view('student_organization.student_organization_set_accountabilities');
         });
+        Route::get('student_organization_accountability_report', function () {
+            return view('student_organization.student_organization_accountability_report');
+        });
 
         Route::get('student_organization_evaluation', function () {
             return view('student_organization.student_organization_evaluation');

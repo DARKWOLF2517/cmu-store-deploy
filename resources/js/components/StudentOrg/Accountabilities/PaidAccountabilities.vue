@@ -54,8 +54,11 @@
                     <th>Student ID</th>
                     <th>Student Name</th>
                     <!-- <th>Accountabilities</th> -->
-                    <th>Amount</th>
                     <th>Date Received</th>
+                    <th>Accountability Type</th>
+                    <th style="width: 10%;">Amount</th>
+                    <th>Remarks</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -74,8 +77,9 @@
                 <td >{{ paid['student_id'] }}</td>
                 <td> {{ paid.user_profile.first_name  + ' '+ paid.user_profile.last_name}}</td>
                 <!-- <td>{{ paid['accountability_name'] }}</td> -->
-                <td style="text-align: right;"> &#8369; {{ paid['amount'] }}.00</td>
                 <td> Date here</td>
+                <td style="text-align: right;"> &#8369; {{ paid['amount'] }}.00</td>
+                <td>shshs</td>
                 </tr>
 
             </tbody>

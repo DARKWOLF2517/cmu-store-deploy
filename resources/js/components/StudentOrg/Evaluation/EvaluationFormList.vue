@@ -1,5 +1,5 @@
 <template>
- <div class="mt-2">
+<div class="mt-2">
         <div class="row head-container">
             <div class="col-md-6 col-sm-12">
                 <div class="input-container">
@@ -12,10 +12,8 @@
                     <select id="sort-select" class="form-control" style="text-align: center;" >
                             <option value="" disabled selected>Select Semester</option>
                             <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-
                         </select>
                 </div>
-
             </div>
         </div>
     </div>
@@ -185,6 +183,10 @@
                         <label class="form-check-label" for="multipleChoice1">Multiple Choice</label>
                         <br>
                        <small class="fw-bold">1 - Needs Improvements | 2 - Satisfactory | 3 - Good | 4 - Very Good | 5 - Excellent</small>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="feedback">
+                        <label for="feedback">Accept Feedback?</label>
                     </div>
                 </div>
             </div>

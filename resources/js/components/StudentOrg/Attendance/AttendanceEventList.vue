@@ -23,16 +23,41 @@
                     <p class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</p>
                 </div>
                 <div class="mt-auto" v-if="event.attendance_status == 1">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceModal" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
                 </div>
                 <div class="mt-auto" v-else-if="event.attendance_status == 0|| event.attendance_status == 2">
                     <button class="btn btn-secondary">Unavailable</button>
                 </div>
             </div>
         </div>
+  <!-- Start Attendance confirmation -->
+  <div class="modal fade " id="startAttendanceConfirmation" tabindex="-1" aria-labelledby="startAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+            <h4><i class="fas fa-question-circle text-warning"></i>
+            </h4>
+
+                <p>Are you sure you want to Start Attendance to this Event?</p>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+            <button type="button" class="btn btn-success" @click="startAttendance()" data-bs-dismiss="modal">
+                <div>Start Attendance</div>
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
 
         <!-- Start Attendance Modal -->
-        <div class="modal fade" id="startAttendanceModal" tabindex="-1" aria-labelledby="startAttendanceModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="startAttendanceModal" tabindex="-1" aria-labelledby="startAttendanceModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -45,7 +70,6 @@
                         <h4> <i class="fas fa-question-circle text-warning"></i> </h4>
                         <h5 class="fw-bold text-center"> Start an Attendance?</h5>
                     </div>
-                        <!-- <p>Are you sure you want to start attendance?</p> -->
                         <label class="mt-2">Select Attendance Type:</label>
                         <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;">
 
@@ -56,7 +80,7 @@
                                         <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
                                         <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
                         </select>
-                        </div>
+                        </div> -->
                         <!-- <div class="form-group">
                                     <label for="attendanceType">Select Attendance Type:</label>
                                     <select class="form-select " id="attendanceType" v-model="session">
@@ -66,14 +90,15 @@
                                         <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
                                     </select>
                         </div> -->
-                    </div>
-                    <div class="modal-footer">
+                    <!-- </div> -->
+                    <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-success" @click="startAttendance(event_id, org_id, session)" >Start</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div> -->
     </div>
 </template>
 

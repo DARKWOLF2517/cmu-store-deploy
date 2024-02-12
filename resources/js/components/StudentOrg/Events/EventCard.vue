@@ -96,7 +96,7 @@
                                             <!-- option 3 -->
                                             <li><a class="dropdown-item" @click="this.id =(event.event_id), this.showYearLevelExempted()" data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted attendees</a></li>
                                             <div v-if="event.attendance_status === 0 || event.attendance_status === 2">
-                                                <li><a class="dropdown-item"  @click="this.id =(event.event_id), this.status = 1"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Start Attendance</a></li>
+                                                <li><a class="dropdown-item"  @click="this.id =(event.event_id), this.status = 1"  data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start Attendance</a></li>
                                             </div>
                                             <div v-else-if="event.attendance_status === 1">
                                                 <li><a class="dropdown-item"  @click="this.id =(event.event_id) , this.status = 2"  data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation">Stop Attendance</a></li>
@@ -142,7 +142,7 @@
 
 
                         <!-- Start Attendance confirmation -->
-                        <div class="modal fade " id="startAttendanceConfirmation" tabindex="-1" aria-labelledby="startAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
+                        <!-- <div class="modal fade " id="startAttendanceConfirmation" tabindex="-1" aria-labelledby="startAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                 <div class="modal-header">
@@ -168,7 +168,49 @@
                                 </div>
                                 </div>
                             </div>
+                        </div> -->
+                        <div class="modal fade" id="startAttendanceModal" tabindex="-1" aria-labelledby="startAttendanceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                        <h4> <i class="fas fa-question-circle text-warning"></i> </h4>
+                        <h5 class="fw-bold text-center"> Start an Attendance?</h5>
+                    </div>
+                        <!-- <p>Are you sure you want to start attendance?</p> -->
+                        <label class="mt-2">Select Attendance Type:</label>
+                        <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;">
+
+                        <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session">
+                            <option value="0" disabled selected>Select Attendace Type</option>
+                            <!-- <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                                        <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                                        <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                                        <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option> -->
+                        </select>
                         </div>
+                        <!-- <div class="form-group">
+                                    <label for="attendanceType">Select Attendance Type:</label>
+                                    <select class="form-select " id="attendanceType" v-model="session">
+                                        <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                                        <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                                        <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                                        <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
+                                    </select>
+                        </div> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-success" @click="startAttendance(event_id, org_id, session)" >Start</button>
+                    </div>
+                </div>
+            </div>
+        </div>
                         <!-- Exempted Modal -->
                         <div class="modal fade" id="exemptModal" tabindex="-1" role="dialog" aria-labelledby="exemptModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

@@ -24,6 +24,7 @@ import { createApp } from 'vue';
     import UploadStudents from './components/StudentOrg/Users/UploadStudents.vue'
     import AttendanceStudentList from './components/StudentOrg/Attendance/AttendanceStudentTable.vue';
     import SetAccountabilities from './components/StudentOrg/Accountabilities/SetAccountabilities.vue';
+    import AccountabilityReport from './components/StudentOrg/Accountabilities/AccountabilityReport.vue';
     import AccountabilitiesList from './components/StudentOrg/Accountabilities/AccountabilitiesList.vue';
     import AccountabilitiesRecords from './components/StudentOrg/Accountabilities/AccountabilitiesRecords.vue';
     import FreeFines from './components/StudentOrg/Accountabilities/SetFreeFines.vue';
@@ -63,6 +64,7 @@ const app = createApp({});
     app.component('upload-students', UploadStudents);
     app.component('show-student-attendance', AttendanceStudentList);
     app.component('set-accountabilities', SetAccountabilities);
+    app.component('accountability-report', AccountabilityReport);
     app.component('show-accountabilities-list', AccountabilitiesList);
     app.component('show-accountabilities-record', AccountabilitiesRecords);
     app.component('set-free-fines', FreeFines);
