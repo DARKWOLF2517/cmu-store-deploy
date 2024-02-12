@@ -7,7 +7,9 @@
 @section('main-content')
 
         <announcement-card
-        organization_id = {{Session::get('org_id')}}>
+        :org_id = {{Session::get('org_id')}}
+        :school_year_session = {{Session::get('school_year')}}
+        >
         </announcement-card>
         {{-- <event-card
         organization_id = {{Session::get('org_id')}}>
