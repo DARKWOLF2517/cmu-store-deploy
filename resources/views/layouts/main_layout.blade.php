@@ -20,6 +20,7 @@
     <link href="{{ asset('custom_css/stylesheet.css') }}" rel="stylesheet">
     <link href="{{ asset('custom_css/Navbars.css') }}" rel="stylesheet">
     <link href="{{ asset('custom_css/tables.css') }}" rel="stylesheet">
+    @yield('custom-title')
     @yield('custom-style')
 
 

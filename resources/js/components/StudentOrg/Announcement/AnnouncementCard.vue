@@ -1,50 +1,50 @@
 <template>
 
 <div class="breadcrumbs">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
-                <li class="breadcrumb-item">Student Organization</li>
-                <li class="breadcrumb-item active" aria-current="page">Announcements</li>
-                </ol>
-            </nav>
-</div>
-        <div class="mt-2">
-            <div class="row head-container">
-                <div class="col-md-6 col-sm-12">
-                    <div class="input-container">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search">
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12" >
-                    <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
-                    <div class="select-dropdown" style="width: 70%;">
-                      <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                            <option value="0" disabled selected>Select School Year</option>
-                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item">Student Organization</li>
+            <li class="breadcrumb-item active" aria-current="page">Announcements</li>
+            </ol>
+        </nav>
         </div>
-        <div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center ">
-        <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
-        <div class="announcement-buttons d-flex">
-            <div class="btn-group" role="group">
-                <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
-                    <i class="fas fa-plus"></i> Add Announcement
-                </button>
-            </div>
+          <div class="mt-2">
+              <div class="row head-container">
+                  <div class="col-md-6 col-sm-12">
+                      <div class="input-container">
+                          <i class="fa fa-search"></i>
+                          <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12" >
+                      <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
+                      <div class="select-dropdown" style="width: 70%;">
+                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                              <option value="0" disabled selected>Select School Year</option>
+                              <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="container-fluid">
+          <div class="d-flex justify-content-between align-items-center ">
+              <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
+              <div class="announcement-buttons d-flex">
+                  <div class="btn-group" role="group">
+                      <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.submit = this.submitData, this.clearData()">
+                          <i class="fas fa-plus"></i> Add Announcement
+                      </button>
+                  </div>
+              </div>
+          </div>
         </div>
-    </div>
-</div>
 
 
         <div class="announcement-list">
           <div class="col">
-            <div class="announcement-cards-list ">
+            <div class="announcement-cards-list " v-for="announcements in this.filtered_announcements">
               <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
                 <div class="dropdown">
                     <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -52,9 +52,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                         <!-- option 1 -->
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal">Edit Announcement</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.id = announcements.id, this.submit = this.updateData, this.fetchEdit()">Edit Announcement</a></li>
                         <!-- option 2 -->
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Announcement</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="this.id = announcements.id">Delete Announcement</a></li>
                     </ul>
                 </div>
                 <div class="d-flex align-items-center">
@@ -62,10 +62,13 @@
                 <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
                 </div>
                 <div class="card-body">
-                <h5 class="card-title mt-4"><strong>USCO General Assembly</strong> </h5>
-                <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
+                <h5 class="card-title mt-4"><strong>{{ announcements.title }}</strong> </h5>
+                <small class="date-upload text-muted"> Date Created: {{ announcements.created_at }}</small>
                 <p class="card-short-description mt-2">
-                    UCC on January 17, 2023
+                    {{announcements.description}}
+                </p>
+                <p class="card-short-description mt-2">
+                    Date :{{announcements.time}} - {{announcements.date }}
                 </p>
                 </div>
               </div>
@@ -78,38 +81,40 @@
     <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
+          <form @submit.prevent="this.submit">
           <div class="modal-header">
 
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel">Add Announcement</h5>
-              <form>
-                  <div class="mb-3">
-                      <label class="form-label">Title</label>
-                      <input type="text" class="form-control">
-                  </div>
-                  <div class="mb-3">
-                      <label class="form-label">Description</label>
-                      <textarea class="form-control" ></textarea>
-                  </div>
-                  <div class="mb-3">
-                        <label for="starts_at" class="form-label fw-bold">Starts at</label>
-                        <div class="mb-2">
-                            <label for="date">Date:</label>
-                            <input type="date" name="start_date" class="form-control" id="date" required>
-                        </div>
-                        <div>
-                            <label for="time">Time:</label>
-                                                <input type="time" name="start_attendance" class="form-control" id="time" required>
-                        </div>
+            
+              <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-if="this.submit == this.submitData">Add Announcement</h5>
+              <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-else-if="this.submit == this.updateData">Update Announcement</h5>
+              <div class="mb-3">
+                  <label class="form-label">Title</label>
+                  <input type="text" class="form-control" v-model="this.announcement_data.title" required>
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Description</label>
+                  <textarea class="form-control" v-model="this.announcement_data.description" required ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="starts_at" class="form-label fw-bold">Starts at</label>
+                <div class="mb-2">
+                    <label for="date">Date:</label>
+                    <input type="date" name="start_date" class="form-control" id="date" v-model="this.announcement_data.date" required>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-success">Add Announcement</button>
-        </div>
+                <div>
+                    <label for="time">Time:</label>
+                      <input type="time" name="start_attendance" class="form-control" id="time" v-model="this.announcement_data.time" required>
+                </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success" data-bs-dismiss = "modal">Submit</button>
+          </div>
+        </form>
     </div>
     </div>
 </div>
@@ -135,37 +140,6 @@
     </div>
   </div> -->
 
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <h5 class="modal-title fw-bold text-center" id="editModalLabel">Edit Announcement</h5>
-        <form>
-          <div class="mb-3">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control" >
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea class="form-control" ></textarea>
-          </div>
-
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -182,7 +156,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-danger" @click="this.deleteData()" data-bs-dismiss="modal">Delete</button>
       </div>
     </div>
   </div>
@@ -191,20 +165,90 @@
 </template>
 
 <script>
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+
 export default {
   props: ['org_id', 'school_year_session'],
   data() {
     return {
+      id: 0,
+      submit: this.submitData,
       school_year_input: this.school_year_session,
-      school_year: []
+      school_year: [],
+      announcements: [],
+      filtered_announcements: [],
+      searchTerm: '',
+      announcement_data: {
+        title: '',
+        description: '',
+        date: '',
+        time: '',
+      }
     }
   },
   mounted() {
       this.showSchoolYear();
-
+      this.fetchData();
     },
 
   methods: {
+    deleteData(){
+      axios.delete(`/delete_announcement/${this.id}`)
+        .then(response => {
+          this.fetchData();
+          this.showSucces(response.data.message);
+        })
+        .catch(error => {
+            console(error)
+
+      });
+    }, 
+    updateData() {
+        axios.put(`/updateAnnouncement/${this.id}`, this.announcement_data)
+          .then(response => {
+            // console.log(response.data)
+            this.fetchData();
+            this.showSucces(response.data.message);
+          })
+          .catch(error => {
+              // console.error('Error updating user:', error);
+              alert('Error updating user:', error)
+          });
+    },
+    fetchEdit(){
+      axios.get(`/fetchEditAnnouncement/${this.id}`)
+        .then(response => {
+          console.log(response.data)
+          this.announcement_data = response.data;
+        })
+        .catch(error => {
+          console.log(error)
+
+      });
+    },     
+    submitData(){
+      axios.post(`/addAnnouncement/${this.org_id}/${this.school_year_input}`, this.announcement_data)
+        .then(response => {
+          // console.log(response.data)
+          this.fetchData();
+          this.showSucces(response.data.message);
+        })
+        .catch(error => {
+          console.log(error)
+
+      });
+    },
+    filterItems() {
+          let filtered = this.announcements;
+          if (this.searchTerm) {
+            const searchTermLower = this.searchTerm.toLowerCase();
+            filtered = filtered.filter(item =>
+                item.title.toLowerCase().includes(searchTermLower)
+            );
+          }
+              this.filtered_announcements = filtered;
+      },
     showSchoolYear(){
       axios.get(`get_school_year`)
         .then(response => {
@@ -214,6 +258,32 @@ export default {
         .catch(error => {
             console.log(error)
         });
+    },
+
+    fetchData(){
+      axios.get(`get_announcement/${this.org_id}/${this.school_year_input}`)
+        .then(response => {
+            console.log(response.data)
+            this.announcements = response.data;
+            this.filtered_announcements = this.announcements;
+        })
+        .catch(error => {
+            console.log(error)
+        });
+    },
+
+    clearData(){
+      this.announcement_data = {
+        title: '',
+        description: '',
+        date: '',
+        time: '',
+      }
+    },
+    showSucces(message){
+      toast.success(message),{
+          autoClose: 100,
+      }
     },
   },
 

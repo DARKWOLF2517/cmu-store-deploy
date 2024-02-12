@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('announcement', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('org_id');
+            $table->unsignedBigInteger('school_year');
             $table->string('title');
             $table->string('description');
-            $table->date('time');
+            $table->date('date');
+            $table->time('time');
             $table->timestamps();
+            $table->foreign('org_id')->references('org_id')->on('organizations');
+            $table->foreign('school_year')->references('id')->on('school_year')->cascadeOnDelete();
         });
     }
 

@@ -54,12 +54,12 @@
 
                     <!-- Render attendance records -->
                     <div v-for="attendance_list in this.filtered_attendance" class="record-card" :id="attendance.event_id">
-                    <div class="record-date-container"><span class="event-date">{{ attendance_list.start_date }}</span></div>
-                    <div class="record-title"><h5><b>{{ attendance_list.name }}</b></h5></div>
-                    <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b></div>
-                    <button v-if="attendance_list.attendance !== 0" class="view-button" @click="attendance_result(attendance_list.event_id)">
-                        <i class="fas fa-chevron-right button-icon"></i>
-                    </button>
+                        <div class="record-date-container"><span class="event-date">{{ attendance_list.start_date }}</span></div>
+                        <div class="record-title"><h5><b>{{ attendance_list.name }}</b></h5></div>
+                        <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b></div>
+                        <button v-if="attendance_list.attendance !== 0" class="view-button" @click="attendance_result(attendance_list.event_id)">
+                            <i class="fas fa-chevron-right button-icon"></i>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountabilitiesController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\ProfileController;
@@ -55,6 +56,12 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
     Route::get('/events_count/{org_id}/{school_year}',[EventController::class, 'getEventsCount']);
     Route::get('/complete_events_count/{organization_id}/{school_year}',[EventController::class, 'getCompleteEventsCount']);
+    //announcement tab
+    Route::get('/get_announcement/{org_id}/{school_year}',[AnnouncementController::class, 'getAnnouncement']);
+    Route::post('/addAnnouncement/{org_id}/{school_year}',[AnnouncementController::class, 'addAnnouncement']);
+    Route::get('/fetchEditAnnouncement/{id}',[AnnouncementController::class, 'fetchEditAnnouncement']);
+    Route::put('/updateAnnouncement/{id}',[AnnouncementController::class, 'updateAnnouncement']);
+    Route::delete('/delete_announcement/{id}',[AnnouncementController::class, 'deleteAnnouncement']);
     //get student org list
     Route::get('/usercards', function () {
         return view('layouts.organization_cards');
