@@ -243,7 +243,9 @@
                     </div>
                    <div>
                         <label for="type">Remarks</label>
-                        <input type="select" class="form-control" placeholder="Enter Accountability Type">
+                        <br>
+                        <small>ex: Excuse, Fines, College Fee etc.</small>
+                        <input type="select" class="form-control" placeholder="Enter remarks">
 
                    </div>
                    <div>

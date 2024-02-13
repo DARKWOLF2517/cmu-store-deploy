@@ -241,7 +241,7 @@
                                         <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
                                         <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
                                         <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i> Payment list</a></li>
-                                        <li><a href="/student_organization_accountability_report" class="link-dark rounded"><i class="fas fa-chart-line"></i> Accountability Report</a></li>
+                                        {{-- <li><a href="/student_organization_accountability_report" class="link-dark rounded"><i class="fas fa-chart-line"></i> Accountability Report</a></li> --}}
                                     </ul>
                                 </div>
                             </li>
