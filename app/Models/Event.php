@@ -19,6 +19,7 @@ class Event extends Model
         'description',
         'require_attendance',
         'attendance_count',
+        'attendance_session_started',
         'fines',
         'org_id',
         'evaluation_status',

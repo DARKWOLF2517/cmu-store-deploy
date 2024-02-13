@@ -92,18 +92,23 @@ class AccountabilitiesController extends Controller
                 ]);
     }
 
-    public function updateEventAttendanceStatus($event_id,$status)
+    public function updateEventAttendanceStatus($event_id,$status, $session)
     {
+        // return $session;
         $attendance = Event::find($event_id);
-        $attendance->update(['attendance_status' => $status]);
-        if ($status == 1){
-            $status = 'Ongiong';
-        }
-        else if ($status == 0){
-            $status = 'Stoped';
-        }
+        $attendance->update([
+            'attendance_status' => $status,
+            'attendance_session_started' => $session
+        ]);
         
-        return response()->json(['message' => 'Attendance Status of '. $attendance -> name .' Changed to '. $status ]);
+        // if ($status == 1){
+        //     $status = 'Ongiong';
+        // }
+        // else if ($status == 0){
+        //     $status = 'Stoped';
+        // }
+        
+        return response()->json(['message' => 'Attendance Status Updated']);
     }
 
     public function OtherAccountabilityPayment(Request $request)

@@ -23,7 +23,7 @@
                     <p class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</p>
                 </div>
                 <div class="mt-auto" v-if="event.attendance_status == 1">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation" @click="this.event_id = event['event_id'], this.attendanceCount()" >Start</button>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation" @click="this.event_id = event['event_id'],this.session = event.attendance_session_started, this.attendanceCount()" >Start</button>
                 </div>
                 <div class="mt-auto" v-else-if="event.attendance_status == 0|| event.attendance_status == 2">
                     <button class="btn btn-secondary">Unavailable</button>
@@ -48,7 +48,7 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-            <button type="button" class="btn btn-success" @click="startAttendance()" data-bs-dismiss="modal">
+            <button type="button" class="btn btn-success" @click="startAttendance(this.event_id, this.org_id, this.session)" data-bs-dismiss="modal">
                 <div>Start Attendance</div>
             </button>
         </div>
@@ -161,18 +161,18 @@ data() {
 
         startAttendance(event_id, org_id, session){
 
-            if (event_id === null || org_id === null || session === null) {
-                // console.error('Error: One or more parameters are null');
-                if(session == null){
-                    alert('Please Select Attendance Type.');
-                }
-                // You can handle the error here, such as displaying a message to the user
-                return; // Exit the method early if there's an error
-            }
-            else{
-                 //query for qr scanner with event_id
+            // if (event_id === null || org_id === null || session === null) {
+            //     // console.error('Error: One or more parameters are null');
+            //     if(session == null){
+            //         alert('Please Select Attendance Type.');
+            //     }
+            //     // You can handle the error here, such as displaying a message to the user
+            //     return; // Exit the method early if there's an error
+            // }
+            // else{
+            //      //query for qr scanner with event_id
                 window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
-            }
+            // }
 
         },
 

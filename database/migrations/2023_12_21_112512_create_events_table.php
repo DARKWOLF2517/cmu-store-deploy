@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->tinyInteger('require_attendance');
             $table->integer('attendance_count')->default(1);
+            $table->integer('attendance_session_started')->default(0);
             $table->boolean('evaluation_status')->default(0);
             $table->boolean('attendance_status')->default(0);
             $table->double('fines')->default(0);
