@@ -257,6 +257,9 @@ Route::middleware(['auth'])->group(function(){
             Route::delete('/delete_student_free_fines/{student_id}',[AccountabilitiesController::class, 'deleteStudentFreeFines']);
             Route::get('/fetch_update_student_data/{student_id}',[AccountabilitiesController::class, 'fetchUpdateStudentData']);
             Route::put('/update_student_data/{student_id}/{reason}',[AccountabilitiesController::class, 'updateStudentData']);
+            
+            #ACCOUNTABILITY REPORT
+            Route::get('/fetch_accountabilities/{org_id}',[AccountabilitiesController::class, 'fetchAccountabilities']);
         });
 //STUDENT ROUTE
     Route::middleware(['user-role:2'])->group(function(){

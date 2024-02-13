@@ -17,4 +17,8 @@ class OrganizationAccountability extends Model
         'amount',
         'school_year'
     ];
+    public function paid_accountabilities()
+    {
+        return $this->hasMany(PaidAccountability::class,'student_org_id','org_id');
+    }
 }

@@ -306,13 +306,19 @@ class AccountabilitiesController extends Controller
     }
     public function getOrgAccountability($org_id, $school_year)
     {
-        $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
-        if ($org_default_school_year){
+    //     // $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
+    //     if ($org_default_school_year){
             $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
             return $accountabilities->toJson();
-        }else{
-            return response()->json([]);
-        }
+        // }else{
+        //     return response()->json([]);
+        // }
+
+    }
+    public function fetchAccountabilities($org_id)
+    {
+            $accountabilities = OrganizationAccountability::where([['org_id', $org_id]] )->get();
+            return $accountabilities->toJson();
 
     }
 }

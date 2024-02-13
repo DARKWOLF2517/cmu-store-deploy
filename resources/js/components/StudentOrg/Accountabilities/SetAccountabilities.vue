@@ -238,6 +238,7 @@ export default {
           this.accountabilityList = response.data;
           this.filtered_accountabilities = this.accountabilityList;
           this.loading = false; //
+          // console.log(this.filtered_accountabilities)
         })
         .catch((error) => {
           alert(error);
