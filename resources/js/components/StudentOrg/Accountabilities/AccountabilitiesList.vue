@@ -242,17 +242,10 @@
                         <input type="number" class="form-control" v-model="this.paymentAmount" >
                     </div>
                    <div>
-                        <label for="type">Accountability Type: </label>
+                        <label for="type">Remarks</label>
                         <input type="select" class="form-control" placeholder="Enter Accountability Type">
-                        <select name="" id=""></select>
-                   </div>
-                   <div class="select-dropdown"  style="margin-left: 20px; width: 60%;">
 
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                                <option value="0" disabled selected>Select Semester</option>
-                                <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                            </select>
-                    </div>
+                   </div>
                    <div>
 
                    </div>
