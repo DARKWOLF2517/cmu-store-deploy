@@ -6,11 +6,12 @@ body {
     /* opacity: 0; */
     animation: fadeIn 1s ease-in-out forwards;
 }
-.container{
-    max-width: 960px;
-}
+/* .container{
+    max-width: 1000px;
+} */
 .content{
-    padding: 4rem 0;
+    padding-top: 4rem ;
+    margin: auto;
 }
 .form-group{
     width: 350px;
@@ -75,7 +76,7 @@ body::after {
 .login-wrap {
     /* max-width: 500px; */
     width: auto;
-    margin: 150px auto 0;
+    /* margin: 150px auto 0; */
     background-color: #fff;
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
     /* padding: 30px; */
@@ -133,11 +134,9 @@ body::after {
   .image-container{
     padding-left: 100px;
   }
-/* .image-container img{
-    max-width: 500px;
-} */
+
   .logo img {
-    width: 100px; /* Adjust the width as needed */
+    width: 100px;
   }
   .flex-container {
     display: flex;
@@ -145,7 +144,15 @@ body::after {
     justify-content: center; /* Center the content horizontally */
     height: 100vh; /* Optional: Set a specific height for the container */
 }
+@media (min-width: 992px){
+    .container{
+        max-width: 960px;
+    }
+    .image-container img{
+        max-width: 500px;
 
+    }
+}
   @media (max-width: 768px) {
     .h3{
         font-size: 15px !important;
@@ -160,8 +167,10 @@ body::after {
         opacity: 0;
         animation: fadeIn 1s ease-in-out forwards;
     }
-
-    body::after {
+.image-container{
+    display: none;
+}
+    /* body::after {
         content: "";
         display: block;
         position: fixed;
@@ -173,7 +182,7 @@ body::after {
         opacity: 0.8;
         z-index: -1;
         animation: fadeInOverlay 1s ease-in-out forwards;
-    }
+    } */
 
     @keyframes fadeIn {
         from {

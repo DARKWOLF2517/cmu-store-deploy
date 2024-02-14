@@ -38,7 +38,7 @@
   </style>
 </head>
 
-<body>
+<body class="h-100">
   <div id="app">
       <!-- TOP NAV BAR -->
       <div class="wrapper">
@@ -47,32 +47,30 @@
         </div>
     </div>
 
-    <div class="content">
-        <div class="container d-flex ">
-            <div class="row ">
-              <div class="col-md-8 col-lg-5 d-flex flex-column mb-4 mb-md-0">
-                <div class="p-4 p-md-5 flex-fill ">
-                        <div class="logo">
-                            <img src="/assets/CSA_logo.png" alt="CMULogo">
-                            <h5>CMU-STORE-AMS</h5>
-                          </div>
-                          <div class="row justify-content-center align-items-center">
-
-                          <small class="mt-2 mb-2 text-center text-muted">
-                            "Welcome to CMU-STORE-AMS, your hub for exploring events, managing accountabilities, and conducting evaluations."</small>
-                          <login-form>
-                          </login-form>
+    <div class="content col-lg">
+        <div class="login-wrap container d-flex justify-content-between">
+            <div class="row">
+                <div class="login-wrap col-md-8 col-lg-5 d-flex flex-column mb-4 mb-md-0 p-4">
+                    <div class="logo text-center">
+                        <img src="/assets/CSA_logo.png" alt="CMULogo">
+                        <h5>CMU-STORE-AMS</h5>
                     </div>
-
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            "Welcome to CMU-STORE-AMS, your hub for exploring events, managing accountabilities, and conducting evaluations."
+                        </small>
+                    </div>
+                    <div class="mt-3">
+                        <login-form></login-form>
+                    </div>
                 </div>
-              </div>
-              <div class="col-sm-6 px-0 d-none d-sm-block">
-                <img src="/assets/login-image.png" alt="image" class="img-fluid align-self-stretch">
-              </div>
+                <div class="col-sm-6 d-none d-sm-block p-0">
+                    <img src="/assets/login-image.png" alt="image" class="img-fluid">
+                </div>
             </div>
-          </div>
-      <div>
+        </div>
     </div>
+
 </div>
 </div>
 </div>
