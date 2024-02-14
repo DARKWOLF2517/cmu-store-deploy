@@ -66,8 +66,8 @@
 
                 </div>
               </div>
-              <div class="image-container col-md-6 col-lg-5 d-flex ">
-                <img src="/assets/login-image.png" alt="image" class="align-self-stretch">
+              <div class="col-sm-6 px-0 d-none d-sm-block">
+                <img src="/assets/login-image.png" alt="image" class="img-fluid align-self-stretch">
               </div>
             </div>
           </div>
