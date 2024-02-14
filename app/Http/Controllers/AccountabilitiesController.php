@@ -24,8 +24,21 @@ class AccountabilitiesController extends Controller
     public function getAccountabilities($org_id, $school_year)
     {
         // return $org_id;
+        $student = Auth::id();
         $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
-        return $accountabilities->toJson();
+        $paidAccountabilityTotal = PaidAccountability::where([
+            ['student_org_id', $org_id],
+            ['school_year', $school_year],
+            ['student_id', $student]
+        ])->sum('amount');
+        
+        // $paidAccountabilityTotal now contains the sum of all amounts in the 'amount' column
+        
+        // return $accountabilities->toJson();
+        return response()->json([
+            'accountabilities' => $accountabilities, 
+            'paid_accountabilities' => $paidAccountabilityTotal,
+            ]);
     }
 
     public function store(Request $request)

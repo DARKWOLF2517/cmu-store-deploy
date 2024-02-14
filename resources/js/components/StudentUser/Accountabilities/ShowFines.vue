@@ -176,7 +176,7 @@ export default{
             axios.get(`/get_user_orgs`)
                     .then(response => {
                         this.user_organization = response.data;
-                        console.log(response.data)
+                        // console.log(response.data)
                     })
                     .catch(error => {
                         alert(error)
@@ -191,7 +191,7 @@ export default{
             axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_input}`)
                     .then(response => {
                         this.accountabilityList = response.data;
-                        console.log(this.accountabilityList)
+                        // console.log(this.accountabilityList)
                     })
                     .catch(error => {
                         alert(error)
@@ -204,8 +204,9 @@ export default{
         fetchEventsWithAttendance(){
             axios.get(`/accountabilities_students/${this.org_id}/${this.school_year_input}`)
                 .then(response => {
-
-                    const data = response.data;
+                    // console.log(response.data.paid_accountabilities)
+                    const data = response.data.accountabilities;
+                    const paid = response.data.paid_accountabilities;
                     data.forEach(events => {
                         //get the data of the student attendance and compile it to the array
                         const attendanceRecord = {
@@ -243,6 +244,8 @@ export default{
                         this.total_accountability += element.amount;
                     });
                         this.total_accountability = this.total_accountability + this.fines;
+                        this.total_accountability = this.total_accountability - paid;
+                        
 
                 })
                 .catch(error => {
