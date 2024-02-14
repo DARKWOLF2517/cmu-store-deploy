@@ -52,16 +52,14 @@
 
             <div class="event-list">
                 <div class="col">
-
                     <div class="event-container" id="event-container">
-
-                            <div class="event-cards-list " >
+                            <div class="event-cards-list" >
                                 <!-- Loading spinner -->
-                            <div v-if="loading" class="loading-spinner-container">
-                                    <div class="spinner-border text-success" id="event-spinner" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                            </div>
+                                <div v-if="loading" class="loading-spinner-container">
+                                        <div class="spinner-border text-success" id="event-spinner" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                </div>
                             <!-- Message if the container is empty -->
                             <div class="Container-IfEmpty text-center" v-if="!loading && events.length === 0">
                                         <div class="Empty-Message">
@@ -101,7 +99,6 @@
                                             <div v-else-if="event.attendance_status == 1">
                                                 <li><a class="dropdown-item"  @click="this.attendance_count_start_attendance = 0, this.id =(event.event_id) , this.status = 2"  data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop Attendance</a></li>
                                             </div>
-
                                         </ul>
                                     </div>
                                             <h5 class="card-title mt-4 mb-2"><strong>{{ event["name"] }}</strong></h5>
@@ -532,7 +529,7 @@
                 const attendanceContainer = document.getElementById('attendance-container');
                     if (this.formData.require_attendance == 1) {
                         attendanceContainer.style.display = 'block';
-                    } 
+                    }
                     else {
                         attendanceContainer.style.display = 'none';
                     }
