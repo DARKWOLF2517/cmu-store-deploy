@@ -1,32 +1,23 @@
 <template>
-        <div class="mt-2">
-            <div class="row head-container">
-                <!-- <div class="col-md-6 col-sm-12">
-                    <div class="input-container">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
-                    </div>
-                </div> -->
-                <!-- <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;"> -->
-                    <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
-                    <!-- <div class="select-dropdown" style="width: 70%;">
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                            <option value="0" disabled selected>Select Semester</option>
-                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                        </select>
-                    </div> -->
-                    <!-- <div class="select-dropdown" style="width: 30%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;">
-                        <option value="">All</option>
-                        <option value="option1">Pending</option>
-                        <option value="option2">Completed</option>
-                    </select>
-                </div> -->
 
-                <!-- </div> -->
-        </div>
-            </div>
-            <h3 class="mt-2"><i class="fas fa-list"></i> Accountabilities</h3>
+            <div class="row head-container mt-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="col-md-6 col-sm-12">
+                        <h3 class="mt-2"><i class="fas fa-list"></i> Accountabilities</h3>
+                    </div>
+                        <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
+                            <div class="select-dropdown" style="width: 70%;">
+                            <select id="sort-select" class="form-control" style="text-align: center;" @change="fetchData">
+                                <option value="" disabled selected>Select Semester</option>
+                                <!-- <option v-for="school_year in this.school_year" :value="school_year.id">{{ school_year.school_year }}</option> -->
+                            </select>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
             <div id="accountability-container">
                 <div class="accountability-cards-list">
                     <div class="stud-accountability-card" v-for="user_orgs in this.user_organization">
