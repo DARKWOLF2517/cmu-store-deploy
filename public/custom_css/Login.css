@@ -9,14 +9,16 @@ body {
 /* .container{
     max-width: 1000px;
 } */
+/* .container{
+    padding-top: 4rem 0;
+} */
 .content{
-    padding-top: 4rem ;
-    margin: auto;
-}
-.form-group{
-    width: 350px;
+padding: 15px;
 }
 
+.page-container{
+   margin-top: 50px;
+}
 /*
 body::after {
     content: "";
@@ -75,14 +77,16 @@ body::after {
 } */
 .login-wrap {
     /* max-width: 500px; */
-    width: auto;
+    width: 950px;
     /* margin: 150px auto 0; */
     background-color: #fff;
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
-    /* padding: 30px; */
+    padding: 30px;
     border-radius: 5px;
   }
-
+.col{
+    width: 100%;
+}
 
   .login-form .form-group {
     margin-bottom: 20px;
@@ -134,7 +138,9 @@ body::after {
   .image-container{
     padding-left: 100px;
   }
-
+.login-image img{
+    height: 500px;
+}
   .logo img {
     width: 100px;
   }
@@ -144,7 +150,7 @@ body::after {
     justify-content: center; /* Center the content horizontally */
     height: 100vh; /* Optional: Set a specific height for the container */
 }
-@media (min-width: 992px){
+/* @media (min-width: 992px){
     .container{
         max-width: 960px;
     }
@@ -152,7 +158,7 @@ body::after {
         max-width: 500px;
 
     }
-}
+} */
   @media (max-width: 768px) {
     .h3{
         font-size: 15px !important;
