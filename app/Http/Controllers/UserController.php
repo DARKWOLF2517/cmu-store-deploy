@@ -30,7 +30,7 @@ class UserController extends Controller
 
         }
         public function getUserProfile($student_id){
-            $user_organization = UserOrganization::where('student_id',$student_id)->with(['organization','user_profile.year_level'])->get();
+            $user_organization = UserOrganization::where('student_id',$student_id)->with(['organization','user_profile', 'yearLevel'])->get();
                 return $user_organization;
 
         }

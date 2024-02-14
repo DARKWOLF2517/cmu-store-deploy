@@ -200,7 +200,7 @@ export default{
             axios.get(`/get_accountabilities/${this.org_id}`)
                     .then(response => {
                         this.accountabilityList = response.data;
-                        // console.log(this.accountabilityList)
+                        console.log(this.accountabilityList)
                     })
                     .catch(error => {
                         alert(error)

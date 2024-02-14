@@ -41,7 +41,7 @@
                     <h3 class="mt-2"><i class="fas fa-list"></i> Events</h3>
                     <div class="event-buttons d-flex">
                         <div class="btn-group" role="group">
-                            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">
+                            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData,  this.checkboxClick()">
                                 <i class="fas fa-calendar-plus"></i> Add Event
                             </button>
                         </div>
@@ -169,46 +169,47 @@
                                 </div>
                             </div>
                         </div>
-        <div class="modal fade" id="startAttendanceModal" tabindex="-1" aria-labelledby="startAttendanceModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="text-center">
-                        <h4> <i class="fas fa-question-circle text-warning"></i> </h4>
-                        <h5 class="fw-bold text-center"> Start an Attendance?</h5>
-                    </div>
-                        <!-- <p>Are you sure you want to start attendance?</p> -->
-                        <label class="mt-2">Select Attendance Type:</label>
-                        <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;">
+                        <!-- start attendance modal -->
+                        <div class="modal fade" id="startAttendanceModal" tabindex="-1" aria-labelledby="startAttendanceModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="text-center">
+                                        <h4> <i class="fas fa-question-circle text-warning"></i> </h4>
+                                        <h5 class="fw-bold text-center"> Start an Attendance?</h5>
+                                    </div>
+                                        <!-- <p>Are you sure you want to start attendance?</p> -->
+                                        <label class="mt-2">Select Attendance Type:</label>
+                                        <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;">
 
-                        <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session" required>
-                            <option :value="0" disabled selected>Select Attendace Type</option>
-                            <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log in)</option>
-                                <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log out)</option>
-                                <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log in)</option>
-                                <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log out)</option>
-                        </select>
+                                        <select id="sort-select" class="form-control" style="text-align: center;"  v-model="session" required>
+                                            <option :value="0" disabled selected>Select Attendace Type</option>
+                                            <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log in)</option>
+                                                <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log out)</option>
+                                                <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log in)</option>
+                                                <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log out)</option>
+                                        </select>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                                    <label for="attendanceType">Select Attendance Type:</label>
+                                                    <select class="form-select " id="attendanceType" v-model="session">
+                                                        <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
+                                                        <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
+                                                        <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
+                                                        <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
+                                                    </select>
+                                        </div> -->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-success" @click="startAttendance(event_id, org_id, session)" data-bs-dismiss="modal" >Start</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <!-- <div class="form-group">
-                                    <label for="attendanceType">Select Attendance Type:</label>
-                                    <select class="form-select " id="attendanceType" v-model="session">
-                                        <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
-                                        <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
-                                        <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
-                                        <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
-                                    </select>
-                        </div> -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-success" @click="startAttendance(event_id, org_id, session)" data-bs-dismiss="modal" >Start</button>
-                    </div>
-                </div>
-            </div>
-        </div>
                         <!-- Exempted Modal -->
                         <div class="modal fade" id="exemptModal" tabindex="-1" role="dialog" aria-labelledby="exemptModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -319,7 +320,7 @@
                                                     <textarea class="form-control" name="description" id="event-description" rows="3" v-model="formData.description" required></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <input class="form-check-input" type="checkbox" name="require_attendance" id="require-attendance" v-model="formData.require_attendance" true-value="1" false-value="0" @click="checkboxClick()">
+                                                <input class="form-check-input" type="checkbox" name="require_attendance" id="require-attendance" v-model="formData.require_attendance" :true-value="1" :false-value="0" @click="checkboxClick()">
                                                 <label for="require-attendance" class="form-label">Require Attendance</label>
                                             </div>
                                             <div id="attendance-container" style="display: none;">
@@ -389,7 +390,7 @@
                         end_attendance:'',
                         location:'',
                         description:'',
-                        require_attendance: '',
+                        require_attendance: 0,
                         attendance_count: '',
                         fines: '',
                         org_id: '',
@@ -415,6 +416,9 @@
             this.fetchData();
             this.showSchoolYear();
             this.showYearLevelData();
+        },
+        mounted(){
+                this.checkboxClick();
         },
         methods: {
             submitYearLevelExempted(){
@@ -515,14 +519,23 @@
             },
 
             checkboxClick(){
-                document.getElementById('require-attendance').addEventListener('change', function() {
-                    const attendanceContainer = document.getElementById('attendance-container');
-                    if (this.checked) {
+                // console.log('sdf')
+                // document.getElementById('require-attendance').addEventListener('change', function() {
+                //     const attendanceContainer = document.getElementById('attendance-container');
+                //     if (this.checked) {
+                //         attendanceContainer.style.display = 'block';
+                //     } else {
+                //         attendanceContainer.style.display = 'none';
+                //     }
+                // });
+                console.log(this.formData.require_attendance)
+                const attendanceContainer = document.getElementById('attendance-container');
+                    if (this.formData.require_attendance == 1) {
                         attendanceContainer.style.display = 'block';
-                    } else {
+                    } 
+                    else {
                         attendanceContainer.style.display = 'none';
                     }
-                });
 
                 // const user_orgs = [
                 //     { id: 1, label: '1st Year', value: '1' },
@@ -624,7 +637,6 @@
                         this.formData = response.data
                         this.id = id
                         this.submit = this.UpdateData
-
                     })
                     .catch(error => {
 
@@ -693,7 +705,7 @@
                         end_attendance:'',
                         location:'',
                         description:'',
-                        require_attendance: '',
+                        require_attendance: 0,
                         org_id: this.organization_id,
                         school_year_input: this.school_year_input,
 
