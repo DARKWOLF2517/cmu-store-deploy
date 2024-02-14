@@ -7,9 +7,9 @@
                     </div>
                         <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
                             <div class="select-dropdown" style="width: 70%;">
-                            <select id="sort-select" class="form-control" style="text-align: center;" @change="fetchData">
+                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input" @change="fetchData">
                                 <option value="" disabled selected>Select Semester</option>
-                                <!-- <option v-for="school_year in this.school_year" :value="school_year.id">{{ school_year.school_year }}</option> -->
+                                <option v-for="school_year in this.school_year" :value="school_year.id">{{ school_year.school_year }}</option>
                             </select>
                         </div>
                         </div>
@@ -154,24 +154,24 @@ export default{
     },
     mounted() {
         // this.fetchData();
-        // this.showSchoolYear();
+        this.showSchoolYear();
         // console.log(this.name)
         this.getUserOrgs();
 
     },
     methods:{
-        // showSchoolYear(){
-        //     axios.get(`get_school_year/${this.org_id}`)
-        //         .then(response => {
-        //             // console.log(response.data)
-        //             this.school_year = response.data;
-        //             // console.log(response.data)
-        //         })
-        //         .catch(error => {
-        //             console.log(error)
-        //         });
+        showSchoolYear(){
+            axios.get(`get_school_year`)
+                .then(response => {
+                    // console.log(response.data)
+                    this.school_year = response.data;
+                    // console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
 
-        // },
+        },
         getUserOrgs(){
             axios.get(`/get_user_orgs`)
                     .then(response => {
@@ -188,7 +188,7 @@ export default{
             this.fines= 0,
             this.accountabilityList=[],
             this.total_accountability = 0,
-            axios.get(`/get_accountabilities/${this.org_id}`)
+            axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_input}`)
                     .then(response => {
                         this.accountabilityList = response.data;
                         console.log(this.accountabilityList)
@@ -202,7 +202,7 @@ export default{
         },
 
         fetchEventsWithAttendance(){
-            axios.get(`/accountabilities_students/${this.org_id}`)
+            axios.get(`/accountabilities_students/${this.org_id}/${this.school_year_input}`)
                 .then(response => {
 
                     const data = response.data;
@@ -242,7 +242,7 @@ export default{
                     this.accountabilityList.forEach(element => {
                         this.total_accountability += element.amount;
                     });
-                        this.total_accountability = this.total_accountability+ this.fines;
+                        this.total_accountability = this.total_accountability + this.fines;
 
                 })
                 .catch(error => {
