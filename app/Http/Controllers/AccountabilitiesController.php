@@ -21,16 +21,11 @@ use Illuminate\Support\Facades\Session;
 
 class AccountabilitiesController extends Controller
 {
-    public function getAccountabilities($org_id)
+    public function getAccountabilities($org_id, $school_year)
     {
-        $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
-        if ( $org_default_school_year){
-            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $org_default_school_year->school_year]])->with(['Attendance'])->get();
-            return $accountabilities->toJson();
-        }else{
-            return response()->json([]);
-        }
-
+        // return $org_id;
+        $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
+        return $accountabilities->toJson();
     }
 
     public function store(Request $request)
@@ -57,10 +52,10 @@ class AccountabilitiesController extends Controller
             return response()->json(['message' => 'Accountability Created Successfully']);
             // return $request;
     }
-    public function getAccountabilitiesList($org_id)
+    public function getAccountabilitiesList($org_id, $school_year)
     {
         // $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
-        $school_year = Session::get('school_year');
+        // $school_year = Session::get('school_year');
         // if ($org_default_school_year){
             $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
             return $accountabilities->toJson();
