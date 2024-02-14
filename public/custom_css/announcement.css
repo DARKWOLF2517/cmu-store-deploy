@@ -17,13 +17,13 @@
   .announcement-list{
     height: 71vh;
     max-height: 71vh;
-    overflow-y: auto;
+    /* overflow-y: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 20px;
-    padding-top: 0;
+    padding-top: 0; */
   }
   #announcement-container {
     height: 60vh;

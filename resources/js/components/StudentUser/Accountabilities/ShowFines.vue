@@ -20,7 +20,7 @@
 
             <div id="accountability-container">
                 <div class="accountability-cards-list">
-                    <div class="stud-accountability-card" v-for="user_orgs in this.user_organization">
+                    <div class="stud-accountability-card border-top border-5 border-success border-bottom-0" v-for="user_orgs in this.user_organization">
                         <div class="card-body text-center">
                             <h2 class="text-center bold mt-2"><i class="bi bi-wallet2 text-secondary"></i></h2>
                             <h5 class="card-title mt-2"><strong>{{user_orgs.organization.name}} </strong></h5>
