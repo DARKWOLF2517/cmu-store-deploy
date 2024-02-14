@@ -15,7 +15,7 @@
                         <h5 class="mb-0 text-center text-muted"> <b></b> {{ this.user_id }}</h5>
                         <p class="mb-0 mt-2"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level }}</span></p>
                         <!-- <p class="mb-0"><b>Organization: </b> <span id="college">{{ this.profile.college }}</span></p> -->
-                        <p><b>Email: </b> <span id="email"></span></p>
+                        <p><b>Email: </b> {{ this.profile.email  }} <span id="email"></span></p>
                     </div>
                 </div>
             </div>
@@ -190,6 +190,7 @@ export default {
       loading: false, // Added loading property
       profile: {
         name: '',
+        email: '',
         year_level: '',
         college: '',
         department: '',
@@ -234,7 +235,8 @@ export default {
           const data = response.data;
           data.forEach(item => {
             this.profile.name = item.user_profile.first_name+ ' ' + item.user_profile.last_name;
-            this.profile.year_level = item.user_profile.year_level.year_level;
+            this.profile.email = item.user_profile.email;
+            this.profile.year_level = item.year_level.year_level;
           });
 
           //get the organization list

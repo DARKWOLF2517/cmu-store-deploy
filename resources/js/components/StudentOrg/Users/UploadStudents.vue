@@ -142,7 +142,7 @@
                                 <form @submit.prevent="this.submit">
                                 <div class="mb-3" v-if="this.submit == this.addSingleStudent">
                                     <label for="studentId" class="form-label">Student ID</label>
-                                    <input type="text" class="form-control" id="studentId" v-model="student_data.student_id" @change="this.fetchDataDisplayName">
+                                    <input type="text" class="form-control" id="studentId" v-model="student_data.student_id" @change="this.fetchDataDisplayName" required>
                                 </div>
                                 <!-- <div class="mb-3" v-if="this.submit == this.updateSingleAddStudents">
                                     <label for="studentId" class="form-label">Student ID</label>
@@ -179,7 +179,7 @@
 
                                 <div class="mb-3">
                                     <label for="reason" class="form-label">Year-level</label>
-                                    <select  class="form-select" id="yr-level" v-model="student_data.year_level_id">
+                                    <select  class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
                                         <option value="0" disabled selected>Select Year Level</option>
                                         <option v-for="year_level in this.year_level_data" :value="year_level.id" >{{ year_level.year_level }}</option>
                                     </select>

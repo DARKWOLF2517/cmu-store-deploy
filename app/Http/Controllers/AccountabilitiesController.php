@@ -59,13 +59,14 @@ class AccountabilitiesController extends Controller
     }
     public function getAccountabilitiesList($org_id)
     {
-        $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
-        if ($org_default_school_year){
-            $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $org_default_school_year->school_year]] )->get();
+        // $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
+        $school_year = Session::get('school_year');
+        // if ($org_default_school_year){
+            $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
             return $accountabilities->toJson();
-        }else{
-            return response()->json([]);
-        }
+        // }else{
+        //     return response()->json([]);
+        // }
 
     }
     public function AccountabilitiesListInAdmin($org_id,$school_year)
