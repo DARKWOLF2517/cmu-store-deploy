@@ -43,32 +43,48 @@
 
 
         <div class="announcement-list">
-          <div class="col">
-            <div class="announcement-cards-list " v-for="announcements in this.filtered_announcements">
-              <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
-                <div class="dropdown">
-                    <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-h"></i>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                        <!-- option 1 -->
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.id = announcements.id, this.submit = this.updateData, this.fetchEdit()">Edit Announcement</a></li>
-                        <!-- option 2 -->
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="this.id = announcements.id">Delete Announcement</a></li>
-                    </ul>
-                </div>
+            <!-- Loading spinner -->
+            <div v-if="loading" class="loading-spinner-container">
+                    <div class="spinner-border text-success" id="event-spinner" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+            </div>
+            <!-- Message if the container is empty -->
+            <div class="Container-IfEmpty text-center" v-if="!loading && announcements.length === 0">
+                        <div class="Empty-Message">
+                        <i class="icon 	bi bi-calendar-event" id="icon-message"></i>
+                        <p class="text-muted"><b>Create Events when you're ready</b>
+                        <br>
+                        No events yet.</p>
+                        <a class="btn btn-success" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData ">Add Event</a>
+                    </div>
+            </div>
+            <div class="col">
+                <div class="announcement-cards-list " v-for="announcements in this.filtered_announcements">
+                <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
+                    <div class="dropdown">
+                        <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                            <!-- option 1 -->
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.id = announcements.id, this.submit = this.updateData, this.fetchEdit()">Edit Announcement</a></li>
+                            <!-- option 2 -->
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="this.id = announcements.id">Delete Announcement</a></li>
+                        </ul>
+                    </div>
                 <div class="d-flex align-items-center">
                 <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
                 <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
                 </div>
                 <div class="card-body">
-                <h5 class="card-title mt-4"><strong>{{ announcements.title }}</strong> </h5>
-                <small class="date-upload text-muted"> Date Created: {{ announcements.created_at }}</small>
+                <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
+                <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
                 <p class="card-short-description mt-2">
                     {{announcements.description}}
                 </p>
-                <p class="card-short-description mt-2">
-                    Date :{{announcements.time}} - {{announcements.date }}
+                <p class="card-short-description">
+                  <b>Scheduled Date and Time:</b> {{announcements.time}} - {{announcements.date }}
                 </p>
                 </div>
               </div>
@@ -87,7 +103,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            
+
               <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-if="this.submit == this.submitData">Add Announcement</h5>
               <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-else-if="this.submit == this.updateData">Update Announcement</h5>
               <div class="mb-3">
@@ -184,6 +200,7 @@ export default {
         description: '',
         date: '',
         time: '',
+        loading: true,
       }
     }
   },
@@ -203,7 +220,7 @@ export default {
             console(error)
 
       });
-    }, 
+    },
     updateData() {
         axios.put(`/updateAnnouncement/${this.id}`, this.announcement_data)
           .then(response => {
@@ -226,7 +243,7 @@ export default {
           console.log(error)
 
       });
-    },     
+    },
     submitData(){
       axios.post(`/addAnnouncement/${this.org_id}/${this.school_year_input}`, this.announcement_data)
         .then(response => {
@@ -261,11 +278,14 @@ export default {
     },
 
     fetchData(){
+        this.loading = true;
+
       axios.get(`get_announcement/${this.org_id}/${this.school_year_input}`)
         .then(response => {
             console.log(response.data)
             this.announcements = response.data;
             this.filtered_announcements = this.announcements;
+            this.loading = false;
         })
         .catch(error => {
             console.log(error)

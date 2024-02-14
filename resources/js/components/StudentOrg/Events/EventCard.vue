@@ -27,7 +27,7 @@
                         <div class="select-dropdown" style="width: 30%;">
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="status_filter" @change="filterItems">
                             <option :value="''">All</option>
-                            <option :value=0>Pending</option>
+                            <!-- <option :value=0>Pending</option> -->
                             <option :value=1>Ongoing</option>
                             <option :value=2>Completed</option>
                         </select>
@@ -662,7 +662,7 @@
             },
 
             startAttendance() {
-                
+
                 if (this.session == 0 &&  this.status == 1){
                     alert('Please input session');
                 }
