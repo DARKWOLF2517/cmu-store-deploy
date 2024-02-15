@@ -63,7 +63,7 @@
                                 <span class="loader"></span>
                             </div>
                             <!-- Message will show if table is empty -->
-                            <div class="Container-IfEmpty" v-if="!loading && fees_list.length === 0">
+                            <div class="Container-IfEmpty" v-if="!loading && filtered_items_for_fines.length === 0">
                                 <div class="Empty-Message text-center">
                                     <i class="icon 	bi bi-table" id="icon-message"></i>
                                     <p class="text-muted"><b>Accountability table is empty.</b>
@@ -72,12 +72,12 @@
                                 </div>
                             </div>
                             <!-- Will show if nothing was searched -->
-                            <div class="Container-IfEmpty" v-if="!loading && filtered_items_for_fines.length === 0 && this.fees_list != 0">
+                            <!-- <div class="Container-IfEmpty" v-if="!loading && filtered_items_for_fines.length == 0 && this.fees_list != 0">
                                 <div class="Empty-Message text-center">
                                     <i class="icon 	fas fa-frown" id="icon-message"></i>
                                     <p class="text-muted fw-bold">No results found</p>
                                 </div>
-                            </div>
+                            </div> -->
                             <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id" :key="fees_list.user_id">
                                 <td >{{ fees_list.user_id }}</td>
                                 <td> {{ fees_list.name }}</td>
@@ -540,6 +540,7 @@ export default{
             this.overall_fees_list = [];
             this.fees_list = [];
             this.other_accountabilities_list = [];
+            this.total_fees = [];
             axios.get(`/fees_list/${this.org_id}/${this.school_year_input}`)
 
                     .then(response => {
@@ -575,7 +576,7 @@ export default{
                 // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
                 const usersInOrg = [];
                 //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
-                    console.log(user_orgs)
+                    // console.log(user_orgs)
                     user_orgs.forEach(userOrg => {
 
                         // if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
@@ -937,11 +938,11 @@ export default{
                         });
                     }
                     // this.filtered_items_for_fines = this.total_fees;
-                    // Assuming this.total_fees is an array of objects with 'amount' field
+                    //if the filtered items has zero value 
                     this.filtered_items_for_fines = this.total_fees.filter(item => item.total_fees != 0);
-
+                    // this.filtered_items_for_fines = this.total_fees;
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
-
+                    console.log(this.total_fees)
                     })
                     .catch(error => {
                         console.log(error)

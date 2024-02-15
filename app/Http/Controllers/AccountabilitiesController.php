@@ -298,10 +298,9 @@ class AccountabilitiesController extends Controller
         return response()->json(['message' => 'Accountability Updated Successfully']);
     }
 
-    public function getUserOrgs()
+    public function getUserOrgs($school_year)
     {
         $student = Auth::id();
-        $school_year = Session::get('school_year');
         $userOrgs = UserOrganization::where([
             ['student_id', $student],
             ['role_id', 2],
