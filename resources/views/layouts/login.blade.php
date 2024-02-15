@@ -22,15 +22,51 @@
   <div id="app">
       <!-- TOP NAV BAR -->
       <div class="wrapper">
-        <div class="top-nav text-center">
-            <span class="nav-link-text"> CMU-STORE-AMS</span>
+            <div class="top-nav text-center">
+                <span class="nav-link-text"> CMU-STORE-AMS</span>
+            </div>
         </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            </div>
+        </nav>
+
+<div class="container-fluid">
+    <div class="flex-container ">
+      <div class="col-lg-6 col-md-12 mb-4">
+        <div class="container">
+            <div class="login-content p-4">
+                <div class="logo text-center">
+                    <img src="/assets/CSA_logo.png" alt="CMULogo">
+                    <h5>CMU-STORE-AMS</h5>
+                </div>
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        "Welcome to CMU-STORE-AMS, track and manage easily."
+                    </small>
+                </div>
+                <div class="mt-4">
+                    <login-form></login-form>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <!-- Second Container with Image -->
+      <div class="col-lg-6 col-md-12 ">
+        <div class="container">
+            <img src="/assets/login-image.png" alt="image" class="img-fluid align-image-stretch">
+        </div>
+      </div>
     </div>
-    <div class="page-content-wapper">
+  </div>
+</div>
+    {{-- <div class="page-content-wapper">
         <div class="page-container">
             <div class="login-wrap d-flex justify-content-center align-items-center">
                 <div class="row">
-                    <div class="col-md-6 justify-content-center align-items-center">
+                    <div class="col-md-6 mt-4">
                         <div class="login-content p-4">
                             <div class="logo text-center">
                                 <img src="/assets/CSA_logo.png" alt="CMULogo">
@@ -46,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 d-flex justify-content-center align-items-center">
+                    <div class="col-md-6 d-flex justify-content-center align-items-center mt-4">
                         <div class="login-image ">
                             <img src="/assets/login-image.png" alt="image" class="img-fluid align-image-stretch">
                         </div>
@@ -56,12 +92,8 @@
 
         </div>
 
-    </div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    </div> --}}
+
 {{--
   <script>
     function validateForm() {
