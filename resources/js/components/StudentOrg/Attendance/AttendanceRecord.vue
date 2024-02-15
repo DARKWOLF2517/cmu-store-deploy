@@ -44,12 +44,18 @@
 
                     <!-- Message if the container is empty -->
                     <div  class="Container-IfEmpty text-center" v-if="!loading && Object.keys(attendance).length === 0">
-                    <div class="Empty-Message">
-                        <i class="icon fas fa-file-alt" id="icon-message"></i>
-                        <p class="text-muted"><b>No Attendance Recorded yet</b><br>Attendance records show up here.</p>
+                        <div class="Empty-Message">
+                            <i class="icon fas fa-file-alt" id="icon-message"></i>
+                            <p class="text-muted"><b>No Attendance Recorded yet</b><br>Attendance records show up here.</p>
+                        </div>
                     </div>
+                    <!-- Message No results found -->
+                    <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_attendance.length == 0 && Object.keys(attendance) != 0">
+                        <div class="Empty-Message">
+                            <i class="icon 	fas fa-frown" id="icon-message"></i>
+                            <p class="text-muted fw-bold">No results found</p>
+                        </div>
                     </div>
-
                 <div class="recorded-event-cards">
 
                     <!-- Render attendance records -->

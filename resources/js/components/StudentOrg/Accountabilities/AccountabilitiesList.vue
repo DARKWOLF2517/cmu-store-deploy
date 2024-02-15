@@ -62,12 +62,20 @@
                             <div v-if="loading" class="loading-spinner-container mt-2">
                                 <span class="loader"></span>
                             </div>
+                            <!-- Message will show if table is empty -->
                             <div class="Container-IfEmpty" v-if="!loading && fees_list.length === 0">
                                 <div class="Empty-Message text-center">
                                     <i class="icon 	bi bi-table" id="icon-message"></i>
                                     <p class="text-muted"><b>Accountability table is empty.</b>
                                     <br>
                                     Students with fines are listed here</p>
+                                </div>
+                            </div>
+                            <!-- Will show if nothing was searched -->
+                            <div class="Container-IfEmpty" v-if="!loading && filtered_items_for_fines.length === 0 && this.fees_list != 0">
+                                <div class="Empty-Message text-center">
+                                    <i class="icon 	fas fa-frown" id="icon-message"></i>
+                                    <p class="text-muted fw-bold">No results found</p>
                                 </div>
                             </div>
                             <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id" :key="fees_list.user_id">

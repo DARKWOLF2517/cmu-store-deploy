@@ -88,12 +88,20 @@
         <div v-if="this.loading == true" class="loading-spinner-container ">
             <span class="loader"></span>
         </div>
+        <!-- Will show if Table is Empty -->
         <div class="Container-IfEmpty" v-if="!loading && studentList.length === 0">
             <div class="Empty-Message text-center">
                 <i class="icon 	bi bi-table" id="icon-message"></i>
                 <p class="text-muted"><b>Member list is Empty</b>
                 <br>
                 Student members show up here.</p>
+            </div>
+        </div>
+        <!-- Will show if no results found in searching -->
+        <div class="Container-IfEmpty" v-if="!loading && this.filtered_student_list.length === 0">
+            <div class="Empty-Message text-center">
+                <i class="icon 	fas fa-frown" id="icon-message"></i>
+                <p class="text-muted fw-bold">No results found</p>
             </div>
         </div>
         <!-- Table rows -->

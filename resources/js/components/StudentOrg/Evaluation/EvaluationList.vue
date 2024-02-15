@@ -49,6 +49,14 @@
                 </div>
         </div>
 
+        <!-- Nothing is found in search -->
+       <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_events.length === 0 && evaluation != 0">
+                    <div class="Empty-Message">
+                        <i class="icon 	fas fa-frown" id="icon-message"></i>
+                        <p class="text-muted fw-bold">No results found</p>
+                </div>
+        </div>
+
 
             <!-- Status EVALUATION CARD -->
             <!-- <div class="event-card border-top border-5 border-success border-bottom-0 py-3" v-for="evaluation in this.filtered_events" :id="evaluation.event_id"> -->

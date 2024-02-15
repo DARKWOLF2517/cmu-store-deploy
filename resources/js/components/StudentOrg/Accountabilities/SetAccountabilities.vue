@@ -46,15 +46,22 @@
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
-      <div class="Container-IfEmpty" v-if="!loading && accountabilityList.length === 0">
-            <div class="Empty-Message text-center">
+    <!-- Will show if there are no records -->
+    <div class="Container-IfEmpty" v-if="!loading && accountabilityList.length === 0">
+        <div class="Empty-Message text-center">
             <i class="icon 	fas fa-wallet" id="icon-message"></i>
             <p class="text-muted"><b>Set up an Accountability</b>
             <br>
             Student Organization accountablities show up here.</p>
         </div>
+    </div>
+    <!-- Will show if there are no records found -->
+    <div class="Container-IfEmpty" v-if="!loading && filtered_accountabilities.length === 0 && this.accountabilityList != 0">
+        <div class="Empty-Message text-center">
+            <i class="icon 	fas fa-frown" id="icon-message"></i>
+            <p class="text-muted fw-bold">No results found</p>
         </div>
-
+    </div>
       <div class="accountabilities-cards">
           <div class="accountability-card border-top border-5 border-success border-bottom-0" v-for="accountability in this.filtered_accountabilities">
               <div class="dropdown">
