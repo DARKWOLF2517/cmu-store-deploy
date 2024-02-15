@@ -682,6 +682,7 @@ export default{
                 student_id:'',
                 position: '',
                 org_id: this.org_id,
+                school_year: this.school_year_session,
 
             },
             OfficerId: 0,
@@ -878,8 +879,9 @@ export default{
 
 
         showOfficerRole(){
-            axios.get(`/view_officer_role`)
+            axios.get(`/view_officer_role/${this.org_id}/${this.school_year_session}`)
                 .then(response => {
+                    console.log(response.data)
                     this.officerRoles = response.data;
                 })
                 .catch(error => {
@@ -1016,7 +1018,7 @@ export default{
         },
         showOfficer(){
             this.orgOfficers = [];
-            axios.get(`/view_officers/${this.org_id}`)
+            axios.get(`/view_officers/${this.org_id}/${this.school_year_session}`)
                 .then(response => {
                     response.data.forEach(element => {
                             this.orgOfficers.push({
@@ -1114,6 +1116,7 @@ export default{
                 student_id:'',
                 position: '',
                 org_id: this.org_id,
+                school_year: this.school_year_session,
 
             };
             this.nameFilterAddOfficer = [];

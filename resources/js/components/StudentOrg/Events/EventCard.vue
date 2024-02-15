@@ -627,7 +627,7 @@
 
                         this.events = response.data;
                         this.filtered_events = this.events;
-                        console.log(this.filtered_events);
+                        // console.log(this.filtered_events);
                     })
                     .catch(error => {
                     // this.loading = false;
@@ -659,13 +659,18 @@
                     });
             },
             deleteEvent() {
-                console.log(this.id);
                 axios.delete(`/events/${this.id}`)
                         .then(response => {
+                            // console.log(response.data)
                             // const closeButton = $('.modal button[data-bs-dismiss="modal"]');
                             // closeButton.trigger('click');
-                            this.showSucces(response.data.message);
-
+                            if (response.data.status == 1){
+                                this.showSucces(response.data.message);
+                                console.log(response.data)
+                            }
+                            else{
+                                this.showError(response.data.message);
+                            }
 
                         })
                         .catch(error => {
@@ -698,6 +703,12 @@
             showSucces(message){
                 this.fetchData();
                 toast.success(message),{
+                    autoClose: 100,
+                }
+            },
+            showError(message){
+                this.fetchData();
+                toast.error(message),{
                     autoClose: 100,
                 }
             },

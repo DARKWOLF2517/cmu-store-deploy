@@ -59,9 +59,9 @@ class OrgProfileController extends Controller
         $id->delete();
         return response()->json(['message' => 'School Year Deleted successfully']);
     }
-    public function viewOrgOfficer($org_id)
+    public function viewOrgOfficer($org_id, $school_year)
     {
-        $orgOfficer = OrganizationOfficer::where('org_id', $org_id)->with('user_profile')->get();
+        $orgOfficer = OrganizationOfficer::where([['org_id', $org_id], ['school_year', $school_year]])->with('user_profile')->get();
         return response()->json($orgOfficer);
 
     }
@@ -84,14 +84,15 @@ class OrgProfileController extends Controller
                 'student_id' => 'required',
                 'position' => 'required',
                 'org_id' => 'required',
+                'school_year' => 'required',
             ]);
-    
             // // Create a new School Year instance
             $schoolyear = new OrganizationOfficer([
                 'student_id' => $validatedData['student_id'],
                 'position' => $validatedData['position'],
                 'org_id' => $validatedData['org_id'],
                 'year_level_id' => $UserYearLevel->year_level_id,
+                'school_year' => $validatedData['school_year'],
                 
             ]);
             $schoolyear->save();
@@ -177,14 +178,14 @@ class OrgProfileController extends Controller
 
         // return $request;
     }
-    public function viewOfficerRole()
+    public function viewOfficerRole($org_id, $school_year)
     {
         // $officerRole = UserOrganization::where('student_org_id', $org_id)->with('role')->get();
         // $officerRole = UserOrganization::where('student_org_id', $org_id)->with('role','user')->get();
         // $officerRole = UserOrganization::where('student_org_id', $org_id)
         //       ->with('role', 'user')
         //       ->get();
-        $officerRole = UserOrganization::with('role','user_profile')
+        $officerRole = UserOrganization::where([['student_org_id', $org_id],['school_year', $school_year]])->with('role','user_profile')
             ->whereHas('role', function($query) {
                 $query->where('role_id', '!=', 2); 
             })

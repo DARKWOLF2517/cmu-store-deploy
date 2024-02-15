@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventExempted;
@@ -122,10 +123,19 @@ class EventController extends Controller
         
         return response()->json(['message' => 'Event '. $request-> name.' Updated Successfully']);
     }
-    public function destroy(Event $event)
+    public function destroy( $event)
     {
-        $event->delete();
-        return response()->json(['message' => 'Event '. $event-> name.' Deleted successfully']);
+        $event_list = Attendance::where('event_id', $event)->count();
+        // return $event_list;
+        if ($event_list > 0){
+            return response()->json(['message' => 'Unable to delete event because it has attendance records.', 'status' => 0]);
+        }
+        else {
+            event::where('event_id',$event)->delete();
+            // event::where('event_id', $event)->delete();
+            return response()->json(['message' => 'Event Deleted successfully' , 'status' => 1]);
+        }
+    
     }
 
     public function getSchoolYear()

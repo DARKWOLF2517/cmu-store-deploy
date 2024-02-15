@@ -187,11 +187,7 @@ Route::middleware(['auth'])->group(function(){
 
             #ATTENDANCE ROUTES
 
-            //check the repetition of the data using id number
             Route::get('/attendance_repetition/{result_id}/{session}/{event_id}',[AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
-            //attendance record list
-
-            //attendance status route
             Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
 
             #EVALUATION ROUTES
@@ -232,7 +228,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/edit_school_year/{id}',[OrgProfileController::class, 'fetchUpdateSchoolYear']);
             Route::put('/update_school_year/{id}',[OrgProfileController::class, 'updateSchoolYear']);
             Route::delete('/deleteSchoolYear/{id}',[OrgProfileController::class, 'DeleteSchoolYear']);
-            Route::get('/view_officers/{org_id}',[OrgProfileController::class, 'viewOrgOfficer']);
+            Route::get('/view_officers/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgOfficer']);
             Route::get('/view_users_org/{org_id}',[OrgProfileController::class, 'viewUsersOrg']);
             Route::post('/add_org_officer',[OrgProfileController::class, 'addOrgOfficer']);
             Route::get('/edit_officer/{id}',[OrgProfileController::class, 'fetchUpdateOfficer']);
@@ -240,7 +236,7 @@ Route::middleware(['auth'])->group(function(){
             Route::delete('/deleteOfficer/{id}',[OrgProfileController::class, 'DeleteOfficer']);
             Route::get('/view_roles',[OrgProfileController::class, 'viewRoles']);
             Route::post('/add_org_officer_role',[OrgProfileController::class, 'addOrgOfficerRole']);
-            Route::get('/view_officer_role',[OrgProfileController::class, 'viewOfficerRole']);
+            Route::get('/view_officer_role/{org_id}/{school_year}',[OrgProfileController::class, 'viewOfficerRole']);
             Route::put('/update_officer_role/{id}',[OrgProfileController::class, 'updateOfficerRole']);
             Route::delete('/delete_officer_role/{id}',[OrgProfileController::class, 'DeleteOfficerRole']);
             Route::get('/view_org_profile/{org_id}',[OrgProfileController::class, 'viewOrgProfile']);
