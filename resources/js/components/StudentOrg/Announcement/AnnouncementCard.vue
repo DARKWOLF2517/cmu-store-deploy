@@ -56,14 +56,14 @@
                     <i class="icon 	bi bi-megaphone" id="icon-message"></i>
                     <p class="text-muted"><b>Announcements here</b>
                     <br>
-                    No Announcements yet</p>
+                    No Announcements yet, Create Announcements Now!</p>
                 </div>
         </div>
-                <!-- Message if the container is empty -->
+                <!-- Message No results found -->
         <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_announcements.length == 0 && this.announcements != 0">
           <div class="Empty-Message">
-            <i class="icon 	bi bi-megaphone" id="icon-message"></i>
-            <p class="text-muted">No result Found</p>
+            <i class="icon 	fas fa-frown" id="icon-message"></i>
+            <p class="text-muted fw-bold">No result Found</p>
           </div>
         </div>
      <div  v-for="announcements in this.filtered_announcements">
