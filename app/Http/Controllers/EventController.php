@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventExempted;
+use App\Models\PaidAccountability;
 use App\Models\SchoolYear;
 use App\Models\User;
 use App\Models\YearLevel;
@@ -140,8 +141,12 @@ class EventController extends Controller
 
     public function getCompleteEventsCount($org_id ,$school_year)
     {   
-        $events = event::where([['org_id', $org_id],['attendance_status', 2],['school_year', $school_year]])->count();
-        return response()->json($events);
+        $accountability_total = PaidAccountability::where([
+            ['student_org_id', $org_id],
+            ['school_year', $school_year]
+        ])->sum('amount');
+        
+        return response()->json($accountability_total);
     }
     public function submitYearLevelExempted($org_id, $year_level,$event_id, Request $request )
     {   

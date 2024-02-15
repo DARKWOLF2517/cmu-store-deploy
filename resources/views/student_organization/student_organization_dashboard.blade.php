@@ -33,7 +33,7 @@
                     <org-dashboard-counter
                         :org_id = {{Session::get('org_id')}}
                         :school_year_session = {{Session::get('school_year')}}
-                        card_label="Created Events"
+                        card_label="Events"
                         target_route="events_count"
                         icons="fas fa-clock card-icon ongoing-events"
                     ></org-dashboard-counter>
@@ -44,8 +44,8 @@
                     <org-dashboard-counter
                         :org_id = {{Session::get('org_id')}}
                         :school_year_session = {{Session::get('school_year')}}
-                        card_label="Completed Events"
-                        target_route="complete_events_count"
+                        card_label="Total Payments"
+                        target_route="total_paid_accountabilities"
                         icons="fas fa-check card-icon completed-events"
                     ></org-dashboard-counter>
                 </div>

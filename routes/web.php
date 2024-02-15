@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function(){
     #dashboard
     Route::get('/view_org_total_members/{org_id}/{school_year}',[OrgProfileController::class, 'viewOrgTotalMembers']);
     Route::get('/events_count/{org_id}/{school_year}',[EventController::class, 'getEventsCount']);
-    Route::get('/complete_events_count/{organization_id}/{school_year}',[EventController::class, 'getCompleteEventsCount']);
+    Route::get('/total_paid_accountabilities/{organization_id}/{school_year}',[EventController::class, 'getCompleteEventsCount']);
     //announcement tab
     Route::get('/get_announcement/{org_id}/{school_year}',[AnnouncementController::class, 'getAnnouncement']);
     Route::post('/addAnnouncement/{org_id}/{school_year}',[AnnouncementController::class, 'addAnnouncement']);
