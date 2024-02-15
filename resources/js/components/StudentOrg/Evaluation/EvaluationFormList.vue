@@ -7,14 +7,14 @@
                     <input type="text" placeholder="Search Form">
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
+            <!-- <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
                 <div class="select-dropdown" style="width: 70%;">
                     <select id="sort-select" class="form-control" style="text-align: center;" >
                             <option value="" disabled selected>Select Semester</option>
                             <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                         </select>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="container-fluid">
@@ -23,7 +23,7 @@
                     <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
                     <div class="event-buttons d-flex">
                         <div class="btn-group" role="group">
-                            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal"> <i class="fas fa-plus"></i>
+                            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
                             Create form</button>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
         </div>
                 </div>
             </div>
-            <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="evaluation-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -82,7 +82,7 @@
             <div class="mb-3" v-for="(question, index) in questions" :key="index">
               <label for="question1" class="form-label fw-bold">Question {{ index + 1 }}</label>
               <div class="input-group">
-                <input type="text" class="form-control" :id="'question' + (index + 1)" :ref="'question' + (index + 1)">
+                <input type="text" class="form-control" :id="'question' + (index + 1)" :ref="'question' + (index + 1)" v-model="questions.text">
                 <button class="btn btn-danger remove-question" type="button" @click="removeQuestion(index)">X</button>
               </div>
               <div class="mb-3 mt-2 form-check">
@@ -179,24 +179,28 @@ export default {
     this.questions.splice(index, 1);
   },
   saveForm() {
-    // Save the form data here
-    // You can use the `axios` library to send a POST request to your server
-    // with the form data
+//   console.log('Form Title:', this.formTitle);
+//   console.log('Form:', this.formDescription);
+  console.log('Questions:', this.questions);
 
-    axios.post('https://myapp.herokuapp.com/api/evaluation-forms', {
-  title: this.formTitle,
-  description: this.formDescription,
-  questions: this.questions
-})
-.then(response => {
-  // Handle successful form submission
-  // You can close the modal or show a success message here
-})
-.catch(error => {
-  // Handle error during form submission
-  // You can show an error message here
-});
-  }
+  // Save the form data here
+  // You can use the `axios` library to send a POST request to your server
+  // with the form data
+
+//   axios.post('https://myapp.herokuapp.com/api/evaluation-forms', {
+//     title: this.formTitle,
+//     description: this.formDescription,
+//     questions: this.questions
+//   })
+//   .then(response => {
+//     // Handle successful form submission
+//     // You can close the modal or show a success message here
+//   })
+//   .catch(error => {
+//     // Handle error during form submission
+//     // You can show an error message here
+//   });
+}
 }
   }
 

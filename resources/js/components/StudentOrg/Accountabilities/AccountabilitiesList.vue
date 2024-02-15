@@ -173,7 +173,7 @@
                                 <tr>
                                 <th>Student ID</th>
                                 <th>Student Name</th>
-                                <th>Accountabilities</th>
+                                <th>Fees</th>
                                 <th>event</th>
                                 <th>Missing Session</th>
                                 <th>Date</th>

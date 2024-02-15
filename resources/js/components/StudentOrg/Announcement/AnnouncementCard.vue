@@ -9,37 +9,37 @@
             </ol>
         </nav>
         </div>
-          <div class="mt-2">
-              <div class="row head-container">
-                  <div class="col-md-6 col-sm-12">
-                      <div class="input-container">
-                          <i class="fa fa-search"></i>
-                          <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
-                      </div>
-                  </div>
-                  <div class="col-md-6 col-sm-12" >
-                      <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
-                      <div class="select-dropdown" style="width: 70%;">
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                              <option value="0" disabled selected>Select School Year</option>
-                              <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                          </select>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="container-fluid">
-          <div class="d-flex justify-content-between align-items-center ">
-              <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
-              <div class="announcement-buttons d-flex">
-                  <div class="btn-group" role="group">
-                      <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.submit = this.submitData, this.clearData()">
-                          <i class="fas fa-plus"></i> Add Announcement
-                      </button>
-                  </div>
-              </div>
-          </div>
+        <div class="mt-2">
+            <div class="row head-container">
+                <div class="col-md-6 col-sm-12">
+                    <div class="input-container">
+                        <i class="fa fa-search"></i>
+                        <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12" >
+                    <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
+                    <div class="select-dropdown" style="width: 70%;">
+                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
+                            <option value="0" disabled selected>Select School Year</option>
+                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center ">
+            <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
+            <div class="announcement-buttons d-flex">
+                <div class="btn-group" role="group">
+                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.submit = this.submitData, this.clearData()">
+                        <i class="fas fa-plus"></i> Add Announcement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
         <div class="announcement-list">
@@ -84,52 +84,52 @@
                     {{announcements.description}}
                 </p>
                 <p class="card-short-description">
-                  <b>Scheduled Date and Time:</b> {{announcements.time}} - {{announcements.date }}
-                </p>
-                </div>
-              </div>
+                <b>Scheduled Date and Time:</b> {{announcements.time}} - {{announcements.date }}
+            </p>
             </div>
-          </div>
+            </div>
         </div>
+    </div>
+</div>
 
 
     <!-- Add Announcement Modal -->
     <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form @submit.prevent="this.submit">
-          <div class="modal-header">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <form @submit.prevent="this.submit">
+            <div class="modal-header">
 
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
-              <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-if="this.submit == this.submitData">Add Announcement</h5>
-              <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-else-if="this.submit == this.updateData">Update Announcement</h5>
-              <div class="mb-3">
-                  <label class="form-label">Title</label>
-                  <input type="text" class="form-control" v-model="this.announcement_data.title" required>
-              </div>
-              <div class="mb-3">
-                  <label class="form-label">Description</label>
-                  <textarea class="form-control" v-model="this.announcement_data.description" required ></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="starts_at" class="form-label fw-bold">Starts at</label>
-                <div class="mb-2">
-                    <label for="date">Date:</label>
-                    <input type="date" name="start_date" class="form-control" id="date" v-model="this.announcement_data.date" required>
+                <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-if="this.submit == this.submitData">Add Announcement</h5>
+                <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-else-if="this.submit == this.updateData">Update Announcement</h5>
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" v-model="this.announcement_data.title" required>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" v-model="this.announcement_data.description" required ></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="starts_at" class="form-label fw-bold">Starts at</label>
+                    <div class="mb-2">
+                        <label for="date">Date:</label>
+                        <input type="date" name="start_date" class="form-control" id="date" v-model="this.announcement_data.date" required>
+                    </div>
                 <div>
                     <label for="time">Time:</label>
-                      <input type="time" name="start_attendance" class="form-control" id="time" v-model="this.announcement_data.time" required>
+                    <input type="time" name="start_attendance" class="form-control" id="time" v-model="this.announcement_data.time" required>
                 </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-success" data-bs-dismiss = "modal">Submit</button>
-          </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success" data-bs-dismiss = "modal">Submit</button>
+        </div>
         </form>
     </div>
     </div>
