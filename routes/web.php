@@ -90,7 +90,7 @@ Route::middleware(['auth'])->group(function(){
     #ACCOUNTABILITIES ROUTE
     Route::get('/accountabilities_students/{org_id}/{school_year}',[AccountabilitiesController::class, 'getAccountabilities']);
     Route::get('/get_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
-    Route::get('/get_user_orgs', [AccountabilitiesController::class, 'getUserOrgs']);
+    Route::get('/get_user_orgs/{school_year}', [AccountabilitiesController::class, 'getUserOrgs']);
 
     #attendance route
     Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);

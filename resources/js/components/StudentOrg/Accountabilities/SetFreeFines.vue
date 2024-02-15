@@ -392,8 +392,7 @@ getFreeFinesTableData() {
       let filteredBySearch = this.free_fines_students;
       if (this.searchTerm) {
           const searchTermLower = this.searchTerm.toLowerCase();
-          filteredBySearch = filteredBySearch.filter(item =>
-              item.user.name.toLowerCase().includes(searchTermLower)
+          filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name +''+ item.user_profile.last_name).toLowerCase().includes(searchTermLower) 
           );
       }
           this.filtered_free_fines = filteredBySearch;

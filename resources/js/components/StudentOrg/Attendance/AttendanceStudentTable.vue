@@ -199,14 +199,20 @@ export default {
     },
     filterItems() {
         let filteredBySearch = this.attendance;
+        // if (this.searchTerm) {
+        //     const searchTermLower = this.searchTerm.toLowerCase();
+        //     filteredBySearch = filteredBySearch.filter(item =>
+        //         item.user_profile.first_name.toLowerCase().includes(searchTermLower) ||
+        //         item.user_id.toString().includes(this.searchTerm)
+        //     );
+        // }
         if (this.searchTerm) {
-            const searchTermLower = this.searchTerm.toLowerCase();
-            filteredBySearch = filteredBySearch.filter(item =>
-                item.user.name.toLowerCase().includes(searchTermLower) ||
-                item.user_id.toString().includes(this.searchTerm)
-            );
-        }
-
+                const searchTermLower = this.searchTerm.toLowerCase();
+                filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name +''+ item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
+                        item.user_id.toString().includes(this.searchTerm)
+                );
+            }
+    
         // Filter based on filterStatus from select option
         let filteredByStatus = this.attendance;
         if (this.session) {
@@ -227,7 +233,7 @@ export default {
         this.filtered_attendance = filteredBySearch.filter(item =>
             filteredByStatus.includes(item) && filteredByCollege.includes(item)
         );
-
+        console.log(this.filtered_attendance)
         // this.filtered_attendance = filteredBySearch
 
     },

@@ -173,7 +173,7 @@ export default{
 
         },
         getUserOrgs(){
-            axios.get(`/get_user_orgs`)
+            axios.get(`/get_user_orgs/${this.school_year_input}`)
                     .then(response => {
                         this.user_organization = response.data;
                         // console.log(response.data)

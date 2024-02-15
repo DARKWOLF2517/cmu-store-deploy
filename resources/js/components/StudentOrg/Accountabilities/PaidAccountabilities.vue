@@ -233,8 +233,7 @@ export default{
         let filteredBySearch = this.paidList;
                 if (this.searchTerm) {
                     const searchTermLower = this.searchTerm.toLowerCase();
-                    filteredBySearch = filteredBySearch.filter(item =>
-                        item.user.name.toLowerCase().includes(searchTermLower) ||
+                    filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name +''+ item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
                         item.student_id.toString().includes(this.searchTerm)
                     );
                 }
