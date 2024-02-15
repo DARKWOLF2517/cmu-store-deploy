@@ -23,7 +23,7 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button class="btn btn-warning text-light"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger text-light"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger text-light"  data-bs-toggle="modal" data-bs-target="#deleteSYConfirmation"><i class="fas fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -55,7 +55,7 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button class="btn btn-warning text-light "><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger text-light"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger text-light"  data-bs-toggle="modal" data-bs-target="#deleteCollegeConfirmation"><i class="fas fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -90,7 +90,7 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button class="btn btn-warning text-light"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger text-light"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger text-light" data-bs-toggle="modal" data-bs-target="#deleteOrganizationConfirmation"><i class="fas fa-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -127,7 +127,7 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <button class="btn btn-warning text-light"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger text-light"><i class="fas fa-trash"></i></button>
+                                            <button class="btn btn-danger text-light"><i class="fas fa-trash" data-bs-toggle="modal" data-bs-target="#deleteUserConfirmation"></i></button>
                                         </div>
                                     </td>
 
@@ -265,6 +265,85 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- School Year Delete Confirmation Modal -->
+<div class="modal fade" id="deleteSYConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                <h4><b>Delete School Year</b></h4>
+                <p>Are you sure you want to School Year?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- College Delete Confirmation Modal -->
+<div class="modal fade" id="deleteCollegeConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                <h4><b>Delete College</b></h4>
+                <p>Are you sure you want to College?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- College Delete Confirmation Modal -->
+<div class="modal fade" id="deleteOrganizationConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                <h4><b>Delete Organization</b></h4>
+                <p>Are you sure you want to Organization?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- User Delete Confirmation Modal -->
+<div class="modal fade" id="deleteUserConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                <h4><b>Delete User</b></h4>
+                <p>Are you sure you want to User?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
             </div>
         </div>
     </div>
