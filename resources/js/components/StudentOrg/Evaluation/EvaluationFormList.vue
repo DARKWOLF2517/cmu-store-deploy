@@ -82,7 +82,7 @@
             <div class="mb-3" v-for="(question, index) in questions" :key="index">
               <label for="question1" class="form-label fw-bold">Question {{ index + 1 }}</label>
               <div class="input-group">
-                <input type="text" class="form-control" :id="'question' + (index + 1)" :ref="'question' + (index + 1)" v-model="questions.text">
+                <input type="text" class="form-control" :id="'question' + (index + 1)" :ref="'question' + (index + 1)" v-model="question.text">
                 <button class="btn btn-danger remove-question" type="button" @click="removeQuestion(index)">X</button>
               </div>
               <div class="mb-3 mt-2 form-check">
