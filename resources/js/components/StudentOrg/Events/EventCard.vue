@@ -387,7 +387,7 @@
                 showEvent: [],
                 id: 0,
                 status:0,
-                loading: true,
+                loading: false,
                 formData:{
                         name:'',
                         start_date:'',

@@ -51,13 +51,20 @@
                 </div>
         </div>
         <!-- Message if the container is empty -->
-        <div class="Container-IfEmpty text-center" v-if="!loading && announcements.length === 0">
+        <div class="Container-IfEmpty text-center" v-if="!loading && this.announcements.length == 0">
                     <div class="Empty-Message">
                     <i class="icon 	bi bi-megaphone" id="icon-message"></i>
                     <p class="text-muted"><b>Announcements here</b>
                     <br>
                     No Announcements yet</p>
                 </div>
+        </div>
+                <!-- Message if the container is empty -->
+        <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_announcements.length == 0 && this.announcements != 0">
+          <div class="Empty-Message">
+            <i class="icon 	bi bi-megaphone" id="icon-message"></i>
+            <p class="text-muted">No result Found</p>
+          </div>
         </div>
      <div  v-for="announcements in this.filtered_announcements">
     <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
@@ -280,6 +287,8 @@ export default {
 
     fetchData(){
         this.loading = true;
+        this.announcements = [];
+        this.filtered_announcements = [];
       axios.get(`get_announcement/${this.org_id}/${this.school_year_input}`)
         .then(response => {
             console.log(response.data)
