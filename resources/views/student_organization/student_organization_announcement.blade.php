@@ -9,8 +9,8 @@
 @section('main-content')
 
         <announcement-card
-        :org_id = {{Session::get('org_id')}}
-        :school_year_session = {{Session::get('school_year')}}
+          :org_id = {{Session::get('org_id')}}
+          :school_year_session = {{Session::get('school_year')}}
         >
         </announcement-card>
 @endsection

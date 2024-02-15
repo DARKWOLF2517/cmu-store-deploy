@@ -45,7 +45,7 @@
                 <div class="announcement-container" id="announcement-container">
     <div class="announcement-cards-list ">
          <!-- Loading spinner -->
-         <div v-if="loading" class="loading-spinner-container">
+         <div v-if="this.loading" class="loading-spinner-container">
                 <div class="spinner-border text-success" id="event-spinner" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
@@ -208,8 +208,8 @@ export default {
         description: '',
         date: '',
         time: '',
-        loading: false,
-      }
+      },
+      loading: false,
     }
   },
   mounted() {
