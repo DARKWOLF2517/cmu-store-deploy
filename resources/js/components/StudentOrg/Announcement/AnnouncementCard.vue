@@ -51,7 +51,7 @@
                 </div>
         </div>
         <!-- Message if the container is empty -->
-        <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_announcements.length === 0">
+        <div class="Container-IfEmpty text-center" v-if="!loading && announcements.length === 0">
                     <div class="Empty-Message">
                     <i class="icon 	bi bi-megaphone" id="icon-message"></i>
                     <p class="text-muted"><b>Announcements here</b>
@@ -201,19 +201,15 @@ export default {
         description: '',
         date: '',
         time: '',
-        loading: true,
+        loading: false,
       }
     }
   },
   mounted() {
       this.showSchoolYear();
       this.fetchData();
-      this.loading = false;
     },
-    created() {
-  this.loading = true;
 
-},
   methods: {
     deleteData(){
       axios.delete(`/delete_announcement/${this.id}`)
@@ -286,7 +282,6 @@ export default {
         this.loading = true;
       axios.get(`get_announcement/${this.org_id}/${this.school_year_input}`)
         .then(response => {
-
             console.log(response.data)
             this.announcements = response.data;
             this.filtered_announcements = this.announcements;

@@ -61,7 +61,7 @@
                                         </div>
                                 </div>
                             <!-- Message if the container is empty -->
-                            <div class="Container-IfEmpty text-center" v-if="!loading && events.length === 0">
+                            <div class="Container-IfEmpty text-center" v-if="!loading && filtered_events.length === 0">
                                         <div class="Empty-Message">
                                         <i class="icon 	bi bi-calendar-event" id="icon-message"></i>
                                         <p class="text-muted"><b>Create Events when you're ready</b>
