@@ -7,14 +7,14 @@
                     <input type="text" placeholder="Search Form">
                 </div>
             </div>
-            <!-- <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
+            <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
                 <div class="select-dropdown" style="width: 70%;">
                     <select id="sort-select" class="form-control" style="text-align: center;" >
                             <option value="" disabled selected>Select Semester</option>
                             <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
                         </select>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
     <div class="container-fluid">
@@ -42,7 +42,7 @@
                         <!-- option 1 -->
 
                         <li><a class="dropdown-item">Set as Default</a></li>
-                        <li><a class="dropdown-item">Assign to specific event</a></li>
+                        <li><a class="dropdown-item">Edit Form</a></li>
                         <!-- option 2 -->
                         <li><a class="dropdown-item" >Delete Form</a></li>
                         <!-- Add more dropdown items as needed -->
@@ -143,10 +143,6 @@
             <div class="modal-footer">
 
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                 <!-- Edit Button -->
-                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit-evaluation-form-modal">
-                    <i class="fas fa-pen"></i> Edit Form
-                </button>
             </div>
         </div>
     </div>

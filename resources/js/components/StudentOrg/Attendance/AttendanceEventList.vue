@@ -40,10 +40,7 @@
         <div class="modal-body text-center">
             <h4><i class="fas fa-question-circle text-warning"></i>
             </h4>
-
                 <p>Are you sure you want to Start Attendance to this Event?</p>
-
-
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

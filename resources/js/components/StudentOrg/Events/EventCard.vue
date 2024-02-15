@@ -317,6 +317,14 @@
                                                     <textarea class="form-control" name="description" id="event-description" rows="3" v-model="formData.description" required></textarea>
                                             </div>
                                             <div class="mb-3">
+                                                <div class="select-dropdown border" style="width: 70%;">
+                                                    <select id="sort-select" class="form-control" style="text-align: center;" >
+                                                            <option value="" disabled selected>Select Evaluation form</option>
+                                                            <option value="0">Evaluation 1</option>
+                                                        </select>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
                                                 <input class="form-check-input" type="checkbox" name="require_attendance" id="require-attendance" v-model="formData.require_attendance" :true-value="1" :false-value="0" @click="checkboxClick()">
                                                 <label for="require-attendance" class="form-label">Require Attendance</label>
                                             </div>

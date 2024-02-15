@@ -15,28 +15,7 @@
 
   {{-- @vite('resources/js/app.js''vendor/courier/build') --}}
   @vite('resources/js/app.js', 'build')
-  <style>
-    .top-nav {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    background-color: #42b385;
-    color: #ffffff;
-    padding: 0.875rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 3.125rem;
 
-    }
-    .top-nav {
-        align-items: center;
-        color: #ffffff;
-        text-decoration: none;
-        margin-right: 0.625rem;
-        z-index: 9999;
-    }
-  </style>
 </head>
 
 <body class="h-100">

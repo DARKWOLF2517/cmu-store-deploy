@@ -22,7 +22,10 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//OSA route
+Route::get('OSA', function () {
+    return view('layouts.osa');
+});
 // PROFILE
 
 Route::get('student_organization_profile', function () {
@@ -257,7 +260,7 @@ Route::middleware(['auth'])->group(function(){
             Route::delete('/delete_student_free_fines/{student_id}',[AccountabilitiesController::class, 'deleteStudentFreeFines']);
             Route::get('/fetch_update_student_data/{student_id}',[AccountabilitiesController::class, 'fetchUpdateStudentData']);
             Route::put('/update_student_data/{student_id}/{reason}',[AccountabilitiesController::class, 'updateStudentData']);
-            
+
             #ACCOUNTABILITY REPORT
             Route::get('/fetch_accountabilities/{org_id}',[AccountabilitiesController::class, 'fetchAccountabilities']);
         });

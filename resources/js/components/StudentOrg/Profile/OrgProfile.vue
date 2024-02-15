@@ -717,7 +717,7 @@ export default{
                 year_level: ''
             },
 
-            
+
         }
     },
     mounted(){
@@ -961,7 +961,7 @@ export default{
             axios.get(`edit_officer/${id}`)
                 .then(response => {
                     this.addOfficersData = response.data;
-                    this.nameFilterAddOfficer = response.data.user_profile.first_name + response.data.user_profile.last_name 
+                    this.nameFilterAddOfficer = response.data.user_profile.first_name + response.data.user_profile.last_name
 
                 })
                 .catch(error => {
