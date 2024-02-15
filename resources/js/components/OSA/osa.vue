@@ -222,7 +222,7 @@
                         <label for="organization" class="form-label">Organization</label>
                         <select class="form-select" id="organization">
                             <option value="CSCo">CSCo</option>
-                            <option value="Other Organization">Other Organization</option>
+                            <option value="Other"> Organization">Other Organization</option>
                             <!-- Add more options if needed -->
                         </select>
                     </div>
