@@ -41,6 +41,7 @@
             </div>
             <div class="col-md-4 col-sm-6 ">
                 <div class="statistic">
+
                     <org-dashboard-counter
                         :org_id = {{Session::get('org_id')}}
                         :school_year_session = {{Session::get('school_year')}}

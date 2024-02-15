@@ -2,9 +2,7 @@
 .circular-image {
     border-radius: 50%;
 }
-.col{
-    height: 100% !important;
-}
+
 .posted-by-title{
    padding: 5px;
    font-size: 20px;
@@ -14,9 +12,11 @@
     top: 10px;
     right: 10px;
   }
+
   .announcement-list{
     height: 71vh;
     max-height: 71vh;
+    position: relative;
     /* overflow-y: auto;
     display: flex;
     justify-content: center;
@@ -26,26 +26,17 @@
     padding-top: 0; */
   }
   #announcement-container {
-    height: 60vh;
-    max-height: 60vh;
+    height: 70vh;
+    max-height: 70vh;
     border: none;
   }
 
-  /* .announcement-cards-list, .event-list {
-    display: flex;
+  .announcement-cards-list {
+    /* display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 65vh;
-  } */
-
-    .event-list {
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 65vh;
-
+    overflow-x: hidden; */
+    max-height: 72vh;
   }
 
 

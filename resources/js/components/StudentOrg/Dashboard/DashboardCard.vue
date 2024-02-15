@@ -9,7 +9,7 @@
             <span class="visually-hidden">Loading...</span>
             </div>
             <b v-else>
-            <p class="stat-number">{{ count }}</p>
+            <p class="stat-number"> {{ count }}</p>
             </b>
         </div>
     </div>
