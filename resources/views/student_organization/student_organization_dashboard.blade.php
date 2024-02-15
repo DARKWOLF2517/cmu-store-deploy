@@ -63,31 +63,7 @@
                         :school_year_session = {{Session::get('school_year')}}
                         >
 
-                        </event-dashboard>
-                        {{-- <div class="timeline-body">
-                            <ul class="sessions">
-                                <li>
-                                    <div class="date">October 07, 2023</div>
-                                    <small>Acquaintance Party</small>
-                                </li>
-                                <li>
-                                    <div class="date">September 30, 2023</div>
-                                    <small>Bayanihan</small>
-                                </li>
-                                <li>
-                                    <div class="date">September 20, 2023</div>
-                                    <small>Palaro</small>
-                                </li>
-                                <li>
-                                    <div class="date">July 30, 2023</div>
-                                    <small>General Assembly</small>
-                                </li>
-                                <li>
-                                    <div class="date">July 30, 2023</div>
-                                    <small>General Assembly</small>
-                                </li>
-                            </ul>
-                        </div> --}}
+                    </event-dashboard>
                     </div>
                 </div>
 
@@ -96,19 +72,17 @@
                         <div class="announcement-header">
                             <i class="bi bi-list"></i> Announcement
                         </div>
+                        <announcement-dashboard
+                            :org_id =  {{Session::get('org_id')}}
+                            :school_year_session = {{Session::get('school_year')}}
+                        >
 
-                        <div class="announcement-list">
+                        </announcement-dashboard>
+                        {{-- <div class="announcement-list">
                             <div class="Message-IfEmpty">
                                 <i class="icon 	fas fa-bullhorn" id="icon-message"></i>
                                 <p class="empty-schedule">Announcements show up here</p>
                             </div>
-                            {{-- <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
                             <div class="announcement-card">
                                 <span class="Organization"> <b>CSCo</b></span>
                                 <div class="date-time-posted">
@@ -129,8 +103,15 @@
                                     <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
                                 </div>
                                 <div class="announcement-description">Bayanihan.</div>
-                            </div> --}}
-                        </div>
+                            </div>
+                            <div class="announcement-card">
+                                <span class="Organization"> <b>CSCo</b></span>
+                                <div class="date-time-posted">
+                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
+                                </div>
+                                <div class="announcement-description">Bayanihan.</div>
+                            </div>
+                        </div> --}}
                     </div>
                 </div>
 

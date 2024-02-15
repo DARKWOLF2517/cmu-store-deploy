@@ -1,9 +1,9 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-//OSA
-import OSA from './components/OSA/osa.vue';
 
+//OSA
+    import OSA from './components/OSA/osa.vue';
 // all
     import SideNavbtn from './components/SideNav/SideNavButton.vue';
     import LoginForm from './components/LoginForm/LoginForm.vue';
@@ -32,6 +32,7 @@ import OSA from './components/OSA/osa.vue';
     import FreeFines from './components/StudentOrg/Accountabilities/SetFreeFines.vue';
     import PaidAccountabilities from './components/StudentOrg/Accountabilities/PaidAccountabilities.vue';
     import OrgProfile from './components/StudentOrg/Profile/OrgProfile.vue';
+    import AnnouncementDashboard from './components/StudentOrg/Dashboard/DashboardAnnouncement.vue';
 
 // student module
     import StudentAttendance from './components/StudentUser/Attendance/StudentAttendance.vue';
@@ -44,7 +45,8 @@ import OSA from './components/OSA/osa.vue';
 
 const app = createApp({});
 //OSA
-app.component('osa-page', OSA)
+    app.component('osa-page', OSA)
+
 // all
     app.component('side-nav-button',SideNavbtn);
     app.component('login-form',LoginForm);
@@ -74,6 +76,7 @@ app.component('osa-page', OSA)
     app.component('set-free-fines', FreeFines);
     app.component('paid-accountabilities', PaidAccountabilities);
     app.component('org-profile', OrgProfile);
+    app.component('announcement-dashboard', AnnouncementDashboard);
 
 
 // student module
