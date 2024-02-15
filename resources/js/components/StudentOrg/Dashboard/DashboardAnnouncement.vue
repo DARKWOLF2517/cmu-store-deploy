@@ -1,6 +1,6 @@
 <template>
     <div class="announcement-list">
-        <div class="Message-IfEmpty">
+        <div class="Message-IfEmpty"  v-if="announcement.length === 0">
             <i class="icon 	fas fa-bullhorn" id="icon-message"></i>
             <p class="empty-schedule">Announcements show up here</p>
         </div>
@@ -9,7 +9,7 @@
             <div class="date-time-posted">
                 <span class="date-time-uploaded"><i><small>{{ announcement.date }}</small></i></span>
             </div>
-            
+
         </div>
     </div>
 </template>
