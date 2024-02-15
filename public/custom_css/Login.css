@@ -34,74 +34,19 @@ height: 3.125rem;
 /* .container{
     padding-top: 4rem 0;
 } */
-.content{
-padding: 15px;
-}
 
-.page-container{
-   margin-top: 50px;
-}
-/*
-body::after {
-    content: "";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://isms.cmu.edu.ph/general/getThemePhoto?tid=1&field=login_bg') center center/cover no-repeat;
-    filter: blur(1px);
-    filter: saturate(90%);
-    opacity: 0.8;
-    z-index: -1;
-    animation: fadeInOverlay 1s ease-in-out forwards;
-}
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes fadeInOverlay {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 0.8;
-    }
-} */
-
-/* Rest of your CSS remains unchanged */
-
-/* .top-nav {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    background-color: #42b385;
-    color: #ffffff;
-    padding: 0.875rem;
+.container{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 3.125rem;
 
+    height: 100vh;
 }
-.top-nav {
-    align-items: center;
-    color: #ffffff;
-    text-decoration: none;
-    margin-right: 0.625rem;
-} */
+
 .login-wrap {
     /* max-width: 500px; */
-    width: 950px;
+    width: auto;
     /* margin: 150px auto 0; */
-    background-color: #fff;
+    /* background-color: #fff; */
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
     padding: 30px;
     border-radius: 5px;
@@ -157,11 +102,10 @@ body::after {
     text-align: center;
     margin-bottom: 20px;
   }
-  .image-container{
-    padding-left: 100px;
-  }
+
 .login-image img{
     height: 500px;
+    width: auto;
 }
   .logo img {
     width: 100px;

@@ -55,7 +55,6 @@
                     <th>Student Name</th>
                     <!-- <th>Accountabilities</th> -->
                     <th>Date Received</th>
-                    <th>Accountability Type</th>
                     <th style="width: 10%;">Amount</th>
                     <th>Remarks</th>
 

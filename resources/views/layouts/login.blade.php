@@ -27,11 +27,10 @@
         </div>
     </div>
     <div class="page-content-wapper">
-    <div class="content ">
-        <div class="page-container d-flex justify-content-center align-items-center">
-            <div class="login-wrap">
+        <div class="page-container">
+            <div class="login-wrap d-flex justify-content-center align-items-center">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6 justify-content-center align-items-center">
                         <div class="login-content p-4">
                             <div class="logo text-center">
                                 <img src="/assets/CSA_logo.png" alt="CMULogo">
@@ -39,7 +38,7 @@
                             </div>
                             <div class="text-center mt-3">
                                 <small class="text-muted">
-                                    "Welcome to CMU-STORE-AMS, your hub for exploring events, managing accountabilities, and conducting evaluations."
+                                    "Welcome to CMU-STORE-AMS, track and manage easily."
                                 </small>
                             </div>
                             <div class="mt-3">
@@ -47,13 +46,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8 justify-content-center align-items-center">
+                    <div class="col-md-6 d-flex justify-content-center align-items-center">
                         <div class="login-image ">
                             <img src="/assets/login-image.png" alt="image" class="img-fluid align-image-stretch">
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
     </div>
