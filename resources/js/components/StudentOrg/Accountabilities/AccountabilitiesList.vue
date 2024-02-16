@@ -239,36 +239,39 @@
             <!-- Receive PaymentModal -->
             <div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
+
                     <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <div class="mb-3">
-                             <p>Enter the amount you have received:</p>
-                        <input type="number" class="form-control" v-model="this.paymentAmount" >
-                    </div>
-                   <div>
-                        <label for="type">Remarks</label>
-                        <br>
-                        <small>ex: Excuse, Fines, College Fee etc.</small>
-                        <input type="select" class="form-control" placeholder="Enter remarks">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        
 
-                   </div>
-                   <div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                    <p>Enter the amount you have received:</p>
+                                <input type="number" class="form-control" v-model="this.paymentAmount"  required>
+                            </div>
+                            <div>
+                                <label for="type">Remarks</label>
+                                <br>
+                                <small>ex: Excuse, Fines, College Fee etc.</small>
+                                <input type="select" class="form-control" placeholder="Enter remarks">
 
-                   </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ConfirmationModal">Receive</button>
-                    </div>
+                            </div>
+                                <div>
+
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
+                            <button type="submit" class="btn btn-success" @click="this.checkPaymentAmount">Receive</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Confirmation Modal -->
-            <div class="modal fade" id="ConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="ConfirmationModal" ref="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -279,8 +282,8 @@
                         <p>Are you sure you want to receive the payment?</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ReceiveModal">Cancel</button>
-                        <button type="button" class="btn btn-success" @click="this.SubmitPayment()">Confirm</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancel</button>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"  @click="this.SubmitPayment()">Confirm</button>
                     </div>
                     </div>
                 </div>
@@ -318,8 +321,8 @@ export default{
             school_year: [],
             school_year_input: this.school_year_session,
             loading: true,
-            paymentAmount: '',
-
+            paymentAmount: null,
+            showConfirmation: false,
 
         }
     },
@@ -400,7 +403,6 @@ export default{
     mounted(){
 
 
-
     },
     created(){
         this.fetchData();
@@ -417,6 +419,20 @@ export default{
                 .catch(error => {
                     console.log(error)
                 });
+        },
+        togglePayment(){
+            
+        },
+        checkPaymentAmount() {
+            if(this.paymentAmount) {
+            // proceed with submission
+            const confirmationModal = new bootstrap.Modal(document.getElementById('ConfirmationModal'));
+            confirmationModal.show();
+
+            } else {
+            // show error 
+            alert('Please enter an amount')
+            }
         },
         // getTableData1(){
         //     // Get a reference to the table
@@ -454,7 +470,8 @@ export default{
                         }
                         else if(response.data.status == 1){
                             this.showSucces(response.data.message);
-                            location.reload();
+                            // location.reload();
+                            this.fetchData();
                         }
 
 

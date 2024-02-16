@@ -7,7 +7,7 @@
                     </div>
                         <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
                             <div class="select-dropdown" style="width: 70%;">
-                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input" @change="fetchData">
+                            <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input" @change="getUserOrgs">
                                 <option value="" disabled selected>Select Semester</option>
                                 <option v-for="school_year in this.school_year" :value="school_year.id">{{ school_year.school_year }}</option>
                             </select>
@@ -153,7 +153,7 @@ export default{
         }
     },
     mounted() {
-        // this.fetchData();
+        this.fetchData();
         this.showSchoolYear();
         // console.log(this.name)
         this.getUserOrgs();
@@ -176,7 +176,7 @@ export default{
             axios.get(`/get_user_orgs/${this.school_year_input}`)
                     .then(response => {
                         this.user_organization = response.data;
-                        // console.log(response.data)
+                        console.log(response.data)
                     })
                     .catch(error => {
                         alert(error)
