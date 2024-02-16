@@ -1,196 +1,154 @@
 body {
-    position: relative;
+    /* position: relative; */
     font-family: Arial, Helvetica, sans-serif;
     color: #4a5864;
     background-color: #f3f7fb;
     /* opacity: 0; */
     animation: fadeIn 1s ease-in-out forwards;
 }
-body, html {
-    height: 100%;
-    margin: 0;
-  }
-.top-nav {
-position: absolute;
-width: 100%;
-top: 0;
+
+.navbar{
 background-color: #42b385;
 color: #ffffff;
-padding: 0.875rem;
-display: flex;
-justify-content: space-between;
-align-items: center;
+padding: 1rem;
 height: 3.125rem;
-
 }
-.top-nav {
-    align-items: center;
-    color: #ffffff;
-    text-decoration: none;
-    margin-right: 0.625rem;
-    z-index: 9999;
+.navbar a{
+    text-decoration: none !important;
+    color: #f8f9fa !important;
 }
 
-/* .container{
-    max-width: 1000px;
-} */
-/* .container{
-    padding-top: 4rem 0;
-} */
-.content{
-padding: 15px;
-}
-
-/* .container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-} */
-
-.login-wrap {
-    /* max-width: 500px; */
-    width: auto;
-    /* margin: 150px auto 0; */
-    /* background-color: #fff; */
-    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
-    padding: 30px;
-    border-radius: 5px;
-  }
-  .login-content{
-    height: 100vh;
-    width: 500px;
-    margin: auto;
-  }
-.col{
-    width: 100%;
-}
-
-  .login-form .form-group {
-    margin-bottom: 20px;
-  }
-
-  .login-form label {
-    font-weight: bold;
-  }
-
-  .login-form .input-group-prepend .input-group-text {
-    background-color: #fff;
-  }
-
-  .login-form .form-control {
-    border-radius: 3px;
-    border-color: #ccc;
-  }
-
-  .login-form .submit {
-    background-color: #42B385;
-    border-color: #42B385;
-    font-weight: bold;
-  }
-
-  .login-form .submit:hover {
-    background-color: #53967c;
-    border-color: #53967c;
-  }
-
-  .login-form a {
-    color: #53967c;
-  }
-
-  .login-form a:hover {
-    color: #48be8f;
-  }
-
-  .login-wrap h5 {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 40px;
-    color: #42B385;
-  }
-
-  .logo {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .image-container{
-    padding-left: 100px;
-  }
-.login-image img{
-    height: 500px;
-    width: auto;
-}
-  .logo img {
-    width: 100px;
-
-  }
-  .flex-container {
+.flex-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
   }
 
   .full-screen-img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+    width: 85%;
+    height: auto;
   }
-/* @media (min-width: 992px){
-    .container{
-        max-width: 960px;
+  .login-content {
+    padding: 35px;
+    width: 500px;
+    height: 500px;
+    background-color: #fdfdfd;
+      border-radius: 10px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  #login-content{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo {
+    text-align: center;
+    margin-bottom: 20px;
     }
-    .image-container img{
-        max-width: 500px;
+.logo img {
+    width: 100px;
+    }
+    .login-form .submit {
+        background-color: #42B385;
+        border-color: #42B385;
+        font-weight: bold;
+        }
 
-    }
-} */
-  @media (max-width: 768px) {
-    .h3{
-        font-size: 15px !important;
-    }
-    .b{
-        font-size: 15px !important;
-    }
-    body {
-        position: relative;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #4a5864;
-        opacity: 0;
-        animation: fadeIn 1s ease-in-out forwards;
-    }
-.login-image{
-    display: none;
+        .login-form .submit:hover {
+        background-color: #53967c;
+        border-color: #53967c;
+        }
+
+/* .container-fluid{
+    margin-top: 60px;
 }
-    /* body::after {
-        content: "";
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: url('https://isms.cmu.edu.ph/general/getThemePhoto?tid=1&field=login_bg') center center/cover no-repeat;
-        opacity: 0.8;
-        z-index: -1;
-        animation: fadeInOverlay 1s ease-in-out forwards;
-    } */
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes fadeInOverlay {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 0.8;
-        }
-    }
-
+.login-content{
+    padding: 10px;
+width: 500px;
+margin: auto;
+border-radius: 10px;
+background-color: #ffffff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.login-wrap {
+    margin-top: 30px;
+    height: 80vh;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
+.login-form .form-group {
+margin-bottom: 20px;
+}
+
+.login-form label {
+font-weight: bold;
+}
+
+.login-form .input-group-prepend .input-group-text {
+background-color: #fff;
+}
+
+.login-form .form-control {
+border-radius: 3px;
+border-color: #ccc;
+}
+
+.login-form .submit {
+background-color: #42B385;
+border-color: #42B385;
+font-weight: bold;
+}
+
+.login-form .submit:hover {
+background-color: #53967c;
+border-color: #53967c;
+}
+
+.login-form a {
+color: #53967c;
+}
+
+.login-form a:hover {
+color: #48be8f;
+}
+
+.login-wrap h5 {
+text-align: center;
+font-weight: bold;
+margin-bottom: 40px;
+color: #42B385;
+}
+
+.logo {
+text-align: center;
+margin-bottom: 20px;
+}
+.image-container{
+padding-left: 100px;
+}
+.login-image img{
+height: 500px;
+width: auto;
+}
+.logo img {
+width: 100px;
+
+}
+.flex-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+}
+
+.full-screen-img {
+object-fit: cover;
+width: 100%;
+height: 100%;
+}
+
+ */
