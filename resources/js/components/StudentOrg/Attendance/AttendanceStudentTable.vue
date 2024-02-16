@@ -61,7 +61,7 @@
                         <tbody>
                             <tr v-for="attendance in paginatedData" :key="attendance.user_id">
                                 <td>{{ attendance.user_id }}</td>
-                                <td>{{ attendance.user_profile.first_name }}</td>
+                                <td>{{ attendance.user_profile.first_name }} {{ attendance.user_profile.last_name }}</td>
                                 <td>{{ attendance.user_profile.college.college}}</td>
 
                             </tr>
@@ -198,6 +198,7 @@ export default {
             });
     },
     filterItems() {
+        
         let filteredBySearch = this.attendance;
         // if (this.searchTerm) {
         //     const searchTermLower = this.searchTerm.toLowerCase();
@@ -212,7 +213,7 @@ export default {
                         item.user_id.toString().includes(this.searchTerm)
                 );
             }
-    
+           
         // Filter based on filterStatus from select option
         let filteredByStatus = this.attendance;
         if (this.session) {
@@ -220,28 +221,27 @@ export default {
                 item.session.toString().includes(this.session)
             );
         }
-
+       
         let filteredByCollege = this.attendance;
         if (this.college_data_input !== undefined && this.college_data_input !== null) {
             filteredByCollege = filteredByCollege.filter(item =>
-                item.college_id === parseInt(this.college_data_input, 10)
+                item.user_profile.college.id === parseInt(this.college_data_input, 10)
             );
         }
-
+        console.log(this.attendance)
 
         // Merge the results of all three filters (independently applied)
         this.filtered_attendance = filteredBySearch.filter(item =>
             filteredByStatus.includes(item) && filteredByCollege.includes(item)
         );
-        console.log(this.filtered_attendance)
+        // console.log(this.filtered_attendance)
         // this.filtered_attendance = filteredBySearch
 
     },
         fetchData(){
         axios.get(`/attendance/list/${this.organization_id}/${this.event_id}`)
             .then(response => {
-                this.filtered_attendance = [],
-                console.log(response.data)
+                this.filtered_attendance = [];
                     const data = response.data;
                         data.forEach(item => {
                             // console.log(item);
@@ -252,7 +252,7 @@ export default {
                         });
                         this.attendance = response.data;
                         this.filtered_attendance = this.attendance;
-                        console.log(this.attendance);
+                        // console.log(this.attendance);
                     //   this.attendance.forEach(element => {
                     //     this.attendance_list.push({
                     //       student_id : element.user_id,
