@@ -18,102 +18,46 @@
 
 </head>
 
-<body class="h-100">
-  <div id="app">
-      <!-- TOP NAV BAR -->
-      <div class="wrapper">
-            <div class="top-nav text-center">
-                <span class="nav-link-text"> CMU-STORE-AMS</span>
-            </div>
-        </div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            </div>
-        </nav>
+<body>
+<div id="app">
+<div class="container-fluid px-0">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg ">
+    <div class="container-fluid">
+      <a class="navbar-title" href="#">CMU-STORE-AMS</a>
+    </div>
+  </nav>
 
-<div class="container-fluid">
-    <div class="flex-container ">
-      <div class="col-lg-6 col-md-12 mb-4">
-        <div class="container">
-            <div class="login-content p-4">
-                <div class="logo text-center">
-                    <img src="/assets/CSA_logo.png" alt="CMULogo">
-                    <h5>CMU-STORE-AMS</h5>
-                </div>
-                <div class="text-center mt-4">
-                    <small class="text-muted">
-                        "Welcome to CMU-STORE-AMS, track and manage easily."
-                    </small>
-                </div>
-                <div class="mt-4">
-                    <login-form></login-form>
-                </div>
+  <!-- Flex Container for the two nested containers -->
+  <div class="flex-container">
+    <!-- First Container with Login Content -->
+    <div class="col-lg-6 col-md-12 mb-4">
+      <div class="container" id="login-content">
+        <div class="login-content">
+            <div class="logo text-center">
+                {{-- <link href="{{ asset('custom_css/tables.css') }}" rel="stylesheet"> --}}
+                <img src="{{ ('assets/CSA_logo.png') }}" rel="image">
+                <h5 class="mt-2">CMU-STORE-AMS</h5>
             </div>
-        </div>
-      </div>
-
-      <!-- Second Container with Image -->
-      <div class="col-lg-6 col-md-12 ">
-        <div class="container">
-            <img src="/assets/login-image.png" alt="image" class="img-fluid align-image-stretch">
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    "Welcome to CMU-STORE-AMS, track and manage easily."
+                </p>
+            </div>
+            <div class="mt-4">
+                <login-form></login-form>
+            </div>
         </div>
       </div>
     </div>
+
+    <!-- Second Container with Image -->
+    <div class="col-lg-6 col-md-12 d-none d-md-block">
+      <img src="{{ ('assets/login-image.png') }}" class="img-fluid full-screen-img" rel="image">
+    </div>
   </div>
 </div>
-    {{-- <div class="page-content-wapper">
-        <div class="page-container">
-            <div class="login-wrap d-flex justify-content-center align-items-center">
-                <div class="row">
-                    <div class="col-md-6 mt-4">
-                        <div class="login-content p-4">
-                            <div class="logo text-center">
-                                <img src="/assets/CSA_logo.png" alt="CMULogo">
-                                <h5>CMU-STORE-AMS</h5>
-                            </div>
-                            <div class="text-center mt-3">
-                                <small class="text-muted">
-                                    "Welcome to CMU-STORE-AMS, track and manage easily."
-                                </small>
-                            </div>
-                            <div class="mt-3">
-                                <login-form></login-form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-center align-items-center mt-4">
-                        <div class="login-image ">
-                            <img src="/assets/login-image.png" alt="image" class="img-fluid align-image-stretch">
-                        </div>
-                    </div>
-                </div>
-            </div>
+</div>
 
-        </div>
-
-    </div> --}}
-
-{{--
-  <script>
-    function validateForm() {
-      var username = document.getElementById("username").value;
-      var password = document.getElementById("password").value;
-
-      // You can replace these with your actual username and password validation logic
-      var correctUsername = "yourUsername";
-      var correctPassword = "yourPassword";
-
-      if (username !== correctUsername || password !== correctPassword) {
-        var errorMessage = document.getElementById("error-message");
-        errorMessage.textContent = "Incorrect username or password. Please try again.";
-        return false; // Prevent form submission
-      }
-
-      return true; // Allow form submission if username and password are correct
-    }
-  </script> --}}
-    </body>
-
-
+</body>
 </html>
