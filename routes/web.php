@@ -26,6 +26,11 @@ use Illuminate\Support\Facades\Auth;
 Route::get('OSA', function () {
     return view('layouts.osa');
 });
+
+//OSA route
+Route::get('qrscan', function () {
+    return view('attendance_checker.qrscanner');
+});
 // PROFILE
 
 Route::get('student_organization_profile', function () {
