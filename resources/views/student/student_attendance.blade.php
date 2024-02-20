@@ -1,5 +1,7 @@
 @extends('layouts.main_layout')
-<title>Student Attendance @yield('title')</title>
+@section('custom-title')
+  <title>My Attendance</title>
+@endsection
 @section('custom-style')
 <style>
     .evaluation-list {

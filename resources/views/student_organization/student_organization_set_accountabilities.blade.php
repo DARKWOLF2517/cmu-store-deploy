@@ -1,9 +1,16 @@
 @extends('layouts.main_layout')
-<title>Student Organization Accountabilities @yield('title')</title>
+
+@section('custom-title')
+  <title> Set Accountability</title>
+@endsection
+@section('custom-style')
+<link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+@endsection
+
 @section('main-content')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
-<link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+
 
             <div class="col breadcrumbs">
                 <nav aria-label="breadcrumb">

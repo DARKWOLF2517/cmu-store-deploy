@@ -1,6 +1,9 @@
 @extends('layouts.main_layout')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+@section('custom-title')
+  <title>My Accountabilities</title>
+@endsection
 @section('custom-style')
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
 <title>Student Accountabilities @yield('title')</title>

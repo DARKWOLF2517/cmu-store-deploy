@@ -1,5 +1,9 @@
 @extends('layouts.main_layout')
 
+@section('custom-title')
+  <title> Accountabilities List</title>
+@endsection
+
 @section('custom-style')
 
 <title>Accountability list @yield('title')</title>

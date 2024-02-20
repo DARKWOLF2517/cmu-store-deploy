@@ -1,8 +1,10 @@
 @extends('layouts.main_layout')
 
+@section('custom-title')
+  <title> Free Fines</title>
+@endsection
 @section('custom-style')
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
-<title>Student Organization Free Fines @yield('title')</title>
 @endsection
 
 @section('main-content')

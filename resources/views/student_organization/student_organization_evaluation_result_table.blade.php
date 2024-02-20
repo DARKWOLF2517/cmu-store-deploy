@@ -1,5 +1,8 @@
 @extends('layouts.main_layout')
-<title>Student Organization Evaluation Results  @yield('title')</title>
+
+@section('custom-title')
+  <title> Evaluation Answered Results</title>
+@endsection
 @section('custom-style')
 <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
 @endsection

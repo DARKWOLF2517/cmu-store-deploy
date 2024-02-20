@@ -1,6 +1,9 @@
 @extends('layouts.main_layout')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
-<title>Student Organization Schedule @yield('title')</title>
+
+@section('custom-title')
+  <title> Schedule</title>
+@endsection
 @section('main-content')
 
         <div class="col-md breadcrumbs">

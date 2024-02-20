@@ -1,11 +1,14 @@
 <template>
-    <div class="timeline-body">
-      <div v-if="loading" class="loading-spinner">
+
+      <div v-if="loading" class="loading-spinner-dashboard">
+        <div class="load-center">
         <div class="spinner-border text-success" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>
+    </div>
       <div v-else>
+        <div class="timeline-body ">
         <div v-if="events.length === 0" class="Message-IfEmpty">
           <i class="icon far fa-calendar-times" id="icon-message"></i>
           <p class="empty-schedule">Nothing scheduled yet</p>

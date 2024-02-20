@@ -1,7 +1,9 @@
 @extends('layouts.main_layout')
+@section('custom-title')
+  <title> Schedule</title>
+@endsection
 @section('custom-style')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
-<title> Schedule @yield('title')</title>
 @endsection
 
 @section('main-content')

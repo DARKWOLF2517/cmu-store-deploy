@@ -1,5 +1,9 @@
 @extends('layouts.main_layout')
-<title>Student Organization Profile @yield('title')</title>
+
+@section('custom-title')
+  <title> Student Organization Profile</title>
+@endsection
+
 @section('main-content')
 {{-- CSS Stylesheet link --}}
 <link href="/custom_css/studentProfile.css" rel="stylesheet">

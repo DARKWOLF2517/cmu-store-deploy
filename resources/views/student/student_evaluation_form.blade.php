@@ -1,5 +1,7 @@
 @extends('layouts.main_layout')
-<title>Student Evaluation Form @yield('title')</title>
+@section('custom-title')
+  <title> Evaluation Form</title>
+@endsection
 @section('main-content')
 <link href="/custom_css/studentEvaluation.css" rel="stylesheet">
     <div class="container" id="evaluation-form">
