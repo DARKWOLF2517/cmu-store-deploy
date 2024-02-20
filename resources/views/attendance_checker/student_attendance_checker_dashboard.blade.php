@@ -1,7 +1,9 @@
 @extends('layouts.main_layout')
+@section('custom-title')
+  <title> Dashboard</title>
+@endsection
 @section('custom-style')
     <link href="/custom_css/SODashboard.css" rel="stylesheet">
-    <title>Dashboard @yield('title')</title>
 @endsection
 
 @section('main-content')

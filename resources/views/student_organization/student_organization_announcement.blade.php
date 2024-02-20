@@ -1,10 +1,11 @@
 @extends('layouts.main_layout')
+@section('custom-title')
+  <title> Announcements</title>
+@endsection
 @section('custom-style')
   <link href="/custom_css/announcement.css" rel="stylesheet">
 @endsection
-@section('custom-title')
-  <title> Student Organization Announcements</title>
-@endsection
+
 
 @section('main-content')
 

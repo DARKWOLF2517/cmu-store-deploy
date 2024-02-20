@@ -1,6 +1,7 @@
 @extends('layouts.main_layout')
+
 @section('custom-title')
-  <title> Student Organization Accountability Report</title>
+  <title> Accountability Report</title>
 @endsection
 
 @section('main-content')

@@ -98,7 +98,6 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-
 .announcement {
     width: 100%;
     background-color: #fff;
@@ -183,6 +182,15 @@ font-size: small;
 padding-left: 10px;
 margin-bottom: 5px;
 }
+.load-center{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 25vh;
+    overflow-y: hidden;
+    margin-top: 20vh;
+  }
 #stat-cards-loading{
     margin-left: 1.25rem;
 }

@@ -1,6 +1,9 @@
 @extends('layouts.main_layout')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
-<title>Student Organization Attendance @yield('title')</title>
+
+@section('custom-title')
+  <title> Attendance</title>
+@endsection
 @section('main-content')
     <attendance-record
     :organization_id = {{Session::get('org_id')}}

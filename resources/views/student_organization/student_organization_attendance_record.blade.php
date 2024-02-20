@@ -1,4 +1,9 @@
 @extends('layouts.main_layout')
+
+@section('custom-title')
+  <title> Attendance record</title>
+@endsection
+
 @section('custom-style')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
 @endsection

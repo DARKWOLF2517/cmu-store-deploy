@@ -1,5 +1,7 @@
 @extends('layouts.main_layout')
-<title>Attendance @yield('title')</title>
+@section('custom-title')
+  <title> Attendance</title>
+@endsection
 @section('custom-script')
 <link href="/custom_css/SOAttendance.css" rel="stylesheet">
 @endsection

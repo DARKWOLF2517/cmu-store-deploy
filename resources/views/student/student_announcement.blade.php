@@ -1,7 +1,9 @@
 @extends('layouts.main_layout')
 
 <link href="/custom_css/studentAnnouncement.css" rel="stylesheet">
-<title>Student Announcement @yield('title')</title>
+@section('custom-title')
+  <title> Announcements</title>
+@endsection
 @section('main-content')
 
         <student-announcement-card

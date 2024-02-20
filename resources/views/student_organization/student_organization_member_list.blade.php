@@ -1,5 +1,8 @@
 @extends('layouts.main_layout')
-<title>Student Organization Members @yield('title')</title>
+
+@section('custom-title')
+  <title> Member List</title>
+@endsection
 @section('main-content')
 
 <div class="page-content-wapper">
