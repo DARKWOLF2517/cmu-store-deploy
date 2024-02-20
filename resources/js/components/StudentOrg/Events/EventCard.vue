@@ -41,7 +41,7 @@
                     <h3 class="mt-2"><i class="fas fa-list"></i> Events</h3>
                     <div class="event-buttons d-flex">
                         <div class="btn-group" role="group">
-                            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData,  this.checkboxClick()">
+                            <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData">
                                 <i class="fas fa-calendar-plus"></i> Add Event
                             </button>
                         </div>
@@ -237,8 +237,8 @@
                                                 <label>{{ year_level.year_level }}</label>
                                             </div> -->
                                             <div v-for="year_level in year_level_data" :key="year_level.id" class="form-check">
-                                                <input type="checkbox" :value="year_level.id" v-model="year_level_exempted" class="form-check-input mr-2">
-                                                <label class="form-check-label fw-bold">{{ year_level.year_level }}</label>
+                                                <input type="checkbox" :value="year_level.id" v-model="year_level_exempted" class="form-check-input mr-2" >
+                                                <label class="form-check-label fw-bold">{{ year_level.year_level }} </label>
                                             </div>
 
                                     </div>
@@ -332,33 +332,33 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <input class="form-check-input" type="checkbox" name="require_attendance" id="require-attendance" v-model="formData.require_attendance" :true-value="1" :false-value="0" @click="checkboxClick()">
+                                                <input class="form-check-input" type="checkbox" name="require_attendance" id="require-attendance" v-model="formData.require_attendance" :true-value="1" :false-value="0">
                                                 <label for="require-attendance" class="form-label">Require Attendance</label>
                                             </div>
-                                            <div id="attendance-container" style="display: none;">
-                                            <div class="row g-3">
-                                            <div class="col-md-6">
-                                                <label for="event-attendance" class="form-label">Number of Attendance</label>
-                                                <select name="attendance_count" class="form-select" id="event-attendance" v-model="formData.attendance_count">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="fines" class="form-label">Fines Per Attendance</label>
-                                                <input type="number" name="fines" class="form-control" id="fines" v-model="formData.fines">
-                                            </div>
-                                        </div>
+                                            <div id="attendance-container" v-if="this.formData.require_attendance == 1">
+                                                <div class="row g-3">
+                                                    <div class="col-md-6">
+                                                        <label for="event-attendance" class="form-label">Number of Attendance</label>
+                                                        <select name="attendance_count" class="form-select" id="event-attendance" v-model="formData.attendance_count">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="fines" class="form-label">Fines Per Attendance</label>
+                                                        <input type="number" name="fines" class="form-control" id="fines" v-model="formData.fines">
+                                                    </div>
+                                                </div>
 
-                                            <!-- <br> -->
-                                                <!-- CONTAINER OF THE CHECKBOX TO POPULATE -->
-                                                <!-- <b><p>Select the year level/s that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
+                                                <!-- <br> -->
+                                                    <!-- CONTAINER OF THE CHECKBOX TO POPULATE -->
+                                                    <!-- <b><p>Select the year level/s that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
 
-                                                <div id="checkboxes-container">
+                                                    <div id="checkboxes-container">
 
-                                                </div> -->
+                                                    </div> -->
 
                                             </div>
                                             <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
@@ -430,26 +430,18 @@
             this.showYearLevelData();
         },
         mounted(){
-                this.checkboxClick();
+
         },
         methods: {
             submitYearLevelExempted(){
-                if(this.year_level_exempted.length == 0){
-                    alert('Please check Year Level')
-                }
-                else{
-                    console.log(this.year_level_exempted)
-                    axios.post(`/submitYearLevelExempted/${this.organization_id}/${this.school_year_input}/${this.id}`, this.year_level_exempted)
-                    .then(response => {
-                        this.showSucces(response.data.message);
-                        // console.log(response.data)
-                    })
-                    .catch(error => {
-                        alert(error)
-
+                axios.post(`/submitYearLevelExempted/${this.organization_id}/${this.school_year_input}/${this.id}`, this.year_level_exempted)
+                .then(response => {
+                    this.showSucces('Exempted Year Level Updated Successfully');
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    alert(error)
                 });
-                }
-
             },
             showYearLevelData(){
                 axios.get(`get_year_level/${this.organization_id}`)
@@ -466,9 +458,11 @@
                     .then(response => {
                         // console.log(response.data)
                         let data = response.data;
+                        this.year_level_exempted = [];
                         data.forEach(element => {
-                            console.log(element)
+                            // console.log(element)
                             // this.year_level_exempted = element.school_year;
+                            this.year_level_exempted.push(element.year_level_id);
                         });
                         // this.year_level_exempted = response.data;
                     })
@@ -530,56 +524,7 @@
                     });
             },
 
-            checkboxClick(){
-                // console.log('sdf')
-                // document.getElementById('require-attendance').addEventListener('change', function() {
-                //     const attendanceContainer = document.getElementById('attendance-container');
-                //     if (this.checked) {
-                //         attendanceContainer.style.display = 'block';
-                //     } else {
-                //         attendanceContainer.style.display = 'none';
-                //     }
-                // });
-                console.log(this.formData.require_attendance)
-                const attendanceContainer = document.getElementById('attendance-container');
-                    if (this.formData.require_attendance == 1) {
-                        attendanceContainer.style.display = 'block';
-                    }
-                    else {
-                        attendanceContainer.style.display = 'none';
-                    }
-
-                // const user_orgs = [
-                //     { id: 1, label: '1st Year', value: '1' },
-                //     { id: 2, label: '2nd Year', value: '2' },
-                //     { id: 3, label: '3rd Year', value: '3' },
-                //     { id: 4, label: '4th Year', value: '4' },
-                //     // Other checkbox data objects...
-                //     ];
-
-                //     // Assuming you have a container element where checkboxes will be added
-                //     const checkboxesContainer = document.getElementById('checkboxes-container');
-                //     checkboxesContainer.innerHTML = '';
-                //     // Loop through the user_orgs array to create checkboxes
-                //     user_orgs.forEach(item => {
-                //     // Create a checkbox element
-                //     const checkbox = document.createElement('input');
-                //     checkbox.type = 'checkbox';
-                //     checkbox.id = 'checkbox_' + item.id; // Unique ID for each checkbox
-                //     checkbox.name = 'checkboxes'; // Set the same name for checkboxes if part of a group
-                //     checkbox.value = item.value; // Value associated with the checkbox
-
-                //     // Create a label for the checkbox
-                //     const label = document.createElement('label');
-                //     label.htmlFor = 'checkbox_' + item.id;
-                //     label.appendChild(document.createTextNode(item.label));
-
-                //     // Append checkbox and label to the container
-                //     checkboxesContainer.appendChild(checkbox);
-                //     checkboxesContainer.appendChild(label);
-                //     checkboxesContainer.appendChild(document.createElement('br')); // Line break between checkboxes
-                //     });
-            },
+            
 
             sendData() {
                 // Assuming the checkboxes are already created as mentioned in your code snippet

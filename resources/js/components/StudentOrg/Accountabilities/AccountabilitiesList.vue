@@ -426,8 +426,8 @@ export default{
         checkPaymentAmount() {
             if(this.paymentAmount) {
             // proceed with submission
-            const confirmationModal = new bootstrap.Modal(document.getElementById('ConfirmationModal'));
-            confirmationModal.show();
+            this.SubmitPayment();
+            window.location.reload();
 
             } else {
             // show error 

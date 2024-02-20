@@ -23,7 +23,6 @@ class AccountabilitiesController extends Controller
 {
     public function getAccountabilities($org_id, $school_year)
     {
-        // return $org_id;
         $student = Auth::id();
         $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
         $paidAccountabilityTotal = PaidAccountability::where([
@@ -31,98 +30,61 @@ class AccountabilitiesController extends Controller
             ['school_year', $school_year],
             ['student_id', $student]
         ])->sum('amount');
-        
-        // $paidAccountabilityTotal now contains the sum of all amounts in the 'amount' column
-        
-        // return $accountabilities->toJson();
-        return response()->json([
-            'accountabilities' => $accountabilities, 
-            'paid_accountabilities' => $paidAccountabilityTotal,
-            ]);
+        return response()->json(['accountabilities' => $accountabilities, 'paid_accountabilities' => $paidAccountabilityTotal,]);
     }
-
     public function store(Request $request)
     {
-             // Validate the form data
-            $validatedData = $this->validate($request,[
-                'org_id' => 'required',
-                'accountability_name' => 'required',
-                'amount' => 'required',
-                'school_year'=> 'required',
-            ]);
-    
-            // // Create a new Event instance
-            $accountability = new Accountability([
-                'org_id' => $validatedData['org_id'],
-                'accountability_name' => $validatedData['accountability_name'],
-                'amount' => $validatedData['amount'],
-                'school_year' => $validatedData['school_year'],
-                
-            ]);
-            $accountability->save();
-    
-            // Redirect or return a response
-            return response()->json(['message' => 'Accountability Created Successfully']);
-            // return $request;
+        $validatedData = $this->validate($request,[
+            'org_id' => 'required',
+            'accountability_name' => 'required',
+            'amount' => 'required',
+            'school_year'=> 'required',
+        ]);
+        $accountability = new Accountability([
+            'org_id' => $validatedData['org_id'],
+            'accountability_name' => $validatedData['accountability_name'],
+            'amount' => $validatedData['amount'],
+            'school_year' => $validatedData['school_year'],
+            
+        ]);
+        $accountability->save();
+        return response()->json(['message' => 'Accountability Created Successfully']);
     }
     public function getAccountabilitiesList($org_id, $school_year)
     {
-        // $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
-        // $school_year = Session::get('school_year');
-        // if ($org_default_school_year){
-            $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
-            return $accountabilities->toJson();
-        // }else{
-        //     return response()->json([]);
-        // }
-
+        $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
+        return $accountabilities->toJson();
     }
     public function AccountabilitiesListInAdmin($org_id,$school_year)
     {
-            $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
-            $users = UserProfile::all();
-            $userOrgs = UserOrganization::where([['school_year', $school_year],['role_id', 2],['student_org_id', $org_id ]])->get();
-            $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ],['school_year', $school_year]])->get();
-            $accountability = OrganizationAccountability::where([['org_id', $org_id ],['school_year', $school_year]])->get();
-            $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
-            $exempted = EventExempted::where([['org_id', $org_id ],['school_year', $school_year]])->get();
-            $freeFines = FreeFinesStudent::where([['org_id', $org_id ],['school_year', $school_year]])->get();
-            // return $accountabilities->toJson();
-            return response()->json([
-                'accountabilities_fines' => $accountabilities, 
-                'user' => $users,
-                'user_orgs' => $userOrgs,
-                'paid_accountabilities' => $paidAccountability, 
-                'accountabilities_other' => $accountability,
-                'year_level' => $yearLevel,
-                'year_level_exempted' => $exempted,
-                'free_fines' => $freeFines,
-
-                ]);
+        $accountabilities = Event::where([['org_id', $org_id ],['require_attendance', 1],['attendance_status', 2],['school_year', $school_year]])->with(['Attendance'])->get();
+        $users = UserProfile::all();
+        $userOrgs = UserOrganization::where([['school_year', $school_year],['role_id', 2],['student_org_id', $org_id ]])->get();
+        $paidAccountability = PaidAccountability::where([['student_org_id', $org_id ],['school_year', $school_year]])->get();
+        $accountability = OrganizationAccountability::where([['org_id', $org_id ],['school_year', $school_year]])->get();
+        $yearLevel = YearLevel::where([['org_id', $org_id ]])->get();
+        $exempted = EventExempted::where([['org_id', $org_id ],['school_year', $school_year]])->get();
+        $freeFines = FreeFinesStudent::where([['org_id', $org_id ],['school_year', $school_year]])->get();
+        return response()->json([
+            'accountabilities_fines' => $accountabilities, 
+            'user' => $users,
+            'user_orgs' => $userOrgs,
+            'paid_accountabilities' => $paidAccountability, 
+            'accountabilities_other' => $accountability,
+            'year_level' => $yearLevel,
+            'year_level_exempted' => $exempted,
+            'free_fines' => $freeFines,
+            ]);
     }
-
     public function updateEventAttendanceStatus($event_id,$status, $session)
     {
-        // return $session;
         $attendance = Event::find($event_id);
-        $attendance->update([
-            'attendance_status' => $status,
-            'attendance_session_started' => $session
-        ]);
-        
-        // if ($status == 1){
-        //     $status = 'Ongiong';
-        // }
-        // else if ($status == 0){
-        //     $status = 'Stoped';
-        // }
-        
+        $attendance->update(['attendance_status' => $status,'attendance_session_started' => $session]);
         return response()->json(['message' => 'Attendance Status Updated']);
     }
 
     public function OtherAccountabilityPayment(Request $request)
     {
-             // Validate the form data
             $validatedData = $this->validate($request,[
                 'accountability_name' => 'required',
                 'amount' => 'required',
@@ -130,20 +92,14 @@ class AccountabilitiesController extends Controller
                 'student_name' => 'required',
                 'student_org_id' => 'required',
             ]);
-    
-            // // Create a new Event instance
             $accountability = new PaidAccountability([
                 'student_id' => $validatedData['student_id'],
                 'student_org_id' => $validatedData['student_org_id'],
                 'accountability_name' => $validatedData['accountability_name'],
                 'amount' => $validatedData['amount'],
-                
             ]);
             $accountability->save();
-    
-            // Redirect or return a response
             return response()->json(['message' => 'Accountability Paid Successfully']);
-            // return $request;
     }
     public function FinesAccountabilityPayment($school_year,$amount,Request $request)
     {
@@ -154,13 +110,10 @@ class AccountabilitiesController extends Controller
             return response()->json(['message' => 'Cannot Accept Negative Value', 'status' => 0]);
         }
         else{
-                // Validate the form data
                 $validatedData = $this->validate($request,[
                     'student_id' => 'required',
                     'student_org_id' => 'required',
                 ]);
-
-                // // Create a new Event instance
                 $accountability = new PaidAccountability([
                     'student_id' => $validatedData['student_id'],
                     'student_org_id' => $validatedData['student_org_id'],
@@ -168,31 +121,25 @@ class AccountabilitiesController extends Controller
                     'school_year' => $school_year,
                 ]);
                 $accountability->save();
-
-                // Redirect or return a response
                 return response()->json(['message' => 'Accountability Paid Successfully', 'status' => 1]);
-
             }
-
     }
     public function attendanceFill(Request $request)
     {
-
-
-            foreach ($request->all() as $data) {
-                $attendance = new Attendance([
-                    'user_id' => $data['0'],
-                    'org_id' => $data['7'],
-                    'event_id' => $data['6'],
-                    'officer_id' =>$data['8'] ,
-                    'session' => $data['5'],
-                    'remarks' => 1,
-                    
-                ]);
-                $attendance->save();
+        foreach ($request->all() as $data) {
+            $attendance = new Attendance([
+                'user_id' => $data['0'],
+                'org_id' => $data['7'],
+                'event_id' => $data['6'],
+                'officer_id' =>$data['8'] ,
+                'session' => $data['5'],
+                'remarks' => 1,
                 
-            }
-            return response()->json(['message' => 'Accountability Paid Successfully']);
+            ]);
+            $attendance->save();
+            
+        }
+        return response()->json(['message' => 'Accountability Paid Successfully']);
     
     }
     public function DeleteOrganizationAccountability(OrganizationAccountability $accountability_id)
@@ -217,70 +164,52 @@ class AccountabilitiesController extends Controller
         {
             return response()->json(array("message"=>"Already in the list","error"=> 1));
         }
-             // Validate the form data
-            $validatedData = $this->validate($request,[
-                'org_id' => 'required',
-                'reason' => 'required',
-                'school_year' => 'required',
-                'student_id' => 'required',
-            ]);
-    
-            // // Create a new free fines instance
-            $freeFines = new FreeFinesStudent([
-                'student_id' => $validatedData['student_id'],
-                'reason' => $validatedData['reason'],
-                'org_id' => $validatedData['org_id'],
-                'school_year' => $validatedData['school_year'],
-                
-            ]);
-            $freeFines->save();
-    
-            // Redirect or return a response
-            return response()->json(['message' => 'Free Fines Student Added Successfully']);
-            // return $request;
+        $validatedData = $this->validate($request,[
+            'org_id' => 'required',
+            'reason' => 'required',
+            'school_year' => 'required',
+            'student_id' => 'required',
+        ]);
+        $freeFines = new FreeFinesStudent([
+            'student_id' => $validatedData['student_id'],
+            'reason' => $validatedData['reason'],
+            'org_id' => $validatedData['org_id'],
+            'school_year' => $validatedData['school_year'],
+            
+        ]);
+        $freeFines->save();
+        return response()->json(['message' => 'Free Fines Student Added Successfully']);
     }
     public function addFreeFinesRepetition($student_id, $school_year)
     {
-        $student = FreeFinesStudent::where([
-            ['student_id', $student_id],
-            ['school_year', $school_year]
-        ])->get();
+        $student = FreeFinesStudent::where([['student_id', $student_id], ['school_year', $school_year]])->get();
         $student = $student->count();
         return $student;
     }
     public function getStudentName($student_id)
     {
-        $student = UserOrganization::where([
-            ['student_id', $student_id],
-        ])->with('user_profile')->first();
+        $student = UserOrganization::where([['student_id', $student_id]])->with('user_profile')->first();
         return $student;
     }
     public function deleteStudentFreeFines($student_id)
     {
-        // $student_id->delete();
         FreeFinesStudent::where('student_id',$student_id )->delete();
         return response()->json(['message' => 'Student deleted successfully']);
     }
     public function fetchUpdateStudentData($student_id)
     {
-        $student = FreeFinesStudent::where([
-            ['student_id', $student_id],
-        ])->with('user_profile')->first();
+        $student = FreeFinesStudent::where([['student_id', $student_id]])->with('user_profile')->first();
         return $student;
     }
     public function updateStudentData($student_id, $reason)
     {
         $attendance = FreeFinesStudent::find($student_id);
         $attendance->update(['reason' => $reason]);
-
-    
         return response()->json(['message' => 'Attendance Status of ']);
     }
     public function accountabilitiesFetchUpdate($id)
     {
-        $accountability = Accountability::where([
-            ['accountability_id', $id],
-        ])->first();
+        $accountability = Accountability::where([['accountability_id', $id]])->first();
         return $accountability;
     }
     public function updateAccountabilities(Request $request, Accountability $id)
@@ -289,44 +218,24 @@ class AccountabilitiesController extends Controller
             'accountability_name' => 'required',
             'amount' => 'required',
         ]);
-
-        // $id->update([['accountability_name' => $request['accountability_name']], ['amount' => $request['amount']]]);
-        $id->update([
-            'accountability_name' => $request['accountability_name'],
-            'amount' => $request['amount']
-        ]);
+        $id->update(['accountability_name' => $request['accountability_name'], 'amount' => $request['amount']]);
         return response()->json(['message' => 'Accountability Updated Successfully']);
     }
-
     public function getUserOrgs($school_year)
     {
         $student = Auth::id();
-        $userOrgs = UserOrganization::where([
-            ['student_id', $student],
-            ['role_id', 2],
-            ['school_year', $school_year]
-            
-        ])
-        ->with('organization')
-        ->get();
-        
+        $userOrgs = UserOrganization::where([['student_id', $student],['role_id', 2],['school_year', $school_year]])->with('organization')->get();
         return $userOrgs->toJson();
     }
     public function getOrgAccountability($org_id, $school_year)
     {
-    //     // $org_default_school_year = OrganizationDefaultSchoolYear::where('org_id', $org_id)->first();
-    //     if ($org_default_school_year){
-            $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
-            return $accountabilities->toJson();
-        // }else{
-        //     return response()->json([]);
-        // }
-
+        $accountabilities = Accountability::where([['org_id', $org_id], ['school_year', $school_year]] )->get();
+        return $accountabilities->toJson();
     }
     public function fetchAccountabilities($org_id)
     {
-            $accountabilities = OrganizationAccountability::where([['org_id', $org_id]] )->get();
-            return $accountabilities->toJson();
+        $accountabilities = OrganizationAccountability::where([['org_id', $org_id]])->get();
+        return $accountabilities->toJson();
 
     }
 }

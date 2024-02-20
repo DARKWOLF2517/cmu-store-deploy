@@ -7,17 +7,13 @@ use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
 {
-    //
-    
     public function getAnnouncement($org_id, $school_year)
     {
         $announcement = Announcement::where([['org_id', $org_id], ['school_year', $school_year]])->get();
         return $announcement->toJson();
     }
-
     public function addAnnouncement($org_id, $school_year, Request $request)
     {
-        // Create a new School Year instance
         $addAnnouncement = new Announcement([
             'org_id' => $org_id,
             'school_year' => $school_year,
@@ -28,7 +24,6 @@ class AnnouncementController extends Controller
         ]);
         $addAnnouncement->save();
         return response()->json(['message' => 'Announcement added Successfully']);
-
     }
     public function fetchEditAnnouncement($id)
     {
@@ -43,9 +38,7 @@ class AnnouncementController extends Controller
             'date' => 'required',
             'time' => 'required',
         ]);
-
         $id->update($request->all());
-        
         return response()->json(['message' => 'Announcement Updated Successfully']);
     }
     public function deleteAnnouncement(Announcement $id)
