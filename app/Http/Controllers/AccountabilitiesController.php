@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-s
+
 class AccountabilitiesController extends Controller
 {
     public function getAccountabilities($org_id, $school_year)
