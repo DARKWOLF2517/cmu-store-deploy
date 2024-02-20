@@ -43,9 +43,7 @@ class EventController extends Controller
         $events = Event::select(('name as title'),
                                 DB::raw("CONCAT(start_date, 'T', start_attendance) as start"))->where([['org_id', $org_id], ['school_year', $school_year]])->get();
         return $events->toJson();
-        // return $org_id;
     }
-
     public function getEventsCount($org_id, $school_year)
     {   
         $count = Event::where([['org_id',$org_id], ['school_year', $school_year]])->count(); 
@@ -57,9 +55,6 @@ class EventController extends Controller
         $userCount = User::count();
         return response()->json(['count' => $userCount]);
     }
-    /**
-     * @param $request
-     */
     public function store(Request $request)
     {
         // Validate the form data
@@ -93,18 +88,14 @@ class EventController extends Controller
         $event->school_year = $validatedData['school_year_input'];
         $event->save();
 
-        // Redirect or return a response
         return response()->json(['message' => 'Event Created successfully']);
-        // return $request;
     }
-
     public function showEventDetails($event)
     {   
         $events = Event::find($event);
         return $events;
 
     }
-
     public function update(Request $request, Event $event)
     {   
         $request->validate([
@@ -120,19 +111,16 @@ class EventController extends Controller
         ]);
 
         $event->update($request->all());
-        
         return response()->json(['message' => 'Event '. $request-> name.' Updated Successfully']);
     }
     public function destroy( $event)
     {
         $event_list = Attendance::where('event_id', $event)->count();
-        // return $event_list;
         if ($event_list > 0){
             return response()->json(['message' => 'Unable to delete event because it has attendance records.', 'status' => 0]);
         }
         else {
             event::where('event_id',$event)->delete();
-            // event::where('event_id', $event)->delete();
             return response()->json(['message' => 'Event Deleted successfully' , 'status' => 1]);
         }
     
@@ -160,23 +148,31 @@ class EventController extends Controller
     }
     public function submitYearLevelExempted($org_id, $year_level,$event_id, Request $request )
     {   
-    
+        $exemptedData = EventExempted::pluck('year_level_id')->toArray();
+        $requestData = array_values($request->all());
 
-        foreach ($request->all() as $data) {
-            $exempted = new EventExempted([
-                'org_id' => $org_id,
-                'event_id' => $event_id,
-                'year_level_id' => $data,
-                'school_year' => $year_level,
+        //when adding to list
+        $differences_when_adding = array_diff($requestData, $exemptedData);
+        if (!empty($differences_when_adding)) {
+            foreach ($differences_when_adding as $difference) {
+                $exempted = new EventExempted([
+                    'org_id' => $org_id,
+                    'event_id' => $event_id,
+                    'year_level_id' => $difference,
+                    'school_year' => $year_level,
+                ]);
+                $exempted->save();
+            }
+        } 
+        
+        //when deleting to list 
+        $differences_when_removing = array_diff($exemptedData, $requestData);
+        if (!empty($differences_when_removing)) {
+            // The arrays have different values
+            $exemptedData = EventExempted::whereIn('year_level_id', $differences_when_removing)->delete();
                 
-            ]);
-
-            // $validatedData = $this->validate($data,[
-            //     'school_year' => 'required',
-            // ]);
-            $exempted->save();
-        }
-        return response()->json(['message' => 'Year Level Added Successfully']);
+        } 
+        // return response()->json(['message' => 'Exempted Year Level Updated Successfully']);
     }
     public function getYearLevel($org_id)
     {
@@ -185,7 +181,6 @@ class EventController extends Controller
     }
     public function getExempted($org_id, $id)
     {
-        // return 'asdfsdf';
         $events = EventExempted::where([['org_id', $org_id],['event_id', $id]])->get();
         return response()->json($events);
     }

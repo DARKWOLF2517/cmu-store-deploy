@@ -205,16 +205,16 @@ export default {
   },
   methods: {
     downloadQRCode() {
-  const qrCodeContainer = document.querySelector('.qr-code-container');
+      const qrCodeContainer = document.querySelector('.qr-code-container');
 
-  html2canvas(qrCodeContainer).then(canvas => {
-    const imageURL = canvas.toDataURL('image/png');
-    const link = document.createElement('a');
-    link.href = imageURL;
-    link.download = 'profile-qr-code.png';
-    link.click();
-  });
-},
+      html2canvas(qrCodeContainer).then(canvas => {
+        const imageURL = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = imageURL;
+        link.download = 'profile-qr-code.png';
+        link.click();
+      });
+  },
     FetchUserData() {
       this.loading = true; // Set loading to true before making the API call
 

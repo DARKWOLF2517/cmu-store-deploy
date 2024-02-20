@@ -221,15 +221,15 @@ export default {
                 item.session.toString().includes(this.session)
             );
         }
-       
+
         let filteredByCollege = this.attendance;
         if (this.college_data_input !== undefined && this.college_data_input !== null) {
             filteredByCollege = filteredByCollege.filter(item =>
                 item.user_profile.college.id === parseInt(this.college_data_input, 10)
             );
         }
-        console.log(this.attendance)
-
+       
+        console.log(filteredByCollege)
         // Merge the results of all three filters (independently applied)
         this.filtered_attendance = filteredBySearch.filter(item =>
             filteredByStatus.includes(item) && filteredByCollege.includes(item)
