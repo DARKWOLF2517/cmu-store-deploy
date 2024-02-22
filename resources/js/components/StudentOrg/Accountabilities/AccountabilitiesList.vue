@@ -82,7 +82,7 @@
                                 <td >{{ fees_list.user_id }}</td>
                                 <td> {{ fees_list.name }}</td>
                                 <!-- <td>{{ fees_list.accountability_type.toUpperCase()}}</td> -->
-                                <td style="text-align: right;">&#8369; {{ fees_list.total_fees }}</td>
+                                <td style="text-align: right; font-weight: bold;">&#8369; {{ fees_list.total_fees }}.00</td>
 
                                 <td>
                                     <button class="view-button btn" data-bs-toggle="modal" data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fees_list.user_id),
@@ -245,7 +245,7 @@
                             <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        
+
 
                         <div class="modal-body">
                             <div class="mb-3">
@@ -421,7 +421,7 @@ export default{
                 });
         },
         togglePayment(){
-            
+
         },
         checkPaymentAmount() {
             if(this.paymentAmount) {
@@ -430,7 +430,7 @@ export default{
             window.location.reload();
 
             } else {
-            // show error 
+            // show error
             alert('Please enter an amount')
             }
         },
@@ -955,7 +955,7 @@ export default{
                         });
                     }
                     // this.filtered_items_for_fines = this.total_fees;
-                    //if the filtered items has zero value 
+                    //if the filtered items has zero value
                     this.filtered_items_for_fines = this.total_fees.filter(item => item.total_fees != 0);
                     // this.filtered_items_for_fines = this.total_fees;
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
@@ -1007,7 +1007,7 @@ export default{
     const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
 
     // Remove or hide the "Actions" column in each row
-    const actionsColumnIndex = 4; // Assuming "Actions" is the fifth column (index 4)
+    const actionsColumnIndex = 3; // exclude actions
     const rows = tableToPrint.getElementsByTagName('tr');
 
     for (let i = 0; i < rows.length; i++) {
@@ -1043,10 +1043,8 @@ export default{
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         </head>
         <body>
-            <!-- Add a title before the table -->
             <h2>Unpaid Accountabilities</h2>
 
-            <!-- Add Bootstrap table classes -->
             <table class="table table-bordered table-striped">
                 ${tableToPrint.innerHTML}
             </table>

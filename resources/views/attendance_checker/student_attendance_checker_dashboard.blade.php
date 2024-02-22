@@ -3,7 +3,7 @@
   <title> Dashboard</title>
 @endsection
 @section('custom-style')
-    <link href="/custom_css/SODashboard.css" rel="stylesheet">
+    <link href="{{ asset('/custom_css/SODashboard.css') }}" rel="stylesheet">
 @endsection
 
 @section('main-content')

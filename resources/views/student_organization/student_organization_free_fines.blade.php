@@ -1,10 +1,10 @@
 @extends('layouts.main_layout')
 
 @section('custom-title')
-  <title> Free Fines</title>
+    <title> Free Fines</title>
 @endsection
 @section('custom-style')
-<link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+    <link href="{{ asset('/custom_css/evaluation.css') }}" rel="stylesheet">
 @endsection
 
 @section('main-content')
@@ -21,15 +21,12 @@
             </nav>
         </div>
         <div class="mt-2">
-
-                <set-free-fines
-                    :org_id = {{Session::get('org_id')}}
-                    :school_year_session = {{Session::get('school_year')}}
-                    />
-                </div>
+            <set-free-fines
+                :org_id = {{Session::get('org_id')}}
+                :school_year_session = {{Session::get('school_year')}}
+                />
             </div>
-
-
+        </div>
 @endsection
 
 @section('custom-script')

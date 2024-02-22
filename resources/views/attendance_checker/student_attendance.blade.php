@@ -3,7 +3,7 @@
   <title> Attendance</title>
 @endsection
 @section('custom-script')
-<link href="/custom_css/SOAttendance.css" rel="stylesheet">
+<link href="{{ asset('/custom_css/SOAttendance.css') }}" rel="stylesheet">
 @endsection
 @section('main-content')
     <attendance-record

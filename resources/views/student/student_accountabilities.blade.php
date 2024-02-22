@@ -5,8 +5,7 @@
   <title>My Accountabilities</title>
 @endsection
 @section('custom-style')
-<link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
-<title>Student Accountabilities @yield('title')</title>
+<link href="{{ asset('/custom_css/StudentAccountabilities.css') }}" rel="stylesheet">
 @endsection
 @section('main-content')
         <div class=" breadcrumbs">

@@ -524,7 +524,7 @@
                     });
             },
 
-            
+
 
             sendData() {
                 // Assuming the checkboxes are already created as mentioned in your code snippet

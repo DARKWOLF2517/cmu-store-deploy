@@ -3,7 +3,7 @@
   <title> Student Profile</title>
 @endsection
 @section('custom-style')
-<link href="/custom_css/studentProfile.css" rel="stylesheet">
+<link href="{{ asset('custom_css/studentProfile.css') }}" rel="stylesheet">
 @endsection
 
 @section('main-content')

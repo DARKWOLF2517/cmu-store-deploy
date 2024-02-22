@@ -3,7 +3,7 @@
   <title> Accountability records</title>
 @endsection
 @section('custom-style')
-<link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+<link href="{{ asset('/custom_css/StudentAccountabilities.css') }}" rel="stylesheet">
 @endsection
 <title>Student Organization Accountability Records  @yield('title')</title>
 @section('main-content')

@@ -108,6 +108,7 @@
 <script>
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
+import {convertDate} from "../Functions/DateConverter.js";
 
 export default {
   props: ['organization_id','school_year_session'],
@@ -137,6 +138,9 @@ export default {
         .then((response) => {
           this.loading = false;
           const data = response.data;
+          data.forEach(item => {
+                            item["start_date"] = convertDate(item["start_date"]);
+                        });
 
             if (data) {
               data.forEach((item) => {
