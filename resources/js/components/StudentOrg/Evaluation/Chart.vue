@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-2 student-buttons d-flex justify-content-end">
-            <div class="btn-group" role="group">
+    <div class="mt-2 student-buttons d-flex justify-content-end">
+        <div class="btn-group" role="group">
             <button class="btn me-2" id="print-results-button">
                 <i class="fas fa-print"></i> Print Results
             </button>
@@ -11,16 +11,16 @@
                 <i class="fas fa-eye"></i> View Table
             </a>
         </div>
-        </div>
-        <div class="col mt-2" id="evaluation-summary">
-    <h3>STUDENT ORGANIZATIONS & ACTIVITIES EVALUATION FORM</h3>
+    </div>
+    <div class="col mt-2" id="evaluation-summary">
+        <h3>STUDENT ORGANIZATIONS & ACTIVITIES EVALUATION FORM</h3>
         <hr>
-        <h6 for="Activity">Event: <b>{{this.event_title['name']}}</b>   </h6>
-        <h6 for="StudentOrganization">Name of Organization: <b>{{this.event_title['organization']}}</b></h6>
-        <h6 for="DateTime">Date & Time: <b>{{this.event_title['start_attendance']}}</b></h6>
-        <h6 for="Venue">Venue:  <b>{{this.event_title['location']}}</b></h6>
+        <h6 for="Activity">Event: <b>{{ this.event_title['name'] }}</b> </h6>
+        <h6 for="StudentOrganization">Name of Organization: <b>{{ this.event_title['organization'] }}</b></h6>
+        <h6 for="DateTime">Date & Time: <b>{{ this.event_title['start_attendance'] }}</b></h6>
+        <h6 for="Venue">Venue: <b>{{ this.event_title['location'] }}</b></h6>
         <hr>
-    <h6>1. PROGRAM/ACTIVITY</h6>
+        <h6>1. PROGRAM/ACTIVITY</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q1"></div>
@@ -50,13 +50,13 @@
                 <div class="piechart" id="q9"></div>
             </div>
         </div>
-    <h6>2. Venue</h6>
+        <h6>2. Venue</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q10"></div>
             </div>
         </div>
-    <h6>3. PARTICIPATION</h6>
+        <h6>3. PARTICIPATION</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q11"></div>
@@ -68,13 +68,13 @@
                 <div class="piechart" id="q13"></div>
             </div>
         </div>
-    <h6>4. FOOD/HOSPITALITY</h6>
+        <h6>4. FOOD/HOSPITALITY</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q14"></div>
             </div>
         </div>
-    <h6>5. TEAMWORK/COORDINATION OF ORGANIZATION</h6>
+        <h6>5. TEAMWORK/COORDINATION OF ORGANIZATION</h6>
         <div class="row">
             <div class="col">
                 <div class="piechart" id="q15"></div>
@@ -82,144 +82,144 @@
         </div>
 
 
-<div class="row">
-    <div class="col-md-12 col-12 feedback">
-        <h4>Feedbacks</h4>
-        <div class="feedbacklist-card">
-            <ul class="list-group" id="evaluation-feedbacks">
-                <li class="list-group-item mb-2">Feedback 1</li>
-                <li class="list-group-item mb-2">Feedback 2</li>
-                <li class="list-group-item mb-2">Feedback 3</li>
-                <li class="list-group-item mb-2">Feedback 4</li>
-                <li class="list-group-item mb-2">Feedback 4</li>
-                <li class="list-group-item mb-2">Feedback 4</li>
-            </ul>
+        <div class="row">
+            <div class="col-md-12 col-12 feedback">
+                <h4>Feedbacks</h4>
+                <div class="feedbacklist-card">
+                    <ul class="list-group" id="evaluation-feedbacks">
+                        <li class="list-group-item mb-2">Feedback 1</li>
+                        <li class="list-group-item mb-2">Feedback 2</li>
+                        <li class="list-group-item mb-2">Feedback 3</li>
+                        <li class="list-group-item mb-2">Feedback 4</li>
+                        <li class="list-group-item mb-2">Feedback 4</li>
+                        <li class="list-group-item mb-2">Feedback 4</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 </template>
 
 <script>
-import {converTime} from "../Functions/TimeConverter.js";
-export default{
+import { converTime } from "../Functions/TimeConverter.js";
+export default {
     props: ['event_id'],
     data() {
         return {
             answers: {
-                q1:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q1: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q2:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q2: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q3:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q3: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q4:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q4: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q5:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q5: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q6:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q6: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q7:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q7: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q8:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q8: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q9:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q9: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q10:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q10: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q11:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q11: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q12:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q12: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q13:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q13: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q14:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q14: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q15:{
-                    1 : 0,
-                    2 : 0,
-                    3 : 0,
-                    4 : 0,
-                    5 : 0,
+                q15: {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0,
+                    5: 0,
                 },
-                q16:{
+                q16: {
                     text: ""
                 },
             },
             event_title: {
                 name: '',
                 organization: '',
-                start_attendance:'',
+                start_attendance: '',
                 location: '',
 
             },
@@ -227,16 +227,13 @@ export default{
         }
     },
     mounted() {
-        this.fetchAnswer(this.event_id).then((evals)=>
-        {
-            for(let e of evals)
-            {
-                for(let i = 1; i <= 15; i++)
-                {
+        this.fetchAnswer(this.event_id).then((evals) => {
+            for (let e of evals) {
+                for (let i = 1; i <= 15; i++) {
                     const key = "q" + i;
                     const student_score = e[key]
                     // e[key] => score of student on this question
-                    this.answers[key][student_score]+=1;
+                    this.answers[key][student_score] += 1;
                 }
             }
             this.pieChart(this.answers);
@@ -244,7 +241,7 @@ export default{
         this.showEventTitle();
     },
     methods: {
-        async fetchAnswer(){
+        async fetchAnswer() {
             let evals = "Whatever";
             await axios.get(`/evaluation_form_answer/${this.event_id}`)
                 .then(response => {
@@ -255,18 +252,18 @@ export default{
                 });
             return evals;
         },
-        showEventTitle(){
+        showEventTitle() {
             axios.get(`/evaluation_form_title/${this.event_id}`)
                 .then(response => {
                     const data = response.data;
                     data.forEach(item => {
 
-                    // console.log(item);
-                    item["start_attendance"] = converTime(item["start_attendance"]);
-                    this.event_title['name'] =  item['name'];
-                    this.event_title['organization'] =  item['organization']['name'];
-                    this.event_title['start_attendance'] =  item['start_attendance'];
-                    this.event_title['location'] =  item['location'];
+                        // console.log(item);
+                        item["start_attendance"] = converTime(item["start_attendance"]);
+                        this.event_title['name'] = item['name'];
+                        this.event_title['organization'] = item['organization']['name'];
+                        this.event_title['start_attendance'] = item['start_attendance'];
+                        this.event_title['location'] = item['location'];
                     });
                     console.log(this.event_title);
 
@@ -276,8 +273,8 @@ export default{
                     console.log(error)
                 });
         },
-        pieChart($answer){
-            google.charts.load('current', {'packages':['corechart']});
+        pieChart($answer) {
+            google.charts.load('current', { 'packages': ['corechart'] });
 
             //question1
             google.charts.setOnLoadCallback(q1);
@@ -287,9 +284,9 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q1'][5]],
                     ['Very Satisfactory', $answer['q1'][4]],
-                    ['Satisfactory',$answer['q1'][3]],
-                    ['Moderately Satisfactory',$answer['q1'][2]],
-                    ['Needs Improvement',$answer['q1'][1]],
+                    ['Satisfactory', $answer['q1'][3]],
+                    ['Moderately Satisfactory', $answer['q1'][2]],
+                    ['Needs Improvement', $answer['q1'][1]],
                 ]);
 
                 var options = {
@@ -309,9 +306,9 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q2'][5]],
                     ['Very Satisfactory', $answer['q2'][4]],
-                    ['Satisfactory',$answer['q2'][3]],
-                    ['Moderately Satisfactory',$answer['q2'][2]],
-                    ['Needs Improvement',$answer['q2'][1]],
+                    ['Satisfactory', $answer['q2'][3]],
+                    ['Moderately Satisfactory', $answer['q2'][2]],
+                    ['Needs Improvement', $answer['q2'][1]],
                 ]);
 
                 var options2 = {
@@ -331,9 +328,9 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q3'][5]],
                     ['Very Satisfactory', $answer['q3'][4]],
-                    ['Satisfactory',$answer['q3'][3]],
-                    ['Moderately Satisfactory',$answer['q3'][2]],
-                    ['Needs Improvement',$answer['q3'][1]],
+                    ['Satisfactory', $answer['q3'][3]],
+                    ['Moderately Satisfactory', $answer['q3'][2]],
+                    ['Needs Improvement', $answer['q3'][1]],
                 ]);
 
                 var options3 = {
@@ -353,9 +350,9 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q4'][5]],
                     ['Very Satisfactory', $answer['q4'][4]],
-                    ['Satisfactory',$answer['q4'][3]],
-                    ['Moderately Satisfactory',$answer['q4'][2]],
-                    ['Needs Improvement',$answer['q4'][1]],
+                    ['Satisfactory', $answer['q4'][3]],
+                    ['Moderately Satisfactory', $answer['q4'][2]],
+                    ['Needs Improvement', $answer['q4'][1]],
                 ]);
 
                 var options4 = {
@@ -375,9 +372,9 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q5'][5]],
                     ['Very Satisfactory', $answer['q5'][4]],
-                    ['Satisfactory',$answer['q5'][3]],
-                    ['Moderately Satisfactory',$answer['q5'][2]],
-                    ['Needs Improvement',$answer['q5'][1]],
+                    ['Satisfactory', $answer['q5'][3]],
+                    ['Moderately Satisfactory', $answer['q5'][2]],
+                    ['Needs Improvement', $answer['q5'][1]],
                 ]);
 
                 var options5 = {
@@ -397,15 +394,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q6'][5]],
                     ['Very Satisfactory', $answer['q6'][4]],
-                    ['Satisfactory',$answer['q6'][3]],
-                    ['Moderately Satisfactory',$answer['q6'][2]],
-                    ['Needs Improvement',$answer['q6'][1]],
+                    ['Satisfactory', $answer['q6'][3]],
+                    ['Moderately Satisfactory', $answer['q6'][2]],
+                    ['Needs Improvement', $answer['q6'][1]],
                 ]);
 
                 var options6 = {
-                title: 'Satisfy students’ need to take time outs to do more than just studying.',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'Satisfy students’ need to take time outs to do more than just studying.',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart6 = new google.visualization.PieChart(document.getElementById('q6'));
@@ -419,15 +416,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q7'][5]],
                     ['Very Satisfactory', $answer['q7'][4]],
-                    ['Satisfactory',$answer['q7'][3]],
-                    ['Moderately Satisfactory',$answer['q7'][2]],
-                    ['Needs Improvement',$answer['q7'][1]],
+                    ['Satisfactory', $answer['q7'][3]],
+                    ['Moderately Satisfactory', $answer['q7'][2]],
+                    ['Needs Improvement', $answer['q7'][1]],
                 ]);
 
                 var options7 = {
-                title: 'Give students a chance to relax, refresh and mingle easily with others.',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'Give students a chance to relax, refresh and mingle easily with others.',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart7 = new google.visualization.PieChart(document.getElementById('q7'));
@@ -441,15 +438,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q8'][5]],
                     ['Very Satisfactory', $answer['q8'][4]],
-                    ['Satisfactory',$answer['q8'][3]],
-                    ['Moderately Satisfactory',$answer['q8'][2]],
-                    ['Needs Improvement',$answer['q8'][1]],
+                    ['Satisfactory', $answer['q8'][3]],
+                    ['Moderately Satisfactory', $answer['q8'][2]],
+                    ['Needs Improvement', $answer['q8'][1]],
                 ]);
 
                 var options8 = {
-                title: 'Provide opportunity for students to apply learning in their practical life.',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'Provide opportunity for students to apply learning in their practical life.',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart8 = new google.visualization.PieChart(document.getElementById('q8'));
@@ -463,15 +460,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q9'][5]],
                     ['Very Satisfactory', $answer['q9'][4]],
-                    ['Satisfactory',$answer['q9'][3]],
-                    ['Moderately Satisfactory',$answer['q9'][2]],
-                    ['Needs Improvement',$answer['q9'][1]],
+                    ['Satisfactory', $answer['q9'][3]],
+                    ['Moderately Satisfactory', $answer['q9'][2]],
+                    ['Needs Improvement', $answer['q9'][1]],
                 ]);
 
                 var options9 = {
-                title: 'Provide opportunity for student to work in team.',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'Provide opportunity for student to work in team.',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart9 = new google.visualization.PieChart(document.getElementById('q9'));
@@ -485,15 +482,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q10'][5]],
                     ['Very Satisfactory', $answer['q10'][4]],
-                    ['Satisfactory',$answer['q10'][3]],
-                    ['Moderately Satisfactory',$answer['q10'][2]],
-                    ['Needs Improvement',$answer['q10'][1]],
+                    ['Satisfactory', $answer['q10'][3]],
+                    ['Moderately Satisfactory', $answer['q10'][2]],
+                    ['Needs Improvement', $answer['q10'][1]],
                 ]);
 
                 var options9 = {
-                title: 'The venue was accessible and comfortable.',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'The venue was accessible and comfortable.',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart9 = new google.visualization.PieChart(document.getElementById('q10'));
@@ -510,15 +507,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q11'][5]],
                     ['Very Satisfactory', $answer['q11'][4]],
-                    ['Satisfactory',$answer['q11'][3]],
-                    ['Moderately Satisfactory',$answer['q11'][2]],
-                    ['Needs Improvement',$answer['q11'][1]],
+                    ['Satisfactory', $answer['q11'][3]],
+                    ['Moderately Satisfactory', $answer['q11'][2]],
+                    ['Needs Improvement', $answer['q11'][1]],
                 ]);
 
                 var options17 = {
-                title: 'Attendance',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'Attendance',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart17 = new google.visualization.PieChart(document.getElementById('q11'));
@@ -532,15 +529,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q12'][5]],
                     ['Very Satisfactory', $answer['q12'][4]],
-                    ['Satisfactory',$answer['q12'][3]],
-                    ['Moderately Satisfactory',$answer['q12'][2]],
-                    ['Needs Improvement',$answer['q12'][1]],
+                    ['Satisfactory', $answer['q12'][3]],
+                    ['Moderately Satisfactory', $answer['q12'][2]],
+                    ['Needs Improvement', $answer['q12'][1]],
                 ]);
 
                 var options18 = {
-                title: 'Cooperation',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'Cooperation',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart18 = new google.visualization.PieChart(document.getElementById('q12'));
@@ -554,15 +551,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q13'][5]],
                     ['Very Satisfactory', $answer['q13'][4]],
-                    ['Satisfactory',$answer['q13'][3]],
-                    ['Moderately Satisfactory',$answer['q13'][2]],
-                    ['Needs Improvement',$answer['q13'][1]],
+                    ['Satisfactory', $answer['q13'][3]],
+                    ['Moderately Satisfactory', $answer['q13'][2]],
+                    ['Needs Improvement', $answer['q13'][1]],
                 ]);
 
                 var options19 = {
-                title: 'Punctuality',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'Punctuality',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart19 = new google.visualization.PieChart(document.getElementById('q13'));
@@ -576,15 +573,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q14'][5]],
                     ['Very Satisfactory', $answer['q14'][4]],
-                    ['Satisfactory',$answer['q14'][3]],
-                    ['Moderately Satisfactory',$answer['q14'][2]],
-                    ['Needs Improvement',$answer['q14'][1]],
+                    ['Satisfactory', $answer['q14'][3]],
+                    ['Moderately Satisfactory', $answer['q14'][2]],
+                    ['Needs Improvement', $answer['q14'][1]],
                 ]);
 
                 var options19 = {
-                title: 'FOOD/HOSPITALITY',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'FOOD/HOSPITALITY',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart19 = new google.visualization.PieChart(document.getElementById('q14'));
@@ -598,15 +595,15 @@ export default{
                     ['Registration', 'Percentage'],
                     ['Outstanding', $answer['q15'][5]],
                     ['Very Satisfactory', $answer['q15'][4]],
-                    ['Satisfactory',$answer['q15'][3]],
-                    ['Moderately Satisfactory',$answer['q15'][2]],
-                    ['Needs Improvement',$answer['q15'][1]],
+                    ['Satisfactory', $answer['q15'][3]],
+                    ['Moderately Satisfactory', $answer['q15'][2]],
+                    ['Needs Improvement', $answer['q15'][1]],
                 ]);
 
                 var options19 = {
-                title: 'TEAMWORK/COORDINATION OF ORGANIZATION',
-                pieSliceText: 'value',
-                is3D: true
+                    title: 'TEAMWORK/COORDINATION OF ORGANIZATION',
+                    pieSliceText: 'value',
+                    is3D: true
                 };
 
                 var chart19 = new google.visualization.PieChart(document.getElementById('q15'));
@@ -619,8 +616,8 @@ export default{
         },
 
     },
-    }
-    </script>
+}
+</script>
 
 
 

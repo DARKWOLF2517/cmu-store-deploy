@@ -6,10 +6,10 @@
         <div class="ml-3">
             <p class="stat-label">{{ this.card_label }}</p>
             <div v-if="isLoading" class="spinner-border text-success" id="stat-cards-loading" role="status">
-            <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">Loading...</span>
             </div>
             <b v-else>
-            <p class="stat-number"> {{ count }}</p>
+                <p class="stat-number"> {{ count }}</p>
             </b>
         </div>
     </div>
@@ -17,34 +17,34 @@
 
 <script>
 export default {
-props: ['org_id', 'target_route', 'card_label', 'icons','school_year_session'],
+    props: ['org_id', 'target_route', 'card_label', 'icons', 'school_year_session'],
 
-data() {
-    return {
-    count: 0,
-    isLoading: true,
-    };
-},
-
-methods: {
-    fetchDataCount() {
-    axios
-        .get(`/${this.target_route}/${this.org_id}/${this.school_year_session}`)
-        .then((response) => {
-        this.count = response.data;
-        })
-        .catch((error) => {
-        console.log(error);
-        })
-        .finally(() => {
-        this.isLoading = false; // Set isLoading to false after data is fetched
-        });
+    data() {
+        return {
+            count: 0,
+            isLoading: true,
+        };
     },
-},
 
-mounted() {
-    this.fetchDataCount();
-},
+    methods: {
+        fetchDataCount() {
+            axios
+                .get(`/${this.target_route}/${this.org_id}/${this.school_year_session}`)
+                .then((response) => {
+                    this.count = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+                .finally(() => {
+                    this.isLoading = false; // Set isLoading to false after data is fetched
+                });
+        },
+    },
+
+    mounted() {
+        this.fetchDataCount();
+    },
 };
 </script>
 

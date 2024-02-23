@@ -2,31 +2,28 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 @section('custom-title')
-  <title>My Accountabilities</title>
+    <title>My Accountabilities</title>
 @endsection
 @section('custom-style')
-<link href="{{ asset('/custom_css/StudentAccountabilities.css') }}" rel="stylesheet">
+    <link href="{{ asset('/custom_css/StudentAccountabilities.css') }}" rel="stylesheet">
 @endsection
 @section('main-content')
-        <div class=" breadcrumbs">
-            <nav aria-label="breadcrumb">
+    <div class=" breadcrumbs">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/student_dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item">Student</li>
                 <li class="breadcrumb-item active" aria-current="page">Accountabilities</li>
             </ol>
-            </nav>
-        </div>
-        <div class="col" style="height: 85vh !important;">
-        <show-fines
-        :user_id = {{Auth::id()}}
-        :name ="{{ json_encode(Auth::user()->name) }}"
-        :school_year_session = {{Session::get('school_year')}}
-        >
+        </nav>
+    </div>
+    <div class="col" style="height: 85vh !important;">
+        <show-fines :user_id={{ Auth::id() }} :name="{{ json_encode(Auth::user()->name) }}"
+            :school_year_session={{ Session::get('school_year') }}>
 
         </show-fines>
-        </div>
-        {{-- <div class="mt-2">
+    </div>
+    {{-- <div class="mt-2">
             <div class="row head-container">
                 <div class="col-md-6 col-sm-12">
                     <h4><i class="fas fa-bars"></i> Accountabilities</h4>
@@ -61,5 +58,4 @@
                 </table>
             </div>
         </div> --}}
-
 @endsection

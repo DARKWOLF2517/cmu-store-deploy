@@ -5,7 +5,7 @@
 @endsection
 
 @section('custom-style')
-<link href="{{ asset('/custom_css/StudentAccountabilities.css') }}" rel="stylesheet">
+    <link href="{{ asset('/custom_css/StudentAccountabilities.css') }}" rel="stylesheet">
 @endsection
 
 @section('main-content')

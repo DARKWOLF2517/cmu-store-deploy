@@ -1,29 +1,25 @@
 @extends('layouts.main_layout')
 @section('custom-title')
-  <title> Student Profile</title>
+    <title> Student Profile</title>
 @endsection
 @section('custom-style')
-<link href="{{ asset('custom_css/studentProfile.css') }}" rel="stylesheet">
+    <link href="{{ asset('custom_css/studentProfile.css') }}" rel="stylesheet">
 @endsection
 
 @section('main-content')
-
-        <div class="col breadcrumbs">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
+    <div class="col breadcrumbs">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="student_dashboard">Dashboard</a></li>
                 <li class="breadcrumb-item">Student</li>
                 <li class="breadcrumb-item active" aria-current="page">Student Profile</li>
-                </ol>
-            </nav>
-        </div>
-        <div class="col" style="height: 85vh !important;">
-        <student-profile
-        user_id = {{Auth::id()}}
-        user_org = {{Session::get('org_id')}}
-        ></student-profile>
+            </ol>
+        </nav>
     </div>
-        {{-- <div class="row">
+    <div class="col" style="height: 85vh !important;">
+        <student-profile user_id={{ Auth::id() }} user_org={{ Session::get('org_id') }}></student-profile>
+    </div>
+    {{-- <div class="row">
             <div class="col-md-3">
                 <div class="qr-code">
                     <img src="https://via.placeholder.com/150" alt="profile photo">
@@ -72,5 +68,4 @@
                 </div>
             </div>
         </div> --}}
-
 @endsection

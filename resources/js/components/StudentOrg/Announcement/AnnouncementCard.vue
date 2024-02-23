@@ -1,147 +1,160 @@
 <template>
-
-<div class="breadcrumbs">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
-            <li class="breadcrumb-item">Student Organization</li>
-            <li class="breadcrumb-item active" aria-current="page">Announcements</li>
-            </ol>
-        </nav>
+  <div class="breadcrumbs">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
+        <li class="breadcrumb-item">Student Organization</li>
+        <li class="breadcrumb-item active" aria-current="page">Announcements</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="mt-2">
+    <div class="row head-container">
+      <div class="col-md-6 col-sm-12">
+        <div class="input-container">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
         </div>
-        <div class="mt-2">
-            <div class="row head-container">
-                <div class="col-md-6 col-sm-12">
-                    <div class="input-container">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12" >
-                    <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
-                    <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                            <option value="0" disabled selected>Select School Year</option>
-                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
+        <div class="select-dropdown" style="width: 70%;">
+          <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
+            @change="fetchData">
+            <option value="0" disabled selected>Select School Year</option>
+            <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year'] }}
+            </option>
+          </select>
         </div>
-        <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center ">
-            <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
-            <div class="announcement-buttons d-flex">
-                <div class="btn-group" role="group">
-                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.submit = this.submitData, this.clearData()">
-                        <i class="fas fa-plus"></i> Add Announcement
-                    </button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="announcement-list">
-        <div class="col">
-                <div class="announcement-container" id="announcement-container">
-    <div class="announcement-cards-list ">
-         <!-- Loading spinner -->
-         <div v-if="this.loading" class="loading-spinner-container">
-                <div class="spinner-border text-success" id="event-spinner" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
+  </div>
+  <div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center ">
+      <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
+      <div class="announcement-buttons d-flex">
+        <div class="btn-group" role="group">
+          <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"
+            @click="this.submit = this.submitData, this.clearData()">
+            <i class="fas fa-plus"></i> Add Announcement
+          </button>
         </div>
-        <!-- Message if the container is empty -->
-        <div class="Container-IfEmpty text-center" v-if="!loading && this.announcements.length == 0">
-                    <div class="Empty-Message">
-                    <i class="icon 	bi bi-megaphone" id="icon-message"></i>
-                    <p class="text-muted"><b>Announcements here</b>
-                    <br>
-                    No Announcements yet, Create Announcements Now!</p>
-                </div>
-        </div>
-                <!-- Message No results found -->
-        <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_announcements.length == 0 && this.announcements != 0">
-          <div class="Empty-Message">
-            <i class="icon 	fas fa-frown" id="icon-message"></i>
-            <p class="text-muted fw-bold">No result Found</p>
+      </div>
+    </div>
+  </div>
+  <div class="announcement-list">
+    <div class="col">
+      <div class="announcement-container" id="announcement-container">
+        <div class="announcement-cards-list ">
+          <!-- Loading spinner -->
+          <div v-if="this.loading" class="loading-spinner-container">
+            <div class="spinner-border text-success" id="event-spinner" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          <!-- Message if the container is empty -->
+          <div class="Container-IfEmpty text-center" v-if="!loading && this.announcements.length == 0">
+            <div class="Empty-Message">
+              <i class="icon 	bi bi-megaphone" id="icon-message"></i>
+              <p class="text-muted"><b>Announcements here</b>
+                <br>
+                No Announcements yet, Create Announcements Now!
+              </p>
+            </div>
+          </div>
+          <!-- Message No results found -->
+          <div class="Container-IfEmpty text-center"
+            v-if="!loading && this.filtered_announcements.length == 0 && this.announcements != 0">
+            <div class="Empty-Message">
+              <i class="icon 	fas fa-frown" id="icon-message"></i>
+              <p class="text-muted fw-bold">No result Found</p>
+            </div>
+          </div>
+          <div v-for="announcements in this.filtered_announcements">
+            <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
+              <div class="dropdown">
+                <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-ellipsis-h"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                  <!-- option 1 -->
+                  <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"
+                      @click="this.id = announcements.id, this.submit = this.updateData, this.fetchEdit()">Edit
+                      Announcement</a></li>
+                  <!-- option 2 -->
+                  <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                      @click="this.id = announcements.id">Delete Announcement</a></li>
+                </ul>
+              </div>
+              <div class="d-flex align-items-center">
+                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+              </div>
+              <div class="card-body">
+                <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
+                <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
+                <p class="card-short-description mt-2">
+                  {{ announcements.description }}
+                </p>
+                <p class="card-short-description">
+                  <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-     <div  v-for="announcements in this.filtered_announcements">
-    <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
-        <div class="dropdown">
-            <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-ellipsis-h"></i>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                <!-- option 1 -->
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal" @click="this.id = announcements.id, this.submit = this.updateData, this.fetchEdit()">Edit Announcement</a></li>
-                <!-- option 2 -->
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal" @click="this.id = announcements.id">Delete Announcement</a></li>
-            </ul>
-        </div>
-    <div class="d-flex align-items-center">
-    <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
-    <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+      </div>
     </div>
-    <div class="card-body">
-    <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
-    <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
-    <p class="card-short-description mt-2">
-        {{announcements.description}}
-    </p>
-    <p class="card-short-description">
-    <b>Scheduled Date and Time:</b> {{announcements.time}} - {{announcements.date }}
-</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-    </div>
+  </div>
 
 
-    <!-- Add Announcement Modal -->
-    <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <form @submit.prevent="this.submit">
-            <div class="modal-header">
+  <!-- Add Announcement Modal -->
+  <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form @submit.prevent="this.submit">
+          <div class="modal-header">
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel"
+              v-if="this.submit == this.submitData">Add Announcement</h5>
+            <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel"
+              v-else-if="this.submit == this.updateData">Update Announcement</h5>
+            <div class="mb-3">
+              <label class="form-label">Title</label>
+              <input type="text" class="form-control" v-model="this.announcement_data.title" required>
             </div>
-            <div class="modal-body">
-
-                <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-if="this.submit == this.submitData">Add Announcement</h5>
-                <h5 class="modal-title fw-bold text-center" id="addAnnouncementModalLabel" v-else-if="this.submit == this.updateData">Update Announcement</h5>
-                <div class="mb-3">
-                    <label class="form-label">Title</label>
-                    <input type="text" class="form-control" v-model="this.announcement_data.title" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" v-model="this.announcement_data.description" required ></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="starts_at" class="form-label fw-bold">Starts at</label>
-                    <div class="mb-2">
-                        <label for="date">Date:</label>
-                        <input type="date" name="start_date" class="form-control" id="date" v-model="this.announcement_data.date" required>
-                    </div>
-                <div>
-                    <label for="time">Time:</label>
-                    <input type="time" name="start_attendance" class="form-control" id="time" v-model="this.announcement_data.time" required>
-                </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" v-model="this.announcement_data.description" required></textarea>
             </div>
-        </div>
-        <div class="modal-footer">
+            <div class="mb-3">
+              <label for="starts_at" class="form-label fw-bold">Starts at</label>
+              <div class="mb-2">
+                <label for="date">Date:</label>
+                <input type="date" name="start_date" class="form-control" id="date" v-model="this.announcement_data.date"
+                  required>
+              </div>
+              <div>
+                <label for="time">Time:</label>
+                <input type="time" name="start_attendance" class="form-control" id="time"
+                  v-model="this.announcement_data.time" required>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success" data-bs-dismiss = "modal">Submit</button>
-        </div>
+            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Submit</button>
+          </div>
         </form>
+      </div>
     </div>
-    </div>
-</div>
+  </div>
   <!-- View Modal -->
   <!-- <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -165,27 +178,26 @@
   </div> -->
 
 
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <!-- <h5 class="modal-title" id="deleteModalLabel">Delete Announcement</h5> -->
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center">
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h5 class="modal-title" id="deleteModalLabel">Delete Announcement</h5> -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
           <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
           <h4><b>Remove Announcement</b></h4>
           <p>Are you sure you want to remove this announcement?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" @click="this.deleteData()" data-bs-dismiss="modal">Delete</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" @click="this.deleteData()" data-bs-dismiss="modal">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
 </template>
 
 <script>
@@ -213,35 +225,35 @@ export default {
     }
   },
   mounted() {
-      this.showSchoolYear();
-      this.fetchData();
-    },
+    this.showSchoolYear();
+    this.fetchData();
+  },
 
   methods: {
-    deleteData(){
+    deleteData() {
       axios.delete(`/delete_announcement/${this.id}`)
         .then(response => {
           this.fetchData();
           this.showSucces(response.data.message);
         })
         .catch(error => {
-            console(error)
+          console(error)
 
-      });
+        });
     },
     updateData() {
-        axios.put(`/updateAnnouncement/${this.id}`, this.announcement_data)
-          .then(response => {
-            // console.log(response.data)
-            this.fetchData();
-            this.showSucces(response.data.message);
-          })
-          .catch(error => {
-              // console.error('Error updating user:', error);
-              alert('Error updating user:', error)
-          });
+      axios.put(`/updateAnnouncement/${this.id}`, this.announcement_data)
+        .then(response => {
+          // console.log(response.data)
+          this.fetchData();
+          this.showSucces(response.data.message);
+        })
+        .catch(error => {
+          // console.error('Error updating user:', error);
+          alert('Error updating user:', error)
+        });
     },
-    fetchEdit(){
+    fetchEdit() {
       axios.get(`/fetchEditAnnouncement/${this.id}`)
         .then(response => {
           console.log(response.data)
@@ -250,9 +262,9 @@ export default {
         .catch(error => {
           console.log(error)
 
-      });
+        });
     },
-    submitData(){
+    submitData() {
       axios.post(`/addAnnouncement/${this.org_id}/${this.school_year_input}`, this.announcement_data)
         .then(response => {
           // console.log(response.data)
@@ -262,46 +274,46 @@ export default {
         .catch(error => {
           console.log(error)
 
-      });
+        });
     },
     filterItems() {
-          let filtered = this.announcements;
-          if (this.searchTerm) {
-            const searchTermLower = this.searchTerm.toLowerCase();
-            filtered = filtered.filter(item =>
-                item.title.toLowerCase().includes(searchTermLower)
-            );
-          }
-              this.filtered_announcements = filtered;
-      },
-    showSchoolYear(){
+      let filtered = this.announcements;
+      if (this.searchTerm) {
+        const searchTermLower = this.searchTerm.toLowerCase();
+        filtered = filtered.filter(item =>
+          item.title.toLowerCase().includes(searchTermLower)
+        );
+      }
+      this.filtered_announcements = filtered;
+    },
+    showSchoolYear() {
       axios.get(`get_school_year`)
         .then(response => {
-            // console.log(response.data)
-            this.school_year = response.data;
+          // console.log(response.data)
+          this.school_year = response.data;
         })
         .catch(error => {
-            console.log(error)
+          console.log(error)
         });
     },
 
-    fetchData(){
-        this.loading = true;
-        this.announcements = [];
-        this.filtered_announcements = [];
+    fetchData() {
+      this.loading = true;
+      this.announcements = [];
+      this.filtered_announcements = [];
       axios.get(`get_announcement/${this.org_id}/${this.school_year_input}`)
         .then(response => {
-            console.log(response.data)
-            this.announcements = response.data;
-            this.filtered_announcements = this.announcements;
-            this.loading = false;
+          console.log(response.data)
+          this.announcements = response.data;
+          this.filtered_announcements = this.announcements;
+          this.loading = false;
         })
         .catch(error => {
-            console.log(error)
+          console.log(error)
         });
     },
 
-    clearData(){
+    clearData() {
       this.announcement_data = {
         title: '',
         description: '',
@@ -309,9 +321,9 @@ export default {
         time: '',
       }
     },
-    showSucces(message){
-      toast.success(message),{
-          autoClose: 100,
+    showSucces(message) {
+      toast.success(message), {
+        autoClose: 100,
       }
     },
   },

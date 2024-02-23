@@ -1,20 +1,16 @@
 @extends('layouts.main_layout')
 
 @section('custom-title')
-  <title> Member List</title>
+    <title> Member List</title>
 @endsection
 @section('main-content')
-
-<div class="page-content-wapper">
-    <upload-students
-        :org_id = {{Session::get('org_id')}}
-        :school_year_session = {{Session::get('school_year')}}
-    >
-    </upload-students>
-</div>
+    <div class="page-content-wapper">
+        <upload-students :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }}>
+        </upload-students>
+    </div>
 
 
-{{-- <script>
+    {{-- <script>
     export default {
         methods: {
         downloadFile() {
@@ -39,7 +35,7 @@
         },
     };
 </script> --}}
-{{-- <script>
+    {{-- <script>
 
 
             // Function to handle the file upload
@@ -189,7 +185,7 @@
             });
 </script> --}}
 
-{{-- WALA NI LABOT ANG SA UBOS NA --}}
+    {{-- WALA NI LABOT ANG SA UBOS NA --}}
 
     <!-- Include Bootstrap and jQuery JavaScript -->
     {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script> --}}
@@ -197,7 +193,6 @@
 
     <!-- Include exceljs for parsing Excel files -->
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script> --}}
-
 @endsection
 
 @section('custom-script')
@@ -209,5 +204,4 @@
 
     <!-- Include exceljs for parsing Excel files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
-
 @endsection

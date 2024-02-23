@@ -10,11 +10,12 @@
 export function convertDate(date, option = 1) {
     let new_date = "";
     const options = {
-        1: { // Option 1: Month Day, Year
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-        }
+        1: {
+            // Option 1: Month Day, Year
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        },
         // Add more options as needed
     };
 

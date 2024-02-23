@@ -3,7 +3,7 @@
         <!-- Loading spinner -->
         <div v-if="loading" class="loading-spinner-container">
             <div class="spinner-border text-success" role="status">
-            <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">Loading...</span>
             </div>
         </div>
 
@@ -23,35 +23,38 @@
                     <p class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</p>
                 </div>
                 <div class="mt-auto" v-if="event.attendance_status == 1">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation" @click="this.event_id = event['event_id'],this.session = event.attendance_session_started, this.attendanceCount()" >Start</button>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation"
+                        @click="this.event_id = event['event_id'], this.session = event.attendance_session_started, this.attendanceCount()">Start</button>
                 </div>
-                <div class="mt-auto" v-else-if="event.attendance_status == 0|| event.attendance_status == 2">
+                <div class="mt-auto" v-else-if="event.attendance_status == 0 || event.attendance_status == 2">
                     <button class="btn btn-secondary">Unavailable</button>
                 </div>
             </div>
         </div>
-  <!-- Start Attendance confirmation -->
-  <div class="modal fade " id="startAttendanceConfirmation" tabindex="-1" aria-labelledby="startAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-            <h4><i class="fas fa-question-circle text-warning"></i>
-            </h4>
-                <p>Are you sure you want to Start Attendance to this Event?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <!-- Start Attendance confirmation -->
+        <div class="modal fade " id="startAttendanceConfirmation" tabindex="-1"
+            aria-labelledby="startAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h4><i class="fas fa-question-circle text-warning"></i>
+                        </h4>
+                        <p>Are you sure you want to Start Attendance to this Event?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
-            <button type="button" class="btn btn-success" @click="startAttendance(this.event_id, this.org_id, this.session)" data-bs-dismiss="modal">
-                <div>Start Attendance</div>
-            </button>
+                        <button type="button" class="btn btn-success"
+                            @click="startAttendance(this.event_id, this.org_id, this.session)" data-bs-dismiss="modal">
+                            <div>Start Attendance</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        </div>
-    </div>
-</div>
 
         <!-- Start Attendance Modal -->
         <!-- <div class="modal fade" id="startAttendanceModal" tabindex="-1" aria-labelledby="startAttendanceModalLabel" aria-hidden="true">
@@ -78,7 +81,7 @@
                                         <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
                         </select>
                         </div> -->
-                        <!-- <div class="form-group">
+        <!-- <div class="form-group">
                                     <label for="attendanceType">Select Attendance Type:</label>
                                     <select class="form-select " id="attendanceType" v-model="session">
                                         <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
@@ -87,8 +90,8 @@
                                         <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
                                     </select>
                         </div> -->
-                    <!-- </div> -->
-                    <!-- <div class="modal-footer">
+        <!-- </div> -->
+        <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         <button type="button" class="btn btn-success" @click="startAttendance(event_id, org_id, session)" >Start</button>
                     </div>
@@ -103,16 +106,16 @@
 <script>
 
 
-import {convertDate} from "../Functions/DateConverter.js";
-    import { toast } from 'vue3-toastify';
-    import 'vue3-toastify/dist/index.css';
-    import {converTime} from "../Functions/TimeConverter.js";
+import { convertDate } from "../Functions/DateConverter.js";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import { converTime } from "../Functions/TimeConverter.js";
 export default {
-    props: ['org_id','school_year_session'],
-data() {
+    props: ['org_id', 'school_year_session'],
+    data() {
         return {
             loading: true,
-            attendance_count:null,
+            attendance_count: null,
             events: [],
             event_id: null,
             session: null,
@@ -125,7 +128,7 @@ data() {
         console.log("mounted")
     },
     methods: {
-        attendanceCount(){
+        attendanceCount() {
             axios.get(`/attendance/count/${this.event_id}/${this.org_id}`)
                 .then(response => {
                     this.attendance_count = response.data;
@@ -134,29 +137,29 @@ data() {
                     console.log(error)
                 });
 
-    },
-    fetchData(){
-        console.log(this.school_year_session)
-        axios.get(`/events/show/${this.org_id}/${this.school_year_session}`)
-            .then(response => {
-                this.loading = false;
-                const data = response.data;
-                data.forEach(item => {
-                    item["start_attendance"] = converTime(item["start_attendance"]);
-                    item["end_attendance"] = converTime(item["end_attendance"]);
-                    item["start_date"] = convertDate(item["start_date"]);
+        },
+        fetchData() {
+            console.log(this.school_year_session)
+            axios.get(`/events/show/${this.org_id}/${this.school_year_session}`)
+                .then(response => {
+                    this.loading = false;
+                    const data = response.data;
+                    data.forEach(item => {
+                        item["start_attendance"] = converTime(item["start_attendance"]);
+                        item["end_attendance"] = converTime(item["end_attendance"]);
+                        item["start_date"] = convertDate(item["start_date"]);
+                    });
+                    console.log(response.data);
+                    this.events = response.data
+
+                })
+                .catch(error => {
+                    // this.loading = false;
+                    console.log(error)
                 });
-                console.log(response.data);
-                this.events = response.data
+        },
 
-            })
-            .catch(error => {
-            // this.loading = false;
-                console.log(error)
-            });
-                },
-
-        startAttendance(event_id, org_id, session){
+        startAttendance(event_id, org_id, session) {
 
             // if (event_id === null || org_id === null || session === null) {
             //     // console.error('Error: One or more parameters are null');
@@ -168,7 +171,7 @@ data() {
             // }
             // else{
             //      //query for qr scanner with event_id
-                window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
+            window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
             // }
 
         },

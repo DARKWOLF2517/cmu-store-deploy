@@ -1,11 +1,10 @@
 @extends('layouts.main_layout')
 @section('custom-title')
-  <title> Evaluation List</title>
+    <title> Evaluation List</title>
 @endsection
 @section('custom-style')
-
-<link href="/custom_css/evaluation.css" rel="stylesheet">
-{{-- <style>
+    <link href="/custom_css/evaluation.css" rel="stylesheet">
+    {{-- <style>
     .evaluation-list {
     max-height: 70vh;
     height: 70vh;
@@ -69,29 +68,24 @@
 </style> --}}
 @endsection
 @section('main-content')
+    <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="student_dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item">Student</li>
+                <li class="breadcrumb-item active" aria-current="page">Evaluation</li>
+            </ol>
+        </nav>
+    </div>
+    <h3 class="mt-2"><i class="fas fa-list"></i> Evaluation</h3>
 
-        <div class="breadcrumbs">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="student_dashboard">Dashboard</a></li>
-                    <li class="breadcrumb-item">Student</li>
-                    <li class="breadcrumb-item active" aria-current="page">Evaluation</li>
-                </ol>
-            </nav>
-        </div>
-                <h3 class="mt-2"><i class="fas fa-list"></i> Evaluation</h3>
-
-<div class="col" style="height: 80vh !important;">
-        <student-event-card
-        organization_id = {{Session::get('org_id')}}
-        student_id = {{Auth::id()}}
-        >
+    <div class="col" style="height: 80vh !important;">
+        <student-event-card organization_id={{ Session::get('org_id') }} student_id={{ Auth::id() }}>
 
         </student-event-card>
     </div>
 
-{{--
+    {{--
     </div>
     </div> --}}
-
 @endsection

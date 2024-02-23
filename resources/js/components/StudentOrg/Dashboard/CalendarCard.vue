@@ -1,8 +1,5 @@
 <template>
-    <FullCalendar
-    :options="calendarOptions"
-    :events ="events"
-    @eventClick="eventClick"   />
+    <FullCalendar :options="calendarOptions" :events="events" @eventClick="eventClick" />
     <!-- Bootstrap Modal -->
     <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -17,7 +14,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -34,18 +31,18 @@ export default {
     components: {
         FullCalendar // make the <FullCalendar> tag available
     },
-    props: ['org_id','school_year_session'],
+    props: ['org_id', 'school_year_session'],
     data() {
         return {
             events: [],
 
             calendarOptions: {
-                plugins: [ dayGridPlugin, interactionPlugin ],
+                plugins: [dayGridPlugin, interactionPlugin],
                 initialView: 'dayGridMonth',
                 eventClick: this.eventClick,
                 events: [
                     // { title: 'event 1', start: '2023-09-01' + 'T08:00:00', end: '2023-09-02' + 'T17:00:00'},
-                    ],
+                ],
             },
 
         }
@@ -54,18 +51,18 @@ export default {
         this.fetchData();
     },
     methods: {
-        fetchData(){
-                axios.get(`/calendar/${this.org_id}/${this.school_year_session}`)
-                    .then(response => {
-                        this.calendarOptions.events = response.data;
-                        console.log(response.data)
-                    })
-                    .catch(error => {
+        fetchData() {
+            axios.get(`/calendar/${this.org_id}/${this.school_year_session}`)
+                .then(response => {
+                    this.calendarOptions.events = response.data;
+                    console.log(response.data)
+                })
+                .catch(error => {
 
-                    });
+                });
 
         },
-        eventClick: function(info){
+        eventClick: function (info) {
 
 
             // Display event details in the modal
