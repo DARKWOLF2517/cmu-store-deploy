@@ -199,6 +199,7 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
             Route::get('/evaluation_form{event_id}', [EvaluationController::class, 'GetEvaluationResult'])->name('fetchEvaluation');
             Route::get('/evaluation_form_answer/{event_id}',[EvaluationController::class, 'EvaluationFormAnswer']);
+            Route::get('/evaluation_answer/{event_id}',[EvaluationController::class, 'EvaluationAnswer']);
             Route::get('/evaluation_form_total_response/{event_id}',[EvaluationController::class, 'EvaluationTotalResponse']);
             Route::get('/events/evaluation/{org_id}/{school_year?}',[EventController::class, 'getEvaluationList'])->name('get-evaluation');
 

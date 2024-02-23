@@ -34,6 +34,7 @@ import { createApp } from 'vue';
     import PaidAccountabilities from './components/StudentOrg/Accountabilities/PaidAccountabilities.vue';
     import OrgProfile from './components/StudentOrg/Profile/OrgProfile.vue';
     import AnnouncementDashboard from './components/StudentOrg/Dashboard/DashboardAnnouncement.vue';
+    import EvaluationResult from './components/StudentOrg/Evaluation/EvaluationFormResult.vue';
 
 // student module
     import StudentAttendance from './components/StudentUser/Attendance/StudentAttendance.vue';
@@ -79,7 +80,7 @@ const app = createApp({});
     app.component('paid-accountabilities', PaidAccountabilities);
     app.component('org-profile', OrgProfile);
     app.component('announcement-dashboard', AnnouncementDashboard);
-
+    app.component('evaluation-result', EvaluationResult);
 
 // student module
     app.component ('student-attendance',StudentAttendance);

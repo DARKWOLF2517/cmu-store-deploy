@@ -33,11 +33,15 @@
             </div>
         </div> --}}
 
-                <evaluation-chart
-                    event_id={{$id}}>
-                </evaluation-chart>
+        {{-- static evaluation result --}}
+          {{-- <evaluation-chart
+              event_id={{$id}}>
+          </evaluation-chart> --}}
 
-
+        {{-- dynamic evaluation result --}}
+          <evaluation-result
+              event_id={{$id}}>
+          </evaluation-result>
 
 @endsection
 
