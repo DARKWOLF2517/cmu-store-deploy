@@ -2,8 +2,9 @@
 @section('custom-title')
   <title> Announcements</title>
 @endsection
+
 @section('custom-style')
-  <link href="/custom_css/announcement.css" rel="stylesheet">
+  <link href="{{ asset('/custom_css/announcement.css') }}" rel="stylesheet">
 @endsection
 
 

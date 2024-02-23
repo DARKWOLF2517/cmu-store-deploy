@@ -63,7 +63,7 @@
         <table  id="accountabilities-table">
             <thead>
                 <tr>
-                    <th style="width: 10%;">Student ID</th>
+                    <th>Student ID</th>
                     <th style="width: 30%;">Student Name</th>
                     <th style="width: 20%;">Reason</th>
                     <th style="width: 10%;"></th>
@@ -310,11 +310,10 @@ gotoPage(page) { this.currentPage = page; this.paginatedData = this.filtered_fre
                       <th style="width: 10%;">Student ID</th>
                       <th style="width: 30%;">Student Name</th>
                       <th style="width: 20%;">Reason</th>
-                      <th style="width: 10%;"></th>
                   </tr>
               </thead>
               <tbody>
-                  ${this.generateTableRows(this.free_fines_students)}
+                  ${this.generateTableRowsWithoutLastColumn(this.free_fines_students)}
               </tbody>
           </table>
       </body>
@@ -332,67 +331,62 @@ gotoPage(page) { this.currentPage = page; this.paginatedData = this.filtered_fre
   }, 1000);
 },
 
-generateTableRows(data) {
-  let rows = '';
-  data.forEach(item => {
-      rows += `
-          <tr>
-              <td>${item.student_id}</td>
-              <td>${item.user.name}</td>
-              <td>${item.reason}</td>
-              <td>
-                  <span class="table-buttons">
-                      <button class="btn edit-button" @click="submit = updateData, id = ${item.student_id},fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
-                      <button class="btn delete-button" @click="" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
-                  </span>
-              </td>
-          </tr>
-      `;
-  });
-  return rows;
+generateTableRowsWithoutLastColumn(data) {
+    let rows = '';
+    data.forEach(item => {
+        rows += `
+            <tr>
+                <td>${item.student_id}</td>
+                <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
+                <td>${item.reason}</td>
+            </tr>
+        `;
+    });
+    return rows;
 },
 downloadTable() {
   // Get the table data specifically from free_fines_students
-  const tableData = this.getFreeFinesTableData();
+    const tableData = this.getFreeFinesTableData();
 
   // Create a workbook
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.aoa_to_sheet(tableData);
-  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(tableData);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
   // Save the workbook as an Excel file
   XLSX.writeFile(wb, 'StudentWithFreeFines.xlsx');
 },
 
 getFreeFinesTableData() {
-  // Get a reference to the free_fines_students data
-  const data = this.free_fines_students;
+ // Get a reference to the table
+ const table = document.getElementById('accountabilities-table');
 
-  // Initialize an array to store the table data
-  const tableData = [];
+// Initialize an array to store the table data
+const tableData = [];
 
-  // Iterate through the free_fines_students data
-  for (let i = 0; i < data.length; i++) {
+// Iterate through the rows of the table
+for (let i = 0; i < table.rows.length; i++) {
     const rowData = [];
 
-    // Add the desired data fields to the rowData array
-    rowData.push(data[i].student_id);
-    rowData.push(data[i].user.name);
-    rowData.push(data[i].reason);
+    // Iterate through the cells of the current row, excluding the last one
+    for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
+    // Push the cell value to the rowData array
+    rowData.push(table.rows[i].cells[j].textContent);
+    }
 
     // Push the row data to the tableData array
     tableData.push(rowData);
-  }
+}
 
-  // Return the table data
-  return tableData;
+// Return the table data
+return tableData;
 },
     filterItems() {
       // Filter based on searchTerm from textbox
       let filteredBySearch = this.free_fines_students;
       if (this.searchTerm) {
           const searchTermLower = this.searchTerm.toLowerCase();
-          filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name +''+ item.user_profile.last_name).toLowerCase().includes(searchTermLower) 
+          filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name +''+ item.user_profile.last_name).toLowerCase().includes(searchTermLower)
           );
       }
           this.filtered_free_fines = filteredBySearch;
@@ -414,8 +408,8 @@ getFreeFinesTableData() {
           console.log(response.data)
             this.nameFilterStudent = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
             this.free_fines_input = response.data;
-        
-          
+
+
           // this.loading = false; //
         })
         .catch((error) => {
@@ -455,7 +449,7 @@ getFreeFinesTableData() {
           else{
             this.nameFilterStudent  = '';
           }
-          
+
           // this.free_fines_students = response.data;
           // this.loading = false; //
         })

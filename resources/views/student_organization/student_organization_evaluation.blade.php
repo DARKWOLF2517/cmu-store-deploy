@@ -3,6 +3,10 @@
 @section('custom-title')
   <title> Evaluation</title>
 @endsection
+
+@section('custom-style')
+<link href="{{ asset('/custom_css/evaluation.css') }}" rel="stylesheet">
+@endsection
 @section('main-content')
 <link href="/custom_css/evaluation.css" rel="stylesheet">
 

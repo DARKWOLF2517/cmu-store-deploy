@@ -1,8 +1,8 @@
 
 table {
     width: 100%;
-    /* border: 1px solid #ddd;
-    border-color: #ddd; */
+    border: 1px solid #ddd;
+    border-color: #ddd;
 
   }
 
@@ -18,14 +18,14 @@ table {
   }
   #student-list-table, #accountabilities-table th{
     /* background-color: #69a09d; */
+    height: 50px;
     font-size: 15px;
     font-weight: bold;
     padding: 5px !important;
   }
-  #student-list-table td, #accountabilities-table td{
-
-    padding: 5px !important;
-  }
+  /* #student-list-table td, #accountabilities-table td{
+    padding: 10px !important;
+  } */
 thead{
     background-color: #e4f8ee;
     position: sticky;
@@ -35,20 +35,20 @@ thead{
     position: static !important;
 }
 thead th{
-
     /* background-color: #60b192; */
     /* color: white; */
     padding: 10px;
     color: rgb(26, 26, 26);
-    border-bottom: none !important;
+    /* border-bottom: none !important; */
 }
   td{
     font-weight: normal;
+    padding: 5px;
   }
   th, td {
     text-align: left;
     border-bottom: 1px solid #ddd;
-    padding: 15px;
+    border-right: 1px solid #ddd;
   }
   tr:hover {
     background-color: #e8faf0;

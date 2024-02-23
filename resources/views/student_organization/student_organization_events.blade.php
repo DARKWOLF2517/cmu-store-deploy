@@ -1,12 +1,11 @@
 @extends('layouts.main_layout')
-{{-- @section('custom-style')
-  <link href="/custom_css/SOEvents.css" rel="stylesheet">
-@endsection --}}
 
 @section('custom-title')
   <title> Events</title>
 @endsection
-<link href="/custom_css/SOEvents.css" rel="stylesheet">
+@section('custom-style')
+<link href="{{ asset('/custom_css/SOEvents.css') }}" rel="stylesheet">
+@endsection
 @section('main-content')
 
 

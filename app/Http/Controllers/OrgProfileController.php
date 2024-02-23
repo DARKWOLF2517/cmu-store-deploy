@@ -61,6 +61,7 @@ class OrgProfileController extends Controller
     }
     public function viewOrgOfficer($org_id, $school_year)
     {
+        
         $orgOfficer = OrganizationOfficer::where([['org_id', $org_id], ['school_year', $school_year]])->with('user_profile')->get();
         return response()->json($orgOfficer);
 

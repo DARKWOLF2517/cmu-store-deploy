@@ -1,9 +1,13 @@
 @extends('layouts.main_layout')
-<link href="/custom_css/SOAttendance.css" rel="stylesheet">
 
 @section('custom-title')
   <title> Attendance</title>
 @endsection
+
+@section('custom-style')
+<link href="{{ asset('/custom_css/SOAttendance.css') }}" rel="stylesheet">
+@endsection
+
 @section('main-content')
     <attendance-record
     :organization_id = {{Session::get('org_id')}}

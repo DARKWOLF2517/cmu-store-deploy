@@ -2,7 +2,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="input-container">
             <i class="fa fa-search"></i>
-            <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
+            <input type="text" placeholder="Search Student" v-model="searchTerm" @input="filterItems">
         </div>
     </div>
     <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
@@ -45,10 +45,10 @@
         </div>
     </div>
 
-    <div id="table-container" style="margin-left: 10px;">
+    <div id="table-container">
     <div class="scroll-pane">
         <!-- fines accountabilities -->
-        <table   >
+        <table id="accountabilities-table"   >
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -72,13 +72,13 @@
                     Students with cleared accountabilities are listed here</p>
                 </div>
                 </div>
-                <tr v-for="paid in paginatedData" :key="paid.student_id">
-                <td >{{ paid['student_id'] }}</td>
-                <td> {{ paid.user_profile.first_name  + ' '+ paid.user_profile.last_name}}</td>
-                <!-- <td>{{ paid['accountability_name'] }}</td> -->
-                <td> Date here</td>
-                <td style="text-align: right;"> &#8369; {{ paid['amount'] }}.00</td>
-                <td>shshs</td>
+                <tr v-for="paid in paginatedData" :key="paid.student_id" style="height: 50px;">
+                    <td >{{ paid['student_id'] }}</td>
+                    <td> {{ paid.user_profile.first_name  + ' '+ paid.user_profile.last_name}}</td>
+                    <!-- <td>{{ paid['accountability_name'] }}</td> -->
+                    <td> {{ paid['created_at'] }}</td>
+                    <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}.00</td>
+                    <td>shshs</td>
                 </tr>
 
             </tbody>
@@ -253,9 +253,14 @@ export default{
             this.loading = true;
                     axios.get(`/paid_accountabilities/${this.org_id}/${this.school_year_input}`)
                     .then(response => {
+                        const data = response.data;
+                        data.forEach(item => {
+                            item["created_at"] = convertDate(item["created_at"]);
+                        });
                         this.paidList = response.data;
                         console.log(this.paidList)
                         this.loading = false;
+
                         this.filtered_paid_accountabilities = this.paidList;
                     })
                     .catch(error => {
@@ -286,53 +291,64 @@ export default{
             this.currentPage = page;
         }
     },
-                printTable() {
-  // Create a hidden iframe for printing
-  const iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  document.body.appendChild(iframe);
+    printTable() {
+    // Clone the table element to avoid modifying the original table
+    const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
 
-  // Generate the printable HTML document in the iframe
-  const iframeDoc = iframe.contentWindow.document;
-  iframeDoc.open();
-  iframeDoc.write(`
-      <html>
-      <head>
-          <title>Print</title>
-          <!-- Include Bootstrap stylesheet link -->
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-      </head>
-      <body>
-          <!-- Add a title before the table -->
-          <h2>Student With Free Fines</h2>
+    const actionsColumnIndex = 5;
+    const rows = tableToPrint.getElementsByTagName('tr');
 
-          <!-- Add Bootstrap table classes -->
-          <table class="table table-bordered table-striped">
-              <thead>
-                  <tr>
-                      <th style="width: 10%;">Student ID</th>
-                      <th style="width: 30%;">Student Name</th>
-                      <th style="width: 20%;">Reason</th>
-                      <th style="width: 10%;"></th>
-                  </tr>
-              </thead>
-              <tbody>
-                  ${this.generateTableRows(this.paidList)}
-              </tbody>
-          </table>
-      </body>
-      </html>
-  `);
-  iframeDoc.close();
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        if (cells.length > actionsColumnIndex) {
+            // Remove the cell from the DOM
+            cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
+        }
+    }
 
-  // Print the iframe content
-  iframe.contentWindow.focus();
-  iframe.contentWindow.print();
+    // Hide the header cell for the "Actions" column
+    const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
+    if (headerRow) {
+        const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
+        if (headerCell) {
+            headerCell.style.display = 'none';
+        }
+    }
 
-  // Remove the iframe after printing
-  setTimeout(() => {
-      document.body.removeChild(iframe);
-  }, 1000);
+    // Create a hidden iframe for printing
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    // Generate the printable HTML document in the iframe
+    const iframeDoc = iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write(`
+        <html>
+        <head>
+            <title>Print</title>
+            <!-- Include Bootstrap stylesheet link -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        </head>
+        <body>
+            <h2>Paid Accountabilities</h2>
+
+            <table class="table table-bordered table-striped">
+                ${tableToPrint.innerHTML}
+            </table>
+        </body>
+        </html>
+    `);
+    iframeDoc.close();
+
+    // Print the iframe content
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // Remove the iframe after printing
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+    }, 1000);
 },
 
 generateTableRows(data) {
@@ -341,14 +357,10 @@ generateTableRows(data) {
       rows += `
           <tr>
               <td>${item.student_id}</td>
-              <td>${item.user.name}</td>
-              <td>${item.reason}</td>
-              <td>
-                  <span class="table-buttons">
-                      <button class="btn edit-button" @click="submit = updateData, id = ${item.student_id},fetchUpdateData()" data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="fas fa-pen"></i></button>
-                      <button class="btn delete-button" @click="" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
-                  </span>
-              </td>
+              <td>${item.user_profile.first_name } ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
+              <td>${item.created_at}</td>
+              <td style = "font-weight: bold;">&#8369; ${item.amount}.00</td>
+              <td>sd</td>
           </tr>
       `;
   });
@@ -364,15 +376,17 @@ downloadTable() {
   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
   // Save the workbook as an Excel file
-  XLSX.writeFile(wb, 'StudentWithFreeFines.xlsx');
+  XLSX.writeFile(wb, 'Paid_Students.xlsx');
 },
 
 getPaidListTableData() {
   // Get a reference to the paidList data
+
   const data = this.paidList;
 
   // Initialize an array to store the table data
-  const tableData = [];
+  const tableData = [['Student ID', 'Student Name', 'Date Received', 'Amount']];
+
 
   // Iterate through the paidList data
   for (let i = 0; i < data.length; i++) {
@@ -380,8 +394,9 @@ getPaidListTableData() {
 
     // Add the desired data fields to the rowData array
     rowData.push(data[i].student_id);
-    rowData.push(data[i].user.name);
-    rowData.push(data[i].reason);
+    rowData.push(data[i].user_profile.first_name + ' ' + data[i].user_profile.last_name);
+    rowData.push(data[i].created_at);
+    rowData.push(data[i].amount);
 
     // Push the row data to the tableData array
     tableData.push(rowData);

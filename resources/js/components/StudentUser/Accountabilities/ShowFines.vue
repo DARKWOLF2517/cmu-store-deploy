@@ -27,8 +27,9 @@
                             <small>{{user_orgs.organization.description}}</small>
                             <!-- <h2 class="total-payment bold">&#8369; 10,000</h2> -->
                             <!-- Use "&#8369;" for the peso sign -->
+
                         </div>
-                        <div class="card-footer mt-2 text-center">
+                        <div class="text-center">
                             <button class="btn button-secondary" style="background-color: #4fb98e; color: #fefffe;" data-bs-toggle="modal" data-bs-target="#seeMoreAccountability" @click="this.org_id = user_orgs.student_org_id ,this.org_name = user_orgs.organization.description,this.fetchData()">
                                 <i class="fas fa-eye"></i> See more
                             </button>
@@ -245,7 +246,7 @@ export default{
                     });
                         this.total_accountability = this.total_accountability + this.fines;
                         this.total_accountability = this.total_accountability - paid;
-                        
+
 
                 })
                 .catch(error => {

@@ -3,11 +3,12 @@
 @section('custom-title')
   <title> Evaluation Results</title>
 @endsection
+
 @section('custom-style')
+
 <link id="load-css-0" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/51/css/core/tooltip.css">
 <link id="load-css-1" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/51/css/util/util.css">
-<link href="/custom_css/evaluation.css" rel="stylesheet">
-<title>Student Organization Evaluation Results @yield('title')</title>
+<link href="{{ asset('/custom_css/evaluation.css') }}" rel="stylesheet">
 @endsection
 @section('main-content')
 

@@ -73,6 +73,8 @@
 </template>
 
   <script>
+  import {convertDate} from "../Functions/DateConverter.js";
+
   export default {
     props: ['organization_id','school_year_session'],
     data() {
@@ -114,6 +116,9 @@
             data.forEach(element => {
               element['attendance'] = (element['attendance'].length)
             });
+            data.forEach(item => {
+                            item["start_date"] = convertDate(item["start_date"]);
+                        });
             this.attendance = response.data;
             this.filtered_attendance = this.attendance;
             // const nonEmptyRecords = data.filter(item => item.attendance.length > 0);

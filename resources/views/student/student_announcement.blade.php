@@ -1,8 +1,10 @@
 @extends('layouts.main_layout')
 
-<link href="/custom_css/studentAnnouncement.css" rel="stylesheet">
 @section('custom-title')
   <title> Announcements</title>
+@endsection
+@section('custom-style')
+<link href="{{ asset('/custom_css/studentAnnouncement.css') }}" rel="stylesheet">
 @endsection
 @section('main-content')
 

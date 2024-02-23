@@ -3,10 +3,12 @@
 @section('custom-title')
   <title> Student Organization Profile</title>
 @endsection
-
+@section('custom-style')
+    <link href="{{ asset('/custom_css/studentProfile.css') }}" rel="stylesheet">
+@endsection
 @section('main-content')
-{{-- CSS Stylesheet link --}}
-<link href="/custom_css/studentProfile.css" rel="stylesheet">
+
+
 {{-- <div class="content">
     <div class="container mt-4">
         <div class="container breadcrumbs">

@@ -5,9 +5,9 @@
 @endsection
 
 @section('custom-style')
-    <title>Accountability list @yield('title')</title>
-    <link href="/custom_css/StudentAccountabilities.css" rel="stylesheet">
+<link href="{{ asset('/custom_css/StudentAccountabilities.css') }}" rel="stylesheet">
 @endsection
+
 @section('main-content')
     <div class="col breadcrumbs">
         <nav aria-label="breadcrumb">
