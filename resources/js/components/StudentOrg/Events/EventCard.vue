@@ -366,6 +366,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="event-description" class="form-label">Description</label>
+                                        <span v-if="formData.description.length > 200" class="text-danger">You have exceeded the word limit</span>
                                         <textarea class="form-control" name="description" id="event-description" rows="3"
                                             v-model="formData.description" required></textarea>
                                     </div>
