@@ -16,9 +16,11 @@
     border: 1px solid red !important;
 }
   .announcement-list{
-    height: 71vh;
-    max-height: 71vh;
+    height: 70vh;
+    max-height: 70vh;
     position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
     /* overflow-y: auto;
     display: flex;
     justify-content: center;
@@ -27,18 +29,18 @@
     padding: 20px;
     padding-top: 0; */
   }
-  #announcement-container {
+  /* #announcement-container {
     height: 70vh;
     max-height: 70vh;
     border: none;
-  }
+  } */
 
   .announcement-cards-list {
     /* display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     overflow-x: hidden; */
-    max-height: 72vh;
+    max-height: 60vh;
   }
 
 

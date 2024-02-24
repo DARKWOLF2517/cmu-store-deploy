@@ -15,13 +15,12 @@
                 <div class="card-body">
                     <div class="info">
                         <div class="d-flex align-items-center">
-                            <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
-                                alt="Profile Image" width="30" height="30" class="circular-image">
+                            <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                alt="Profile Image" width="30" height="30" class="circular-image"> -->
                             <strong class="posted-by-title ml-2">{{ event.organization.name }}</strong>
                         </div>
                         <h5 class="card-title mt-2"><b>{{ event["name"] }} </b></h5>
-                        <small class="date-upload text-muted">Date: 11/9/2023 - 10:12 AM</small>
-                        <h6>Total number of Attendance made: 4</h6>
+                        <small class="date-upload text-muted">{{ event["start_date"] }}</small>
                         <h6 class="evaluation-status" v-if="event['evaluation_status'] === 1">Status: <b>Ongoing</b></h6>
                         <h6 class="evaluation-status text-muted" v-else-if="event['evaluation_status'] === 0">Status:
                             <b>Close</b></h6>
@@ -105,6 +104,7 @@
 </template>
 
 <script>
+
 export default {
     props: ['organization_id', 'student_id'],
     data() {
@@ -119,6 +119,7 @@ export default {
         this.getEvaluationStatus()
 
     },
+
     methods: {
         hasResponded(eventId) {
             // Check if any element in user_answer_student_id has a matching event_id
@@ -131,6 +132,10 @@ export default {
                 .then(response => {
                     this.events = response.data;
                     console.log(this.events)
+                    data.forEach(item => {
+                        item["start_date"] = convertDate(item["start_date"]);
+                    });
+
                 })
                 .catch(error => {
                     console.log(error)

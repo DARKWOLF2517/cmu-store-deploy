@@ -151,7 +151,11 @@ export default {
                     });
                     console.log(response.data);
                     this.events = response.data
-
+                    this.events.sort((a, b) => {
+                            const dateA = new Date(a.start_date);
+                            const dateB = new Date(b.start_date);
+                            return dateB - dateA;
+                        });
                 })
                 .catch(error => {
                     // this.loading = false;

@@ -15,7 +15,7 @@
       <ul v-else class="sessions">
         <li v-for="event in events" :key="event.event_id">
           <div class="date">{{ event.start_date }}</div>
-          <small>{{ event.name }}</small>
+          <small class="text-success"> <b>{{ event.name }}</b> </small>
         </li>
       </ul>
     </div>
@@ -39,32 +39,33 @@ export default {
   },
   methods: {
     fetchData() {
-      axios
-        .get(`/events/show/${this.organization_id}/${this.school_year_session}`)
-        .then((response) => {
-          console.log(response.data)
+  axios
+    .get(`/events/show/${this.organization_id}/${this.school_year_session}`)
+    .then((response) => {
+      console.log(response.data)
 
-          //convert date to specific format that is readable
-          const data = response.data;
-          data.forEach(element => {
-            element["start_date"] = convertDate(element["start_date"]);
-          });
-          //sort event chronologically
-          const events = data;
-          events.sort((a, b) => {
-            const dateA = new Date(a.start_date);
-            const dateB = new Date(b.start_date);
-            return dateA - dateB;
-          });
-          this.events = events;
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
+      //convert date to specific format that is readable
+      const data = response.data;
+      data.forEach(element => {
+        element["start_date"] = convertDate(element["start_date"]);
+      });
+      //sort event chronologically
+      const events = data;
+      events.sort((a, b) => {
+        const dateA = new Date(a.start_date);
+        const dateB = new Date(b.start_date);
+        //sort from newest to oldest
+        return dateB - dateA;
+      });
+      this.events = events;
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    })
+    .finally(() => {
+      this.loading = false;
+    });
+},
   },
 };
 </script>
