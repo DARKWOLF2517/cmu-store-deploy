@@ -6,10 +6,12 @@ use App\Models\EvaluationAnswer;
 use App\Models\EvaluationForm;
 use App\Models\EvaluationFormAnswer;
 use App\Models\EvaluationFormDetails;
+use App\Models\EvaluationOption;
 use App\Models\EvaluationQuestion;
 use App\Models\Event;
 use App\Models\EventEvaluation;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Question\Question;
 
 class EvaluationController extends Controller
 {
@@ -87,6 +89,29 @@ class EvaluationController extends Controller
             ->get();
         // $EvaluationAnswer = EvaluationForm::with('evaluation_question')->get();    
         return $EvaluationAnswer->toJson();
+    }
+    public function uploadEvaluationForm(Request $request)
+    {
+        $evaluation_form = new EvaluationForm([
+            'evaluation_title' => $request['title'],
+            'evaluation_description' => $request['description'],
+        ]);
+        $evaluation_form->save();
+        foreach ($request->questions as $question) {
+            $questions = new EvaluationQuestion([
+                'evaluation_form_id' => $evaluation_form->id,
+                'description' => $question['text'],
+            ]);
+            $questions->save();
+            foreach ($question['choices'] as $option) {
+                $options = new EvaluationOption([
+                    'question_id' => $questions->id,
+                    'option' => $option['text'],
+                ]);
+                $options->save();
+            }
+        }
+        return "success";
     }
 
     /////////////////////

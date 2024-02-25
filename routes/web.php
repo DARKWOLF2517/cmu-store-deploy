@@ -202,6 +202,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/evaluation_answer/{event_id}', [EvaluationController::class, 'EvaluationAnswer']);
         Route::get('/evaluation_form_total_response/{event_id}', [EvaluationController::class, 'EvaluationTotalResponse']);
         Route::get('/events/evaluation/{org_id}/{school_year?}', [EventController::class, 'getEvaluationList'])->name('get-evaluation');
+        Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
 
         #EVENT ROUTES
         Route::get('/events', [EventController::class, 'showEvents'])->name('events');

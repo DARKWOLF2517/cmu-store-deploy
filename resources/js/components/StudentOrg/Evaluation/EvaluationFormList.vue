@@ -68,70 +68,69 @@
     </div>
     <div class="modal fade" id="evaluation-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
+
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Evaluation Form</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
-                        <input type="text" class="form-control" id="formTitle" v-model="formTitle">
+                <form @submit.prevent="this.saveForm()">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create Evaluation Form</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="mb-3">
-                        <label for="formDescription" class="form-label">Input Description</label>
-                        <textarea class="form-control" id="formDescription" rows="3" v-model="formDescription"></textarea>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
+                            <input type="text" class="form-control" id="formTitle" v-model="formTitle">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formDescription" class="form-label">Input Description</label>
+                            <textarea class="form-control" id="formDescription" rows="3"
+                                v-model="formDescription"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end mb-3">
+                            <button type="button" class="btn btn-light add-question" @click="this.addQuestion()"> <i
+                                    class="fas fa-plus"></i> Add
+                                Question</button>
+                        </div>
+                        <div class="question-container">
+                            <div class="mb-3" v-for="(question, questionindex) in questions" :key="questionindex">
+                                <label for="question1" class="form-label fw-bold">Question {{ questionindex + 1 }}</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" :id="'question' + (questionindex + 1)"
+                                        :ref="'question' + (questionindex + 1)" v-model="question.text">
+                                    <button class="btn btn-danger remove-question" type="button"
+                                        @click="removeQuestion(questionindex)">X</button>
+                                </div>
+                                <div class="choice-container">
+                                    <button type="button" class="btn btn-light add-question"
+                                        @click="addChoice(questionindex)">
+                                        <i class="fas fa-plus"></i> Add
+                                        Choice</button>
+                                    <div class="mb-3" v-for="(choice, index) in question.choices" :key="index">
+                                        <label for="choice" class="form-label fw-bold">Choice {{ index + 1 }}</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" :id="'choice' + (index + 1)"
+                                                :ref="'choice' + (index + 1)" v-model="choice.text">
+                                            <button class="btn btn-danger remove-question" type="button"
+                                                @click="removeChoice(questionindex, index)">X</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="d-flex justify-content-end mb-3">
-                        <button type="button" class="btn btn-light add-question" @click="this.addQuestion()"> <i
-                                class="fas fa-plus"></i> Add
-                            Question</button>
+                    <div class="modal-footer">
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="feedback">
+                            <label for="feedback">Accept Feedback?</label>
+                        </div>
+                        <button type="submit" class="btn btn-success">Save Form</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
-                    <div class="question-container">
-    <div class="mb-3" v-for="(question, questionindex) in questions" :key="questionindex">
-        <label for="question1" class="form-label fw-bold">Question {{ questionindex + 1 }}</label>
-        <div class="input-group">
-            <input type="text" class="form-control" :id="'question' + (questionindex + 1)"
-                :ref="'question' + (questionindex + 1)" v-model="question.text">
-            <button class="btn btn-danger remove-question" type="button"
-                @click="removeQuestion(questionindex)">X</button>
-        </div>
-        <!-- <div class="mb-3 mt-2 form-check">
-            <input type="checkbox" class="form-check-input" :id="'multipleChoice' + (index + 1)"
-                v-model="question.multipleChoice">
-            <label class="form-check-label" :for="'multipleChoice' + (index + 1)">Multiple
-                Choice</label>
-            <br>
-            <small class="fw-bold">1 - Needs Improvements | 2 - Satisfactory | 3 - Good | 4 - Very Good
-                | 5 -
-                Excellent</small>
-        </div> -->
-        <div class="choice-container">
-            <button type="button" class="btn btn-light add-question" @click="addChoice(questionindex)"> <i
-                    class="fas fa-plus"></i> Add
-                Choice</button>
-            <div class="mb-3" v-for="(choice, index) in question.choices" :key="index">
-                <label for="choice" class="form-label fw-bold">Choice {{ index + 1 }}</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" :id="'choice' + (index + 1)"
-                        :ref="'choice' + (index + 1)" v-model="choice.text">
-                    <button class="btn btn-danger remove-question" type="button"
-                        @click="removeChoice(questionindex, index)">X</button>
-                </div>
+                </form>
             </div>
-        </div>
-    </div>
-</div>
-                </div>
-                <div class="modal-footer">
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="feedback">
-                        <label for="feedback">Accept Feedback?</label>
-                    </div>
-                    <button type="button" class="btn btn-success" @click="saveForm">Save Form</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
+
         </div>
     </div>
     <!-- View Evaluation Form Modal -->
@@ -194,60 +193,59 @@ export default {
             questions: [{
                 text: '',
                 choices: [{
-                  text: ''
-            }]
+                    text: ''
+                }],
+
             }],
+            school_year: this.school_year_session,
 
             formTitle: '',
             formDescription: ''
         }
     },
-        methods: {
-    addQuestion() {
-        console.log('sehfesuwguf')
-        this.questions.push({
-            text: '',
-            choices: [{
+    methods: {
+        addQuestion() {
+            this.questions.push({
                 text: '',
-            }]
-        });
-    },
-    addChoice(questionIndex) {
-        this.questions[questionIndex].choices.push({
-            text: ''
-        });
-    },
-    removeQuestion(index) {
-        this.questions.splice(index, 1);
-    },
-    removeChoice(questionIndex, choiceIndex) {
-        this.questions[questionIndex].choices.splice(choiceIndex, 1);
-    },
+                choices: [{
+                    text: '',
+                }]
+            });
+        },
+        addChoice(questionIndex) {
+            this.questions[questionIndex].choices.push({
+                text: ''
+            });
+        },
+        removeQuestion(index) {
+            this.questions.splice(index, 1);
+        },
+        removeChoice(questionIndex, choiceIndex) {
+            this.questions[questionIndex].choices.splice(choiceIndex, 1);
+        },
 
 
         saveForm() {
             //   console.log('Form Title:', this.formTitle);
             //   console.log('Form:', this.formDescription);
-            console.log('Form Title:', this.formTitle);
-    console.log('Form:', this.formDescription);
-    console.log('Questions:', this.questions);
+            // console.log('Form Title:', this.formTitle);
+            // console.log('Form:', this.formDescription);
+            // console.log('Questions:', this.questions);
             // Save the form data here
             // You can use the `axios` library to send a POST request to your server
             // with the form data
 
-            //   axios.post('https://myapp.herokuapp.com/api/evaluation-forms', {
-            //     title: this.formTitle,
-            //     description: this.formDescription,
-            //     questions: this.questions
-            //   })
-            //   .then(response => {
-            //     // Handle successful form submission
-            //     // You can close the modal or show a success message here
-            //   })
-            //   .catch(error => {
-            //     // Handle error during form submission
-            //     // You can show an error message here
-            //   });
+            axios.post('/upload_evaluation_form', {
+                title: this.formTitle,
+                description: this.formDescription,
+                questions: this.questions
+            })
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
         }
     }
 }
