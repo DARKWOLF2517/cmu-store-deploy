@@ -366,7 +366,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="event-description" class="form-label">Description</label>
-                                        <span v-if="formData.description.length > 200" class="text-danger">You have exceeded the word limit</span>
+                                        <span v-if="formData.description.length > 200" class="text-danger">You have exceeded
+                                            the word limit</span>
                                         <textarea class="form-control" name="description" id="event-description" rows="3"
                                             v-model="formData.description" required></textarea>
                                     </div>
@@ -632,6 +633,11 @@ export default {
                     this.events = response.data;
                     this.filtered_events = this.events;
                     // console.log(this.filtered_events);
+                    this.events.sort((a, b) => {
+                        const dateA = new Date(a.start_date + ' ' + a.start_attendance);
+                        const dateB = new Date(b.start_date + ' ' + b.start_attendance);
+                        return dateB - dateA;
+                    });
                 })
                 .catch(error => {
                     // this.loading = false;
@@ -646,6 +652,7 @@ export default {
                     this.formData = response.data
                     this.id = id
                     this.submit = this.UpdateData
+
                 })
                 .catch(error => {
 

@@ -95,7 +95,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
-                                <small class="date-upload text-muted">  {{ announcements.created_at }}</small>
+                                <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
                                 <p class="card-short-description mb-0">
                                     <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
                                 </p>
@@ -133,7 +133,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" v-model="this.announcement_data.description" required :class="{ 'border-danger': descriptionWordCount.exceeded }"></textarea>
+                            <textarea class="form-control" v-model="this.announcement_data.description" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="starts_at" class="form-label fw-bold">Starts at</label>
@@ -225,7 +225,6 @@ export default {
                 date: '',
                 time: '',
             },
-            maxWords: 35,
             loading: false,
         }
     },
@@ -233,16 +232,6 @@ export default {
         this.showSchoolYear();
         this.fetchData();
     },
-   computed: {
-    descriptionWordCount() {
-        const desc = this.announcement_data.description;
-        const words = desc.trim().split(/\s+/);
-        return {
-            count: words.length,
-            exceeded: words.length > this.maxWords,
-        };
-    },
-},
     methods: {
         deleteData() {
             axios.delete(`/delete_announcement/${this.id}`)
@@ -324,6 +313,7 @@ export default {
                     });
 
                     this.announcements = response.data;
+                    this.announcements.sort((a, b) => b.datetime - a.datetime);
                     this.filtered_announcements = this.announcements;
                     this.loading = false;
                 })
