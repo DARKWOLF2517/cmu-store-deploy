@@ -36,6 +36,7 @@ export default {
                                 id: question.id,
                                 
                             })
+                            console.log(question);
                             let options = [];
                             let answers_temporary = [];
                             question.evaluation_option.forEach(option => {
@@ -49,29 +50,29 @@ export default {
                                     answers_option_id: element.option_id,
                                 })
                             });
-                          
-                            // Combine options and answers_temporary arrays
+                        
+                            //to count the result per options
                             let combinedData = options.concat(answers_temporary);
                             let counts = {};
+
                             combinedData.forEach(item => {
-                                // Check if item has option_id property (i.e., it's an option)
                                 if (item.option_id !== undefined) {
-                                    // If option_id is not in counts object, initialize it to 0
                                     if (!counts[item.option_id]) {
                                         counts[item.option_id] = 0;
                                     }
                                 } else { // It's an answers_temporary item
-                                    // Increment count for corresponding option_id
+                                    // Ensure counts[item.answers_option_id] is initialized before incrementing
+                                    if (!counts[item.answers_option_id]) {
+                                        counts[item.answers_option_id] = 0;
+                                    }
                                     counts[item.answers_option_id]++;
                                 }
                             });
 
+                            // console.log(counts);
+
                             // Convert counts object to an array of objects
                             let answers = Object.entries(counts).map(([option_id, count]) => ({ option_id, count }));
-
-                            // console.log(answers);
-
-                            
                             this.$nextTick(() => {
                                 this.pieChart(question.id, question.description, options,answers);
                             });
@@ -123,7 +124,7 @@ export default {
                 // Populate the data array with your dynamic data
                 var options = question_options;
                 var percentage = question_answers;
-                console.log(percentage)
+                // console.log(percentage)
                 // Create a mapping between option_id and count from the percentage object
                 var percentageMap = {};
                 question_answers.forEach(item => {
@@ -134,7 +135,6 @@ export default {
                 question_options.forEach(option => {
                     var count = percentageMap[option.option_id] || 0; // Default to 0 if option_id not found
                     dataArray.push([option.option, count]);
-                    console.log(option.option_id+ " "+ option.option)
                 });
 
 
