@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\EvaluationAnswer;
+use App\Models\EvaluationForm;
 use App\Models\EvaluationFormAnswer;
 use App\Models\EvaluationFormDetails;
+use App\Models\EvaluationQuestion;
 use App\Models\Event;
 use App\Models\EventEvaluation;
 use Illuminate\Http\Request;
@@ -15,7 +17,8 @@ class EvaluationController extends Controller
     //     $EvaluationQuestions = EvaluationFormDetails::where('event_id', $event_id )->with(['formQuestions', 'formOptions', 'formAnswers'])->get();
     //     return $EvaluationQuestions->toJson();
     // }
-    public function EvaluationFormSummary($event_id){ 
+    public function EvaluationFormSummary($event_id)
+    {
         return view('student_organization.student_organization_evaluation_results', ['id' => $event_id]);
     }
     public function store(Request $request)
@@ -40,7 +43,7 @@ class EvaluationController extends Controller
             'q14' => 'required',
             'q15' => 'required',
             'q16' => 'required',
-            
+
         ]);
         $answer = new EvaluationFormAnswer();
         $answer->event_id = $validatedData['event_id'];
@@ -65,42 +68,55 @@ class EvaluationController extends Controller
         $answer->save();
         return redirect()->back()->with('success', 'Evaluation created successfully!');
     }
-    public function EvaluationFormAnswer($event_id) { 
-        $EvaluationAnswer = EvaluationFormAnswer::where([['event_id',$event_id]])->get();  
-        return response()->json(array("evaluation"=>$EvaluationAnswer));
+
+    public function EvaluationFormAnswer($event_id)
+    {
+        $EvaluationAnswer = EvaluationFormAnswer::where([['event_id', $event_id]])->get();
+        return response()->json(array("evaluation" => $EvaluationAnswer));
     }
-    public function EvaluationAnswer($event_id) { 
-        $EvaluationAnswer = EventEvaluation::get();  
+
+    /////////////////////////
+    //NEW EVALUATION FORM///
+    ///////////////////////
+    public function EvaluationAnswer($event_id)
+    {
+        $EvaluationAnswer = EvaluationForm::with('evaluation_question.evaluation_option', 'evaluation_question.evaluation_answers')
+            ->whereHas('evaluation_question.evaluation_answers', function ($query) use ($event_id) {
+                $query->where('event_id', $event_id);
+            })
+            ->get();
+        // $EvaluationAnswer = EvaluationForm::with('evaluation_question')->get();    
         return $EvaluationAnswer->toJson();
     }
-    
-    ////////////////////
+
+    /////////////////////
     //student section///
     ///////////////////
-    public function EvaluationForm($event_id){ 
+    public function EvaluationForm($event_id)
+    {
         return view('student.student_evaluation_form', ['event_id' => $event_id]);
     }
-    public function EvaluationTotalResponse($event_id){ 
-        $EvaluationCount = EvaluationFormAnswer::where('event_id', $event_id )->count();
+    public function EvaluationTotalResponse($event_id)
+    {
+        $EvaluationCount = EvaluationFormAnswer::where('event_id', $event_id)->count();
         return $EvaluationCount;
     }
     public function EvaluationResultTitle($event_id)
     {
         $events = Event::where('event_id', $event_id)->with('organization')->get();
         return $events->toJson();
-
     }
     public function isDoneEvaluation($student_id)
     {
         $evaluation = EvaluationFormAnswer::where([
             ['user_id', $student_id],
         ])->get();
-        
+
         if ($evaluation->isEmpty()) {
-            
+
             return "0";
         } else {
-            
+
             return $evaluation;
         }
     }

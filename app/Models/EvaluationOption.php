@@ -15,4 +15,8 @@ class EvaluationOption extends Model
         'question_id',
         'option',
     ];
+
+    public function evaluation_question(){
+        return $this->belongsTo(EvaluationQuestion::class,'question_id','id');
+    }
 }

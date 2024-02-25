@@ -16,4 +16,6 @@ class EventEvaluation extends Model
         'event_id',
     ];
 
+    
+
 }

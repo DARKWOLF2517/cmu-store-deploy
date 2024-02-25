@@ -15,4 +15,11 @@ class EvaluationForm extends Model
         'evaluation_title',
         'evaluation_description',
     ];
+
+    public function event_evaluation(){
+        return $this->hasMany(EventEvaluation::class,'evaluation_form_id');
+    }
+    public function evaluation_question(){
+        return $this->hasMany(EvaluationQuestion::class,'evaluation_form_id');
+    }
 }

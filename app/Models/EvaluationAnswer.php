@@ -15,5 +15,6 @@ class EvaluationAnswer extends Model
         'student_id',
         'question_id',
         'option_id',
+        'event_id',
     ];
 }

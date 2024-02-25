@@ -16,11 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('option_id');
+            $table->unsignedBigInteger('event_id');
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('question_id')->references('id')->on('evaluation_questions');
             $table->foreign('option_id')->references('id')->on('evaluation_option');
+            $table->foreign('event_id')->references('event_id')->on('events');
         });
     }
 
