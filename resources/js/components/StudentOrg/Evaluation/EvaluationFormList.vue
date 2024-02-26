@@ -238,7 +238,8 @@ export default {
             axios.post('/upload_evaluation_form', {
                 title: this.formTitle,
                 description: this.formDescription,
-                questions: this.questions
+                questions: this.questions,
+                org_id: this.organization_id,
             })
                 .then(response => {
                     console.log(response.data)

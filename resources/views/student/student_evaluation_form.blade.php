@@ -8,7 +8,7 @@
 @section('main-content')
     <div class="container" id="evaluation-form">
         <student-evaluation-form user_id={{ Auth::id() }} event_id={{ $event_id }}
-            org_id={{ Session::get('org_id') }}>
+            org_id={{ Session::get('org_id')  }}  evaluation_form_id= {{ $evaluation_form_id  }}>
 
         </student-evaluation-form>
         {{-- <form>

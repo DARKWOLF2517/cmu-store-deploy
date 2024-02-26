@@ -70,6 +70,7 @@ class EventController extends Controller
             'fines' => 'nullable',
             'org_id' => 'required|exists:organizations,org_id',
             'school_year_input' => 'required',
+            'evaluation_form'=> 'required'
         ]);
 
         // Create a new Event instance
@@ -86,6 +87,7 @@ class EventController extends Controller
         $event->fines = $validatedData['fines'] ?? 0;
         $event->org_id = $validatedData['org_id'];
         $event->school_year = $validatedData['school_year_input'];
+        $event->evaluation_form = $validatedData['evaluation_form'];
         $event->save();
 
         return response()->json(['message' => 'Event Created successfully']);
@@ -107,7 +109,7 @@ class EventController extends Controller
             'description' => 'required',
             'require_attendance' => 'nullable|boolean',
             'fines' => 'nullable', 
-        
+            'evaluation_form'=> 'required'
         ]);
 
         $event->update($request->all());

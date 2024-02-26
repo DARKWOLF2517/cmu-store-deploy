@@ -26,8 +26,6 @@ export default {
         fetchAnswer() {
             axios.get(`/evaluation_answer/${this.event_id}`)
                 .then(response => {
-
-
                     this.evaluation_result = response.data;
                     this.evaluation_result.forEach(evaluation => {
 

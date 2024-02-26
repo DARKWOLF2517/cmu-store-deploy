@@ -373,9 +373,11 @@
                                     </div>
                                     <div class="mb-3">
                                         <div class="select-dropdown border" style="width: 70%;">
-                                            <select id="sort-select" class="form-control" style="text-align: center;">
+                                            <select id="sort-select" class="form-control" style="text-align: center;"
+                                                v-model="this.formData.evaluation_form">
                                                 <option value="" disabled selected>Select Evaluation form</option>
-                                                <option value="0">Evaluation 1</option>
+                                                <option v-for="evaluation in this.evaluation_form" :value="evaluation['id']">
+                                                    {{ evaluation['evaluation_title'] }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -460,7 +462,7 @@ export default {
                 fines: '',
                 org_id: '',
                 school_year_input: this.school_year_input,
-
+                evaluation_form: 0,
             },
             errors: {},
             school_year: [],
@@ -474,18 +476,29 @@ export default {
             year_level_fetch_update: [],
             attendance_count_start_attendance: 0,
             session: 0,
-
+            evaluation_form: [],
         }
     },
     created() {
         this.fetchData();
         this.showSchoolYear();
         this.showYearLevelData();
+        this.showEvaluationForm();
     },
     mounted() {
 
     },
     methods: {
+        showEvaluationForm() {
+            axios.get(`getEvaluationForm/${this.organization_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.evaluation_form = response.data;
+                })
+                .catch(error => {
+
+                });
+        },
         submitYearLevelExempted() {
             axios.post(`/submitYearLevelExempted/${this.organization_id}/${this.school_year_input}/${this.id}`, this.year_level_exempted)
                 .then(response => {
@@ -735,6 +748,7 @@ export default {
                 require_attendance: 0,
                 org_id: this.organization_id,
                 school_year_input: this.school_year_input,
+                evaluation_form: '',
 
             }
         },
