@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('evaluation_title');
             $table->string('evaluation_description');
+            $table->unsignedBigInteger('org_id');
             $table->timestamps();
+
+            $table->foreign('org_id')->references('org_id')->on('organizations')->onDelete('cascade');
         });
     }
 

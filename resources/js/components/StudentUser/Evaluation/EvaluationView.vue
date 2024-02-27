@@ -38,7 +38,7 @@
                             </div>
                             <div v-else-if="event['evaluation_status'] == 1">
                                 <button class="btn btn-warning"
-                                    @click="this.showEvaluationForm(event.event_id)">Evaluate</button>
+                                    @click="this.showEvaluationForm(event.event_id, event.evaluation_form)">Evaluate</button>
                             </div>
 
                         </div>
@@ -47,7 +47,7 @@
                             <div v-if="event['evaluation_status'] == 0">
                                 <button class="btn btn-secondary">Unavailable</button>
                             </div>
-                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id)"
+                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id, event.evaluation_form)"
                                 v-else-if="event['evaluation_status'] == 1">Evaluate</button>
                         </div>
                     </div>
@@ -104,7 +104,7 @@
 </template>
 
 <script>
-
+import { convertDate } from "../../StudentOrg/Functions/DateConverter.js";
 export default {
     props: ['organization_id', 'student_id'],
     data() {
@@ -132,9 +132,9 @@ export default {
                 .then(response => {
                     this.events = response.data;
                     console.log(this.events)
-                    data.forEach(item => {
-                        item["start_date"] = convertDate(item["start_date"]);
-                    });
+                    // data.forEach(item => {
+                    //     item["start_date"] = convertDate(item["start_date"]);
+                    // });
 
                 })
                 .catch(error => {
@@ -160,9 +160,9 @@ export default {
                 });
 
         },
-        showEvaluationForm(event_id) {
+        showEvaluationForm(event_id,evaluation_form_id) {
 
-            window.location.href = `evaluation_form/${event_id}`;
+            window.location.href = `evaluation_form/${event_id}/${evaluation_form_id}`;
 
         },
     }

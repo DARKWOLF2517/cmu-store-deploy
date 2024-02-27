@@ -28,8 +28,10 @@ return new class extends Migration
             
             $table->unsignedBigInteger('school_year');
             $table->unsignedBigInteger('org_id');
+            $table->unsignedBigInteger('evaluation_form');
             $table->foreign('school_year')->references('id')->on('school_year')->onDelete('cascade');
             $table->foreign('org_id')->references('org_id')->on('organizations')->onDelete('cascade');
+            $table->foreign('evaluation_form')->references('id')->on('evaluation_form')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -14,6 +14,7 @@ class EvaluationForm extends Model
     protected $fillable = [
         'evaluation_title',
         'evaluation_description',
+        'org_id',
     ];
 
     public function event_evaluation(){

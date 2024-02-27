@@ -202,7 +202,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/evaluation_answer/{event_id}', [EvaluationController::class, 'EvaluationAnswer']);
         Route::get('/evaluation_form_total_response/{event_id}', [EvaluationController::class, 'EvaluationTotalResponse']);
         Route::get('/events/evaluation/{org_id}/{school_year?}', [EventController::class, 'getEvaluationList'])->name('get-evaluation');
+        //new evaluation//
         Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
+        Route::get('/getEvaluationForm/{org_id}', [EvaluationController::class, 'getEvaluationForm']);
 
         #EVENT ROUTES
         Route::get('/events', [EventController::class, 'showEvents'])->name('events');
@@ -310,16 +312,18 @@ Route::middleware(['auth'])->group(function () {
         //get students user profile
         Route::get('organization/{org_id}', [UserController::class, 'getUserOrganization']);
         //get user organization
+        
         Route::get('profile/{student_id}', [UserController::class, 'getUserProfile']);
-        //evaluation form
+        //EVALUATION FORM
         Route::get('student_evaluation_list', function () {
             return view('student.student_evaluation_list');
         });
         Route::get('student_evaluationform', function () {
             return view('student.student_evaluation_form');
         });
-        Route::post('/submit_evaluation', [EvaluationController::class, 'store']);
-        Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
+        Route::post('/submit_evaluation/{user_id}/{event_id}', [EvaluationController::class, 'store']);
+        Route::get('/evaluation_form/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
+        Route::get('/get_evaluation_question/{evaluation_form_id}', [EvaluationController::class, 'getEvaluationQuestion']);
     });
     Route::middleware(['user-role:3'])->group(function () {
         //Attendance Checker route
