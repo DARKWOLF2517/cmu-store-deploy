@@ -79,12 +79,12 @@
 
                         <div class="mb-3">
                             <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
-                            <input type="text" class="form-control" id="formTitle" v-model="formTitle">
+                            <input type="text" class="form-control" id="formTitle" v-model="formTitle" required maxlength="50">
                         </div>
                         <div class="mb-3">
                             <label for="formDescription" class="form-label">Input Description</label>
                             <textarea class="form-control" id="formDescription" rows="3"
-                                v-model="formDescription"></textarea>
+                                v-model="formDescription" required maxlength="200"></textarea>
                         </div>
                         <div class="d-flex justify-content-end mb-3">
                             <button type="button" class="btn btn-light add-question" @click="this.addQuestion()"> <i

@@ -78,6 +78,9 @@ footer {
 .posted-by-title{
     padding: 5px;
  }
+ .input-error {
+    border-color: red;
+  }
 /* .Container-IfEmpty {
     text-align: center;
     padding: 10px;

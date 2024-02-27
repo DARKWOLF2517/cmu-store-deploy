@@ -333,7 +333,7 @@
                                     <div class="mb-3">
                                         <label for="event-title" class="form-label">Event Name</label>
                                         <input type="text" name="name" class="form-control" id="event-title"
-                                            v-model="formData.name" required>
+                                            v-model="formData.name" required maxlength="50">
                                     </div>
                                     <!-- <div class="row g-3">
                                             <div class="col-md-6"> -->
@@ -369,7 +369,7 @@
                                         <span v-if="formData.description.length > 200" class="text-danger">You have exceeded
                                             the word limit</span>
                                         <textarea class="form-control" name="description" id="event-description" rows="3"
-                                            v-model="formData.description" required></textarea>
+                                            v-model="formData.description" required maxlength="200"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <div class="select-dropdown border" style="width: 70%;">

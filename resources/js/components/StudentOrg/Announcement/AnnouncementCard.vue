@@ -99,7 +99,7 @@
                                 <p class="card-short-description mb-0">
                                     <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
                                 </p>
-                                <p class="card-short-description mt-2 fw-bold">
+                                <p class="card-short-description mt-2">
                                     {{ announcements.description }}
                                 </p>
                             </div>
@@ -129,11 +129,13 @@
                             v-else-if="this.submit == this.updateData">Update Announcement</h5>
                         <div class="mb-3">
                             <label class="form-label">Title</label>
-                            <input type="text" class="form-control" v-model="this.announcement_data.title" required>
+                            <input type="text" class="form-control" v-model="this.announcement_data.title" required maxlength="50" @input="checkLength">
+<p class="text-danger" id="length-message" v-if="showMessage"></p>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" v-model="this.announcement_data.description" required></textarea>
+                            <textarea class="form-control" v-model="this.announcement_data.description" required maxlength="255" @input="checkLength"></textarea>
+<p class="text-danger" id="length-message" v-if="showMessage"></p>
                         </div>
                         <div class="mb-3">
                             <label for="starts_at" class="form-label fw-bold">Starts at</label>
@@ -151,7 +153,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" class="btn btn-success" ref="submitButton">Submit</button>
                     </div>
                 </form>
             </div>
@@ -226,6 +228,8 @@ export default {
                 time: '',
             },
             loading: false,
+            showMessage: false,
+    message: ''
         }
     },
     mounted() {
@@ -233,6 +237,17 @@ export default {
         this.fetchData();
     },
     methods: {
+        checkLength() {
+    if (this.announcement_data.title.length > 50) {
+      this.showMessage = true;
+      this.message = 'Title: You have exceeded the maximum length limit of 50 characters.';
+    } else if (this.announcement_data.description.length > 255) {
+      this.showMessage = true;
+      this.message = 'Description: You have exceeded the maximum length limit of 255 characters.';
+    } else {
+      this.showMessage = false;
+    }
+  },
         deleteData() {
             axios.delete(`/delete_announcement/${this.id}`)
                 .then(response => {
@@ -250,6 +265,9 @@ export default {
                     // console.log(response.data)
                     this.fetchData();
                     this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+            }, 1000);
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -268,13 +286,20 @@ export default {
                 });
         },
         submitData() {
+            this.$refs.submitButton.disabled = true;
             axios.post(`/addAnnouncement/${this.org_id}/${this.school_year_input}`, this.announcement_data)
                 .then(response => {
                     // console.log(response.data)
+
                     this.fetchData();
                     this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+            }, 500);
                 })
                 .catch(error => {
+                    this.$refs.submitButton.disabled = false;
+
                     console.log(error)
 
                 });
@@ -332,7 +357,7 @@ export default {
         },
         showSucces(message) {
             toast.success(message), {
-                autoClose: 100,
+                autoClose: 300,
             }
         },
     },
