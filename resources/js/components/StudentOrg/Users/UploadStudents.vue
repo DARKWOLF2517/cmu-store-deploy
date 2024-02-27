@@ -163,41 +163,25 @@
                         <div class="mb-3" v-if="this.submit == this.addSingleStudent">
                             <label for="studentId" class="form-label">Student ID</label>
                             <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
-                                @change="this.fetchDataDisplayName" required>
+                                @change="this.fetchDataDisplayName" required maxlength="30"
+                                :style="{ borderColor: student_data.student_id.length >= 30 ? 'red' : '' }">
+                                <p class="pl-2" v-if="student_data.student_id.length >= 30" style="color: red;">Maximum length reached</p>
                         </div>
-                        <!-- <div class="mb-3" v-if="this.submit == this.updateSingleAddStudents">
-                                    <label for="studentId" class="form-label">Student ID</label>
-                                    <input type="text" class="form-control" id="studentId" v-model="student_data.student_id" disabled>
-                                </div> -->
-                        <!-- <div v-if="this.submit == this.updateSingleAddStudents">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="lastname" v-model="student_data.lastname" >
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="firstname" v-model="student_data.firstname" >
-                                    </div>
-                                    <div class="mb-3" >
-                                        <label for="name" class="form-label">Middle Name</label>
-                                        <input type="text" class="form-control" id="firstname" v-model="student_data.middlename" >
-                                    </div>
-                                </div> -->
                         <div v-if="this.submit == this.addSingleStudent">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Last Name</label>
                                 <input type="text" class="form-control" id="lastname" v-model="student_data.lastname"
-                                    disabled>
+                                    disabled required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">First Name</label>
                                 <input type="text" class="form-control" id="firstname" v-model="student_data.firstname"
-                                    disabled>
+                                    disabled required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Middle Name</label>
                                 <input type="text" class="form-control" id="firstname" v-model="student_data.middlename"
-                                    disabled>
+                                    disabled required>
                             </div>
                         </div>
 
@@ -218,7 +202,7 @@
                                 </div> -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+                            <button type="submit" class="btn btn-success">Save</button>
                         </div>
                     </form>
                 </div>

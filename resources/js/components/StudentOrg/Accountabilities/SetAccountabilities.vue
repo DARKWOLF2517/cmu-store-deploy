@@ -125,14 +125,18 @@
           </div>
           <div class="modal-body">
             <!-- Add form elements for editing membership fee -->
-            <label for="membershipFeeDescriptionInput" class="form-label mt-2">Description:</label>
-            <input type="text" class="form-control" id="description" v-model="formData.accountability_name">
+            <label for="membershipFeeDescriptionInput" class="form-label mt-2">Accountability Name:</label>
+            <input type="text" class="form-control" id="description" v-model="formData.accountability_name" required maxlength="20"
+            :style="{ borderColor: formData.accountability_name.length >= 20 ? 'red' : '' }">
+            <p class="pl-2" v-if="formData.accountability_name.length >= 20" style="color: red;">Maximum length reached</p>
             <label for="membershipFeeInput" class="form-label">Amount:</label>
-            <input type="number" class="form-control" id="amount" v-model="formData.amount">
+            <input type="number" class="form-control" id="amount" v-model="formData.amount" required maxlength="10"
+            :style="{ borderColor: formData.amount.length >= 10 ? 'red' : '' }">
+            <p class="pl-2" v-if="formData.amount.length >= 10" style="color: red;">Maximum length reached</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success" id="saveMembershipFeeBtn" data-bs-dismiss="modal">Save
+            <button type="submit" class="btn btn-success" id="saveMembershipFeeBtn">Save
               changes</button>
           </div>
         </form>

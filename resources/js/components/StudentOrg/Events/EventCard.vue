@@ -241,7 +241,7 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-success"
                                     @click="startAttendance(event_id, org_id, session)"
-                                    data-bs-dismiss="modal">Start</button>
+                                    >Start</button>
                             </div>
                         </div>
                     </div>
@@ -251,7 +251,7 @@
                     aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <form @submit.prevent="this.submitYearLevelExempted">
+                            <form @submit.prevent="submitYearLevelExempted" ref="exemptForm">
                                 <div class="modal-header">
                                     <!-- <h5 class="modal-title" id="exemptModalLabel">Exempted Year levels</h5> -->
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -263,13 +263,8 @@
                                     </h4>
                                     <h5 class="text-center fw-bold">You are about to exclude a Year level</h5>
                                     <h6>Check the year level/s excused from required participation in the event</h6>
-                                    <!-- <div class="form-check" v-for="year_level in this.school_year">
-                                                <input type="checkbox" v-model="this.year_level_exempted"  :value="year_level.id" >{{ year_level.school_year }}
-                                            </div> -->
-                                    <!-- <div class="form-check" v-for="year_level in this.year_level_data">
-                                                <input type="checkbox" :value="year_level.id" v-model="this.year_level_exempted" class="mr-2">
-                                                <label>{{ year_level.year_level }}</label>
-                                            </div> -->
+                                    <div v-if="!isAtLeastOneChecked" class="text-danger">Please select at least one year
+                                        level</div>
                                     <div v-for="year_level in year_level_data" :key="year_level.id" class="form-check">
                                         <input type="checkbox" :value="year_level.id" v-model="year_level_exempted"
                                             class="form-check-input mr-2">
@@ -279,12 +274,14 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+                                    <button type="submit" class="btn btn-success"
+                                        :disabled="!isAtLeastOneChecked">Save</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+
 
                 <!-- View modal -->
                 <div class="modal fade" id="event-details-modal" tabindex="-1" role="dialog"
@@ -333,7 +330,10 @@
                                     <div class="mb-3">
                                         <label for="event-title" class="form-label">Event Name</label>
                                         <input type="text" name="name" class="form-control" id="event-title"
-                                            v-model="formData.name" required maxlength="50">
+                                            v-model="formData.name" required maxlength="50"
+                                            :style="{ borderColor: formData.name.length >= 50 ? 'red' : '' }">
+                                        <p class="pl-2" v-if="formData.name.length >= 50" style="color: red;">Maximum length
+                                            reached</p>
                                     </div>
                                     <!-- <div class="row g-3">
                                             <div class="col-md-6"> -->
@@ -362,21 +362,28 @@
                                     <div class="mb-3">
                                         <label for="event-location" class="form-label">Location</label>
                                         <input type="text" name="location" class="form-control" id="event-location"
-                                            v-model="formData.location" required>
+                                            v-model="formData.location" required maxlength="30"
+                                            :style="{ borderColor: formData.location.length >= 30 ? 'red' : '' }">
+                                        <p class="pl-2" v-if="formData.location.length >= 30" style="color: red;">Maximum
+                                            length reached</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="event-description" class="form-label">Description</label>
                                         <span v-if="formData.description.length > 200" class="text-danger">You have exceeded
                                             the word limit</span>
                                         <textarea class="form-control" name="description" id="event-description" rows="3"
-                                            v-model="formData.description" required maxlength="200"></textarea>
+                                            v-model="formData.description" required maxlength="200"
+                                            :style="{ borderColor: formData.description.length >= 200 ? 'red' : '' }"></textarea>
+                                        <p class="pl-2" v-if="formData.description.length >= 200" style="color: red;">
+                                            Maximum length reached</p>
                                     </div>
-                                    <div class="mb-3">
-                                        <div class="select-dropdown border" style="width: 70%;">
+                                    <div class="mb-3 flex justify-end">
+                                        <div class="select-dropdown border" style="width: 80%;">
                                             <select id="sort-select" class="form-control" style="text-align: center;"
-                                                v-model="this.formData.evaluation_form">
+                                                v-model="this.formData.evaluation_form" required>
                                                 <option value="" disabled selected>Select Evaluation form</option>
-                                                <option v-for="evaluation in this.evaluation_form" :value="evaluation['id']">
+                                                <option v-for="evaluation in this.evaluation_form"
+                                                    :value="evaluation['id']">
                                                     {{ evaluation['evaluation_title'] }}</option>
                                             </select>
                                         </div>
@@ -393,7 +400,7 @@
                                                 <label for="event-attendance" class="form-label">Number of
                                                     Attendance</label>
                                                 <select name="attendance_count" class="form-select" id="event-attendance"
-                                                    v-model="formData.attendance_count">
+                                                    v-model="formData.attendance_count" required>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -403,7 +410,7 @@
                                             <div class="col-md-6">
                                                 <label for="fines" class="form-label">Fines Per Attendance</label>
                                                 <input type="number" name="fines" class="form-control" id="fines"
-                                                    v-model="formData.fines">
+                                                    v-model="formData.fines" required>
                                             </div>
                                         </div>
 
@@ -420,8 +427,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success" id="save-event-button"
-                                            data-bs-dismiss="modal">Save</button>
+                                        <button type="submit" class="btn btn-success" id="save-event-button">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -488,6 +494,12 @@ export default {
     mounted() {
 
     },
+    computed: {
+        isAtLeastOneChecked() {
+            return this.year_level_exempted.length > 0;
+        }
+    },
+
     methods: {
         showEvaluationForm() {
             axios.get(`getEvaluationForm/${this.organization_id}`)

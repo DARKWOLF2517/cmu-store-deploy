@@ -302,8 +302,10 @@
                             Details</h5>
                         <label for="editDescription">Description:</label>
                         <input type="text" class="form-control" id="editDescription"
-                            v-model="org_details_profile_input.description">
-                        <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label>
+                            v-model="org_details_profile_input.description" maxlength="30"
+                            :style="{ borderColor: org_details_profile_input.description.length >= 30 ? 'red' : '' }">
+                            <p class="pl-2" v-if="org_details_profile_input.description.length >= 30" style="color: red;">Maximum length reached</p>
+                            <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label>
                     <br>
                     <input type="file" id="profileImageInput" accept="image/*"> -->
                         <!-- <label class="mt-2" for="editDescription">Select Default School Year:</label>
@@ -324,37 +326,6 @@
         </div>
     </div>
 
-    <!-- Add School Year Modal -->
-    <div class="modal fade" id="addSchoolYearModal" tabindex="-1" role="dialog" aria-labelledby="addSchoolYearModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form @submit.prevent="this.schoolYearSubmit">
-                        <h5 class="modal-title fw-bold text-center" id="addSchoolYearModalLabel"
-                            v-if="this.schoolYearSubmit == this.addSchoolYear">Add School Year</h5>
-                        <h5 class="modal-title fw-bold text-center" id="addSchoolYearModalLabel"
-                            v-if="this.schoolYearSubmit == this.updateSchoolYear">Edit School Year</h5>
-                        <!-- Semester and Academic Year Input -->
-                        <label for="editYearSemester">Semester and Academic Year :</label>
-                        <br>
-                        <small> <b>ex: 1st Semester SY 2023-2024</b></small>
-                        <input type="text" class="form-control" id="academicYearInput" placeholder="Enter Academic Year"
-                            v-model="addSchoolYears.school_year">
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save Changes</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     <!-- Semester Delete confirmation-->
     <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
@@ -398,7 +369,9 @@
                         <div class="mb-3">
                             <label for="yearLevelInput" class="form-label">Year Level</label>
                             <input type="text" class="form-control" id="yearLevelInput" placeholder="Enter Year Level"
-                                v-model="year_level_input.year_level">
+                                v-model="year_level_input.year_level" required maxlength="30"
+                                :style="{ borderColor: year_level_input.year_level.length >= 30 ? 'red' : '' }">
+                                <p class="pl-2" v-if="year_level_input.year_level.length >= 30" style="color: red;">Maximum length reached</p>
                         </div>
                         <!-- Add more form fields as needed -->
                         <div class="modal-footer">
@@ -426,20 +399,20 @@
                     <form @submit.prevent="this.addOfficerRoleSubmit">
                         <div class="form-group">
                             <label for="selectOfficer"><b>Select Officer</b></label>
-                            <select class="form-control" id="selectOfficer" v-model="addOfficerRoleData.student_id">
+                            <select class="form-control" id="selectOfficer" v-model="addOfficerRoleData.student_id" required>
                                 <option v-for="officer in this.orgOfficers" :value="officer.student_id">{{ officer.name }}
                                 </option>
                             </select>
                         </div>
                         <div class="form-group mt-4">
                             <label for="selectRole"><b>Select Role</b></label>
-                            <select class="form-control" id="selectRole" v-model="addOfficerRoleData.role_id">
+                            <select class="form-control" id="selectRole" v-model="addOfficerRoleData.role_id" required>
                                 <option v-for="role in this.roles " :value="role.role_id">{{ role.name }}</option>
                             </select>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+                            <button type="submit" class="btn btn-success" >Save</button>
                         </div>
                     </form>
                 </div>
@@ -468,7 +441,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save Changes</button>
+                            <button type="submit" class="btn btn-success">Save Changes</button>
                         </div>
 
                     </form>
@@ -519,7 +492,9 @@
                                 <label for="IDnumber"><b>ID number</b></label>
                                 <input type="text" class="form-control" id="IDnumber" placeholder="Enter ID Number"
                                     v-model="this.addOfficersData.student_id" @change="this.fetchNameInputOrgOfficer"
-                                    required>
+                                    required maxlength="15"
+                                    :style="{ borderColor: addOfficersData.student_id.length >= 15 ? 'red' : '' }">
+                                    <p class="pl-2" v-if="addOfficersData.student_id.length >= 15" style="color: red;">Maximum length reached</p>
                             </div>
                             <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
                                 <label for="IDnumber"><b>ID number</b></label>
@@ -536,16 +511,18 @@
                         <div class="form-group mt-4">
                             <label for="positionTitle"><b>Title of Position</b></label>
                             <input type="text" class="form-control" id="positionTitle" placeholder="Enter title"
-                                v-model="this.addOfficersData.position" required>
+                                v-model="this.addOfficersData.position" required maxlength="30"
+                                :style="{ borderColor: addOfficersData.position.length >= 30 ? 'red' : '' }">
+                                <p class="pl-2" v-if="addOfficersData.position.length >= 30" style="color: red;">Maximum length reached</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <div v-if="this.addOfficerSubmit == this.addOfficer">
-                                <button type="submit" class="btn btn-success mt-2" data-bs-dismiss="modal">Add
+                                <button type="submit" class="btn btn-success mt-2">Add
                                     Officer</button>
                             </div>
                             <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
-                                <button type="submit" class="btn btn-success mt-2" data-bs-dismiss="modal">Update
+                                <button type="submit" class="btn btn-success mt-2">Update
                                     Officer</button>
                             </div>
                         </div>
