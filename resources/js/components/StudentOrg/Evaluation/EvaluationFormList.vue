@@ -34,7 +34,7 @@
     </div>
 
     <div id="evaluation-container">
-        <div class="evaluation-event-cards">
+        <div class="evaluation-event-cards" v-for="evaluation in this.evaluation_form">
             <div class="event-card" style="width: 45vh !important; border-left-style: solid; border-left-color: #1b9587;">
 
                 <div class="dropdown">
@@ -54,13 +54,15 @@
                 </div>
 
                 <div class="evaluation-title mt-4">
-                    <h5> <b>Evaluation Form</b></h5>
+                    <h5> <b>{{ evaluation.evaluation_title }}</b></h5>
                 </div>
-                <div class="evaluation-description">Total Questions: <b>16</b></div>
+                <div class="evaluation-description">Total Questions: <b>{{ evaluation.evaluation_question.length }}</b></div>
                 <div>
-                    <div class="evaluation-status text-muted">Status: <b>Default</b> </div>
+                    <div class="evaluation-status text-muted">Description: <b>{{ evaluation.evaluation_description }}</b>
+                    </div>
                 </div>
-                <button class="btn btn-success view-button" data-bs-toggle="modal" data-bs-target="#evaluation-form-modal">
+                <button class="btn btn-success view-button" data-bs-toggle="modal" data-bs-target="#evaluation-form-modal"
+                    @click="this.viewEvaluationModal(evaluation.id)">
                     View</button>
                 <!-- <button class="view-button"> <i class="fas fa-chevron-right button-icon"></i></button> -->
             </div>
@@ -79,12 +81,13 @@
 
                         <div class="mb-3">
                             <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
-                            <input type="text" class="form-control" id="formTitle" v-model="formTitle" required maxlength="50">
+                            <input type="text" class="form-control" id="formTitle" v-model="formTitle" required
+                                maxlength="50">
                         </div>
                         <div class="mb-3">
                             <label for="formDescription" class="form-label">Input Description</label>
-                            <textarea class="form-control" id="formDescription" rows="3"
-                                v-model="formDescription" required maxlength="200"></textarea>
+                            <textarea class="form-control" id="formDescription" rows="3" v-model="formDescription" required
+                                maxlength="200"></textarea>
                         </div>
                         <div class="d-flex justify-content-end mb-3">
                             <button type="button" class="btn btn-light add-question" @click="this.addQuestion()"> <i
@@ -136,26 +139,22 @@
     <!-- View Evaluation Form Modal -->
     <div class="modal fade" id="evaluation-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content" v-for="evaluation in this.filteredEvaluationFormForModal">
                 <div class="modal-header">
                     <!-- <h5 class="modal-title" id="exampleModalLabel">View Evaluation Form</h5> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
+                        <label for="formTitle" class="form-label">{{ evaluation.evaluation_title}}</label>
                     </div>
                     <div class="mb-3">
                         <label for="formDescription" class="form-label">Description</label>
                         <br>
-                        <small>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos, libero maiores nostrum
-                            explicabo
-                            tenetur molestiae non impedit quibusdam doloremque repellendus, blanditiis exercitationem ipsum
-                            delectus
-                            iste alias quo. Accusamus, sequi quos.</small>
+                        <small>{{ evaluation.evaluation_description }}</small>
                     </div>
-                    <div class="mb-3">
-                        <label for="question1" class="form-label fw-bold">Question 1</label>
+                    <div class="mb-3" v-for="question in evaluation.evaluation_question">
+                        <label for="question1" class="form-label fw-bold">{{ question.description }}</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="question1" readonly>
                         </div>
@@ -200,8 +199,13 @@ export default {
             school_year: this.school_year_session,
 
             formTitle: '',
-            formDescription: ''
+            formDescription: '',
+            evaluation_form: [],
+            filteredEvaluationFormForModal: [],
         }
+    },
+    mounted() {
+        this.fetchEvaluationForms();
     },
     methods: {
         addQuestion() {
@@ -223,18 +227,7 @@ export default {
         removeChoice(questionIndex, choiceIndex) {
             this.questions[questionIndex].choices.splice(choiceIndex, 1);
         },
-
-
         saveForm() {
-            //   console.log('Form Title:', this.formTitle);
-            //   console.log('Form:', this.formDescription);
-            // console.log('Form Title:', this.formTitle);
-            // console.log('Form:', this.formDescription);
-            // console.log('Questions:', this.questions);
-            // Save the form data here
-            // You can use the `axios` library to send a POST request to your server
-            // with the form data
-
             axios.post('/upload_evaluation_form', {
                 title: this.formTitle,
                 description: this.formDescription,
@@ -247,7 +240,22 @@ export default {
                 .catch(error => {
                     console.log(error)
                 });
-        }
+        },
+        fetchEvaluationForms() {
+            axios.get(`/getEvaluationForm/${this.organization_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.evaluation_form = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        viewEvaluationModal(evaluation_id) {
+            console.log(evaluation_id)
+            this.filteredEvaluationFormForModal = this.evaluation_form.filter(form => form.id === evaluation_id);
+            console.log( this.filteredEvaluationFormForModal)
+        },
     }
 }
 

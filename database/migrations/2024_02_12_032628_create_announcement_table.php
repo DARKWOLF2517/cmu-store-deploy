@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('school_year');
             $table->string('title');
-            $table->string('description');
+            $table->longText    ('description');
             $table->date('date');
             $table->time('time');
             $table->timestamps();

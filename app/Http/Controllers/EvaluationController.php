@@ -84,7 +84,7 @@ class EvaluationController extends Controller
     }
     public function getEvaluationForm($org_id)
     {
-        $events = EvaluationForm::where('org_id', $org_id)->get();
+        $events = EvaluationForm::where('org_id', $org_id)->with('evaluation_question.evaluation_option')->get();
         return $events->toJson();
     }
 
