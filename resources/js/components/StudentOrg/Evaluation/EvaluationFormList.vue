@@ -48,7 +48,8 @@
                         <li><a class="dropdown-item">Set as Default</a></li>
                         <li><a class="dropdown-item">Edit Form</a></li>
                         <!-- option 2 -->
-                        <li><a class="dropdown-item">Delete Form</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#deleteConfirmation">Delete Form</a></li>
                         <!-- Add more dropdown items as needed -->
                     </ul>
                 </div>
@@ -90,11 +91,11 @@
                                 maxlength="200"></textarea>
                         </div>
                         <div class="d-flex justify-content-end mb-3">
-                            <button type="button" class="btn btn-light add-question" @click="this.addQuestion()"> <i
+                            <button type="button" class="btn btn-primary add-question" @click="this.addQuestion()"> <i
                                     class="fas fa-plus"></i> Add
                                 Question</button>
                         </div>
-                        <div class="question-container">
+                        <div class="question-container" style="height: 60vh; max-height: 60vh;  overflow-y: auto;">
                             <div class="mb-3" v-for="(question, questionindex) in questions" :key="questionindex">
                                 <label for="question1" class="form-label fw-bold">Question {{ questionindex + 1 }}</label>
                                 <div class="input-group">
@@ -103,11 +104,13 @@
                                     <button class="btn btn-danger remove-question" type="button"
                                         @click="removeQuestion(questionindex)">X</button>
                                 </div>
-                                <div class="choice-container">
-                                    <button type="button" class="btn btn-light add-question"
+                                <div class="choice-container" style="padding-left: 15px;">
+                                    <div class="d-flex justify-content-start mb-3 mt-2">  <button type="button" class="btn btn-secondary add-question"
                                         @click="addChoice(questionindex)">
                                         <i class="fas fa-plus"></i> Add
                                         Choice</button>
+                                    </div>
+
                                     <div class="mb-3" v-for="(choice, index) in question.choices" :key="index">
                                         <label for="choice" class="form-label fw-bold">Choice {{ index + 1 }}</label>
                                         <div class="input-group">
@@ -160,11 +163,10 @@
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
-                                <label for="choices1" class="form-label">*Multiple Choice</label>
+                                <label for="choices1" class="form-label">Choices</label>
                                 <br>
-                                <small class="fw-bold">1 - Needs Improvements | 2 - Satisfactory | 3 - Good | 4 - Very Good
-                                    | 5 -
-                                    Excellent</small>
+                                <small class="fw-bold">Strongly agee | </small>
+                                <small class="fw-bold">Strongly agee | </small>
                             </div>
                         </div>
                     </div>
@@ -177,6 +179,27 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Delete Modal -->
+     <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="deleteModalLabel">Delete Announcement</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                    <h4><b>Remove Evaluation Form</b></h4>
+                    <p>Are you sure you want to remove this form?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" @click="this.deleteData()"
+                        data-bs-dismiss="modal">Delete</button>
                 </div>
             </div>
         </div>
