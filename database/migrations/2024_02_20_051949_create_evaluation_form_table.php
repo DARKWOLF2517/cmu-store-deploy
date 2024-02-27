@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('evaluation_form', function (Blueprint $table) {
             $table->id();
             $table->string('evaluation_title');
-            $table->string('evaluation_description');
+            $table->longText('evaluation_description');
             $table->unsignedBigInteger('org_id');
             $table->timestamps();
 

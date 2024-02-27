@@ -18,7 +18,7 @@ return new class extends Migration
             $table->time('start_attendance');
             $table->time('end_attendance');
             $table->string('location');
-            $table->text('description');
+            $table->longText('description');
             $table->tinyInteger('require_attendance');
             $table->integer('attendance_count')->default(1);
             $table->integer('attendance_session_started')->default(0);
