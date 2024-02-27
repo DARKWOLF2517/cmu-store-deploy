@@ -190,7 +190,9 @@ footer {
     background-color: white;
 }
 
-
+.is-invalid {
+    border-color: red;
+}
 /* Arrow icon */
 .select-dropdown::after {
     content: '\25BC';

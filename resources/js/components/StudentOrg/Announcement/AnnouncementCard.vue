@@ -129,13 +129,15 @@
                             v-else-if="this.submit == this.updateData">Update Announcement</h5>
                         <div class="mb-3">
                             <label class="form-label">Title</label>
-                            <input type="text" class="form-control" v-model="this.announcement_data.title" required maxlength="50" @input="checkLength">
-<p class="text-danger" id="length-message" v-if="showMessage"></p>
+                            <input type="text" class="form-control" v-model="announcement_data.title" required maxlength="50"
+                            :style="{ borderColor: announcement_data.title.length >= 50 ? 'red' : '' }">
+                            <p class="pl-2" v-if="announcement_data.title.length >= 50" style="color: red;">Maximum length reached</p>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" v-model="this.announcement_data.description" required maxlength="255" @input="checkLength"></textarea>
-<p class="text-danger" id="length-message" v-if="showMessage"></p>
+                            <textarea class="form-control" v-model="announcement_data.description" required maxlength="255"
+            :style="{ borderColor: announcement_data.description.length >= 255 ? 'red' : '' }"></textarea>
+                            <p v-if="announcement_data.description.length >= 255" style="color: red;">Maximum length reached</p>
                         </div>
                         <div class="mb-3">
                             <label for="starts_at" class="form-label fw-bold">Starts at</label>
@@ -229,7 +231,6 @@ export default {
             },
             loading: false,
             showMessage: false,
-    message: ''
         }
     },
     mounted() {
@@ -237,17 +238,7 @@ export default {
         this.fetchData();
     },
     methods: {
-        checkLength() {
-    if (this.announcement_data.title.length > 50) {
-      this.showMessage = true;
-      this.message = 'Title: You have exceeded the maximum length limit of 50 characters.';
-    } else if (this.announcement_data.description.length > 255) {
-      this.showMessage = true;
-      this.message = 'Description: You have exceeded the maximum length limit of 255 characters.';
-    } else {
-      this.showMessage = false;
-    }
-  },
+
         deleteData() {
             axios.delete(`/delete_announcement/${this.id}`)
                 .then(response => {
