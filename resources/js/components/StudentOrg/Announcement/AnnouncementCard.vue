@@ -151,7 +151,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Submit</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
                     </div>
                 </form>
             </div>
@@ -310,10 +310,10 @@ export default {
                     const data = response.data;
                     data.forEach(item => {
                         item["created_at"] = convertDate(item["created_at"]);
+                        item.datetime = new Date(`${item.date} ${item.time}`).getTime();
                     });
 
-                    this.announcements = response.data;
-                    this.announcements.sort((a, b) => b.datetime - a.datetime);
+                    this.announcements = response.data.sort((a, b) => b.datetime - a.datetime);
                     this.filtered_announcements = this.announcements;
                     this.loading = false;
                 })
