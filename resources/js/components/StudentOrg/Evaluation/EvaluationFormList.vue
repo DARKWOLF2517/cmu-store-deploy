@@ -34,8 +34,9 @@
     </div>
 
     <div id="evaluation-container">
-        <div class="evaluation-event-cards" v-for="evaluation in this.evaluation_form">
-            <div class="event-card" style="width: 45vh !important; border-left-style: solid; border-left-color: #1b9587;">
+        <div class="evaluation-event-cards">
+            <div class="event-card" style="width: 45vh !important; border-left-style: solid; border-left-color: #1b9587;"
+            v-for="evaluation in this.evaluation_form">
 
                 <div class="dropdown">
                     <a class="ellipsis-button" href="#" style="color: #3e505d;" role="button" id="ellipsisDropdown"
@@ -59,7 +60,7 @@
                 </div>
                 <div class="evaluation-description">Total Questions: <b>{{ evaluation.evaluation_question.length }}</b></div>
                 <div>
-                    <div class="evaluation-status text-muted">Description: <b>{{ evaluation.evaluation_description }}</b>
+                    <div class="evaluation-status text-muted">Date Created <b>{{ evaluation.created_at }}</b>
                     </div>
                 </div>
                 <button class="btn btn-success view-button" data-bs-toggle="modal" data-bs-target="#evaluation-form-modal"
@@ -149,12 +150,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="formTitle" class="form-label">{{ evaluation.evaluation_title}}</label>
+                        <h3 for="formTitle" class="form-label">Evalution name: {{ evaluation.evaluation_title}}</h3>
                     </div>
-                    <div class="mb-3">
-                        <label for="formDescription" class="form-label">Description</label>
-                        <br>
-                        <small>{{ evaluation.evaluation_description }}</small>
+                    <div>
+                        <label for="formDescription">Description:</label>
+                        <p style="padding-left: 10px;">{{ evaluation.evaluation_description }}</p>
                     </div>
                     <div class="mb-3" v-for="(question, index) in evaluation.evaluation_question">
                         <label for="question1" class="form-label fw-bold">Question {{ index +1 }}</label>
@@ -163,7 +163,7 @@
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
-                                <label for="choices1" class="form-label">Choices</label>
+                                <label for="choices1" >Choices</label>
                                 <br>
                                 <small class="fw-bold" v-for="(choices, index) in question.evaluation_option"> {{ String.fromCharCode(65 + index)}}.  {{ choices.option }} &nbsp; </small>
                             </div>
@@ -205,6 +205,7 @@
     </div>
 </template>
 <script>
+import { convertDate } from "../Functions/DateConverter.js";
 import axios from 'axios';
 
 export default {
@@ -267,6 +268,9 @@ export default {
             axios.get(`/getEvaluationForm/${this.organization_id}`)
                 .then(response => {
                     console.log(response.data)
+                     response.data.forEach(item => {
+                    item["created_at"] = convertDate(item["created_at"]);
+                    });
                     this.evaluation_form = response.data;
                 })
                 .catch(error => {

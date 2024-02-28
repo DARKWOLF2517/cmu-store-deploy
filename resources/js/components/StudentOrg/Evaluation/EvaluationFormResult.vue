@@ -1,8 +1,29 @@
 <template>
     <!-- <h6>1. PROGRAM/ACTIVITY</h6> -->
-    <div class="row">
-        <div class="col" v-for="evaluation_questions in evaluation_question_id">
-            <div class="piechart" :id="evaluation_questions.id"></div>
+    <div class="btn-group d-flex justify-content-end p-2" role="group">
+        <div>
+            <button class="btn me-2" id="print-results-button">
+                <i class="fas fa-print"></i> Print Results
+            </button>
+            <button class="btn me-2" id="download-results-button">
+                <i class="fas fa-download"></i> Download Results
+            </button>
+            <a class="btn me-2" href="/student_organization_evaluation_results_table">
+                <i class="fas fa-eye"></i> View Table
+            </a>
+        </div>
+    </div>
+    <div class="col mt-2" id="evaluation-summary">
+        <h3>STUDENT ORGANIZATIONS & ACTIVITIES EVALUATION FORM</h3>
+        <hr>
+        <h6 for="Activity">Event: <b>bIRTHDAU</b> </h6>
+        <h6 for="StudentOrganization">Name of Organization: <b>dwdeef</b></h6>
+        <h6 for="DateTime">Date & Time: <b>efefefef</b></h6>
+        <h6 for="Venue">Venue: <b>effefe</b></h6>
+        <div class="row">
+            <div class="col" v-for="evaluation_questions in evaluation_question_id">
+                <div class="piechart" :id="evaluation_questions.id"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -32,7 +53,7 @@ export default {
                         evaluation.evaluation_question.forEach(question => {
                             this.evaluation_question_id.push({
                                 id: question.id,
-                                
+
                             })
                             console.log(question);
                             let options = [];
@@ -48,13 +69,13 @@ export default {
                                     answers_option_id: element.option_id,
                                 })
                             });
-                        
+
                             //to count the result per options
                             let combinedData = options.concat(answers_temporary);
                             let counts = {};
 
                             combinedData.forEach(item => {
-                                if (item.option_id !== undefined) {
+                                if (item.option_id !== undefined) {5
                                     if (!counts[item.option_id]) {
                                         counts[item.option_id] = 0;
                                     }
@@ -72,7 +93,7 @@ export default {
                             // Convert counts object to an array of objects
                             let answers = Object.entries(counts).map(([option_id, count]) => ({ option_id, count }));
                             this.$nextTick(() => {
-                                this.pieChart(question.id, question.description, options,answers);
+                                this.pieChart(question.id, question.description, options, answers);
                             });
 
                         });
@@ -109,7 +130,7 @@ export default {
 
 
         // },
-        pieChart(question_id, question_description, question_options,question_answers) {
+        pieChart(question_id, question_description, question_options, question_answers) {
             // console.log('')
             // console.log(question_options)
             // console.log(question_id)

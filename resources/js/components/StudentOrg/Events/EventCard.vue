@@ -96,7 +96,7 @@
                     ]">
 
 
-                        <div class="dropdown">
+                        <div class="dropdown" >
                             <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-ellipsis-h"></i>
@@ -124,6 +124,16 @@
                                             @click="this.attendance_count_start_attendance = 0, this.id = (event.event_id), this.status = 2"
                                             data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
                                             Attendance</a></li>
+                                </div>
+                                <div>
+                                    <li><a class="dropdown-item"
+                                        data-bs-toggle="modal" data-bs-target="#closeEvent">Close Event</a>
+                                </li>
+                                </div>
+                                <div>
+                                    <li><a class="dropdown-item"
+                                        data-bs-toggle="modal" data-bs-target="#cancelAttendance">Cancel Attendance</a>
+                                </li>
                                 </div>
                             </ul>
                         </div>
@@ -246,6 +256,46 @@
                         </div>
                     </div>
                 </div>
+                <!-- start attendance modal -->
+                <div class="modal fade" id="cancelAttendance" tabindex="-1" aria-labelledby="cancelAttendanceModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <h4> <i class="fas fa-question-circle text-warning"></i> </h4>
+                                    <h5 class="fw-bold text-center"> Cancel an Attendance?</h5>
+                                </div>
+                                <p>Select an attendance session to not record an Attendance</p>
+                                <label class="mt-2">Select Attendance Type:</label>
+                                <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;">
+
+                                    <select id="sort-select" class="form-control" style="text-align: center;"
+                                        v-model="session" required>
+                                        <option :value="0" disabled selected>Select Attendace Type</option>
+                                        <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log in)
+                                        </option>
+                                        <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log out)
+                                        </option>
+                                        <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log in)
+                                        </option>
+                                        <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log out)
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success"
+                                    @click="startAttendance(event_id, org_id, session)"
+                                    >Start</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Exempted Modal -->
                 <div class="modal fade" id="exemptModal" tabindex="-1" role="dialog" aria-labelledby="exemptModalLabel"
                     aria-hidden="true">
@@ -337,7 +387,7 @@
                                     </div>
                                     <!-- <div class="row g-3">
                                             <div class="col-md-6"> -->
-                                    <label for="event-start-date" class="form-label">Start Date</label>
+                                    <label for="event-start-date" class="form-label">Schedule Date</label>
                                     <input type="date" name="start_date" class="form-control" id="event-start-date"
                                         v-model="formData.start_date" required>
                                     <!-- </div> -->
@@ -398,7 +448,7 @@
                                         <div class="row g-3">
                                             <div class="col-md-6">
                                                 <label for="event-attendance" class="form-label">Number of
-                                                    Attendance</label>
+                                                    Attendance session</label>
                                                 <select name="attendance_count" class="form-select" id="event-attendance"
                                                     v-model="formData.attendance_count" required>
                                                     <option value="1">1</option>
@@ -427,7 +477,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success" id="save-event-button">Save</button>
+                                        <button type="submit" class="btn btn-success" id="save-event-button" :disabled="isSubmitting">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -483,6 +533,7 @@ export default {
             attendance_count_start_attendance: 0,
             session: 0,
             evaluation_form: [],
+            isSubmitting: false,
         }
     },
     created() {
@@ -515,6 +566,9 @@ export default {
             axios.post(`/submitYearLevelExempted/${this.organization_id}/${this.school_year_input}/${this.id}`, this.year_level_exempted)
                 .then(response => {
                     this.showSucces('Exempted Year Level Updated Successfully');
+                    setTimeout(() => {
+                        location.reload();
+            }, 500);
                     console.log(response.data)
                 })
                 .catch(error => {
@@ -605,6 +659,8 @@ export default {
 
 
         sendData() {
+            this.isSubmitting = true;
+
             // Assuming the checkboxes are already created as mentioned in your code snippet
 
             // Get all the checkboxes by their name
@@ -630,6 +686,9 @@ export default {
                 axios.post('/events', this.formData)
                     .then(response => {
                         this.showSucces(response.data.message);
+                        setTimeout(() => {
+                        location.reload();
+            }, 500);
                         // console.log(response.data)
                     })
                     .catch(error => {
@@ -688,6 +747,9 @@ export default {
                 .then(response => {
                     this.submit = this.sendData;
                     this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+            }, 500);
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -729,6 +791,9 @@ export default {
                     .then(response => {
                         console.log(response.data)
                         this.showSucces(response.data.message);
+                        setTimeout(() => {
+                        location.reload();
+            }, 500);
                         this.fetchData();
                     })
                     .catch(error => {

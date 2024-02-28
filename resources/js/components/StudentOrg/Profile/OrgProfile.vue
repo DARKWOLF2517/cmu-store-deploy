@@ -1,4 +1,10 @@
 <template>
+       <div v-if="this.loading" class="loading-spinner-container">
+                        <div class="spinner-border text-success" id="event-spinner" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <div v-else>
     <div class="col breadcrumbs">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -24,7 +30,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-9">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <!-- Nav tabs -->
@@ -224,40 +229,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- <div class="semester " style="width: 100%;">
-                    <div class="d-flex justify-content-between align-items-center mb-2 header">
-                        <h5><b>Semesters</b></h5>
-                        <button class="btn button-secondary" id="editSemesterButton" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal" @click="this.schoolYearSubmit = this.addSchoolYear, this.clearSchoolYearData()"><i class="fas fa-plus"></i></button>
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>School Year</th>
-                                    <th style="width: 10%;"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="schoolYear in this.schoolYear">
-                                    <td>{{ schoolYear['school_year'] }}</td>
-                                    <td>
-                                        <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown"> -->
-                    <!-- Edit School Year -->
-                    <!-- <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id, SchoolYearFetchUpdate(), this.schoolYearSubmit = this.updateSchoolYear" data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">Edit</a></li> -->
-                    <!-- Delete School Year -->
-                    <!-- <li><a class="dropdown-item" @click="this.schoolYearId = schoolYear.id" data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete</a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> -->
-
                 </div>
             </div>
         </div>
@@ -325,31 +296,7 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Semester Delete confirmation-->
-    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
-                    <h4><b>You are about to delete a semester</b></h4>
-                    <p>Are you sure you want to remove this semester? This will be permanently deleted, along with its data.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" @click="this.deleteSchoolYear"
-                        data-bs-dismiss="modal">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
     <!-- Add Year Level Modal -->
     <div class="modal fade" id="addYearLevelModal" tabindex="-1" aria-labelledby="addYearLevelModalLabel"
         aria-hidden="true">
@@ -376,7 +323,7 @@
                         <!-- Add more form fields as needed -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submimt" class="btn btn-success" data-bs-dismiss="modal">Add Year Level</button>
+                            <button type="submit" class="btn btn-success">Add Year Level</button>
                         </div>
 
                     </form>
@@ -504,7 +451,7 @@
                             <div>
                                 <label for="IDnumber"><b>Name</b></label>
                                 <input type="text" class="form-control" id="IDnumber" disabled
-                                    v-model="this.nameFilterAddOfficer">
+                                    v-model="this.nameFilterAddOfficer" required>
                             </div>
 
                         </div>
@@ -555,157 +502,6 @@
         </div>
     </div>
 
-    <!-- Set Partners Modal -->
-    <!-- <div class="modal fade" id="setPartnersModal" tabindex="-1" role="dialog" aria-labelledby="setPartnersModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="setPartnersModalLabel">Choose Partners</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <label for="selectStudentCouncil"> <b>Select Student Council</b> </label>
-                <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Select Student Council
-                </button>
-                <ul class="dropdown-menu" id="dropdown-org" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="CASSCO" id="Checkme1" />
-                                <span class="form-check-label">CASSCO</span>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="CBMSCO" id="Checkme2" checked />
-                                <span class="form-check-label">CBMSCO</span>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="Checkme3" />
-                                <span class="form-check-label">COASCO</span>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="COEDSCO" id="Checkme4" checked />
-                                <span class="form-check-label">COEDSCO</span>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="COHESCO" id="Checkme4" checked />
-                                <span class="form-check-label">COHESCO</span>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="COHESCO" id="Checkme4" checked />
-                                <span class="form-check-label">CONSCO</span>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="CSCo" id="Checkme4" checked />
-                                <span class="form-check-label">CSCo</span>
-                            </div>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-        <br>
-    <label for="selectStudentCouncil"> <b>Select Department/Society</b> </label>
-
-            <div class="dropdown">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Select Department
-                </button>
-                <ul class="dropdown-menu" id="dropdown-org" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="PASOA" id="Checkme1" />
-                                <span class="form-check-label">PASOA</span>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="dropdown-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="JPIA" id="Checkme2" checked />
-                                <span class="form-check-label">JPIA</span>
-                            </div>
-                        </label>
-                    </li>
-                </ul>
-
-                            </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success mt-2">Save</button>
-                    </div>
-
-            </div>
-        </div>
-    </div>
-</div> -->
-    <!-- Edit Partner Modal -->
-    <!-- <div class="modal fade" id="editPartnerModal" tabindex="-1" aria-labelledby="editPartnerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editPartnerModalLabel">Edit Partner</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="organizationName"><b>Name of Organization:</b></label>
-                        <input type="text" class="form-control" id="organizationName">
-                    </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-    <!-- Delete Partner Modal -->
-    <!-- <div class="modal fade" id="removePartnerModal" tabindex="-1" aria-labelledby="removePartnerModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="removePartnerModalLabel">Delete Partner</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to remove this Organization?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Delete Partner</button>
-            </div>
-        </div>
-    </div>
-</div> -->
 </template>
 
 <script>
@@ -717,6 +513,7 @@ export default {
     props: ['org_id', 'user_id', 'school_year_session'],
     data() {
         return {
+            loading: false,
             addSchoolYears: {
                 school_year: '',
                 org_id: this.org_id,
@@ -768,7 +565,7 @@ export default {
                 org_id: this.org_id,
                 year_level: ''
             },
-
+            loading: true,
 
         }
     },
@@ -781,7 +578,7 @@ export default {
         this.showOfficerRole();
         this.showOrgTotalMembers();
         this.showYearLevel();
-
+        this.loading = false;
 
 
     },
@@ -791,6 +588,9 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+            }, 500);
                     this.showYearLevel();
 
                 })
@@ -824,6 +624,9 @@ export default {
                 .then(response => {
                     this.showSucces(response.data.message);
                     this.showYearLevel();
+                    setTimeout(() => {
+                        location.reload();
+            }, 500);
                 })
                 .catch(error => {
                     console.log(error)
@@ -848,6 +651,9 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+            }, 500);
                     this.showOrgProfile();
 
                 })
@@ -902,6 +708,9 @@ export default {
                     // console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
+                        setTimeout(() => {
+                        location.reload();
+            }, 500);
                         this.showOfficerRole();
                     }
                     else {
@@ -959,7 +768,11 @@ export default {
                     // console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
+                        setTimeout(() => {
+                        location.reload();
+            }, 500);
                         this.showOfficerRole();
+
                     }
                     else {
                         this.showSucces(response.data.message);
@@ -1001,6 +814,9 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+            }, 500);
                     this.showOfficer();
 
                 })
@@ -1027,6 +843,9 @@ export default {
                     // console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
+                        setTimeout(() => {
+                        location.reload();
+            }, 500);
                         this.showOfficer();
                     }
                     else {
@@ -1147,10 +966,10 @@ export default {
                 });
         },
         showSucces(message) {
-            toast.success(message), {
-                autoClose: 100,
-            }
-        },
+  toast.success(message), {
+    autoClose: 100,
+  }
+},
         showError(message) {
             toast.error(message), {
                 autoClose: 100,
