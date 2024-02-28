@@ -109,8 +109,8 @@ class EvaluationController extends Controller
     }
     public function isDoneEvaluation($student_id)
     {
-        $evaluation = EvaluationFormAnswer::where([
-            ['user_id', $student_id],
+        $evaluation = EvaluationAnswer::where([
+            ['student_id', $student_id],
         ])->get();
 
         if ($evaluation->isEmpty()) {

@@ -9,7 +9,8 @@
             </div>
             <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
                 <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;">
+                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
+                        @change="fetchEvaluationForms">
                         <option value="" disabled selected>Select Semester</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
                             school_year['school_year'] }}
@@ -219,8 +220,8 @@ export default {
                 }],
 
             }],
-            school_year: this.school_year_session,
-
+            school_year: [],
+            school_year_input: this.school_year_session,
             formTitle: '',
             formDescription: '',
             evaluation_form: [],
@@ -229,8 +230,20 @@ export default {
     },
     mounted() {
         this.fetchEvaluationForms();
+        this.showSchoolYear();
     },
     methods: {
+        showSchoolYear() {
+            axios.get(`get_school_year`)
+                .then(response => {
+                    console.log(response.data)
+                    this.school_year = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+
         addQuestion() {
             this.questions.push({
                 text: '',

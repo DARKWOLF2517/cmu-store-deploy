@@ -89,11 +89,11 @@
                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                         <!-- option 1 -->
 
-                        <li><a class="dropdown-item" @click="UpdateAttendanceStatus(evaluation.event_id, '1')">Start
+                        <li v-if="evaluation.evaluation_status == 0"><a class="dropdown-item" @click="UpdateAttendanceStatus(evaluation.event_id, '1')">Start
                                 Evaluation</a>
                         </li>
                         <!-- option 2 -->
-                        <li><a class="dropdown-item" @click="UpdateAttendanceStatus(evaluation.event_id, '0')">Stop
+                        <li v-else-if="evaluation.evaluation_status == 1"><a class="dropdown-item" @click="UpdateAttendanceStatus(evaluation.event_id, '0')">Stop
                                 Evaluation</a></li>
                         <!-- Add more dropdown items as needed -->
                     </ul>
@@ -101,7 +101,7 @@
                 <div class="event-date-container"><span class="event-date"> <i class="bi bi-calendar"></i>
                         {{ evaluation['start_date'] }}</span></div>
                 <div class="event-title"><b>{{ evaluation['name'] }}</b></div>
-                <div class="event-desc">Total Response: <b>{{ evaluation['evaluation_form_answer'] }}</b></div>
+                <!-- <div class="event-desc">Total Response: <b>{{ evaluation['evaluation_form_answer'] }}</b></div> -->
 
                 <div>
                     <div class="event-status text-muted" v-if="evaluation['evaluation_status'] == 0">Status: <b>Closed</b>
