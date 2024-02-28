@@ -165,8 +165,14 @@
                             <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
                                 @change="this.fetchDataDisplayName" required maxlength="30"
                                 :style="{ borderColor: student_data.student_id.length >= 30 ? 'red' : '' }">
-                                <p class="pl-2" v-if="student_data.student_id.length >= 30" style="color: red;">Maximum length reached</p>
+                            <p class="pl-2" v-if="student_data.student_id.length >= 30" style="color: red;">Maximum length
+                                reached</p>
                         </div>
+                        <!-- <div v-if="student_data.lastname.length == 0"> -->
+                            <!-- <div v-if="this.student_data.length == 0" class="text-center">
+                                <p class="text-muted">No student found with the given ID.</p>
+                            </div> -->
+                        <!-- </div> -->
                         <div v-if="this.submit == this.addSingleStudent">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Last Name</label>
@@ -327,7 +333,7 @@ export default {
             },
 
             submit: this.addSingleStudent,
-
+            // studentFound: false,
 
         };
     },
@@ -571,6 +577,9 @@ export default {
                 .catch(error => {
                     console.log(error)
                 });
+            this.student_data.firstname = [];
+            this.student_data.lastname = [];
+            this.student_data.middlename = [];
         },
         updateData() {
             axios.put(`/student_list/edit/commit/${this.fetchID}`, this.editData)

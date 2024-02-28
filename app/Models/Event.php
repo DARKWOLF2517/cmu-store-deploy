@@ -33,7 +33,7 @@ class Event extends Model
     }
     public function EvaluationFormAnswer()
     {
-        return $this->hasMany(EvaluationFormAnswer::class, 'event_id', 'event_id');
+        return $this->hasMany(EvaluationAnswer::class, 'event_id', 'event_id');
     }
     public function Attendance()
     {
