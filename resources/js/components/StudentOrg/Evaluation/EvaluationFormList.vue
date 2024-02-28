@@ -156,17 +156,16 @@
                         <br>
                         <small>{{ evaluation.evaluation_description }}</small>
                     </div>
-                    <div class="mb-3" v-for="question in evaluation.evaluation_question">
-                        <label for="question1" class="form-label fw-bold">{{ question.description }}</label>
+                    <div class="mb-3" v-for="(question, index) in evaluation.evaluation_question">
+                        <label for="question1" class="form-label fw-bold">Question {{ index +1 }}</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="question1" readonly>
+                            <input type="text" class="form-control" id="question1" :value="question.description" readonly>
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
                                 <label for="choices1" class="form-label">Choices</label>
                                 <br>
-                                <small class="fw-bold">Strongly agee | </small>
-                                <small class="fw-bold">Strongly agee | </small>
+                                <small class="fw-bold" v-for="(choices, index) in question.evaluation_option"> {{ String.fromCharCode(65 + index)}}.  {{ choices.option }} &nbsp; </small>
                             </div>
                         </div>
                     </div>

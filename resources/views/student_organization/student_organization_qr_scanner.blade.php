@@ -1,6 +1,4 @@
 
-
-{{QrCode::generate('ss')}} --}}
 <!DOCTYPE html>
 <html lang="en">
 

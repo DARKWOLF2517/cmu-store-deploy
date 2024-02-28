@@ -17,7 +17,7 @@ class Attendance extends Model
         'officer_id',
         'session',
         'remarks',
-        // 'college_id',
+        'time',
         'created_at',
         'updated_at'
     ];

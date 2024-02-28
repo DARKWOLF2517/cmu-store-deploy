@@ -325,7 +325,7 @@
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                             <li><a href="/student_announcement" class="link-dark rounded"><i class="fas fa-bullhorn"></i> Announcements</a></li>
                                             <li><a href="/student_profile" class="link-dark rounded"><i class="fas fa-user"></i> My Profile</a></li>
-                                            <li><a href="/student_evalustion_list" class="link-dark rounded"><i class="fas fa-clipboard-check"></i> Evaluation</a></li>
+                                            <li><a href="/student_evaluation_list" class="link-dark rounded"><i class="fas fa-clipboard-check"></i> Evaluation</a></li>
                                             <li><a href="/student_accountabilities" class="link-dark rounded"><i class="fas fa-money-check"></i> My Accountabilities</a></li>
                                         </ul>
                                     </div>

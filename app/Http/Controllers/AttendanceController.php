@@ -8,6 +8,8 @@ use App\Models\Event;
 use App\Models\UserOrganization;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Carbon;
+
 
 class AttendanceController extends Controller
 {
@@ -62,6 +64,7 @@ class AttendanceController extends Controller
         $attendances->officer_id = $validatedData['officer_id'];
         $attendances->session = $validatedData['session'];
         $attendances->remarks = 0;
+        $attendances->time = Carbon::now()->format('H:i'); 
         $attendances->save();
         return response()->json(array("result"=>"success","message"=>"Student successfully logged in..."));
     }

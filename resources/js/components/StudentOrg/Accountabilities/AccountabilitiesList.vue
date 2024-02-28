@@ -621,8 +621,8 @@ export default {
                         // }
                     });
                     events_with_attendance.forEach(attend => {
-                        if (attend.attendance_count == 1) {
-                            for (let index = 1; index <= 1; index++) {
+                        // if (attend.attendance_count == 1) {
+                            for (let index = 1; index <= attend.attendance_count; index++) {
                                 const session_count = {
                                     event_id: attend.event_id,
                                     session: index,
@@ -631,42 +631,43 @@ export default {
                                 }
                                 this.events.push(session_count);
                             }
-                        }
-                        else if (attend.attendance_count == 2) {
-                            for (let index = 1; index <= 2; index++) {
-                                const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
-                                }
-                                this.events.push(session_count);
-                            }
-                        }
-                        else if (attend.attendance_count == 3) {
-                            for (let index = 1; index <= 3; index++) {
-                                const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
+                            console.log(this.events)
+                        // }
+                        // else if (attend.attendance_count == 2) {
+                        //     for (let index = 1; index <= 2; index++) {
+                        //         const session_count = {
+                        //             event_id: attend.event_id,
+                        //             session: index,
+                        //             fines: attend.fines,
+                        //             date: attend.start_date,
+                        //         }
+                        //         this.events.push(session_count);
+                        //     }
+                        // }
+                        // else if (attend.attendance_count == 3) {
+                        //     for (let index = 1; index <= 3; index++) {
+                        //         const session_count = {
+                        //             event_id: attend.event_id,
+                        //             session: index,
+                        //             fines: attend.fines,
+                        //             date: attend.start_date,
 
-                                }
-                                this.events.push(session_count);
-                            }
-                        }
-                        else if (attend.attendance_count == 4) {
-                            for (let index = 1; index <= 4; index++) {
-                                const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
+                        //         }
+                        //         this.events.push(session_count);
+                        //     }
+                        // }
+                        // else if (attend.attendance_count == 4) {
+                        //     for (let index = 1; index <= 4; index++) {
+                        //         const session_count = {
+                        //             event_id: attend.event_id,
+                        //             session: index,
+                        //             fines: attend.fines,
+                        //             date: attend.start_date,
 
-                                }
-                                this.events.push(session_count);
-                            }
-                        }
+                        //         }
+                        //         this.events.push(session_count);
+                        //     }
+                        // }
 
                         const attendance = attend.attendance;
                         attendance.forEach(data => {
@@ -968,7 +969,7 @@ export default {
                     this.filtered_items_for_fines = this.total_fees.filter(item => item.total_fees != 0);
                     // this.filtered_items_for_fines = this.total_fees;
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
-                    console.log(this.total_fees)
+                    // console.log(this.total_fees)
                 })
                 .catch(error => {
                     console.log(error)

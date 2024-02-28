@@ -14,10 +14,10 @@
                     <select id="sort-select" class="form-control" style="text-align: center;" v-model="session"
                         @change="filterItems">
                         <option value="0" disabled selected>Select Attendace Type</option>
-                        <option :value="1" v-if="attendance_count >= 1">Morning (Log in)</option>
-                        <option :value="2" v-if="attendance_count >= 2">Morning (Log out)</option>
-                        <option :value="3" v-if="attendance_count >= 3">Afternoon (Log in)</option>
-                        <option :value="4" v-if="attendance_count >= 4">Afternoon (Log out)</option>
+                        <option :value="1" v-if="attendance_count >= 1">Session 1</option>
+                        <option :value="2" v-if="attendance_count >= 2">Session 2</option>
+                        <option :value="3" v-if="attendance_count >= 3">Session 3</option>
+                        <option :value="4" v-if="attendance_count >= 4">Session 4</option>
                     </select>
                 </div>
                 <div class="select-dropdown d-flex justify-content-end">
@@ -57,7 +57,7 @@
                         <th class="sortable-header" style="width: 10%;">Student ID</th>
                         <th class="sortable-header">Student Name</th>
                         <th class="sortable-header">College</th>
-                        <!-- <th class="sortable-header" style="width: 5%;"> </th> -->
+                        <th class="sortable-header" style="width: 20%;"> Time </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,7 +65,7 @@
                         <td>{{ attendance.user_id }}</td>
                         <td>{{ attendance.user_profile.first_name }} {{ attendance.user_profile.last_name }}</td>
                         <td>{{ attendance.user_profile.college.college }}</td>
-
+                        <td>{{ attendance.created_at}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -245,7 +245,8 @@ export default {
                     this.filtered_attendance = [];
                     const data = response.data;
                     data.forEach(item => {
-                        // console.log(item);
+                        console.log(item);
+                        item['created_at'] = converTime(item['created_at'] );
                         item['events']['start_date'] = convertDate(item['events']['start_date']);
                         this.event.event_title = item['events']['name'];
                         this.event.event_date = item['events']['start_date'];

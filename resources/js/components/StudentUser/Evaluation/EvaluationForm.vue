@@ -55,7 +55,7 @@ export default {
     props: ['user_id', 'event_id', 'org_id', 'evaluation_form_id'],
     data() {
         return {
-            formData: [],
+            formData: {},
             event_title: {
                 name: '',
                 organization: '',

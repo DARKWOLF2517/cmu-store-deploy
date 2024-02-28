@@ -26,16 +26,18 @@ class EvaluationController extends Controller
     public function store(Request $request, $user_id, $event_id)
     {
         // return $request;
-        foreach ($request->all() as $data) {
-            return $data;
-            // $answer = new EvaluationAnswer();
-            // $answer->student_id = $data['0'];
-            // $answer->question_id = $request['user_id'];
-            // $answer->option_id = $request['org_id'];
-            // $answer->event_id = $request['org_id'];
-            // $answer->save();
+        // $index = [];
+        // $value = [];
+        foreach ($request->all() as $key => $data) {
+            $answer = new EvaluationAnswer();
+            $answer->student_id = $user_id;
+            $answer->question_id = $key;
+            $answer->option_id = $data;
+            $answer->event_id = $event_id;
+            $answer->save();
         }
-        // return redirect()->back()->with('success', 'Evaluation created successfully!');
+        // return  $data;
+        return response()->json('Answer Submitted Successfully');
     }
 
     public function EvaluationFormAnswer($event_id)
