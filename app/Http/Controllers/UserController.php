@@ -133,6 +133,10 @@ class UserController extends Controller
                     {
                         return response()->json(['message' =>'Student is already in the list','type' => 0]);
                     }
+                    else if($this->UserOrgRepitition($request->student_id, $org_id, $school_year)  <= 0) 
+                    {
+                        return response()->json(['message' =>'Student not found','type' => 2]);
+                    }
                     else{
                         $userOrg = new UserOrganization();
                         $userOrg->student_org_id = $org_id;

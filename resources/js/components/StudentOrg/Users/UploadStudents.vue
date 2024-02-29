@@ -162,14 +162,15 @@
                     <form @submit.prevent="this.submit">
                         <div class="mb-3" v-if="this.submit == this.addSingleStudent">
                             <label for="studentId" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
+                            <!-- <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
                                 @change="this.fetchDataDisplayName" required maxlength="30"
-                                :style="{ borderColor: student_data.student_id.length >= 30 ? 'red' : '' }">
-                            <p class="pl-2" v-if="student_data.student_id.length >= 30" style="color: red;">Maximum length
-                                reached</p>
+                                :style="{ borderColor: student_data.student_id.length >= 30 ? 'red' : '' }"
+                                > -->
+                            <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
+                                @change="this.fetchDataDisplayName" required >
                         </div>
                         <!-- <div v-if="student_data.lastname.length == 0"> -->
-                            <!-- <div v-if="this.student_data.length == 0" class="text-center">
+                        <!-- <div v-if="this.student_data.length == 0" class="text-center">
                                 <p class="text-muted">No student found with the given ID.</p>
                             </div> -->
                         <!-- </div> -->
@@ -194,7 +195,6 @@
                         <div class="mb-3">
                             <label for="reason" class="form-label">Year-level</label>
                             <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
-                                <option value="0" disabled selected>Select Year Level</option>
                                 <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
                                     year_level.year_level }}</option>
                             </select>
@@ -454,6 +454,9 @@ export default {
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
                     }
+                    else if (response.data.type == 2) {
+                        this.showError(response.data.message);
+                    }
                     else {
                         this.showSucces(response.data.message);
                         this.fetchData();
@@ -569,7 +572,9 @@ export default {
                         this.student_data.middlename = response.data.middle_name;
                     }
                     else {
-                        this.student_data = [];
+                        this.student_data.firstname = [];
+                        this.student_data.lastname = [];
+                        this.student_data.middlename = [];
                     }
                     // this.student_data.year_level_id = response.data.user_profile.year_level_id;
                     // this.student_data.college_id = response.data.user_profile.college_id;
