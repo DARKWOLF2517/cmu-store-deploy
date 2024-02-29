@@ -406,6 +406,9 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+            }, 1000);
                     this.fetchData();
                 })
                 .catch(error => {
@@ -451,6 +454,9 @@ export default {
                     }
                     else {
                         this.showSucces(response.data.message);
+                        setTimeout(() => {
+                        location.reload();
+            }, 1000);
                         this.fetchData();
                         // console.log(response.data)
                     }

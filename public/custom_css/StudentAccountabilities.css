@@ -1,4 +1,3 @@
-
 /* table {
     border-collapse: collapse;
     width: 100%;
@@ -17,8 +16,8 @@ td {
     overflow-x: hidden;
     height: 70vh;
     max-height: 70vh;
-  }
-.stud-accountability-card{
+}
+.stud-accountability-card {
     background-color: #ffffff;
     border-radius: 8px;
     margin: 10px;
@@ -28,13 +27,13 @@ td {
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     height: 170px;
-    }
-
+    width: 300;
+}
 
 /* td{
     text-align: center;
 } */
-.scroll-attendance{
+.scroll-attendance {
     height: 70vh;
     max-height: 70vh;
     overflow-y: auto;
@@ -44,14 +43,14 @@ td {
 .absent {
     color: #940b0b; /* Red color for absent */
     font-weight: bold;
-  }
+}
 
-  .present {
+.present {
     color: #1db64e; /* Green color for present */
     font-weight: bold;
-  }
+}
 
-#accountabilities-table{
+#accountabilities-table {
     background-color: white;
 
     /* box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1); */
@@ -60,49 +59,50 @@ td {
     background-color: #f8f8f8;
 
 } */
-.paid, .cleared {
+.paid,
+.cleared {
     color: green;
     font-weight: bold;
 }
 
-.unpaid, .not-cleared{
+.unpaid,
+.not-cleared {
     color: red;
     font-weight: bold;
 }
 
-.modal-content{
+.modal-content {
     border: none;
 }
 
 #edit-modal {
-display: none;
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 80vh; /* Adjust the width as needed */
-background-color: #fff;
-z-index: 1;
-height: 75vh;
-max-height: 65vh;
-
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vh; /* Adjust the width as needed */
+    background-color: #fff;
+    z-index: 1;
+    height: 75vh;
+    max-height: 65vh;
 }
-.sortable-header{
+.sortable-header {
     background-color: #53967c;
     color: white;
     text-align: center;
 }
 
-
-.modal{
+.modal {
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
-.form-control:disabled, .form-control[readonly] {
+.form-control:disabled,
+.form-control[readonly] {
     background-color: #ececec;
     opacity: 1;
 }
-#btn-accountabilities{
+#btn-accountabilities {
     width: 200px;
     margin: 0 auto;
 }
@@ -132,12 +132,12 @@ max-height: 65vh;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     width: calc(33.33% - 20px);
     height: 200px;
-    }
-    .ellipsis-button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        }
+}
+.ellipsis-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
 
 @media (max-width: 768px) {
     /* table {
@@ -200,14 +200,15 @@ max-height: 65vh;
     .stud-accountability-card {
         width: 100%;
     }
-    .total-payment, #totalPayment{
+    .total-payment,
+    #totalPayment {
         font-size: 15px !important;
     }
-    .accountability-card{
+    .accountability-card {
         width: 100%;
         height: auto;
     }
-    .alert{
+    .alert {
         font-size: 13px;
     }
 }
