@@ -20,14 +20,14 @@
 
             </select>
         </div>
-        <!-- <div class="select-dropdown" style="width: 30%;">
+        <div class="select-dropdown" style="width: 30%;">
 
             <select id="sort-select" class="form-control" style="text-align: center;">
                 <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                 <option value="fines">Fines</option>
                 <option value="others">Other Accountability</option>
             </select>
-        </div> -->
+        </div>
     </div>
 
 

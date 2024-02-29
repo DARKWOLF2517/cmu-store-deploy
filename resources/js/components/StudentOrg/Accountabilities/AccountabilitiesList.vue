@@ -200,10 +200,10 @@
                                 <td>{{ temporary_list.accountability_type.toUpperCase() }}</td>
                                 <td>{{ temporary_list.event_name }}</td>
 
-                  
+
                                 <td v-if="temporary_list.missing_session === 'N/A'">N/A</td>
                                 <td v-else>{{temporary_list.missing_session}}</td>
-                                
+
                                 <td style="display: none;">{{ temporary_list.missing_session }}</td>
                                 <td style="display: none;">{{ temporary_list.event_id }}</td>
                                 <td style="display: none;">{{ this.org_id }}</td>
@@ -259,9 +259,13 @@
                     </div>
                     <div>
                         <label for="type">Remarks</label>
-                        <br>
-                        <small>ex: Excuse, Fines, College Fee etc.</small>
-                        <input type="select" class="form-control" placeholder="Enter remarks">
+                        <div class="select-dropdown" id="remarks-btn" >
+                            <!-- First dropdown -->
+                            <select id="sort-select" class="form-control" style="text-align: center;" required>
+                                <option>Fines</option>
+                                <option>Excuse</option>
+                            </select>
+                        </div>
 
                     </div>
                     <div>
