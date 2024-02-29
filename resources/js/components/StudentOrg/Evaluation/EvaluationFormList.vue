@@ -178,9 +178,8 @@
                         </div>
                     </div>
                     <div class="feedback mb-3">
-                        <label for="feedback">Feedback</label>
-                        <textarea class="form-control" name="composeContent" id="Textarea1" row="7"
-                            placeholder="Type here.." readonly></textarea>
+                        <label for="feedback">Accept Feedback?</label>
+                        <small>Yes</small>
                     </div>
                 </div>
                 <div class="modal-footer">
