@@ -15,7 +15,7 @@
         </div>
         <hr>
         <div class="evaluation-body">
-            <div class="mt-2" v-for="question in this.questions">
+            <div class="mt-2" v-for="question in this.evaluation_with_questions_options.evaluation_question">
                 <label :for="'PA-' + question.id">{{ question.description }}</label>
                 <select class="form-control" :id="'PA-' + question.id" v-model="formData[question.id]">
                     <option disabled>Select choice</option>
@@ -27,12 +27,12 @@
 
 
 
-            <!-- <div class="form-group mt-4">
+            <div class="form-group mt-4" v-if="evaluation_with_questions_options.is_accept_feedback == 1">
                 <label for="feedback">Please write below any suggestions/recommendations on how we can improve the
                     Activity:</label>
                 <textarea class="form-control" id="feedback" rows="3" placeholder="Enter your feedback" required
-                    v-model="formData.q16"></textarea>
-            </div> -->
+                    v-model="this.feedback"></textarea>
+            </div>
 
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-success mt-2 mb-2 ml-auto"> Submit</button>
@@ -56,6 +56,7 @@ export default {
     data() {
         return {
             formData: {},
+            feedback: '',
             event_title: {
                 name: '',
                 organization: '',
@@ -63,16 +64,16 @@ export default {
                 location: '',
 
             },
-            questions: [],
+            evaluation_with_questions_options: [],
         }
     },
     methods: {
         submit() {
-            console.log(this.formData);
-            axios.post(`/submit_evaluation/${this.user_id}/${this.event_id}`, this.formData)
+            // console.log(this.formData);
+            axios.post(`/submit_evaluation/${this.user_id}/${this.event_id}/${this.feedback}`, this.formData)
                 .then(response => {
                     console.log(response.data)
-                    // window.location.href = "/student_evaluation_list"
+                    window.location.href = "/student_evaluation_list"
                 })
                 .catch(error => {
                     console.log(error)
@@ -105,7 +106,7 @@ export default {
             axios.get(`/get_evaluation_question/${this.evaluation_form_id}`)
                 .then(response => {
                     console.log(response.data)
-                    this.questions = response.data;
+                    this.evaluation_with_questions_options = response.data;
                 })
                 .catch(error => {
                     console.log(error)

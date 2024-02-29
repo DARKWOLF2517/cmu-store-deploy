@@ -16,5 +16,9 @@ class EvaluationAnswer extends Model
         'question_id',
         'option_id',
         'event_id',
+        'word_answer'
     ];
+    public function events(){
+        return $this->belongsTo(Event::class,'event_id','event_id');
+    }
 }

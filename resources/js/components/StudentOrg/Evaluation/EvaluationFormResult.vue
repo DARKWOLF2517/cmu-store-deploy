@@ -16,34 +16,80 @@
     <div class="col mt-2" id="evaluation-summary">
         <h3>STUDENT ORGANIZATIONS & ACTIVITIES EVALUATION FORM</h3>
         <hr>
-        <h6 for="Activity">Event: <b>bIRTHDAU</b> </h6>
-        <h6 for="StudentOrganization">Name of Organization: <b>dwdeef</b></h6>
-        <h6 for="DateTime">Date & Time: <b>efefefef</b></h6>
-        <h6 for="Venue">Venue: <b>effefe</b></h6>
+        <h6 for="Activity">Event: <b>{{ this.event_description.event_name }}</b> </h6>
+        <h6 for="StudentOrganization">Name of Organization: <b>{{this.event_description.org_name }}</b></h6>
+        <h6 for="DateTime">Date <b>{{ this.event_description.date }}</b></h6>
+        <h6 for="Venue">Venue: <b>{{ this.event_description.venue }}</b></h6>
         <div class="row">
             <div class="col" v-for="evaluation_questions in evaluation_question_id">
                 <div class="piechart" :id="evaluation_questions.id"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-12 feedback">
+                <h4>Feedbacks</h4>
+                <div class="feedbacklist-card">
+                    <ul class="list-group" id="evaluation-feedbacks">
+                        <li class="list-group-item mb-2" v-for="feedbacks in this.feedback">{{ feedbacks.word_answer }}</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 
+import { convertDate } from "../Functions/DateConverter.js";
 export default {
     props: ['event_id'],
     data() {
         return {
             evaluation_result: [],
             evaluation_question_id: [],
+            feedback:[],
+            event_description:{
+                event_name:'',
+                org_name: '',
+                date: '',
+                venue:'',
+            },
         }
     },
     mounted() {
+        this.fetchEvent();
         console.log('mounted')
         // this.pieChart();
         this.fetchAnswer();
+        this.fetchFeedback();
+       
     },
     methods: {
+        fetchFeedback() {
+            axios.get(`/get_evaluation_feedback/${this.event_id}`)
+                .then(response => {
+                    console.log(response.data);
+                    this.feedback = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        fetchEvent() {
+            axios.get(`/get_events/${this.event_id}`)
+                .then(response => {
+                    console.log(response.data);
+                    this.event_description.event_name = response.data.name;
+                    this.event_description.org_name = response.data.organization.name;
+                    this.event_description.date = convertDate(response.data.start_date);
+                    this.event_description.venue = response.data.location;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         fetchAnswer() {
             axios.get(`/evaluation_answer/${this.event_id}`)
                 .then(response => {
@@ -53,7 +99,6 @@ export default {
                         evaluation.evaluation_question.forEach(question => {
                             this.evaluation_question_id.push({
                                 id: question.id,
-
                             })
                             console.log(question);
                             let options = [];
@@ -69,13 +114,13 @@ export default {
                                     answers_option_id: element.option_id,
                                 })
                             });
-
                             //to count the result per options
                             let combinedData = options.concat(answers_temporary);
                             let counts = {};
 
                             combinedData.forEach(item => {
-                                if (item.option_id !== undefined) {5
+                                if (item.option_id !== undefined) {
+                                    5
                                     if (!counts[item.option_id]) {
                                         counts[item.option_id] = 0;
                                     }
@@ -87,8 +132,6 @@ export default {
                                     counts[item.answers_option_id]++;
                                 }
                             });
-
-                            // console.log(counts);
 
                             // Convert counts object to an array of objects
                             let answers = Object.entries(counts).map(([option_id, count]) => ({ option_id, count }));
@@ -103,33 +146,6 @@ export default {
                     console.log(error)
                 });
         },
-        // pieChart(question_id, question_desription) {
-        //     google.charts.load('current', { 'packages': ['corechart'] });
-        //     google.charts.setOnLoadCallback(display_chart(question_id, question_desription));
-        //     function display_chart(question_id, question_desription) {
-        //         var data = google.visualization.arrayToDataTable([
-
-        //             ['Registration', 'Percentage'],
-        //             ['Outstanding', 10],
-        //             ['Very Satisfactory', 10],
-        //             ['Satisfactory', 10],
-        //             ['Moderately Satisfactory', 10],
-        //             ['Needs Improvement', 10],
-        //         ]);
-
-        //         var options = {
-        //             title: question_desription,
-        //             pieSliceText: 'value',
-        //             is3D: true
-        //         };
-        //         var chart = new google.visualization.PieChart(document.getElementById(question_id));
-        //         chart.draw(data, options);
-        //     }
-
-
-
-
-        // },
         pieChart(question_id, question_description, question_options, question_answers) {
             // console.log('')
             // console.log(question_options)
@@ -155,9 +171,6 @@ export default {
                     var count = percentageMap[option.option_id] || 0; // Default to 0 if option_id not found
                     dataArray.push([option.option, count]);
                 });
-
-
-
                 dataArray.unshift(['Registration', 'Percentage']);
                 var data = google.visualization.arrayToDataTable(dataArray);
                 var chartOptions = {

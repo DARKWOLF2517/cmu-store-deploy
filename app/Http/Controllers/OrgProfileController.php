@@ -7,6 +7,7 @@ use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\OrganizationOfficer;
 use App\Models\Role;
 use App\Models\SchoolYear;
+use App\Models\User;
 use App\Models\UserOrganization;
 use App\Models\YearLevel;
 use Illuminate\Http\Request;
@@ -78,6 +79,10 @@ class OrgProfileController extends Controller
         {
             return response()->json(['message' => 'Already in the List','type' => 0]);
         }
+        if($this->UserCheck($request['student_id']) <= 0)
+        {
+            return response()->json(['message' => 'User Not Found','type' => 2]);
+        }
         else{
             $UserYearLevel = UserOrganization::where('student_id', $request['student_id'])->first();
             // Validate the form data
@@ -117,6 +122,14 @@ class OrgProfileController extends Controller
             ['student_id', $id],
             ['student_org_id', $org_id],
             ['role_id', $role_id]
+        ])->get();
+        $count = $records->count();
+        return $count;
+    }
+    public function UserCheck($id)
+    {
+        $records = User::where([
+            ['id', $id],
         ])->get();
         $count = $records->count();
         return $count;

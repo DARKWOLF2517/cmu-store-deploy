@@ -26,8 +26,8 @@
             <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
             <div class="event-buttons d-flex">
                 <div class="btn-group" role="group">
-                    <button class="btn me-2" id="add-event-button" data-bs-toggle="modal"
-                        data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
+                    <button @click="this.submit = this.submitForm" class="btn me-2" id="add-event-button" data-bs-toggle="modal"
+                        data-bs-target="#evaluation-modal" > <i class="fas fa-plus"></i>
                         Create form</button>
                 </div>
             </div>
@@ -37,7 +37,7 @@
     <div id="evaluation-container">
         <div class="evaluation-event-cards">
             <div class="event-card" style="width: 45vh !important; border-left-style: solid; border-left-color: #1b9587;"
-            v-for="evaluation in this.evaluation_form">
+                v-for="evaluation in this.evaluation_form">
 
                 <div class="dropdown">
                     <a class="ellipsis-button" href="#" style="color: #3e505d;" role="button" id="ellipsisDropdown"
@@ -48,10 +48,12 @@
                         <!-- option 1 -->
 
                         <li><a class="dropdown-item">Set as Default</a></li>
-                        <li><a class="dropdown-item">Edit Form</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#evaluation-modal"
+                                @click="this.submit = this.updateData ,fetchEditData(evaluation.id)">Edit Form</a></li>
                         <!-- option 2 -->
-                        <li><a class="dropdown-item" data-bs-toggle="modal"
-                                        data-bs-target="#deleteConfirmation">Delete Form</a></li>
+                        <li @click="evaluation_form_id = evaluation.id"><a class="dropdown-item" data-bs-toggle="modal"
+                                data-bs-target="#deleteConfirmation">Delete
+                                Form</a></li>
                         <!-- Add more dropdown items as needed -->
                     </ul>
                 </div>
@@ -59,7 +61,8 @@
                 <div class="evaluation-title mt-4">
                     <h5> <b>{{ evaluation.evaluation_title }}</b></h5>
                 </div>
-                <div class="evaluation-description">Total Questions: <b>{{ evaluation.evaluation_question.length }}</b></div>
+                <div class="evaluation-description">Total Questions: <b>{{ evaluation.evaluation_question.length }}</b>
+                </div>
                 <div>
                     <div class="evaluation-status text-muted">Date Created <b>{{ evaluation.created_at }}</b>
                     </div>
@@ -71,11 +74,13 @@
             </div>
         </div>
     </div>
+
+    <!-- add evaluation form  -->
     <div class="modal fade" id="evaluation-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
 
             <div class="modal-content">
-                <form @submit.prevent="this.saveForm()">
+                <form @submit.prevent="this.submit">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Create Evaluation Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -107,10 +112,10 @@
                                         @click="removeQuestion(questionindex)">X</button>
                                 </div>
                                 <div class="choice-container" style="padding-left: 15px;">
-                                    <div class="d-flex justify-content-start mb-3 mt-2">  <button type="button" class="btn btn-secondary add-question"
-                                        @click="addChoice(questionindex)">
-                                        <i class="fas fa-plus"></i> Add
-                                        Choice</button>
+                                    <div class="d-flex justify-content-start mb-3 mt-2"> <button type="button"
+                                            class="btn btn-secondary add-question" @click="addChoice(questionindex)">
+                                            <i class="fas fa-plus"></i> Add
+                                            Choice</button>
                                     </div>
 
                                     <div class="mb-3" v-for="(choice, index) in question.choices" :key="index">
@@ -130,7 +135,8 @@
                     <div class="modal-footer">
 
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="feedback">
+                            <input type="checkbox" class="form-check-input" id="feedback" v-model="this.acceptFeedback" :true-value="1"
+                                            :false-value="0">
                             <label for="feedback">Accept Feedback?</label>
                         </div>
                         <button type="submit" class="btn btn-success">Save Form</button>
@@ -151,22 +157,23 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <h3 for="formTitle" class="form-label">Evalution name: {{ evaluation.evaluation_title}}</h3>
+                        <h3 for="formTitle" class="form-label">Evalution name: {{ evaluation.evaluation_title }}</h3>
                     </div>
                     <div>
                         <label for="formDescription">Description:</label>
                         <p style="padding-left: 10px;">{{ evaluation.evaluation_description }}</p>
                     </div>
                     <div class="mb-3" v-for="(question, index) in evaluation.evaluation_question">
-                        <label for="question1" class="form-label fw-bold">Question {{ index +1 }}</label>
+                        <label for="question1" class="form-label fw-bold">Question {{ index + 1 }}</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="question1" :value="question.description" readonly>
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
-                                <label for="choices1" >Choices</label>
+                                <label for="choices1">Choices</label>
                                 <br>
-                                <small class="fw-bold" v-for="(choices, index) in question.evaluation_option"> {{ String.fromCharCode(65 + index)}}.  {{ choices.option }} &nbsp; </small>
+                                <small class="fw-bold" v-for="(choices, index) in question.evaluation_option"> {{
+                                    String.fromCharCode(65 + index) }}. {{ choices.option }} &nbsp; </small>
                             </div>
                         </div>
                     </div>
@@ -183,8 +190,8 @@
             </div>
         </div>
     </div>
-     <!-- Delete Modal -->
-     <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -207,12 +214,16 @@
 </template>
 <script>
 import { convertDate } from "../Functions/DateConverter.js";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import axios from 'axios';
 
 export default {
     props: ['organization_id', 'school_year_session'],
     data() {
         return {
+            submit: this.submitForm,
+            evaluation_form_id: 0,
             questions: [{
                 text: '',
                 choices: [{
@@ -220,6 +231,7 @@ export default {
                 }],
 
             }],
+            acceptFeedback: 0,
             school_year: [],
             school_year_input: this.school_year_session,
             formTitle: '',
@@ -263,15 +275,82 @@ export default {
         removeChoice(questionIndex, choiceIndex) {
             this.questions[questionIndex].choices.splice(choiceIndex, 1);
         },
-        saveForm() {
+        submitForm() {
             axios.post('/upload_evaluation_form', {
                 title: this.formTitle,
                 description: this.formDescription,
                 questions: this.questions,
                 org_id: this.organization_id,
+                accept_feedback: this.acceptFeedback,
             })
                 .then(response => {
                     console.log(response.data)
+                    this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        deleteData() {
+            axios.delete(`/delete_evaluation_form/${this.evaluation_form_id}`)
+                .then(response => {
+                    // console.log(response.data)
+                    this.showSucces(response.data.message);
+                    this.fetchEvaluationForms();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        fetchEditData(evaluation_id) {
+            this.evaluation_form_id = evaluation_id;
+            axios.get(`/fetchEvaluationFormUpdate/${evaluation_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    let data = response.data.evaluation_question;
+                    this.questions = [];
+                    this.questions = data.map(element => {
+                        let choices = element.evaluation_option.map(option => {
+                            return {
+                                text: option.option,
+                                id: option.id // Add id property to each choice
+                            };
+                        });
+
+                        return {
+                            text: element.description,
+                            id: element.id, // Add id property to the question
+                            choices: choices
+                        };
+                    });
+
+                    console.log(this.questions)
+                    this.formTitle = response.data.evaluation_title;
+                    this.formDescription = response.data.evaluation_description;
+                    this.acceptFeedback  = response.data.is_accept_feedback;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        updateData(){
+            axios.put('/updateEvaluationForm', {
+                evaluation_form_id: this.evaluation_form_id,
+                title: this.formTitle,
+                description: this.formDescription,
+                questions: this.questions,
+                org_id: this.organization_id,
+                accept_feedback: this.acceptFeedback,
+            })
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
                 })
                 .catch(error => {
                     console.log(error)
@@ -281,8 +360,8 @@ export default {
             axios.get(`/getEvaluationForm/${this.organization_id}`)
                 .then(response => {
                     console.log(response.data)
-                     response.data.forEach(item => {
-                    item["created_at"] = convertDate(item["created_at"]);
+                    response.data.forEach(item => {
+                        item["created_at"] = convertDate(item["created_at"]);
                     });
                     this.evaluation_form = response.data;
                 })
@@ -293,7 +372,12 @@ export default {
         viewEvaluationModal(evaluation_id) {
             console.log(evaluation_id)
             this.filteredEvaluationFormForModal = this.evaluation_form.filter(form => form.id === evaluation_id);
-            console.log( this.filteredEvaluationFormForModal)
+            console.log(this.filteredEvaluationFormForModal)
+        },
+        showSucces(message) {
+            toast.success(message), {
+                autoClose: 100,
+            }
         },
     }
 }
