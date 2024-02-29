@@ -199,12 +199,18 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
         Route::get('/evaluation_form{event_id}', [EvaluationController::class, 'GetEvaluationResult'])->name('fetchEvaluation');
         Route::get('/evaluation_form_answer/{event_id}', [EvaluationController::class, 'EvaluationFormAnswer']);
-        Route::get('/evaluation_answer/{event_id}', [EvaluationController::class, 'EvaluationAnswer']);
         Route::get('/evaluation_form_total_response/{event_id}', [EvaluationController::class, 'EvaluationTotalResponse']);
         Route::get('/events/evaluation/{org_id}/{school_year?}', [EventController::class, 'getEvaluationList'])->name('get-evaluation');
         //new evaluation//
+        Route::get('/evaluation_answer/{event_id}', [EvaluationController::class, 'EvaluationAnswer']);
         Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
         Route::get('/getEvaluationForm/{org_id}', [EvaluationController::class, 'getEvaluationForm']);
+        Route::delete('/delete_evaluation_form/{evaluation_form_id}', [EvaluationController::class, 'deleteEvaluationForm']);
+        Route::get('/get_evaluation_feedback/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
+        Route::get('/get_events/{event_id}', [EvaluationController::class, 'getEvents']);
+        Route::get('/fetchEvaluationFormUpdate/{evaluation_id}', [EvaluationController::class, 'getEvaluationFormUpdate']);
+        Route::put('/updateEvaluationForm', [EvaluationController::class, 'updateEvaluationForm']);
+
 
         #EVENT ROUTES
         Route::get('/events', [EventController::class, 'showEvents'])->name('events');
@@ -321,7 +327,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('student_evaluationform', function () {
             return view('student.student_evaluation_form');
         });
-        Route::post('/submit_evaluation/{user_id}/{event_id}', [EvaluationController::class, 'store']);
+        Route::post('/submit_evaluation/{user_id}/{event_id}/{feedback}', [EvaluationController::class, 'store']);
         Route::get('/evaluation_form/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
         Route::get('/get_evaluation_question/{evaluation_form_id}', [EvaluationController::class, 'getEvaluationQuestion']);
     });

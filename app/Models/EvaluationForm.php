@@ -15,6 +15,7 @@ class EvaluationForm extends Model
         'evaluation_title',
         'evaluation_description',
         'org_id',
+        'is_accept_feedback',
     ];
 
     public function event_evaluation(){

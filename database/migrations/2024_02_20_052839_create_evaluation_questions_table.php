@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('evaluation_form_id');
             $table->string('description');
             $table->timestamps();
-            $table->foreign('evaluation_form_id')->references('id')->on('evaluation_form');
+            $table->foreign('evaluation_form_id')->references('id')->on('evaluation_form')->onDelete('cascade');
         });
     }
 

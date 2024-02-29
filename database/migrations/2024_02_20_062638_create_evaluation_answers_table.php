@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('evaluation_answers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('question_id');
-            $table->unsignedBigInteger('option_id');
+            $table->unsignedBigInteger('question_id')->nullable();
+            $table->unsignedBigInteger('option_id')->nullable();
             $table->unsignedBigInteger('event_id');
+            $table->longText('word_answer')->nullable();
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();

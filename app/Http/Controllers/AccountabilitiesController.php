@@ -205,7 +205,7 @@ class AccountabilitiesController extends Controller
     {
         $attendance = FreeFinesStudent::find($student_id);
         $attendance->update(['reason' => $reason]);
-        return response()->json(['message' => 'Attendance Status of ']);
+        return response()->json(['message' => 'Updated Successfully']);
     }
     public function accountabilitiesFetchUpdate($id)
     {

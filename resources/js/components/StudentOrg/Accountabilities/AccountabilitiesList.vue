@@ -200,11 +200,10 @@
                                 <td>{{ temporary_list.accountability_type.toUpperCase() }}</td>
                                 <td>{{ temporary_list.event_name }}</td>
 
-                                <td v-if="temporary_list.missing_session === 1">Morning (in)</td>
-                                <td v-else-if="temporary_list.missing_session === 2">Morning (out)</td>
-                                <td v-else-if="temporary_list.missing_session === 3">Afternoon (in)</td>
-                                <td v-else-if="temporary_list.missing_session === 4">Afternoon (out)</td>
-                                <td v-else-if="temporary_list.missing_session === 'N/A'">N/A</td>
+                  
+                                <td v-if="temporary_list.missing_session === 'N/A'">N/A</td>
+                                <td v-else>{{temporary_list.missing_session}}</td>
+                                
                                 <td style="display: none;">{{ temporary_list.missing_session }}</td>
                                 <td style="display: none;">{{ temporary_list.event_id }}</td>
                                 <td style="display: none;">{{ this.org_id }}</td>
