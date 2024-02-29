@@ -165,7 +165,7 @@
                                 </button>
                                 <div class="collapse" id="evaluation-collapse">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                        <li><a href="/student_organization_evaluation" class="link-dark rounded"><i class="fas fa-folder"></i> Evaluation files</a></li>
+                                        <li><a href="/student_organization_evaluation" class="link-dark rounded"><i class="fas fa-folder"></i> Records</a></li>
                                         <li><a href="/student_organization_evaluation_forms" class="link-dark rounded"><i class="fas fa-file"></i> Evaluation forms</a></li>
                                     </ul>
                                 </div>
@@ -238,7 +238,7 @@
                                         <li><a href="/student_organization_set_accountabilities" class="link-dark rounded"><i class="fas fa-file-invoice-dollar"></i> Set Fee</a></li>
                                         <li><a href="/student_organization_free_fines" class="link-dark rounded"><i class="fas fa-check-square"></i> Set Free Fines</a></li>
                                         <li><a href="/student_organization_accountabilities_list" class="link-dark rounded"><i class="fas fa-book"></i> Accountability list</a></li>
-                                        <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i> Payment list</a></li>
+                                        <li><a href="/student_organization_accountabilities_records" class="link-dark rounded"><i class="fas fa-file-invoice"></i> Payment history</a></li>
                                         {{-- <li><a href="/student_organization_accountability_report" class="link-dark rounded"><i class="fas fa-chart-line"></i> Accountability Report</a></li> --}}
                                     </ul>
                                 </div>
