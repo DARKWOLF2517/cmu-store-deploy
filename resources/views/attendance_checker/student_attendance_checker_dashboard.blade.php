@@ -10,53 +10,16 @@
 
         <div class="row">
             <div class="col mt-2">
-                <div class="welcome-card">
+                <div class="welcome-card" style="height: 40vh !important;">
                     <div class="welcome-text">
                         <p>{{Session::get('org_name')}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- <div class="row mt-2">
-            <div class="col-md-4 col-sm-6 ">
-                <div class="statistic">
-                    <org-dashboard-counter
-                        :org_id = {{Session::get('org_id')}}
-                        :school_year_session = {{Session::get('school_year')}}
-                        card_label="Members"
-                        target_route="view_org_total_members"
-                        icons="fas fa-users card-icon"
-
-                    ></org-dashboard-counter>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 ">
-                <div class="statistic">
-                    <org-dashboard-counter
-                        :org_id = {{Session::get('org_id')}}
-                        :school_year_session = {{Session::get('school_year')}}
-                        card_label="Created Events"
-                        target_route="events_count"
-                        icons="fas fa-clock card-icon ongoing-events"
-                    ></org-dashboard-counter>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 ">
-                <div class="statistic">
-                    <org-dashboard-counter
-                        :org_id = {{Session::get('org_id')}}
-                        :school_year_session = {{Session::get('school_year')}}
-                        card_label="Completed Events"
-                        target_route="complete_events_count"
-                        icons="fas fa-check card-icon completed-events"
-                    ></org-dashboard-counter>
-                </div>
-            </div>
-        </div> --}}
-
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="timeline-schedule">
+                    <div class="timeline-schedule" style="height: 55vh !important; max-height: 55vh !important;">
                         <div class="timeline-header">
                             <i class="bi bi-list"></i> Event Timeline
                         </div>
@@ -93,8 +56,8 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-6 mb-2">
-                    <div class="announcement">
+                <div class="col-lg-4 col-md-6 mb-2" >
+                    <div class="announcement" style="height: 55vh !important; max-height: 55vh !important;">
                         <div class="announcement-header">
                             <i class="bi bi-list"></i> Announcement
                         </div>
@@ -104,40 +67,12 @@
                                 <i class="icon 	fas fa-bullhorn" id="icon-message"></i>
                                 <p class="empty-schedule">Announcements show up here</p>
                             </div>
-                            {{-- <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
-                            <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
-                            <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
-                            <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
 
-                <div class="col-lg-4 col-md-12 mb-2">
-                    <div id="calendar">
+                <div class="col-lg-4 col-md-12 mb-2" >
+                    <div id="calendar" style="height: 55vh !important; max-height: 55vh !important;">
                         <dashboard-calendar
                             :org_id = {{Session::get('org_id')}}
                             :school_year_session = {{Session::get('school_year')}}
