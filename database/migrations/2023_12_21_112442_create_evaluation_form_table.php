@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('evaluation_title');
             $table->longText('evaluation_description');
             $table->unsignedBigInteger('org_id');
+            $table->tinyInteger('is_accept_feedback');
             $table->timestamps();
 
             $table->foreign('org_id')->references('org_id')->on('organizations')->onDelete('cascade');
