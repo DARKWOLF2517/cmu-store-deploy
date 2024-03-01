@@ -246,7 +246,7 @@ export default {
                     const data = response.data;
                     data.forEach(item => {
                         console.log(item);
-                        item['created_at'] = converTime(item['created_at'] );
+                        item['created_at'] = converTime(item['time'] );
                         item['events']['start_date'] = convertDate(item['events']['start_date']);
                         this.event.event_title = item['events']['name'];
                         this.event.event_date = item['events']['start_date'];
