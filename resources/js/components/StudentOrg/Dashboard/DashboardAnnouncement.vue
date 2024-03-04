@@ -13,7 +13,7 @@
                 <p class="empty-schedule">Announcements show up here</p>
             </div>
             <div class="announcement-card-list">
-                <div class="announcement-card" v-for="announcement in this.announcement">
+                <div class="announcement-card" v-for="announcement in this.announcement" @click="goToAnnouncement(announcement.id)">
                     <span class="Organization text-success"> <b>{{ announcement.title }}</b></span>
                     <div class="date-time-posted">
                         <span class="date-time-uploaded"><i><small>{{ announcement.date }}</small></i></span>
@@ -62,6 +62,9 @@ export default {
                 });
 
         },
+        goToAnnouncement(announcementId) {
+        this.$router.push(`/announcement/${announcementId}`);
+    },
 
     }
 
