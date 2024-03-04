@@ -17,6 +17,7 @@ class CreateEvaluationSeeder extends Seeder
             'evaluation_title' =>'Sample Evaluation Form',
             'evaluation_description' =>'This sample is an example of an Evalutaion Form',
             'org_id' => '1',
+            'is_accept_feedback' => '1',
         ]);
     }
 }

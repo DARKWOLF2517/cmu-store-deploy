@@ -30,6 +30,7 @@
         "fullcalendar": "^6.1.9",
         "html2canvas": "^1.4.1",
         "instascan": "^1.0.0",
+        "jspdf": "^2.5.1",
         "qrcode": "^1.5.3",
         "qrcode.vue": "^3.4.0",
         "vue": "^3.2.36",

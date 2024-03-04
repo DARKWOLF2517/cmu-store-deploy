@@ -2,33 +2,37 @@
     <!-- <h6>1. PROGRAM/ACTIVITY</h6> -->
     <div class="btn-group d-flex justify-content-end p-2" role="group">
         <div>
-            <button class="btn me-2" id="print-results-button">
-                <i class="fas fa-print"></i> Print Results
-            </button>
-            <button class="btn me-2" id="download-results-button">
-                <i class="fas fa-download"></i> Download Results
-            </button>
+            <button id="print-button" class="btn me-2" @click="printSummary()">
+               <i class="fas fa-print"></i>
+                Print Results</button>
+                <!-- <button class="btn me-2" id="download-results-button" @click="downloadPDF()">
+    <i class="fas fa-download"></i> Download Results
+</button>
             <a class="btn me-2" href="/student_organization_evaluation_results_table">
                 <i class="fas fa-eye"></i> View Table
-            </a>
+            </a> -->
         </div>
     </div>
     <div class="col mt-2" id="evaluation-summary">
         <h3>STUDENT ORGANIZATIONS & ACTIVITIES EVALUATION FORM</h3>
         <hr>
-        <h6 for="Activity">Event: <b>{{ this.event_description.event_name }}</b> </h6>
-        <h6 for="StudentOrganization">Name of Organization: <b>{{this.event_description.org_name }}</b></h6>
-        <h6 for="DateTime">Date <b>{{ this.event_description.date }}</b></h6>
-        <h6 for="Venue">Venue: <b>{{ this.event_description.venue }}</b></h6>
+        <p class="mb-0" for="Activity">Event: <b>{{ this.event_description.event_name }}</b> </p>
+        <p class="mb-0" for="StudentOrganization">Name of Organization: <b>{{this.event_description.org_name }}</b></p>
+        <p class="mb-0" for="DateTime">Date <b>{{ this.event_description.date }}</b></p>
+        <p class="mb-0" for="Venue">Venue: <b>{{ this.event_description.venue }}</b></p>
+
         <div class="row">
             <div class="col" v-for="evaluation_questions in evaluation_question_id">
                 <div class="piechart" :id="evaluation_questions.id"></div>
             </div>
         </div>
-
+<br>
+<br>
+<br>
+<br>
         <div class="row">
             <div class="col-md-12 col-12 feedback">
-                <h4>Feedbacks</h4>
+                <h4 >Feedbacks</h4>
                 <div class="feedbacklist-card">
                     <ul class="list-group" id="evaluation-feedbacks">
                         <li class="list-group-item mb-2" v-for="feedbacks in this.feedback">{{ feedbacks.word_answer }}</li>
@@ -41,6 +45,8 @@
 
 <script>
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import { convertDate } from "../Functions/DateConverter.js";
 export default {
@@ -64,7 +70,7 @@ export default {
         // this.pieChart();
         this.fetchAnswer();
         this.fetchFeedback();
-       
+
     },
     methods: {
         fetchFeedback() {
@@ -174,6 +180,8 @@ export default {
                 dataArray.unshift(['Registration', 'Percentage']);
                 var data = google.visualization.arrayToDataTable(dataArray);
                 var chartOptions = {
+                    width: 500,
+                    height: 340,
                     title: question_description,
                     pieSliceText: 'value',
                     is3D: true
@@ -182,8 +190,36 @@ export default {
                 var chart = new google.visualization.PieChart(document.getElementById(question_id));
                 chart.draw(data, chartOptions);
             });
-        }
+        },
+        printSummary(){
+    const contentToPrint = document.getElementById('evaluation-summary').cloneNode(true);
 
+ // Create a hidden iframe for printing
+ const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+    const iframeDoc = iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write(`
+    <!DOCTYPE html>
+<html><head><title>Evaluation  Results</title> </head>
+<body>
+    ${contentToPrint.innerHTML}
+    </body>
+</html>
+
+`);
+iframeDoc.close();
+
+// Print the iframe content
+iframe.contentWindow.focus();
+iframe.contentWindow.print();
+
+// Remove the iframe after printing
+setTimeout(() => {
+    document.body.removeChild(iframe);
+}, 1000);
+},
     }
 
 }

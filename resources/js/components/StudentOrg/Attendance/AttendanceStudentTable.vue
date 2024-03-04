@@ -51,7 +51,7 @@
         <div class="scroll-pane" id="table-list" style="height: 70vh !important; max-height: 70vh;">
             <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
             <p>Date: <b>{{ this.event.event_date }}</b> </p>
-            <table>
+            <table id="accountabilities-table">
                 <thead>
                     <tr>
                         <th class="sortable-header" style="width: 10%;">Student ID</th>
@@ -286,56 +286,48 @@ export default {
             }
         },
         printTable() {
-            // Create a hidden iframe for printing
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
+    // Clone the table element to avoid modifying the original table
+    const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
 
-            // Generate the printable HTML document in the iframe
-            const iframeDoc = iframe.contentWindow.document;
-            iframeDoc.open();
-            iframeDoc.write(`
-      <html>
-      <head>
-          <title>Print</title>
-          <!-- Include Bootstrap stylesheet link -->
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-      </head>
-      <body>
+    // Create a hidden iframe for printing
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    // Generate the printable HTML document in the iframe
+    const iframeDoc = iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write(`
+        <html>
+        <head>
+            <title>Print</title>
+            <!-- Include Bootstrap stylesheet link -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        </head>
+        <body>
           <!-- Add a title before the table -->
           <h2>Attendance Record</h2>
-          <br>
           <h5 id="Eventtitle"> Event: <b>${this.event.event_title}</b></h5>
           <p>Date: <b>${this.event.event_date}</b></p>
 
           <!-- Add Bootstrap table classes -->
           <table class="table table-bordered table-striped">
-              <thead>
-                  <tr>
-                      <th>Student ID</th>
-                      <th>Student Name</th>
-                      <th>College</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  ${this.generateTableRows(this.filtered_attendance)}
-              </tbody>
-          </table>
+                ${tableToPrint.innerHTML}
+            </table>
       </body>
       </html>
   `);
-            iframeDoc.close();
+  iframeDoc.close();
 
-            // Print the iframe content
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
+// Print the iframe content
+iframe.contentWindow.focus();
+iframe.contentWindow.print();
 
-            // Remove the iframe after printing
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-            }, 1000);
-        },
-
+// Remove the iframe after printing
+setTimeout(() => {
+    document.body.removeChild(iframe);
+}, 1000);
+},
         generateTableRows(data) {
             let rows = '';
             data.forEach(item => {
@@ -344,49 +336,50 @@ export default {
               <td>${item.user_id}</td>
               <td>${item.user.name}</td>
               <td>${item.college.college} </td>
+              <td>${item.created_at} </td>
           </tr>
       `;
             });
             return rows;
         },
         downloadTable() {
-            // Get the table data specifically from attendance
-            const tableData = this.getAttendanceTableData();
+    // Create a temporary download link
+    const link = document.createElement('a');
+    link.style.display = 'none';
+    document.body.appendChild(link);
 
-            // Create a workbook
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.aoa_to_sheet(tableData);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    // Generate CSV content from the table
+    const csvContent = [];
+    const headers = [
+        ...document.querySelectorAll('#accountabilities-table th')
+    ].map(header => header.innerText.replace(/"/g, '""'));
+    csvContent.push(headers.join(','));
 
-            // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'AttendanceRecord.xlsx');
-        },
+    // Add rows with all columns
+    const rows = document.querySelectorAll('#accountabilities-table tbody tr');
+    rows.forEach(row => {
+        const columns = [
+            ...row.querySelectorAll('td')
+        ].map(column => column.innerText.replace(/"/g, '""'));
+        csvContent.push(columns.join(','));
+    });
 
-        getAttendanceTableData() {
-            // Get a reference to the attendance data
-            const data = this.attendance;
+    // Convert CSV content to a Blob
+    const csvBlob = new Blob(['\uFEFF' + csvContent.join('\n')], {
+        type: 'text/csv;charset=utf8;'
+    });
 
-            // Initialize an array to store the table data
-            const tableData = [];
+    // Set the link's href and download attributes
+    link.href = window.URL.createObjectURL(csvBlob);
+    link.download = `${this.event.event_title}_attendance_record.csv`;
 
-            // Iterate through the attendance data
-            for (let i = 0; i < data.length; i++) {
-                const rowData = [];
+    // Trigger the download
+    link.click();
 
-                // Add the desired data fields to the rowData array
-                rowData.push(data[i].student_id);
-                rowData.push(data[i].user.name);
-                rowData.push(data[i].user.name);
-                rowData.push(data[i].college.college);
-
-                // Push the row data to the tableData array
-                tableData.push(rowData);
-            }
-
-            // Return the table data
-            return tableData;
-        },
-    },
+    // Clean up
+    document.body.removeChild(link);
+},
+    }
 }
 
 </script>

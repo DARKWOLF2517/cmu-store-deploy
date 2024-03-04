@@ -9,8 +9,8 @@
             </div>
             <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
                 <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
-                        @change="fetchEvaluationForms">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="school_year_input" @change="fetchEvaluationForms">
                         <option value="" disabled selected>Select Semester</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
                             school_year['school_year'] }}
@@ -26,8 +26,8 @@
             <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
             <div class="event-buttons d-flex">
                 <div class="btn-group" role="group">
-                    <button @click="this.submit = this.submitForm" class="btn me-2" id="add-event-button" data-bs-toggle="modal"
-                        data-bs-target="#evaluation-modal" > <i class="fas fa-plus"></i>
+                    <button @click="this.submit = this.submitForm" class="btn me-2" id="add-event-button"
+                        data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
                         Create form</button>
                 </div>
             </div>
@@ -36,7 +36,25 @@
 
     <div id="evaluation-container">
         <div class="evaluation-event-cards">
-            <div class="event-card" style="width: 45vh !important; border-left-style: solid; border-left-color: #1b9587;"
+            <!-- Loading spinner -->
+            <div v-if="loading && !evaluation_form.length" class="loading-spinner-container">
+                <div class="spinner-border text-success" id="event-spinner" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <!-- Message if the container is empty -->
+            <div class="Container-IfEmpty text-center" v-if="!loading && evaluation_form.length === 0">
+                <div class="Empty-Message">
+                    <i class="icon 	fas fa-folder" id="icon-message"></i>
+                    <p class="text-muted"><b>Evaluation is Empty</b>
+                        <br>
+                        Evaluation Cards show up here
+                    </p>
+                </div>
+            </div>
+
+            <div class="event-card"
+                style="width: 45vh !important; border-left-style: solid; border-left-color: #1b9587;"
                 v-for="evaluation in this.evaluation_form">
 
                 <div class="dropdown">
@@ -49,7 +67,7 @@
 
                         <li><a class="dropdown-item">Set as Default</a></li>
                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#evaluation-modal"
-                                @click="this.submit = this.updateData ,fetchEditData(evaluation.id)">Edit Form</a></li>
+                                @click="this.submit = this.updateData, fetchEditData(evaluation.id)">Edit Form</a></li>
                         <!-- option 2 -->
                         <li @click="evaluation_form_id = evaluation.id"><a class="dropdown-item" data-bs-toggle="modal"
                                 data-bs-target="#deleteConfirmation">Delete
@@ -67,8 +85,8 @@
                     <div class="evaluation-status text-muted">Date Created <b>{{ evaluation.created_at }}</b>
                     </div>
                 </div>
-                <button class="btn btn-success view-button" data-bs-toggle="modal" data-bs-target="#evaluation-form-modal"
-                    @click="this.viewEvaluationModal(evaluation.id)">
+                <button class="btn btn-success view-button" data-bs-toggle="modal"
+                    data-bs-target="#evaluation-form-modal" @click="this.viewEvaluationModal(evaluation.id)">
                     View</button>
                 <!-- <button class="view-button"> <i class="fas fa-chevron-right button-icon"></i></button> -->
             </div>
@@ -94,8 +112,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="formDescription" class="form-label">Input Description</label>
-                            <textarea class="form-control" id="formDescription" rows="3" v-model="formDescription" required
-                                maxlength="200"></textarea>
+                            <textarea class="form-control" id="formDescription" rows="3" v-model="formDescription"
+                                required maxlength="200"></textarea>
                         </div>
                         <div class="d-flex justify-content-end mb-3">
                             <button type="button" class="btn btn-primary add-question" @click="this.addQuestion()"> <i
@@ -104,7 +122,8 @@
                         </div>
                         <div class="question-container" style="height: 60vh; max-height: 60vh;  overflow-y: auto;">
                             <div class="mb-3" v-for="(question, questionindex) in questions" :key="questionindex">
-                                <label for="question1" class="form-label fw-bold">Question {{ questionindex + 1 }}</label>
+                                <label for="question1" class="form-label fw-bold">Question {{ questionindex + 1
+                                    }}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" :id="'question' + (questionindex + 1)"
                                         :ref="'question' + (questionindex + 1)" v-model="question.text">
@@ -135,8 +154,8 @@
                     <div class="modal-footer">
 
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="feedback" v-model="this.acceptFeedback" :true-value="1"
-                                            :false-value="0">
+                            <input type="checkbox" class="form-check-input" id="feedback" v-model="this.acceptFeedback"
+                                :true-value="1" :false-value="0">
                             <label for="feedback">Accept Feedback?</label>
                         </div>
                         <button type="submit" class="btn btn-success">Save Form</button>
@@ -148,7 +167,8 @@
         </div>
     </div>
     <!-- View Evaluation Form Modal -->
-    <div class="modal fade" id="evaluation-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="evaluation-form-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content" v-for="evaluation in this.filteredEvaluationFormForModal">
                 <div class="modal-header">
@@ -166,14 +186,15 @@
                     <div class="mb-3" v-for="(question, index) in evaluation.evaluation_question">
                         <label for="question1" class="form-label fw-bold">Question {{ index + 1 }}</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="question1" :value="question.description" readonly>
+                            <input type="text" class="form-control" id="question1" :value="question.description"
+                                readonly>
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
                                 <label for="choices1">Choices</label>
                                 <br>
                                 <small class="fw-bold" v-for="(choices, index) in question.evaluation_option"> {{
-                                    String.fromCharCode(65 + index) }}. {{ choices.option }} &nbsp; </small>
+                            String.fromCharCode(65 + index) }}. {{ choices.option }} &nbsp; </small>
                             </div>
                         </div>
                     </div>
@@ -211,6 +232,7 @@
         </div>
     </div>
 </template>
+
 <script>
 import { convertDate } from "../Functions/DateConverter.js";
 import { toast } from 'vue3-toastify';
@@ -221,6 +243,7 @@ export default {
     props: ['organization_id', 'school_year_session'],
     data() {
         return {
+            loading: true,
             submit: this.submitForm,
             evaluation_form_id: 0,
             questions: [{
@@ -306,8 +329,10 @@ export default {
         },
         fetchEditData(evaluation_id) {
             this.evaluation_form_id = evaluation_id;
+            this.loading = true;
             axios.get(`/fetchEvaluationFormUpdate/${evaluation_id}`)
                 .then(response => {
+                    this.loading = false;
                     console.log(response.data)
                     let data = response.data.evaluation_question;
                     this.questions = [];
@@ -329,13 +354,13 @@ export default {
                     console.log(this.questions)
                     this.formTitle = response.data.evaluation_title;
                     this.formDescription = response.data.evaluation_description;
-                    this.acceptFeedback  = response.data.is_accept_feedback;
+                    this.acceptFeedback = response.data.is_accept_feedback;
                 })
                 .catch(error => {
                     console.log(error)
                 });
         },
-        updateData(){
+        updateData() {
             axios.put('/updateEvaluationForm', {
                 evaluation_form_id: this.evaluation_form_id,
                 title: this.formTitle,
