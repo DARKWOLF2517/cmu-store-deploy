@@ -11,8 +11,16 @@
             <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
                 @change="fetchData">
                 <option value="0" disabled selected>Select Semester</option>
-                <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year'] }}
+                <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year']
+                    }}
                 </option>
+            </select>
+        </div>
+        <div class="select-dropdown d-flex justify-content-end" v-if="this.college_id == 11">
+            <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input"
+                @change="filterItems">
+                <option value="0" disabled selected>Select College</option>
+                <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
             </select>
         </div>
         <!-- <div class="select-dropdown">
@@ -81,7 +89,8 @@
                                     <p class="text-muted fw-bold">No results found</p>
                                 </div>
                             </div> -->
-                    <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id" :key="fees_list.user_id">
+                    <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id"
+                        :key="fees_list.user_id">
                         <td>{{ fees_list.user_id }}</td>
                         <td> {{ fees_list.name }}</td>
                         <!-- <td>{{ fees_list.accountability_type.toUpperCase()}}</td> -->
@@ -90,14 +99,14 @@
                         <td>
                             <button class="view-button btn" data-bs-toggle="modal"
                                 data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fees_list.user_id),
-                                    this.finesPay = {
-                                        student_id: fees_list.user_id,
-                                        // student_name: fees_list.name,
-                                        // accountability_name: fees_list.accountability_type,
-                                        total_amount: fees_list.total_fees,
-                                        student_org_id: this.org_id,
-                                    }
-                                    ">
+                this.finesPay = {
+                    student_id: fees_list.user_id,
+                    // student_name: fees_list.name,
+                    // accountability_name: fees_list.accountability_type,
+                    total_amount: fees_list.total_fees,
+                    student_org_id: this.org_id,
+                }
+                ">
                                 <i class="fas fa-eye"></i> See More
                             </button>
                         </td>
@@ -202,7 +211,7 @@
 
 
                                 <td v-if="temporary_list.missing_session === 'N/A'">N/A</td>
-                                <td v-else>{{temporary_list.missing_session}}</td>
+                                <td v-else>{{ temporary_list.missing_session }}</td>
 
                                 <td style="display: none;">{{ temporary_list.missing_session }}</td>
                                 <td style="display: none;">{{ temporary_list.event_id }}</td>
@@ -215,6 +224,11 @@
                     </table>
                 </div>
                 <div class="modal-footer">
+                    <div v-for="summary in this.temporary_list_summary">
+                        <label >Remaining Balance: {{ summary.label }}: {{ summary.amount }}  </label>
+                    </div>
+                    
+
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                         data-bs-target="#ReceiveModal">Receive Payment</button>
@@ -242,44 +256,47 @@
                 </div>
             </div> -->
     <!-- Receive PaymentModal -->
-    <div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <form @submit.prevent="checkPaymentAmount">
+        <div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <p>Enter the amount you have received:</p>
-                        <input type="number" class="form-control" v-model="this.paymentAmount" required>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Input Amount Received</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div>
-                        <label for="type">Remarks</label>
-                        <div class="select-dropdown" id="remarks-btn" >
-                            <!-- First dropdown -->
-                            <select id="sort-select" class="form-control" style="text-align: center;" required>
-                                <option>Fines</option>
-                                <option>Excuse</option>
-                            </select>
+
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <p>Enter the amount you have received:</p>
+                            <input type="number" class="form-control" v-model="this.paymentAmount" required>
                         </div>
+                        <div>
+                            <label for="type">Remarks</label>
+                            <div class="select-dropdown" id="remarks-btn">
+                                <!-- First dropdown -->
+                                <select id="sort-select" class="form-control" style="text-align: center;"
+                                    v-model="this.accountability_type" required>
+                                    <option v-for="remarks in this.temporary_list_summary" :value="remarks.label">{{
+                remarks.label }}</option>
+                                </select>
+                            </div>
 
-                    </div>
-                    <div>
+                        </div>
+                        <div>
 
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
-                        data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
-                    <button type="submit" class="btn btn-success" @click="this.checkPaymentAmount">Receive</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
+                            data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Receive</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
     <!-- Confirmation Modal -->
     <div class="modal fade" id="ConfirmationModal" ref="myModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -295,7 +312,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                        @click="this.SubmitPayment()">Confirm</button>
+                        @click.prevent="this.SubmitPayment()">Confirm</button>
                 </div>
             </div>
         </div>
@@ -322,6 +339,7 @@ export default {
             total_fees: [],
             other_accountabilities_list: [],
             temporary_list: [],
+            temporary_list_summary: [],
             // select_accountability: 'fines',
             searchTerm: '',
             filtered_items_for_fines: [],
@@ -335,10 +353,24 @@ export default {
             loading: true,
             paymentAmount: null,
             showConfirmation: false,
+            accountability_type: '',
+            college_list: [],
+            college_id: 0, //college id of the organization
+            college_data_input: 0,
+            selected_user_id: 0,
+            payment_list: [],
 
         }
     },
     computed: {
+        // // Computed property to filter out duplicate accountability types
+        // uniqueAccountabilityTypes() {
+        //     const uniqueTypes = new Set();
+        //     this.temporary_list.forEach(remarks => {
+        //         uniqueTypes.add(remarks.accountability_type);
+        //     });
+        //     return Array.from(uniqueTypes);
+        // },
         totalPages() {
             return Math.ceil(this.fees_list.length / this.itemsPerPage);
         },
@@ -419,14 +451,37 @@ export default {
     created() {
         this.fetchData();
         this.showSchoolYear();
+        this.showCollege();
+        this.getOrgCollege();
 
     },
 
     methods: {
+        getOrgCollege() {
+            axios.get(`/get_organization_college/${this.org_id}`)
+                .then(response => {
+                    this.college_id = response.data;
+                    this.college_data_input = this.college_id;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        showCollege() {
+            axios.get(`/view_college`)
+                .then(response => {
+                    this.college_list = response.data;
+                    // console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         showSchoolYear() {
             axios.get(`get_school_year`)
                 .then(response => {
                     this.school_year = response.data;
+                    console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error)
@@ -436,15 +491,29 @@ export default {
 
         },
         checkPaymentAmount() {
-            if (this.paymentAmount) {
-                // proceed with submission
-                this.SubmitPayment();
-                window.location.reload();
+            // console.log(this.selected_user_id)
 
-            } else {
-                // show error
-                alert('Please enter an amount')
-            }
+            console.log(this.payment_list)
+            // if (this.payment_list.length == 0) {
+            //     if (this.paymentAmount > this.temporary_list_summary[this.accountability_type]) {
+            //         alert('payment is above total')
+            //     }
+            //     else {
+            //         this.SubmitPayment();
+            //     }
+            // }
+            // else {
+
+            //     // let balance = this.temporary_list_summary[this.accountability_type] - totalsByType[this.accountability_type];
+
+            //     if (this.paymentAmount > balance) {
+            //         alert('amount is over to the remaining balance')
+            //     }
+            //     else {
+            //         this.SubmitPayment();
+            //     }
+            // }
+
         },
         // getTableData1(){
         //     // Get a reference to the table
@@ -475,7 +544,8 @@ export default {
 
         SubmitPayment() {
             // for adding payment database
-            axios.post(`/FinesAccountabilityPayment/${this.school_year_input}/${this.paymentAmount}`, this.finesPay)
+            console.log(this.accountability_type)
+            axios.post(`/FinesAccountabilityPayment/${this.school_year_input}/${this.paymentAmount}/${this.accountability_type}`, this.finesPay)
                 .then(response => {
                     if (response.data.status == 0) {
                         this.showError(response.data.message);
@@ -526,23 +596,17 @@ export default {
         // },
         filterItems() {
             //FILTER OF FINES
-            this.filtered_items_for_fines = this.fees_list.filter(item => {
+            this.filtered_items_for_fines = this.total_fees.filter(item => {
                 return (
                     item.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
                     item.user_id.toString().includes(this.searchTerm)
                 );
             });
-            // //FILTER FOR OTHER ACCOUNTABILITIES
-            // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list.filter(item => {
-            //     return (
-            //         item.name.toLowerCase().includes(this.searchTerm.toLowerCase())||
-            //         item.user_id.toString().includes(this.searchTerm)
-            //     );
-            // });
+            console.log(this.filtered_items_for_fines)
         },
 
-        viewAccountabilities(user_id) {
-            // console.log(this.overall_fees_list)
+        async viewAccountabilities(user_id) {
+            this.selected_user_id = user_id;
             this.temporary_list = [];
             this.overall_fees_list.forEach(fines => {
                 if (fines.user_id == user_id) {
@@ -558,7 +622,62 @@ export default {
                     });
                 }
             })
-            // console.log(this.temporary_list)
+            console.log(this.temporary_list)
+
+            // Calculate total amount for each accountability type
+            const totalsByType = [];
+            this.temporary_list.forEach(item => {
+                const { accountability_type, amount } = item;
+                if (totalsByType[accountability_type]) {
+                    totalsByType[accountability_type] += amount;
+                } else {
+                    totalsByType[accountability_type] = amount;
+                }
+            });
+            // this.temporary_list_summary = totalsByType;
+
+
+            //to get the payments list
+            await axios.get(`/get_student_payments/${this.selected_user_id}`)
+                .then(response => {
+                    this.payment_list = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
+            //total the amount if it is repeating 
+            const totalsByTypePayment = [];
+            this.payment_list.forEach(item => {
+                const { accountability_type, amount } = item;
+                if (totalsByTypePayment[accountability_type]) {
+                    totalsByTypePayment[accountability_type] += amount;
+                } else {
+                    totalsByTypePayment[accountability_type] = amount;
+                }
+            });
+
+            // Function to subtract current balance from payment in database
+            const subtractAmounts = (source, target) => {
+                for (const [type, amount] of Object.entries(target)) {
+                    if (source[type]) {
+                        source[type] -= amount;
+                    }
+                }
+            };
+
+            // Subtract amounts from totalsByType
+            subtractAmounts(totalsByType, totalsByTypePayment); 
+            // Convert object to array of objects
+            const newArray = [];
+            for (const key in totalsByType) {
+                if (totalsByType.hasOwnProperty(key)) {
+                    newArray.push({ label: key, amount: totalsByType[key] });
+                }
+            }
+
+            this.temporary_list_summary = newArray;
+            console.log(this.temporary_list_summary)
         },
 
 
@@ -582,22 +701,22 @@ export default {
                     const year_level = response.data.year_level;
                     const year_level_exempted = response.data.year_level_exempted;
                     let free_fines = response.data.free_fines;
-                    const change_user_year_level = []
-                    user_orgs.forEach(element => {
+                    // const change_user_year_level = []
+                    // user_orgs.forEach(element => {
 
-                        //change the year level id to year level name
-                        const findYear = year_level.find(year => year.id === element.year_level_id)
-                        if (findYear) {
-                            change_user_year_level.push({
-                                student_org_id: element.student_org_id,
-                                student_id: element.student_id,
-                                role_id: element.role_id,
-                                year_level_id: findYear.year_level,
-                            })
-                        }
+                    //     //change the year level id to year level name
+                    //     const findYear = year_level.find(year => year.id === element.year_level_id)
+                    //     if (findYear) {
+                    //         change_user_year_level.push({
+                    //             student_org_id: element.student_org_id,
+                    //             student_id: element.student_id,
+                    //             role_id: element.role_id,
+                    //             year_level_id: findYear.year_level,
+                    //         })
+                    //     }
 
 
-                    });
+                    // });
 
                     //CHANGE THE YEAR LEVEL TO NAME INSTEAD OF ID
                     // user_orgs = change_user_year_level;
@@ -625,16 +744,16 @@ export default {
                     });
                     events_with_attendance.forEach(attend => {
                         // if (attend.attendance_count == 1) {
-                            for (let index = 1; index <= attend.attendance_count; index++) {
-                                const session_count = {
-                                    event_id: attend.event_id,
-                                    session: index,
-                                    fines: attend.fines,
-                                    date: attend.start_date,
-                                }
-                                this.events.push(session_count);
+                        for (let index = 1; index <= attend.attendance_count; index++) {
+                            const session_count = {
+                                event_id: attend.event_id,
+                                session: index,
+                                fines: attend.fines,
+                                date: attend.start_date,
                             }
-                            console.log(this.events)
+                            this.events.push(session_count);
+                        }
+                        console.log(this.events)
                         // }
                         // else if (attend.attendance_count == 2) {
                         //     for (let index = 1; index <= 2; index++) {
@@ -969,10 +1088,10 @@ export default {
                     }
                     // this.filtered_items_for_fines = this.total_fees;
                     //if the filtered items has zero value
-                    this.filtered_items_for_fines = this.total_fees.filter(item => item.total_fees != 0);
-                    // this.filtered_items_for_fines = this.total_fees;
+                    this.total_fees = this.total_fees.filter(item => item.total_fees != 0);
+                    this.filtered_items_for_fines = this.total_fees;
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
-                    // console.log(this.total_fees)
+
                 })
                 .catch(error => {
                     console.log(error)

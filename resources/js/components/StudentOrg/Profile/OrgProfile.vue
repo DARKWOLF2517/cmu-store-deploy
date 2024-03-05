@@ -846,21 +846,22 @@ export default {
                 });
         },
         addOfficer() {
+            console.log('akjdsfkasdkfjasklfdklasfjlkasfjklasfdjkl')
             axios.post('/add_org_officer', this.addOfficersData)
                 .then(response => {
                     // console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-                        this.showOfficer();
+    
                     }
                     else if (response.data.type == 2){
                         this.showError(response.data.message);
                     }
                     else {
                         this.showSucces(response.data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
                         this.showOfficer();
 
                     }

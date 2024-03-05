@@ -189,6 +189,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/update_single_student', [UserController::class, 'updateSingleStudent']);
         Route::delete('/delete_single_student/{id}', [UserController::class, 'deleteSingleStudent']);
         Route::get('/view_college', [UserController::class, 'viewCollege']);
+        Route::get('/get_organization_college/{org_id}', [UserController::class, 'viewOrgCollege']);
 
         #ATTENDANCE ROUTES
 
@@ -229,13 +230,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/fees_list/{org_id}/{school_year}', [AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
         Route::put('/update_event_attendance_status/{event_id}/{status}/{session}', [AccountabilitiesController::class, 'updateEventAttendanceStatus']);
         Route::post('/OtherAccountabilityPayment', [AccountabilitiesController::class, 'OtherAccountabilityPayment']);
-        Route::post('/FinesAccountabilityPayment/{school_year}/{amount}', [AccountabilitiesController::class, 'FinesAccountabilityPayment']);
+        Route::post('/FinesAccountabilityPayment/{school_year}/{amount}/{accountability_type}', [AccountabilitiesController::class, 'FinesAccountabilityPayment']);
         Route::post('/attendanceFill', [AccountabilitiesController::class, 'attendanceFill']);
         Route::delete('/delete_organization_accountability/{accountability_id}', [AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
         Route::get('/paid_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'PaidAccountabilities']);
         Route::get('/accountabilities_fetch_update/{id}', [AccountabilitiesController::class, 'accountabilitiesFetchUpdate']);
         Route::put('/update_accountabilities/{id}', [AccountabilitiesController::class, 'updateAccountabilities']);
         Route::get('/get_org_accountability/{org_id}/{school_year}', [AccountabilitiesController::class, 'getOrgAccountability']);
+        Route::get('/get_student_payments/{student_id}', [AccountabilitiesController::class, 'getStudentPayments']);
 
         #ORG PROFILE ROUTES
         Route::post('/add_school_year', [OrgProfileController::class, 'addSchoolYear']);

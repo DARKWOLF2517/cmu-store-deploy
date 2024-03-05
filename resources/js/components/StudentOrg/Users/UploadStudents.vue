@@ -20,16 +20,16 @@
                 style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
 
                 <div class="select-dropdown d-flex justify-content-end">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
-                        @change="fetchData">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="school_year_input" @change="fetchData">
                         <option value="0" disabled selected>Select School Year</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                            school_year['school_year'] }}</option>
+                        school_year['school_year'] }}</option>
                     </select>
                 </div>
-                <div class="select-dropdown d-flex justify-content-end">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input"
-                        @change="filterItems">
+                <div class="select-dropdown d-flex justify-content-end" v-if="this.college_id == 11">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="college_data_input" @change="filterItems">
                         <option value="0" disabled selected>Select College</option>
                         <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                     </select>
@@ -148,7 +148,8 @@
 
     </div>
     <!-- Add student Modal -->
-    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -167,7 +168,7 @@
                                 :style="{ borderColor: student_data.student_id.length >= 30 ? 'red' : '' }"
                                 > -->
                             <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
-                                @change="this.fetchDataDisplayName" required >
+                                @change="this.fetchDataDisplayName" required>
                         </div>
                         <!-- <div v-if="student_data.lastname.length == 0"> -->
                         <!-- <div v-if="this.student_data.length == 0" class="text-center">
@@ -196,7 +197,7 @@
                             <label for="reason" class="form-label">Year-level</label>
                             <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
                                 <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
-                                    year_level.year_level }}</option>
+                        year_level.year_level }}</option>
                             </select>
                         </div>
                         <!-- <div class="mb-3">
@@ -256,7 +257,7 @@
                                 v-model="year_level_data_input">
                                 <option value="0" disabled selected>Select Year Level</option>
                                 <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
-                                    year_level.year_level }}</option>
+                        year_level.year_level }}</option>
                             </select>
                         </div>
                     </div>
@@ -319,7 +320,8 @@ export default {
             itemsPerPage: 10,
             year_level_data: [],
             college_list: [],
-            college_data_input: 0,
+            college_data_input: 0, 
+            college_id: 0,//colege data of the organization
             year_level_data_input: 0,
             student_data: {
                 student_id: '',
@@ -418,8 +420,19 @@ export default {
         this.showSchoolYear();
         this.showYearLevel();
         this.showCollege();
+        this.getOrgCollege();
     },
     methods: {
+        getOrgCollege() {
+            axios.get(`/get_organization_college/${this.org_id}`)
+                .then(response => {
+                    this.college_id = response.data;
+                    this.college_data_input = this.college_id;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         deleteSingleStudents() {
             axios.delete(`/delete_single_student/${this.fetchID}`)
                 .then(response => {
@@ -497,7 +510,7 @@ export default {
             }
             // Filter based on filterStatus from select option
             let filteredByCollege = this.studentList;
-            if (this.college_data_input) {
+            if (this.college_data_input && this.college_data_input != 11) {
                 filteredByCollege = filteredByCollege.filter(item =>
                     item.user_profile.college.id.toString().includes(this.college_data_input)
                 );
@@ -809,6 +822,7 @@ export default {
     }
 }
 </script>
+
 <style>
 button.page-link {
     display: inline-block;

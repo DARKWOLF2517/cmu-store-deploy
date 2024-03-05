@@ -248,4 +248,12 @@ class UserController extends Controller
         $userOrg->delete();
         return response()->json(['message' => 'Student Deleted successfully']);
     }
+
+    public function viewOrgCollege($org_id)
+    {
+        $orgCollege = Organization::where('org_id', $org_id)->first();
+
+        return $orgCollege->college_id;
+    }
+
 }

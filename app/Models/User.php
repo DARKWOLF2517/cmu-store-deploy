@@ -30,7 +30,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserOrganization::class,  'student_id');
     }
-
+    public function user_profile()
+    {
+        return $this->belongsTo(UserProfile::class,  'user_id');
+    }
     // public function hasRole($roleName)
     // {
     //     return $this->user_organization->role_id === $roleName;

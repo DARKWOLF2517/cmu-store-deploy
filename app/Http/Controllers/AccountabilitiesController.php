@@ -101,7 +101,7 @@ class AccountabilitiesController extends Controller
             $accountability->save();
             return response()->json(['message' => 'Accountability Paid Successfully']);
     }
-    public function FinesAccountabilityPayment($school_year,$amount,Request $request)
+    public function FinesAccountabilityPayment($school_year,$amount,$accountability_type,Request $request)
     {
         if($amount > $request->total_amount){
             return response()->json(['message' => 'Amount is Greater than the balance', 'status' => 0]);
@@ -119,6 +119,7 @@ class AccountabilitiesController extends Controller
                     'student_org_id' => $validatedData['student_org_id'],
                     'amount' => $amount,
                     'school_year' => $school_year,
+                    'accountability_type' => $accountability_type,
                 ]);
                 $accountability->save();
                 return response()->json(['message' => 'Accountability Paid Successfully', 'status' => 1]);
@@ -235,6 +236,12 @@ class AccountabilitiesController extends Controller
     public function fetchAccountabilities($org_id)
     {
         $accountabilities = OrganizationAccountability::where([['org_id', $org_id]])->get();
+        return $accountabilities->toJson();
+
+    }
+    public function getStudentPayments($student_id)
+    {
+        $accountabilities = PaidAccountability::where([['student_id', $student_id]])->get();
         return $accountabilities->toJson();
 
     }

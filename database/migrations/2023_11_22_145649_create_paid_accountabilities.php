@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('student_org_id');
             $table->double('amount');
             $table->unsignedBigInteger('school_year');
+            $table->string('accountability_type');
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('users');
             $table->foreign('student_org_id')->references('org_id')->on('organizations');

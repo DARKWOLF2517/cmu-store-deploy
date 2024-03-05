@@ -20,9 +20,9 @@
                         <option :value="4" v-if="attendance_count >= 4">Session 4</option>
                     </select>
                 </div>
-                <div class="select-dropdown d-flex justify-content-end">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input"
-                        @change="filterItems">
+                <div class="select-dropdown d-flex justify-content-end" v-if="this.college_id == 11">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="college_data_input" @change="filterItems">
                         <option value="0" disabled selected>Select College</option>
                         <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                     </select>
@@ -65,7 +65,7 @@
                         <td>{{ attendance.user_id }}</td>
                         <td>{{ attendance.user_profile.first_name }} {{ attendance.user_profile.last_name }}</td>
                         <td>{{ attendance.user_profile.college.college }}</td>
-                        <td>{{ attendance.created_at}}</td>
+                        <td>{{ attendance.created_at }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -106,6 +106,7 @@ export default {
             filtered_attendance: [],
             college_list: [],
             college_data_input: 0,
+            college_id: 0,//college id of the organization
         };
     },
     computed: {
@@ -186,8 +187,19 @@ export default {
     mounted() {
         this.fetchData();
         this.showCollege();
+        this.getOrgCollege();
     },
     methods: {
+        getOrgCollege() {
+            axios.get(`/get_organization_college/${this.organization_id}`)
+                .then(response => {
+                    this.college_id = response.data;
+                    this.college_data_input = this.college_id;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         showCollege() {
             axios.get(`/view_college`)
                 .then(response => {
@@ -224,7 +236,7 @@ export default {
             }
 
             let filteredByCollege = this.attendance;
-            if (this.college_data_input !== undefined && this.college_data_input !== null) {
+            if (this.college_data_input !== undefined && this.college_data_input !== null && this.college_data_input != 11) {
                 filteredByCollege = filteredByCollege.filter(item =>
                     item.user_profile.college.id === parseInt(this.college_data_input, 10)
                 );
@@ -246,7 +258,7 @@ export default {
                     const data = response.data;
                     data.forEach(item => {
                         console.log(item);
-                        item['created_at'] = converTime(item['time'] );
+                        item['created_at'] = converTime(item['time']);
                         item['events']['start_date'] = convertDate(item['events']['start_date']);
                         this.event.event_title = item['events']['name'];
                         this.event.event_date = item['events']['start_date'];
@@ -286,18 +298,18 @@ export default {
             }
         },
         printTable() {
-    // Clone the table element to avoid modifying the original table
-    const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
+            // Clone the table element to avoid modifying the original table
+            const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
 
-    // Create a hidden iframe for printing
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
+            // Create a hidden iframe for printing
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
 
-    // Generate the printable HTML document in the iframe
-    const iframeDoc = iframe.contentWindow.document;
-    iframeDoc.open();
-    iframeDoc.write(`
+            // Generate the printable HTML document in the iframe
+            const iframeDoc = iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(`
         <html>
         <head>
             <title>Print</title>
@@ -317,17 +329,17 @@ export default {
       </body>
       </html>
   `);
-  iframeDoc.close();
+            iframeDoc.close();
 
-// Print the iframe content
-iframe.contentWindow.focus();
-iframe.contentWindow.print();
+            // Print the iframe content
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
 
-// Remove the iframe after printing
-setTimeout(() => {
-    document.body.removeChild(iframe);
-}, 1000);
-},
+            // Remove the iframe after printing
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 1000);
+        },
         generateTableRows(data) {
             let rows = '';
             data.forEach(item => {
@@ -343,42 +355,42 @@ setTimeout(() => {
             return rows;
         },
         downloadTable() {
-    // Create a temporary download link
-    const link = document.createElement('a');
-    link.style.display = 'none';
-    document.body.appendChild(link);
+            // Create a temporary download link
+            const link = document.createElement('a');
+            link.style.display = 'none';
+            document.body.appendChild(link);
 
-    // Generate CSV content from the table
-    const csvContent = [];
-    const headers = [
-        ...document.querySelectorAll('#accountabilities-table th')
-    ].map(header => header.innerText.replace(/"/g, '""'));
-    csvContent.push(headers.join(','));
+            // Generate CSV content from the table
+            const csvContent = [];
+            const headers = [
+                ...document.querySelectorAll('#accountabilities-table th')
+            ].map(header => header.innerText.replace(/"/g, '""'));
+            csvContent.push(headers.join(','));
 
-    // Add rows with all columns
-    const rows = document.querySelectorAll('#accountabilities-table tbody tr');
-    rows.forEach(row => {
-        const columns = [
-            ...row.querySelectorAll('td')
-        ].map(column => column.innerText.replace(/"/g, '""'));
-        csvContent.push(columns.join(','));
-    });
+            // Add rows with all columns
+            const rows = document.querySelectorAll('#accountabilities-table tbody tr');
+            rows.forEach(row => {
+                const columns = [
+                    ...row.querySelectorAll('td')
+                ].map(column => column.innerText.replace(/"/g, '""'));
+                csvContent.push(columns.join(','));
+            });
 
-    // Convert CSV content to a Blob
-    const csvBlob = new Blob(['\uFEFF' + csvContent.join('\n')], {
-        type: 'text/csv;charset=utf8;'
-    });
+            // Convert CSV content to a Blob
+            const csvBlob = new Blob(['\uFEFF' + csvContent.join('\n')], {
+                type: 'text/csv;charset=utf8;'
+            });
 
-    // Set the link's href and download attributes
-    link.href = window.URL.createObjectURL(csvBlob);
-    link.download = `${this.event.event_title}_attendance_record.csv`;
+            // Set the link's href and download attributes
+            link.href = window.URL.createObjectURL(csvBlob);
+            link.download = `${this.event.event_title}_attendance_record.csv`;
 
-    // Trigger the download
-    link.click();
+            // Trigger the download
+            link.click();
 
-    // Clean up
-    document.body.removeChild(link);
-},
+            // Clean up
+            document.body.removeChild(link);
+        },
     }
 }
 

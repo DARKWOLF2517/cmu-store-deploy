@@ -128,7 +128,7 @@ class OrgProfileController extends Controller
     }
     public function UserCheck($id)
     {
-        $records = User::where([
+        $records = UserOrganization::where([
             ['id', $id],
         ])->get();
         $count = $records->count();
