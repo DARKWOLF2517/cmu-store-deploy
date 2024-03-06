@@ -190,6 +190,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <div v-for="summary in this.temporary_list_summary">
+                        <h5 class="text-success" > <b>Remaining Balance: </b>   </h5>
+                        <h5 class="ms-4">  {{ summary.label }}: <b>&#8369; {{ summary.amount }}.00</b> </h5>
+                    </div>
                     <table class="table" id="temporaryList">
                         <thead>
                             <tr>
@@ -218,17 +222,12 @@
                                 <td style="display: none;">{{ this.org_id }}</td>
                                 <td style="display: none;">{{ this.user_id }}</td>
                                 <td>{{ temporary_list.date }} </td>
-                                <td style="text-align: right;">&#8369; {{ temporary_list.amount }} </td>
+                                <td style="text-align: right;">&#8369; {{ temporary_list.amount }}.00 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <div v-for="summary in this.temporary_list_summary">
-                        <label>Remaining Balance: {{ summary.label }}: {{ summary.amount }} </label>
-                    </div>
-
-
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
                         data-bs-target="#ReceiveModal">Receive Payment</button>
@@ -652,7 +651,7 @@ export default {
                     console.log(error)
                 });
 
-            //total the amount if it is repeating 
+            //total the amount if it is repeating
             const totalsByTypePayment = [];
             this.payment_list.forEach(item => {
                 const { accountability_type, amount } = item;

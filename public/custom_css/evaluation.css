@@ -1,6 +1,6 @@
 #evaluation-container {
     height: 73vh;
-    max-height: 73vh;
+
     border: none;
 }
 
@@ -20,7 +20,7 @@ box-sizing: border-box;
 display: flex;
 flex-direction: column;
 box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-width: calc(33.33% - 20px);
+width: calc(33.33% - 100px);
 /* height: 210px; */
 }
 

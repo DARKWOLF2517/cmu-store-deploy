@@ -7,13 +7,13 @@ table {
   }
 
   .scroll-pane{
-    height: 63vh;
-    max-height:63vh;
+    height: 70vh;
+max-height: 70vh;
     overflow-y: auto;
   }
   #table-list{
-    height: 63vh;
-    max-height: 63vh;
+    height: 70vh;
+max-height: 70vh;
     overflow-y: auto;
   }
   #student-list-table, #accountabilities-table th{
@@ -23,11 +23,9 @@ table {
     font-weight: bold;
     padding: 5px !important;
   }
-  /* #student-list-table td, #accountabilities-table td{
-    padding: 10px !important;
-  } */
+
 thead{
-    background-color: #e4f8ee;
+    background-color: rgb(132, 192, 180);
     position: sticky;
     top: 0;
 }
@@ -38,7 +36,7 @@ thead th{
     /* background-color: #60b192; */
     /* color: white; */
     padding: 10px;
-    color: rgb(26, 26, 26);
+    color: rgb(255, 255, 255);
     /* border-bottom: none !important; */
 }
   td{
@@ -82,9 +80,8 @@ thead th{
   #table-container{
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-    padding: 5px;
-    height: 73vh;
-    max-height: 73vh;
+    padding: 10px;
+    height: 100%;
     width: 100%;
     background-color: #ffffff;
 
@@ -93,15 +90,6 @@ thead th{
     margin-bottom: 0 !important;
 }
 
-/* #table-container{
-    border-radius: 10px;
-    margin-top: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    height: 60vh;
-    max-height: 60vh;
-    background-color: #ffffff;
-} */
   .ellipsis-button{
     background-color: transparent;
     border: none;

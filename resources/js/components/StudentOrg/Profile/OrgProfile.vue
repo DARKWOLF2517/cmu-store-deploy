@@ -273,11 +273,11 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <h5 class="modal-title fw-bold text-center" id="editDetailsModalLabel">Edit Student Organization
+                            <h5 class="modal-title fw-bold text-center mb-4" id="editDetailsModalLabel">Edit Student Organization
                                 Details</h5>
-                            <label for="editDescription">Description:</label>
+                            <label for="editDescription">Description</label>
                             <input type="text" class="form-control" id="editDescription"
-                                v-model="org_details_profile_input.description" maxlength="100"
+                                v-model="org_details_profile_input.description" required maxlength="100"
                                 :style="{ borderColor: org_details_profile_input.description.length >= 100 ? 'red' : '' }">
                             <p class="pl-2" v-if="org_details_profile_input.description.length >= 100" style="color: red;">
                                 Maximum length reached</p>
@@ -295,7 +295,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
+                            <button type="submit" class="btn btn-success" :disabled="isSubmitting">Save changes</button>
                         </div>
                     </form>
                 </div>
@@ -329,7 +329,7 @@
                         <!-- Add more form fields as needed -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Add Year Level</button>
+                            <button type="submit" class="btn btn-success" :disabled="isSubmitting">Add Year Level</button>
                         </div>
 
                     </form>
@@ -474,11 +474,11 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <div v-if="this.addOfficerSubmit == this.addOfficer">
-                                <button type="submit" class="btn btn-success mt-2">Add
+                                <button type="submit" class="btn btn-success" :disabled="isSubmitting">Add
                                     Officer</button>
                             </div>
                             <div v-else-if="this.addOfficerSubmit == this.updateOfficer">
-                                <button type="submit" class="btn btn-success mt-2">Update
+                                <button type="submit" class="btn btn-success">Update
                                     Officer</button>
                             </div>
                         </div>
@@ -574,6 +574,7 @@ export default {
                 year_level: ''
             },
             loading: true,
+            isSubmitting: false,
 
         }
     },
@@ -592,6 +593,7 @@ export default {
     },
     methods: {
         updateYearLevel() {
+            this.isSubmitting = true;
             axios.put(`/update_year_level/${this.year_level_id}`, this.year_level_input)
                 .then(response => {
                     // console.log(response.data)
@@ -628,6 +630,7 @@ export default {
                 });
         },
         addYearLevel() {
+            this.isSubmitting = true;
             axios.post('/add_year_level', this.year_level_input)
                 .then(response => {
                     this.showSucces(response.data.message);
@@ -663,7 +666,6 @@ export default {
                         location.reload();
                     }, 500);
                     this.showOrgProfile();
-
                 })
                 .catch(error => {
                     console.error(error);
@@ -711,6 +713,8 @@ export default {
         },
         updateOfficerRole() {
             // console.log(this.updatedOfficerRoleData)
+            this.isSubmitting = true;
+
             axios.put(`/update_officer_role/${this.updateOfficerRoleID}`, this.updatedOfficerRoleData)
                 .then(response => {
                     // console.log(response.data)
@@ -758,6 +762,8 @@ export default {
 
         },
         addOfficerRole() {
+            this.isSubmitting = true;
+
             // find year level to add
             let year_level = this.orgOfficers.find(item => item.student_id == this.addOfficerRoleData.student_id);
             this.addOfficerRoleData = {
@@ -846,16 +852,21 @@ export default {
                 });
         },
         addOfficer() {
-            console.log('akjdsfkasdkfjasklfdklasfjlkasfjklasfdjkl')
+            this.isSubmitting = true;
             axios.post('/add_org_officer', this.addOfficersData)
                 .then(response => {
                     // console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
-    
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
                     }
                     else if (response.data.type == 2){
                         this.showError(response.data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
                     }
                     else {
                         this.showSucces(response.data.message);

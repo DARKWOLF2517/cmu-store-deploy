@@ -19,11 +19,11 @@
             <div class="col-md-6 col-sm-12">
                 <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                 <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
-                        @change="fetchData">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="school_year_input" @change="fetchData">
                         <option value="0" disabled selected>Select School Year</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                            school_year['school_year'] }}
+                        school_year['school_year'] }}
                         </option>
                     </select>
                 </div>
@@ -46,7 +46,7 @@
     <div class="announcement-list">
         <div class="col">
             <div class="announcement-container" id="announcement-container">
-                <div class="announcement-cards-list ">
+                <div class="announcement-cards-list align-items">
                     <!-- Loading spinner -->
                     <div v-if="this.loading" class="loading-spinner-container">
                         <div class="spinner-border text-success" id="event-spinner" role="status">
@@ -65,14 +65,17 @@
                     </div>
                     <!-- Message No results found -->
                     <div class="Container-IfEmpty text-center"
-                        v-if="!loading && this.filtered_announcements.length == 0 && this.announcements != 0">
+                        v-if="!loading && this.filtered_announcements.length == 0">
                         <div class="Empty-Message">
-                            <i class="icon 	fas fa-frown" id="icon-message"></i>
-                            <p class="text-muted fw-bold">No result Found</p>
+                            <i class="icon 	bi bi-megaphone" id="icon-message"></i>
+                            <p class="text-muted"><b>Announcements here</b>
+                                <br>
+                                No Announcements yet, Create Announcements Now!
+                            </p>
                         </div>
                     </div>
                     <div v-for="announcements in this.filtered_announcements">
-                        <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
+                        <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587; border-right-style: solid; border-right-color: #1b9587;">
                             <div class="dropdown">
                                 <a class="ellipsis-button" href="#" style="color: black;" role="button"
                                     id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -129,15 +132,19 @@
                             v-else-if="this.submit == this.updateData">Update Announcement</h5>
                         <div class="mb-3">
                             <label class="form-label">Title</label>
-                            <input type="text" class="form-control" v-model="announcement_data.title" required maxlength="50"
-                            :style="{ borderColor: announcement_data.title.length >= 50 ? 'red' : '' }">
-                            <p class="pl-2" v-if="announcement_data.title.length >= 50" style="color: red;">Maximum length reached</p>
+                            <input type="text" class="form-control" v-model="announcement_data.title" required
+                                maxlength="50"
+                                :style="{ borderColor: announcement_data.title.length >= 50 ? 'red' : '' }">
+                            <p class="pl-2" v-if="announcement_data.title.length >= 50" style="color: red;">Maximum
+                                length reached</p>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea class="form-control" v-model="announcement_data.description" required maxlength="255"
-            :style="{ borderColor: announcement_data.description.length >= 255 ? 'red' : '' }"></textarea>
-                            <p v-if="announcement_data.description.length >= 255" style="color: red;">Maximum length reached</p>
+                            <textarea class="form-control" v-model="announcement_data.description" required
+                                maxlength="255"
+                                :style="{ borderColor: announcement_data.description.length >= 255 ? 'red' : '' }"></textarea>
+                            <p v-if="announcement_data.description.length >= 255" style="color: red;">Maximum length
+                                reached</p>
                         </div>
                         <div class="mb-3">
                             <label for="starts_at" class="form-label fw-bold">Starts at</label>
@@ -155,35 +162,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" ref="submitButton">Submit</button>
+                        <button type="submit" class="btn btn-success" ref="submitButton"   :disabled="isSubmitting">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- View Modal -->
-    <!-- <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="fullDetailsModalLabel">Full Announcement Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <h6 class="card-title mt-2 mb-2">Announcement: <strong>Lulinghayaw</strong></h6>
-          <small class="date-upload">11/9/2023 - 10:12 AM</small>
-          <p class="card-description">
-            {{ cardDescription }}
-          </p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -231,6 +215,7 @@ export default {
             },
             loading: false,
             showMessage: false,
+            isSubmitting: false,
         }
     },
     mounted() {
@@ -251,6 +236,7 @@ export default {
                 });
         },
         updateData() {
+            this.isSubmitting = true;
             axios.put(`/updateAnnouncement/${this.id}`, this.announcement_data)
                 .then(response => {
                     // console.log(response.data)
@@ -258,7 +244,7 @@ export default {
                     this.showSucces(response.data.message);
                     setTimeout(() => {
                         location.reload();
-            }, 1000);
+                    }, 1000);
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -286,7 +272,7 @@ export default {
                     this.showSucces(response.data.message);
                     setTimeout(() => {
                         location.reload();
-            }, 500);
+                    }, 500);
                 })
                 .catch(error => {
                     this.$refs.submitButton.disabled = false;
@@ -335,6 +321,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false;
                 });
         },
 
