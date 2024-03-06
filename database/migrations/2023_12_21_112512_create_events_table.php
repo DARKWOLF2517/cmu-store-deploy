@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('attendance_session_started')->default(0);
             $table->boolean('evaluation_status')->default(0);
             $table->boolean('attendance_status')->default(0);
+            $table->boolean('event_status')->default(0);
             $table->double('fines')->default(0);
             
             $table->unsignedBigInteger('school_year');

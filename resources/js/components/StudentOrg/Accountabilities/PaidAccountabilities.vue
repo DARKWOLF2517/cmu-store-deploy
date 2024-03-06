@@ -81,7 +81,7 @@
                         <!-- <td>{{ paid['accountability_name'] }}</td> -->
                         <td> {{ paid['created_at'] }}</td>
                         <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}.00</td>
-                        <td>shshs</td>
+                        <td>{{ paid['accountability_type'] }}</td>
                     </tr>
 
                 </tbody>

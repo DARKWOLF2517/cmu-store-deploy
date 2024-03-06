@@ -12,6 +12,7 @@ use App\Models\Event;
 use App\Models\EventEvaluation;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Question\Question;
+use Illuminate\Database\QueryException;
 
 class  EvaluationController extends Controller
 {
@@ -77,8 +78,18 @@ class  EvaluationController extends Controller
     }
     public function deleteEvaluationForm($evaluation_form_id)
     {
-        EvaluationForm::where('id', $evaluation_form_id)->delete();
-        return response()->json(['message' => 'Evaluation Form Deleted Successfully']);
+        try {
+            EvaluationForm::where('id', $evaluation_form_id)->delete();
+            return response()->json(['message' => 'Evaluation Form Deleted Successfully' ,'status' => 1]);
+        } catch (QueryException $e) {
+            // Check if the exception is due to a foreign key constraint
+            if ($e->errorInfo[1] === 1451) {
+                return response()->json(['message' => 'Cannot delete the form because there are existing records to this form' ,'status' => 0]);
+            }
+
+            // Handle other database errors
+            return response()->json(['message' => 'Database error: ' . $e->getMessage() ,'status' => 0]);
+        }
     }
     public function store(Request $request, $user_id, $event_id, $feedback)
     {

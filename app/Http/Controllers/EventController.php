@@ -11,47 +11,46 @@ use App\Models\SchoolYear;
 use App\Models\User;
 use App\Models\YearLevel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 class EventController extends Controller
 {
     public function showEvents()
-    {           
+    {
         return view('student_organization.student_organization_events');
     }
 
     public function getEvents($org_id, $school_year = null)
-    {        
-        if(!$school_year) {
+    {
+        if (!$school_year) {
             $events = Event::where([['org_id', $org_id]])->with('organization')->get();
             return $events->toJson();
-
-        }
-        else{
-            $events = Event::where([['org_id', $org_id],['school_year',$school_year]])->with('organization')->get();
+        } else {
+            $events = Event::where([['org_id', $org_id], ['school_year', $school_year]])->with('organization')->get();
             return $events->toJson();
         }
     }
-    public function getEventsAttendance($org_id,$school_year)
+    public function getEventsAttendance($org_id, $school_year)
     {
-        $events = Event::where([['org_id', $org_id], ['attendance_status', 1],['school_year', $school_year]])->get();
+        $events = Event::where([['org_id', $org_id], ['attendance_status', 1], ['school_year', $school_year]])->get();
         return $events->toJson();
     }
     public function getEventsForCalendar($org_id, $school_year)
     {
         $events = Event::select(DB::raw('name as title', 'start_date as start'))->get();
-        
+
         $events = Event::select(('name as title'),
-                                DB::raw("CONCAT(start_date, 'T', start_attendance) as start"))->where([['org_id', $org_id], ['school_year', $school_year]])->get();
+            DB::raw("CONCAT(start_date, 'T', start_attendance) as start")
+        )->where([['org_id', $org_id], ['school_year', $school_year]])->get();
         return $events->toJson();
     }
     public function getEventsCount($org_id, $school_year)
-    {   
-        $count = Event::where([['org_id',$org_id], ['school_year', $school_year]])->count(); 
+    {
+        $count = Event::where([['org_id', $org_id], ['school_year', $school_year]])->count();
         return $count;
-        
-    }    
+    }
     public function getMembersCount()
-    {   
+    {
         $userCount = User::count();
         return response()->json(['count' => $userCount]);
     }
@@ -70,7 +69,7 @@ class EventController extends Controller
             'fines' => 'nullable',
             'org_id' => 'required|exists:organizations,org_id',
             'school_year_input' => 'required',
-            'evaluation_form'=> 'required'
+            'evaluation_form' => 'required'
         ]);
 
         // Create a new Event instance
@@ -93,13 +92,12 @@ class EventController extends Controller
         return response()->json(['message' => 'Event Created successfully']);
     }
     public function showEventDetails($event)
-    {   
+    {
         $events = Event::find($event);
         return $events;
-
     }
     public function update(Request $request, Event $event)
-    {   
+    {
         $request->validate([
             'name' => 'required',
             'start_date' => 'required|date',
@@ -108,48 +106,60 @@ class EventController extends Controller
             'location' => 'required',
             'description' => 'required',
             'require_attendance' => 'nullable|boolean',
-            'fines' => 'nullable', 
-            'evaluation_form'=> 'required'
+            'fines' => 'nullable',
+            'evaluation_form' => 'required'
         ]);
 
         $event->update($request->all());
-        return response()->json(['message' => 'Event '. $request-> name.' Updated Successfully']);
+        return response()->json(['message' => 'Event ' . $request->name . ' Updated Successfully']);
     }
-    public function destroy( $event)
+    public function destroy($event)
     {
-        $event_list = Attendance::where('event_id', $event)->count();
-        if ($event_list > 0){
-            return response()->json(['message' => 'Unable to delete event because it has attendance records.', 'status' => 0]);
+        // $event_list = Attendance::where('event_id', $event)->count();
+        // if ($event_list > 0){
+        //     return response()->json(['message' => 'Unable to delete event because it has attendance records.', 'status' => 0]);
+        // }
+        // else {
+        //     event::where('event_id',$event)->delete();
+        //     return response()->json(['message' => 'Event Deleted successfully' , 'status' => 1]);
+        // }
+
+        try {
+            event::where('event_id', $event)->delete();
+            return response()->json(['message' => 'Event Deleted successfully', 'status' => 1]);
+        } catch (QueryException $e) {
+            // Check if the exception is due to a foreign key constraint
+            if ($e->errorInfo[1] === 1451) {
+                return response()->json(['message' => 'Unable to delete event because it has attendance records.', 'status' => 0]);
+            }
+
+            // Handle other database errors
+            return response()->json(['message' => 'Database error: ' . $e->getMessage(), 'status' => 0]);
         }
-        else {
-            event::where('event_id',$event)->delete();
-            return response()->json(['message' => 'Event Deleted successfully' , 'status' => 1]);
-        }
-    
     }
 
     public function getSchoolYear()
-    {   
+    {
         $events = SchoolYear::get();
         return response()->json($events);
     }
     public function getEvaluationList($org_id, $school_year = null)
-    {   
-        $events = event::where([['org_id', $org_id],['school_year', $school_year]])->with('EvaluationFormAnswer')->get();
+    {
+        $events = event::where([['org_id', $org_id], ['school_year', $school_year]])->with('EvaluationFormAnswer')->get();
         return response()->json($events);
     }
 
-    public function getCompleteEventsCount($org_id ,$school_year)
-    {   
+    public function getCompleteEventsCount($org_id, $school_year)
+    {
         $accountability_total = PaidAccountability::where([
             ['student_org_id', $org_id],
             ['school_year', $school_year]
         ])->sum('amount');
-        
+
         return response()->json($accountability_total);
     }
-    public function submitYearLevelExempted($org_id, $year_level,$event_id, Request $request )
-    {   
+    public function submitYearLevelExempted($org_id, $year_level, $event_id, Request $request)
+    {
         $exemptedData = EventExempted::pluck('year_level_id')->toArray();
         $requestData = array_values($request->all());
 
@@ -165,15 +175,14 @@ class EventController extends Controller
                 ]);
                 $exempted->save();
             }
-        } 
-        
+        }
+
         //when deleting to list 
         $differences_when_removing = array_diff($exemptedData, $requestData);
         if (!empty($differences_when_removing)) {
             // The arrays have different values
             $exemptedData = EventExempted::whereIn('year_level_id', $differences_when_removing)->delete();
-                
-        } 
+        }
         // return response()->json(['message' => 'Exempted Year Level Updated Successfully']);
     }
     public function getYearLevel($org_id)
@@ -183,7 +192,7 @@ class EventController extends Controller
     }
     public function getExempted($org_id, $id)
     {
-        $events = EventExempted::where([['org_id', $org_id],['event_id', $id]])->get();
+        $events = EventExempted::where([['org_id', $org_id], ['event_id', $id]])->get();
         return response()->json($events);
     }
 }

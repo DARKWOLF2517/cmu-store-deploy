@@ -103,7 +103,7 @@
                     student_id: fees_list.user_id,
                     // student_name: fees_list.name,
                     // accountability_name: fees_list.accountability_type,
-                    total_amount: fees_list.total_fees,
+                    // total_amount: fees_list.total_fees,
                     student_org_id: this.org_id,
                 }
                 ">
@@ -225,9 +225,9 @@
                 </div>
                 <div class="modal-footer">
                     <div v-for="summary in this.temporary_list_summary">
-                        <label >Remaining Balance: {{ summary.label }}: {{ summary.amount }}  </label>
+                        <label>Remaining Balance: {{ summary.label }}: {{ summary.amount }} </label>
                     </div>
-                    
+
 
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
@@ -278,8 +278,11 @@
                                 <!-- First dropdown -->
                                 <select id="sort-select" class="form-control" style="text-align: center;"
                                     v-model="this.accountability_type" required>
-                                    <option v-for="remarks in this.temporary_list_summary" :value="remarks.label">{{
-                remarks.label }}</option>
+                                    <option v-for="remarks in temporary_list_summary" :key="remarks.label"
+                                        :value="remarks.label">
+                                        {{ remarks.label }}
+                                    </option>
+
                                 </select>
                             </div>
 
@@ -363,6 +366,8 @@ export default {
         }
     },
     computed: {
+
+
         // // Computed property to filter out duplicate accountability types
         // uniqueAccountabilityTypes() {
         //     const uniqueTypes = new Set();
@@ -454,9 +459,15 @@ export default {
         this.showCollege();
         this.getOrgCollege();
 
+
     },
 
     methods: {
+        //filter the zero balance
+        filteredAmountByZero() {
+            const filteredArray = this.temporary_list_summary.filter(item => item.amount !== 0);
+            this.temporary_list_summary = filteredArray;
+        },
         getOrgCollege() {
             axios.get(`/get_organization_college/${this.org_id}`)
                 .then(response => {
@@ -493,27 +504,20 @@ export default {
         checkPaymentAmount() {
             // console.log(this.selected_user_id)
 
-            console.log(this.payment_list)
-            // if (this.payment_list.length == 0) {
-            //     if (this.paymentAmount > this.temporary_list_summary[this.accountability_type]) {
-            //         alert('payment is above total')
-            //     }
-            //     else {
-            //         this.SubmitPayment();
-            //     }
-            // }
-            // else {
+            console.log(this.temporary_list_summary)
 
-            //     // let balance = this.temporary_list_summary[this.accountability_type] - totalsByType[this.accountability_type];
+            //to get the amount of the current balance
+            const accountability = this.temporary_list_summary.find(item => item.label === this.accountability_type);
+            const amount = accountability ? accountability.amount : null;
 
-            //     if (this.paymentAmount > balance) {
-            //         alert('amount is over to the remaining balance')
-            //     }
-            //     else {
-            //         this.SubmitPayment();
-            //     }
-            // }
 
+            if (amount < this.paymentAmount) {
+                this.showError('amount exceeded');
+            }
+            else {
+                this.SubmitPayment();
+
+            }
         },
         // getTableData1(){
         //     // Get a reference to the table
@@ -552,8 +556,10 @@ export default {
                     }
                     else if (response.data.status == 1) {
                         this.showSucces(response.data.message);
-                        // location.reload();
                         this.fetchData();
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
                     }
 
 
@@ -667,7 +673,7 @@ export default {
             };
 
             // Subtract amounts from totalsByType
-            subtractAmounts(totalsByType, totalsByTypePayment); 
+            subtractAmounts(totalsByType, totalsByTypePayment);
             // Convert object to array of objects
             const newArray = [];
             for (const key in totalsByType) {
@@ -678,6 +684,7 @@ export default {
 
             this.temporary_list_summary = newArray;
             console.log(this.temporary_list_summary)
+            this.filteredAmountByZero();
         },
 
 
@@ -1233,6 +1240,16 @@ export default {
 
             // Return the table data
             return tableData;
+        },
+        showSucces(message) {
+            toast.success(message), {
+                autoClose: 100,
+            }
+        },
+        showError(message) {
+            toast.error(message), {
+                autoClose: 100,
+            }
         },
 
 

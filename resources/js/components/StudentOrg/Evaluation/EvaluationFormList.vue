@@ -320,11 +320,25 @@ export default {
             axios.delete(`/delete_evaluation_form/${this.evaluation_form_id}`)
                 .then(response => {
                     // console.log(response.data)
-                    this.showSucces(response.data.message);
-                    this.fetchEvaluationForms();
+                    if(response.data.status == 1){
+                        this.showSucces(response.data.message);
+                        this.fetchEvaluationForms();
+                    }
+                    else{
+                        this.showError(response.data.message);
+                    }
+                    
                 })
                 .catch(error => {
-                    console.log(error)
+                    if (error.response.status === 500) {
+                        // Handle the 500 error (Internal Server Error)
+                        console.log("Internal Server Error:", error.response.data);
+                        // Add your error handling logic here
+                    } else {
+                        // Handle other errors
+                        console.log("Error:", error.message);
+                        // Add your error handling logic here
+                    }
                 });
         },
         fetchEditData(evaluation_id) {
@@ -400,7 +414,12 @@ export default {
         },
         showSucces(message) {
             toast.success(message), {
-                autoClose: 100,
+                autoClose: 1000,
+            }
+        },
+        showError(message) {
+            toast.error(message), {
+                autoClose: 1000,
             }
         },
     }
