@@ -94,7 +94,7 @@
                         <td>{{ fees_list.user_id }}</td>
                         <td> {{ fees_list.name }}</td>
                         <!-- <td>{{ fees_list.accountability_type.toUpperCase()}}</td> -->
-                        <td style="text-align: right; font-weight: bold;">&#8369; {{ fees_list.total_fees }}.00</td>
+                        <td style="text-align: right; font-weight: bold;">&#8369; {{ fees_list.total_fees }}</td>
 
                         <td>
                             <button class="view-button btn" data-bs-toggle="modal"
@@ -190,11 +190,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <h5 class="text-success" > <b>Remaining Balance: </b>   </h5>
                     <div v-for="summary in this.temporary_list_summary">
-                        <h5 class="text-success" > <b>Remaining Balance: </b>   </h5>
-                        <h5 class="ms-4">  {{ summary.label }}: <b>&#8369; {{ summary.amount }}.00</b> </h5>
+
+                        <h5 class="ms-4">  {{ summary.label }}: <b>&#8369; {{ summary.amount }}</b> </h5>
                     </div>
-                    <table class="table" id="temporaryList">
+                    <table class="table" id="temporaryList" style="max-height: 50vh; overflow-y: auto;">
                         <thead>
                             <tr>
                                 <th>Student ID</th>
@@ -267,12 +268,9 @@
 
 
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <p>Enter the amount you have received:</p>
-                            <input type="number" class="form-control" v-model="this.paymentAmount" required>
-                        </div>
+
                         <div>
-                            <label for="type">Remarks</label>
+                            <label for="type">Type of Accountability</label>
                             <div class="select-dropdown" id="remarks-btn">
                                 <!-- First dropdown -->
                                 <select id="sort-select" class="form-control" style="text-align: center;"
@@ -286,6 +284,15 @@
                             </div>
 
                         </div>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-success ">Full Payment</button>
+                        </div>
+
+                        <div class="mb-3">
+                            <p>Enter the amount you have received:</p>
+                            <input type="input" class="form-control" v-model="this.paymentAmount" required>
+                        </div>
+
                         <div>
 
                         </div>
