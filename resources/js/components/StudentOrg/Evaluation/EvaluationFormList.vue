@@ -54,7 +54,7 @@
             </div>
 
             <div class="event-card"
-                style="width: 45vh !important; border-left-style: solid; border-left-color: #1b9587;"
+                style=" border-left-style: solid; border-left-color: #1b9587;"
                 v-for="evaluation in this.evaluation_form">
 
                 <div class="dropdown">
@@ -175,7 +175,7 @@
                     <!-- <h5 class="modal-title" id="exampleModalLabel">View Evaluation Form</h5> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
                     <div class="mb-3">
                         <h3 for="formTitle" class="form-label">Evalution name: {{ evaluation.evaluation_title }}</h3>
                     </div>

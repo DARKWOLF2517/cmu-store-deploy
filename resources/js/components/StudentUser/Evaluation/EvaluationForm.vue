@@ -7,11 +7,11 @@
             <h5>Date and Time: <b>{{ this.event_title['start_attendance'] }}</b></h5>
             <h5>Venue: <b>{{ this.event_title['location'] }}</b></h5>
             <hr>
-            <small> Dear Students,
+            <p> Dear Students,
                 This assessment of the program/activity you have just attended. Please rate the activity/program in terms of
                 the following criteria listed below. Your
                 honest answer will help improve future activity. Indicate your response with a check mark (✓) to the
-                following indicators of this form.</small>
+                following indicators of this form.</p>
         </div>
         <hr>
         <div class="evaluation-body">
@@ -34,8 +34,8 @@
                     v-model="this.feedback"></textarea>
             </div>
 
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-success mt-2 mb-2 ml-auto"> Submit</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success mt-4 mb-2 ml-auto w-50" > Submit</button>
             </div>
 
         </div>

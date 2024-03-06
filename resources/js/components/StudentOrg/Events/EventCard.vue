@@ -20,11 +20,11 @@
                 style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
                 <!-- <button class="btn sort-btn"><i class="bi bi-sort-up"></i></button> -->
                 <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
-                        @change="fetchData">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="school_year_input" @change="fetchData">
                         <option value="0" disabled selected>Select Semester</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                            school_year['school_year'] }}</option>
+                        school_year['school_year'] }}</option>
                     </select>
                 </div>
                 <div class="select-dropdown" style="width: 30%;">
@@ -74,7 +74,8 @@
                                 No events yet.
                             </p>
                             <a class="btn btn-success" id="add-event-button" data-bs-toggle="modal"
-                                data-bs-target="#event-modal" @click="this.initialData(), this.submit = this.sendData">Add
+                                data-bs-target="#event-modal"
+                                @click="this.initialData(), this.submit = this.sendData">Add
                                 Event</a>
                         </div>
                     </div>
@@ -96,9 +97,9 @@
                     ]">
 
 
-                        <div class="dropdown" >
-                            <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="dropdown">
+                            <a class="ellipsis-button" href="#" style="color: black;" role="button"
+                                id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-ellipsis-h"></i>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
@@ -111,7 +112,8 @@
                                 <!-- option 3 -->
                                 <li><a class="dropdown-item"
                                         @click="this.id = (event.event_id), this.showYearLevelExempted()"
-                                        data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted attendees</a>
+                                        data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted
+                                        attendees</a>
                                 </li>
                                 <div v-if="event.attendance_status == 0 || event.attendance_status === 2">
                                     <li><a class="dropdown-item"
@@ -126,14 +128,14 @@
                                             Attendance</a></li>
                                 </div>
                                 <div>
-                                    <li><a class="dropdown-item"
-                                        data-bs-toggle="modal" data-bs-target="#closeEvent">Close Event</a>
-                                </li>
+                                    <li><a class="dropdown-item" data-bs-toggle="modal"
+                                            data-bs-target="#closeEvent">Close Event</a>
+                                    </li>
                                 </div>
                                 <div>
-                                    <li><a class="dropdown-item"
-                                        data-bs-toggle="modal" data-bs-target="#cancelAttendance">Cancel Attendance</a>
-                                </li>
+                                    <li><a class="dropdown-item" data-bs-toggle="modal"
+                                            data-bs-target="#cancelAttendance">Cancel Attendance</a>
+                                    </li>
                                 </div>
                             </ul>
                         </div>
@@ -160,7 +162,8 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body text-center">
                                 <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
@@ -183,7 +186,8 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body text-center">
                                 <h4><i v-if="status === 1" class="fas fa-question-circle text-warning"></i>
@@ -199,7 +203,7 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
                                 <button type="button" class="btn btn-success" @click="startAttendance()"
-                                    data-bs-dismiss="modal">
+                                    :disabled="isSubmitting">
                                     <div v-if="this.status === 1">Start Attendance</div>
                                     <div v-else-if="this.status === 2">Stop Attendance</div>
                                 </button>
@@ -208,12 +212,13 @@
                     </div>
                 </div>
                 <!-- start attendance modal -->
-                <div class="modal fade" id="startAttendanceModal" tabindex="-1" aria-labelledby="startAttendanceModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="startAttendanceModal" tabindex="-1"
+                    aria-labelledby="startAttendanceModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="text-center">
@@ -227,13 +232,17 @@
                                     <select id="sort-select" class="form-control" style="text-align: center;"
                                         v-model="session" required>
                                         <option :value="0" disabled selected>Select Attendace Type</option>
-                                        <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log in)
+                                        <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log
+                                            in)
                                         </option>
-                                        <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log out)
+                                        <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log
+                                            out)
                                         </option>
-                                        <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log in)
+                                        <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log
+                                            in)
                                         </option>
-                                        <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log out)
+                                        <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log
+                                            out)
                                         </option>
                                     </select>
                                 </div>
@@ -251,7 +260,7 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-success"
                                     @click="startAttendance(event_id, org_id, session)"
-                                    >Start</button>
+                                    :disabled="isSubmitting">Start</button>
                             </div>
                         </div>
                     </div>
@@ -262,7 +271,8 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="text-center">
@@ -276,13 +286,17 @@
                                     <select id="sort-select" class="form-control" style="text-align: center;"
                                         v-model="session" required>
                                         <option :value="0" disabled selected>Select Attendace Type</option>
-                                        <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log in)
+                                        <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log
+                                            in)
                                         </option>
-                                        <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log out)
+                                        <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log
+                                            out)
                                         </option>
-                                        <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log in)
+                                        <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log
+                                            in)
                                         </option>
-                                        <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log out)
+                                        <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log
+                                            out)
                                         </option>
                                     </select>
                                 </div>
@@ -290,8 +304,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-success"
-                                    @click="startAttendance(event_id, org_id, session)"
-                                    >Start</button>
+                                    @click="startAttendance(event_id, org_id, session)">Start</button>
                             </div>
                         </div>
                     </div>
@@ -323,7 +336,8 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-success"
                                         :disabled="!isAtLeastOneChecked">Save</button>
                                 </div>
@@ -340,15 +354,19 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="event-details-modal-label">Event Details</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body" :id="this.showEvent.event_id">
                                 <h5 class="card-title"><strong>{{ this.showEvent["name"] }}</strong></h5>
                                 <div class="mt-2 mb-3">
-                                    <h6 class="card-text text-muted">Scheduled Date: {{ this.showEvent["start_date"] }}</h6>
-                                    <h6 class="card-text text-muted">Start Time: {{ this.showEvent["start_attendance"] }}
+                                    <h6 class="card-text text-muted">Scheduled Date: {{ this.showEvent["start_date"] }}
                                     </h6>
-                                    <h6 class="card-text text-muted">End Time: {{ this.showEvent["end_attendance"] }}</h6>
+                                    <h6 class="card-text text-muted">Start Time: {{ this.showEvent["start_attendance"]
+                                        }}
+                                    </h6>
+                                    <h6 class="card-text text-muted">End Time: {{ this.showEvent["end_attendance"] }}
+                                    </h6>
                                 </div>
                                 <div class="mb-3">
                                     <h6 class="card-text">Location: {{ this.showEvent["location"] }}</h6>
@@ -368,7 +386,8 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <h5 v-if="this.submit == this.sendData" class="modal-title text-center fw-bold"
@@ -382,7 +401,8 @@
                                         <input type="text" name="name" class="form-control" id="event-title"
                                             v-model="formData.name" required maxlength="50"
                                             :style="{ borderColor: formData.name.length >= 50 ? 'red' : '' }">
-                                        <p class="pl-2" v-if="formData.name.length >= 50" style="color: red;">Maximum length
+                                        <p class="pl-2" v-if="formData.name.length >= 50" style="color: red;">Maximum
+                                            length
                                             reached</p>
                                     </div>
                                     <!-- <div class="row g-3">
@@ -414,15 +434,17 @@
                                         <input type="text" name="location" class="form-control" id="event-location"
                                             v-model="formData.location" required maxlength="30"
                                             :style="{ borderColor: formData.location.length >= 30 ? 'red' : '' }">
-                                        <p class="pl-2" v-if="formData.location.length >= 30" style="color: red;">Maximum
+                                        <p class="pl-2" v-if="formData.location.length >= 30" style="color: red;">
+                                            Maximum
                                             length reached</p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="event-description" class="form-label">Description</label>
-                                        <span v-if="formData.description.length > 200" class="text-danger">You have exceeded
+                                        <span v-if="formData.description.length > 200" class="text-danger">You have
+                                            exceeded
                                             the word limit</span>
-                                        <textarea class="form-control" name="description" id="event-description" rows="3"
-                                            v-model="formData.description" required maxlength="200"
+                                        <textarea class="form-control" name="description" id="event-description"
+                                            rows="3" v-model="formData.description" required maxlength="200"
                                             :style="{ borderColor: formData.description.length >= 200 ? 'red' : '' }"></textarea>
                                         <p class="pl-2" v-if="formData.description.length >= 200" style="color: red;">
                                             Maximum length reached</p>
@@ -440,8 +462,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <input class="form-check-input" type="checkbox" name="require_attendance"
-                                            id="require-attendance" v-model="formData.require_attendance" :true-value="1"
-                                            :false-value="0">
+                                            id="require-attendance" v-model="formData.require_attendance"
+                                            :true-value="1" :false-value="0">
                                         <label for="require-attendance" class="form-label">Require Attendance</label>
                                     </div>
                                     <div id="attendance-container" v-if="this.formData.require_attendance == 1">
@@ -449,8 +471,8 @@
                                             <div class="col-md-6">
                                                 <label for="event-attendance" class="form-label">Number of
                                                     Attendance session</label>
-                                                <select name="attendance_count" class="form-select" id="event-attendance"
-                                                    v-model="formData.attendance_count" required>
+                                                <select name="attendance_count" class="form-select"
+                                                    id="event-attendance" v-model="formData.attendance_count" required>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -464,20 +486,14 @@
                                             </div>
                                         </div>
 
-                                        <!-- <br> -->
-                                        <!-- CONTAINER OF THE CHECKBOX TO POPULATE -->
-                                        <!-- <b><p>Select the year level/s that is NOT required to attend<br> (leave it blank if not applicable)</p></b>
-
-                                                    <div id="checkboxes-container">
-
-                                                    </div> -->
 
                                     </div>
                                     <!-- <input type="hidden" name="org_id"  v-model="formData.org_id"> -->
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success" id="save-event-button" :disabled="isSubmitting">Save</button>
+                                        <button type="submit" class="btn btn-success" id="save-event-button"
+                                            :disabled="isSubmitting">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -568,7 +584,7 @@ export default {
                     this.showSucces('Exempted Year Level Updated Successfully');
                     setTimeout(() => {
                         location.reload();
-            }, 500);
+                    }, 500);
                     console.log(response.data)
                 })
                 .catch(error => {
@@ -687,8 +703,8 @@ export default {
                     .then(response => {
                         this.showSucces(response.data.message);
                         setTimeout(() => {
-                        location.reload();
-            }, 500);
+                            location.reload();
+                        }, 500);
                         // console.log(response.data)
                     })
                     .catch(error => {
@@ -730,6 +746,7 @@ export default {
         },
 
         FetchUpdateData(id) {
+
             console.log(id)
             axios.get(`show_event_details/${id}`)
                 .then(response => {
@@ -743,13 +760,14 @@ export default {
                 });
         },
         UpdateData() {
+            this.isSubmitting = true;
             axios.put(`/events/${this.id}`, this.formData)
                 .then(response => {
                     this.submit = this.sendData;
                     this.showSucces(response.data.message);
                     setTimeout(() => {
                         location.reload();
-            }, 500);
+                    }, 500);
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -782,7 +800,7 @@ export default {
         },
 
         startAttendance() {
-
+            this.isSubmitting = true;
             if (this.session == 0 && this.status == 1) {
                 alert('Please input session');
             }
@@ -792,8 +810,8 @@ export default {
                         console.log(response.data)
                         this.showSucces(response.data.message);
                         setTimeout(() => {
-                        location.reload();
-            }, 500);
+                            location.reload();
+                        }, 500);
                         this.fetchData();
                     })
                     .catch(error => {
