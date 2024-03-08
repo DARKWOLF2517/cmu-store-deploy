@@ -89,7 +89,7 @@
                                     <p class="text-muted fw-bold">No results found</p>
                                 </div>
                             </div> -->
-                    <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id"
+                    <tr  v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id"
                         :key="fees_list.user_id">
                         <td>{{ fees_list.user_id }}</td>
                         <td> {{ fees_list.name }}</td>
@@ -217,7 +217,6 @@
 
                                 <td v-if="temporary_list.missing_session === 'N/A'">N/A</td>
                                 <td v-else>{{ temporary_list.missing_session }}</td>
-
                                 <td style="display: none;">{{ temporary_list.missing_session }}</td>
                                 <td style="display: none;">{{ temporary_list.event_id }}</td>
                                 <td style="display: none;">{{ this.org_id }}</td>
@@ -386,30 +385,30 @@ export default {
             return Math.ceil(this.fees_list.length / this.itemsPerPage);
         },
         pageRange() {
-            const start = Math.max(1, this.currentPage - 5);
-            const end = Math.min(this.totalPages, this.currentPage + 5);
-            const range = [];
+    const start = Math.max(1, this.currentPage - 2);
+    const end = Math.min(this.totalPages, this.currentPage + 2);
+    const range = [];
 
-            if (start > 1) {
-                range.push(1);
-                if (start > 2) {
-                    range.push("...");
-                }
-            }
+    if (start > 1) {
+        range.push(1);
+        if (start > 2) {
+            range.push("...");
+        }
+    }
 
-            for (let i = start; i <= end; i++) {
-                range.push(i);
-            }
+    for (let i = start; i <= end; i++) {
+        range.push(i);
+    }
 
-            if (end < this.totalPages) {
-                if (end < this.totalPages - 1) {
-                    range.push("...");
-                }
-                range.push(this.totalPages);
-            }
+    if (end < this.totalPages) {
+        if (end < this.totalPages - 1) {
+            range.push("...");
+        }
+        range.push(this.totalPages);
+    }
 
-            return range;
-        },
+    return range;
+},
         paginatedData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             return this.this.filtered_items_for_fines.slice(start, start + this.itemsPerPage);

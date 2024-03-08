@@ -99,10 +99,10 @@
                             <div class="card-body">
                                 <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
                                 <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
-                                <p class="card-short-description mb-0">
+                                <p class="card-short-description mt-2">
                                     <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
                                 </p>
-                                <p class="card-short-description mt-2">
+                                <p class="card-short-description    ">
                                     {{ announcements.description }}
                                 </p>
                             </div>

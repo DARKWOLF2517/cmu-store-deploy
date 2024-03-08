@@ -199,8 +199,8 @@
                             <input type="text" class="form-control" id="reason" v-model="free_fines_input.reason" required>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-success" >Save</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" >Add</button>
                         </div>
                     </form>
                 </div>
@@ -240,8 +240,30 @@ export default {
             return Math.ceil(this.filtered_free_fines.length / this.itemsPerPage);
         },
         pageRange() {
-            return Array.from({ length: this.totalPages }, (_, index) => index + 1);
-        },
+    const start = Math.max(1, this.currentPage - 2);
+    const end = Math.min(this.totalPages, this.currentPage + 2);
+    const range = [];
+
+    if (start > 1) {
+        range.push(1);
+        if (start > 2) {
+            range.push("...");
+        }
+    }
+
+    for (let i = start; i <= end; i++) {
+        range.push(i);
+    }
+
+    if (end < this.totalPages) {
+        if (end < this.totalPages - 1) {
+            range.push("...");
+        }
+        range.push(this.totalPages);
+    }
+
+    return range;
+},
         paginatedData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             const end = start + this.itemsPerPage;
@@ -454,9 +476,12 @@ export default {
                     }
                     else {
                         this.showSucces(response.data.message);
-                        setTimeout(() => {
-                        location.reload();
-            }, 1000);
+            //             setTimeout(() => {
+            //             location.reload();
+            // }, 1000);
+            setTimeout(() => {
+                    this.clearData(); // Clear the input fields after the success message is shown
+                }, 300);
                         this.fetchData();
                         // console.log(response.data)
                     }

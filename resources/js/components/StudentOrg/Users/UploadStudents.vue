@@ -82,7 +82,7 @@
             <table id="student-list-table">
                 <thead>
                     <tr>
-                        <th>Student ID</th>
+                        <th style="width: 10%;">Student ID</th>
                         <!-- <th>Last Name</th> -->
                         <th>Full Name</th>
                         <th>Year Level</th>
@@ -288,7 +288,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success" id="uploadToTableButton"
-                        @click="this.uploadData()">Upload</button>
+                        @click="this.uploadData()" :disabled="isSubmitting">Upload</button>
                 </div>
             </div>
         </div>
@@ -320,7 +320,7 @@ export default {
             itemsPerPage: 10,
             year_level_data: [],
             college_list: [],
-            college_data_input: 0, 
+            college_data_input: 0,
             college_id: 0,//colege data of the organization
             year_level_data_input: 0,
             student_data: {
@@ -331,6 +331,7 @@ export default {
                 college_id: 0,
                 middlename: '',
                 year_level_id: 0,
+                isSubmitting: false,
 
             },
 
@@ -344,30 +345,30 @@ export default {
             return Math.ceil(this.filtered_student_list.length / this.itemsPerPage);
         },
         pageRange() {
-            const start = Math.max(1, this.currentPage - 5);
-            const end = Math.min(this.totalPages, this.currentPage + 5);
-            const range = [];
+    const start = Math.max(1, this.currentPage - 2);
+    const end = Math.min(this.totalPages, this.currentPage + 2);
+    const range = [];
 
-            if (start > 1) {
-                range.push(1);
-                if (start > 2) {
-                    range.push("...");
-                }
-            }
+    if (start > 1) {
+        range.push(1);
+        if (start > 2) {
+            range.push("...");
+        }
+    }
 
-            for (let i = start; i <= end; i++) {
-                range.push(i);
-            }
+    for (let i = start; i <= end; i++) {
+        range.push(i);
+    }
 
-            if (end < this.totalPages) {
-                if (end < this.totalPages - 1) {
-                    range.push("...");
-                }
-                range.push(this.totalPages);
-            }
+    if (end < this.totalPages) {
+        if (end < this.totalPages - 1) {
+            range.push("...");
+        }
+        range.push(this.totalPages);
+    }
 
-            return range;
-        },
+    return range;
+},
         paginatedData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             return this.filtered_student_list.slice(start, start + this.itemsPerPage);
@@ -616,6 +617,7 @@ export default {
             //     alert('Please Choose Year Level and  College')
             // }
             // else{
+                this.isSubmitting = true;
             const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
             // excelDataModal.show();
             excelDataModal.hide();
@@ -656,7 +658,9 @@ export default {
                     .then(response => {
                         console.log(response.data)
                         this.loading = false;
-
+                        setTimeout(() => {
+                        location.reload();
+                    }, 1000);
                         // Hide modal
 
                         if (response.data.type == 0) {

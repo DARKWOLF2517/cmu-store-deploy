@@ -193,6 +193,7 @@ margin-right: 0;
     left: 0;
     bottom: 0;
     height: 100vh;
+    flex-grow: 1;
     width: 230px;
     background-color: #ffffff;
     color: #1b1b1b;
@@ -226,6 +227,7 @@ margin-right: 0;
     margin-left: 230px;
     padding: 15px !important;
     transition: margin-left 0.3s ease-in-out;
+    max-height: 90vh;
 }
 .content.collapsed {
     margin-left: 65px !important;

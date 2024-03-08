@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-0 overflow-hidden" >
         <div class="col-lg-4 col-md-6 mb-2">
             <div class="timeline-schedule">
                 <div class="timeline-header">
@@ -65,40 +65,6 @@
                     :school_year_session={{ Session::get('school_year') }}>
 
                 </announcement-dashboard>
-                {{-- <div class="announcement-list">
-                            <div class="Message-IfEmpty">
-                                <i class="icon 	fas fa-bullhorn" id="icon-message"></i>
-                                <p class="empty-schedule">Announcements show up here</p>
-                            </div>
-                            <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
-                            <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
-                            <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
-                            <div class="announcement-card">
-                                <span class="Organization"> <b>CSCo</b></span>
-                                <div class="date-time-posted">
-                                    <span class="date-time-uploaded"><i><small>09/30/2023 - 9:00 AM</small></i></span>
-                                </div>
-                                <div class="announcement-description">Bayanihan.</div>
-                            </div>
-                        </div> --}}
             </div>
         </div>
 

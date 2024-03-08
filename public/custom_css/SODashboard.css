@@ -12,8 +12,8 @@
     margin: 0 auto;
     background-color: #fff;
     width: 100%;
-    height: 48vh;
-    max-height: 48vh;
+    height: 100%;
+    max-height: 48h;
     bottom: 0;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
@@ -44,7 +44,7 @@
 }
 
 #calendar h2{
-    font-size: 18px;
+    color: #52a183;
 }
 #calendar a{
     font-size: 13px;
@@ -103,7 +103,7 @@
     background-color: #fff;
     padding: 10px;
     border-radius: 10px;
-    height: 48vh;
+    height: 100%;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 .announcement-header, .timeline-header{
@@ -116,9 +116,9 @@
 }
 .announcement-list{
     margin-top: 10px;
-    height: 40vh;
-    max-height: 40vh;
+    max-height: 45vh;
     overflow: auto;
+    padding: 10px;
 }
 .announcement-card{
     border-radius: 8px;
@@ -241,7 +241,7 @@ ul, li{
  background-color: #ffffff;
   padding: 10px;
   border-radius: 15px;
-  height: 48vh;
+  height: 100%;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 h1{
@@ -254,7 +254,7 @@ h1{
 }
 .timeline-body{
     margin-top: 5px;
-    max-height: 40vh;
+    max-height: 45vh;
     overflow-y: auto;
 }
 .timeline-schedule li{
@@ -319,14 +319,13 @@ small{ /* Change <p> to <small> */
     }
 
     .card {
-        max-height: 150px; /* Adjust the max-height as needed */
+        max-height: 150px;
         margin-top: 5px;
     }
 
     #calendar {
-        font-size: 10px; /* Adjust the font size as needed */
-        height: 60vh;
-        margin-bottom: 10px;
+        font-size: 10px;
+        height: 50vh;
     }
 
     .welcome-card {
@@ -379,7 +378,7 @@ small{ /* Change <p> to <small> */
         overflow-y: hidden;
         font-size: 15px;
     }
-    .timeline-body{
+    .timeline-body, .announcement-list{
         max-height: 25vh;
         overflow-y: auto;
     }

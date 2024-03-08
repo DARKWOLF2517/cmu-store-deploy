@@ -64,7 +64,7 @@ th{
     /* box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px; */
     border-radius: 5px;
     background-color: white;
-    height: 45vh;
+    /* height: 45vh; */
 }
 
 .organizations, .qr-code{
@@ -98,6 +98,7 @@ th{
 .student-org-info{
     padding: 10px;
     overflow-y: auto;
+    height: 40vh;
 }
 .qrcode-img {
     display: flex;
@@ -128,10 +129,10 @@ th{
     height: 45vh;
     max-height: 45vh;
 }
-#profile{
+/* #profile{
     height: 50vh;
     max-height: 50vh;
-}
+} */
 .profile {
     text-align: center;
     margin-top: 20px;
@@ -139,7 +140,7 @@ th{
     /* box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px; */
     border-radius: 10px;
     background-color: white;
-    height: 51vh;
+    /* height: 51vh; */
 
 }
 .description-container {
