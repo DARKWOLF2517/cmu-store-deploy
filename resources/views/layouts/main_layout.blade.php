@@ -338,7 +338,7 @@
         </div>
 </aside>
 <section>
-    <div class="page-content-wapper">
+    <div class="page-content-wapper h-screen">
             <div class="content">
                 <div class="page-container">
                     <div>

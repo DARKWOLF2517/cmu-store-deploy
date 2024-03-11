@@ -61,9 +61,10 @@ th{
 
 .tab-content {
     padding: 20px;
-    /* box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px; */
+    /* box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px; */
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     border-radius: 5px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     /* height: 45vh; */
 }
 
@@ -98,7 +99,7 @@ th{
 .student-org-info{
     padding: 10px;
     overflow-y: auto;
-    height: 40vh;
+    height: auto;
 }
 .qrcode-img {
     display: flex;
@@ -135,12 +136,14 @@ th{
 } */
 .profile {
     text-align: center;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     padding: 10px;
     /* box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px; */
-    border-radius: 10px;
-    background-color: white;
     /* height: 51vh; */
+
+}
+.card{
+    padding: 20px;
 
 }
 .description-container {

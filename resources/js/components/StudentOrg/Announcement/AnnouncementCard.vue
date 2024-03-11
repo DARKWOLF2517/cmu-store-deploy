@@ -102,7 +102,7 @@
                                 <p class="card-short-description mt-2">
                                     <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
                                 </p>
-                                <p class="card-short-description    ">
+                                <p class="card-short-description    " style="white-space: pre-wrap;">
                                     {{ announcements.description }}
                                 </p>
                             </div>
