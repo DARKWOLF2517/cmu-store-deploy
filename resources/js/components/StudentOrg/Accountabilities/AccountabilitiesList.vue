@@ -89,7 +89,7 @@
                                     <p class="text-muted fw-bold">No results found</p>
                                 </div>
                             </div> -->
-                    <tr  v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id"
+                    <tr  v-for="fees_list in paginatedData" :id="fees_list.user_id"
                         :key="fees_list.user_id">
                         <td>{{ fees_list.user_id }}</td>
                         <td> {{ fees_list.name }}</td>
@@ -411,7 +411,7 @@ export default {
 },
         paginatedData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
-            return this.this.filtered_items_for_fines.slice(start, start + this.itemsPerPage);
+            return this.filtered_items_for_fines.slice(start, start + this.itemsPerPage);
         },
         hasEllipsisBefore() {
             return this.currentPage > 3 && this.totalPages > 5;
@@ -1147,30 +1147,6 @@ export default {
 
 
         printTable() {
-            // Clone the table element to avoid modifying the original table
-            const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
-
-            // Remove or hide the "Actions" column in each row
-            const actionsColumnIndex = 3; // exclude actions
-            const rows = tableToPrint.getElementsByTagName('tr');
-
-            for (let i = 0; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                if (cells.length > actionsColumnIndex) {
-                    // Remove the cell from the DOM
-                    cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
-                }
-            }
-
-            // Hide the header cell for the "Actions" column
-            const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-            if (headerRow) {
-                const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
-                if (headerCell) {
-                    headerCell.style.display = 'none';
-                }
-            }
-
             // Create a hidden iframe for printing
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
@@ -1180,21 +1156,32 @@ export default {
             const iframeDoc = iframe.contentWindow.document;
             iframeDoc.open();
             iframeDoc.write(`
-        <html>
-        <head>
-            <title>Print</title>
-            <!-- Include Bootstrap stylesheet link -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        </head>
-        <body>
-            <h2>Unpaid Accountabilities</h2>
+      <html>
+      <head>
+          <title>Print</title>
+          <!-- Include Bootstrap stylesheet link -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      </head>
+      <body>
+          <!-- Add a title before the table -->
+          <h2>Student With Free Fines</h2>
 
-            <table class="table table-bordered table-striped">
-                ${tableToPrint.innerHTML}
-            </table>
-        </body>
-        </html>
-    `);
+          <!-- Add Bootstrap table classes -->
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                      <th style="width: 10%;">Student ID</th>
+                      <th style="width: 30%;">Student Name</th>
+                      <th style="width: 20%;">Total Amount</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${this.generateTableRowsWithoutLastColumn(this.filtered_items_for_fines)}
+              </tbody>
+          </table>
+      </body>
+      </html>
+  `);
             iframeDoc.close();
 
             // Print the iframe content
@@ -1207,22 +1194,33 @@ export default {
             }, 1000);
         },
 
+        generateTableRowsWithoutLastColumn(data) {
+            let rows = '';
+            data.forEach(item => {
+                rows += `
+            <tr>
+                <td>${item.userId}</td>
+                <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
+                <td>${item.amount}</td>
+            </tr>
+        `;
+            });
+            return rows;
+        },
         downloadTable() {
-            // Get the table data
-            const tableData = this.getTableData();
-
-            // Create a worksheet
-            const ws = XLSX.utils.aoa_to_sheet(tableData);
+            // Get the table data specifically from free_fines_students
+            const tableData = this.getFreeFinesTableData();
 
             // Create a workbook
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet 1');
+            const ws = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
             // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'UnpaidAccountabilities.xlsx');
+            XLSX.writeFile(wb, 'StudentWithFreeFines.xlsx');
         },
 
-        getTableData() {
+        getFreeFinesTableData() {
             // Get a reference to the table
             const table = document.getElementById('accountabilities-table');
 
