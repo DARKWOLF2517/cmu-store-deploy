@@ -24,12 +24,17 @@ class AccountabilitiesController extends Controller
     public function getAccountabilities($org_id, $school_year)
     {
         $student = Auth::id();
-        $accountabilities = Event::where([['org_id', $org_id], ['require_attendance', 1], ['attendance_status', 2], ['school_year', $school_year]])->with(['Attendance'])->get();
+        $accountabilities = Event::where([['org_id', $org_id], ['require_attendance', 1], ['event_status', 2], ['school_year', $school_year]])->with(['Attendance'])->get();
+        // $paidAccountabilityTotal = PaidAccountability::where([
+        //     ['student_org_id', $org_id],
+        //     ['school_year', $school_year],
+        //     ['student_id', $student]
+        // ])->sum('amount');
         $paidAccountabilityTotal = PaidAccountability::where([
             ['student_org_id', $org_id],
             ['school_year', $school_year],
             ['student_id', $student]
-        ])->sum('amount');
+        ])->get();
         return response()->json(['accountabilities' => $accountabilities, 'paid_accountabilities' => $paidAccountabilityTotal,]);
     }
     public function store(Request $request)
@@ -57,7 +62,7 @@ class AccountabilitiesController extends Controller
     }
     public function AccountabilitiesListInAdmin($org_id, $school_year)
     {
-        $accountabilities = Event::where([['org_id', $org_id], ['require_attendance', 1], ['attendance_status', 2], ['school_year', $school_year]])->with(['Attendance'])->get();
+        $accountabilities = Event::where([['org_id', $org_id], ['require_attendance', 1], ['event_status', 2], ['school_year', $school_year]])->with(['Attendance'])->get();
         $users = UserProfile::all();
         $userOrgs = UserOrganization::where([['school_year', $school_year], ['role_id', 2], ['student_org_id', $org_id]])->get();
         $paidAccountability = PaidAccountability::where([['student_org_id', $org_id], ['school_year', $school_year]])->get();
@@ -140,8 +145,16 @@ class AccountabilitiesController extends Controller
     }
     public function DeleteOrganizationAccountability(OrganizationAccountability $accountability_id)
     {
-        $accountability_id->delete();
-        return response()->json(['message' => 'Accountability ' . $accountability_id->accountability_name . ' Deleted successfully']);
+        $isPaymentPresent = PaidAccountability::where('accountability_type', $accountability_id->accountability_name)->get();
+        if (!$isPaymentPresent->isEmpty()) {
+            return response()->json(['message' => 'Cannot be deleted due to payment record' , 'status' => 1]);
+        }
+        else {
+            $accountability_id->delete();
+            return response()->json(['message' => 'Accountability ' . $accountability_id->accountability_name . ' Deleted successfully'  , 'status' =>0]);
+        }
+        // return $isPaymentPresent;
+
     }
     public function PaidAccountabilities($org_id, $school_year)
     {

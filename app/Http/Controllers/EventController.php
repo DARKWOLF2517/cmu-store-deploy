@@ -195,4 +195,9 @@ class EventController extends Controller
         $events = EventExempted::where([['org_id', $org_id], ['event_id', $id]])->get();
         return response()->json($events);
     }
+    public function updateEventStatus($id, $status)
+    {
+        Event::where('event_id', $id)->update(['event_status' => $status]);
+        return response()->json(['message' => 'Event Updated Successfully']);
+    }
 }

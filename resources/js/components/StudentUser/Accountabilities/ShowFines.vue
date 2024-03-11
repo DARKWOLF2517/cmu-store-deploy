@@ -7,10 +7,11 @@
             <div class="col-md-6 col-sm-12"
                 style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
                 <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
-                        @change="getUserOrgs">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="school_year_input" @change="getUserOrgs">
                         <option value="" disabled selected>Select Semester</option>
-                        <option v-for="school_year in this.school_year" :value="school_year.id">{{ school_year.school_year
+                        <option v-for="school_year in this.school_year" :value="school_year.id">{{
+                            school_year.school_year
                         }}</option>
                     </select>
                 </div>
@@ -123,13 +124,13 @@
                         <tbody>
                             <tr>
                                 <th>Fines</th>
-                                <td>{{ fines }}
+                                <td>{{ getTotalAccountabilitiesIndividual('fines', fines) }}
                                     <!-- <i class="fas fa-eye ml-6">see more</i> -->
                                 </td>
                             </tr>
                             <tr v-for="accountability in this.accountabilityList">
                                 <th>{{ accountability['accountability_name'] }}</th>
-                                <td>{{ accountability['amount'] }}</td>
+                                <td>{{ getTotalAccountabilitiesIndividual(accountability['accountability_name'], accountability['amount'])  }}</td>
 
                             </tr>
                         </tbody>
@@ -160,6 +161,7 @@ export default {
             org_id: 0,
             org_name: '',
             user_organization: [],
+            paid_accountabilities: [],
         }
     },
     mounted() {
@@ -210,13 +212,26 @@ export default {
 
             this.fetchEventsWithAttendance();
         },
+        getTotalAccountabilitiesIndividual(accountability_type, amount) {
+            // Sum the amount property of objects where accountability_type is "fines"
+            const totalAmountFines = this.paid_accountabilities
+                .filter(item => item.accountability_type == accountability_type)
+                .reduce((total, item) => total + item.amount, 0);
 
+            return amount - totalAmountFines;
+
+
+        },
         fetchEventsWithAttendance() {
             axios.get(`/accountabilities_students/${this.org_id}/${this.school_year_input}`)
                 .then(response => {
                     // console.log(response.data.paid_accountabilities)
                     const data = response.data.accountabilities;
-                    const paid = response.data.paid_accountabilities;
+                    this.paid_accountabilities = response.data.paid_accountabilities;
+                    // Calculate the total amount
+                    const totalAmount = this.paid_accountabilities.reduce((total, item) => total + item.amount, 0);
+
+                    console.log(totalAmount)
                     data.forEach(events => {
                         //get the data of the student attendance and compile it to the array
                         const attendanceRecord = {
@@ -238,7 +253,7 @@ export default {
                         attendanceRecord.attendance_count = attendanceCount;
                         attendanceRecord.student_id = student_id;
 
-
+                        console.log(attendanceRecord)
                         if (attendanceRecord.session_count > attendanceRecord.attendance_count) {
                             // console.log(attendanceRecord.event_id + " has fines " + attendanceRecord.fines)
                             attendanceRecord.finalSession = attendanceRecord.session_count - attendanceRecord.attendance_count;
@@ -253,8 +268,9 @@ export default {
                     this.accountabilityList.forEach(element => {
                         this.total_accountability += element.amount;
                     });
+
                     this.total_accountability = this.total_accountability + this.fines;
-                    this.total_accountability = this.total_accountability - paid;
+                    this.total_accountability = this.total_accountability - totalAmount;
 
 
                 })

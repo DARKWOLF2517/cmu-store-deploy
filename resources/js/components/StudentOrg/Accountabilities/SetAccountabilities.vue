@@ -13,8 +13,9 @@
                 <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
                     @change="fetchData">
                     <option value="0" disabled selected>Select School Year</option>
-                    <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year']
-                    }}
+                    <option v-for="school_year in this.school_year" :value="school_year['id']">{{
+                    school_year['school_year']
+                }}
                     </option>
                 </select>
             </div>
@@ -95,8 +96,9 @@
                 </div> -->
 
                     <h2 class="text-center "> <b>{{ accountability['accountability_name'] }}</b> </h2>
-                    <h4 class="text-center" style="color: #357960; font-weight: bold;">&#8369; {{ accountability['amount']
-                    }}</h4>
+                    <h4 class="text-center" style="color: #357960; font-weight: bold;">&#8369; {{
+                    accountability['amount']
+                }}</h4>
                 </span>
 
             </div>
@@ -133,12 +135,14 @@
                         <input type="text" class="form-control" id="description" v-model="formData.accountability_name"
                             required maxlength="20"
                             :style="{ borderColor: formData.accountability_name.length >= 20 ? 'red' : '' }">
-                        <p class="pl-2" v-if="formData.accountability_name.length >= 20" style="color: red;">Maximum length
+                        <p class="pl-2" v-if="formData.accountability_name.length >= 20" style="color: red;">Maximum
+                            length
                             reached</p>
                         <label for="membershipFeeInput" class="form-label">Amount:</label>
                         <input type="number" class="form-control" id="amount" v-model="formData.amount" required
                             maxlength="20" :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }">
-                        <p class="pl-2" v-if="formData.amount.length >= 20" style="color: red;">Maximum length reached</p>
+                        <p class="pl-2" v-if="formData.amount.length >= 20" style="color: red;">Maximum length reached
+                        </p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -249,9 +253,15 @@ export default {
         showSuccess(message) {
             this.fetchData();
             toast.success(message, {
-                autoClose: 100,
+                autoClose: 1000,
             });
         },
+        showError(message) {
+            toast.error(message, {
+                autoClose: 1000,
+            });
+        },
+
 
         submitData() {
             axios.post('/set_accountabilities', this.formData)
@@ -259,7 +269,7 @@ export default {
                     this.showSuccess(response.data.message);
                     setTimeout(() => {
                         location.reload();
-            }, 1000);
+                    }, 1000);
                 })
                 .catch((error) => {
                     alert(error);
@@ -282,7 +292,14 @@ export default {
         deleteAccountability() {
             axios.delete(`/delete_organization_accountability/${this.id}`)
                 .then((response) => {
-                    this.showSuccess(response.data.message);
+                    console.log(response.data)
+                    if (response.data.status == 1) {
+                        this.showError(response.data.message);
+                    }
+                    else {
+                        this.showSuccess(response.data.message);
+                    }
+
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 422) {

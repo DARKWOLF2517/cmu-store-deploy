@@ -287,8 +287,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" id="uploadToTableButton"
-                        @click="this.uploadData()" :disabled="isSubmitting">Upload</button>
+                    <button type="button" class="btn btn-success" id="uploadToTableButton" @click="this.uploadData()"
+                        :disabled="isSubmitting">Upload</button>
                 </div>
             </div>
         </div>
@@ -331,10 +331,9 @@ export default {
                 college_id: 0,
                 middlename: '',
                 year_level_id: 0,
-                isSubmitting: false,
 
             },
-
+            isSubmitting: false,
             submit: this.addSingleStudent,
             // studentFound: false,
 
@@ -345,30 +344,30 @@ export default {
             return Math.ceil(this.filtered_student_list.length / this.itemsPerPage);
         },
         pageRange() {
-    const start = Math.max(1, this.currentPage - 2);
-    const end = Math.min(this.totalPages, this.currentPage + 2);
-    const range = [];
+            const start = Math.max(1, this.currentPage - 2);
+            const end = Math.min(this.totalPages, this.currentPage + 2);
+            const range = [];
 
-    if (start > 1) {
-        range.push(1);
-        if (start > 2) {
-            range.push("...");
-        }
-    }
+            if (start > 1) {
+                range.push(1);
+                if (start > 2) {
+                    range.push("...");
+                }
+            }
 
-    for (let i = start; i <= end; i++) {
-        range.push(i);
-    }
+            for (let i = start; i <= end; i++) {
+                range.push(i);
+            }
 
-    if (end < this.totalPages) {
-        if (end < this.totalPages - 1) {
-            range.push("...");
-        }
-        range.push(this.totalPages);
-    }
+            if (end < this.totalPages) {
+                if (end < this.totalPages - 1) {
+                    range.push("...");
+                }
+                range.push(this.totalPages);
+            }
 
-    return range;
-},
+            return range;
+        },
         paginatedData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             return this.filtered_student_list.slice(start, start + this.itemsPerPage);
@@ -617,7 +616,7 @@ export default {
             //     alert('Please Choose Year Level and  College')
             // }
             // else{
-                this.isSubmitting = true;
+            this.isSubmitting = true;
             const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
             // excelDataModal.show();
             excelDataModal.hide();
@@ -659,8 +658,8 @@ export default {
                         console.log(response.data)
                         this.loading = false;
                         setTimeout(() => {
-                        location.reload();
-                    }, 1000);
+                            location.reload();
+                        }, 1000);
                         // Hide modal
 
                         if (response.data.type == 0) {

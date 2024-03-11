@@ -93,7 +93,7 @@ export default {
 
         axios.get(`/GetOrgList/${props.id}`)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // Assuming your data is stored in an array named 'data'
                 const uniqueData = response.data.reduce((acc, item) => {
                     const existingItemIndex = acc.findIndex(

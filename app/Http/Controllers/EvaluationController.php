@@ -84,7 +84,7 @@ class  EvaluationController extends Controller
         } catch (QueryException $e) {
             // Check if the exception is due to a foreign key constraint
             if ($e->errorInfo[1] === 1451) {
-                return response()->json(['message' => 'Cannot delete the form because there are existing records to this form' ,'status' => 0]);
+                return response()->json(['message' => 'Cannot delete the form due to existing records to this form' ,'status' => 0]);
             }
 
             // Handle other database errors

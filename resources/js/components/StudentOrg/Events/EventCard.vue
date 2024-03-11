@@ -92,7 +92,7 @@
                     <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[
                         'border-top',
                         'border-5',
-                        { 'border-warning': event.attendance_status == 1, 'border-success': event.attendance_status == 2 },
+                        { 'border-warning': event.event_status == 1, 'border-success': event.event_status == 2 },
                         'border-bottom-0'
                     ]">
 
@@ -127,11 +127,17 @@
                                             data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
                                             Attendance</a></li>
                                 </div>
-                                <div>
-                                    <li><a class="dropdown-item" data-bs-toggle="modal"
-                                            data-bs-target="#closeEvent">Close Event</a>
+                                <div v-if="event.event_status == 0 || event.event_status === 2">
+                                    <li><a class="dropdown-item" @click="this.id = (event.event_id), this.status = 1"
+                                            data-bs-toggle="modal" data-bs-target="#eventStatus">Start Event</a>
                                     </li>
                                 </div>
+                                <div v-else-if="event.event_status == 1">
+                                    <li><a class="dropdown-item" @click="this.id = (event.event_id), this.status = 2"
+                                            data-bs-toggle="modal" data-bs-target="#eventStatus">Stop Event</a>
+                                    </li>
+                                </div>
+
                                 <div>
                                     <li><a class="dropdown-item" data-bs-toggle="modal"
                                             data-bs-target="#cancelAttendance">Cancel Attendance</a>
@@ -179,7 +185,37 @@
                     </div>
                 </div>
 
+                <!-- Start event confirmation -->
+                <div class="modal fade " id="eventStatus" tabindex="-1" aria-labelledby="eventStatusConfirmationLabel"
+                    aria-hidden="true" role="dialog">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h4><i v-if="status === 1" class="fas fa-question-circle text-warning"></i>
+                                    <i v-if="status === 2" class="fas fa-exclamation-triangle text-danger"></i>
+                                </h4>
 
+                                <p v-if="this.status === 1">Are you sure you want to Start Event?</p>
+                                <p v-if="this.status === 2">Are you sure you want to Stop Event?</p>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                                <button type="button" class="btn btn-success" @click="startEvent()"
+                                    :disabled="isSubmitting">
+                                    <div v-if="this.status === 1">Start Event</div>
+                                    <div v-else-if="this.status === 2">Stop Event</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Start Attendance confirmation -->
                 <div class="modal fade " id="stopAttendanceConfirmation" tabindex="-1"
                     aria-labelledby="stopAttendanceConfirmationLabel" aria-hidden="true" role="dialog">
@@ -326,8 +362,8 @@
                                     </h4>
                                     <h5 class="text-center fw-bold">You are about to exclude a Year level</h5>
                                     <h6>Check the year level/s excused from required participation in the event</h6>
-                                    <div v-if="!isAtLeastOneChecked" class="text-danger">Please select at least one year
-                                        level</div>
+                                    <!-- <div v-if="!isAtLeastOneChecked" class="text-danger">Please select at least one year
+                                        level</div> -->
                                     <div v-for="year_level in year_level_data" :key="year_level.id" class="form-check">
                                         <input type="checkbox" :value="year_level.id" v-model="year_level_exempted"
                                             class="form-check-input mr-2">
@@ -339,7 +375,7 @@
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-success"
-                                        :disabled="!isAtLeastOneChecked">Save</button>
+                                        >Save</button>
                                 </div>
                             </form>
                         </div>
@@ -568,6 +604,20 @@ export default {
     },
 
     methods: {
+        startEvent() {
+            axios.put(`/update_event_status/${this.id}/${this.status}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                    this.fetchData();
+                })
+                .catch(error => {
+                    alert('Error', error)
+                });
+        },
         showEvaluationForm() {
             axios.get(`getEvaluationForm/${this.organization_id}`)
                 .then(response => {
@@ -632,7 +682,7 @@ export default {
             let filteredByStatus = this.events;
             if (this.status_filter) {
                 filteredByStatus = filteredByStatus.filter(item =>
-                    item.attendance_status.toString().includes(this.status_filter)
+                    item.event_status.toString().includes(this.status_filter)
                 );
             }
 

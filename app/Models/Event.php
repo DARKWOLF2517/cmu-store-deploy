@@ -24,6 +24,7 @@ class Event extends Model
         'org_id',
         'evaluation_status',
         'attendance_status',
+        'event_status',
         'school_year'
     ];
 

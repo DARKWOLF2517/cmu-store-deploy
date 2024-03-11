@@ -85,7 +85,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/evaluation_result', function () {
         return view('student_organization.student_organization_evaluation_results');
     });
-    #Announcement Pageaccountabilities_students
+    #Announcement Page
     Route::get('student_organization_announcement', function () {
         return view('student_organization.student_organization_announcement');
     });
@@ -223,7 +223,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/submitYearLevelExempted/{org_id}/{school_year}/{event_id}', [EventController::class, 'submitYearLevelExempted']);
         Route::get('/get_year_level/{organization_id}', [EventController::class, 'getYearLevel']);
         Route::get('/yearLevel/exempted/{org_id}/{id}', [EventController::class, 'getExempted']);
-
+        Route::put('/update_event_status/{id}/{status}', [EventController::class, 'updateEventStatus']);
 
         #ACCOUNTABILITIES ROUTES
         Route::post('/set_accountabilities', [AccountabilitiesController::class, 'store']);
