@@ -89,7 +89,7 @@
                                     <p class="text-muted fw-bold">No results found</p>
                                 </div>
                             </div> -->
-                    <tr  v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id"
+                    <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id"
                         :key="fees_list.user_id">
                         <td>{{ fees_list.user_id }}</td>
                         <td> {{ fees_list.name }}</td>
@@ -190,10 +190,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="text-success" > <b>Remaining Balance: </b>   </h5>
+                    <h5 class="text-success"> <b>Remaining Balance: </b> </h5>
                     <div v-for="summary in this.temporary_list_summary">
 
-                        <h5 class="ms-4">  {{ summary.label }}: <b>&#8369; {{ summary.amount }}</b> </h5>
+                        <h5 class="ms-4"> {{ summary.label }}: <b>&#8369; {{ summary.amount }}</b> </h5>
                     </div>
                     <table class="table" id="temporaryList" style="max-height: 50vh; overflow-y: auto;">
                         <thead>
@@ -385,30 +385,30 @@ export default {
             return Math.ceil(this.fees_list.length / this.itemsPerPage);
         },
         pageRange() {
-    const start = Math.max(1, this.currentPage - 2);
-    const end = Math.min(this.totalPages, this.currentPage + 2);
-    const range = [];
+            const start = Math.max(1, this.currentPage - 2);
+            const end = Math.min(this.totalPages, this.currentPage + 2);
+            const range = [];
 
-    if (start > 1) {
-        range.push(1);
-        if (start > 2) {
-            range.push("...");
-        }
-    }
+            if (start > 1) {
+                range.push(1);
+                if (start > 2) {
+                    range.push("...");
+                }
+            }
 
-    for (let i = start; i <= end; i++) {
-        range.push(i);
-    }
+            for (let i = start; i <= end; i++) {
+                range.push(i);
+            }
 
-    if (end < this.totalPages) {
-        if (end < this.totalPages - 1) {
-            range.push("...");
-        }
-        range.push(this.totalPages);
-    }
+            if (end < this.totalPages) {
+                if (end < this.totalPages - 1) {
+                    range.push("...");
+                }
+                range.push(this.totalPages);
+            }
 
-    return range;
-},
+            return range;
+        },
         paginatedData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             return this.this.filtered_items_for_fines.slice(start, start + this.itemsPerPage);
@@ -856,40 +856,23 @@ export default {
                     });
                     //for exempting the free fines
                     missingSessions.forEach(overall_fees_list => {
-                        events_with_attendance.forEach(event_name => {
-                            console.log()
-                            if (overall_fees_list.event_id === event_name.event_id) {
-                                if (free_fines.length != 0) {
-                                    free_fines.forEach(free => {
-                                        if (free.student_id != overall_fees_list.user_id) {
-                                            this.overall_fees_list.push({
-                                                name: overall_fees_list.name,
-                                                user_id: overall_fees_list.user_id,
-                                                event_name: event_name.name,
-                                                event_id: event_name.event_id,
-                                                amount: overall_fees_list.amount,
-                                                missing_session: overall_fees_list.missing_session,
-                                                accountability_type: overall_fees_list.accountability_type,
-                                                date: overall_fees_list.date
-                                            });
-                                        }
-                                    });
-                                }
-                                else {
-                                    this.overall_fees_list.push({
-                                        name: overall_fees_list.name,
-                                        user_id: overall_fees_list.user_id,
-                                        event_name: event_name.name,
-                                        event_id: event_name.event_id,
-                                        amount: overall_fees_list.amount,
-                                        missing_session: overall_fees_list.missing_session,
-                                        accountability_type: overall_fees_list.accountability_type,
-                                        date: overall_fees_list.date
-                                    });
-                                }
+                        const event = events_with_attendance.find(event_name => event_name.event_id === overall_fees_list.event_id);
+
+                        if (event) {
+                            if (free_fines.length === 0 || !free_fines.some(free => free.student_id === overall_fees_list.user_id)) {
+                                this.overall_fees_list.push({
+                                    name: overall_fees_list.name,
+                                    user_id: overall_fees_list.user_id,
+                                    event_name: event.name,
+                                    event_id: event.event_id,
+                                    amount: overall_fees_list.amount,
+                                    missing_session: overall_fees_list.missing_session,
+                                    accountability_type: overall_fees_list.accountability_type,
+                                    date: overall_fees_list.date
+                                });
                             }
-                        })
-                    })
+                        }
+                    });
 
 
 
