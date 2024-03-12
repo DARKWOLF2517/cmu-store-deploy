@@ -70,13 +70,19 @@
     padding: 5px;
 
 }
-.recorded-event-cards{
+/* .recorded-event-cards{
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     height: 71vh;
     max-height: 71vh;
-}
+} */
+.recorded-event-cards{
+    display: flex;
+    flex-wrap: wrap;
+    /* margin-left: 30px; */
+    max-height: 72vh;
+  }
 p{
     margin-bottom: 0 !important;
 }
@@ -93,6 +99,7 @@ p{
     width: calc(33.33% - 20px);
     height: 200px;
   }
+
 
 .schedule-list-container{
     height: 80vh;

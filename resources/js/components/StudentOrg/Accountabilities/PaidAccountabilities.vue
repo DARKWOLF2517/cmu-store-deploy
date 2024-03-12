@@ -59,6 +59,7 @@
                         <th>Date Received</th>
                         <th style="width: 10%;">Amount</th>
                         <th>Remarks</th>
+                        <th></th>
 
                     </tr>
                 </thead>
@@ -82,6 +83,12 @@
                         <td> {{ paid['created_at'] }}</td>
                         <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}.00</td>
                         <td>{{ paid['accountability_type'] }}</td>
+                        <td>
+                            <span class="d-flex justify-content-center">
+                                <button class="btn btn-danger text-light" data-bs-toggle="modal"
+                                    data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                            </span>
+                        </td>
                     </tr>
 
                 </tbody>
@@ -296,29 +303,6 @@ export default {
             }
         },
         printTable() {
-            // Clone the table element to avoid modifying the original table
-            const tableToPrint = document.getElementById('accountabilities-table').cloneNode(true);
-
-            const actionsColumnIndex = 5;
-            const rows = tableToPrint.getElementsByTagName('tr');
-
-            for (let i = 0; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                if (cells.length > actionsColumnIndex) {
-                    // Remove the cell from the DOM
-                    cells[actionsColumnIndex].parentNode.removeChild(cells[actionsColumnIndex]);
-                }
-            }
-
-            // Hide the header cell for the "Actions" column
-            const headerRow = tableToPrint.getElementsByTagName('thead')[0].getElementsByTagName('tr')[0];
-            if (headerRow) {
-                const headerCell = headerRow.getElementsByTagName('th')[actionsColumnIndex];
-                if (headerCell) {
-                    headerCell.style.display = 'none';
-                }
-            }
-
             // Create a hidden iframe for printing
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
@@ -328,21 +312,35 @@ export default {
             const iframeDoc = iframe.contentWindow.document;
             iframeDoc.open();
             iframeDoc.write(`
-        <html>
-        <head>
-            <title>Print</title>
-            <!-- Include Bootstrap stylesheet link -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        </head>
-        <body>
-            <h2>Paid Accountabilities</h2>
+      <html>
+      <head>
+          <title>Print</title>
+          <!-- Include Bootstrap stylesheet link -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      </head>
+      <body>
+          <!-- Add a title before the table -->
+          <h2>Student With Free Fines</h2>
 
-            <table class="table table-bordered table-striped">
-                ${tableToPrint.innerHTML}
-            </table>
-        </body>
-        </html>
-    `);
+          <!-- Add Bootstrap table classes -->
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                    <th>Student ID</th>
+                        <th>Student Name</th>
+                        <!-- <th>Accountabilities</th> -->
+                        <th>Date Received</th>
+                        <th style="width: 10%;">Amount</th>
+                        <th>Remarks</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${this.generateTableRowsWithoutLastColumn(this.paidList)}
+              </tbody>
+          </table>
+      </body>
+      </html>
+  `);
             iframeDoc.close();
 
             // Print the iframe content
@@ -355,24 +353,24 @@ export default {
             }, 1000);
         },
 
-        generateTableRows(data) {
+        generateTableRowsWithoutLastColumn(data) {
             let rows = '';
             data.forEach(item => {
                 rows += `
-          <tr>
-              <td>${item.student_id}</td>
-              <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
-              <td>${item.created_at}</td>
-              <td style = "font-weight: bold;">&#8369; ${item.amount}.00</td>
-              <td>sd</td>
-          </tr>
-      `;
+            <tr>
+                <td>${item.student_id}</td>
+                <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
+                <td>${item.created_at}</td>
+                <td>${item.amount}</td>
+                <td>${item.accountability_type}</td>
+            </tr>
+        `;
             });
             return rows;
         },
         downloadTable() {
-            // Get the table data specifically from paidList
-            const tableData = this.getPaidListTableData();
+            // Get the table data specifically from free_fines_students
+            const tableData = this.getFreeFinesTableData();
 
             // Create a workbook
             const wb = XLSX.utils.book_new();
@@ -380,27 +378,25 @@ export default {
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
             // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'Paid_Students.xlsx');
+            XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
         },
 
-        getPaidListTableData() {
-            // Get a reference to the paidList data
-
-            const data = this.paidList;
+        getFreeFinesTableData() {
+            // Get a reference to the table
+            const table = document.getElementById('accountabilities-table');
 
             // Initialize an array to store the table data
-            const tableData = [['Student ID', 'Student Name', 'Date Received', 'Amount']];
+            const tableData = [];
 
-
-            // Iterate through the paidList data
-            for (let i = 0; i < data.length; i++) {
+            // Iterate through the rows of the table
+            for (let i = 0; i < table.rows.length; i++) {
                 const rowData = [];
 
-                // Add the desired data fields to the rowData array
-                rowData.push(data[i].student_id);
-                rowData.push(data[i].user_profile.first_name + ' ' + data[i].user_profile.last_name);
-                rowData.push(data[i].created_at);
-                rowData.push(data[i].amount);
+                // Iterate through the cells of the current row, excluding the last one
+                for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
+                    // Push the cell value to the rowData array
+                    rowData.push(table.rows[i].cells[j].textContent);
+                }
 
                 // Push the row data to the tableData array
                 tableData.push(rowData);

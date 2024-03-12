@@ -28,6 +28,9 @@ footer {
     background-color: #f1625f !important;
     color: #ffff;
 }
+.btn-danger i{
+    color: #ffff;
+}
 .btn-success{
     background-color: #347961 !important;
     color: #ffff;

@@ -1182,9 +1182,9 @@ export default {
             data.forEach(item => {
                 rows += `
             <tr>
-                <td>${item.userId}</td>
-                <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
-                <td>${item.amount}</td>
+                <td>${item.user_id}</td>
+                <td>${item.name}</td>
+                <td>${item.total_fees}</td>
             </tr>
         `;
             });
@@ -1200,7 +1200,7 @@ export default {
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
             // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'StudentWithFreeFines.xlsx');
+            XLSX.writeFile(wb, 'StudentWithAccountabilities.xlsx');
         },
 
         getFreeFinesTableData() {

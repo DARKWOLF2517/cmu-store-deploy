@@ -58,6 +58,7 @@
                         <th class="sortable-header">Student Name</th>
                         <th class="sortable-header">College</th>
                         <th class="sortable-header" style="width: 20%;"> Time </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,6 +67,12 @@
                         <td>{{ attendance.user_profile.first_name }} {{ attendance.user_profile.last_name }}</td>
                         <td>{{ attendance.user_profile.college.college }}</td>
                         <td>{{ attendance.created_at }}</td>
+                        <td>
+                            <span class="d-flex justify-content-center">
+                                <button class="btn btn-danger text-light" data-bs-toggle="modal"
+                                    data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -324,22 +331,47 @@ export default {
 
           <!-- Add Bootstrap table classes -->
           <table class="table table-bordered table-striped">
-                ${tableToPrint.innerHTML}
+            <thead>
+                  <tr>
+                    <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>College</th>
+                        <th style="width: 10%;">Time</th>
+                  </tr>
+              </thead>
+              <tbody>
+            ${this.generateTableRowsWithoutLastColumn(this.attendance)}
+            </tbody>
             </table>
       </body>
       </html>
   `);
-            iframeDoc.close();
+  iframeDoc.close();
 
-            // Print the iframe content
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
+// Print the iframe content
+iframe.contentWindow.focus();
+iframe.contentWindow.print();
 
-            // Remove the iframe after printing
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-            }, 1000);
-        },
+// Remove the iframe after printing
+setTimeout(() => {
+    document.body.removeChild(iframe);
+}, 1000);
+},
+
+generateTableRowsWithoutLastColumn(data) {
+let rows = '';
+data.forEach(item => {
+    rows += `
+<tr>
+    <td>${item.user_id}</td>
+    <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
+    <td>${item.user_profile.college.college}</td>
+    <td>${item.time}</td>
+</tr>
+`;
+});
+return rows;
+},
         generateTableRows(data) {
             let rows = '';
             data.forEach(item => {
