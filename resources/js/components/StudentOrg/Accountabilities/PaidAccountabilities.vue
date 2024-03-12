@@ -15,24 +15,28 @@
             <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
                 @change="fetchData">
                 <option value="" disabled selected>Select Semester</option>
-                <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year'] }}
+                <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year']
+                    }}
                 </option>
 
             </select>
         </div>
-        <div class="select-dropdown" id="college-btn" style="width: 20%;">
+        <div class="select-dropdown" id="college-btn" style="width: 20%;" v-if="this.college_id == 11">
             <!-- First dropdown -->
-            <select id="sort-select" class="form-control" style="text-align: center;">
+            <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input"
+                @change="filterItems">
                 <option value="" disabled selected><i class="fas fa-filter"></i> College</option>
-                <option value="cisc">CISC</option>
+                <option v-for="college in this.college_list" :value="college.id">{{ college.college }}</option>
             </select>
         </div>
         <div class="select-dropdown" style="width: 30%;">
 
-            <select id="sort-select" class="form-control" style="text-align: center;">
+            <select id="sort-select" class="form-control" style="text-align: center;" v-model="accountability_type"
+                @change="filterItems">
                 <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
-                <option value="fines">Fines</option>
-                <option value="others">Other Accountability</option>
+                <option value="fines">fines</option>
+                <option v-for="accountability in this.accountabilities" :value="accountability.accountability_name">{{
+                accountability.accountability_name }}</option>
             </select>
         </div>
     </div>
@@ -92,8 +96,9 @@
                         <td>{{ paid['accountability_type'] }}</td>
                         <td>
                             <span class="d-flex justify-content-center p-2">
-                                <button class="btn btn-danger text-light" data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                                <button @click="this.id = paid.id" class="btn btn-danger text-light"
+                                    data-bs-toggle="modal" data-bs-target="#deleteConfirmation"><i
+                                        class="fas fa-trash"></i></button>
                             </span>
                         </td>
                     </tr>
@@ -121,7 +126,7 @@
             </div>
         </div>
     </div>
-    <!-- Confirmation Delete Modal -->
+    <!-- Confirmation paid Modal -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -141,11 +146,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                    <h4><b>Delete Payment</b></h4>
+                    <p>Are you sure you want to delete this payment?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" @click="deleteAccountabilities()"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 import { convertDate } from '../Functions/DateConverter';
-
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 export default {
 
     props: ['org_id', 'school_year_session'],
@@ -159,6 +188,12 @@ export default {
             school_year: [],
             searchTerm: '',
             filtered_paid_accountabilities: [],
+            college_list: [],
+            college_id: 0,//college id of the organization
+            college_data_input: 0,
+            accountabilities: [],
+            accountability_type: '',
+            id: 0,
         }
     },
     computed: {
@@ -239,6 +274,8 @@ export default {
     mounted() {
         this.fetchData();
         this.showSchoolYear();
+        this.getOrgCollege();
+        this.showCollege();
     },
     created() {
 
@@ -246,6 +283,52 @@ export default {
     },
 
     methods: {
+        deleteAccountabilities() {
+            console.log(this.id)
+            axios.delete(`/delete_paid_accountabilities/${this.id}`)
+                .then(response => {
+                    this.showSucces(response.data.message);
+                    this.fetchData();
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    }
+                    console.log(error)
+
+                });
+        },
+        getAccountabilities() {
+            axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_input}`)
+                .then(response => {
+                    this.accountabilities = response.data;
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        showCollege() {
+            axios.get(`/view_college`)
+                .then(response => {
+                    this.college_list = response.data;
+                    // console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        getOrgCollege() {
+            axios.get(`/get_organization_college/${this.org_id}`)
+                .then(response => {
+                    this.college_id = response.data;
+                    this.college_data_input = this.college_id;
+                    console.log(this.college_id)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
 
         filterItems() {
             let filteredBySearch = this.paidList;
@@ -255,7 +338,24 @@ export default {
                     item.student_id.toString().includes(this.searchTerm)
                 );
             }
-            this.filtered_paid_accountabilities = filteredBySearch;
+
+            let filteredByCollege = this.paidList;
+            if (this.college_data_input !== undefined && this.college_data_input !== null && this.college_data_input != 11) {
+                filteredByCollege = filteredByCollege.filter(item =>
+                    item.user_profile.college_id === parseInt(this.college_data_input, 10)
+                );
+            }
+
+            let filteredByAccountability = this.paidList;
+            if (this.accountability_type) {
+                filteredByAccountability = filteredByAccountability.filter(item =>
+                    item.accountability_type == this.accountability_type
+                );
+            }
+            // this.filtered_paid_accountabilities = filteredBySearch;
+            this.filtered_paid_accountabilities = filteredBySearch.filter(item =>
+                filteredByCollege.includes(item) && filteredByAccountability.includes(item)
+            );
         },
         showSchoolYear() {
             axios.get(`get_school_year`)
@@ -280,11 +380,13 @@ export default {
                     this.loading = false;
 
                     this.filtered_paid_accountabilities = this.paidList;
+
                 })
                 .catch(error => {
                     console.log('error')
                 });
 
+            this.getAccountabilities();
         },
         prevPage() {
             if (this.currentPage > 1) {
@@ -412,9 +514,12 @@ export default {
             // Return the table data
             return tableData;
         },
-
-
-
+        showSucces(message) {
+            this.fetchData();
+            toast.success(message), {
+                autoClose: 100,
+            }
+        },
 
     }
 

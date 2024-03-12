@@ -147,11 +147,10 @@ class AccountabilitiesController extends Controller
     {
         $isPaymentPresent = PaidAccountability::where('accountability_type', $accountability_id->accountability_name)->get();
         if (!$isPaymentPresent->isEmpty()) {
-            return response()->json(['message' => 'Cannot be deleted due to payment record' , 'status' => 1]);
-        }
-        else {
+            return response()->json(['message' => 'Cannot be deleted due to payment record', 'status' => 1]);
+        } else {
             $accountability_id->delete();
-            return response()->json(['message' => 'Accountability ' . $accountability_id->accountability_name . ' Deleted successfully'  , 'status' =>0]);
+            return response()->json(['message' => 'Accountability ' . $accountability_id->accountability_name . ' Deleted successfully', 'status' => 0]);
         }
         // return $isPaymentPresent;
 
@@ -249,5 +248,13 @@ class AccountabilitiesController extends Controller
     {
         $accountabilities = PaidAccountability::where([['student_id', $student_id]])->get();
         return $accountabilities->toJson();
+    }
+    public function deletePaidAccountabilities(PaidAccountability $accountability_id)
+    {
+
+        $accountability_id->delete();
+        return response()->json(['message' => 'Payment Deleted successfully', 'status' => 0]);
+        // return $isPaymentPresent;
+
     }
 }
