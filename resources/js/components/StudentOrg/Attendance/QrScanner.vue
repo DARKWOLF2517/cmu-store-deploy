@@ -28,17 +28,17 @@
                                     <th>Student ID</th>
                                 </tr>
                                 <tr v-for="attendances in this.attendance" :id="attendances.user_id">
-                                    <td> {{ attendances["user_id"] }}</td>
+                                    <td> {{ attendances.user_profile.first_name}} {{ attendances.user_profile.last_name}}</td>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <!-- <tbody>
                                 <tr v-for="(item, index) in this.temporary" :key="index">
                                     <td>{{ item.ID }}</td>
                                     <td>
                                         <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
-                            </tbody>
+                            </tbody> -->
                         </table>
                     </div>
                 </div>
@@ -99,6 +99,7 @@ export default {
             axios.get(`/attendance/show/${this.event_id}/${this.org_id}/${this.session}`)
                 .then(response => {
                     this.attendance = response.data
+                    console.log(this.attendance)
                 })
                 .catch(error => {
 

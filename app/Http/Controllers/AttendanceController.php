@@ -20,7 +20,7 @@ class AttendanceController extends Controller
             ['org_id', $org_id],
             ['session', $session],
             ['remarks', 0],
-        ])->get();
+        ])->with('user_profile')->get();
         return $attendance->toJson();
     }
     public function AttendanceList($organization_id, $event_id)
