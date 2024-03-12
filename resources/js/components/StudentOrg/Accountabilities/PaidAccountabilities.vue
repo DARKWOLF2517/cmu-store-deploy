@@ -10,7 +10,7 @@
 
         <!-- {{-- <button class="btn sort-btn"><i class="fas fa-filter"></i></button> --}} -->
 
-        <div class="select-dropdown" id="semester-btn" style="width: 70%;">
+        <div class="select-dropdown" id="semester-btn" style="width: 50%;">
             <!-- First dropdown -->
             <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
                 @change="fetchData">
@@ -18,6 +18,13 @@
                 <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year'] }}
                 </option>
 
+            </select>
+        </div>
+        <div class="select-dropdown" id="college-btn" style="width: 20%;">
+            <!-- First dropdown -->
+            <select id="sort-select" class="form-control" style="text-align: center;">
+                <option value="" disabled selected><i class="fas fa-filter"></i> College</option>
+                <option value="cisc">CISC</option>
             </select>
         </div>
         <div class="select-dropdown" style="width: 30%;">
@@ -47,8 +54,8 @@
         </div>
     </div>
 
-    <div id="table-container">
-        <div class="scroll-pane">
+    <div id="table-container" style="margin-left: 10px;">
+        <div class="scroll-pane" id="table-list">
             <!-- fines accountabilities -->
             <table id="accountabilities-table">
                 <thead>
@@ -84,7 +91,7 @@
                         <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}.00</td>
                         <td>{{ paid['accountability_type'] }}</td>
                         <td>
-                            <span class="d-flex justify-content-center">
+                            <span class="d-flex justify-content-center p-2">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
                             </span>

@@ -214,20 +214,6 @@ footer {
     background-color:#6ec0a1 !important;
 }
 
-.table-buttons {
-    border-radius: 30px;
-    padding: 4px 10px;
-    justify-content: center;
-    text-align: center;
-    font-size: 10px !important;
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    }
-
-    .table-buttons i {
-    color: #525a58;
-    }
 
 .input-container {
     position: relative;

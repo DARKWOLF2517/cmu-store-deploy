@@ -55,7 +55,7 @@
     </div>
 
     <div id="table-container" style="margin-left: 10px;">
-        <div class="scroll-pane">
+        <div class="scroll-pane" id="table-list">
             <!-- fines accountabilities -->
             <table id="accountabilities-table">
                 <thead>
@@ -64,7 +64,7 @@
                         <th>Student Name</th>
                         <!-- <th>Accountabilities</th> -->
                         <th style="width: 10%;">Total Amount</th>
-                        <th>Actions</th>
+                        <th  style="width: 10%;"></th>
                     </tr>
                 </thead>
                 <!-- <tbody v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id" > -->
@@ -89,7 +89,7 @@
                                     <p class="text-muted fw-bold">No results found</p>
                                 </div>
                             </div> -->
-                    <tr v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id"
+                    <tr v-for="fees_list in this.paginatedData" :id="fees_list.user_id"
                         :key="fees_list.user_id">
                         <td>{{ fees_list.user_id }}</td>
                         <td> {{ fees_list.name }}</td>
@@ -270,7 +270,7 @@
 
                         <div>
                             <label for="type">Type of Accountability</label>
-                            <div class="select-dropdown" id="remarks-btn">
+                            <div class="select-dropdown border" id="remarks-btn">
                                 <!-- First dropdown -->
                                 <select id="sort-select" class="form-control" style="text-align: center;"
                                     v-model="this.accountability_type" required>

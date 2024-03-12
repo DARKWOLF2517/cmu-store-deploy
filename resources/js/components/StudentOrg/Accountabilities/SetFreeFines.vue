@@ -63,7 +63,7 @@
             </tbody> -->
     <div id="table-container">
 
-        <div class="scroll-pane">
+        <div class="scroll-pane" id="table-list">
             <table id="accountabilities-table">
                 <thead>
                     <tr>
@@ -112,12 +112,12 @@
                         <td>{{ free_fines.user_profile.first_name }} {{ free_fines.user_profile.last_name }}</td>
                         <td>{{ free_fines.reason }}</td>
                         <td>
-                            <span class="table-buttons">
+                            <span class="d-flex justify-content-center gap-2">
                                 <button class="btn edit-button"
                                     @click="submit = updateData, id = free_fines.student_id, fetchUpdateData()"
                                     data-bs-toggle="modal" data-bs-target="#addStudentModal"><i
                                         class="fas fa-pen"></i></button>
-                                <button class="btn delete-button" @click="id = free_fines.student_id" data-bs-toggle="modal"
+                                <button class="btn btn-danger text-light" @click="id = free_fines.student_id" data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
                             </span>
                         </td>
@@ -312,7 +312,7 @@ export default {
 
           <!-- Add Bootstrap table classes -->
           <table class="table table-bordered table-striped">
-              <thead>
+              <thead >
                   <tr>
                       <th style="width: 10%;">Student ID</th>
                       <th style="width: 30%;">Student Name</th>

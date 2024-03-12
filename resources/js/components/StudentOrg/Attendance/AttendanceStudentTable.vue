@@ -46,9 +46,9 @@
             </div>
         </div>
     </div>
-    <div id="table-container" style="height: 800vh !important; max-height: 80vh;">
+    <div id="table-container" >
 
-        <div class="scroll-pane" id="table-list" style="height: 70vh !important; max-height: 70vh;">
+        <div class="scroll-pane" id="table-list">
             <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
             <p>Date: <b>{{ this.event.event_date }}</b> </p>
             <table id="accountabilities-table">
