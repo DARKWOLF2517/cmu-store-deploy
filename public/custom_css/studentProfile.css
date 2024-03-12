@@ -75,18 +75,19 @@ th{
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     border-radius: 10px;
     background-color: white;
-    height: 100%;
+
 }
 
 .student-profile-page{
     height: 88.5vh;
     max-height: 88.5vh;
 }
-.student-info, .org-under-info{
+.student-info{
     padding: 10px;
     height: 40vh;
     max-height: 40vh;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 .student-profile-container{
     display: flex;
@@ -200,8 +201,6 @@ th{
 }
 
 @media (max-width: 768px) {
-
-
     .qr-code {
         padding: 10px;
         border-radius: 10px;

@@ -13,10 +13,9 @@
                                 </div>
                                 <h4 class="text-center">{{ this.profile.name }}</h4>
                                 <h5 class="mb-0 text-center text-muted"> <b></b> {{ this.user_id }}</h5>
-                                <p class="mb-0 mt-2"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level
+                                <!-- <p class="mb-0 mt-2"><b>Year level: </b> <span id="year-level">{{ this.profile.year_level
                                 }}</span></p>
-                                <!-- <p class="mb-0"><b>Organization: </b> <span id="college">{{ this.profile.college }}</span></p> -->
-                                <p><b>Email: </b> {{ this.profile.email }} <span id="email"></span></p>
+                                <p><b>Email: </b> {{ this.profile.email }} <span id="email"></span></p> -->
                             </div>
                         </div>
                     </div>
@@ -25,7 +24,8 @@
                         <button class="btn btn-secondary w-100" @click="downloadQRCode">
                             <i class="fas fa-download"></i> Download QR
                         </button>
-                        <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal" data-bs-target="#EditProfileModal">
+                        <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal"
+                            data-bs-target="#EditProfileModal">
                             <i class="fas fa-edit"></i> Edit Email
                         </button>
                         <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
@@ -34,25 +34,42 @@
                     </div>
                 </div>
             </div>
-
-            <div class=" col-md-8 mt-3">
-
+            <div class="col-md-8 mt-3">
                 <div class="organizations" role="tabpanel" aria-labelledby="organization-tab">
 
-                    <h5> <i class="far fa-copy"></i> Organizations </h5>
-                    <div class="org-under-info">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="profile">
+                                    <!-- Profile content -->
+                                    <img id="profileImage"
+                                        src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                        alt="profile photo">
+                                </div>
+                            </div>
+                            <div class="col">
+
+                    <div class="mt-5">
+                        <h5><i class="far fa-copy"></i> Student Details </h5>
                         <div v-if="loading" class="loading-spinner">
                             <div class="spinner-border text-success" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <ul v-for="organization in this.organization" :id="organization.student_org_id">
-                            <li>{{ organization['organization']['name'] }}</li>
-                            <!-- Add more club items here -->
-                        </ul>
+                                <p class="mb-2 mt-2"><b>Year level:</b> <span id="year-level">{{ this.profile.year_level
+                                        }}</span></p>
+                                <p><b>Email:</b> {{ this.profile.email }} <span id="email"></span></p>
+                            <h5><i class="far fa-copy"></i> Organizations</h5>
+                            <ul>
+                                <li v-for="organization in this.organization" :key="organization.student_org_id">
+                                    {{ organization.organization.name }}
+                                </li>
+                                <!-- Add more club items here -->
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <!-- Edit Profile Modal -->
         <div class="modal fade" id="EditProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
@@ -72,7 +89,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="editEmail" class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control" id="editEmail" placeholder="Enter Email" required maxlength="50">
+                            <input type="email" class="form-control" id="editEmail" placeholder="Enter Email" required
+                                maxlength="50">
                         </div>
                     </div>
                     <div class="modal-footer">

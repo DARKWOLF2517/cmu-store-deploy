@@ -36,7 +36,7 @@
                 <div class="text-center">
                     <button class="btn button-secondary" style="background-color: #4fb98e; color: #fefffe;"
                         data-bs-toggle="modal" data-bs-target="#seeMoreAccountability"
-                        @click="this.org_id = user_orgs.student_org_id, this.org_name = user_orgs.organization.description, this.fetchData()">
+                        @click="this.org_id = user_orgs.student_org_id, this.org_name = user_orgs.organization.name, this.fetchData()">
                         <i class="fas fa-eye"></i> See more
                     </button>
                 </div>

@@ -1,7 +1,8 @@
 <template>
-    <div class="row justify-content-center">
+
+    <div class="row justify-content-center gap-2 ">
         <div class="col-md-4 qr-scanner-container mx-4 mb-2 border-top border-5 border-success border-bottom-0 py-3">
-            <h4><i class="bi bi-camera-video "></i>QR Scanner</h4>
+            <h4><i class="bi bi-camera-video "></i> QR Scanner</h4>
             <div id="reader" ref="reader"></div>
             <div id="result"></div>
             <form @submit.prevent="submitForm()" id="eventsForm">
@@ -18,7 +19,7 @@
         </div>
         <div class="col-md-4 qr-scanned-container border-top border-5 border-success border-bottom-0 py-3"
             id="record-table">
-            <h4>Scanned Data</h4>
+            <h4><i class="bi bi-files "></i>  Scanned Data</h4>
             <div class="row justify-content-center">
                 <div class="col">
                     <div class="table-container">
@@ -26,19 +27,19 @@
                             <thead>
                                 <tr>
                                     <th>Student ID</th>
-                                </tr>
-                                <tr v-for="attendances in this.attendance" :id="attendances.user_id">
-                                    <td> {{ attendances.user_profile.first_name}} {{ attendances.user_profile.last_name}}</td>
+                                    <th>Time</th>
                                 </tr>
                             </thead>
-                            <!-- <tbody>
-                                <tr v-for="(item, index) in this.temporary" :key="index">
-                                    <td>{{ item.ID }}</td>
+                            <tbody>
+                                <tr v-for="attendances in this.attendance" :id="attendances.user_id">
+                                    <td> {{ attendances.user_profile.first_name }} {{
+                attendances.user_profile.last_name }}</td>
                                     <td>
-                                        <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        {{ attendances.time }}
                                     </td>
                                 </tr>
-                            </tbody> -->
+
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -53,6 +54,7 @@
 import { QrcodeStream } from 'vue-qrcode-reader'
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
+import { converTime } from "../Functions/TimeConverter.js";
 export default {
     components: { QrcodeStream },
     props: ['event_id', 'org_id', 'officer_id', 'session'],
@@ -95,16 +97,34 @@ export default {
             // console.error(err);
             // Prints any errors to the console
         },
+        // fetchData() {
+        //     axios.get(`/attendance/show/${this.event_id}/${this.org_id}/${this.session}`)
+        //         .then(response => {
+        //             this.attendance = response.data
+        //             console.log(this.attendance)
+        //         })
+        //         .catch(error => {
+
+        //         });
+        // },
         fetchData() {
             axios.get(`/attendance/show/${this.event_id}/${this.org_id}/${this.session}`)
                 .then(response => {
-                    this.attendance = response.data
-                    console.log(this.attendance)
+
+                    response.data.forEach(element => {
+                        element.time = converTime(element.time);
+                    });
+                    // Sort the attendance array by the newest entry
+                    this.attendance = response.data.sort((a, b) => {
+                        return new Date(b.created_at) - new Date(a.created_at);
+                    });
+                    console.log(this.attendance);
                 })
                 .catch(error => {
 
                 });
         },
+
         submitForm() {
             this.scanner.pause();
             axios.post("/attendance", this.formData)

@@ -38,8 +38,8 @@
         </div> -->
             <p class="text-danger error-message" id="error-message" v-if="this.error == 'user_creadential_error'">Incorrect
                 username or password. Please try again.</p>
-            <p class="text-danger error-message" id="error-message" v-else-if="this.error == 'not_tagged_error'">You Are Not
-                Tagged in Any organization.</p>
+            <p class="text-danger error-message" id="error-message" v-else-if="this.error == 'not_tagged_error'">You are not
+                tagged in any organization.</p>
             <div class="form-group text-right">
                 <button type="submit" class="btn btn-primary rounded submit">Log In</button>
             </div>

@@ -1,118 +1,136 @@
 body {
     background-color: #f3f7fb;
     font-family: sans-serif;
-    }
-    .top-nav {
-        position: absolute;
-        width: 100%;
-        top: 0;
-        background-color: #42b385;
-        color: #ffffff;
-        padding: 0.875rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 3.125rem;
-    }
+}
+.top-nav {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: #42b385;
+    color: #ffffff;
+    padding: 0.875rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3.125rem;
+}
 
-.container{
+.container {
     margin-top: 50px;
 }
-    .container-with-buttons{
-        padding: 2px;
-    }
-    .container-with-buttons, .qr-scanner-container, .qr-scanned-container{
+.container-with-buttons {
+    padding: 2px;
+}
+.container-with-buttons,
+.qr-scanner-container,
+.qr-scanned-container {
     background-color: #ffffff;
     border-radius: 10px;
     padding: 10px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     margin-top: 5px;
-    }
+}
 
-    .qr-scanner-container {
-      /* margin-bottom: 20px; */
+.qr-scanner-container {
+    /* margin-bottom: 20px; */
     justify-content: center;
     align-items: center;
     text-align: center;
-
-    }
-    #record-table{
-        overflow-y: auto;
-        overflow-x: hidden;
-        height: auto;
-        max-height: 70vh;
-    }
-    #html5-qrcode-anchor-scan-type-change, #html5-qrcode-anchor-scan-type-change, #html5-qrcode-anchor-scan-type-change{
-        text-decoration: none;
-    }
-#html5-qrcode-button-camera-permission, #html5-qrcode-select-camera, #html5-qrcode-button-file-selection{
+    margin-top: 50px;
+}
+#record-table {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: auto;
+    margin-top: 50px;
+}
+thead {
+    position: sticky;
+    top: 0;
+}
+#html5-qrcode-anchor-scan-type-change,
+#html5-qrcode-anchor-scan-type-change,
+#html5-qrcode-anchor-scan-type-change {
+    text-decoration: none;
+}
+#html5-qrcode-button-camera-permission,
+#html5-qrcode-select-camera,
+#html5-qrcode-button-file-selection {
     padding: 10px;
     border-radius: 10px;
     border: none;
 }
 
-    qr-scanner {
-
-    }
-    div{
-        border: none;
-    }
-    #html5-qrcode-button-camera-start, #html5-qrcode-button-camera-stop{
-        border: none;
-        padding: 5px;
-        border-radius: 5px;
-        color: white;
-    }
-    #html5-qrcode-button-camera-start{
-        background-color: green;
-    }
-    #html5-qrcode-button-camera-stop{
-        background-color: red;
-    }
-    main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    #reader {
-        width: 100%;
-        border: none;
-    }
-    #result {
-        text-align: center;
-        font-size: 1.5rem;
-    }
-.table{
+qr-scanner {
+}
+div {
+    border: none;
+}
+#html5-qrcode-button-camera-start,
+#html5-qrcode-button-camera-stop {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
+#html5-qrcode-button-camera-start {
+    background-color: green;
+}
+#html5-qrcode-button-camera-stop {
+    background-color: red;
+}
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#reader {
+    width: 100%;
+    border: none;
+}
+#result {
+    text-align: center;
+    font-size: 1.5rem;
+}
+.table {
     width: 100%;
 }
-    .table thead th {
-        background-color: #60b192;
-        color: white;
-        margin-top: 20px;
+.table thead th {
+    background-color: #60b192;
+    color: white;
+    margin-top: 20px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+.table-container {
+    height: 70vh;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.table td,
+.table th {
+    padding: 10px;
+    text-align: center;
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .container-with-buttons,
+    .qr-scanner-container,
+    .qr-scanned-container {
+        padding: 20px;
     }
-
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: #ffffff;
+    #record-table {
+        margin-top: 10px;
     }
-
-
-    .table td, .table th {
+    #reader {
+        width: 90%;
+    }
+    .navbar a {
+        font-size: 9px;
         padding: 10px;
-        text-align: center;
     }
-
-    @media (min-width: 577px) and (max-width: 768px) {
-        .container-with-buttons,
-        .qr-scanner-container,
-        .qr-scanned-container {
-            padding: 20px;
-        }
-
-        #reader {
-            width: 90%;
-        }
-        .navbar a{
-            font-size: 9px;
-            padding: 10px;
-        }
-    }
+}

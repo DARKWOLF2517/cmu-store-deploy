@@ -1,98 +1,94 @@
-
 table {
     width: 100%;
     border: 1px solid #ddd;
     border-color: #ddd;
-
-  }
-
-  /* .scroll-pane{
-    height: 70vh;
-max-height: 70vh;
-    overflow-y: auto;
-  } */
-  #table-list{
+}
+#table-list {
     height: 60vh;
-max-height: 60vh;
+    max-height: 60vh;
     overflow-y: auto;
-  }
-  #student-list-table, #accountabilities-table th{
+}
+#student-list-table,
+#accountabilities-table th {
     /* background-color: #69a09d; */
     height: 50px;
     font-size: 15px;
     font-weight: bold;
     padding: 5px !important;
-  }
+}
 
-thead{
+thead {
     background-color: rgb(132, 192, 180);
     position: sticky;
     top: 0;
 }
-#tableModal thead{
+#tableModal thead {
     position: static !important;
 }
-thead th{
+thead th {
     /* background-color: #60b192; */
     /* color: white; */
     padding: 10px;
     color: rgb(255, 255, 255);
     /* border-bottom: none !important; */
 }
-  td{
+td {
     font-weight: normal;
     padding: 5px;
-  }
-  th, td {
+}
+th,
+td {
     text-align: left;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
-  }
-  tr:hover {
+}
+tr:hover {
     background-color: #e8faf0;
-  }
+}
 
-  tr:nth-child(even){
+tr:nth-child(even) {
     background-color: #f6faf9;
 }
-.edit-button, .delete-button{
+.edit-button,
+.delete-button {
     border: 1px solid #ddf0ed;
     background-color: #e9f5f3;
 }
-  .edit-button i, .delete-button i {
+.edit-button i,
+.delete-button i {
     font-size: 13px;
-  }
+}
 
-  /* .pagination {
+/* .pagination {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
   } */
 
-  .pagination button {
+.pagination button {
     /* padding: 8px 12px; */
     font-size: 16px;
     text-decoration: none;
     background-color: #f2f2f2;
     border: 1px solid #ddd;
-  }
-  #table-container{
+}
+#table-container {
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     padding: 10px;
     width: 100%;
     background-color: #ffffff;
-
 }
-.pagination-container, .pagination{
+.pagination-container,
+.pagination {
     margin-bottom: 0 !important;
 }
 
-  .ellipsis-button{
+.ellipsis-button {
     background-color: transparent;
     border: none;
-  }
+}
 /*
   .pagination button:disabled {
     background-color: #f2f2f2;
@@ -105,59 +101,59 @@ thead th{
     color: #fff;
   } */
 
-  /* .scroll-pane {
+/* .scroll-pane {
     height: 55vh;
     max-height: 55vh;
     overflow: auto;
   } */
 
-  .pagination .page-link {
+.pagination .page-link {
     color: #000000;
-  }
+}
 
-  .pagination .page-link:hover {
+.pagination .page-link:hover {
     color: #60a17c;
-  }
+}
 
-  .pagination .active .page-link {
+.pagination .active .page-link {
     background-color: #60b192;
     border-color: #60b192;
     color: #fff;
-  }
+}
 /* Media Query for screens with a maximum width of 768px */
 @media screen and (max-width: 768px) {
     table {
-      width: 100%;
-      border: 1px solid #ddd;
-      font-size: 10px;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 10px;
     }
 
     th {
-      background-color: #e7eaee;
-      color: rgb(31, 31, 31);
-      font-size: 14px;
+        background-color: #e7eaee;
+        color: rgb(31, 31, 31);
+        font-size: 14px;
     }
 
     td {
-      font-size: 12px;
+        font-size: 12px;
     }
 
     .pagination {
-      margin-top: 10px;
+        margin-top: 10px;
     }
 
     .pagination button {
-      font-size: 14px;
+        font-size: 14px;
     }
 
     .scroll-pane {
-      height: auto;
-      overflow: auto;
+        height: auto;
+        overflow: auto;
     }
-    td .btn{
+    td .btn {
         font-size: 10px;
     }
-.btn-group{
-    font-size: 10px;
+    .btn-group {
+        font-size: 10px;
+    }
 }
-  }

@@ -158,8 +158,8 @@
                                 :true-value="1" :false-value="0">
                             <label for="feedback">Accept Feedback?</label>
                         </div>
-                        <button type="submit" class="btn btn-success">Save Form</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save Form</button>
                     </div>
                 </form>
             </div>
@@ -327,7 +327,7 @@ export default {
                     else{
                         this.showError(response.data.message);
                     }
-                    
+
                 })
                 .catch(error => {
                     if (error.response.status === 500) {
