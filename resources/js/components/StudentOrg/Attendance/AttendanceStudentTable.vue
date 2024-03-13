@@ -38,6 +38,10 @@
             <div class="student-buttons d-flex">
 
                 <div class="btn-group" role="group">
+                    <button class="btn me-2"
+                        data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
+                        <i class="fas fa-plus"></i> Excuse Student
+                    </button>
                     <button class="btn me-2" @click="printTable">
                         <i class="fas fa-print"></i> Print
                     </button>
@@ -49,7 +53,6 @@
         </div>
     </div>
     <div id="table-container">
-
         <div class="scroll-pane" id="table-list">
             <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
             <p>Date: <b>{{ this.event.event_date }}</b> </p>
@@ -60,6 +63,7 @@
                         <th class="sortable-header">Student Name</th>
                         <th class="sortable-header">College</th>
                         <th class="sortable-header" style="width: 20%;"> Time </th>
+                        <th>Remarks</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -69,6 +73,7 @@
                         <td>{{ attendance.user_profile.first_name }} {{ attendance.user_profile.last_name }}</td>
                         <td>{{ attendance.user_profile.college.college }}</td>
                         <td>{{ attendance.created_at }}</td>
+                        <td>Remarks dre</td>
                         <td>
                             <span class="d-flex justify-content-center">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
@@ -111,6 +116,64 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-danger" @click="deleteAttendance()"
                         data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+      <!-- Excuse student Modal -->
+      <div class="modal fade" id="excuseStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Excuse
+                        Student</h5>
+                    <!-- <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.updateSingleAddStudents">Edit Student</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form >
+                        <div class="mb-3">
+                            <label for="studentId" class="form-label">Student ID</label>
+                            <input type="text" class="form-control" id="studentId"
+                               required>
+                        </div>
+                        <div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastname"
+                                    disabled required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstname"
+                                    disabled required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" id="firstname"
+                                    disabled required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Remarks</label>
+                                <input type="text" class="form-control" id="remarks"
+                                required>
+                        </div>
+                        <!-- <div class="mb-3">
+                                    <label for="reason" class="form-label">College</label>
+                                    <select  class="form-select" id="college" v-model="student_data.college_id">
+                                            <option value="0" disabled selected >Select College</option>
+                                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
+                                    </select>
+                                </div> -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

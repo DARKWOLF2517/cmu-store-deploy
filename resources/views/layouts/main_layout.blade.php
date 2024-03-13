@@ -67,7 +67,7 @@
                             <li>
 
                                 <side-nav-button
-                                link_name="Switch Role"
+                                link_name="Switch Organization"
                                 link_route = "{{url('/options')}}"
                                 show_icon = "{{false}}"
                                 >

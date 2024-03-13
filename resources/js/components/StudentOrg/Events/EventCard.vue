@@ -80,13 +80,13 @@
                         </div>
                     </div>
                     <!-- Message No results found -->
-                    <div class="Container-IfEmpty text-center"
+                    <!-- <div class="Container-IfEmpty text-center"
                         v-if="!loading && this.filtered_events.length == 0 && this.events != 0">
                         <div class="Empty-Message">
                             <i class="icon 	fas fa-frown" id="icon-message"></i>
                             <p class="text-muted fw-bold">No results found</p>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- EVENT CARD -->
                     <!-- <div class="event-card border-top border-5 border-success border-bottom-0" v-for="event in this.filtered_events" :id="event.event_id" > -->
                     <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[

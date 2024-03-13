@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <h1> Select Profile</h1>
+        <h1> Select Profile </h1>
         <small>Tailor Your Experience with Individual Profiles. Keeping data organized and personalized</small>
     </div>
     <div class="container">
