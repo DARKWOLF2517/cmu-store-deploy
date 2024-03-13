@@ -26,7 +26,7 @@
                     <select id="sort-select" class="form-control" style="text-align: center;"
                         v-model="college_data_input" @change="filterItems">
                         <option value="0" disabled selected>Select College</option>
-                        <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
+                        <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}{{ college.college }}</option>
                     </select>
                 </div>
             </div>

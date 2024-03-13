@@ -609,9 +609,9 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
+                    // setTimeout(() => {
+                    //     location.reload();
+                    // }, 500);
                     this.fetchData();
                 })
                 .catch(error => {

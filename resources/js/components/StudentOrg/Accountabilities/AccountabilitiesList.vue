@@ -64,7 +64,7 @@
                         <th>Student Name</th>
                         <!-- <th>Accountabilities</th> -->
                         <th style="width: 10%;">Total Amount</th>
-                        <th  style="width: 10%;"></th>
+                        <th style="width: 10%;"></th>
                     </tr>
                 </thead>
                 <!-- <tbody v-for="fees_list in this.filtered_items_for_fines" :id="fees_list.user_id" > -->
@@ -89,8 +89,7 @@
                                     <p class="text-muted fw-bold">No results found</p>
                                 </div>
                             </div> -->
-                    <tr v-for="fees_list in this.paginatedData" :id="fees_list.user_id"
-                        :key="fees_list.user_id">
+                    <tr v-for="fees_list in this.paginatedData" :id="fees_list.user_id" :key="fees_list.user_id">
                         <td>{{ fees_list.user_id }}</td>
                         <td> {{ fees_list.name }}</td>
                         <!-- <td>{{ fees_list.accountability_type.toUpperCase()}}</td> -->
@@ -284,7 +283,7 @@
 
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-success ">Full Payment</button>
+                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full Payment</button>
                         </div>
 
                         <div class="mb-3">
@@ -468,6 +467,13 @@ export default {
     },
 
     methods: {
+        fullPayment() {
+            if (this.accountability_type) {
+                const result = this.temporary_list_summary.find(item => item.label.toLowerCase() === this.accountability_type.toLowerCase());
+                this.paymentAmount = result.amount;
+            }
+
+        },
         //filter the zero balance
         filteredAmountByZero() {
             const filteredArray = this.temporary_list_summary.filter(item => item.amount !== 0);
