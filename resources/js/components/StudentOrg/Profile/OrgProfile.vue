@@ -563,7 +563,7 @@ export default {
             nameAddOfficer: [],
             nameFilterAddOfficer: [],
             addOfficersData: {
-                student_id: '',
+                student_id: 0,
                 position: '',
                 org_id: this.org_id,
                 school_year: this.school_year_session,
@@ -895,27 +895,27 @@ export default {
             this.isSubmitting = true;
             axios.post('/add_org_officer', this.addOfficersData)
                 .then(response => {
-                    // console.log(response.data)
-                    if (response.data.type == 0) {
-                        this.showError(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-                    }
-                    else if (response.data.type == 2) {
-                        this.showError(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-                    }
-                    else {
-                        this.showSucces(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-                        this.showOfficer();
+                    console.log(response.data)
+                    // if (response.data.type == 0) {
+                    //     this.showError(response.data.message);
+                    //     setTimeout(() => {
+                    //         location.reload();
+                    //     }, 500);
+                    // }
+                    // else if (response.data.type == 2) {
+                    //     this.showError(response.data.message);
+                    //     setTimeout(() => {
+                    //         location.reload();
+                    //     }, 500);
+                    // }
+                    // else {
+                    //     this.showSucces(response.data.message);
+                    //     setTimeout(() => {
+                    //         location.reload();
+                    //     }, 500);
+                    //     this.showOfficer();
 
-                    }
+                    // }
 
                 })
                 .catch(error => {

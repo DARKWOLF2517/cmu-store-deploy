@@ -75,6 +75,7 @@ class OrgProfileController extends Controller
     }
     public function addOrgOfficer(Request $request)
     {
+        // return $request;
         if($this->officerRepitition($request['student_id'],$request['org_id']) >= 1)
         {
             return response()->json(['message' => 'Already in the List','type' => 0]);
@@ -129,7 +130,7 @@ class OrgProfileController extends Controller
     public function UserCheck($id)
     {
         $records = UserOrganization::where([
-            ['id', $id],
+            ['student_id', $id],
         ])->get();
         $count = $records->count();
         return $count;
