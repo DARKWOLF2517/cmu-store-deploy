@@ -478,42 +478,39 @@ export default {
             return rows;
         },
         downloadTable() {
-            // Get the table data specifically from free_fines_students
-            const tableData = this.getFreeFinesTableData();
+    // Get the table data specifically from free_fines_students
+    const tableData = this.getPaidAccountabilitiesTableData();
 
-            // Create a workbook
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.aoa_to_sheet(tableData);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    // Create a workbook
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(tableData);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-            // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
-        },
+    // Save the workbook as an Excel file
+    XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
+},
 
-        getFreeFinesTableData() {
-            // Get a reference to the table
-            const table = document.getElementById('accountabilities-table');
+        getPaidAccountabilitiesTableData() {
+    // Initialize an array to store the table data
+    const tableData = [];
 
-            // Initialize an array to store the table data
-            const tableData = [];
+    // Iterate through the paidList data
+    this.paidList.forEach(item => {
+        const rowData = [
+            item.student_id,
+            item.user_profile.first_name + ' ' + item.user_profile.last_name,
+            item.created_at,
+            item.amount,
+            item.accountability_type,
+        ];
 
-            // Iterate through the rows of the table
-            for (let i = 0; i < table.rows.length; i++) {
-                const rowData = [];
+        // Push the row data to the tableData array
+        tableData.push(rowData);
+    });
 
-                // Iterate through the cells of the current row, excluding the last one
-                for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
-                    // Push the cell value to the rowData array
-                    rowData.push(table.rows[i].cells[j].textContent);
-                }
-
-                // Push the row data to the tableData array
-                tableData.push(rowData);
-            }
-
-            // Return the table data
-            return tableData;
-        },
+    // Return the table data
+    return tableData;
+},
         showSucces(message) {
             this.fetchData();
             toast.success(message), {

@@ -24,7 +24,6 @@
             </select>
         </div>
         <!-- <div class="select-dropdown">
-
                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="this.select_accountability">
                             <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                             <option value="fines">Fines</option>
@@ -1197,42 +1196,37 @@ export default {
             return rows;
         },
         downloadTable() {
-            // Get the table data specifically from free_fines_students
-            const tableData = this.getFreeFinesTableData();
+    // Get the table data specifically from free_fines_students
+    const tableData = this.getAccountabilitiesTableData();
 
-            // Create a workbook
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.aoa_to_sheet(tableData);
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    // Create a workbook
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(tableData);
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-            // Save the workbook as an Excel file
-            XLSX.writeFile(wb, 'StudentWithAccountabilities.xlsx');
-        },
+    // Save the workbook as an Excel file
+    XLSX.writeFile(wb, 'Accountabilities.xlsx');
+},
 
-        getFreeFinesTableData() {
-            // Get a reference to the table
-            const table = document.getElementById('accountabilities-table');
+getAccountabilitiesTableData() {
+    // Initialize an array to store the table data
+    const tableData = [];
 
-            // Initialize an array to store the table data
-            const tableData = [];
+    // Iterate through the paidList data
+    this.filtered_items_for_fines.forEach(item => {
+        const rowData = [
+            item.user_id,
+            item.name,
+            item.total_fees,
+        ];
 
-            // Iterate through the rows of the table
-            for (let i = 0; i < table.rows.length; i++) {
-                const rowData = [];
+        // Push the row data to the tableData array
+        tableData.push(rowData);
+    });
 
-                // Iterate through the cells of the current row, excluding the last one
-                for (let j = 0; j < table.rows[i].cells.length - 1; j++) {
-                    // Push the cell value to the rowData array
-                    rowData.push(table.rows[i].cells[j].textContent);
-                }
-
-                // Push the row data to the tableData array
-                tableData.push(rowData);
-            }
-
-            // Return the table data
-            return tableData;
-        },
+    // Return the table data
+    return tableData;
+},
         showSucces(message) {
             toast.success(message), {
                 autoClose: 100,

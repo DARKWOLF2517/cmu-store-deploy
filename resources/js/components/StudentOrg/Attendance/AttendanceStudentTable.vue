@@ -433,42 +433,46 @@ export default {
             return rows;
         },
         downloadTable() {
-            // Create a temporary download link
-            const link = document.createElement('a');
-            link.style.display = 'none';
-            document.body.appendChild(link);
+    // Create a temporary download link
+    const link = document.createElement('a');
+    link.style.display = 'none';
+    document.body.appendChild(link);
 
-            // Generate CSV content from the table
-            const csvContent = [];
-            const headers = [
-                ...document.querySelectorAll('#accountabilities-table th')
-            ].map(header => header.innerText.replace(/"/g, '""'));
-            csvContent.push(headers.join(','));
+    // Generate CSV content from the attendance array
+    const csvContent = [];
+    const headers = [
+        'Student ID',
+        'Student Name',
+        'College',
+        'Time',
+    ];
+    csvContent.push(headers.join(','));
 
-            // Add rows with all columns
-            const rows = document.querySelectorAll('#accountabilities-table tbody tr');
-            rows.forEach(row => {
-                const columns = [
-                    ...row.querySelectorAll('td')
-                ].map(column => column.innerText.replace(/"/g, '""'));
-                csvContent.push(columns.join(','));
-            });
+    this.attendance.forEach(item => {
+        const columns = [
+            item.user_id,
+            `${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}`,
+            item.user_profile.college.college,
+            item.created_at,
+        ];
+        csvContent.push(columns.join(','));
+    });
 
-            // Convert CSV content to a Blob
-            const csvBlob = new Blob(['\uFEFF' + csvContent.join('\n')], {
-                type: 'text/csv;charset=utf8;'
-            });
+    // Convert CSV content to a Blob
+    const csvBlob = new Blob(['\uFEFF' + csvContent.join('\n')], {
+        type: 'text/csv;charset=utf8;'
+    });
 
-            // Set the link's href and download attributes
-            link.href = window.URL.createObjectURL(csvBlob);
-            link.download = `${this.event.event_title}_attendance_record.csv`;
+    // Set the link's href and download attributes
+    link.href = window.URL.createObjectURL(csvBlob);
+    link.download = `${this.event.event_title}_attendance_record.csv`;
 
-            // Trigger the download
-            link.click();
+    // Trigger the download
+    link.click();
 
-            // Clean up
-            document.body.removeChild(link);
-        },
+    // Clean up
+    document.body.removeChild(link);
+},
         showSucces(message) {
             this.fetchData();
             toast.success(message), {
