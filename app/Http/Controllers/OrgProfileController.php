@@ -336,4 +336,10 @@ class OrgProfileController extends Controller
             $updateYearLevel->update(['year_level' => $request['year_level']]);
             return response()->json(['message' => 'Role Updated Successfully']);
     }
+    public function orgOfficerCount($org_id, $school_year)
+    {
+        $orgOfficerCount = OrganizationOfficer::where([['org_id',$org_id], ['school_year',$school_year]])->count();
+        return response()->json($orgOfficerCount);
+    
+    }
 }

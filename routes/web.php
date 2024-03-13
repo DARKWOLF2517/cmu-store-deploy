@@ -267,6 +267,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete_year_level/{id}', [OrgProfileController::class, 'DeleteYearLevel']);
         Route::get('/year_level_fetch_update/{id}', [OrgProfileController::class, 'yearLevelFetchUpdate']);
         Route::put('/update_year_level/{id}', [OrgProfileController::class, 'updateYearLevel']);
+        Route::get('/org_officer_count/{org_id}/{school_year}', [OrgProfileController::class, 'orgOfficerCount']);
 
         #FREE FINES ROUTES
         Route::get('/get_free_fines_students/{org_id}/{school_year}', [AccountabilitiesController::class, 'viewFreeFinesStudents']);

@@ -65,7 +65,7 @@
                                                 </h6>
                                                 <h6> <i class="fas fa-school"></i> <span>{{
         this.school_year_org_profile }} </span> </h6>
-        <h6> <i class="fas fa-users-cog"></i> Organization officers</h6>
+                                                <h6> <i class="fas fa-users-cog"></i> <span><b> {{this.org_officer_count }}</b></span> Organization officers</h6>
                                                 <!-- <h6 class="mb-2">Number of Members <span class="fw-bold" style="color: #14684c;"
                                                             id="number-of-students">{{
         this.orgTotalMembers }}</span></h6> -->
@@ -603,6 +603,7 @@ export default {
             },
             loading: true,
             isSubmitting: false,
+            org_officer_count: 0,
 
         }
     },
@@ -616,10 +617,21 @@ export default {
         this.showOrgTotalMembers();
         this.showYearLevel();
         this.loading = false;
+        this.orgOfficersCount();
 
 
     },
     methods: {
+        orgOfficersCount() {
+            axios.get(`/org_officer_count/${this.org_id}/${this.school_year_session}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.org_officer_count = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         updateYearLevel() {
             this.isSubmitting = true;
             axios.put(`/update_year_level/${this.year_level_id}`, this.year_level_input)
