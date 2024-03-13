@@ -57,8 +57,8 @@
 
     <div class="event-list">
         <div class="col">
-            <div class="event-container" id="event-container">
-                <div class="event-cards-list">
+            <div >
+                <div class="event-cards-list " >
                     <!-- Loading spinner -->
                     <div v-if="loading" class="loading-spinner-container">
                         <div class="spinner-border text-success" id="event-spinner" role="status">
@@ -66,10 +66,10 @@
                         </div>
                     </div>
                     <!-- Message if the container is empty -->
-                    <div class="Container-IfEmpty text-center" v-if="!loading && events.length === 0">
+                    <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_events.length === 0">
                         <div class="Empty-Message">
-                            <i class="icon 	bi bi-calendar-event" id="icon-message"></i>
-                            <p class="text-muted"><b>Create Events when you're ready</b>
+                            <i class="icon 	bi bi-calendar-event mb-0" id="icon-message"></i>
+                            <p class="text-muted  mt-0"><b>Create Events when you're ready</b>
                                 <br>
                                 No events yet.
                             </p>
@@ -589,10 +589,12 @@ export default {
         }
     },
     created() {
+        this.loading = true;
         this.fetchData();
         this.showSchoolYear();
         this.showYearLevelData();
         this.showEvaluationForm();
+
     },
     mounted() {
 
@@ -790,6 +792,7 @@ export default {
                     });
                 })
                 .catch(error => {
+                    this.loading = false;
                     // this.loading = false;
                     console.log(error)
                 });
