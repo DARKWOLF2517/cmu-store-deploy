@@ -24,7 +24,7 @@
                     <select id="sort-select" class="form-control" style="text-align: center;"
                         v-model="college_data_input" @change="filterItems">
                         <option value="0" disabled selected>Select College</option>
-                        <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}{{ college.college }}</option>
+                        <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                     </select>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             </div>
         </div>
     </div>
-    <div id="table-container" >
+    <div id="table-container">
 
         <div class="scroll-pane" id="table-list">
             <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
@@ -70,7 +70,9 @@
                         <td>
                             <span class="d-flex justify-content-center">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                                    data-bs-target="#deleteConfirmation"
+                                    @click="this.id = attendance.user_id, this.session = attendance.session"><i
+                                        class="fas fa-trash"></i></button>
                             </span>
                         </td>
                     </tr>
@@ -89,12 +91,36 @@
             </li>
         </ul>
     </div>
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                    <h4><b>Delete Attendance</b></h4>
+                    <p>Are you sure you want to delete this attendance?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" @click="deleteAttendance()"
+                        data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 
 <script>
 import { converTime } from "../Functions/TimeConverter.js";
 import { convertDate } from "../Functions/DateConverter.js";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 export default {
     props: ['organization_id', 'event_id'],
@@ -113,7 +139,10 @@ export default {
             filtered_attendance: [],
             college_list: [],
             college_data_input: 0,
-            college_id: 0,//college id of the organization
+            college_id: 0,//college id of the organization'
+            id: 0,  //id for deletion
+            session: 0, //session for deletion
+
         };
     },
     computed: {
@@ -197,6 +226,22 @@ export default {
         this.getOrgCollege();
     },
     methods: {
+
+        deleteAttendance() {
+            axios.delete(`/delete_attendance/${this.id}/${this.session}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message);
+                    this.fetchData();
+                })
+                .catch(error => {
+                    if (error.response && error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    }
+                    console.log(error)
+
+                });
+        },
         getOrgCollege() {
             axios.get(`/get_organization_college/${this.organization_id}`)
                 .then(response => {
@@ -264,7 +309,7 @@ export default {
                     this.filtered_attendance = [];
                     const data = response.data;
                     data.forEach(item => {
-                        console.log(item);
+                        // console.log(item);
                         item['created_at'] = converTime(item['time']);
                         item['events']['start_date'] = convertDate(item['events']['start_date']);
                         this.event.event_title = item['events']['name'];
@@ -273,7 +318,6 @@ export default {
                     });
                     this.attendance = response.data;
                     this.filtered_attendance = this.attendance;
-                    // console.log(this.attendance);
                     //   this.attendance.forEach(element => {
                     //     this.attendance_list.push({
                     //       student_id : element.user_id,
@@ -346,22 +390,22 @@ export default {
       </body>
       </html>
   `);
-  iframeDoc.close();
+            iframeDoc.close();
 
-// Print the iframe content
-iframe.contentWindow.focus();
-iframe.contentWindow.print();
+            // Print the iframe content
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
 
-// Remove the iframe after printing
-setTimeout(() => {
-    document.body.removeChild(iframe);
-}, 1000);
-},
+            // Remove the iframe after printing
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 1000);
+        },
 
-generateTableRowsWithoutLastColumn(data) {
-let rows = '';
-data.forEach(item => {
-    rows += `
+        generateTableRowsWithoutLastColumn(data) {
+            let rows = '';
+            data.forEach(item => {
+                rows += `
 <tr>
     <td>${item.user_id}</td>
     <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
@@ -369,9 +413,9 @@ data.forEach(item => {
     <td>${item.time}</td>
 </tr>
 `;
-});
-return rows;
-},
+            });
+            return rows;
+        },
         generateTableRows(data) {
             let rows = '';
             data.forEach(item => {
@@ -422,6 +466,12 @@ return rows;
 
             // Clean up
             document.body.removeChild(link);
+        },
+        showSucces(message) {
+            this.fetchData();
+            toast.success(message), {
+                autoClose: 100,
+            }
         },
     }
 }

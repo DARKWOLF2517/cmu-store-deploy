@@ -195,6 +195,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/attendance_repetition/{result_id}/{session}/{event_id}', [AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
         Route::put('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
+        Route::delete('/delete_attendance/{id}/{session}', [AttendanceController::class, 'deleteAttendance']);
 
         #EVALUATION ROUTES
         Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
