@@ -33,25 +33,24 @@
             </div>
         </div>
     </div>
-
     <div id="evaluation-container">
-        <div class="evaluation-event-cards">
-            <!-- Loading spinner -->
-            <div v-if="loading && !evaluation_form.length" class="loading-spinner-container">
-                <div class="spinner-border text-success" id="event-spinner" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
+    <div class="evaluation-event-cards">
+        <!-- Loading spinner -->
+        <div v-if="loading" class="loading-spinner-container">
+            <div class="spinner-border text-success" id="event-spinner" role="status">
+                <span class="visually-hidden">Loading...</span>
             </div>
-            <!-- Message if the container is empty -->
-            <div class="Container-IfEmpty text-center" v-if="!loading && evaluation_form.length === 0">
-                <div class="Empty-Message">
-                    <i class="icon 	fas fa-folder" id="icon-message"></i>
-                    <p class="text-muted"><b>Evaluation is Empty</b>
-                        <br>
-                        Evaluation Cards show up here
-                    </p>
-                </div>
+        </div>
+        <!-- Message if the container is empty -->
+        <div class="Container-IfEmpty text-center" v-else-if="!evaluation_form.length">
+            <div class="Empty-Message">
+                <i class="icon 	fas fa-folder" id="icon-message"></i>
+                <p class="text-muted"><b>Evaluation is Empty</b>
+                    <br>
+                    Evaluation Cards show up here
+                </p>
             </div>
+        </div>
 
             <div class="event-card"
                 style=" border-left-style: solid; border-left-color: #1b9587;"
@@ -372,6 +371,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error)
+
                 });
         },
         updateData() {

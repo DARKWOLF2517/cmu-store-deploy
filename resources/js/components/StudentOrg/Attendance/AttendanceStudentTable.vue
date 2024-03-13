@@ -19,7 +19,9 @@
                         <option :value="3" v-if="attendance_count >= 3">Session 3</option>
                         <option :value="4" v-if="attendance_count >= 4">Session 4</option>
                     </select>
+
                 </div>
+
                 <div class="select-dropdown d-flex justify-content-end" v-if="this.college_id == 11">
                     <select id="sort-select" class="form-control" style="text-align: center;"
                         v-model="college_data_input" @change="filterItems">
