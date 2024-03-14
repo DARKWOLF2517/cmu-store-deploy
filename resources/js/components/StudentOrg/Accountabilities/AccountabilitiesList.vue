@@ -281,8 +281,13 @@
                             </div>
 
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full Payment</button>
+                        <div class="d-flex justify-content-end gap-4">
+                            <div>
+                                <input type="checkbox" id="exemptCheckbox">
+                                <label for="exemptCheckbox"> Exempt Student?</label>
+                            </div>
+                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full
+                                Payment</button>
                         </div>
 
                         <div class="mb-3">
@@ -291,7 +296,8 @@
                         </div>
 
                         <div>
-
+                            <p>Remarks:</p>
+                            <input type="input" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1196,37 +1202,37 @@ export default {
             return rows;
         },
         downloadTable() {
-    // Get the table data specifically from free_fines_students
-    const tableData = this.getAccountabilitiesTableData();
+            // Get the table data specifically from free_fines_students
+            const tableData = this.getAccountabilitiesTableData();
 
-    // Create a workbook
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.aoa_to_sheet(tableData);
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    // Save the workbook as an Excel file
-    XLSX.writeFile(wb, 'Accountabilities.xlsx');
-},
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'Accountabilities.xlsx');
+        },
 
-getAccountabilitiesTableData() {
-    // Initialize an array to store the table data
-    const tableData = [];
+        getAccountabilitiesTableData() {
+            // Initialize an array to store the table data
+            const tableData = [];
 
-    // Iterate through the paidList data
-    this.filtered_items_for_fines.forEach(item => {
-        const rowData = [
-            item.user_id,
-            item.name,
-            item.total_fees,
-        ];
+            // Iterate through the paidList data
+            this.filtered_items_for_fines.forEach(item => {
+                const rowData = [
+                    item.user_id,
+                    item.name,
+                    item.total_fees,
+                ];
 
-        // Push the row data to the tableData array
-        tableData.push(rowData);
-    });
+                // Push the row data to the tableData array
+                tableData.push(rowData);
+            });
 
-    // Return the table data
-    return tableData;
-},
+            // Return the table data
+            return tableData;
+        },
         showSucces(message) {
             toast.success(message), {
                 autoClose: 100,
