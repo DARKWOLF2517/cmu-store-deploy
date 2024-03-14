@@ -206,7 +206,7 @@ Route::middleware(['auth'])->group(function () {
         //new evaluation//
         Route::get('/evaluation_answer/{event_id}', [EvaluationController::class, 'EvaluationAnswer']);
         Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
-        Route::get('/getEvaluationForm/{org_id}', [EvaluationController::class, 'getEvaluationForm']);
+        Route::get('/getEvaluationForm/{org_id}/{school_year}', [EvaluationController::class, 'getEvaluationForm']);
         Route::delete('/delete_evaluation_form/{evaluation_form_id}', [EvaluationController::class, 'deleteEvaluationForm']);
         Route::get('/get_evaluation_feedback/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
         Route::get('/get_events/{event_id}', [EvaluationController::class, 'getEvents']);

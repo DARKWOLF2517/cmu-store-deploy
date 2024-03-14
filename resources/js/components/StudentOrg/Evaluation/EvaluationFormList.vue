@@ -4,7 +4,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="input-container">
                     <i class="fa fa-search"></i>
-                    <input type="text" placeholder="Search Form">
+                    <input type="text" placeholder="Search Student" v-model="searchTerm" @input="filterItems">
                 </div>
             </div>
             <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
@@ -13,7 +13,7 @@
                         v-model="school_year_input" @change="fetchEvaluationForms">
                         <option value="" disabled selected>Select Semester</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                            school_year['school_year'] }}
+                        school_year['school_year'] }}
                         </option>
                     </select>
                 </div>
@@ -34,27 +34,26 @@
         </div>
     </div>
     <div id="evaluation-container">
-    <div class="evaluation-event-cards">
-        <!-- Loading spinner -->
-        <div v-if="loading" class="loading-spinner-container">
-            <div class="spinner-border text-success" id="event-spinner" role="status">
-                <span class="visually-hidden">Loading...</span>
+        <div class="evaluation-event-cards">
+            <!-- Loading spinner -->
+            <div v-if="loading" class="loading-spinner-container">
+                <div class="spinner-border text-success" id="event-spinner" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </div>
-        </div>
-        <!-- Message if the container is empty -->
-        <div class="Container-IfEmpty text-center" v-if="!loading && this.evaluation_form.length == 0">
-            <div class="Empty-Message">
-                <i class="icon 	fas fa-folder" id="icon-message"></i>
-                <p class="text-muted"><b>Evaluation is Empty</b>
-                    <br>
-                    Evaluation Cards show up here
-                </p>
+            <!-- Message if the container is empty -->
+            <div class="Container-IfEmpty text-center" v-if="!loading && this.evaluation_form.length == 0">
+                <div class="Empty-Message">
+                    <i class="icon 	fas fa-folder" id="icon-message"></i>
+                    <p class="text-muted"><b>Evaluation is Empty</b>
+                        <br>
+                        Evaluation Cards show up here
+                    </p>
+                </div>
             </div>
-        </div>
 
-            <div class="event-card"
-                style=" border-left-style: solid; border-left-color: #1b9587;"
-                v-for="evaluation in this.evaluation_form">
+            <div class="event-card" style=" border-left-style: solid; border-left-color: #1b9587;"
+                v-for="evaluation in this.filteredEvaluationForm">
 
                 <div class="dropdown">
                     <a class="ellipsis-button" href="#" style="color: #3e505d;" role="button" id="ellipsisDropdown"
@@ -193,7 +192,7 @@
                                 <label for="choices1">Choices</label>
                                 <br>
                                 <small class="fw-bold" v-for="(choices, index) in question.evaluation_option"> {{
-                            String.fromCharCode(65 + index) }}. {{ choices.option }} &nbsp; </small>
+                        String.fromCharCode(65 + index) }}. {{ choices.option }} &nbsp; </small>
                             </div>
                         </div>
                     </div>
@@ -258,7 +257,9 @@ export default {
             formTitle: '',
             formDescription: '',
             evaluation_form: [],
+            filteredEvaluationForm:[],
             filteredEvaluationFormForModal: [],
+            searchTerm: '',
         }
     },
     mounted() {
@@ -266,6 +267,15 @@ export default {
         this.showSchoolYear();
     },
     methods: {
+        filterItems() {
+            let filteredBySearch = this.evaluation_form;
+            if (this.searchTerm) {
+                const searchTermLower = this.searchTerm.toLowerCase();
+                filteredBySearch = filteredBySearch.filter(item => (item.evaluation_title).toLowerCase().includes(searchTermLower)
+                );
+            }
+            this.filteredEvaluationForm = filteredBySearch;
+        },
         showSchoolYear() {
             axios.get(`get_school_year`)
                 .then(response => {
@@ -319,11 +329,11 @@ export default {
             axios.delete(`/delete_evaluation_form/${this.evaluation_form_id}`)
                 .then(response => {
                     // console.log(response.data)
-                    if(response.data.status == 1){
+                    if (response.data.status == 1) {
                         this.showSucces(response.data.message);
                         this.fetchEvaluationForms();
                     }
-                    else{
+                    else {
                         this.showError(response.data.message);
                     }
 
@@ -396,19 +406,20 @@ export default {
                 });
         },
         fetchEvaluationForms() {
-            this.loading =true;
-            axios.get(`/getEvaluationForm/${this.organization_id}`)
+            this.loading = true;
+            axios.get(`/getEvaluationForm/${this.organization_id}/${this.school_year_input}`)
                 .then(response => {
                     console.log(response.data)
                     response.data.forEach(item => {
                         item["created_at"] = convertDate(item["created_at"]);
                     });
                     this.evaluation_form = response.data;
+                    this.filteredEvaluationForm = this.evaluation_form;
                 })
                 .catch(error => {
                     console.log(error)
                 });
-                this.loading=false;
+            this.loading = false;
         },
         viewEvaluationModal(evaluation_id) {
             console.log(evaluation_id)

@@ -71,9 +71,9 @@ class  EvaluationController extends Controller
         }
         return response()->json(['message' => 'Evaluation Form Added Successfully']);
     }
-    public function getEvaluationForm($org_id)
+    public function getEvaluationForm($org_id, $school_year)
     {
-        $events = EvaluationForm::where('org_id', $org_id)->with('evaluation_question.evaluation_option')->get();
+        $events = EvaluationForm::where([['org_id', $org_id],['school_year', $school_year]])->with('evaluation_question.evaluation_option')->get();
         return $events->toJson();
     }
     public function deleteEvaluationForm($evaluation_form_id)

@@ -47,8 +47,7 @@
             <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
             <div class="student-buttons d-flex">
                 <div class="btn-group" role="group">
-                    <button class="btn me-2"
-                        data-bs-toggle="modal" data-bs-target="#excemptStudentModal">
+                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#excemptStudentModal">
                         <i class="fas fa-plus"></i> Excempt Student
                     </button>
                     <button class="btn me-2" @click="printTable">
@@ -173,8 +172,8 @@
             </div>
         </div>
     </div>
-     <!-- Excuse student Modal -->
-     <div class="modal fade" id="excemptStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+    <!-- Excuse student Modal -->
+    <div class="modal fade" id="excemptStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -186,38 +185,37 @@
                 </div>
 
                 <div class="modal-body">
-                    <form >
+                    <form @submit.prevent="this.addExcemptedStudents">
                         <div class="mb-3">
                             <label for="studentId" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentId"
-                               required>
+                            <input type="text" class="form-control" id="studentId" v-model="addExcempted.student_id"
+                                @change="this.fetchDataDisplayName" required>
                         </div>
                         <div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastname"
+                                <input type="text" class="form-control" id="lastname" v-model="addExcempted.lastname"
                                     disabled required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstname"
+                                <input type="text" class="form-control" id="firstname" v-model="addExcempted.firstname"
                                     disabled required>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" id="firstname"
+                                <input type="text" class="form-control" id="firstname" v-model="addExcempted.middlename"
                                     disabled required>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Remarks</label>
-                                <input type="text" class="form-control" id="remarks"
-                                required>
+                            <input type="text" class="form-control" id="remarks" required>
                         </div>
                         <!-- <div class="mb-3">
                                     <label for="reason" class="form-label">College</label>
-                                    <select  class="form-select" id="college" v-model="student_data.college_id">
+                                    <select  class="form-select" id="college" v-model="addExcempted.college_id">
                                             <option value="0" disabled selected >Select College</option>
                                             <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
                                     </select>
@@ -256,6 +254,16 @@ export default {
             accountabilities: [],
             accountability_type: '',
             id: 0,
+            addExcempted: {
+                student_id: '',
+                lastname: '',
+                firstname: '',
+                org_id: this.org_id,
+                amount: 0,
+                school_year: this.school_year_input,
+                accountability_type: '',
+
+            },
         }
     },
     computed: {
@@ -339,12 +347,55 @@ export default {
         this.getOrgCollege();
         this.showCollege();
     },
-    created() {
-
-
-    },
-
     methods: {
+        addExcemptedStudents() {
+            axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.type == 0) {
+                        this.showError(response.data.message);
+                    }
+                    else if (response.data.type == 2) {
+                        this.showError(response.data.message);
+                    }
+                    else {
+                        this.showSucces(response.data.message);
+                        this.fetchData();
+                    }
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        fetchDataDisplayName() {
+            // console.log(this.addExcempted.student_id)
+            axios.get(`/student_list/show_name/${this.addExcempted.student_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.length != 0) {
+                        this.addExcempted.student_id = response.data.user_id;
+                        this.addExcempted.firstname = response.data.first_name;
+                        this.addExcempted.lastname = response.data.last_name;
+                        this.addExcempted.middlename = response.data.middle_name;
+                    }
+                    else {
+                        this.addExcempted.firstname = [];
+                        this.addExcempted.lastname = [];
+                        this.addExcempted.middlename = [];
+                    }
+                    // this.addExcempted.year_level_id = response.data.user_profile.year_level_id;
+                    // this.addExcempted.college_id = response.data.user_profile.college_id;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            this.addExcempted.firstname = [];
+            this.addExcempted.lastname = [];
+            this.addExcempted.middlename = [];
+        },
         deleteAccountabilities() {
             console.log(this.id)
             axios.delete(`/delete_paid_accountabilities/${this.id}`)
@@ -540,39 +591,39 @@ export default {
             return rows;
         },
         downloadTable() {
-    // Get the table data specifically from free_fines_students
-    const tableData = this.getPaidAccountabilitiesTableData();
+            // Get the table data specifically from free_fines_students
+            const tableData = this.getPaidAccountabilitiesTableData();
 
-    // Create a workbook
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.aoa_to_sheet(tableData);
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    // Save the workbook as an Excel file
-    XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
-},
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'PaidAccountabilities.xlsx');
+        },
 
         getPaidAccountabilitiesTableData() {
-    // Initialize an array to store the table data
-    const tableData = [];
+            // Initialize an array to store the table data
+            const tableData = [];
 
-    // Iterate through the paidList data
-    this.paidList.forEach(item => {
-        const rowData = [
-            item.student_id,
-            item.user_profile.first_name + ' ' + item.user_profile.last_name,
-            item.created_at,
-            item.amount,
-            item.accountability_type,
-        ];
+            // Iterate through the paidList data
+            this.paidList.forEach(item => {
+                const rowData = [
+                    item.student_id,
+                    item.user_profile.first_name + ' ' + item.user_profile.last_name,
+                    item.created_at,
+                    item.amount,
+                    item.accountability_type,
+                ];
 
-        // Push the row data to the tableData array
-        tableData.push(rowData);
-    });
+                // Push the row data to the tableData array
+                tableData.push(rowData);
+            });
 
-    // Return the table data
-    return tableData;
-},
+            // Return the table data
+            return tableData;
+        },
         showSucces(message) {
             this.fetchData();
             toast.success(message), {

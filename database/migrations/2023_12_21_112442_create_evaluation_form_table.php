@@ -17,9 +17,11 @@ return new class extends Migration
             $table->longText('evaluation_description');
             $table->unsignedBigInteger('org_id');
             $table->tinyInteger('is_accept_feedback');
+            $table->unsignedBigInteger('school_year');
             $table->timestamps();
 
             $table->foreign('org_id')->references('org_id')->on('organizations')->onDelete('cascade');
+            $table->foreign('school_year')->references('id')->on('school_year');
         });
     }
 

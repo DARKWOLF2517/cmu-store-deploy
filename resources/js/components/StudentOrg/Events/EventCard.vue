@@ -57,8 +57,8 @@
 
     <div class="event-list">
         <div class="col">
-            <div >
-                <div class="event-cards-list " >
+            <div>
+                <div class="event-cards-list ">
                     <!-- Loading spinner -->
                     <div v-if="loading" class="loading-spinner-container">
                         <div class="spinner-border text-success" id="event-spinner" role="status">
@@ -115,19 +115,7 @@
                                         data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted
                                         attendees</a>
                                 </li>
-                                <div v-if="event.attendance_status == 0 || event.attendance_status === 2">
-                                    <li><a class="dropdown-item"
-                                            @click="this.attendance_count_start_attendance = event.attendance_count, this.id = (event.event_id), this.status = 1"
-                                            data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start
-                                            Attendance</a></li>
-                                </div>
-                                <div v-else-if="event.attendance_status == 1">
-                                    <li><a class="dropdown-item"
-                                            @click="this.attendance_count_start_attendance = 0, this.id = (event.event_id), this.status = 2"
-                                            data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
-                                            Attendance</a></li>
-                                </div>
-                                <div v-if="event.event_status == 0 || event.event_status === 2">
+                                <div v-if="event.event_status == 0 || event.event_status == 2">
                                     <li><a class="dropdown-item" @click="this.id = (event.event_id), this.status = 1"
                                             data-bs-toggle="modal" data-bs-target="#eventStatus">Start Event</a>
                                     </li>
@@ -136,6 +124,20 @@
                                     <li><a class="dropdown-item" @click="this.id = (event.event_id), this.status = 2"
                                             data-bs-toggle="modal" data-bs-target="#eventStatus">Stop Event</a>
                                     </li>
+                                </div>
+                                <div
+                                    v-if="(event.attendance_status == 0 || event.attendance_status == 2) && (event.event_status == 1 && event.event_status != 0)">
+                                    <li><a class="dropdown-item"
+                                            @click="this.attendance_count_start_attendance = event.attendance_count, this.id = (event.event_id), this.status = 1"
+                                            data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start
+                                            Attendance</a></li>
+                                </div>
+                                <div
+                                    v-else-if="event.attendance_status == 1 && event.event_status == 1 && event.event_status != 0">
+                                    <li><a class="dropdown-item"
+                                            @click="this.attendance_count_start_attendance = 0, this.id = (event.event_id), this.status = 2"
+                                            data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
+                                            Attendance</a></li>
                                 </div>
 
                                 <div>
@@ -268,17 +270,13 @@
                                     <select id="sort-select" class="form-control" style="text-align: center;"
                                         v-model="session" required>
                                         <option :value="0" disabled selected>Select Attendace Type</option>
-                                        <option :value="1" v-if="attendance_count_start_attendance >= 1">Morning (Log
-                                            in)
+                                        <option :value="1" v-if="attendance_count_start_attendance >= 1">Session 1
                                         </option>
-                                        <option :value="2" v-if="attendance_count_start_attendance >= 2">Morning (Log
-                                            out)
+                                        <option :value="2" v-if="attendance_count_start_attendance >= 2">Session 2
                                         </option>
-                                        <option :value="3" v-if="attendance_count_start_attendance >= 3">Afternoon (Log
-                                            in)
+                                        <option :value="3" v-if="attendance_count_start_attendance >= 3">Session 3
                                         </option>
-                                        <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log
-                                            out)
+                                        <option :value="4" v-if="attendance_count_start_attendance >= 4">Session 4
                                         </option>
                                     </select>
                                 </div>
@@ -374,8 +372,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-success"
-                                        >Save</button>
+                                    <button type="submit" class="btn btn-success">Save</button>
                                 </div>
                             </form>
                         </div>
@@ -593,7 +590,7 @@ export default {
         this.fetchData();
         this.showSchoolYear();
         this.showYearLevelData();
-        this.showEvaluationForm();
+
 
     },
     mounted() {
@@ -611,9 +608,9 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.showSucces(response.data.message);
-                    // setTimeout(() => {
-                    //     location.reload();
-                    // }, 500);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
                     this.fetchData();
                 })
                 .catch(error => {
@@ -621,7 +618,7 @@ export default {
                 });
         },
         showEvaluationForm() {
-            axios.get(`getEvaluationForm/${this.organization_id}`)
+            axios.get(`getEvaluationForm/${this.organization_id}/${this.school_year_input}`)
                 .then(response => {
                     console.log(response.data)
                     this.evaluation_form = response.data;
@@ -727,7 +724,6 @@ export default {
 
 
         sendData() {
-            this.isSubmitting = true;
 
             // Assuming the checkboxes are already created as mentioned in your code snippet
 
@@ -796,6 +792,7 @@ export default {
                     // this.loading = false;
                     console.log(error)
                 });
+            this.showEvaluationForm();
         },
 
         FetchUpdateData(id) {
@@ -853,13 +850,14 @@ export default {
         },
 
         startAttendance() {
-            this.isSubmitting = true;
+
             if (this.session == 0 && this.status == 1) {
                 alert('Please input session');
             }
             else {
                 axios.put(`/update_event_attendance_status/${this.id}/${this.status}/${this.session}`)
                     .then(response => {
+                        this.isSubmitting = true;
                         console.log(response.data)
                         this.showSucces(response.data.message);
                         setTimeout(() => {

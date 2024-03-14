@@ -271,7 +271,8 @@
                             <div class="select-dropdown border" id="remarks-btn">
                                 <!-- First dropdown -->
                                 <select id="sort-select" class="form-control" style="text-align: center;"
-                                    v-model="this.accountability_type" required>
+                                    v-model="this.accountability_type" required>4
+                                    <option value="excuse">excuse</option>
                                     <option v-for="remarks in temporary_list_summary" :key="remarks.label"
                                         :value="remarks.label">
                                         {{ remarks.label }}
@@ -282,7 +283,8 @@
 
                         </div>
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full Payment</button>
+                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full
+                                Payment</button>
                         </div>
 
                         <div class="mb-3">
@@ -520,7 +522,7 @@ export default {
             const accountability = this.temporary_list_summary.find(item => item.label === this.accountability_type);
             const amount = accountability ? accountability.amount : null;
 
-
+x
             if (amount < this.paymentAmount) {
                 this.showError('amount exceeded');
             }
@@ -1196,37 +1198,37 @@ export default {
             return rows;
         },
         downloadTable() {
-    // Get the table data specifically from free_fines_students
-    const tableData = this.getAccountabilitiesTableData();
+            // Get the table data specifically from free_fines_students
+            const tableData = this.getAccountabilitiesTableData();
 
-    // Create a workbook
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.aoa_to_sheet(tableData);
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    // Save the workbook as an Excel file
-    XLSX.writeFile(wb, 'Accountabilities.xlsx');
-},
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'Accountabilities.xlsx');
+        },
 
-getAccountabilitiesTableData() {
-    // Initialize an array to store the table data
-    const tableData = [];
+        getAccountabilitiesTableData() {
+            // Initialize an array to store the table data
+            const tableData = [];
 
-    // Iterate through the paidList data
-    this.filtered_items_for_fines.forEach(item => {
-        const rowData = [
-            item.user_id,
-            item.name,
-            item.total_fees,
-        ];
+            // Iterate through the paidList data
+            this.filtered_items_for_fines.forEach(item => {
+                const rowData = [
+                    item.user_id,
+                    item.name,
+                    item.total_fees,
+                ];
 
-        // Push the row data to the tableData array
-        tableData.push(rowData);
-    });
+                // Push the row data to the tableData array
+                tableData.push(rowData);
+            });
 
-    // Return the table data
-    return tableData;
-},
+            // Return the table data
+            return tableData;
+        },
         showSucces(message) {
             toast.success(message), {
                 autoClose: 100,

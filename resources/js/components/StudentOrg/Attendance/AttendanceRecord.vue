@@ -95,7 +95,7 @@ export default {
     mounted() {
         this.fetchData();
         this.showSchoolYear()
-        // console.log(this.school_year)
+        console.log(this.school_year)
     },
     methods: {
         showSchoolYear() {

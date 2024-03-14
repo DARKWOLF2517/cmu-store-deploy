@@ -15,6 +15,7 @@ class EvaluationForm extends Model
         'evaluation_title',
         'evaluation_description',
         'org_id',
+        'school_year',
         'is_accept_feedback',
     ];
 

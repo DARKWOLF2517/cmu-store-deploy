@@ -247,24 +247,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form @submit.prevent="this.uploadData()">
-                <div class="modal-body" style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
-                    <div class="text-center">
-                        <h5 class="fw-bold"> Enter Student ID</h5>
-                        <small>Submit an Excel file containing only student ID numbers.</small>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <div class="select-dropdown border">
-
-  <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
-                                v-model="year_level_data_input" required>
-                                <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
-                        year_level.year_level }}</option>
-                            </select>
-
+                    <div class="modal-body"
+                        style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
+                        <div class="text-center">
+                            <h5 class="fw-bold"> Enter Student ID</h5>
+                            <small>Submit an Excel file containing only student ID numbers.</small>
                         </div>
-                    </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="select-dropdown border">
 
-                    <!-- <div class="select-dropdown" >
+                                <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
+                                    v-model="year_level_data_input" required>
+                                    <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
+                        year_level.year_level }}</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <!-- <div class="select-dropdown" >
                                         <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
                                             <option value="0" disabled selected >Select College</option>
                                             <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
@@ -272,27 +273,27 @@
                                     </div> -->
 
 
-                    <br>
-                    <table class="table" id="tableModal">
-                        <thead>
-                            <tr>
-                                <th>Student ID Number</th>
-                                <!-- <th>Last Name</th>
+                        <br>
+                        <table class="table" id="tableModal">
+                            <thead>
+                                <tr>
+                                    <th>Student ID Number</th>
+                                    <!-- <th>Last Name</th>
                                             <th>First Name</th> -->
-                                <!-- <th>Year Level</th> -->
-                            </tr>
-                        </thead>
-                        <tbody id="modalStudentTableBody">
-                            <!-- Excel data will be displayed here -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" id="uploadToTableButton"
-                        :disabled="isSubmitting">Upload</button>
-                </div>
-            </form>
+                                    <!-- <th>Year Level</th> -->
+                                </tr>
+                            </thead>
+                            <tbody id="modalStudentTableBody">
+                                <!-- Excel data will be displayed here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" id="uploadToTableButton"
+                            :disabled="isSubmitting">Upload</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -479,7 +480,7 @@ export default {
                     }
                     setTimeout(() => {
                         location.reload();
-            }, 1000);
+                    }, 1000);
                 })
                 .catch(error => {
                     console.log(error)
