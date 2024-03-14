@@ -288,54 +288,7 @@ export default {
         this.showCollege();
     },
     methods: {
-        addExcemptedStudents() {
-            axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
-                .then(response => {
-                    console.log(response.data)
-                    if (response.data.type == 0) {
-                        this.showError(response.data.message);
-                    }
-                    else if (response.data.type == 2) {
-                        this.showError(response.data.message);
-                    }
-                    else {
-                        this.showSucces(response.data.message);
-                        this.fetchData();
-                    }
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-        },
-        fetchDataDisplayName() {
-            // console.log(this.addExcempted.student_id)
-            axios.get(`/student_list/show_name/${this.addExcempted.student_id}`)
-                .then(response => {
-                    console.log(response.data)
-                    if (response.data.length != 0) {
-                        this.addExcempted.student_id = response.data.user_id;
-                        this.addExcempted.firstname = response.data.first_name;
-                        this.addExcempted.lastname = response.data.last_name;
-                        this.addExcempted.middlename = response.data.middle_name;
-                    }
-                    else {
-                        this.addExcempted.firstname = [];
-                        this.addExcempted.lastname = [];
-                        this.addExcempted.middlename = [];
-                    }
-                    // this.addExcempted.year_level_id = response.data.user_profile.year_level_id;
-                    // this.addExcempted.college_id = response.data.user_profile.college_id;
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-            this.addExcempted.firstname = [];
-            this.addExcempted.lastname = [];
-            this.addExcempted.middlename = [];
-        },
+
         deleteAccountabilities() {
             console.log(this.id)
             axios.delete(`/delete_paid_accountabilities/${this.id}`)

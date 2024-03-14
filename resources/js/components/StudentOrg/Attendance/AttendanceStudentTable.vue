@@ -38,8 +38,7 @@
             <div class="student-buttons d-flex">
 
                 <div class="btn-group" role="group">
-                    <button class="btn me-2"
-                        data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
+                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
                         <i class="fas fa-plus"></i> Excuse Student
                     </button>
                     <button class="btn me-2" @click="printTable">
@@ -120,8 +119,8 @@
             </div>
         </div>
     </div>
-      <!-- Excuse student Modal -->
-      <div class="modal fade" id="excuseStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+    <!-- Excuse student Modal -->
+    <div class="modal fade" id="excuseStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -133,33 +132,33 @@
                 </div>
 
                 <div class="modal-body">
-                    <form >
+                    <form @submit.prevent="this.addAttendance">
                         <div class="mb-3">
                             <label for="studentId" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentId"
-                               required>
+                            <input type="text" class="form-control" id="studentId" v-model="addExcempted.student_id"
+                                @change="this.fetchDataDisplayName" required>
                         </div>
                         <div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastname"
-                                    disabled required>
+                                <input type="text" class="form-control" id="lastname" v-model="addExcempted.lastname"
+                                    disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstname"
-                                    disabled required>
+                                <input type="text" class="form-control" id="firstname" v-model="addExcempted.firstname"
+                                    disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" id="firstname"
-                                    disabled required>
+                                <input type="text" class="form-control" id="firstname" v-model="addExcempted.middlename"
+                                    disabled>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Remarks</label>
-                                <input type="text" class="form-control" id="remarks"
+                            <input type="text" class="form-control" id="remarks" v-model="addExcempted.remarks"
                                 required>
                         </div>
                         <!-- <div class="mb-3">
@@ -207,6 +206,18 @@ export default {
             college_id: 0,//college id of the organization'
             id: 0,  //id for deletion
             session: 0, //session for deletion
+            addExcempted: {
+                student_id: '',
+                lastname: '',
+                firstname: '',
+                org_id: this.org_id,
+                event_id: 0,
+                officer_id: 0,
+                time: '',
+                session: 0,
+                remarks: '',
+
+            },
 
         };
     },
@@ -289,8 +300,70 @@ export default {
         this.fetchData();
         this.showCollege();
         this.getOrgCollege();
+        this.getTime();
+
     },
     methods: {
+        addAttendance() {
+            axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.type == 0) {
+                        this.showError(response.data.message);
+                    }
+                    else if (response.data.type == 2) {
+                        this.showError(response.data.message);
+                    }
+                    else {
+                        this.showSucces(response.data.message);
+                        this.fetchData();
+                    }
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        //to get current time
+        getTime() {
+            const now = new Date();
+            const hours = this.padZero(now.getHours());
+            const minutes = this.padZero(now.getMinutes());
+            const seconds = this.padZero(now.getSeconds());
+            this.addExcempted.time = `${hours}:${minutes}:${seconds}`;
+        },
+        //to get current time
+        padZero(num) {
+            return (num < 10 ? '0' : '') + num;
+        },
+        fetchDataDisplayName() {
+            // console.log(this.addExcempted.student_id)
+            axios.get(`/student_list/show_name/${this.addExcempted.student_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.length != 0) {
+                        this.addExcempted.student_id = response.data.user_id;
+                        this.addExcempted.firstname = response.data.first_name;
+                        this.addExcempted.lastname = response.data.last_name;
+                        this.addExcempted.middlename = response.data.middle_name;
+                    }
+                    else {
+                        this.addExcempted.firstname = [];
+                        this.addExcempted.lastname = [];
+                        this.addExcempted.middlename = [];
+                    }
+                    // this.addExcempted.year_level_id = response.data.user_profile.year_level_id;
+                    // this.addExcempted.college_id = response.data.user_profile.college_id;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            this.addExcempted.firstname = [];
+            this.addExcempted.lastname = [];
+            this.addExcempted.middlename = [];
+        },
 
         deleteAttendance() {
             axios.delete(`/delete_attendance/${this.id}/${this.session}`)
@@ -496,46 +569,46 @@ export default {
             return rows;
         },
         downloadTable() {
-    // Create a temporary download link
-    const link = document.createElement('a');
-    link.style.display = 'none';
-    document.body.appendChild(link);
+            // Create a temporary download link
+            const link = document.createElement('a');
+            link.style.display = 'none';
+            document.body.appendChild(link);
 
-    // Generate CSV content from the attendance array
-    const csvContent = [];
-    const headers = [
-        'Student ID',
-        'Student Name',
-        'College',
-        'Time',
-    ];
-    csvContent.push(headers.join(','));
+            // Generate CSV content from the attendance array
+            const csvContent = [];
+            const headers = [
+                'Student ID',
+                'Student Name',
+                'College',
+                'Time',
+            ];
+            csvContent.push(headers.join(','));
 
-    this.attendance.forEach(item => {
-        const columns = [
-            item.user_id,
-            `${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}`,
-            item.user_profile.college.college,
-            item.created_at,
-        ];
-        csvContent.push(columns.join(','));
-    });
+            this.attendance.forEach(item => {
+                const columns = [
+                    item.user_id,
+                    `${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}`,
+                    item.user_profile.college.college,
+                    item.created_at,
+                ];
+                csvContent.push(columns.join(','));
+            });
 
-    // Convert CSV content to a Blob
-    const csvBlob = new Blob(['\uFEFF' + csvContent.join('\n')], {
-        type: 'text/csv;charset=utf8;'
-    });
+            // Convert CSV content to a Blob
+            const csvBlob = new Blob(['\uFEFF' + csvContent.join('\n')], {
+                type: 'text/csv;charset=utf8;'
+            });
 
-    // Set the link's href and download attributes
-    link.href = window.URL.createObjectURL(csvBlob);
-    link.download = `${this.event.event_title}_attendance_record.csv`;
+            // Set the link's href and download attributes
+            link.href = window.URL.createObjectURL(csvBlob);
+            link.download = `${this.event.event_title}_attendance_record.csv`;
 
-    // Trigger the download
-    link.click();
+            // Trigger the download
+            link.click();
 
-    // Clean up
-    document.body.removeChild(link);
-},
+            // Clean up
+            document.body.removeChild(link);
+        },
         showSucces(message) {
             this.fetchData();
             toast.success(message), {

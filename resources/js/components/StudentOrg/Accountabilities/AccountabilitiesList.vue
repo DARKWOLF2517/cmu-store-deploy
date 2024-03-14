@@ -271,8 +271,7 @@
                             <div class="select-dropdown border" id="remarks-btn">
                                 <!-- First dropdown -->
                                 <select id="sort-select" class="form-control" style="text-align: center;"
-                                    v-model="this.accountability_type" required>4
-                                    <option value="excuse">excuse</option>
+                                    v-model="this.accountability_type" required>
                                     <option v-for="remarks in temporary_list_summary" :key="remarks.label"
                                         :value="remarks.label">
                                         {{ remarks.label }}
@@ -293,12 +292,12 @@
 
                         <div class="mb-3">
                             <p>Enter the amount you have received:</p>
-                            <input type="input" class="form-control" v-model="this.paymentAmount" required>
+                            <input type="number" class="form-control" v-model="this.paymentAmount" required>
                         </div>
 
                         <div>
                             <p>Remarks:</p>
-                            <input type="input" class="form-control" required>
+                            <input type="input" class="form-control" >
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -526,8 +525,6 @@ export default {
             //to get the amount of the current balance
             const accountability = this.temporary_list_summary.find(item => item.label === this.accountability_type);
             const amount = accountability ? accountability.amount : null;
-
-x
             if (amount < this.paymentAmount) {
                 this.showError('amount exceeded');
             }
