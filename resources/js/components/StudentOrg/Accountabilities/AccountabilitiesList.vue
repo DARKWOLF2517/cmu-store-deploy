@@ -282,7 +282,11 @@
                             </div>
 
                         </div>
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end gap-4">
+                            <div>
+                                <input type="checkbox" id="exemptCheckbox">
+                                <label for="exemptCheckbox"> Exempt Student?</label>
+                            </div>
                             <button type="button" class="btn btn-success " @click="this.fullPayment">Full
                                 Payment</button>
                         </div>
@@ -293,7 +297,8 @@
                         </div>
 
                         <div>
-
+                            <p>Remarks:</p>
+                            <input type="input" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
