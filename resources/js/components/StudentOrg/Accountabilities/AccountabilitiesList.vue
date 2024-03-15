@@ -101,7 +101,7 @@
                     student_id: fees_list.user_id,
                     // student_name: fees_list.name,
                     // accountability_name: fees_list.accountability_type,
-                    // total_amount: fees_list.total_fees,
+                    remarks: 0,
                     student_org_id: this.org_id,
                 }
                 ">
@@ -282,12 +282,11 @@
 
                         </div>
                         <div class="d-flex justify-content-end gap-4">
-                            <div>
+                            <!-- <div v-if="this.accountability_type">
                                 <input type="checkbox" id="exemptCheckbox">
                                 <label for="exemptCheckbox"> Exempt Student?</label>
-                            </div>
-                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full
-                                Payment</button>
+                            </div> -->
+                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full Amount</button>
                         </div>
 
                         <div class="mb-3">
@@ -295,10 +294,10 @@
                             <input type="number" class="form-control" v-model="this.paymentAmount" required>
                         </div>
 
-                        <div>
+                        <!-- <div>
                             <p>Remarks:</p>
                             <input type="input" class="form-control" >
-                        </div>
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"

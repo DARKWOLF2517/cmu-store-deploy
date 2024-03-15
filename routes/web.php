@@ -240,6 +240,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_org_accountability/{org_id}/{school_year}', [AccountabilitiesController::class, 'getOrgAccountability']);
         Route::get('/get_student_payments/{student_id}', [AccountabilitiesController::class, 'getStudentPayments']);
         Route::delete('/delete_paid_accountabilities/{accountability_id}', [AccountabilitiesController::class, 'deletePaidAccountabilities']);
+        Route::get('/get_accountability_amount/{accountability_type}/{school_year}', [AccountabilitiesController::class, 'getAccountabilityType']);
 
         #ORG PROFILE ROUTES
         Route::post('/add_school_year', [OrgProfileController::class, 'addSchoolYear']);

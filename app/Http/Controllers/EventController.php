@@ -197,6 +197,9 @@ class EventController extends Controller
     }
     public function updateEventStatus($id, $status)
     {
+        if ($status == 2){
+            Event::where('event_id', $id)->update(['attendance_status' => $status]);
+        }
         Event::where('event_id', $id)->update(['event_status' => $status]);
         return response()->json(['message' => 'Event Updated Successfully']);
     }

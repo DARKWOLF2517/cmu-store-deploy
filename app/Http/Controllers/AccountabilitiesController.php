@@ -115,6 +115,7 @@ class AccountabilitiesController extends Controller
             $validatedData = $this->validate($request, [
                 'student_id' => 'required',
                 'student_org_id' => 'required',
+                'remarks' => 'required',
             ]);
             $accountability = new PaidAccountability([
                 'student_id' => $validatedData['student_id'],
@@ -122,6 +123,7 @@ class AccountabilitiesController extends Controller
                 'amount' => $amount,
                 'school_year' => $school_year,
                 'accountability_type' => $accountability_type,
+                'remarks' => $validatedData['remarks'],
             ]);
             $accountability->save();
             return response()->json(['message' => 'Accountability Paid Successfully', 'status' => 1]);
@@ -256,5 +258,10 @@ class AccountabilitiesController extends Controller
         return response()->json(['message' => 'Payment Deleted successfully', 'status' => 0]);
         // return $isPaymentPresent;
 
+    }
+    public function getAccountabilityType($accountability_type, $school_year)
+    {
+        $accountabilities = Accountability::where([['accountability_name', $accountability_type], ['school_year', $school_year]])->first();
+        return $accountabilities->toJson();
     }
 }

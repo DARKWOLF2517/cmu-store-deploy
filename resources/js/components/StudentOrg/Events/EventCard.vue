@@ -299,7 +299,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- start attendance modal -->
+                <!-- cancel attendance modal -->
                 <div class="modal fade" id="cancelAttendance" tabindex="-1" aria-labelledby="cancelAttendanceModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">

@@ -57,7 +57,7 @@ import { Html5Qrcode } from "html5-qrcode";
 import { converTime } from "../Functions/TimeConverter.js";
 export default {
     components: { QrcodeStream },
-    props: ['event_id', 'org_id', 'officer_id', 'session'],
+    props: ['event_id', 'org_id', 'session'],
     data() {
         return {
             attendance: [],
@@ -65,7 +65,8 @@ export default {
                 user_id: '',
                 org_id: this.org_id,
                 event_id: this.event_id,
-                officer_id: this.officer_id,
+                // officer_id: this.officer_id,
+                remarks: 0,
                 session: this.session,
 
             },

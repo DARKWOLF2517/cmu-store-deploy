@@ -47,6 +47,9 @@
             <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
             <div class="student-buttons d-flex">
                 <div class="btn-group" role="group">
+                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
+                        <i class="fas fa-plus"></i> Excuse Student
+                    </button>
                     <button class="btn me-2" @click="printTable">
                         <i class="fas fa-print"></i> Print
                     </button>
@@ -93,7 +96,8 @@
                         <!-- <td>{{ paid['accountability_name'] }}</td> -->
                         <td> {{ paid['created_at'] }}</td>
                         <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}.00</td>
-                        <td>{{ paid['accountability_type'] }}</td>
+                        <td v-if="paid.remarks == 0">N/A</td>
+                        <td v-else> {{ paid.remarks }}</td>
                         <td>
                             <span class="d-flex justify-content-center p-2">
                                 <button @click="this.id = paid.id" class="btn btn-danger text-light"
@@ -169,6 +173,78 @@
             </div>
         </div>
     </div>
+
+    <!-- Excuse student Modal -->
+    <div class="modal fade" id="excuseStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Excuse
+                        Student</h5>
+                    <!-- <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.updateSingleAddStudents">Edit Student</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form @submit.prevent="this.submitExempted">
+                        <div class="mb-3">
+                            <label for="studentId" class="form-label">Student ID</label>
+                            <input type="text" class="form-control" id="studentId" v-model="paymentDetails.student_id"
+                                @change="this.fetchDataDisplayName" required>
+                        </div>
+                        <div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastname" v-model="paymentDetails.lastname"
+                                    disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstname"
+                                    v-model="paymentDetails.firstname" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" id="firstname"
+                                    v-model="paymentDetails.middlename" disabled>
+                            </div>
+                        </div>
+
+                        <label for="AccountabilityName" class="form-label">Accountability Name</label>
+                        <select id="sort-select" class="form-control" style="text-align: center;"
+                            v-model="paymentDetails.accountability_type" @change="this.getAccountabilityAmount">
+                            <option v-for="accountability in this.accountabilities"
+                                :value="accountability.accountability_name">{{ accountability.accountability_name }}
+                            </option>
+                        </select>
+                        <button type="button" class="btn btn-success " @click="this.fullPayment">Full Amount</button>
+                        <div class="mb-3">
+                            <label for="amount" class="form-label">Amount</label>
+                            <input type="number" class="form-control" id="remarks" v-model="paymentDetails.amount"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Remarks</label>
+                            <input type="text" class="form-control" id="remarks" v-model="paymentDetails.remarks"
+                                required>
+                        </div>
+                        <!-- <div class="mb-3">
+                                    <label for="reason" class="form-label">College</label>
+                                    <select  class="form-select" id="college" v-model="student_data.college_id">
+                                            <option value="0" disabled selected >Select College</option>
+                                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
+                                    </select>
+                                </div> -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -194,16 +270,18 @@ export default {
             accountabilities: [],
             accountability_type: '',
             id: 0,
-            addExcempted: {
+            paymentDetails: {
                 student_id: '',
+                student_org_id: this.org_id,
                 lastname: '',
-                firstname: '',
-                org_id: this.org_id,
-                amount: 0,
-                school_year: this.school_year_input,
+                middlename: '',
+                lastname: '',
+                amount: '',
                 accountability_type: '',
-
+                remarks: '',
             },
+            accountabilityAmount: [],
+
         }
     },
     computed: {
@@ -288,7 +366,71 @@ export default {
         this.showCollege();
     },
     methods: {
+        submitExempted() {
+            axios.post(`/FinesAccountabilityPayment/${this.school_year_input}/${this.paymentDetails.amount}/${this.paymentDetails.accountability_type}`, this.paymentDetails)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.status == 0) {
+                        this.showError(response.data.message);
+                    }
+                    else if (response.data.status == 1) {
+                        this.showSucces(response.data.message);
+                        this.fetchData();
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
+                    }
 
+
+                    // this.fetchData();
+                })
+                .catch(error => {
+                    alert(error)
+
+                });
+
+        },
+        fullPayment() {
+            if (this.paymentDetails.accountability_type) {
+                this.paymentDetails.amount = this.accountabilityAmount.amount;
+            }
+        },
+        getAccountabilityAmount() {
+            axios.get(`/get_accountability_amount/${this.paymentDetails.accountability_type}/${this.school_year_input}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.accountabilityAmount = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        fetchDataDisplayName() {
+            // console.log(this.addExcempted.student_id)
+            axios.get(`/student_list/show_name/${this.paymentDetails.student_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.length != 0) {
+                        // this.formData.user_id = response.data.user_id;
+                        this.paymentDetails.firstname = response.data.first_name;
+                        this.paymentDetails.lastname = response.data.last_name;
+                        this.paymentDetails.middlename = response.data.middle_name;
+                    }
+                    else {
+                        this.paymentDetails.firstname = [];
+                        this.paymentDetails.lastname = [];
+                        this.paymentDetails.middlename = [];
+                    }
+                    // this.addExcempted.year_level_id = response.data.user_profile.year_level_id;
+                    // this.addExcempted.college_id = response.data.user_profile.college_id;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            this.paymentDetails.firstname = [];
+            this.paymentDetails.lastname = [];
+            this.paymentDetails.middlename = [];
+        },
         deleteAccountabilities() {
             console.log(this.id)
             axios.delete(`/delete_paid_accountabilities/${this.id}`)
@@ -520,6 +662,11 @@ export default {
         showSucces(message) {
             this.fetchData();
             toast.success(message), {
+                autoClose: 100,
+            }
+        },
+        showError(message) {
+            toast.error(message), {
                 autoClose: 100,
             }
         },

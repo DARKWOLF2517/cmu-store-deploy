@@ -53,8 +53,8 @@
     </div>
     <div id="table-container">
         <div class="scroll-pane" id="table-list">
-            <h5 id="Eventtitle"> Event: <b>{{ this.event.event_title }}</b></h5>
-            <p>Date: <b>{{ this.event.event_date }}</b> </p>
+            <h5 id="Eventtitle"> Event: <b>{{ this.event.name }}</b></h5>
+            <p>Date: <b>{{ this.event.start_date }}</b> </p>
             <table id="accountabilities-table">
                 <thead>
                     <tr>
@@ -72,7 +72,8 @@
                         <td>{{ attendance.user_profile.first_name }} {{ attendance.user_profile.last_name }}</td>
                         <td>{{ attendance.user_profile.college.college }}</td>
                         <td>{{ attendance.created_at }}</td>
-                        <td>Remarks dre</td>
+                        <td v-if="attendance.remarks == 0">N/A</td>
+                        <td v-else> {{ attendance.remarks }}</td>
                         <td>
                             <span class="d-flex justify-content-center">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
@@ -135,31 +136,43 @@
                     <form @submit.prevent="this.addAttendance">
                         <div class="mb-3">
                             <label for="studentId" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentId" v-model="addExcempted.student_id"
+                            <input type="text" class="form-control" id="studentId" v-model="formData.user_id"
                                 @change="this.fetchDataDisplayName" required>
                         </div>
                         <div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastname" v-model="addExcempted.lastname"
+                                <input type="text" class="form-control" id="lastname" v-model="formData.lastname"
                                     disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstname" v-model="addExcempted.firstname"
+                                <input type="text" class="form-control" id="firstname" v-model="formData.firstname"
                                     disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" id="firstname" v-model="addExcempted.middlename"
+                                <input type="text" class="form-control" id="firstname" v-model="formData.middlename"
                                     disabled>
                             </div>
                         </div>
+                        <div class="select-dropdown">
+                            <!-- Second dropdown -->
+                            <label for="session" class="form-label">Session</label>
+                            <select id="sort-select" class="form-control" style="text-align: center;"
+                                v-model="formData.session" required>
+                                <option :value="1" v-if="attendance_count >= 1">Session 1</option>
+                                <option :value="2" v-if="attendance_count >= 2">Session 2</option>
+                                <option :value="3" v-if="attendance_count >= 3">Session 3</option>
+                                <option :value="4" v-if="attendance_count >= 4">Session 4</option>
+                            </select>
+
+                        </div>
+
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Remarks</label>
-                            <input type="text" class="form-control" id="remarks" v-model="addExcempted.remarks"
-                                required>
+                            <input type="text" class="form-control" id="remarks" v-model="formData.remarks" required>
                         </div>
                         <!-- <div class="mb-3">
                                     <label for="reason" class="form-label">College</label>
@@ -191,10 +204,7 @@ export default {
     data() {
         return {
             attendance: [],
-            event: {
-                event_title: '',
-                event_date: '',
-            },
+            event: [],
             currentPage: 1,
             itemsPerPage: 10,
             attendance_count: 0,
@@ -206,16 +216,17 @@ export default {
             college_id: 0,//college id of the organization'
             id: 0,  //id for deletion
             session: 0, //session for deletion
-            addExcempted: {
-                student_id: '',
+            formData: {
+                user_id: '',
+                org_id: this.organization_id,
+                event_id: this.event_id,
+                // officer_id: this.officer_id, //id of the user fetch it in the backend
+                session: '',
+                remarks: '',
                 lastname: '',
                 firstname: '',
-                org_id: this.org_id,
-                event_id: 0,
-                officer_id: 0,
-                time: '',
-                session: 0,
-                remarks: '',
+                middlename: '',
+
 
             },
 
@@ -300,59 +311,49 @@ export default {
         this.fetchData();
         this.showCollege();
         this.getOrgCollege();
-        this.getTime();
+        this.fetchEventDetails();
 
     },
     methods: {
         addAttendance() {
-            axios.post(`/upload_single_student/${this.school_year_input}`, this.student_data)
+            if (this.formData.remarks == 0) {
+                this.formData.remarks = "Changed"
+            }
+            axios.post("/attendance", this.formData)
                 .then(response => {
-                    console.log(response.data)
-                    if (response.data.type == 0) {
-                        this.showError(response.data.message);
+                    if (response.data.result == "failure" && response.data.message != "Invalid Qr Code") {
+                        this.showError(response.data.message)
                     }
-                    else if (response.data.type == 2) {
-                        this.showError(response.data.message);
+                    else if (response.data.message == "Invalid Qr Code") {
+                        this.showError("Student not Found")
                     }
                     else {
-                        this.showSucces(response.data.message);
-                        this.fetchData();
+                        this.showSucces(response.data.message)
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
                     }
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
+                    console.log(response.data)
                 })
                 .catch(error => {
-                    console.log(error)
+                    alert(error)
                 });
-        },
-        //to get current time
-        getTime() {
-            const now = new Date();
-            const hours = this.padZero(now.getHours());
-            const minutes = this.padZero(now.getMinutes());
-            const seconds = this.padZero(now.getSeconds());
-            this.addExcempted.time = `${hours}:${minutes}:${seconds}`;
-        },
-        //to get current time
-        padZero(num) {
-            return (num < 10 ? '0' : '') + num;
         },
         fetchDataDisplayName() {
             // console.log(this.addExcempted.student_id)
-            axios.get(`/student_list/show_name/${this.addExcempted.student_id}`)
+            axios.get(`/student_list/show_name/${this.formData.user_id}`)
                 .then(response => {
                     console.log(response.data)
                     if (response.data.length != 0) {
-                        this.addExcempted.student_id = response.data.user_id;
-                        this.addExcempted.firstname = response.data.first_name;
-                        this.addExcempted.lastname = response.data.last_name;
-                        this.addExcempted.middlename = response.data.middle_name;
+                        // this.formData.user_id = response.data.user_id;
+                        this.formData.firstname = response.data.first_name;
+                        this.formData.lastname = response.data.last_name;
+                        this.formData.middlename = response.data.middle_name;
                     }
                     else {
-                        this.addExcempted.firstname = [];
-                        this.addExcempted.lastname = [];
-                        this.addExcempted.middlename = [];
+                        this.formData.firstname = [];
+                        this.formData.lastname = [];
+                        this.formData.middlename = [];
                     }
                     // this.addExcempted.year_level_id = response.data.user_profile.year_level_id;
                     // this.addExcempted.college_id = response.data.user_profile.college_id;
@@ -360,9 +361,9 @@ export default {
                 .catch(error => {
                     console.log(error)
                 });
-            this.addExcempted.firstname = [];
-            this.addExcempted.lastname = [];
-            this.addExcempted.middlename = [];
+            this.formData.firstname = [];
+            this.formData.lastname = [];
+            this.formData.middlename = [];
         },
 
         deleteAttendance() {
@@ -441,6 +442,18 @@ export default {
             // this.filtered_attendance = filteredBySearch
 
         },
+        fetchEventDetails() {
+            axios.get(`/get_events/${this.event_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    response.data.start_date = convertDate(response.data.start_date);
+                    this.event = response.data;
+                    this.attendance_count = response.data.attendance_count;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         fetchData() {
             axios.get(`/attendance/list/${this.organization_id}/${this.event_id}`)
                 .then(response => {
@@ -450,9 +463,7 @@ export default {
                         // console.log(item);
                         item['created_at'] = converTime(item['time']);
                         item['events']['start_date'] = convertDate(item['events']['start_date']);
-                        this.event.event_title = item['events']['name'];
-                        this.event.event_date = item['events']['start_date'];
-                        this.attendance_count = item.events.attendance_count;
+
                     });
                     this.attendance = response.data;
                     this.filtered_attendance = this.attendance;
@@ -612,6 +623,11 @@ export default {
         showSucces(message) {
             this.fetchData();
             toast.success(message), {
+                autoClose: 100,
+            }
+        },
+        showError(message) {
+            toast.error(message), {
                 autoClose: 100,
             }
         },

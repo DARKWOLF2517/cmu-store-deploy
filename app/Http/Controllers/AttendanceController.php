@@ -9,7 +9,7 @@ use App\Models\UserOrganization;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
@@ -42,6 +42,7 @@ class AttendanceController extends Controller
         }
     }
     public function store(Request $request){
+        // return $request;
         if($this->attendanceRepetition($request['user_id'],$request['session'],$request['event_id']) >= 1)
         {
             return response()->json(array("result"=>"failure","message"=>"Already logged in for this session..."));
@@ -54,16 +55,16 @@ class AttendanceController extends Controller
             'user_id' => 'required',
             'org_id'  => 'required',
             'event_id'  => 'required',
-            'officer_id'  => 'required',
+            // 'officer_id'  => 'required',
             'session'  => 'required',
         ]);
         $attendances = new Attendance();
         $attendances->user_id = $validatedData['user_id'];
         $attendances->org_id = $validatedData['org_id'];
         $attendances->event_id = $validatedData['event_id'];
-        $attendances->officer_id = $validatedData['officer_id'];
+        $attendances->officer_id = Auth::id();
         $attendances->session = $validatedData['session'];
-        $attendances->remarks = 0;
+        $attendances->remarks = $request->remarks;
         $attendances->time = Carbon::now()->format('H:i'); 
         $attendances->save();
         return response()->json(array("result"=>"success","message"=>"Student successfully logged in..."));

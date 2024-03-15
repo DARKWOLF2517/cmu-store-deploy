@@ -17,7 +17,8 @@ class PaidAccountability extends Model
         'student_org_id',
         'amount',
         'school_year',
-        'accountability_type'
+        'accountability_type',
+        'remarks',
     ];
 
     public function user_profile()
