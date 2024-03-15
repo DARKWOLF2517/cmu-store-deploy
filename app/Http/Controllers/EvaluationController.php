@@ -53,6 +53,7 @@ class  EvaluationController extends Controller
             'evaluation_description' => $request['description'],
             'org_id' => $request['org_id'],
             'is_accept_feedback' => $request['accept_feedback'],
+            'school_year' => $request['school_year'],
         ]);
         $evaluation_form->save();
         foreach ($request->questions as $question) {
@@ -137,7 +138,7 @@ class  EvaluationController extends Controller
             ->update([
                 'evaluation_title' => $request['title'],
                 'evaluation_description' => $request['description'],
-                'is_accept_feedback' => $request['accept_feedback']
+                'is_accept_feedback' => $request['accept_feedback'],
             ]);
 
         foreach ($request->questions as $question) {

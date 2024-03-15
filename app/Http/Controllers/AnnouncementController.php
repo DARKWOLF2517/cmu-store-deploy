@@ -9,8 +9,13 @@ class AnnouncementController extends Controller
 {
     public function getAnnouncement($org_id, $school_year)
     {
-        $announcement = Announcement::where([['org_id', $org_id], ['school_year', $school_year]])->get();
-        return $announcement->toJson();
+        if ($org_id == 0) {
+            $announcement = Announcement::with('organization')->orderByDesc('created_at')->where([['school_year', $school_year]])->get();
+            return $announcement->toJson();
+        } else {
+            $announcement = Announcement::with('organization')->orderByDesc('created_at')->where([['org_id', $org_id], ['school_year', $school_year]])->get();
+            return $announcement->toJson();
+        }
     }
     public function addAnnouncement($org_id, $school_year, Request $request)
     {
@@ -31,7 +36,7 @@ class AnnouncementController extends Controller
         return $announcement->toJson();
     }
     public function updateAnnouncement(Request $request, Announcement $id)
-    {   
+    {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
@@ -46,5 +51,4 @@ class AnnouncementController extends Controller
         $id->delete();
         return response()->json(['message' => 'Announcement Deleted successfully']);
     }
-
 }

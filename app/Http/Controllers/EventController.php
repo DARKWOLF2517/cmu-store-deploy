@@ -20,13 +20,16 @@ class EventController extends Controller
         return view('student_organization.student_organization_events');
     }
 
-    public function getEvents($org_id, $school_year = null)
+    public function getEvents($org_id = null, $school_year = null)
     {
-        if (!$school_year) {
-            $events = Event::where([['org_id', $org_id]])->with('organization')->get();
+        if (!$school_year && !$org_id) {
+            $events = Event::with('organization')
+                ->orderByDesc('created_at')
+                ->get();
+
             return $events->toJson();
         } else {
-            $events = Event::where([['org_id', $org_id], ['school_year', $school_year]])->with('organization')->get();
+            $events = Event::where([['org_id', $org_id], ['school_year', $school_year]])->with('organization')->orderByDesc('created_at')->get();
             return $events->toJson();
         }
     }
@@ -145,14 +148,14 @@ class EventController extends Controller
     }
     public function getEvaluationList($org_id, $school_year = null)
     {
-        $events = event::where([['org_id', $org_id], ['school_year', $school_year]])->with('EvaluationFormAnswer')->get();
+        $events = event::where([['org_id', $org_id], ['school_year', $school_year]])->with('EvaluationFormAnswer')->orderByDesc('created_at')->get();
         return response()->json($events);
     }
 
     public function getCompleteEventsCount($org_id, $school_year)
     {
         $accountability_total = PaidAccountability::where([
-            ['student_org_id', $org_id],['school_year', $school_year],['remarks', '0']
+            ['student_org_id', $org_id], ['school_year', $school_year], ['remarks', '0']
         ])->sum('amount');
 
         return response()->json($accountability_total);
@@ -196,7 +199,7 @@ class EventController extends Controller
     }
     public function updateEventStatus($id, $status)
     {
-        if ($status == 2){
+        if ($status == 2) {
             Event::where('event_id', $id)->update(['attendance_status' => $status]);
         }
         Event::where('event_id', $id)->update(['event_status' => $status]);

@@ -48,14 +48,6 @@ export default {
                     this.announcement = response.data
                     console.log(response.data)
                     this.loading = false;
-                    this.announcement.sort((a, b) => {
-                // Convert the date strings to Date objects
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-
-                // Compare the dates and return the result
-                return dateB - dateA;
-            });
                 })
                 .catch(error => {
 

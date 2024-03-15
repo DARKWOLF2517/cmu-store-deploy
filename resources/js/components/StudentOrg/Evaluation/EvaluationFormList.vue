@@ -313,6 +313,7 @@ export default {
                 questions: this.questions,
                 org_id: this.organization_id,
                 accept_feedback: this.acceptFeedback,
+                school_year:this.school_year_session,
             })
                 .then(response => {
                     console.log(response.data)
@@ -393,6 +394,7 @@ export default {
                 questions: this.questions,
                 org_id: this.organization_id,
                 accept_feedback: this.acceptFeedback,
+                school_year:this.school_year_session,
             })
                 .then(response => {
                     console.log(response.data)

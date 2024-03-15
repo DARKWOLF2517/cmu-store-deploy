@@ -7,7 +7,7 @@
     <link href="{{ asset('/custom_css/studentAnnouncement.css') }}" rel="stylesheet">
 @endsection
 @section('main-content')
-    <student-announcement-card organization_id={{ Session::get('org_id') }}>
+    <student-announcement-card :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }}>
     </student-announcement-card>
     {{-- <event-card
         organization_id = {{Session::get('org_id')}}>

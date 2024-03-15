@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->unsignedBigInteger('college_id' );
             // $table->unsignedBigInteger('year_level_id');
+            $table->text('image')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreign('college_id')->references('id')->on('college')->onUpdate('cascade');

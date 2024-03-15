@@ -19,4 +19,10 @@ class Announcement extends Model
         'date',
         'time'
     ];
+
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'org_id', 'org_id');
+    }
 }

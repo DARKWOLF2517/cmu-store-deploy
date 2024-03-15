@@ -50,7 +50,7 @@ Route::get('/login', function () {
 
 Route::middleware(['auth'])->group(function () {
     //can access to all roles
-    Route::get('/events/show/{org_id}/{school_year?}', [EventController::class, 'getEvents'])->name('get-events');
+    Route::get('/events/show/{org_id?}/{school_year?}', [EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}', [EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}', [EventController::class, 'getEventsAttendance']);
     Route::get('/get_school_year', [EventController::class, 'getSchoolYear']);

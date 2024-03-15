@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
-    public function showAttendanceList($event_id, $org_id,$session)
+    public function showAttendanceList($event_id, $org_id, $session)
     {
         $attendance = Attendance::where([
             ['event_id', $event_id],
@@ -29,27 +29,25 @@ class AttendanceController extends Controller
             ['org_id', $organization_id],
             ['event_id', $event_id],
             ['remarks', 0]
-        ])->with(['user_profile.college','events'])->get();
+        ])->with(['user_profile.college', 'events'])->get();
         return $attendance->toJson();
     }
     public function events($event_id)
     {
-        if ( Session::get('role') == 3){
+        if (Session::get('role') == 3) {
             return view('attendance_checker.student_attendance_records', ['event_id' => $event_id]);
-        }
-        else if ( Session::get('role') == 1){
+        } else if (Session::get('role') == 1) {
             return view('student_organization.student_organization_attendance_record', ['event_id' => $event_id]);
         }
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // return $request;
-        if($this->attendanceRepetition($request['user_id'],$request['session'],$request['event_id']) >= 1)
-        {
-            return response()->json(array("result"=>"failure","message"=>"Already logged in for this session..."));
+        if ($this->attendanceRepetition($request['user_id'], $request['session'], $request['event_id']) >= 1) {
+            return response()->json(array("result" => "failure", "message" => "Already logged in for this session..."));
         }
-        if($this->notMemberChecker($request['user_id']) < 1)
-        {
-            return response()->json(array("result"=>"failure","message"=>"Invalid Qr Code"));
+        if ($this->notMemberChecker($request['user_id']) < 1) {
+            return response()->json(array("result" => "failure", "message" => "Invalid Qr Code"));
         }
         $validatedData = $request->validate([
             'user_id' => 'required',
@@ -65,9 +63,9 @@ class AttendanceController extends Controller
         $attendances->officer_id = Auth::id();
         $attendances->session = $validatedData['session'];
         $attendances->remarks = $request->remarks;
-        $attendances->time = Carbon::now()->format('H:i'); 
+        $attendances->time = Carbon::now()->format('H:i');
         $attendances->save();
-        return response()->json(array("result"=>"success","message"=>"Student successfully logged in..."));
+        return response()->json(array("result" => "success", "message" => "Student successfully logged in..."));
     }
 
     public function attendanceRepetition($result_id, $session, $event_id)
@@ -88,39 +86,38 @@ class AttendanceController extends Controller
         $memberChecker = $memberChecker->count();
         return $memberChecker;
     }
-    public function update($event_id,$status)
-    {   
+    public function update($event_id, $status)
+    {
         $attendance = Event::find($event_id);
         $attendance->update(['evaluation_status' => $status]);
-        if ($status == 1){
+        if ($status == 1) {
             $status = 'Ongoing';
-        }
-        else if ($status == 0){
+        } else if ($status == 0) {
             $status = 'Closed';
         }
-        return response()->json(['message' => 'Evaluation Status of '. $attendance -> name .' Changed to '. $status ]);
+        return response()->json(['message' => 'Evaluation Status of ' . $attendance->name . ' Changed to ' . $status]);
     }
-    public function attendanceRecord($organization_id,$school_year)
-    {   
+    public function attendanceRecord($organization_id, $school_year)
+    {
         $attendance = Event::where('org_id', $organization_id)
             ->where('school_year', $school_year)
             ->with(['Attendance' => function ($query) {
-                $query->where('remarks', 0); 
-            }])
+                $query->where('remarks', 0);
+            }])->orderByDesc('created_at')
             ->get();
         return $attendance->toJson();
     }
     public function showQR($event_id, $org_id, $session)
-    {   
+    {
         return view('student_organization.student_organization_qr_scanner', ['event_id' => $event_id, 'org_id' => $org_id, 'session' => $session]);
     }
     public function AttendanceCount($event_id, $org_id)
-    {   
-        $attendance = Event::where([['event_id', $event_id],['org_id', $org_id]])->value('attendance_count');
+    {
+        $attendance = Event::where([['event_id', $event_id], ['org_id', $org_id]])->value('attendance_count');
         return $attendance;
     }
     public function back()
-    {   
+    {
         return Redirect::back();
     }
     public function deleteAttendance($id, $session)
@@ -129,5 +126,4 @@ class AttendanceController extends Controller
         $userOrg->delete();
         return response()->json(['message' => 'Attendance Deleted successfully']);
     }
-
 }

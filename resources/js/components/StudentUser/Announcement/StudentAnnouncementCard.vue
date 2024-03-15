@@ -12,137 +12,110 @@
   <h3> <i class="fas fa-list mt-2"></i> Announcements</h3>
   <div class="announcement-list">
     <div class="col">
-      <div class="announcement-cards-list ">
-        <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587;">
-          <div class="d-flex align-items-center">
-            <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30"
-              height="30" class="circular-image">
-            <strong class="posted-by-title ml-2">USSCO</strong>
+      <div class="announcement-container" id="announcement-container">
+        <div class="announcement-cards-list align-items">
+          <!-- Loading spinner -->
+          <div v-if="this.loading" class="loading-spinner-container">
+            <div class="spinner-border text-success" id="event-spinner" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
-          <div class="card-body">
-            <h5 class="card-title mt-4"><strong>USSCO General Assembly</strong> </h5>
-            <small class="date-upload text-muted"> 11/9/2023 - 10:12 AM</small>
-            <p class="card-short-description mt-2">
-              UCC on January 17, 2023
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Add Announcement Modal -->
-  <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-labelledby="addAnnouncementModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addAnnouncementModalLabel">Add Announcement</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="mb-3">
-              <label class="form-label">Title</label>
-              <input type="text" class="form-control">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Description</label>
-              <textarea class="form-control"></textarea>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success">Add Announcement</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- View Modal -->
-  <!-- <div class="modal fade" id="fullDetailsModal" tabindex="-1" aria-labelledby="fullDetailsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="fullDetailsModalLabel">Full Announcement Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <h6 class="card-title mt-2 mb-2">Announcement: <strong>Lulinghayaw</strong></h6>
-              <small class="date-upload">11/9/2023 - 10:12 AM</small>
-              <p class="card-description">
-                {{ cardDescription }}
+          <!-- Message if the container is empty -->
+          <div class="Container-IfEmpty text-center" v-if="!loading && this.announcements.length == 0">
+            <div class="Empty-Message">
+              <i class="icon 	bi bi-megaphone" id="icon-message"></i>
+              <p class="text-muted"><b>Announcements here</b>
+                <br>
+                No Announcements yet, Create Announcements Now!
               </p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+          <!-- Message No results found -->
+          <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_announcements.length == 0">
+            <div class="Empty-Message">
+              <i class="icon 	bi bi-megaphone" id="icon-message"></i>
+              <p class="text-muted"><b>Announcements here</b>
+                <br>
+                No Announcements yet, Create Announcements Now!
+              </p>
+            </div>
+          </div>
+          <div v-for="announcements in this.filtered_announcements">
+
+            <div class="announcement-card"
+              style=" border-left-style: solid; border-left-color: #1b9587; border-right-style: solid; border-right-color: #1b9587;">
+              <div>
+                <p class="d-flex align-items-center text-dark text-decoration-none " aria-expanded="false">
+                  <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="user-image"
+                    width="32" height="32" class="rounded-circle me-2">
+                  <span class="profile-name"><strong>{{ announcements.organization.name }}</strong></span>
+                </p>
+              </div>
+              <div class="d-flex align-items-center">
+                <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                <!-- <strong class="posted-by-title ml-2">CSCo</strong> -->
+              </div>
+              <div class="card-body">
+                <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
+                <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
+                <p class="card-short-description mt-2">
+                  <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
+                </p>
+                <p class="card-short-description    " style="white-space: pre-wrap;">
+                  {{ announcements.description }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div> -->
-
-  <!-- Edit Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Announcement</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-
-          <form>
-            <div class="mb-3">
-              <label class="form-label">Title</label>
-              <input type="text" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label">Description</label>
-              <textarea class="form-control"></textarea>
-            </div>
-
-          </form>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success">Save changes</button>
-        </div>
       </div>
     </div>
   </div>
 
-  <!-- Delete Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Announcement</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete this announcement?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
-    <!--
-    <script>
-    export default {
-      data() {
-        return {
 
-        }
-      },
-
-
+<script>
+import { convertDate } from "../../StudentOrg/Functions/DateConverter.js";
+import { converTime } from "../../StudentOrg/Functions/TimeConverter.js";
+export default {
+  props: ['org_id', 'school_year_session'],
+  data() {
+    return {
+      school_year_input: this.school_year_session,
+      announcements: [],
+      filtered_announcements: [],
     }
+  },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData() {
+      this.loading = true;
+      this.announcements = [];
+      this.filtered_announcements = [];
+      axios.get(`get_announcement/0/${this.school_year_input}`)
+        .then(response => {
+          console.log(response.data)
+          const data = response.data;
+          data.forEach(item => {
+            item["date"] = convertDate(item["date"]);
+            item["time"] = converTime(item["time"]);
+          });
 
-    </script> -->
+          this.announcements = response.data;
+          this.filtered_announcements = this.announcements;
+          this.loading = false;
+        })
+        .catch(error => {
+          console.log(error)
+          this.loading = false;
+        });
+    },
+  },
+
+
+
+}
+
+</script>

@@ -160,13 +160,6 @@ export default {
                             this.evaluation = data;
                         });
 
-                        // Sort the evaluation array by start_date from newest to oldest
-                        this.evaluation.sort((a, b) => {
-                            const dateA = new Date(a.start_date);
-                            const dateB = new Date(b.start_date);
-                            return dateB - dateA;
-                        });
-
                         this.filtered_events = this.evaluation;
                     }
                     else {

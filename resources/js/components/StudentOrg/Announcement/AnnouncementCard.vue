@@ -193,6 +193,7 @@
 
 <script>
 import { convertDate } from "../Functions/DateConverter.js";
+import { converTime } from "../Functions/TimeConverter.js";
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
@@ -312,6 +313,8 @@ export default {
                     const data = response.data;
                     data.forEach(item => {
                         item["created_at"] = convertDate(item["created_at"]);
+                        item["date"] = convertDate(item["date"]);
+                        item["time"] = converTime(item["time"]);
                         item.datetime = new Date(`${item.date} ${item.time}`).getTime();
                     });
 

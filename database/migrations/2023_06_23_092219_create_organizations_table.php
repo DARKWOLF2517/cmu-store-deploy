@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->unsignedBigInteger('college_id');
+            $table->text('image')->nullable();
             $table->timestamps();
             $table->foreign('college_id')->references('id')->on('college');
         });

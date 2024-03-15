@@ -780,12 +780,6 @@ export default {
 
                     this.events = response.data;
                     this.filtered_events = this.events;
-                    // console.log(this.filtered_events);
-                    this.events.sort((a, b) => {
-                        const dateA = new Date(a.start_date + ' ' + a.start_attendance);
-                        const dateB = new Date(b.start_date + ' ' + b.start_attendance);
-                        return dateB - dateA;
-                    });
                 })
                 .catch(error => {
                     this.loading = false;

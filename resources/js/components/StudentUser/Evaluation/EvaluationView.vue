@@ -128,7 +128,7 @@ export default {
 
         },
         fetchData() {
-            axios.get(`/events/show/${this.organization_id}`)
+            axios.get(`/events/show`)
                 .then(response => {
                     this.events = response.data;
                     console.log(this.events)

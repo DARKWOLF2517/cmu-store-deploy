@@ -133,11 +133,6 @@ export default {
                     //   this.attendance = firstItem;
 
                     // }
-                    this.attendance.sort((a, b) => {
-                            const dateA = new Date(a.start_date);
-                            const dateB = new Date(b.start_date);
-                            return dateB - dateA;
-                        });
                     this.loading = false;
                 })
                 .catch((error) => {

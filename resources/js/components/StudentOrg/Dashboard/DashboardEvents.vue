@@ -45,19 +45,11 @@ export default {
       console.log(response.data)
 
       //convert date to specific format that is readable
-      const data = response.data;
-      data.forEach(element => {
+      response.data.forEach(element => {
         element["start_date"] = convertDate(element["start_date"]);
       });
-      //sort event chronologically
-      const events = data;
-      events.sort((a, b) => {
-        const dateA = new Date(a.start_date);
-        const dateB = new Date(b.start_date);
-        //sort from newest to oldest
-        return dateB - dateA;
-      });
-      this.events = events;
+
+      this.events = response.data;
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
