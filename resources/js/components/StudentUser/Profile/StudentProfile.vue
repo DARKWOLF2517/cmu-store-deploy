@@ -24,10 +24,10 @@
                         <button class="btn btn-secondary w-100" @click="downloadQRCode">
                             <i class="fas fa-download"></i> Download QR
                         </button>
-                        <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal"
+                        <!-- <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal"
                             data-bs-target="#EditProfileModal">
                             <i class="fas fa-edit"></i> Edit Email
-                        </button>
+                        </button> -->
                         <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
                         <a class="btn btn-light w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Change
                             Password</a>

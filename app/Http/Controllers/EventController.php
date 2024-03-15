@@ -152,8 +152,7 @@ class EventController extends Controller
     public function getCompleteEventsCount($org_id, $school_year)
     {
         $accountability_total = PaidAccountability::where([
-            ['student_org_id', $org_id],
-            ['school_year', $school_year]
+            ['student_org_id', $org_id],['school_year', $school_year],['remarks', '0']
         ])->sum('amount');
 
         return response()->json($accountability_total);
