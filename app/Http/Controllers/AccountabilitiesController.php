@@ -108,18 +108,21 @@ class AccountabilitiesController extends Controller
     }
     public function FinesAccountabilityPayment($school_year, $amount, $accountability_type, Request $request)
     {
-        $accountability_list = Accountability::where('accountability_name',$accountability_type)->first();
-        $paidAccountability = PaidAccountability::Where('accountability_type',$accountability_type)->first();
+        // return $amount;
+        $accountability_list = Accountability::where('accountability_name', $accountability_type)->first();
+        $paidAccountability = PaidAccountability::Where('accountability_type', $accountability_type)->first();
 
-        if($accountability_list->amount == $paidAccountability->amount){
-            return response()->json(['message' => 'Already Paid', 'status' => 0]); 
+
+        if ($paidAccountability) {
+            if ($accountability_list->amount == $paidAccountability->amount) {
+                return response()->json(['message' => 'Already Paid', 'status' => 0]);
+            }
         }
+
 
         if ($amount < 0) {
             return response()->json(['message' => 'Cannot Accept Negative Value', 'status' => 0]);
-        } 
-        
-        else {
+        } else {
             $validatedData = $this->validate($request, [
                 'student_id' => 'required',
                 'student_org_id' => 'required',
