@@ -4,22 +4,21 @@
     border: none;
   } */
 
-
-  .event-cards-list {
+.event-cards-list {
     width: 100%;
     max-height: 60vh;
-  }
+    display: flex;
+    flex-wrap: wrap;
+}
 
-
-  .event-list{
+.event-list {
     height: 75vh;
     max-height: 80%;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
-
-  }
-  .event-card {
+}
+.event-card {
     background-color: #ffffff;
     border-radius: 8px;
     margin: 10px;
@@ -29,31 +28,35 @@
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     width: calc(33.33% - 30px);
-  }
+}
 
-
-  .ellipsis-button {
+.ellipsis-button {
     position: absolute;
     top: 10px;
     right: 10px;
-  }
-
-  /* #event-announcement-buttons {
+}
+.flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+/* #event-announcement-buttons {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #cfcfcf;
   } */
+  .event-cards{
 
-  .add-event-button h3 {
+  }
+.add-event-button h3 {
     margin: 0;
-  }
+}
 
-  .add-event-button button {
+.add-event-button button {
     margin-left: auto;
-  }
-  .view-button {
+}
+.view-button {
     background-color: transparent;
     color: #f8f8f8;
     border: none;
@@ -62,13 +65,12 @@
     cursor: pointer;
     align-self: flex-end;
     font-size: 20px;
-  }
+}
 
-
-  #event-spinner{
+#event-spinner {
     justify-items: center;
     align-items: center;
-  }
+}
 
 /* Media query for smaller screens (e.g., screens with a max-width of 768px) */
 @media screen and (max-width: 768px) {
@@ -78,18 +80,18 @@
         top: 20px;
         color: rgb(27, 116, 175);
         font-size: 1rem;
-      }
-    .card-text{
+    }
+    .card-text {
         font-size: 0.9rem;
     }
 
-    .btn-group{
+    .btn-group {
         margin-right: 0;
         padding: 5px;
     }
     .event-card {
         width: 100%;
-      }
+    }
 }
 /* @media only screen and (min-width: 768px) and (max-width: 1366px) {
     .event-list, .event-container{

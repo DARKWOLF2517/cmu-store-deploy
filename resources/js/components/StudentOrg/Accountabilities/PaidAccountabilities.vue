@@ -218,7 +218,11 @@
                                 :value="accountability.accountability_name">{{ accountability.accountability_name }}
                             </option>
                         </select>
-                        <button type="button" class="btn btn-success " @click="this.fullPayment">Full Amount</button>
+                        <div class="d-flex justify-content-end mt-2">
+                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full
+                                Amount</button>
+                        </div>
+
                         <div class="mb-3">
                             <label for="amount" class="form-label">Amount</label>
                             <input type="number" class="form-control" id="remarks" v-model="paymentDetails.amount"

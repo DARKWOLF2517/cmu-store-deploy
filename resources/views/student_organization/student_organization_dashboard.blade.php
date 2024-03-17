@@ -1,7 +1,7 @@
 @extends('layouts.main_layout')
 
 @section('custom-title')
-    <title> Dashboard</title>
+    <title>Dashboard</title>
 @endsection
 @section('custom-style')
     <link href="{{ asset('/custom_css/SODashboard.css') }}" rel="stylesheet">
@@ -32,9 +32,8 @@
                     icons="fas fa-clock card-icon ongoing-events"></org-dashboard-counter>
             </div>
         </div>
-        <div class="col-md-4 col-sm-6 ">
+        <div class="col-md-4 col-sm-6">
             <div class="statistic">
-
                 <org-dashboard-counter :org_id={{ Session::get('org_id') }}
                     :school_year_session={{ Session::get('school_year') }} card_label="Total Payments"
                     target_route="total_paid_accountabilities"
@@ -42,7 +41,6 @@
             </div>
         </div>
     </div>
-
     <div class="row mb-0 overflow-hidden" >
         <div class="col-lg-4 col-md-6 mb-2">
             <div class="timeline-schedule">
@@ -51,11 +49,9 @@
                 </div>
                 <event-dashboard :organization_id={{ Session::get('org_id') }}
                     :school_year_session={{ Session::get('school_year') }}>
-
                 </event-dashboard>
             </div>
         </div>
-
         <div class="col-lg-4 col-md-6 mb-2">
             <div class="announcement">
                 <div class="announcement-header">
@@ -63,11 +59,9 @@
                 </div>
                 <announcement-dashboard :org_id={{ Session::get('org_id') }}
                     :school_year_session={{ Session::get('school_year') }}>
-
                 </announcement-dashboard>
             </div>
         </div>
-
         <div class="col-lg-4 col-md-12 mb-2">
             <div id="calendar">
                 <dashboard-calendar :org_id={{ Session::get('org_id') }}

@@ -131,7 +131,7 @@ td {
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
     width: calc(33.33% - 20px);
-    height: 200px;
+
 }
 .ellipsis-button {
     position: absolute;

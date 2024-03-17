@@ -964,7 +964,7 @@ export default {
             axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}`)
                 .then(response => {
                     if (response.data != 1) {
-                        this.nameFilterAddOfficer = response.data.user_profile.first_name + response.data.user_profile.last_name;
+                        this.nameFilterAddOfficer = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
                     }
                     else {
                         this.nameFilterAddOfficer = [];
