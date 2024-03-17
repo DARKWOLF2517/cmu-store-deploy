@@ -107,7 +107,7 @@ class OrgProfileController extends Controller
             ['org_id', $org_id],
             ['school_year', Session::get('school_year')]
         ])->count();
-        
+
         return $records;
     }
 
@@ -241,44 +241,14 @@ class OrgProfileController extends Controller
     }
     public function updateOrgProfileDetails($id, Request $request)
     {
-        // return $id;
-        // $orgYearLevel = OrganizationDefaultSchoolYear::where('org_id',$id)->count();
-        // if($orgYearLevel < 1){
-        //     $orgProfileDetails = Organization::find($id);
-        //     $orgProfileDetails->update(['description' => $request['description']]);
 
-        //     $orgDefaultSchoolYear = new OrganizationDefaultSchoolYear([
-        //         'org_id' => $id,
-        //         'school_year' => $request['school_year'],
+        $orgProfileDetails = Organization::find($id);
+        $filename = $request->getSchemeAndHttpHost().'/'. 'assets/profile_image' .'/'. time() . '.' . $request->picture->extension();
+        $request->picture->move(public_path('/assets/profile_image'), $filename);    
+        $orgProfileDetails->update(['description' => $request['description']]);
+        $orgProfileDetails->update(['image' =>$filename]);
 
-        //     ]);
-        //     $orgDefaultSchoolYear->save();
-        //     return response()->json(['message' => 'Org Profile Updated Successfully']);
-        // }
-        // else{
-        // return $request->picture;
-
-        // $orgProfileDetails = Organization::find($id);
-
-        // $orgProfileDetails->update(['description' => $request['description']]);
-        return $request;
-        $picture = $request->file('picture');
-        $fileName = time() . '.' . $picture->getClientOriginalExtension();
-        $path = $picture->storeAs('public/pictures', $fileName);
-
-        return response()->json([
-            'message' => 'Picture uploaded successfully',
-            'picture' => asset('storage/' . $path),
-        ]);
-
-        // $filename = $request->getSchemeAndHttpHost(). 'assets/profile_image' . time() . '.' . $request->picture;
-
-        // $request->picture->move(public_path('/assets/profile_image'), $filename);    
-
-        // $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$id)->first();
-        // $orgDefaultSchoolYear->update(['school_year' => $request['school_year']]);
-        // return response()->json(['message' => 'Org Profile Updated Successfully']);
-        // }
+        return response()->json(['message' => 'Org Profile Updated Successfully']);
 
 
 

@@ -39,7 +39,7 @@
                                         <div class="profile ">
                                             <!-- Profile content -->
                                             <img id="profileImage"
-                                                :src="this.org_details_profile_input.picture ? this.org_details_profile_input.picture : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'"
+                                                :src="this.orgProfile.image"
                                                 alt="profile photo">
                                         </div>
                                     </div>
@@ -601,7 +601,6 @@ export default {
                 picture: null,
 
             },
-            picture: null,
             school_year_org_profile: '',
             year_level_submit: this.addYearLevel,
             year_level_id: 0,
@@ -704,34 +703,25 @@ export default {
         handleFileUpload(event) {
             // console.log(event.target.files[0])
             this.org_details_profile_input.picture = event.target.files[0];
-            // console.log(this.org_details_profile_input.picture);
         },
         updateOrgProfileDetails() {
 
-            // if(this.org_details_profile_input.school_year == 0){
-            //     alert('Please input School Year')
-            // }
-            // else{
+
             if (!this.org_details_profile_input.picture) {
                 alert('Please select a picture to upload');
             }
-
-
-            const formData = new FormData();
-            formData.append('picture', this.org_details_profile_input.picture);
-            console.log(formData)
-            axios.put(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input, {
+            axios.post(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }
             }).then(response => {
                 console.log(response.data);
                 // Handle success
-                // this.showSucces(response.data.message);
-                // setTimeout(() => {
-                //     location.reload();
-                // }, 500);
-                // this.showOrgProfile();
+                this.showSucces(response.data.message);
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
+                this.showOrgProfile();
             })
                 .catch(error => {
                     console.error(error);
@@ -758,7 +748,7 @@ export default {
             axios.get(`/view_org_profile/${this.org_id}`)
                 .then(response => {
                     this.orgProfile = response.data;
-                    // console.log(response.data)
+                    console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error)
