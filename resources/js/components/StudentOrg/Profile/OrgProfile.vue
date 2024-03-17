@@ -39,7 +39,7 @@
                                         <div class="profile ">
                                             <!-- Profile content -->
                                             <img id="profileImage"
-                                                src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                                :src="this.org_details_profile_input.picture ? this.org_details_profile_input.picture : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'"
                                                 alt="profile photo">
                                         </div>
                                     </div>
@@ -65,7 +65,9 @@
                                                 </h6>
                                                 <h6> <i class="fas fa-school"></i> <span>{{
         this.school_year_org_profile }} </span> </h6>
-                                                <h6> <i class="fas fa-users-cog"></i> <span><b> {{this.org_officer_count }}</b></span> Organization officers</h6>
+                                                <h6> <i class="fas fa-users-cog"></i> <span><b> {{
+        this.org_officer_count
+    }}</b></span> Organization officers</h6>
                                                 <!-- <h6 class="mb-2">Number of Members <span class="fw-bold" style="color: #14684c;"
                                                             id="number-of-students">{{
         this.orgTotalMembers }}</span></h6> -->
@@ -282,12 +284,13 @@
         </div>
     </div>
 
-    <!-- Edit Student Details Modal -->
+    <!-- Edit Student Org Details Modal -->
     <div class="modal fade" id="editDetailsModal" tabindex="-1" role="dialog" aria-labelledby="editDetailsModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form @submit.prevent="this.updateOrgProfileDetails">
+                <!-- <form @submit.prevent="this.updateOrgProfileDetails"  enctype="multipart/form-data"> -->
+                <form v-on:submit.prevent="updateOrgProfileDetails" method="post" enctype="multipart/form-data">
                     <div class="modal-header">
 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -302,21 +305,24 @@
                             :style="{ borderColor: org_details_profile_input.description.length >= 100 ? 'red' : '' }">
                         <p class="pl-2" v-if="org_details_profile_input.description.length >= 100" style="color: red;">
                             Maximum length reached</p>
-                        <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label>
-                    <br>
-                    <input type="file" id="profileImageInput" accept="image/*"> -->
+                        <label for="profileImage" class="mt-2">Change Profile Image: </label>
+                        <br>
+                        <input type="file" name="picture" @change="handleFileUpload">
                         <!-- <label class="mt-2" for="editDescription">Select Default School Year:</label>
-                    <div class="select-dropdown" style="width: 80% !important; border: 1px solid #ccc;">
+                        <div class="select-dropdown" style="width: 80% !important; border: 1px solid #ccc;">
 
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="org_details_profile_input.school_year">
-                            <option value="0" disabled selected>Select Default School Year</option>
-                            <option v-for="school_year in this.schoolYear" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                        </select>
-                    </div> -->
+                            <select id="sort-select" class="form-control" style="text-align: center;"
+                                v-model="org_details_profile_input.school_year">
+                                <option value="0" disabled selected>Select Default School Year</option>
+                                <option v-for="school_year in this.schoolYear" :value="school_year['id']">{{
+        school_year['school_year'] }}</option>
+                            </select>
+                        </div> -->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" :disabled="isSubmitting">Save changes</button>
+                        <button type="button" class="btn btn-success" :disabled="isSubmitting"
+                            @click="this.updateOrgProfileDetails">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -541,6 +547,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
@@ -591,8 +598,10 @@ export default {
             org_details_profile_input: {
                 description: '',
                 // school_year: 0
+                picture: null,
 
             },
+            picture: null,
             school_year_org_profile: '',
             year_level_submit: this.addYearLevel,
             year_level_id: 0,
@@ -692,24 +701,42 @@ export default {
                     console.log(error)
                 });
         },
+        handleFileUpload(event) {
+            // console.log(event.target.files[0])
+            this.org_details_profile_input.picture = event.target.files[0];
+            // console.log(this.org_details_profile_input.picture);
+        },
         updateOrgProfileDetails() {
-            // console.log(this.org_details_profile_input)
+
             // if(this.org_details_profile_input.school_year == 0){
             //     alert('Please input School Year')
             // }
             // else{
-            axios.put(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input)
-                .then(response => {
-                    // console.log(response.data)
-                    this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
-                    this.showOrgProfile();
-                })
+            if (!this.org_details_profile_input.picture) {
+                alert('Please select a picture to upload');
+            }
+
+
+            const formData = new FormData();
+            formData.append('picture', this.org_details_profile_input.picture);
+            console.log(formData)
+            axios.put(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            }).then(response => {
+                console.log(response.data);
+                // Handle success
+                // this.showSucces(response.data.message);
+                // setTimeout(() => {
+                //     location.reload();
+                // }, 500);
+                // this.showOrgProfile();
+            })
                 .catch(error => {
                     console.error(error);
                 });
+
             // }
         },
         orgProfileDetailsFetchUpdate() {
@@ -896,31 +923,26 @@ export default {
             axios.post('/add_org_officer', this.addOfficersData)
                 .then(response => {
                     console.log(response.data)
-                    this.showSucces(response.data.message);
+                    if (response.data.type == 0) {
+                        this.showError(response.data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
+                    }
+                    else if (response.data.type == 2) {
+                        this.showError(response.data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
+                    }
+                    else {
+                        this.showSucces(response.data.message);
                         setTimeout(() => {
                             location.reload();
                         }, 500);
                         this.showOfficer();
-                    // if (response.data.type == 0) {
-                    //     this.showError(response.data.message);
-                    //     setTimeout(() => {
-                    //         location.reload();
-                    //     }, 500);
-                    // }
-                    // else if (response.data.type == 2) {
-                    //     this.showError(response.data.message);
-                    //     setTimeout(() => {
-                    //         location.reload();
-                    //     }, 500);
-                    // }
-                    // else {
-                    //     this.showSucces(response.data.message);
-                    //     setTimeout(() => {
-                    //         location.reload();
-                    //     }, 500);
-                    //     this.showOfficer();
 
-                    // }
+                    }
 
                 })
                 .catch(error => {

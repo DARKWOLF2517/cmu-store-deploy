@@ -564,6 +564,7 @@ export default {
             console.log(this.accountability_type)
             axios.post(`/FinesAccountabilityPayment/${this.school_year_input}/${this.paymentAmount}/${this.accountability_type}`, this.finesPay)
                 .then(response => {
+                    console.log(response.data)
                     if (response.data.status == 0) {
                         this.showError(response.data.message);
                     }
