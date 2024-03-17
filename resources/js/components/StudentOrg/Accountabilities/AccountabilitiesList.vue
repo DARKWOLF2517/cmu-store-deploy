@@ -281,7 +281,7 @@
                             </div>
 
                         </div>
-                        <div class="d-flex justify-content-end gap-4">
+                        <div class="d-flex justify-content-end mt-2">
                             <!-- <div v-if="this.accountability_type">
                                 <input type="checkbox" id="exemptCheckbox">
                                 <label for="exemptCheckbox"> Exempt Student?</label>

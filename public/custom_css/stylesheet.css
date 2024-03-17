@@ -207,6 +207,10 @@ footer {
     transform: translateY(-50%);
     pointer-events: none;
 }
+
+option{
+    font-size: 18px !important;
+}
 /* .ellipsis-button{
     background-color: #edf1f1 !important;
 } */

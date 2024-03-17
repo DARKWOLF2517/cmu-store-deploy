@@ -87,9 +87,8 @@
                             <p class="text-muted fw-bold">No results found</p>
                         </div>
                     </div> -->
-                    <!-- EVENT CARD -->
-                    <!-- <div class="event-card border-top border-5 border-success border-bottom-0" v-for="event in this.filtered_events" :id="event.event_id" > -->
-                    <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[
+                    <div class="d-flex gap-2">
+                        <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[
                         'border-top',
                         'border-5',
                         { 'border-warning': event.event_status == 1, 'border-success': event.event_status == 2 },
@@ -162,6 +161,10 @@
                         <button class="btn btn-success view-button" @click="showEventDetails(event.event_id)"
                             data-bs-toggle="modal" data-bs-target="#event-details-modal">View</button>
                     </div>
+                    </div>
+                    <!-- EVENT CARD -->
+                    <!-- <div class="event-card border-top border-5 border-success border-bottom-0" v-for="event in this.filtered_events" :id="event.event_id" > -->
+
                 </div>
                 <!-- Delete Confirmation Modal -->
                 <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
