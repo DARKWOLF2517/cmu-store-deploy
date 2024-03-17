@@ -140,9 +140,9 @@
                                 </div>
 
                                 <div>
-                                    <li><a class="dropdown-item" data-bs-toggle="modal"
+                                    <!-- <li><a class="dropdown-item" data-bs-toggle="modal"
                                             data-bs-target="#cancelAttendance">Cancel Attendance</a>
-                                    </li>
+                                    </li> -->
                                 </div>
                             </ul>
                         </div>

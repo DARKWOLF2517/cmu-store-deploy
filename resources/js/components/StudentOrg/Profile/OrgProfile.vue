@@ -896,6 +896,11 @@ export default {
             axios.post('/add_org_officer', this.addOfficersData)
                 .then(response => {
                     console.log(response.data)
+                    this.showSucces(response.data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 500);
+                        this.showOfficer();
                     // if (response.data.type == 0) {
                     //     this.showError(response.data.message);
                     //     setTimeout(() => {
@@ -937,7 +942,7 @@ export default {
             axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}`)
                 .then(response => {
                     if (response.data != 1) {
-                        this.nameFilterAddOfficer = response.data.user_profile.first_name + response.data.user_profile.last_name;
+                        this.nameFilterAddOfficer = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
                     }
                     else {
                         this.nameFilterAddOfficer = [];
