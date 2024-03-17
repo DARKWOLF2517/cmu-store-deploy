@@ -87,7 +87,7 @@
                             <p class="text-muted fw-bold">No results found</p>
                         </div>
                     </div> -->
-                    <div class="d-flex gap-2">
+                    <div class="recorded-event-cards">
                         <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[
                         'border-top',
                         'border-5',
