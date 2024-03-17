@@ -15,6 +15,7 @@ class Organization extends Model
         'name',
         'description',
         'college_id',
+        'image',
     ];
     public function user_organization()
     {
