@@ -519,8 +519,8 @@ export default {
         <body>
           <!-- Add a title before the table -->
           <h2>Attendance Record</h2>
-          <h5 id="Eventtitle"> Event: <b>${this.event.event_title}</b></h5>
-          <p>Date: <b>${this.event.event_date}</b></p>
+          <h5 id="Eventtitle"> Event: <b>${this.event.name}</b></h5>
+          <p>Date: <b>${this.event.start_date}</b></p>
 
           <!-- Add Bootstrap table classes -->
           <table class="table table-bordered table-striped">

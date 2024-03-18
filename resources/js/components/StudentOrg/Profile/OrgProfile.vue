@@ -38,9 +38,12 @@
                                     <div class="col-4">
                                         <div class="profile ">
                                             <!-- Profile content -->
-                                            <img id="profileImage"
-                                                :src="this.orgProfile.image"
-                                                alt="profile photo">
+                                            <img id="profileImage" :src="this.orgProfile.image" alt="profile photo">
+                                            <div class="d-flex justify-content-center">
+                                                <button class="btn btn-secondary mt-2" id="editButton"
+                                                    data-bs-toggle="modal" data-bs-target="#changeProfileImageModal">Upload
+                                                    Image</button>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col">
@@ -305,9 +308,9 @@
                             :style="{ borderColor: org_details_profile_input.description.length >= 100 ? 'red' : '' }">
                         <p class="pl-2" v-if="org_details_profile_input.description.length >= 100" style="color: red;">
                             Maximum length reached</p>
-                        <label for="profileImage" class="mt-2">Change Profile Image: </label>
-                        <br>
-                        <input type="file" name="picture" @change="handleFileUpload">
+                        <!-- <label for="profileImage" class="mt-2">Change Profile Image: </label> -->
+                        <!-- <br>
+                        <input type="file" name="picture" @change="handleFileUpload"> -->
                         <!-- <label class="mt-2" for="editDescription">Select Default School Year:</label>
                         <div class="select-dropdown" style="width: 80% !important; border: 1px solid #ccc;">
 
@@ -318,6 +321,33 @@
         school_year['school_year'] }}</option>
                             </select>
                         </div> -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" :disabled="isSubmitting"
+                            @click="this.updateOrgProfileDetails">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Student Org Details Modal -->
+    <div class="modal fade" id="changeProfileImageModal" tabindex="-1" role="dialog" aria-labelledby="changeProfileImageModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- <form @submit.prevent="this.updateOrgProfileDetails"  enctype="multipart/form-data"> -->
+                <form v-on:submit.prevent="updateOrgProfileDetails" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <h4><b>Upload Image</b></h4>
+                            <p>Customize your profile with a profile picture.</p>
+                        </div>
+                        <input type="file" name="picture" @change="handleFileUpload">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
