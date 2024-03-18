@@ -243,9 +243,24 @@ class OrgProfileController extends Controller
     {
 
         $orgProfileDetails = Organization::find($id);
-        $filename = $request->getSchemeAndHttpHost().'/'. 'assets/profile_image' .'/'. time() . '.' . $request->picture->extension();
-        $request->picture->move(public_path('/assets/profile_image'), $filename);    
+        // $filename = $request->getSchemeAndHttpHost().'/'. 'assets/profile_image' .'/'. time() . '.' . $request->picture->extension();
+        // $request->picture->move(public_path('/assets/profile_image'), $filename);    
         $orgProfileDetails->update(['description' => $request['description']]);
+        // $orgProfileDetails->update(['image' =>$filename]);
+
+        return response()->json(['message' => 'Org Profile Updated Successfully']);
+
+
+
+    }
+    public function updateOrgProfileImage($id, Request $request)
+    {
+        // return $request;
+
+        $orgProfileDetails = Organization::find($id);
+        $filename = $request->getSchemeAndHttpHost().'/'. 'assets/profile_image_for_organization' .'/'. time() . '.' . $request->picture->extension();
+        $request->picture->move(public_path('/assets/profile_image_for_organization'), $filename);    
+        // $orgProfileDetails->update(['description' => $request['description']]);
         $orgProfileDetails->update(['image' =>$filename]);
 
         return response()->json(['message' => 'Org Profile Updated Successfully']);

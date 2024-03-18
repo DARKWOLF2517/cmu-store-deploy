@@ -7,11 +7,7 @@
             <h5>Date and Time: <b>{{ this.event_title['start_attendance'] }}</b></h5>
             <h5>Venue: <b>{{ this.event_title['location'] }}</b></h5>
             <hr>
-            <p> Dear Students,
-                This assessment of the program/activity you have just attended. Please rate the activity/program in terms of
-                the following criteria listed below. Your
-                honest answer will help improve future activity. Indicate your response with a check mark (✓) to the
-                following indicators of this form.</p>
+            <p> {{  this.event_title.description  }}</p>
         </div>
         <hr>
         <div class="evaluation-body">
@@ -62,6 +58,7 @@ export default {
                 organization: '',
                 start_attendance: '',
                 location: '',
+                description: '',
 
             },
             evaluation_with_questions_options: [],
@@ -107,6 +104,7 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.evaluation_with_questions_options = response.data;
+                    this.event_title.description = response.data.evaluation_description;
                 })
                 .catch(error => {
                     console.log(error)

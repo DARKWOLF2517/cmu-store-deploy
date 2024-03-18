@@ -262,6 +262,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/view_org_profile/{org_id}', [OrgProfileController::class, 'viewOrgProfile']);
 
         Route::post('/updateOrgProfileDetails/{id}', [OrgProfileController::class, 'updateOrgProfileDetails']);
+        Route::post('/updateOrgProfileImage/{id}', [OrgProfileController::class, 'updateOrgProfileImage']);
         Route::get('/fetch_name_officer_input/{id}', [OrgProfileController::class, 'fetchNameOfficerInput']);
         Route::get('/view_year_level/{org_id}', [OrgProfileController::class, 'fetchYearLevel']);
         Route::post('/add_year_level', [OrgProfileController::class, 'addYearLevel']);
@@ -321,8 +322,9 @@ Route::middleware(['auth'])->group(function () {
         //get evaluation form title
         Route::get('/evaluation_form_title/{event_id}', [EvaluationController::class, 'EvaluationResultTitle']);
 
-        //get students user profile
+        //STUDENT PROFILE 
         Route::get('organization/{org_id}', [UserController::class, 'getUserOrganization']);
+        Route::post('uploadProfilePictureForStudent/{user_id}', [UserController::class, 'uploadProfilePictureForStudent']);
         //get user organization
         
         Route::get('profile/{student_id}', [UserController::class, 'getUserProfile']);

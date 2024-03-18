@@ -38,11 +38,13 @@
                                     <div class="col-4">
                                         <div class="profile ">
                                             <!-- Profile content -->
-                                            <img id="profileImage" :src="this.orgProfile.image" alt="profile photo">
+                                            <input id="fileInput" type="file" name="picture" accept="image/*"
+                                                @change="handleFileUpload" class="d-none">
+                                            <img @click="openFileInput" id="profileImage" :src="this.tempImage ? this.tempImage : this.orgProfile.image"
+                                                alt="profile photo">
                                             <div class="d-flex justify-content-center">
-                                                <button class="btn btn-secondary mt-2" id="editButton"
-                                                    data-bs-toggle="modal" data-bs-target="#changeProfileImageModal">Upload
-                                                    Image</button>
+                                                <button @click="this.uploadProfileImage" class="btn btn-secondary mt-2" id="editButton" v-if="this.tempImage">
+                                                    Upload Image</button>
                                             </div>
                                         </div>
                                     </div>
@@ -293,7 +295,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <!-- <form @submit.prevent="this.updateOrgProfileDetails"  enctype="multipart/form-data"> -->
-                <form v-on:submit.prevent="updateOrgProfileDetails" method="post" enctype="multipart/form-data">
+                <form @submit.prevent="updateOrgProfileDetails">
                     <div class="modal-header">
 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -324,20 +326,19 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" :disabled="isSubmitting"
-                            @click="this.updateOrgProfileDetails">Save changes</button>
+                        <button type="submit" class="btn btn-success" :disabled="isSubmitting">Save changes</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- Edit Student Org Details Modal -->
-    <div class="modal fade" id="changeProfileImageModal" tabindex="-1" role="dialog" aria-labelledby="changeProfileImageModalLabel"
-        aria-hidden="true">
+    <!-- Edit Student Org Profile Picture Modal -->
+    <!-- <div class="modal fade" id="changeProfileImageModal" tabindex="-1" role="dialog"
+        aria-labelledby="changeProfileImageModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <!-- <form @submit.prevent="this.updateOrgProfileDetails"  enctype="multipart/form-data"> -->
-                <form v-on:submit.prevent="updateOrgProfileDetails" method="post" enctype="multipart/form-data">
+               
+                <form v-on:submit.prevent="uploadProfileImage" method="post" enctype="multipart/form-data">
                     <div class="modal-header">
 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -347,17 +348,17 @@
                             <h4><b>Upload Image</b></h4>
                             <p>Customize your profile with a profile picture.</p>
                         </div>
-                        <input type="file" name="picture" @change="handleFileUpload">
+                        <input type="file" name="picture" accept="image/*" @change="handleFileUpload">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success" :disabled="isSubmitting"
-                            @click="this.updateOrgProfileDetails">Save changes</button>
+                        <button type="submit" class="btn btn-success" value="uploadProfileImage"
+                            :disabled="isSubmitting">Save changes</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Add Year Level Modal -->
     <div class="modal fade" id="addYearLevelModal" tabindex="-1" aria-labelledby="addYearLevelModalLabel"
         aria-hidden="true">
@@ -628,9 +629,11 @@ export default {
             org_details_profile_input: {
                 description: '',
                 // school_year: 0
-                picture: null,
+                // picture: null,
 
             },
+            picture: null,
+            tempImage: null,
             school_year_org_profile: '',
             year_level_submit: this.addYearLevel,
             year_level_id: 0,
@@ -660,6 +663,10 @@ export default {
 
     },
     methods: {
+        openFileInput() {
+            // Programmatically click on the file input element
+            document.getElementById('fileInput').click();
+        },
         orgOfficersCount() {
             axios.get(`/org_officer_count/${this.org_id}/${this.school_year_session}`)
                 .then(response => {
@@ -731,15 +738,16 @@ export default {
                 });
         },
         handleFileUpload(event) {
-            // console.log(event.target.files[0])
-            this.org_details_profile_input.picture = event.target.files[0];
+            console.log(event.target.files[0])
+            this.picture = event.target.files[0];
+            this.tempImage = URL.createObjectURL(this.picture);
         },
         updateOrgProfileDetails() {
 
 
-            if (!this.org_details_profile_input.picture) {
-                alert('Please select a picture to upload');
-            }
+            // if (!this.org_details_profile_input.picture) {
+            //     alert('Please select a picture to upload');
+            // }
             axios.post(`/updateOrgProfileDetails/${this.orgProfile.org_id}`, this.org_details_profile_input, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -758,6 +766,27 @@ export default {
                 });
 
             // }
+        },
+        uploadProfileImage() {
+
+            const formData = new FormData();
+            formData.append('picture', this.picture);
+            axios.post(`/updateOrgProfileImage/${this.orgProfile.org_id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            }).then(response => {
+                console.log(response.data);
+                // Handle success
+                this.showSucces(response.data.message);
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
+                this.showOrgProfile();
+            })
+                .catch(error => {
+                    console.error(error);
+                });
         },
         orgProfileDetailsFetchUpdate() {
             this.org_details_profile_input.description = this.orgProfile.description;

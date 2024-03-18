@@ -256,4 +256,16 @@ class UserController extends Controller
         return $orgCollege->college_id;
     }
 
+    public function uploadProfilePictureForStudent($user_id, Request $request)
+    {
+        // return $request;
+
+        $orgProfileDetails = UserProfile::find($user_id);
+        $filename = $request->getSchemeAndHttpHost() . '/' . 'assets/profile_image_for_students' . '/' . time() . '.' . $request->picture->extension();
+        $request->picture->move(public_path('/assets/profile_image_for_students'), $filename);
+        // $orgProfileDetails->update(['description' => $request['description']]);
+        $orgProfileDetails->update(['image' => $filename]);
+
+        return response()->json(['message' => 'Profile Updated Successfully']);
+    }
 }

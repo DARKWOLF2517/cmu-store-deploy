@@ -37,39 +37,43 @@
             <div class="col-md-8 mt-3">
                 <div class="organizations" role="tabpanel" aria-labelledby="organization-tab">
 
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="profile">
-                                    <!-- Profile content -->
-                                    <img id="profileImage"
-                                        src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
-                                        alt="profile photo">
-                                </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="profile">
+                                <!-- Profile content -->
+                                <input id="fileInput" type="file" name="picture" accept="image/*"
+                                    @change="handleFileUpload" class="d-none">
+                                <img @click="openFileInput" id="profileImage"
+                                    :src="this.tempImage ? this.tempImage : this.profile.profile_picture"
+                                    alt="profile photo">
                             </div>
-                            <div class="col">
-
-                    <div class="mt-5">
-                        <h5><i class="far fa-copy"></i> Student Details </h5>
-                        <div v-if="loading" class="loading-spinner">
-                            <div class="spinner-border text-success" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
+                            <button @click="this.uploadProfileImage" type="button" class="btn btn-success"
+                                v-if="this.tempImage">Save</button>
                         </div>
+                        <div class="col">
+
+                            <div class="mt-5">
+                                <h5><i class="far fa-copy"></i> Student Details </h5>
+                                <div v-if="loading" class="loading-spinner">
+                                    <div class="spinner-border text-success" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
                                 <p class="mb-2 mt-2"><b>Year level:</b> <span id="year-level">{{ this.profile.year_level
                                         }}</span></p>
                                 <p><b>Email:</b> {{ this.profile.email }} <span id="email"></span></p>
-                            <h5><i class="far fa-copy"></i> Organizations</h5>
-                            <ul>
-                                <li v-for="organization in this.organization" :key="organization.student_org_id">
-                                    {{ organization.organization.name }}
-                                </li>
-                                <!-- Add more club items here -->
-                            </ul>
+                                <h5><i class="far fa-copy"></i> Organizations</h5>
+                                <ul>
+                                    <li v-for="organization in this.organization" :key="organization.student_org_id">
+                                        {{ organization.organization.name }}
+                                    </li>
+                                    <!-- Add more club items here -->
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <!-- Edit Profile Modal -->
         <div class="modal fade" id="EditProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
@@ -107,6 +111,7 @@
 import axios from 'axios';
 import QrcodeVue from 'qrcode.vue';
 import html2canvas from 'html2canvas';
+import { toast } from 'vue3-toastify';
 export default {
     props: ['user_id', 'user_org'],
     data() {
@@ -118,7 +123,10 @@ export default {
                 year_level: '',
                 college: '',
                 department: '',
+                profile_picture: null,
             },
+            picture: null,
+            tempImage: null,
             organization: [],
             size: 150,
             value: this.user_id,
@@ -128,6 +136,36 @@ export default {
         this.FetchUserData();
     },
     methods: {
+        uploadProfileImage() {
+
+            const formData = new FormData();
+            formData.append('picture', this.picture);
+            axios.post(`/uploadProfilePictureForStudent/${this.user_id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            }).then(response => {
+                console.log(response.data);
+                // Handle success
+                this.showSucces(response.data.message);
+                setTimeout(() => {
+                    location.reload();
+                }, 500);
+            })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        handleFileUpload(event) {
+
+            this.picture = event.target.files[0];
+            this.tempImage = URL.createObjectURL(this.picture);
+            console.log(this.tempImage)
+        },
+        openFileInput() {
+            // Programmatically click on the file input element
+            document.getElementById('fileInput').click();
+        },
         downloadQRCode() {
             const qrCodeContainer = document.querySelector('.qr-code-container');
 
@@ -138,6 +176,11 @@ export default {
                 link.download = 'profile-qr-code.png';
                 link.click();
             });
+        },
+        showSucces(message) {
+            toast.success(message), {
+                autoClose: 1000,
+            }
         },
         FetchUserData() {
             this.loading = true; // Set loading to true before making the API call
@@ -161,6 +204,7 @@ export default {
                         this.profile.name = item.user_profile.first_name + ' ' + item.user_profile.last_name;
                         this.profile.email = item.user_profile.email;
                         this.profile.year_level = item.year_level.year_level;
+                        this.profile.profile_picture = item.user_profile.image;
                     });
 
                     //get the organization list
@@ -185,9 +229,18 @@ export default {
                     console.log(error);
                 });
         },
+
     },
     components: {
         QrcodeVue,
     },
 };
 </script>
+
+<style>
+#profileImage:hover {
+    /* background-color: blue; */
+    cursor: pointer;
+    border: 5px solid #60b192;
+}
+</style>
