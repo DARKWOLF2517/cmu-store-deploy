@@ -38,7 +38,7 @@
                 <div class="organizations" role="tabpanel" aria-labelledby="organization-tab">
 
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4 mb-3">
                             <div class="profile">
                                 <!-- Profile content -->
                                 <input id="fileInput" type="file" name="picture" accept="image/*"
@@ -53,8 +53,7 @@
                             <button @click="this.uploadProfileImage" type="button" class="btn btn-success"
                                 v-if="this.tempImage">Save</button>
                         </div>
-                        <div class="col">
-
+                        <div class="col-md-8">
                             <div class="mt-5">
                                 <h5><i class="far fa-copy"></i> Student Details </h5>
                                 <div v-if="loading" class="loading-spinner">

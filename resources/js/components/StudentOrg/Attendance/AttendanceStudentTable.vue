@@ -612,7 +612,7 @@ export default {
 
             // Set the link's href and download attributes
             link.href = window.URL.createObjectURL(csvBlob);
-            link.download = `${this.event.event_title}_attendance_record.csv`;
+            link.download = `${this.event.name}_attendance_record.csv`;
 
             // Trigger the download
             link.click();
