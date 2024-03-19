@@ -95,7 +95,7 @@
                         <td> {{ paid.user_profile.first_name + ' ' + paid.user_profile.last_name }}</td>
                         <!-- <td>{{ paid['accountability_name'] }}</td> -->
                         <td> {{ paid['created_at'] }}</td>
-                        <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}.00</td>
+                        <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}</td>
                         <td v-if="paid.remarks == 0">N/A</td>
                         <td v-else> {{ paid.remarks }}</td>
                         <td>
@@ -226,7 +226,7 @@
                         <div class="mb-3">
                             <label for="amount" class="form-label">Amount</label>
                             <input type="number" class="form-control" id="remarks" v-model="paymentDetails.amount"
-                                required>
+                                required step="any">
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Remarks</label>
@@ -526,7 +526,12 @@ export default {
                     const data = response.data;
                     data.forEach(item => {
                         item["created_at"] = convertDate(item["created_at"]);
+                        if (Number.isInteger(item.amount)) {
+                            // If it is a whole number, convert it to a string with two decimal places
+                            item.amount = item.amount.toFixed(2);
+                        }
                     });
+                    console.log(response.data)
                     this.paidList = response.data;
                     console.log(this.paidList)
                     this.loading = false;

@@ -62,7 +62,7 @@
                         <th>Student ID</th>
                         <th>Student Name</th>
                         <!-- <th>Accountabilities</th> -->
-                        <th style="width: 10%;">Total Amount</th>
+                        <th style="width: 10%;">Remaining Balance</th>
                         <th style="width: 10%;"></th>
                     </tr>
                 </thead>
@@ -286,12 +286,13 @@
                                 <input type="checkbox" id="exemptCheckbox">
                                 <label for="exemptCheckbox"> Exempt Student?</label>
                             </div> -->
-                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full Amount</button>
+                            <button type="button" class="btn btn-success " @click="this.fullPayment">Full
+                                Amount</button>
                         </div>
 
                         <div class="mb-3">
                             <p>Enter the amount you have received:</p>
-                            <input type="number" class="form-control" v-model="this.paymentAmount" required>
+                            <input type="number" class="form-control" v-model="this.paymentAmount" required step="any">
                         </div>
 
                         <!-- <div>
@@ -630,6 +631,11 @@ export default {
             this.temporary_list = [];
             this.overall_fees_list.forEach(fines => {
                 if (fines.user_id == user_id) {
+                    // Check if the amount is a whole number
+                    if (Number.isInteger(fines.amount)) {
+                        // If it is a whole number, convert it to a string with two decimal places
+                        fines.amount = fines.amount.toFixed(2);
+                    }
                     this.temporary_list.push({
                         name: fines.name,
                         user_id: fines.user_id,
@@ -648,13 +654,15 @@ export default {
             const totalsByType = [];
             this.temporary_list.forEach(item => {
                 const { accountability_type, amount } = item;
-                if (totalsByType[accountability_type]) {
-                    totalsByType[accountability_type] += amount;
-                } else {
-                    totalsByType[accountability_type] = amount;
+                const parsedAmount = parseFloat(amount); // Parse amount to a double
+                if (!isNaN(parsedAmount)) { // Check if parsing was successful
+                    if (totalsByType[accountability_type]) {
+                        totalsByType[accountability_type] += parsedAmount;
+                    } else {
+                        totalsByType[accountability_type] = parsedAmount;
+                    }
                 }
             });
-            // this.temporary_list_summary = totalsByType;
 
 
             //to get the payments list
@@ -669,13 +677,16 @@ export default {
             //total the amount if it is repeating
             const totalsByTypePayment = [];
             this.payment_list.forEach(item => {
+
                 const { accountability_type, amount } = item;
+
                 if (totalsByTypePayment[accountability_type]) {
                     totalsByTypePayment[accountability_type] += amount;
                 } else {
                     totalsByTypePayment[accountability_type] = amount;
                 }
             });
+
 
             // Function to subtract current balance from payment in database
             const subtractAmounts = (source, target) => {
@@ -713,7 +724,7 @@ export default {
             axios.get(`/fees_list/${this.org_id}/${this.school_year_input}`)
 
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     this.loading = false;
                     //FOR FINES LOGIC
                     const events_with_attendance = response.data.accountabilities_fines;
@@ -1077,7 +1088,7 @@ export default {
                                     accountability_type: studentFees.accountability_type,
                                     event_id: studentFees.event_id,
                                     name: studentFees.name,
-                                    total_fees: updatedTotalFines >= 0 ? updatedTotalFines : 0
+                                    total_fees: parseFloat(updatedTotalFines >= 0 ? updatedTotalFines : 0).toFixed(2) 
                                 });
                             }
                             else {
@@ -1086,7 +1097,7 @@ export default {
                                     accountability_type: studentFees.accountability_type,
                                     event_id: studentFees.event_id,
                                     name: studentFees.name,
-                                    total_fees: studentFees.total_fees
+                                    total_fees: parseFloat(studentFees.total_fees).toFixed(2)
                                 });
                             }
                         });
@@ -1095,6 +1106,7 @@ export default {
                     //if the filtered items has zero value
                     this.total_fees = this.total_fees.filter(item => item.total_fees != 0);
                     this.filtered_items_for_fines = this.total_fees;
+                    console.log(this.filtered_items_for_fines)
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 
                 })

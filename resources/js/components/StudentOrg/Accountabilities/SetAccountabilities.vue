@@ -140,7 +140,7 @@
                             reached</p>
                         <label for="membershipFeeInput" class="form-label">Amount:</label>
                         <input type="number" class="form-control" id="amount" v-model="formData.amount" required
-                            maxlength="20" :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }">
+                            maxlength="20" :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }" step="any">
                         <p class="pl-2" v-if="formData.amount.length >= 20" style="color: red;">Maximum length reached
                         </p>
                     </div>
