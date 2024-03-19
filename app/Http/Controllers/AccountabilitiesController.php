@@ -232,14 +232,20 @@ class AccountabilitiesController extends Controller
         $accountability = Accountability::where([['accountability_id', $id]])->first();
         return $accountability;
     }
-    public function updateAccountabilities(Request $request, Accountability $id)
+    public function updateAccountabilities(Request $request, Accountability $id, $old_name)
     {
-        $request->validate([
-            'accountability_name' => 'required',
-            'amount' => 'required',
-        ]);
-        $id->update(['accountability_name' => $request['accountability_name'], 'amount' => $request['amount']]);
-        return response()->json(['message' => 'Accountability Updated Successfully']);
+
+        $isPaymentPresent = PaidAccountability::where('accountability_type', $old_name)->get();
+        if (!$isPaymentPresent->isEmpty()) {
+            return response()->json(['message' => 'Cannot be deleted due to payment record', 'status' => 1]);
+        } else {
+            $request->validate([
+                'accountability_name' => 'required',
+                'amount' => 'required',
+            ]);
+            $id->update(['accountability_name' => $request['accountability_name'], 'amount' => $request['amount']]);
+            return response()->json(['message' => 'Accountability Updated Successfully']);
+        }
     }
     public function getUserOrgs($school_year)
     {
