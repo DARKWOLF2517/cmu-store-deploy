@@ -11,7 +11,11 @@
                     <!-- <h6> {{ userOrg['organization']['name'] }}</h6> -->
                     <h6>Central Mindanao University</h6>
                     <hr>
-                    <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1">
+                    <img v-if="userOrg.organization.image" :src="userOrg.organization.image"
+                        alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                    <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                        alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                    <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1"> -->
                     <!-- <p>
                     <span v-if="userOrg['role']['role_id'] == 1">Admin</span>
                     <span v-else-if="userOrg['role']['role_id'] == 2">Student</span>

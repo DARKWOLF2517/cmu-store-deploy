@@ -3,11 +3,9 @@
     <title> Student Dashboard</title>
 @endsection
 @section('custom-style')
-<link href="/custom_css/SODashboard.css" rel="stylesheet">
+    <link href="/custom_css/SODashboard.css" rel="stylesheet">
 @endsection
 @section('main-content')
-
-
     <div class="row">
         <div class="col mt-2">
             <div class="welcome-card-student" style="height: 40vh !important;">
@@ -36,6 +34,9 @@
                     <div class="announcement-header">
                         <i class="bi bi-list"></i> Announcements
                     </div>
+                    <announcement-dashboard :org_id={{ Session::get('org_id') }}
+                        :school_year_session={{ Session::get('school_year') }}>
+                    </announcement-dashboard>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 mb-4">

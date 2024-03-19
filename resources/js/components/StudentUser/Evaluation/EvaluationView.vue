@@ -15,15 +15,19 @@
                 <div class="card-body">
                     <div class="info">
                         <div class="d-flex align-items-center">
-                            <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
-                                alt="Profile Image" width="30" height="30" class="circular-image"> -->
+                            <img v-if="event.organization.image" :src="event.organization.image"
+                                alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                            <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                alt="user-image" width="32" height="32" class="rounded-circle me-2">
                             <strong class="posted-by-title ml-2">{{ event.organization.name }}</strong>
                         </div>
                         <h5 class="card-title mt-2"><b>{{ event["name"] }} </b></h5>
                         <small class="date-upload text-muted">{{ event["start_date"] }}</small>
-                        <h6 class="evaluation-status" v-if="event['evaluation_status'] === 1">Status: <b>Ongoing</b></h6>
+                        <h6 class="evaluation-status" v-if="event['evaluation_status'] === 1">Status: <b>Ongoing</b>
+                        </h6>
                         <h6 class="evaluation-status text-muted" v-else-if="event['evaluation_status'] === 0">Status:
-                            <b>Close</b></h6>
+                            <b>Close</b>
+                        </h6>
                     </div>
 
 
@@ -47,7 +51,8 @@
                             <div v-if="event['evaluation_status'] == 0">
                                 <button class="btn btn-secondary">Unavailable</button>
                             </div>
-                            <button class="btn btn-warning" @click="this.showEvaluationForm(event.event_id, event.evaluation_form)"
+                            <button class="btn btn-warning"
+                                @click="this.showEvaluationForm(event.event_id, event.evaluation_form)"
                                 v-else-if="event['evaluation_status'] == 1">Evaluate</button>
                         </div>
                     </div>
@@ -160,7 +165,7 @@ export default {
                 });
 
         },
-        showEvaluationForm(event_id,evaluation_form_id) {
+        showEvaluationForm(event_id, evaluation_form_id) {
 
             window.location.href = `evaluation_form/${event_id}/${evaluation_form_id}`;
 

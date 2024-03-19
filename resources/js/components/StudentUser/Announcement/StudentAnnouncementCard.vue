@@ -46,7 +46,9 @@
               style=" border-left-style: solid; border-left-color: #1b9587; border-right-style: solid; border-right-color: #1b9587;">
               <div>
                 <p class="d-flex align-items-center text-dark text-decoration-none " aria-expanded="false">
-                  <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="user-image"
+                  <img v-if="announcements.organization.image" :src="announcements.organization.image" alt="user-image"
+                    width="32" height="32" class="rounded-circle me-2">
+                    <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="user-image"
                     width="32" height="32" class="rounded-circle me-2">
                   <span class="profile-name"><strong>{{ announcements.organization.name }}</strong></span>
                 </p>

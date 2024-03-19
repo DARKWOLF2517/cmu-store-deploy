@@ -24,10 +24,10 @@
                         <button class="btn btn-secondary w-100" @click="downloadQRCode">
                             <i class="fas fa-download"></i> Download QR
                         </button>
-                        <!-- <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal"
+                        <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal"
                             data-bs-target="#EditProfileModal">
                             <i class="fas fa-edit"></i> Edit Email
-                        </button> -->
+                        </button>
                         <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
                         <a class="btn btn-light w-100 mt-2" href="/change_password"> <i class="fas fa-sun"></i> Change
                             Password</a>
@@ -43,9 +43,12 @@
                                 <!-- Profile content -->
                                 <input id="fileInput" type="file" name="picture" accept="image/*"
                                     @change="handleFileUpload" class="d-none">
-                                <img @click="openFileInput" id="profileImage"
+                                <img v-if="this.profile.profile_picture" @click="openFileInput" id="profileImage"
                                     :src="this.tempImage ? this.tempImage : this.profile.profile_picture"
                                     alt="profile photo">
+                                <img v-else id="profileImage" @click="openFileInput"
+                                    :src="this.tempImage ? this.tempImage : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'"
+                                    alt="user-image">
                             </div>
                             <button @click="this.uploadProfileImage" type="button" class="btn btn-success"
                                 v-if="this.tempImage">Save</button>
