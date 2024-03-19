@@ -228,7 +228,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                        data-bs-target="#ReceiveModal">Receive Payment</button>
+                        data-bs-target="#ReceiveModal" >Receive Payment</button>
                 </div>
             </div>
         </div>
@@ -303,7 +303,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"
                             data-bs-target="#viewAllAccountabilitiesModal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Receive</button>
+                        <button type="submit" class="btn btn-success" :disabled="isSubmitting">Receive</button>
                     </div>
                 </div>
             </div>
@@ -371,6 +371,7 @@ export default {
             college_data_input: 0,
             selected_user_id: 0,
             payment_list: [],
+            isSubmitting: false,
 
         }
     },
@@ -563,6 +564,7 @@ export default {
         SubmitPayment() {
             // for adding payment database
             console.log(this.accountability_type)
+            this.isSubmitting = true;
             axios.post(`/FinesAccountabilityPayment/${this.school_year_input}/${this.paymentAmount}/${this.accountability_type}`, this.finesPay)
                 .then(response => {
                     console.log(response.data)
@@ -1088,7 +1090,7 @@ export default {
                                     accountability_type: studentFees.accountability_type,
                                     event_id: studentFees.event_id,
                                     name: studentFees.name,
-                                    total_fees: parseFloat(updatedTotalFines >= 0 ? updatedTotalFines : 0).toFixed(2) 
+                                    total_fees: parseFloat(updatedTotalFines >= 0 ? updatedTotalFines : 0).toFixed(2)
                                 });
                             }
                             else {
