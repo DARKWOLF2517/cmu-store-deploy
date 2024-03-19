@@ -8,8 +8,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrgProfileController;
 use App\Http\Controllers\UserController;
+use App\Mail\WelcomeEmail;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -22,6 +24,9 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+#MAIL ROUTES
+Route::get('/send_mail', [MailController::class,  'AttendanceCheck']);
 //OSA route
 Route::get('OSA', function () {
     return view('layouts.osa');
@@ -326,7 +331,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('organization/{org_id}', [UserController::class, 'getUserOrganization']);
         Route::post('uploadProfilePictureForStudent/{user_id}', [UserController::class, 'uploadProfilePictureForStudent']);
         //get user organization
-        
+
         Route::get('profile/{student_id}', [UserController::class, 'getUserProfile']);
         //EVALUATION FORM
         Route::get('student_evaluation_list', function () {
