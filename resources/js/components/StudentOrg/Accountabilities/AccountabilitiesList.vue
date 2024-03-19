@@ -220,7 +220,7 @@
                                 <td style="display: none;">{{ this.org_id }}</td>
                                 <td style="display: none;">{{ this.user_id }}</td>
                                 <td>{{ temporary_list.date }} </td>
-                                <td style="text-align: right;">&#8369; {{ temporary_list.amount }}.00 </td>
+                                <td style="text-align: right;">&#8369; {{ temporary_list.amount }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -713,6 +713,7 @@ export default {
             axios.get(`/fees_list/${this.org_id}/${this.school_year_input}`)
 
                 .then(response => {
+                    console.log(response.data)
                     this.loading = false;
                     //FOR FINES LOGIC
                     const events_with_attendance = response.data.accountabilities_fines;
