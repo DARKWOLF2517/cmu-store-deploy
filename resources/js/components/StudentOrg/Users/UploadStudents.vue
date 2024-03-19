@@ -51,6 +51,9 @@
                         <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
                         <i class="fas fa-file-upload"></i> Upload List
                     </button>
+                    <button class="btn me-2" @click="printTable">
+                        <i class="fas fa-print"></i> Print
+                    </button>
                     <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
 
                     <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown"
@@ -62,6 +65,9 @@
                         <li><a class="dropdown-item" id="downloadButton"
                                 href="https://github.com/DARKWOLF2517/cmu-store-deploy/raw/main/template.xlsx">Download
                                 Template</a></li>
+                        <li>
+
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -828,9 +834,70 @@ export default {
                 fullname: '',
             };
         },
+        printTable() {
+            // Create a hidden iframe for printing
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
 
+            // Generate the printable HTML document in the iframe
+            const iframeDoc = iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(`
+      <html>
+      <head>
+          <title>Print</title>
+          <!-- Include Bootstrap stylesheet link -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+      </head>
+      <body>
+          <!-- Add a title before the table -->
+          <h2>Student Organization Members</h2>
 
+          <!-- Add Bootstrap table classes -->
+          <table class="table table-bordered table-striped">
+              <thead>
+                  <tr>
+                    <th>Student ID</th>
+                        <th>Student Name</th>
+                        <!-- <th>Accountabilities</th> -->
+                        <th>Year Level</th>
+                        <th style="width: 10%;">College</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${this.generateTableRowsWithoutLastColumn(this.filtered_student_list)}
+              </tbody>
+          </table>
+      </body>
+      </html>
+  `);
+            iframeDoc.close();
 
+            // Print the iframe content
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+
+            // Remove the iframe after printing
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 1000);
+        },
+
+        generateTableRowsWithoutLastColumn(data) {
+            let rows = '';
+            data.forEach(item => {
+                rows += `
+            <tr>
+                <td>${item.student_id}</td>
+                <td>${item.user_profile.first_name} ${item.user_profile.middle_name} ${item.user_profile.last_name}</td>
+                <td>${item.year_level.year_level}</td>
+                <td>${item.user_profile.college.college}</td>
+            </tr>
+        `;
+            });
+            return rows;
+        },
     }
 }
 </script>
