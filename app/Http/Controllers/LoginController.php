@@ -84,7 +84,7 @@ class LoginController extends Controller
                             return '1';
                         } else {
                             session(['many_user' =>  'true']);
-                            $userOrganization = UserOrganization::where('student_id', Auth::id())->with('user_profile')->first();
+                            $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->first();
                             session(['user_name' =>  $userOrganization->user_profile->first_name]);
                             session(['school_year' =>  $defaultSchoolYear->id]);
                             session(['profile_picture' =>  $userOrganization->user_profile->image]);
