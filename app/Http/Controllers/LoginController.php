@@ -45,9 +45,8 @@ class LoginController extends Controller
                 if ($userOrganizationCount != $userOrgRoles) {
                     // Retrieve user organizations with the specified student ID and eager load user_profile
                     $userOrganization = UserOrganization::where('student_id', Auth::id())
-                        ->with('user_profile')
+                        ->with(['organization', 'user_profile'])
                         ->get();
-
                     // Check if all user organizations have role_id equal to 2
                     $allHaveRoleIdTwo = $userOrganization->every(function ($userOrganization) {
                         return $userOrganization->role_id == 2;
@@ -71,14 +70,26 @@ class LoginController extends Controller
                     }
                     // Not all user organizations have role_id equal to 2
                     else {
-                        session(['many_user' =>  'true']);
-                        $userOrganization = UserOrganization::where('student_id', Auth::id())->with('user_profile')->first();
-                        session(['user_name' =>  $userOrganization->user_profile->first_name]);
-                        session(['school_year' =>  $defaultSchoolYear->id]);
-                        return '4';
+                        //if the role has only 1 admin
+                        $countOfRoles1 = $userOrganization->where('role_id', 1)->count();
+                        if ($countOfRoles1 == 1) {
+                            $orgName = $userOrganization->where('role_id', 1)->first();
+                            session(['school_year' =>  $defaultSchoolYear->id]);
+                            session(['org_id' =>  $orgName->student_org_id]);
+                            session(['org_name' =>  $orgName->organization->name]);
+                            session(['role' =>  $orgName->role_id]);
+                            session(['user_name' =>  $orgName->user_profile->first_name]);
+                            return '1';
+                        } else {
+                            session(['many_user' =>  'true']);
+                            $userOrganization = UserOrganization::where('student_id', Auth::id())->with('user_profile')->first();
+                            session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                            session(['school_year' =>  $defaultSchoolYear->id]);
+                            return '4';
+                        }
                     }
-                } 
-                
+                }
+                //if the user has one organization and 2 or more roles on the said organization
                 else {
                     $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->get();
                     //if the user is admin
