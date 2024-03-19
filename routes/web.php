@@ -241,7 +241,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete_organization_accountability/{accountability_id}', [AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
         Route::get('/paid_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'PaidAccountabilities']);
         Route::get('/accountabilities_fetch_update/{id}', [AccountabilitiesController::class, 'accountabilitiesFetchUpdate']);
-        Route::put('/update_accountabilities/{id}', [AccountabilitiesController::class, 'updateAccountabilities']);
+        Route::put('/update_accountabilities/{id}/{old_name}', [AccountabilitiesController::class, 'updateAccountabilities']);
         Route::get('/get_org_accountability/{org_id}/{school_year}', [AccountabilitiesController::class, 'getOrgAccountability']);
         Route::get('/get_student_payments/{student_id}', [AccountabilitiesController::class, 'getStudentPayments']);
         Route::delete('/delete_paid_accountabilities/{accountability_id}', [AccountabilitiesController::class, 'deletePaidAccountabilities']);

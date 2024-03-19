@@ -140,7 +140,7 @@
                             reached</p>
                         <label for="membershipFeeInput" class="form-label">Amount:</label>
                         <input type="number" class="form-control" id="amount" v-model="formData.amount" required
-                            maxlength="20" :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }" step="any">
+                            maxlength="20" :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }">
                         <p class="pl-2" v-if="formData.amount.length >= 20" style="color: red;">Maximum length reached
                         </p>
                     </div>
@@ -200,6 +200,7 @@ export default {
             accountabilityList: [],
             searchTerm: '',
             filtered_accountabilities: [],
+            old_name: '',
         };
     },
     mounted() {
@@ -208,21 +209,36 @@ export default {
     },
     methods: {
         updateAccountabilities() {
-            axios.put(`/update_accountabilities/${this.id}`, this.formData)
-                .then(response => {
-                    // console.log(response.data.message)
-                    this.showSuccess(response.data.message);
-                })
-                .catch(error => {
-                    console.log(error)
-                });
+            if (this.formData.accountability_name.toLowerCase() == 'fines') {
+                this.showError('The name fines cannot be used as it is already present in the system.');
+            }
+            else {
+                axios.put(`/update_accountabilities/${this.id}/${this.old_name}`, this.formData)
+                    .then(response => {
+                        console.log(response.data)
+                        if (response.data.status == 1) {
+                            this.showError(response.data.message)
+                        }
+                        else {
+                            this.showSuccess(response.data.message);
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        }
+
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+
+            }
         },
         accountabilitiesFetchUpdate() {
             axios.get(`accountabilities_fetch_update/${this.id}`)
                 .then(response => {
-                    // console.log(response.data)
-                    this.formData = response.data;
                     console.log(response.data)
+                    this.formData = response.data;
+                    this.old_name = response.data.accountability_name;
                 })
                 .catch(error => {
                     console.log(error)
@@ -253,27 +269,33 @@ export default {
         showSuccess(message) {
             this.fetchData();
             toast.success(message, {
-                autoClose: 1000,
+                autoClose: 3000,
             });
         },
         showError(message) {
             toast.error(message, {
-                autoClose: 1000,
+                autoClose: 3000,
             });
         },
 
 
         submitData() {
-            axios.post('/set_accountabilities', this.formData)
-                .then((response) => {
-                    this.showSuccess(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
-                })
-                .catch((error) => {
-                    alert(error);
-                });
+            if (this.formData.accountability_name.toLowerCase() == 'fines') {
+                this.showError('The name fines cannot be used as it is already present in the system.');
+            }
+            else {
+                axios.post('/set_accountabilities', this.formData)
+                    .then((response) => {
+                        this.showSuccess(response.data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1000);
+                    })
+                    .catch((error) => {
+                        alert(error);
+                    });
+            }
+
         },
         fetchData() {
             this.accountabilityList = [];
