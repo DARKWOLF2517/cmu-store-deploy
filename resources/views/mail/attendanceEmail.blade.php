@@ -41,14 +41,14 @@
             <h3>{{ $details['org_name'] }}</h3>
         </div>
         <div class="content">
-            <p>Hi {{ $details['user_name'] }}!</p>
+            <p>Hi <b>{{ $details['user_name'] }}</b>!</p>
             <p>
-                You have logged into session {{ $details['session'] }} of the attendance for the
-                {{ $details['event_name'] }}.
+                You have logged into session <b>{{ $details['session'] }}</b> of the attendance for the
+               <b>{{ $details['event_name'] }}</b> .
             </p>
-            <small>Date Attended: {{ $details['date'] }}</small>
+            <small>Date Attended: <b>{{ $details['date'] }}</b></small>
             <br>
-            <small>Time Attended: {{ $details['time'] }}</small>
+            <small>Time Attended: <b>{{ $details['time'] }}</b></small>
         </div>
     </div>
 </body>

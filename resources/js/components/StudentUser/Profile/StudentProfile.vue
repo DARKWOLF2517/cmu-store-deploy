@@ -80,31 +80,35 @@
         <!-- Edit Profile Modal -->
         <div class="modal fade" id="EditProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="text-center">
-                            <h3> <i class="fas fa-envelope text-primary"></i></h3>
-                            <h4><b>Edit Email</b></h4>
-                            <small id="emailHelp" class="form-text text-muted mt-2"> Receive notifications about your
-                                attendance by
-                                providing your email. We'll keep you informed about important updates.</small>
+            <form @submit.prevent="this.submitEmail">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="mb-3">
-                            <label for="editEmail" class="form-label fw-bold">Email</label>
-                            <input type="email" class="form-control" id="editEmail" placeholder="Enter Email" required
-                                maxlength="50">
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <h3> <i class="fas fa-envelope text-primary"></i></h3>
+                                <h4><b>Edit Email</b></h4>
+                                <small id="emailHelp" class="form-text text-muted mt-2"> Receive notifications about
+                                    your
+                                    attendance by
+                                    providing your email. We'll keep you informed about important updates.</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editEmail" class="form-label fw-bold">Email</label>
+                                <input type="email" class="form-control" id="editEmail" placeholder="Enter Email"
+                                    required maxlength="50" v-model="this.profile.email">
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Save Changes</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
         </div>
     </div>
 </template>
@@ -138,6 +142,19 @@ export default {
         this.FetchUserData();
     },
     methods: {
+        submitEmail() {
+            axios.put(`/updateEmail/${this.profile.email}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message)
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                })
+                .catch(error => { 
+                    console.log(error)
+                })
+        },
         uploadProfileImage() {
 
             const formData = new FormData();

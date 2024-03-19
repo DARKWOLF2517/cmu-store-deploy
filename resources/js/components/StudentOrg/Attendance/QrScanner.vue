@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-4 qr-scanned-container border-top border-5 border-success border-bottom-0 py-3"
             id="record-table">
-            <h4><i class="bi bi-files "></i>  Scanned Data</h4>
+            <h4><i class="bi bi-files "></i> Scanned Data</h4>
             <div class="row justify-content-center">
                 <div class="col">
                     <div class="table-container">
@@ -132,21 +132,26 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     alert(response.data.message)
+                    if (response.data.result != 'failure') {
+                        axios.post("/send_mail", this.formData)
+                            .then(response => {
+                                console.log(response.data)
+                                this.scanner.resume();
+                            })
+                            .catch(error => {
+                                alert(error)
+                            });
+                    }
+                    else {
+                        this.scanner.resume();
+                    }
                     this.fetchData();
-                    this.scanner.resume();
                     this.formData.user_id = '';
                 })
                 .catch(error => {
                     alert(error)
                 });
 
-                axios.post("/send_mail", this.formData)
-                .then(response => {
-                    console.log(response.data)
-                })
-                .catch(error => {
-                    alert(error)
-                });
 
         }
     }

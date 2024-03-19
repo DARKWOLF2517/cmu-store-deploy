@@ -330,6 +330,7 @@ Route::middleware(['auth'])->group(function () {
         //STUDENT PROFILE 
         Route::get('organization/{org_id}', [UserController::class, 'getUserOrganization']);
         Route::post('uploadProfilePictureForStudent/{user_id}', [UserController::class, 'uploadProfilePictureForStudent']);
+        Route::put('updateEmail/{email}', [UserController::class, 'updateEmail']);
         //get user organization
 
         Route::get('profile/{student_id}', [UserController::class, 'getUserProfile']);

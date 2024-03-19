@@ -10,6 +10,7 @@ use App\Models\UserProfile;
 use Error;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -266,6 +267,16 @@ class UserController extends Controller
         $request->picture->move(public_path('/assets/profile_image_for_students'), $filename);
         // $orgProfileDetails->update(['description' => $request['description']]);
         $orgProfileDetails->update(['image' => $filename]);
+
+        return response()->json(['message' => 'Profile Updated Successfully']);
+    }
+    public function updateEmail($email)
+    {
+        // return $request;
+
+        
+        $orgProfileDetails = UserProfile::find(Auth::id());
+        $orgProfileDetails->update(['email' => $email]);
 
         return response()->json(['message' => 'Profile Updated Successfully']);
     }
