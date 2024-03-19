@@ -139,6 +139,15 @@ export default {
                 .catch(error => {
                     alert(error)
                 });
+
+                axios.post("/send_mail", this.formData)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    alert(error)
+                });
+
         }
     }
 

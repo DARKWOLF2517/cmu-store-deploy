@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 #MAIL ROUTES
-Route::get('/send_mail', [MailController::class,  'AttendanceCheck']);
+Route::post('/send_mail', [MailController::class,  'AttendanceCheck']);
 //OSA route
 Route::get('OSA', function () {
     return view('layouts.osa');

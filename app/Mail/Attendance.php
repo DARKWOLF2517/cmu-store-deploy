@@ -12,13 +12,14 @@ use Illuminate\Queue\SerializesModels;
 class Attendance extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $details;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($details)
     {
         //
+        $this->details = $details;
     }
 
     /**
