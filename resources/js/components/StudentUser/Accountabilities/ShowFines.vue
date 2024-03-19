@@ -25,10 +25,10 @@
         <div class="accountability-cards-list">
             <div class="stud-accountability-card border-top border-5 border-success border-bottom-0"
                 v-for="user_orgs in this.user_organization">
-                <div class="card-body text-center">
+                <div class="p-2 text-center">
                     <h2 class="text-center bold mt-2"><i class="bi bi-wallet2 text-secondary"></i></h2>
                     <h5 class="card-title mt-2"><strong>{{ user_orgs.organization.name }} </strong></h5>
-                    <small>{{ user_orgs.organization.description }}</small>
+                    <p>{{ user_orgs.organization.description }}</p>
                     <!-- <h2 class="total-payment bold">&#8369; 10,000</h2> -->
                     <!-- Use "&#8369;" for the peso sign -->
 
