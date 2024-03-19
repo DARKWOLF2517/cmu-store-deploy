@@ -40,10 +40,12 @@
                                             <!-- Profile content -->
                                             <input id="fileInput" type="file" name="picture" accept="image/*"
                                                 @change="handleFileUpload" class="d-none">
-                                            <img @click="openFileInput" id="profileImage" :src="this.tempImage ? this.tempImage : this.orgProfile.image"
+                                            <img @click="openFileInput" id="profileImage"
+                                                :src="this.tempImage ? this.tempImage : this.orgProfile.image"
                                                 alt="profile photo">
                                             <div class="d-flex justify-content-center">
-                                                <button @click="this.uploadProfileImage" class="btn btn-secondary mt-2" id="editButton" v-if="this.tempImage">
+                                                <button @click="this.uploadProfileImage" class="btn btn-secondary mt-2"
+                                                    id="editButton" v-if="this.tempImage">
                                                     Upload Image</button>
                                             </div>
                                         </div>
@@ -337,7 +339,7 @@
         aria-labelledby="changeProfileImageModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-               
+
                 <form v-on:submit.prevent="uploadProfileImage" method="post" enctype="multipart/form-data">
                     <div class="modal-header">
 

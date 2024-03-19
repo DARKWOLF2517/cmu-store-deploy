@@ -1157,7 +1157,7 @@ export default {
       </head>
       <body>
           <!-- Add a title before the table -->
-          <h2>Student With Free Fines</h2>
+          <h2>Student With Accountabilities</h2>
 
           <!-- Add Bootstrap table classes -->
           <table class="table table-bordered table-striped">
