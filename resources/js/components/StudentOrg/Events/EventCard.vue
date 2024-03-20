@@ -145,8 +145,8 @@
                                     <div>
                                         <li><a class="dropdown-item" data-bs-toggle="modal"
                                                 data-bs-target="#cancelAttendance"
-                                                @click="this.id = (event.event_id), this.fetchCancelAttendanceEvent()">Cancel
-                                                Attendance</a>
+                                                @click="this.id = (event.event_id), this.fetchCancelAttendanceEvent()">Exclude
+                                                Attendance log</a>
                                         </li>
                                     </div>
                                 </ul>
@@ -319,9 +319,9 @@
                             <div class="modal-body">
                                 <div class="text-center">
                                     <h4> <i class="fas fa-question-circle text-warning"></i> </h4>
-                                    <h5 class="fw-bold text-center"> Cancel an Attendance?</h5>
+                                    <h5 class="fw-bold text-center"> Exclude an Attendance?</h5>
                                 </div>
-                                <p>Select an attendance session to not record an Attendance</p>
+                                <p>Select an attendance log that will not need an Attendance</p>
 
                                 <div v-for="index in this.attendance_count_for_exempting_attendance" :key="index">
                                     <div class="form-check">
