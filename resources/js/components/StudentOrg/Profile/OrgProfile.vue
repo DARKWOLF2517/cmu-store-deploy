@@ -35,7 +35,7 @@
                             aria-labelledby="profile-tab">
                             <div class="col">
                                 <div class="row d-flex justify-content-between">
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                         <div class="profile">
                                             <!-- Profile content -->
                                             <input id="fileInput" type="file" name="picture" accept="image/*"
@@ -104,7 +104,7 @@
                         <!-- Organization Tab Content -->
                         <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
                             <div class="row d-flex justify-content-between">
-                                <div class="col-6" style="background-color: #ffff; border-radius: 10px; padding: 10px;">
+                                <div class="col-md-6" style="background-color: #ffff; border-radius: 10px; padding: 10px;">
 
                                     <div class="org-officers ">
                                         <!-- Organization Officers -->
