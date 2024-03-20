@@ -36,21 +36,29 @@
                             <div class="col">
                                 <div class="row d-flex justify-content-between">
                                     <div class="col-4">
-                                        <div class="profile ">
+                                        <div class="profile">
                                             <!-- Profile content -->
                                             <input id="fileInput" type="file" name="picture" accept="image/*"
                                                 @change="handleFileUpload" class="d-none">
-                                            <img v-if="this.orgProfile.image" @click="openFileInput" id="profileImage"
-                                                :src="this.tempImage ? this.tempImage : this.orgProfile.image"
-                                                alt="profile photo">
-                                            <img v-else id="profileImage" @click="openFileInput"
-                                                :src="this.tempImage ? this.tempImage : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png' "
-                                                alt="user-image">
-                                            <div class="d-flex justify-content-center">
-                                                <button @click="this.uploadProfileImage" class="btn btn-secondary mt-2"
-                                                    id="editButton" v-if="this.tempImage">
-                                                    Upload Image</button>
+                                            <div class="profile-content">
+                                                <div class="image-container">
+                                                    <div class="hover-label">
+                                                        <i class="fas fa-edit"></i> Change Image
+                                                    </div>
+                                                    <img v-if="this.orgProfile.image" @click="openFileInput"
+                                                        id="profileImage"
+                                                        :src="this.tempImage ? this.tempImage : this.orgProfile.image"
+                                                        alt="profile photo">
+                                                    <img v-else id="profileImage" @click="openFileInput"
+                                                        :src="this.tempImage ? this.tempImage : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'"
+                                                        alt="user-image">
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-2">
+                                            <button @click="this.uploadProfileImage" class="btn btn-success mt-2"
+                                                id="editButton" v-if="this.tempImage">
+                                                <i class="fas fa-save"></i> Save Profile Image</button>
                                         </div>
                                     </div>
                                     <div class="col">

@@ -41,17 +41,27 @@
                         <div class="col-md-4 mb-3">
                             <div class="profile">
                                 <!-- Profile content -->
-                                <input id="fileInput" type="file" name="picture" accept="image/*"
-                                    @change="handleFileUpload" class="d-none">
-                                <img v-if="this.profile.profile_picture" @click="openFileInput" id="profileImage"
-                                    :src="this.tempImage ? this.tempImage : this.profile.profile_picture"
-                                    alt="profile photo">
-                                <img v-else id="profileImage" @click="openFileInput"
-                                    :src="this.tempImage ? this.tempImage : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'"
-                                    alt="user-image">
+                                <div class="profile-content">
+                                    <div class="image-container">
+                                        <div class="hover-label">
+                                            <i class="fas fa-edit"></i> Change Image
+                                        </div>
+                                        <input id="fileInput" type="file" name="picture" accept="image/*"
+                                            @change="handleFileUpload" class="d-none">
+                                        <img v-if="this.profile.profile_picture" @click="openFileInput"
+                                            id="profileImage"
+                                            :src="this.tempImage ? this.tempImage : this.profile.profile_picture"
+                                            alt="profile photo">
+                                        <img v-else id="profileImage" @click="openFileInput"
+                                            :src="this.tempImage ? this.tempImage : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'"
+                                            alt="user-image">
+                                    </div>
+                                </div>
                             </div>
+                            <div class="d-flex justify-content-center mt-2">
                             <button @click="this.uploadProfileImage" type="button" class="btn btn-success"
-                                v-if="this.tempImage">Save</button>
+                                v-if="this.tempImage"> <i class="fas fa-save"></i> Save Profile Image</button>
+                            </div>
                         </div>
                         <div class="col-md-8">
                             <div class="mt-5">
@@ -151,7 +161,7 @@ export default {
                         location.reload();
                     }, 1000);
                 })
-                .catch(error => { 
+                .catch(error => {
                     console.log(error)
                 })
         },
@@ -255,11 +265,3 @@ export default {
     },
 };
 </script>
-
-<style>
-#profileImage:hover {
-    /* background-color: blue; */
-    cursor: pointer;
-    border: 5px solid #60b192;
-}
-</style>
