@@ -7,9 +7,8 @@
     <title>Email</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: sans-serif;
             line-height: 1.6;
-            background-color: #f4f4f4;
             padding: 20px;
         }
 
@@ -19,6 +18,7 @@
             background: #fff;
             padding: 20px;
             border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         .header {
@@ -32,6 +32,17 @@
         .content {
             padding: 20px;
         }
+
+        .small {
+            color: #969696;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+            color: #888;
+        }
     </style>
 </head>
 
@@ -44,11 +55,14 @@
             <p>Hi <b>{{ $details['user_name'] }}</b>!</p>
             <p>
                 You have logged into session <b>{{ $details['session'] }}</b> of the attendance for the
-               <b>{{ $details['event_name'] }}</b> .
+                <b>{{ $details['event_name'] }}</b> .
             </p>
             <small>Date Attended: <b>{{ $details['date'] }}</b></small>
             <br>
             <small>Time Attended: <b>{{ $details['time'] }}</b></small>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 CMU-STORE-AMS</p>
         </div>
     </div>
 </body>
