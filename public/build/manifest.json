@@ -1,6 +1,6 @@
 {
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-3bba79ad.js",
+    "file": "assets/index.es-845575a4.js",
     "imports": [
       "resources/js/app.js"
     ],
@@ -24,7 +24,7 @@
       "node_modules/dompurify/dist/purify.es.js",
       "node_modules/canvg/lib/index.es.js"
     ],
-    "file": "assets/app-55357ade.js",
+    "file": "assets/app-6fd465ee.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },

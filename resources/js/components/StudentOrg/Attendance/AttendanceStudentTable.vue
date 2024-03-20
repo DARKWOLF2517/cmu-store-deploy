@@ -542,7 +542,6 @@ export default {
             iframeDoc.close();
 
             // Print the iframe content
-
             setTimeout(() => {
                 iframe.contentWindow.focus();
                 iframe.contentWindow.print();
