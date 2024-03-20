@@ -15,5 +15,6 @@ class EventExemptedAttendance extends Model
     protected $fillable = [
         'event_id',
         'session',
+        'school_year',
     ];
 }

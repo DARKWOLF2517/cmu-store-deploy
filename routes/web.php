@@ -230,7 +230,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_year_level/{organization_id}', [EventController::class, 'getYearLevel']);
         Route::get('/yearLevel/exempted/{org_id}/{id}', [EventController::class, 'getExempted']);
         Route::put('/update_event_status/{id}/{status}', [EventController::class, 'updateEventStatus']);
-        Route::post('/submitCancelAttendanceEvent/{event_id}', [EventController::class, 'submitCancelAttendanceEvent']);
+        Route::post('/submitCancelAttendanceEvent/{event_id}/{school_year}', [EventController::class, 'submitCancelAttendanceEvent']);
         Route::get('/show_cancelled_attendance/{event_id}', [EventController::class, 'showCancelledAttendance']);
 
         #ACCOUNTABILITIES ROUTES

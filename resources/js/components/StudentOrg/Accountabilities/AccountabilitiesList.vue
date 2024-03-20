@@ -228,7 +228,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                        data-bs-target="#ReceiveModal" >Receive Payment</button>
+                        data-bs-target="#ReceiveModal">Receive Payment</button>
                 </div>
             </div>
         </div>
@@ -372,6 +372,7 @@ export default {
             selected_user_id: 0,
             payment_list: [],
             isSubmitting: false,
+
 
         }
     },
@@ -723,6 +724,7 @@ export default {
             this.fees_list = [];
             this.other_accountabilities_list = [];
             this.total_fees = [];
+
             axios.get(`/fees_list/${this.org_id}/${this.school_year_input}`)
 
                 .then(response => {
@@ -736,6 +738,8 @@ export default {
                     const year_level = response.data.year_level;
                     const year_level_exempted = response.data.year_level_exempted;
                     let free_fines = response.data.free_fines;
+                    let cancelled_attendance = response.data.cancelled_attendance
+
                     // const change_user_year_level = []
                     // user_orgs.forEach(element => {
 
@@ -779,15 +783,37 @@ export default {
                     });
                     events_with_attendance.forEach(attend => {
                         // if (attend.attendance_count == 1) {
+
+                             //for cancelling attedance that is in the database draft
+                        // for (let index = 1; index <= attend.attendance_count; index++) {
+                        //     const session_count = {
+                        //         event_id: attend.event_id,
+                        //         session: index,
+                        //         fines: attend.fines,
+                        //         date: attend.start_date,
+                        //     }
+                        //     cancelled_attendance.forEach(element => {
+                        //         if (element.event_id != attend.event_id && element.session != index) {
+                        //             this.events.push(session_count);
+                        //         }
+                        //     });
+
+                        // }
+                        
+                        //for cancelling attedance that is in the database
                         for (let index = 1; index <= attend.attendance_count; index++) {
-                            const session_count = {
-                                event_id: attend.event_id,
-                                session: index,
-                                fines: attend.fines,
-                                date: attend.start_date,
+                            const found = cancelled_attendance.find(element => element.event_id == attend.event_id && element.session == index);
+                            if (!found) {
+                                const session_count = {
+                                    event_id: attend.event_id,
+                                    session: index,
+                                    fines: attend.fines,
+                                    date: attend.start_date,
+                                };
+                                this.events.push(session_count);
                             }
-                            this.events.push(session_count);
                         }
+
                         console.log(this.events)
                         // }
                         // else if (attend.attendance_count == 2) {

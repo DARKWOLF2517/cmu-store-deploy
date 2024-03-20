@@ -624,7 +624,7 @@ export default {
     methods: {
         submitCancelAttendanceEvent() {
             // console.log(this.attendanceCancelled)
-            axios.post(`/submitCancelAttendanceEvent/${this.id}`, this.attendanceCancelled)
+            axios.post(`/submitCancelAttendanceEvent/${this.id}/${this.school_year_input}`, this.attendanceCancelled)
                 .then(response => {
                     this.showSucces(response.data.message);
                     setTimeout(() => {

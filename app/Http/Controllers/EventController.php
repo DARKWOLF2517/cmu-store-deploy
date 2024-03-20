@@ -214,7 +214,7 @@ class EventController extends Controller
         return response()->json(['message' => 'Event Updated Successfully']);
     }
 
-    public function submitCancelAttendanceEvent($event_id, Request $request)
+    public function submitCancelAttendanceEvent($event_id,$school_year, Request $request)
     {
         // $exemptedData = EventExemptedAttendance::where('event_id',$event_id)->get();
         $exemptedData = EventExemptedAttendance::where('event_id', $event_id)
@@ -227,6 +227,7 @@ class EventController extends Controller
             $exempted = new EventExemptedAttendance([
                 'event_id' => $event_id,
                 'session' => $data,
+                'school_year' => $school_year,
             ]);
             $exempted->save();
         }

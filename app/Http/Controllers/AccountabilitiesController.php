@@ -6,6 +6,7 @@ use App\Models\Accountability;
 use App\Models\Attendance;
 use App\Models\Event;
 use App\Models\EventExempted;
+use App\Models\EventExemptedAttendance;
 use App\Models\FreeFinesStudent;
 use App\Models\OrganizationAccountability;
 use App\Models\OrganizationDefaultSchoolYear;
@@ -70,6 +71,7 @@ class AccountabilitiesController extends Controller
         $yearLevel = YearLevel::where([['org_id', $org_id]])->get();
         $exempted = EventExempted::where([['org_id', $org_id], ['school_year', $school_year]])->get();
         $freeFines = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]])->get();
+        $cancelledAttendance = EventExemptedAttendance::where([['school_year', $school_year]])->get();
         return response()->json([
             'accountabilities_fines' => $accountabilities,
             'user' => $users,
@@ -79,6 +81,7 @@ class AccountabilitiesController extends Controller
             'year_level' => $yearLevel,
             'year_level_exempted' => $exempted,
             'free_fines' => $freeFines,
+            'cancelled_attendance' => $cancelledAttendance,
         ]);
     }
     public function updateEventAttendanceStatus($event_id, $status, $session)

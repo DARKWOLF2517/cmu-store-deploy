@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events_exempted', function (Blueprint $table) {
+        Schema::create('events_exempted_year_level', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('event_id');
