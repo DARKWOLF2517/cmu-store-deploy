@@ -96,71 +96,74 @@
                     ]">
 
 
-                        <div class="dropdown">
-                            <a class="ellipsis-button" href="#" style="color: black;" role="button"
-                                id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-ellipsis-h"></i>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                                <!-- option 1 -->
-                                <li><a class="dropdown-item" @click="  FetchUpdateData(event.event_id)"
-                                        data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
-                                <!-- option 2 -->
-                                <li><a class="dropdown-item" @click="this.id = (event.event_id)" data-bs-toggle="modal"
-                                        data-bs-target="#deleteConfirmation">Delete Event</a></li>
-                                <!-- option 3 -->
-                                <li><a class="dropdown-item"
-                                        @click="this.id = (event.event_id), this.showYearLevelExempted()"
-                                        data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted
-                                        attendees</a>
-                                </li>
-                                <div v-if="event.event_status == 0 || event.event_status == 2">
-                                    <li><a class="dropdown-item" @click="this.id = (event.event_id), this.status = 1"
-                                            data-bs-toggle="modal" data-bs-target="#eventStatus">Start Event</a>
+                            <div class="dropdown">
+                                <a class="ellipsis-button" href="#" style="color: black;" role="button"
+                                    id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                    <!-- option 1 -->
+                                    <li><a class="dropdown-item" @click="  FetchUpdateData(event.event_id)"
+                                            data-bs-toggle="modal" data-bs-target="#event-modal">Edit Event</a></li>
+                                    <!-- option 2 -->
+                                    <li><a class="dropdown-item" @click="this.id = (event.event_id)"
+                                            data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a>
                                     </li>
-                                </div>
-                                <div v-else-if="event.event_status == 1">
-                                    <li><a class="dropdown-item" @click="this.id = (event.event_id), this.status = 2"
-                                            data-bs-toggle="modal" data-bs-target="#eventStatus">Stop Event</a>
+                                    <!-- option 3 -->
+                                    <li><a class="dropdown-item"
+                                            @click="this.id = (event.event_id), this.showYearLevelExempted()"
+                                            data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted
+                                            attendees</a>
                                     </li>
-                                </div>
-                                <div
-                                    v-if="(event.attendance_status == 0 || event.attendance_status == 2) && (event.event_status == 1 && event.event_status != 0)">
-                                    <li><a class="dropdown-item"
-                                            @click="this.attendance_count_start_attendance = event.attendance_count, this.id = (event.event_id), this.status = 1"
-                                            data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start
-                                            Attendance</a></li>
-                                </div>
-                                <div
-                                    v-else-if="event.attendance_status == 1 && event.event_status == 1 && event.event_status != 0">
-                                    <li><a class="dropdown-item"
-                                            @click="this.attendance_count_start_attendance = 0, this.id = (event.event_id), this.status = 2"
-                                            data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
-                                            Attendance</a></li>
-                                </div>
+                                    <div v-if="event.event_status == 0 || event.event_status == 2">
+                                        <li><a class="dropdown-item"
+                                                @click="this.id = (event.event_id), this.status = 1"
+                                                data-bs-toggle="modal" data-bs-target="#eventStatus">Start Event</a>
+                                        </li>
+                                    </div>
+                                    <div v-else-if="event.event_status == 1">
+                                        <li><a class="dropdown-item"
+                                                @click="this.id = (event.event_id), this.status = 2"
+                                                data-bs-toggle="modal" data-bs-target="#eventStatus">Stop Event</a>
+                                        </li>
+                                    </div>
+                                    <div
+                                        v-if="(event.attendance_status == 0 || event.attendance_status == 2) && (event.event_status == 1 && event.event_status != 0)">
+                                        <li><a class="dropdown-item"
+                                                @click="this.attendance_count_start_attendance = event.attendance_count, this.id = (event.event_id), this.status = 1"
+                                                data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start
+                                                Attendance</a></li>
+                                    </div>
+                                    <div
+                                        v-else-if="event.attendance_status == 1 && event.event_status == 1 && event.event_status != 0">
+                                        <li><a class="dropdown-item"
+                                                @click="this.attendance_count_start_attendance = 0, this.id = (event.event_id), this.status = 2"
+                                                data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
+                                                Attendance</a></li>
+                                    </div>
 
-                                <div>
-                                    <!-- <li><a class="dropdown-item" data-bs-toggle="modal"
-                                            data-bs-target="#cancelAttendance">Cancel Attendance</a>
-                                    </li> -->
-                                </div>
-                            </ul>
-                        </div>
-                        <h5 class="card-title mt-4 mb-2"><strong>{{ event["name"] }}</strong></h5>
-                        <p class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</p>
-                        <p class="card-subtitle text-muted">Start Time: {{ event["start_attendance"] }} </p>
-                        <p class="card-subtitle text-muted">End Time: {{ event["end_attendance"] }} </p>
-                        <h6 class="card-text mb-0">Location: {{ event["location"] }} </h6>
-                        <!-- <h6 class="card-text">Description: {{ event["description"] }} </h6> -->
-                        <!-- <div class="card-actions">
+                                    <div>
+                                        <li><a class="dropdown-item" data-bs-toggle="modal"
+                                                data-bs-target="#cancelAttendance">Cancel Attendance</a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+                            <h5 class="card-title mt-4 mb-2"><strong>{{ event["name"] }}</strong></h5>
+                            <p class="card-subtitle text-muted">Scheduled Date: {{ event["start_date"] }}</p>
+                            <p class="card-subtitle text-muted">Start Time: {{ event["start_attendance"] }} </p>
+                            <p class="card-subtitle text-muted">End Time: {{ event["end_attendance"] }} </p>
+                            <h6 class="card-text mb-0">Location: {{ event["location"] }} </h6>
+                            <!-- <h6 class="card-text">Description: {{ event["description"] }} </h6> -->
+                            <!-- <div class="card-actions">
                                                 <button class="ellipsis-button" @click=" FetchUpdateData(event.event_id) "   type="button"  data-bs-toggle="modal" data-bs-target="#event-modal" > <i class="bi bi-pencil-square"></i></button> -->
-                        <!-- <button class="ellipsis-button"  @click="deleteEvent(event.event_id)"  type="button"> <i class="bi bi-trash"></i></button> -->
-                        <!-- <button class="ellipsis-button" @click="this.id = event.event_id"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation" type="button"> <i class="bi bi-trash"></i></button>
+                            <!-- <button class="ellipsis-button"  @click="deleteEvent(event.event_id)"  type="button"> <i class="bi bi-trash"></i></button> -->
+                            <!-- <button class="ellipsis-button" @click="this.id = event.event_id"  data-bs-toggle="modal" data-bs-target="#deleteConfirmation" type="button"> <i class="bi bi-trash"></i></button>
                                             </div> -->
-                        <!-- Add View button to show event details -->
-                        <button class="btn btn-success view-button" @click="showEventDetails(event.event_id)"
-                            data-bs-toggle="modal" data-bs-target="#event-details-modal">View</button>
-                    </div>
+                            <!-- Add View button to show event details -->
+                            <button class="btn btn-success view-button" @click="showEventDetails(event.event_id)"
+                                data-bs-toggle="modal" data-bs-target="#event-details-modal">View</button>
+                        </div>
                     </div>
                     <!-- EVENT CARD -->
                     <!-- <div class="event-card border-top border-5 border-success border-bottom-0" v-for="event in this.filtered_events" :id="event.event_id" > -->
@@ -317,9 +320,14 @@
                                     <h5 class="fw-bold text-center"> Cancel an Attendance?</h5>
                                 </div>
                                 <p>Select an attendance session to not record an Attendance</p>
-                                <label class="mt-2">Select Attendance Type:</label>
-                                <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;">
 
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input mr-2">
+                                    <label class="form-check-label fw-bold">Attendance Log 1 </label>
+                                </div>
+
+                                <!-- <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;"> -->
+                                <!--
                                     <select id="sort-select" class="form-control" style="text-align: center;"
                                         v-model="session" required>
                                         <option :value="0" disabled selected>Select Attendace Type</option>
@@ -335,8 +343,9 @@
                                         <option :value="4" v-if="attendance_count_start_attendance >= 4">Afternoon (Log
                                             out)
                                         </option>
-                                    </select>
-                                </div>
+                                    </select> -->
+
+                                <!-- </div> -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -506,7 +515,7 @@
                                         <div class="row g-3">
                                             <div class="col-md-6">
                                                 <label for="event-attendance" class="form-label">Number of
-                                                    Attendance session</label>
+                                                    Attendance Log</label>
                                                 <select name="attendance_count" class="form-select"
                                                     id="event-attendance" v-model="formData.attendance_count" required>
                                                     <option value="1">1</option>
