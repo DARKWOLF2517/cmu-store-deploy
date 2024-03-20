@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EventExempted extends Model
+class EventExemptedAttendance extends Model
 {
     use HasFactory;
-    protected $table = 'events_exempted_year_level';
+
+    protected $table = 'event_cancelled_attendance';
     // protected $primaryKey = 'org_id';
 
     protected $fillable = [
-        'org_id',
         'event_id',
-        'year_level_id',
-        'school_year',
+        'session',
     ];
 }

@@ -64,7 +64,7 @@
                         </side-nav-button> --}}
                         <li>
                             <side-nav-button link_name="Profile"
-                                link_route = "{{ url('/student_organization_profile') }}"
+                                link_route = "{{ url('/student_profile') }}"
                                 show_icon = "{{ false }}">
                             </side-nav-button>
                         </li>

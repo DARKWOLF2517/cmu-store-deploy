@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\EventExempted;
+use App\Models\EventExemptedAttendance;
 use App\Models\PaidAccountability;
 use App\Models\SchoolYear;
 use App\Models\User;
@@ -211,5 +212,38 @@ class EventController extends Controller
         }
         Event::where('event_id', $id)->update(['event_status' => $status]);
         return response()->json(['message' => 'Event Updated Successfully']);
+    }
+
+    public function submitCancelAttendanceEvent($event_id, Request $request)
+    {
+        // $exemptedData = EventExemptedAttendance::where('event_id',$event_id)->get();
+        $exemptedData = EventExemptedAttendance::where('event_id', $event_id)
+            ->pluck('session')
+            ->toArray();
+
+        $requestData = array_values($request->all());
+
+        foreach ($requestData as $data) {
+            $exempted = new EventExemptedAttendance([
+                'event_id' => $event_id,
+                'session' => $data,
+            ]);
+            $exempted->save();
+        }
+
+        // when deleting to list 
+        $differences_when_removing = array_diff($exemptedData, $requestData);
+        if (!empty($differences_when_removing)) {
+            // The arrays have different values
+            $exemptedData = EventExemptedAttendance::where('event_id', $event_id)
+                ->whereIn('session', $differences_when_removing)
+                ->delete();
+        }
+        return response()->json(['message' => 'Attendance Cancelled Successfully']);
+    }
+    public function showCancelledAttendance($event_id)
+    {
+        $cancelledAttendance = EventExemptedAttendance::where([['event_id', $event_id]])->get();
+        return response()->json($cancelledAttendance);
     }
 }

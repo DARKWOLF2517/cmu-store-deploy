@@ -144,7 +144,9 @@
 
                                     <div>
                                         <li><a class="dropdown-item" data-bs-toggle="modal"
-                                                data-bs-target="#cancelAttendance">Cancel Attendance</a>
+                                                data-bs-target="#cancelAttendance"
+                                                @click="this.id = (event.event_id), this.fetchCancelAttendanceEvent()">Cancel
+                                                Attendance</a>
                                         </li>
                                     </div>
                                 </ul>
@@ -321,9 +323,12 @@
                                 </div>
                                 <p>Select an attendance session to not record an Attendance</p>
 
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input mr-2">
-                                    <label class="form-check-label fw-bold">Attendance Log 1 </label>
+                                <div v-for="index in this.attendance_count_for_exempting_attendance" :key="index">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input mr-2" :value="index"
+                                            v-model="attendanceCancelled">
+                                        <label class="form-check-label fw-bold">Attendance Log {{ index }}</label>
+                                    </div>
                                 </div>
 
                                 <!-- <div class="select-dropdown" style="width: 100% !important; border: 1px solid #ccc;"> -->
@@ -350,7 +355,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn btn-success"
-                                    @click="startAttendance(event_id, org_id, session)">Start</button>
+                                    @click="this.submitCancelAttendanceEvent">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -595,6 +600,8 @@ export default {
             session: 0,
             evaluation_form: [],
             isSubmitting: false,
+            attendance_count_for_exempting_attendance: 0,
+            attendanceCancelled: [],
         }
     },
     created() {
@@ -615,6 +622,43 @@ export default {
     },
 
     methods: {
+        submitCancelAttendanceEvent() {
+            // console.log(this.attendanceCancelled)
+            axios.post(`/submitCancelAttendanceEvent/${this.id}`, this.attendanceCancelled)
+                .then(response => {
+                    this.showSucces(response.data.message);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 500);
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    alert(error)
+                });
+        },
+        fetchCancelAttendanceEvent() {
+            axios.get(`show_event_details/${this.id}`)
+                .then(response => {
+                    this.attendance_count_for_exempting_attendance = response.data.attendance_count;
+                    console.log(this.attendance_count_for_exempting_attendance)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
+            axios.get(`show_cancelled_attendance/${this.id}`)
+                .then(response => {
+
+                    this.attendanceCancelled = [];
+                    response.data.forEach(element => {
+                        this.attendanceCancelled.push(element.session);
+                    });
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         startEvent() {
             axios.put(`/update_event_status/${this.id}/${this.status}`)
                 .then(response => {
