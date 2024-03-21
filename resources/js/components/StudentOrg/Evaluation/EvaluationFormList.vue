@@ -170,7 +170,7 @@
                                     class="fas fa-plus"></i> Add
                                 Question</button>
                         </div>
-                        <div class="question-container" style="height: 60vh; max-height: 60vh;  overflow-y: auto;">
+                        <div class="question-container" style=" max-height: 60vh;  overflow-y: auto;">
                             <div class="mb-3" v-for="(question, questionindex) in questions" :key="questionindex">
                                 <label for="question1" class="form-label fw-bold">Question {{ questionindex + 1
                                     }}</label>
