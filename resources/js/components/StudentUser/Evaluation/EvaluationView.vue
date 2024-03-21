@@ -6,17 +6,17 @@
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6" style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                        <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
                     </h5>
                     <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-5"></span>
+                        <span class="placeholder col-5 bg-secondary"></span>
                     </p>
                     <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary"></span>
                     </p>
                     <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
                             style="height: 35px; width: 70px;"></button>
                     </div>
                 </div>
@@ -25,17 +25,17 @@
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6" style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                        <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
                     </h5>
                     <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-5"></span>
+                        <span class="placeholder col-5 bg-secondary"></span>
                     </p>
                     <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary"></span>
                     </p>
                     <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
                             style="height: 35px; width: 70px;"></button>
                     </div>
                 </div>
@@ -44,17 +44,17 @@
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6" style="height: 40px; width: 50px; border-radius: 60px;"></span>
-                        <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
                     </h5>
                     <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-5"></span>
+                        <span class="placeholder col-5 bg-secondary"></span>
                     </p>
                     <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary"></span>
                     </p>
                     <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
                             style="height: 35px; width: 70px;"></button>
                     </div>
                 </div>

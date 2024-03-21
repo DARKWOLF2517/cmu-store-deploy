@@ -2,16 +2,14 @@
     <div class="schedule-list-container" id="schedule-list">
         <!-- Loading spinner -->
         <div v-if="loading" style="padding: 10px;" >
-            <div class="card" aria-hidden="true" style=" height: 160px; border:none; ">
+            <div class="card mb-2" aria-hidden="true" style=" height: 150px; border:none; ">
                 <div class="card-body ">
                     <small class="card-text placeholder-glow ">
-                        <span class="placeholder col-6 mt-0"></span>
+                        <span class="placeholder col-6 mt-0 bg-secondary"></span>
                         <br>
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary placeholder-sm"></span>
                         <br>
-                        <span class="placeholder col-4 mt-0"></span>
-                        <br>
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary placeholder-sm"></span>
                     </small>
                     <div class="d-flex justify-content-end">
                         <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
@@ -19,16 +17,14 @@
                     </div>
                 </div>
             </div>
-            <div class="card mt-2" aria-hidden="true" style=" height: 160px; border:none; ">
+            <div class="card mb-2" aria-hidden="true" style=" height: 150px; border:none; ">
                 <div class="card-body ">
                     <small class="card-text placeholder-glow ">
-                        <span class="placeholder col-6 mt-0"></span>
+                        <span class="placeholder col-6 mt-0 bg-secondary"></span>
                         <br>
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary placeholder-sm"></span>
                         <br>
-                        <span class="placeholder col-4 mt-0"></span>
-                        <br>
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary placeholder-sm"></span>
                     </small>
                     <div class="d-flex justify-content-end">
                         <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
@@ -36,16 +32,14 @@
                     </div>
                 </div>
             </div>
-            <div class="card mt-2" aria-hidden="true" style=" height: 160px; border:none; ">
+            <div class="card mb-2" aria-hidden="true" style=" height: 150px; border:none; ">
                 <div class="card-body ">
                     <small class="card-text placeholder-glow ">
-                        <span class="placeholder col-6 mt-0"></span>
+                        <span class="placeholder col-6 mt-0 bg-secondary"></span>
                         <br>
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary placeholder-sm"></span>
                         <br>
-                        <span class="placeholder col-4 mt-0"></span>
-                        <br>
-                        <span class="placeholder col-4 mt-0"></span>
+                        <span class="placeholder col-4 mt-0 bg-secondary placeholder-sm"></span>
                     </small>
                     <div class="d-flex justify-content-end">
                         <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "

@@ -19,50 +19,50 @@
                         <div class="card" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
                                 <h5 class="card-title placeholder-glow ">
-                                    <span class="placeholder col-6"
+                                    <span class="placeholder col-6 bg-secondary"
                                         style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                                    <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                                    <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
                                 </h5>
                                 <p class="card-text placeholder-glow mt-2 ">
 
-                                    <span class="placeholder col-2"></span>
+                                    <span class="placeholder col-2 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-8"></span>
+                                    <span class="placeholder col-8 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                 </p>
                             </div>
                         </div>
-                        <div class="card mt-4" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
+                        <div class="card" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
                                 <h5 class="card-title placeholder-glow ">
-                                    <span class="placeholder col-6"
+                                    <span class="placeholder col-6 bg-secondary"
                                         style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                                    <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                                    <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
                                 </h5>
                                 <p class="card-text placeholder-glow mt-2 ">
 
-                                    <span class="placeholder col-2"></span>
+                                    <span class="placeholder col-2 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-8"></span>
+                                    <span class="placeholder col-8 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                 </p>
                             </div>
                         </div>

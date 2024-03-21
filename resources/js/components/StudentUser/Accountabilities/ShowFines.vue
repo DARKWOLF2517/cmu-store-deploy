@@ -28,17 +28,17 @@
                     <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
                         <div class="card-body ">
 
-                            <h5 class="card-title placeholder-glow text-center" >
-                                <span class="placeholder col-6" style="height: 40px; width: 40px;"></span>
+                            <h5 class="card-title placeholder-glow text-center mt-2" >
+                                <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px;"></span>
                             </h5>
                             <p class="card-text placeholder-glow mt-2 text-center">
-                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4 bg-secondary"></span>
                             </p>
-                            <p class="card-text placeholder-glow mt-2 text-center">
-                                <span class="placeholder col-8"></span>
+                            <p class="card-text placeholder-glow placeholder-xs mt-2 text-center">
+                                <span class="placeholder col-8 bg-secondary"></span>
                             </p>
                             <div class="d-flex justify-content-center">
-                            <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 " style="height: 35px; width: 130px;"></button>
+                            <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 " style="height: 35px; width: 120px;"></button>
                         </div>
                         </div>
                     </div>

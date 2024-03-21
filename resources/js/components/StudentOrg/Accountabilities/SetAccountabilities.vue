@@ -47,29 +47,14 @@
     <div class="accountabilities-container" id="set-accountabilities">
         <!-- Loading spinner -->
         <div v-if="loading" class="d-flex gap-4" style="padding: 10px;">
-                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 180px; border:none;">
                         <div class="card-body ">
 
                             <h5 class="card-title placeholder-glow text-center" >
-                                <span class="placeholder col-6 rounded bg-secondary" style="height: 50px; width: 50px;"></span>
+                                <span class="placeholder col-6 rounded bg-secondary" style="height: 40px; width: 40px;"></span>
                             </h5>
-                            <p class="card-text placeholder-glow mt-4 text-center" >
-                                <span class="placeholder col-4 bg-secondary"style="height: 30px; "></span>
-                            </p>
-                            <p class="card-text placeholder-glow mt-2 text-center" >
-                                <span class="placeholder col-2 bg-secondary"style="height: 25px; "></span>
-                            </p>
-
-                        </div>
-                    </div>
-                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
-                        <div class="card-body ">
-
-                            <h5 class="card-title placeholder-glow text-center" >
-                                <span class="placeholder col-6 rounded bg-secondary" style="height: 50px; width: 50px;"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow mt-4 text-center " >
-                                <span class="placeholder col-4  bg-secondary"style="height: 30px; "></span>
+                            <p class="card-text placeholder-glow text-center" >
+                                <span class="placeholder col-4 bg-secondary"style="height: 20px; "></span>
                             </p>
                             <p class="card-text placeholder-glow mt-2 text-center" >
                                 <span class="placeholder col-2 bg-secondary"style="height: 25px; "></span>
