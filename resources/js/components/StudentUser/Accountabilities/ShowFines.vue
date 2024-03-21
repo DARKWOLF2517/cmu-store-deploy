@@ -1,6 +1,7 @@
 <template>
     <div class="row head-container mt-2">
-        <div class="d-flex justify-content-between align-items-center">
+
+        <div class="d-flex justify-content-between align-items-center ">
             <div class="col-md-6 col-sm-12">
                 <h3 class="mt-2"><i class="fas fa-list"></i> Accountabilities</h3>
             </div>
@@ -19,78 +20,52 @@
         </div>
     </div>
 
-
-
     <div id="accountability-container">
-        <div class="accountability-cards-list">
-            <div class="stud-accountability-card border-top border-5 border-success border-bottom-0"
-                v-for="user_orgs in this.user_organization">
-                <div class="p-2 text-center">
-                    <h2 class="text-center bold mt-2"><i class="bi bi-wallet2 text-secondary"></i></h2>
-                    <h5 class="card-title mt-2"><strong>{{ user_orgs.organization.name }} </strong></h5>
-                    <p>{{ user_orgs.organization.description }}</p>
-                    <!-- <h2 class="total-payment bold">&#8369; 10,000</h2> -->
-                    <!-- Use "&#8369;" for the peso sign -->
+        <div class="col">
+            <div>
+                <!-- Loading spinner -->
+                <div v-if="loading">
+                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                        <div class="card-body ">
 
+                            <h5 class="card-title placeholder-glow text-center" >
+                                <span class="placeholder col-6" style="height: 40px; width: 50px;"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow mt-2 text-center">
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <p class="card-text placeholder-glow mt-2 text-center">
+                                <span class="placeholder col-8"></span>
+                            </p>
+                            <div class="d-flex justify-content-center">
+                            <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 " style="height: 35px; width: 130px;"></button>
+                        </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center">
-                    <button class="btn button-secondary" style="background-color: #4fb98e; color: #fefffe;"
-                        data-bs-toggle="modal" data-bs-target="#seeMoreAccountability"
-                        @click="this.org_id = user_orgs.student_org_id, this.org_name = user_orgs.organization.name, this.fetchData()">
-                        <i class="fas fa-eye"></i> See more
-                    </button>
-                </div>
-            </div>
+                <div class="accountability-cards-list" v-if="!loading">
+                    <div class="stud-accountability-card border-top border-5 border-success border-bottom-0"
+                        v-for="user_orgs in this.user_organization">
+                        <div class="p-2 text-center">
+                            <h2 class="text-center bold mt-2"><i class="bi bi-wallet2 text-secondary"></i></h2>
+                            <h5 class="card-title mt-2"><strong>{{ user_orgs.organization.name }} </strong></h5>
+                            <p>{{ user_orgs.organization.description }}</p>
+                            <!-- <h2 class="total-payment bold">&#8369; 10,000</h2> -->
+                            <!-- Use "&#8369;" for the peso sign -->
 
-        </div>
-    </div>
-
-    <!-- <div class="mt-2">
-            <div class="row head-container">
-                <div class="col-md-6 col-sm-12">
-                    <h4><i class="fas fa-list mt-2"></i>  Accountabilities</h4>
-                </div>
-                <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end;">
-                    <div class="select-dropdown">
-                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"  @change="fetchData">
-                            <option value="0" disabled selected>Select School Year</option>
-                            <option v-for="school_year in this.school_year" :value="school_year['id']" >{{ school_year['school_year'] }}</option>
-                        </select>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn button-secondary" style="background-color: #4fb98e; color: #fefffe;"
+                                data-bs-toggle="modal" data-bs-target="#seeMoreAccountability"
+                                @click="this.org_id = user_orgs.student_org_id, this.org_name = user_orgs.organization.name, this.fetchData()">
+                                <i class="fas fa-eye"></i> See more
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div> -->
-
-
-    <!-- <div class="scroll-pane">
-            <div id="accountabilities-table">
-                <table class="student-accountabilities" id="accountabilities-table">
-                        <tr >
-                            <th style="width: 30%; background-color: #53967c; color: white;"> <h5> <b>Student Name</b></h5></th>
-                            <td style=" background-color: #53967c; color: white;"><h5>{{ this.name }}</h5></td>
-                        </tr>
-                        <tr style="background-color: #84c0b4; color: #fefffe;">
-                            <th> <h6><b>Accountabilities</b> </h6></th>
-                            <td> <h6><b>Amount</b></h6>  </td>
-                        </tr>
-                        <tr>
-                            <th>Fines</th>
-                            <td>{{fines}}
-                                <i class="fas fa-eye ml-6">see more</i>
-                            </td>
-                        </tr>
-                        <tr v-for="accountability in this.accountabilityList">
-                            <th>{{ accountability['accountability_name'] }}</th>
-                            <td >{{ accountability['amount'] }}</td>
-
-                        </tr>
-
-
-
-                    </table>
-            </div>
-        </div>  -->
-
+        </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="seeMoreAccountability" tabindex="-1" aria-labelledby="seeMoreAccountabilityLabel"
         aria-hidden="true">
@@ -117,10 +92,6 @@
                                 <h6><b>Amount</b></h6>
                             </th>
                         </thead>
-                        <!-- <tr style="background-color: #84c0b4; color: #fefffe;">
-                            <th> <h6><b>Accountabilities</b> </h6></th>
-                            <td> <h6><b>Amount</b></h6>  </td>
-                        </tr> -->
                         <tbody>
                             <tr>
                                 <th>Fines</th>
@@ -130,7 +101,8 @@
                             </tr>
                             <tr v-for="accountability in this.accountabilityList">
                                 <th>{{ accountability['accountability_name'] }}</th>
-                                <td>{{ getTotalAccountabilitiesIndividual(accountability['accountability_name'], accountability['amount'])  }}</td>
+                                <td>{{ getTotalAccountabilitiesIndividual(accountability['accountability_name'],
+                            accountability['amount']) }}</td>
 
                             </tr>
                         </tbody>
@@ -162,6 +134,7 @@ export default {
             org_name: '',
             user_organization: [],
             paid_accountabilities: [],
+            loading: true,
         }
     },
     mounted() {
@@ -204,10 +177,11 @@ export default {
                     .then(response => {
                         this.accountabilityList = response.data;
                         // console.log(this.accountabilityList)
+                        this.loading = false;
                     })
                     .catch(error => {
                         alert(error)
-
+                        this.loading = false;
                     });
 
             this.fetchEventsWithAttendance();

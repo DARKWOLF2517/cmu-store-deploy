@@ -1,22 +1,85 @@
 <template>
     <div id="evaluation-container">
-        <div class="evaluation-event-cards">
+        <div class="col">
+        <div v-if="loading" class="d-flex gap-4">
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                <div class="card-body ">
+
+                    <h5 class="card-title placeholder-glow ">
+                        <span class="placeholder col-6" style="height: 40px; width: 50px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-5"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-4 mt-0"></span>
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                <div class="card-body ">
+
+                    <h5 class="card-title placeholder-glow ">
+                        <span class="placeholder col-6" style="height: 40px; width: 50px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-5"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-4 mt-0"></span>
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                <div class="card-body ">
+
+                    <h5 class="card-title placeholder-glow ">
+                        <span class="placeholder col-6" style="height: 40px; width: 50px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-5"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-4 mt-0"></span>
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="evaluation-event-cards"  v-if="!loading">
             <!-- <div class="evaluation-list">
         <div class="evaluation-container" id="evaluation-container">
             <div class="evaluation-cards-list"> -->
+                <!-- Loading spinner -->
+
             <div v-for="(event, index) in this.events" :id="event.event_id" :class="[
-                'event-card',
-                'border-top',
-                'border-5',
-                { 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0 },
-                'py-3'
-            ]">
+            'event-card',
+            'border-top',
+            'border-5',
+            { 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0 },
+            'py-3'
+        ]">
 
                 <div class="card-body">
                     <div class="info">
                         <div class="d-flex align-items-center">
-                            <img v-if="event.organization.image" :src="event.organization.image"
-                                alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                            <img v-if="event.organization.image" :src="event.organization.image" alt="user-image"
+                                width="32" height="32" class="rounded-circle me-2">
                             <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
                                 alt="user-image" width="32" height="32" class="rounded-circle me-2">
                             <strong class="posted-by-title ml-2">{{ event.organization.name }}</strong>
@@ -116,6 +179,7 @@ export default {
         return {
             events: [],
             user_answer_student_id: [],
+            loading: true,
 
         }
     },
@@ -140,10 +204,12 @@ export default {
                     // data.forEach(item => {
                     //     item["start_date"] = convertDate(item["start_date"]);
                     // });
+                    this.loading = false;
 
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false;
                 });
 
         },
