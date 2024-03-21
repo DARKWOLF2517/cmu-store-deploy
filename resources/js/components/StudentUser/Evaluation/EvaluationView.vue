@@ -184,8 +184,9 @@ export default {
         }
     },
     mounted() {
-        this.fetchData();
         this.getEvaluationStatus()
+        this.fetchData();
+        
 
     },
 
