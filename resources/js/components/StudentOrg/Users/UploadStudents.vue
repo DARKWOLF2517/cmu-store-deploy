@@ -451,7 +451,7 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.showSucces(response.data.message);
-                    this.fetchData();
+                    // this.fetchData();
                 })
                 .catch(error => {
                     console.log(error)
@@ -485,11 +485,9 @@ export default {
                     }
                     else {
                         this.showSucces(response.data.message);
-                        this.fetchData();
+                        // this.fetchData();
                     }
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
+
                 })
                 .catch(error => {
                     console.log(error)
@@ -672,17 +670,12 @@ export default {
                     .then(response => {
                         console.log(response.data)
                         this.loading = false;
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1000);
-                        // Hide modal
-
                         if (response.data.type == 0) {
                             this.showError('Error File');
                         }
                         else {
                             this.showSucces(response.data.message);
-                            this.fetchData();
+                            // this.fetchData();
                         }
 
                     })
@@ -815,6 +808,9 @@ export default {
             // });
         },
         showSucces(message) {
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
             toast.success(message), {
                 autoClose: 100,
             }

@@ -284,7 +284,7 @@ export default {
             axios.put(`/updateAnnouncement/${this.id}`, this.announcement_data)
                 .then(response => {
                     // console.log(response.data)
-                    this.fetchData();
+                    // this.fetchData();
                     this.showSucces(response.data.message);
                     setTimeout(() => {
                         location.reload();
@@ -312,7 +312,7 @@ export default {
                 .then(response => {
                     // console.log(response.data)
 
-                    this.fetchData();
+                    // this.fetchData();
                     this.showSucces(response.data.message);
                     setTimeout(() => {
                         location.reload();

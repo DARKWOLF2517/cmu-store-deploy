@@ -25,10 +25,11 @@
             <div>
                 <!-- Loading spinner -->
                 <div v-if="loading">
-                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                    <div class="card" aria-hidden="true"
+                        style="width: calc(33.33% - 30px); height: 200px; border:none;">
                         <div class="card-body ">
 
-                            <h5 class="card-title placeholder-glow text-center" >
+                            <h5 class="card-title placeholder-glow text-center">
                                 <span class="placeholder col-6" style="height: 40px; width: 40px;"></span>
                             </h5>
                             <p class="card-text placeholder-glow mt-2 text-center">
@@ -38,8 +39,10 @@
                                 <span class="placeholder col-8"></span>
                             </p>
                             <div class="d-flex justify-content-center">
-                            <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 " style="height: 35px; width: 130px;"></button>
-                        </div>
+                                <button type="button" tabindex="-1"
+                                    class="btn btn-success mt-2 disabled placeholder col-6 "
+                                    style="height: 35px; width: 130px;"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,13 +98,13 @@
                         <tbody>
                             <tr>
                                 <th>Fines</th>
-                                <td>{{ getTotalAccountabilitiesIndividual('fines', fines) }}
+                                <td>&#8369; {{ getTotalAccountabilitiesIndividual('fines', fines) }}
                                     <!-- <i class="fas fa-eye ml-6">see more</i> -->
                                 </td>
                             </tr>
                             <tr v-for="accountability in this.accountabilityList">
                                 <th>{{ accountability['accountability_name'] }}</th>
-                                <td>{{ getTotalAccountabilitiesIndividual(accountability['accountability_name'],
+                                <td>&#8369; {{ getTotalAccountabilitiesIndividual(accountability['accountability_name'],
                             accountability['amount']) }}</td>
 
                             </tr>
@@ -192,7 +195,12 @@ export default {
                 .filter(item => item.accountability_type == accountability_type)
                 .reduce((total, item) => total + item.amount, 0);
 
-            return amount - totalAmountFines;
+            let total_amount = amount - totalAmountFines
+            if (Number.isInteger(total_amount)) {
+                // If it is a whole number, convert it to a string with two decimal places
+                total_amount = total_amount.toFixed(2);
+            }
+            return total_amount;
 
 
         },
@@ -245,6 +253,11 @@ export default {
 
                     this.total_accountability = this.total_accountability + this.fines;
                     this.total_accountability = this.total_accountability - totalAmount;
+
+                    if (Number.isInteger( this.total_accountability)) {
+                        // If it is a whole number, convert it to a string with two decimal places
+                        this.total_accountability =  this.total_accountability.toFixed(2);
+                    }
 
 
                 })

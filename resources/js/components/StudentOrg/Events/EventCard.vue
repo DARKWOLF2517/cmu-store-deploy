@@ -684,9 +684,7 @@ export default {
             axios.post(`/submitCancelAttendanceEvent/${this.id}/${this.school_year_input}`, this.attendanceCancelled)
                 .then(response => {
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
+
                     console.log(response.data)
                 })
                 .catch(error => {
@@ -721,9 +719,7 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
+
                     this.fetchData();
                 })
                 .catch(error => {
@@ -744,9 +740,7 @@ export default {
             axios.post(`/submitYearLevelExempted/${this.organization_id}/${this.school_year_input}/${this.id}`, this.year_level_exempted)
                 .then(response => {
                     this.showSucces('Exempted Year Level Updated Successfully');
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
+
                     console.log(response.data)
                 })
                 .catch(error => {
@@ -863,9 +857,7 @@ export default {
                 axios.post('/events', this.formData)
                     .then(response => {
                         this.showSucces(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
+
                         // console.log(response.data)
                     })
                     .catch(error => {
@@ -922,9 +914,7 @@ export default {
                 .then(response => {
                     this.submit = this.sendData;
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
+
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -940,6 +930,7 @@ export default {
                     if (response.data.status == 1) {
                         this.showSucces(response.data.message);
                         console.log(response.data)
+
                     }
                     else {
                         this.showError(response.data.message);
@@ -967,9 +958,7 @@ export default {
                         this.isSubmitting = true;
                         console.log(response.data)
                         this.showSucces(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
+
                         this.fetchData();
                     })
                     .catch(error => {
@@ -978,7 +967,10 @@ export default {
             }
         },
         showSucces(message) {
-            this.fetchData();
+            // this.fetchData();
+            setTimeout(() => {
+                location.reload();
+            }, 500);
             toast.success(message), {
                 autoClose: 100,
             }

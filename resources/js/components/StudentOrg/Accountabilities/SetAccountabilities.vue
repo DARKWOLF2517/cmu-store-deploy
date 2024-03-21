@@ -47,37 +47,37 @@
     <div class="accountabilities-container" id="set-accountabilities">
         <!-- Loading spinner -->
         <div v-if="loading" class="d-flex gap-4" style="padding: 10px;">
-                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
-                        <div class="card-body ">
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                <div class="card-body ">
 
-                            <h5 class="card-title placeholder-glow text-center" >
-                                <span class="placeholder col-6 rounded bg-secondary" style="height: 50px; width: 50px;"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow mt-4 text-center" >
-                                <span class="placeholder col-4 bg-secondary"style="height: 30px; "></span>
-                            </p>
-                            <p class="card-text placeholder-glow mt-2 text-center" >
-                                <span class="placeholder col-2 bg-secondary"style="height: 25px; "></span>
-                            </p>
+                    <h5 class="card-title placeholder-glow text-center">
+                        <span class="placeholder col-6 rounded bg-secondary" style="height: 50px; width: 50px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow mt-4 text-center">
+                        <span class="placeholder col-4 bg-secondary" style="height: 30px; "></span>
+                    </p>
+                    <p class="card-text placeholder-glow mt-2 text-center">
+                        <span class="placeholder col-2 bg-secondary" style="height: 25px; "></span>
+                    </p>
 
-                        </div>
-                    </div>
-                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
-                        <div class="card-body ">
-
-                            <h5 class="card-title placeholder-glow text-center" >
-                                <span class="placeholder col-6 rounded bg-secondary" style="height: 50px; width: 50px;"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow mt-4 text-center " >
-                                <span class="placeholder col-4  bg-secondary"style="height: 30px; "></span>
-                            </p>
-                            <p class="card-text placeholder-glow mt-2 text-center" >
-                                <span class="placeholder col-2 bg-secondary"style="height: 25px; "></span>
-                            </p>
-
-                        </div>
-                    </div>
                 </div>
+            </div>
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                <div class="card-body ">
+
+                    <h5 class="card-title placeholder-glow text-center">
+                        <span class="placeholder col-6 rounded bg-secondary" style="height: 50px; width: 50px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow mt-4 text-center ">
+                        <span class="placeholder col-4  bg-secondary" style="height: 30px; "></span>
+                    </p>
+                    <p class="card-text placeholder-glow mt-2 text-center">
+                        <span class="placeholder col-2 bg-secondary" style="height: 25px; "></span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
         <!-- Will show if there are no records -->
         <div class="Container-IfEmpty" v-if="!loading && accountabilityList.length === 0">
             <div class="Empty-Message text-center">
@@ -167,7 +167,8 @@
                             reached</p>
                         <label for="membershipFeeInput" class="form-label">Amount:</label>
                         <input type="number" class="form-control" id="amount" v-model="formData.amount" required
-                            maxlength="20" :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }">
+                            step="any" maxlength="20"
+                            :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }">
                         <p class="pl-2" v-if="formData.amount.length >= 20" style="color: red;">Maximum length reached
                         </p>
                     </div>
@@ -248,9 +249,6 @@ export default {
                         }
                         else {
                             this.showSuccess(response.data.message);
-                            setTimeout(() => {
-                                location.reload();
-                            }, 1000);
                         }
 
                     })
@@ -294,7 +292,10 @@ export default {
                 });
         },
         showSuccess(message) {
-            this.fetchData();
+            // this.fetchData();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
             toast.success(message, {
                 autoClose: 3000,
             });
@@ -314,9 +315,7 @@ export default {
                 axios.post('/set_accountabilities', this.formData)
                     .then((response) => {
                         this.showSuccess(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 1000);
+                        
                     })
                     .catch((error) => {
                         alert(error);

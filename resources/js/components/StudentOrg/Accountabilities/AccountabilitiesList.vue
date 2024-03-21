@@ -535,33 +535,6 @@ export default {
 
             }
         },
-        // getTableData1(){
-        //     // Get a reference to the table
-        //     var table = document.getElementById('temporaryList');
-
-        //     // Initialize an array to store the table data without the first row
-        //     var tableDataWithoutFirstRow = [];
-
-        //     // Iterate through the rows of the table, starting from the second row
-        //     for (var i = 1; i < table.rows.length; i++) {
-        //     var rowData = [];
-
-        //     // Iterate through the cells of the current row
-        //     for (var j = 0; j < table.rows[i].cells.length; j++) {
-        //         // Push the cell value to the rowData array
-        //         rowData.push(table.rows[i].cells[j].textContent);
-        //     }
-
-        //     // Push the row data to the tableDataWithoutFirstRow array
-        //     tableDataWithoutFirstRow.push(rowData);
-        //     }
-
-        //     // Output the tableDataWithoutFirstRow array
-        //     // console.log(tableDataWithoutFirstRow);
-        //     this.attendanceFill = tableDataWithoutFirstRow;
-        //     // console.log(this.attendanceFill)
-        // },
-
         SubmitPayment() {
             // for adding payment database
             console.log(this.accountability_type)
@@ -587,37 +560,7 @@ export default {
                     alert(error)
 
                 });
-
-            // console.log(this.attendanceFill)
-
-            // //for adding to attendance to remove the list but leave remarks of 1
-            // axios.post('/attendanceFill', this.attendanceFill)
-            //     .then(response => {
-            //         // this.showSucces(response.data.message);
-            //         // this.fetchData();
-            //         // location.reload();
-            //         console.log(response.data)
-            //     })
-            //     .catch(error => {
-            //         alert(error)
-
-            // });
-
         },
-        // OtherAccountabilityPayment(){
-
-        //     // console.log(this.otherAccountabilitiesPaymentDetails)
-        //     axios.post('/OtherAccountabilityPayment', this.otherAccountabilitiesPaymentDetails)
-        //             .then(response => {
-        //                 // this.showSucces(response.data.message);
-        //                 // this.fetchData();
-        //                 location.reload();
-        //             })
-        //             .catch(error => {
-        //                 alert(error)
-
-        //         });
-        // },
         filterItems() {
             //FILTER OF FINES
             this.filtered_items_for_fines = this.total_fees.filter(item => {

@@ -259,18 +259,18 @@
                                             </thead>
                                             <tbody>
                                                 <div class=" h-100">
-                                                            <div v-if="loading">
-                                                                <span class="loader"></span>
-                                                            </div>
-                                                            <!-- Will show if Table is Empty -->
-                                                            <div class="table-IfEmpty "
-                                                                v-if="!loading && year_level_data.length == 0">
-                                                                <div>
-                                                                    <h6 class="text-muted"><b>
-                                                                            Add Year Level here.</b></h6>
-                                                                </div>
-                                                            </div>
+                                                    <div v-if="loading">
+                                                        <span class="loader"></span>
+                                                    </div>
+                                                    <!-- Will show if Table is Empty -->
+                                                    <div class="table-IfEmpty "
+                                                        v-if="!loading && year_level_data.length == 0">
+                                                        <div>
+                                                            <h6 class="text-muted"><b>
+                                                                    Add Year Level here.</b></h6>
                                                         </div>
+                                                    </div>
+                                                </div>
                                                 <!-- Adjust the v-for loop based on your data structure for year levels -->
                                                 <tr v-for="year_level in this.year_level_data">
                                                     <td>{{ year_level.year_level }}</td>
@@ -723,10 +723,7 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
-                    this.showYearLevel();
+                    // this.showYearLevel();
 
                 })
                 .catch(error => {
@@ -748,7 +745,7 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
-                    this.showYearLevel();
+                    // this.showYearLevel();
                 })
                 .catch(error => {
                     console.log(error)
@@ -759,10 +756,8 @@ export default {
             axios.post('/add_year_level', this.year_level_input)
                 .then(response => {
                     this.showSucces(response.data.message);
-                    this.showYearLevel();
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
+                    // this.showYearLevel();
+
                 })
                 .catch(error => {
                     console.log(error)
@@ -797,10 +792,8 @@ export default {
                 console.log(response.data);
                 // Handle success
                 this.showSucces(response.data.message);
-                setTimeout(() => {
-                    location.reload();
-                }, 500);
-                this.showOrgProfile();
+
+                // this.showOrgProfile();
             })
                 .catch(error => {
                     console.error(error);
@@ -820,10 +813,7 @@ export default {
                 console.log(response.data);
                 // Handle success
                 this.showSucces(response.data.message);
-                setTimeout(() => {
-                    location.reload();
-                }, 500);
-                this.showOrgProfile();
+                // this.showOrgProfile();
             })
                 .catch(error => {
                     console.error(error);
@@ -862,7 +852,7 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
-                    this.showOfficerRole();
+                    // this.showOfficerRole();
                 })
                 .catch(error => {
                     console.log(error)
@@ -877,14 +867,12 @@ export default {
                     // console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-                        this.showOfficerRole();
+
+                        // this.showOfficerRole();
                     }
                     else {
                         this.showSucces(response.data.message);
-                        this.showOfficerRole();
+                        // this.showOfficerRole();
                     }
                 })
                 .catch(error => {
@@ -941,15 +929,13 @@ export default {
                     // console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
-                        this.showOfficerRole();
+                        // this.showOfficerRole();
 
                     }
                     else {
                         this.showSucces(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-                        this.showOfficerRole();
+
+                        // this.showOfficerRole();
 
                     }
 
@@ -978,7 +964,7 @@ export default {
             axios.delete(`/deleteOfficer/${this.OfficerId}`)
                 .then(response => {
                     this.showSucces(response.data.message);
-                    this.showOfficer();
+                    // this.showOfficer();
                 })
                 .catch(error => {
                     console.log(error)
@@ -990,10 +976,8 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
-                    this.showOfficer();
+
+                    // this.showOfficer();
 
                 })
                 .catch(error => {
@@ -1020,22 +1004,16 @@ export default {
                     console.log(response.data)
                     if (response.data.type == 0) {
                         this.showError(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
+
                     }
                     else if (response.data.type == 2) {
                         this.showError(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
+
                     }
                     else {
                         this.showSucces(response.data.message);
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
-                        this.showOfficer();
+
+                        // this.showOfficer();
 
                     }
 
@@ -1098,7 +1076,7 @@ export default {
             axios.delete(`/deleteSchoolYear/${this.schoolYearId}`)
                 .then(response => {
                     this.showSucces(response.data.message);
-                    this.viewSchoolYear();
+                    // this.viewSchoolYear();
                 })
                 .catch(error => {
                     console.log(error)
@@ -1109,7 +1087,7 @@ export default {
             axios.put(`/update_school_year/${this.schoolYearId}`, this.addSchoolYears)
                 .then(response => {
                     this.showSucces(response.data.message);
-                    this.viewSchoolYear();
+                    // this.viewSchoolYear();
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -1145,7 +1123,7 @@ export default {
             axios.post('/add_school_year', this.addSchoolYears)
                 .then(response => {
                     this.showSucces(response.data.message);
-                    this.viewSchoolYear();
+                    // this.viewSchoolYear();
                 })
                 .catch(error => {
                     alert(error)
@@ -1153,6 +1131,9 @@ export default {
                 });
         },
         showSucces(message) {
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
             toast.success(message), {
                 autoClose: 100,
             }

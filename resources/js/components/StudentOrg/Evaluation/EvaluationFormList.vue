@@ -33,8 +33,8 @@
         </div>
     </div>
     <div id="evaluation-container">
-         <!-- Loading spinner -->
-         <div v-if="loading" class="d-flex gap-4">
+        <!-- Loading spinner -->
+        <div v-if="loading" class="d-flex gap-4">
             <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
                 <div class="card-body ">
 
@@ -117,7 +117,7 @@
                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                         <!-- option 1 -->
 
-                        <li><a class="dropdown-item">Set as Default</a></li>
+                        <!-- <li><a class="dropdown-item">Set as Default</a></li> -->
                         <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#evaluation-modal"
                                 @click="this.submit = this.updateData, fetchEditData(evaluation.id)">Edit Form</a></li>
                         <!-- option 2 -->
@@ -311,7 +311,7 @@ export default {
             formTitle: '',
             formDescription: '',
             evaluation_form: [],
-            filteredEvaluationForm:[],
+            filteredEvaluationForm: [],
             filteredEvaluationFormForModal: [],
             searchTerm: '',
         }
@@ -368,14 +368,11 @@ export default {
                 questions: this.questions,
                 org_id: this.organization_id,
                 accept_feedback: this.acceptFeedback,
-                school_year:this.school_year_session,
+                school_year: this.school_year_session,
             })
                 .then(response => {
                     console.log(response.data)
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
                 })
                 .catch(error => {
                     console.log(error)
@@ -387,7 +384,7 @@ export default {
                     // console.log(response.data)
                     if (response.data.status == 1) {
                         this.showSucces(response.data.message);
-                        this.fetchEvaluationForms();
+                        // this.fetchEvaluationForms();
                     }
                     else {
                         this.showError(response.data.message);
@@ -408,7 +405,7 @@ export default {
         },
         fetchEditData(evaluation_id) {
             this.evaluation_form_id = evaluation_id;
-            this.loading = true;
+            // this.loading = true;
 
             axios.get(`/fetchEvaluationFormUpdate/${evaluation_id}`)
                 .then(response => {
@@ -449,14 +446,12 @@ export default {
                 questions: this.questions,
                 org_id: this.organization_id,
                 accept_feedback: this.acceptFeedback,
-                school_year:this.school_year_session,
+                school_year: this.school_year_session,
             })
                 .then(response => {
                     console.log(response.data)
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
+
                 })
                 .catch(error => {
                     console.log(error)
@@ -487,6 +482,9 @@ export default {
             console.log(this.filteredEvaluationFormForModal)
         },
         showSucces(message) {
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
             toast.success(message), {
                 autoClose: 1000,
             }
