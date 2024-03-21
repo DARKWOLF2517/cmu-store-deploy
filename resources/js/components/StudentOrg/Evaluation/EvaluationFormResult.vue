@@ -3,9 +3,9 @@
     <div class="btn-group d-flex justify-content-end p-2" role="group">
         <div>
             <button id="print-button" class="btn me-2" @click="printSummary()">
-               <i class="fas fa-print"></i>
+                <i class="fas fa-print"></i>
                 Print Results</button>
-                <!-- <button class="btn me-2" id="download-results-button" @click="downloadPDF()">
+            <!-- <button class="btn me-2" id="download-results-button" @click="downloadPDF()">
     <i class="fas fa-download"></i> Download Results
 </button>
             <a class="btn me-2" href="/student_organization_evaluation_results_table">
@@ -17,25 +17,27 @@
         <h3>STUDENT ORGANIZATIONS & ACTIVITIES EVALUATION FORM</h3>
         <hr>
         <p class="mb-0" for="Activity">Event: <b>{{ this.event_description.event_name }}</b> </p>
-        <p class="mb-0" for="StudentOrganization">Name of Organization: <b>{{this.event_description.org_name }}</b></p>
+        <p class="mb-0" for="StudentOrganization">Name of Organization: <b>{{ this.event_description.org_name }}</b></p>
         <p class="mb-0" for="DateTime">Date <b>{{ this.event_description.date }}</b></p>
         <p class="mb-0" for="Venue">Venue: <b>{{ this.event_description.venue }}</b></p>
+        <p class="mb-0" for="Venue">Tota Response: <b>{{ this.event_description.totalResponse }}</b></p>
 
         <div class="row">
             <div class="col" v-for="evaluation_questions in evaluation_question_id">
                 <div class="piechart" :id="evaluation_questions.id"></div>
             </div>
         </div>
-<br>
-<br>
-<br>
-<br>
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="row">
             <div class="col-md-12 col-12 feedback">
-                <h4 >Feedbacks</h4>
+                <h4>Feedbacks</h4>
                 <div class="feedbacklist-card">
                     <ul class="list-group" id="evaluation-feedbacks">
-                        <li class="list-group-item mb-2" v-for="feedbacks in this.feedback">{{ feedbacks.word_answer }}</li>
+                        <li class="list-group-item mb-2" v-for="feedbacks in this.feedback">{{ feedbacks.word_answer }}
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -55,24 +57,39 @@ export default {
         return {
             evaluation_result: [],
             evaluation_question_id: [],
-            feedback:[],
-            event_description:{
-                event_name:'',
+            feedback: [],
+            event_description: {
+                event_name: '',
                 org_name: '',
                 date: '',
-                venue:'',
+                venue: '',
+                totalResponse: '',
             },
         }
     },
     mounted() {
         this.fetchEvent();
+        this.fetchTotaResponse();
         console.log('mounted')
         // this.pieChart();
         this.fetchAnswer();
         this.fetchFeedback();
+     
 
     },
     methods: {
+        async fetchTotaResponse() {
+            await axios.get(`/getTotalResponse/${this.event_id}`)
+                .then((response) => {
+                    console.log(response.data)
+                    this.event_description.totalResponse = response.data
+                })
+                .catch((error) => {
+                    // Handle error
+                    console.log(error)
+                });
+        },
+
         fetchFeedback() {
             axios.get(`/get_evaluation_feedback/${this.event_id}`)
                 .then(response => {
@@ -99,6 +116,7 @@ export default {
         fetchAnswer() {
             axios.get(`/evaluation_answer/${this.event_id}`)
                 .then(response => {
+                    console.log(response.data)
                     this.evaluation_result = response.data;
                     this.evaluation_result.forEach(evaluation => {
 
@@ -106,7 +124,7 @@ export default {
                             this.evaluation_question_id.push({
                                 id: question.id,
                             })
-                            console.log(question);
+                            // console.log(question);
                             let options = [];
                             let answers_temporary = [];
                             question.evaluation_option.forEach(option => {
@@ -191,16 +209,16 @@ export default {
                 chart.draw(data, chartOptions);
             });
         },
-        printSummary(){
-    const contentToPrint = document.getElementById('evaluation-summary').cloneNode(true);
+        printSummary() {
+            const contentToPrint = document.getElementById('evaluation-summary').cloneNode(true);
 
- // Create a hidden iframe for printing
- const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-    const iframeDoc = iframe.contentWindow.document;
-    iframeDoc.open();
-    iframeDoc.write(`
+            // Create a hidden iframe for printing
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            const iframeDoc = iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(`
     <!DOCTYPE html>
 <html><head><title>Evaluation  Results</title> </head>
 <body>
@@ -209,17 +227,17 @@ export default {
 </html>
 
 `);
-iframeDoc.close();
+            iframeDoc.close();
 
-// Print the iframe content
-iframe.contentWindow.focus();
-iframe.contentWindow.print();
+            // Print the iframe content
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
 
-// Remove the iframe after printing
-setTimeout(() => {
-    document.body.removeChild(iframe);
-}, 1000);
-},
+            // Remove the iframe after printing
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+            }, 1000);
+        },
     }
 
 }

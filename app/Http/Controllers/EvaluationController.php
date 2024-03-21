@@ -74,22 +74,22 @@ class  EvaluationController extends Controller
     }
     public function getEvaluationForm($org_id, $school_year)
     {
-        $events = EvaluationForm::where([['org_id', $org_id],['school_year', $school_year]])->with('evaluation_question.evaluation_option')->get();
+        $events = EvaluationForm::where([['org_id', $org_id], ['school_year', $school_year]])->with('evaluation_question.evaluation_option')->get();
         return $events->toJson();
     }
     public function deleteEvaluationForm($evaluation_form_id)
     {
         try {
             EvaluationForm::where('id', $evaluation_form_id)->delete();
-            return response()->json(['message' => 'Evaluation Form Deleted Successfully' ,'status' => 1]);
+            return response()->json(['message' => 'Evaluation Form Deleted Successfully', 'status' => 1]);
         } catch (QueryException $e) {
             // Check if the exception is due to a foreign key constraint
             if ($e->errorInfo[1] === 1451) {
-                return response()->json(['message' => 'Cannot delete the form due to existing records to this form' ,'status' => 0]);
+                return response()->json(['message' => 'Cannot delete the form due to existing records to this form', 'status' => 0]);
             }
 
             // Handle other database errors
-            return response()->json(['message' => 'Database error: ' . $e->getMessage() ,'status' => 0]);
+            return response()->json(['message' => 'Database error: ' . $e->getMessage(), 'status' => 0]);
         }
     }
     public function store(Request $request, $user_id, $event_id, $feedback)
@@ -129,6 +129,15 @@ class  EvaluationController extends Controller
     {
         $events = EvaluationForm::where('id', $evaluation_id)->with('evaluation_question.evaluation_option')->first();
         return $events->toJson();
+    }
+    public function getTotalResponse($event_id)
+    {
+
+        $uniqueCount = EvaluationAnswer::selectRaw('COUNT(DISTINCT student_id) as unique_count')->where('event_id',$event_id)
+            ->first();
+
+        $uniqueCount = $uniqueCount->unique_count;
+        return $uniqueCount;
     }
     public function updateEvaluationForm(Request $request)
     {

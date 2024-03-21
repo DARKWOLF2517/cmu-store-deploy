@@ -151,7 +151,7 @@
                 <div class="event-date-container"><span class="event-date"> <i class="bi bi-calendar"></i>
                         {{ evaluation['start_date'] }}</span></div>
                 <div class="event-title"><b>{{ evaluation['name'] }}</b></div>
-                <!-- <div class="event-desc">Total Response: <b>{{ evaluation['evaluation_form_answer'] }}</b></div> -->
+                <div class="event-desc">Total Response: <b>{{ evaluation['evaluation_form_answer'] }}</b></div>
 
                 <div>
                     <div class="event-status text-muted" v-if="evaluation['evaluation_status'] == 0">Status:
@@ -207,7 +207,13 @@ export default {
 
                     if (data) {
                         data.forEach((item) => {
-                            item['evaluation_form_answer'] = item['evaluation_form_answer'].length;
+                            // to get total responses
+                            const uniqueIds = new Set();
+                            item.evaluation_form_answer.forEach(element => {
+                                uniqueIds.add(element.student_id);
+                            });
+                            const uniqueIdCount = uniqueIds.size;
+                            item['evaluation_form_answer'] = uniqueIdCount;
                             this.evaluation = data;
                         });
 
