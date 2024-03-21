@@ -931,6 +931,7 @@ export default {
                         this.showError(response.data.message);
                         // this.showOfficerRole();
 
+
                     }
                     else {
                         this.showSucces(response.data.message);
@@ -1139,6 +1140,7 @@ export default {
             }
         },
         showError(message) {
+            this.isSubmitting = false;
             toast.error(message), {
                 autoClose: 100,
             }

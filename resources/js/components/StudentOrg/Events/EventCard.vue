@@ -123,7 +123,8 @@
                         </div>
                     </div>
                     <!-- Message if the container is empty -->
-                    <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_events.length === 0">
+                    <div class="Container-IfEmpty text-center"
+                        v-if="!loading && this.events == 0">
                         <div class="Empty-Message">
                             <i class="icon 	bi bi-calendar-event mb-0" id="icon-message"></i>
                             <p class="text-muted  mt-0"><b>Create Events when you're ready</b>
@@ -137,13 +138,12 @@
                         </div>
                     </div>
                     <!-- Message No results found -->
-                    <!-- <div class="Container-IfEmpty text-center"
-                        v-if="!loading && this.filtered_events.length == 0 && this.events != 0">
+                    <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_events.length === 0 && this.events != 0">
                         <div class="Empty-Message">
                             <i class="icon 	fas fa-frown" id="icon-message"></i>
                             <p class="text-muted fw-bold">No results found</p>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="recorded-event-cards">
                         <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[
                         'border-top',
@@ -831,7 +831,7 @@ export default {
 
 
         sendData() {
-
+            this.isSubmitting = true;
             // Assuming the checkboxes are already created as mentioned in your code snippet
 
             // Get all the checkboxes by their name
