@@ -1,12 +1,59 @@
 <template>
     <div class="schedule-list-container" id="schedule-list">
         <!-- Loading spinner -->
-        <div v-if="loading" class="loading-spinner-container">
-            <div class="spinner-border text-success" role="status">
-                <span class="visually-hidden">Loading...</span>
+        <div v-if="loading" style="padding: 10px;" >
+            <div class="card" aria-hidden="true" style=" height: 160px; border:none; ">
+                <div class="card-body ">
+                    <small class="card-text placeholder-glow ">
+                        <span class="placeholder col-6 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                    </small>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 110px;"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-2" aria-hidden="true" style=" height: 160px; border:none; ">
+                <div class="card-body ">
+                    <small class="card-text placeholder-glow ">
+                        <span class="placeholder col-6 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                    </small>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 110px;"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-2" aria-hidden="true" style=" height: 160px; border:none; ">
+                <div class="card-body ">
+                    <small class="card-text placeholder-glow ">
+                        <span class="placeholder col-6 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                        <br>
+                        <span class="placeholder col-4 mt-0"></span>
+                    </small>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 110px;"></button>
+                    </div>
+                </div>
             </div>
         </div>
-
         <!-- Message if the container is empty -->
         <div class="Message-IfEmpty" v-if="events.length === 0 && !loading">
             <i class="icon far fa-calendar-minus" id="icon-message"></i>

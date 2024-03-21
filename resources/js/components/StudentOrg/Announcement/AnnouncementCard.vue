@@ -48,9 +48,52 @@
             <div class="announcement-container" id="announcement-container">
                 <div class="announcement-cards-list align-items">
                     <!-- Loading spinner -->
-                    <div v-if="this.loading" class="loading-spinner-container">
-                        <div class="spinner-border text-success" id="event-spinner" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                    <div v-if="loading" class="mb-4"style="padding: 10px;">
+                        <div class="card" aria-hidden="true"
+                            style=" height: 300px; border:none; padding: 20px;">
+                            <div class="">
+
+                                <p class="card-text placeholder-glow mt-2 ">
+                                    <span class="placeholder col-8"></span>
+                                    <br>
+                                    <span class="placeholder col-2"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                    <br>
+                                    <span class="placeholder mt-4 col-12"></span>
+                                    <br>
+                                    <span class="placeholder mt-4 col-12"></span>
+                                    <br>
+                                    <span class="placeholder col-8"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card mt-4" aria-hidden="true"
+                            style=" height: 300px; border:none; padding: 20px;">
+                            <div class="">
+
+                                <p class="card-text placeholder-glow mt-2 ">
+                                    <span class="placeholder col-8"></span>
+                                    <br>
+                                    <span class="placeholder col-2"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                    <br>
+                                    <span class="placeholder mt-4 col-12"></span>
+                                    <br>
+                                    <span class="placeholder mt-4 col-12"></span>
+                                    <br>
+                                    <span class="placeholder col-8"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                     <!-- Message if the container is empty -->

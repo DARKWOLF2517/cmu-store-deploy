@@ -10,11 +10,11 @@
             <div class="col-md-6 col-sm-12"
                 style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
                 <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
-                        @change="fetchData">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="school_year_input" @change="fetchData">
                         <option value="" disabled selected>Select Semester</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                            school_year['school_year'] }}
+                        school_year['school_year'] }}
                         </option>
 
                     </select>
@@ -32,16 +32,64 @@
     </div>
     <h3><i class="fas fa-list mt-2"></i> Evaluation</h3>
     <div id="evaluation-container">
-        <div class="evaluation-event-cards">
+        <!-- Loading spinner -->
+        <div v-if="loading" class="d-flex gap-4">
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
+                <div class="card-body ">
 
-
-            <!-- Loading spinner -->
-            <div v-if="loading" class="loading-spinner-container">
-                <div class="spinner-border text-success" id="event-spinner" role="status">
-                    <span class="visually-hidden">Loading...</span>
+                    <h5 class="card-title placeholder-glow ">
+                        <span class="placeholder col-6" style="height: 35px; width: 200px; border-radius: 60px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-8"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-4 mt-0"></span>
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
                 </div>
             </div>
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
+                <div class="card-body ">
 
+                    <h5 class="card-title placeholder-glow ">
+                        <span class="placeholder col-6" style="height: 35px; width: 200px; border-radius: 60px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-8"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-4 mt-0"></span>
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
+                <div class="card-body ">
+
+                    <h5 class="card-title placeholder-glow ">
+                        <span class="placeholder col-6" style="height: 35px; width: 200px; border-radius: 60px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-8"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-4 mt-0"></span>
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="evaluation-event-cards">
             <!-- Message if the container is empty -->
             <div class="Container-IfEmpty text-center" v-if="!loading && evaluation.length === 0">
                 <div class="Empty-Message">
@@ -66,12 +114,12 @@
             <!-- Status EVALUATION CARD -->
             <!-- <div class="event-card border-top border-5 border-success border-bottom-0 py-3" v-for="evaluation in this.filtered_events" :id="evaluation.event_id"> -->
             <div v-for="evaluation in filtered_events" :id="evaluation.event_id" :class="[
-                'event-card',
-                'border-top',
-                'border-5',
-                { 'border-success': evaluation.evaluation_status === 0, 'border-warning': evaluation.evaluation_status === 1 },
-                'py-3'
-            ]">
+                        'event-card',
+                        'border-top',
+                        'border-5',
+                        { 'border-success': evaluation.evaluation_status === 0, 'border-warning': evaluation.evaluation_status === 1 },
+                        'py-3'
+                    ]">
 
                 <!-- Message if the container is empty -->
                 <div class="Container-IfEmpty" v-if="filtered_events.length === 0">
@@ -89,11 +137,13 @@
                     <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                         <!-- option 1 -->
 
-                        <li v-if="evaluation.evaluation_status == 0"><a class="dropdown-item" @click="UpdateAttendanceStatus(evaluation.event_id, '1')">Start
+                        <li v-if="evaluation.evaluation_status == 0"><a class="dropdown-item"
+                                @click="UpdateAttendanceStatus(evaluation.event_id, '1')">Start
                                 Evaluation</a>
                         </li>
                         <!-- option 2 -->
-                        <li v-else-if="evaluation.evaluation_status == 1"><a class="dropdown-item" @click="UpdateAttendanceStatus(evaluation.event_id, '0')">Stop
+                        <li v-else-if="evaluation.evaluation_status == 1"><a class="dropdown-item"
+                                @click="UpdateAttendanceStatus(evaluation.event_id, '0')">Stop
                                 Evaluation</a></li>
                         <!-- Add more dropdown items as needed -->
                     </ul>
@@ -104,7 +154,8 @@
                 <!-- <div class="event-desc">Total Response: <b>{{ evaluation['evaluation_form_answer'] }}</b></div> -->
 
                 <div>
-                    <div class="event-status text-muted" v-if="evaluation['evaluation_status'] == 0">Status: <b>Closed</b>
+                    <div class="event-status text-muted" v-if="evaluation['evaluation_status'] == 0">Status:
+                        <b>Closed</b>
                     </div>
                     <div class="event-status" v-else="evaluation['evaluation_status'] == 1">Status: <b>Ongoing</b></div>
                 </div>

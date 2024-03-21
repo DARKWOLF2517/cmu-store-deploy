@@ -29,7 +29,7 @@
                         <div class="card-body ">
 
                             <h5 class="card-title placeholder-glow text-center" >
-                                <span class="placeholder col-6" style="height: 40px; width: 50px;"></span>
+                                <span class="placeholder col-6" style="height: 40px; width: 40px;"></span>
                             </h5>
                             <p class="card-text placeholder-glow mt-2 text-center">
                                 <span class="placeholder col-4"></span>

@@ -22,7 +22,6 @@
     </div>
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center">
-
             <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
             <div class="event-buttons d-flex">
                 <div class="btn-group" role="group">
@@ -34,13 +33,68 @@
         </div>
     </div>
     <div id="evaluation-container">
-        <div class="evaluation-event-cards">
-            <!-- Loading spinner -->
-            <div v-if="loading" class="loading-spinner-container">
-                <div class="spinner-border text-success" id="event-spinner" role="status">
-                    <span class="visually-hidden">Loading...</span>
+         <!-- Loading spinner -->
+         <div v-if="loading" class="d-flex gap-4">
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
+                <div class="card-body ">
+
+                    <p class="card-text placeholder-glow mt-2 ">
+                        <span class="placeholder col-8"></span>
+                        <br>
+                        <span class="placeholder col-4"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-md-4 mt-0"></span>
+                        <span class="placeholder col-md-4 mt-0"></span>
+
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
                 </div>
             </div>
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
+                <div class="card-body ">
+
+                    <p class="card-text placeholder-glow mt-2 ">
+                        <span class="placeholder col-8"></span>
+                        <br>
+                        <span class="placeholder col-4"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-md-4 mt-0"></span>
+                        <span class="placeholder col-md-4 mt-0"></span>
+
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
+                <div class="card-body ">
+
+                    <p class="card-text placeholder-glow mt-2 ">
+                        <span class="placeholder col-8"></span>
+                        <br>
+                        <span class="placeholder col-4"></span>
+                    </p>
+                    <p class="card-text placeholder-glow ">
+                        <span class="placeholder col-md-4 mt-0"></span>
+                        <span class="placeholder col-md-4 mt-0"></span>
+
+                    </p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                            style="height: 35px; width: 70px;"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="evaluation-event-cards">
+
             <!-- Message if the container is empty -->
             <div class="Container-IfEmpty text-center" v-if="!loading && this.evaluation_form.length == 0">
                 <div class="Empty-Message">
@@ -278,6 +332,7 @@ export default {
         },
         showSchoolYear() {
             axios.get(`get_school_year`)
+
                 .then(response => {
                     console.log(response.data)
                     this.school_year = response.data;
@@ -409,6 +464,7 @@ export default {
         },
         fetchEvaluationForms() {
             this.loading = true;
+            this.filteredEvaluationForm = [];
             axios.get(`/getEvaluationForm/${this.organization_id}/${this.school_year_input}`)
                 .then(response => {
                     console.log(response.data)
@@ -417,11 +473,13 @@ export default {
                     });
                     this.evaluation_form = response.data;
                     this.filteredEvaluationForm = this.evaluation_form;
+                    this.loading = false;
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false;
                 });
-            this.loading = false;
+
         },
         viewEvaluationModal(evaluation_id) {
             console.log(evaluation_id)

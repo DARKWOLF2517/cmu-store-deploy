@@ -60,9 +60,66 @@
             <div>
                 <div class="event-cards-list ">
                     <!-- Loading spinner -->
-                    <div v-if="loading" class="loading-spinner-container">
-                        <div class="spinner-border text-success" id="event-spinner" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                    <div v-if="loading" class="d-flex gap-4">
+                        <div class="card" aria-hidden="true"
+                            style="width: calc(33.33% - 30px); height: 180px; border:none; padding: 10px;">
+                            <div class="">
+
+                                <p class="card-text placeholder-glow mt-2 ">
+                                    <span class="placeholder col-8"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                    <br>
+                                    <span class="placeholder col-6"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                </p>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" tabindex="-1"
+                                        class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                        style="height: 35px; width: 70px;"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" aria-hidden="true"
+                            style="width: calc(33.33% - 30px); height: 180px; border:none; padding: 10px;">
+                            <div class="">
+
+                                <p class="card-text placeholder-glow mt-2 ">
+                                    <span class="placeholder col-8"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                    <br>
+                                    <span class="placeholder col-6"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                </p>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" tabindex="-1"
+                                        class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                        style="height: 35px; width: 70px;"></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" aria-hidden="true"
+                            style="width: calc(33.33% - 30px); height: 180px; border:none; padding: 10px;">
+                            <div class="">
+
+                                <p class="card-text placeholder-glow mt-2 ">
+                                    <span class="placeholder col-8"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                    <br>
+                                    <span class="placeholder col-6"></span>
+                                    <br>
+                                    <span class="placeholder col-4"></span>
+                                </p>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" tabindex="-1"
+                                        class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                        style="height: 35px; width: 70px;"></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Message if the container is empty -->

@@ -6,7 +6,7 @@
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6" style="height: 40px; width: 50px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6" style="height: 40px; width: 40px; border-radius: 60px;"></span>
                         <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
                     </h5>
                     <p class="card-text placeholder-glow ">
@@ -25,7 +25,7 @@
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6" style="height: 40px; width: 50px; border-radius: 60px;"></span>
+                        <span class="placeholder col-6" style="height: 40px; width: 40px; border-radius: 60px;"></span>
                         <span class="placeholder col-6" style="margin-left: 10px; ; width: 50px;"></span>
                     </h5>
                     <p class="card-text placeholder-glow ">
@@ -186,7 +186,7 @@ export default {
     mounted() {
         this.getEvaluationStatus()
         this.fetchData();
-        
+
 
     },
 

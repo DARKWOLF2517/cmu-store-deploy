@@ -46,11 +46,38 @@
     <!-- Card 1 -->
     <div class="accountabilities-container" id="set-accountabilities">
         <!-- Loading spinner -->
-        <div v-if="loading" class="loading-spinner-container">
-            <div class="spinner-border text-success" id="event-spinner" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
+        <div v-if="loading" class="d-flex gap-4" style="padding: 10px;">
+                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                        <div class="card-body ">
+
+                            <h5 class="card-title placeholder-glow text-center" >
+                                <span class="placeholder col-6 rounded" style="height: 50px; width: 50px;"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow mt-4 text-center" >
+                                <span class="placeholder col-4"style="height: 30px; "></span>
+                            </p>
+                            <p class="card-text placeholder-glow mt-2 text-center" >
+                                <span class="placeholder col-2"style="height: 25px; "></span>
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                        <div class="card-body ">
+
+                            <h5 class="card-title placeholder-glow text-center" >
+                                <span class="placeholder col-6 rounded" style="height: 50px; width: 50px;"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow mt-4 text-center" >
+                                <span class="placeholder col-4"style="height: 30px; "></span>
+                            </p>
+                            <p class="card-text placeholder-glow mt-2 text-center" >
+                                <span class="placeholder col-2"style="height: 25px; "></span>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
         <!-- Will show if there are no records -->
         <div class="Container-IfEmpty" v-if="!loading && accountabilityList.length === 0">
             <div class="Empty-Message text-center">
@@ -300,6 +327,7 @@ export default {
         fetchData() {
             this.accountabilityList = [];
             this.loading = true; // Set loading to true before making the request
+            this.filtered_accountabilities = [];
             axios.get(`/get_org_accountability/${this.org_id}/${this.school_year_input}`)
                 .then((response) => {
                     this.accountabilityList = response.data;
