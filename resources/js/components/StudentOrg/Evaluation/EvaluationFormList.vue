@@ -35,7 +35,7 @@
     <div id="evaluation-container">
          <!-- Loading spinner -->
          <div v-if="loading" class="d-flex gap-4">
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
                 <div class="card-body ">
 
                     <p class="card-text placeholder-glow mt-4 ">

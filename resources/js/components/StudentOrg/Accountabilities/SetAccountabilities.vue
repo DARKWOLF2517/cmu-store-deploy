@@ -47,18 +47,18 @@
     <div class="accountabilities-container" id="set-accountabilities">
         <!-- Loading spinner -->
         <div v-if="loading" class="d-flex gap-4" style="padding: 10px;">
-                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 180px; border:none;">
-                        <div class="card-body ">
+            <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 180px; border:none;">
+                <div class="card-body ">
 
-                            <h5 class="card-title placeholder-glow text-center" >
-                                <span class="placeholder col-6 rounded bg-secondary" style="height: 40px; width: 40px;"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow text-center" >
-                                <span class="placeholder col-4 bg-secondary"style="height: 20px; "></span>
-                            </p>
-                            <p class="card-text placeholder-glow mt-2 text-center" >
-                                <span class="placeholder col-2 bg-secondary"style="height: 25px; "></span>
-                            </p>
+                    <h5 class="card-title placeholder-glow text-center">
+                        <span class="placeholder col-6 rounded bg-secondary" style="height: 40px; width: 40px;"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow text-center">
+                        <span class="placeholder col-4 bg-secondary" style="height: 20px; "></span>
+                    </p>
+                    <p class="card-text placeholder-glow mt-2 text-center">
+                        <span class="placeholder col-2 bg-secondary" style="height: 25px; "></span>
+                    </p>
 
                 </div>
             </div>
@@ -300,7 +300,7 @@ export default {
                 axios.post('/set_accountabilities', this.formData)
                     .then((response) => {
                         this.showSuccess(response.data.message);
-                        
+
                     })
                     .catch((error) => {
                         alert(error);
@@ -314,6 +314,12 @@ export default {
             this.filtered_accountabilities = [];
             axios.get(`/get_org_accountability/${this.org_id}/${this.school_year_input}`)
                 .then((response) => {
+                    response.data.forEach(element => {
+                        if (Number.isInteger(element.amount)) {
+                            // If it is a whole number, convert it to a string with two decimal places
+                            element.amount = element.amount.toFixed(2);
+                        }
+                    });
                     this.accountabilityList = response.data;
                     this.filtered_accountabilities = this.accountabilityList;
                     this.loading = false; //
