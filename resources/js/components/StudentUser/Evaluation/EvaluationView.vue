@@ -61,7 +61,17 @@
             </div>
         </div>
     </div>
-        <div class="evaluation-event-cards"  v-if="!loading">
+
+        <div class="evaluation-event-cards">
+            <div class="Container-IfEmpty text-center" v-if="!loading && this.events.length === 0">
+                        <div class="Empty-Message">
+                            <i class="far fa-smile mb-0" id="icon-message"></i>
+                            <p class="text-muted  mt-0"><b>No Evaluation form yet</b>
+                                <br>
+                                The evaluation form per event will show up here.
+                            </p>
+                        </div>
+                    </div>
             <!-- <div class="evaluation-list">
         <div class="evaluation-container" id="evaluation-container">
             <div class="evaluation-cards-list"> -->
@@ -198,6 +208,7 @@ export default {
 
         },
         fetchData() {
+            this.loading = true;
             axios.get(`/events/show`)
                 .then(response => {
                     this.events = response.data;

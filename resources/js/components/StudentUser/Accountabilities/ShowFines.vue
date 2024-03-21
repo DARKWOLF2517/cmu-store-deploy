@@ -19,31 +19,65 @@
             </div>
         </div>
     </div>
+    <!-- Loading spinner -->
+    <div v-if="loading" class="d-flex gap-4">
+        <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+            <div class="card-body ">
 
-    <div id="accountability-container">
+                <h5 class="card-title placeholder-glow text-center mt-2">
+                    <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px;"></span>
+                </h5>
+                <p class="card-text placeholder-glow mt-2 text-center">
+                    <span class="placeholder col-4 bg-secondary"></span>
+                </p>
+                <p class="card-text placeholder-glow placeholder-xs mt-2 text-center">
+                    <span class="placeholder col-8 bg-secondary"></span>
+                </p>
+                <div class="d-flex justify-content-center">
+                    <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                        style="height: 35px; width: 120px;"></button>
+                </div>
+            </div>
+        </div>
+        <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+            <div class="card-body ">
+
+                <h5 class="card-title placeholder-glow text-center mt-2">
+                    <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px;"></span>
+                </h5>
+                <p class="card-text placeholder-glow mt-2 text-center">
+                    <span class="placeholder col-4 bg-secondary"></span>
+                </p>
+                <p class="card-text placeholder-glow placeholder-xs mt-2 text-center">
+                    <span class="placeholder col-8 bg-secondary"></span>
+                </p>
+                <div class="d-flex justify-content-center">
+                    <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 "
+                        style="height: 35px; width: 120px;"></button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="accountability-container" id="set-accountabilities">
         <div class="col">
             <div>
-                <!-- Loading spinner -->
-                <div v-if="loading">
-                    <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
-                        <div class="card-body ">
-
-                            <h5 class="card-title placeholder-glow text-center mt-2" >
-                                <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px;"></span>
-                            </h5>
-                            <p class="card-text placeholder-glow mt-2 text-center">
-                                <span class="placeholder col-4 bg-secondary"></span>
+                <div class="accountability-cards-list">
+                    <!-- Message if the container is empty -->
+                    <div class="Container-IfEmpty text-center" v-if="!loading && this.user_organization.length === 0">
+                        <div class="Empty-Message">
+                            <i class="far fa-smile mb-0" id="icon-message"></i>
+                            <p class="text-muted  mt-0"><b>No Accountabilities yet</b>
+                                <br>
+                                Your student organization accountabilities will show up here.
                             </p>
-                            <p class="card-text placeholder-glow placeholder-xs mt-2 text-center">
-                                <span class="placeholder col-8 bg-secondary"></span>
-                            </p>
-                            <div class="d-flex justify-content-center">
-                            <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6 " style="height: 35px; width: 120px;"></button>
-                        </div>
+                            <a class="btn btn-success" id="add-event-button" data-bs-toggle="modal"
+                                data-bs-target="#event-modal"
+                                @click="this.initialData(), this.submit = this.sendData">Add
+                                Event</a>
                         </div>
                     </div>
-                </div>
-                <div class="accountability-cards-list" v-if="!loading">
+
                     <div class="stud-accountability-card border-top border-5 border-success border-bottom-0"
                         v-for="user_orgs in this.user_organization">
                         <div class="p-2 text-center">
@@ -95,13 +129,13 @@
                         <tbody>
                             <tr>
                                 <th>Fines</th>
-                                <td>{{ getTotalAccountabilitiesIndividual('fines', fines) }}
+                                <td>&#8369; {{ getTotalAccountabilitiesIndividual('fines', fines) }}
                                     <!-- <i class="fas fa-eye ml-6">see more</i> -->
                                 </td>
                             </tr>
                             <tr v-for="accountability in this.accountabilityList">
                                 <th>{{ accountability['accountability_name'] }}</th>
-                                <td>{{ getTotalAccountabilitiesIndividual(accountability['accountability_name'],
+                                <td>&#8369; {{ getTotalAccountabilitiesIndividual(accountability['accountability_name'],
                             accountability['amount']) }}</td>
 
                             </tr>
@@ -158,17 +192,21 @@ export default {
 
         },
         getUserOrgs() {
+            this.loading = true;
+            this.user_organization = [];
             axios.get(`/get_user_orgs/${this.school_year_input}`)
                 .then(response => {
                     this.user_organization = response.data;
                     console.log(response.data)
+                    this.loading = false;
                 })
                 .catch(error => {
                     alert(error)
-
+                    this.loading = false;
                 });
         },
         fetchData() {
+
             this.attendanceCount = [],
                 this.fines = 0,
                 this.accountabilityList = [],
@@ -177,11 +215,11 @@ export default {
                     .then(response => {
                         this.accountabilityList = response.data;
                         // console.log(this.accountabilityList)
-                        this.loading = false;
+
                     })
                     .catch(error => {
                         alert(error)
-                        this.loading = false;
+
                     });
 
             this.fetchEventsWithAttendance();
