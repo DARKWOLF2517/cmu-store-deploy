@@ -33,8 +33,8 @@
         </div>
     </div>
     <div id="evaluation-container">
-         <!-- Loading spinner -->
-         <div v-if="loading" class="d-flex gap-4">
+        <!-- Loading spinner -->
+        <div v-if="loading" class="d-flex gap-4">
             <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
                 <div class="card-body ">
 
@@ -144,14 +144,16 @@
     </div>
 
     <!-- add evaluation form  -->
-    <div class="modal fade" id="evaluation-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="evaluation-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-lg">
 
             <div class="modal-content">
                 <form @submit.prevent="this.submit">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Create Evaluation Form</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-if="this.submit == this.submitForm"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-else @click="this.clearData"></button>
                     </div>
                     <div class="modal-body">
 
@@ -208,7 +210,9 @@
                                 :true-value="1" :false-value="0">
                             <label for="feedback">Accept Feedback?</label>
                         </div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-if="this.submit == this.submitForm">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-else @click="this.clearData">Close</button>
+                       
                         <button type="submit" class="btn btn-success">Save Form</button>
                     </div>
                 </form>
@@ -492,6 +496,19 @@ export default {
                 autoClose: 1000,
             }
         },
+        clearData() {
+            this.questions = [{
+                text: '',
+                choices: [{
+                    text: ''
+                }],
+
+            }];
+            this.acceptFeedback = 0;
+            this.formTitle = '';
+            this.formDescription = '';
+        }
+
     }
 }
 
