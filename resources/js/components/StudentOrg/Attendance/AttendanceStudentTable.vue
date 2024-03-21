@@ -329,10 +329,11 @@ export default {
     },
 
     mounted() {
-        this.fetchData();
         this.showCollege();
         this.getOrgCollege();
         this.fetchEventDetails();
+        this.fetchData();
+
 
     },
     methods: {
