@@ -14,10 +14,9 @@
                     <select id="sort-select" class="form-control" style="text-align: center;" v-model="session"
                         @change="filterItems">
                         <option value="0" disabled selected>Select Attendace Type</option>
-                        <option :value="1" v-if="attendance_count >= 1">Session 1</option>
-                        <option :value="2" v-if="attendance_count >= 2">Session 2</option>
-                        <option :value="3" v-if="attendance_count >= 3">Session 3</option>
-                        <option :value="4" v-if="attendance_count >= 4">Session 4</option>
+                        <option v-for=" index in attendance_count " :key=" index" :value="index"> Attendance Log {{ index }}</option>
+
+
                     </select>
 
                 </div>
@@ -67,7 +66,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="attendance in paginatedData" :key="attendance.user_id">
+                     <!-- Loading spinner -->
+                     <div v-if="loading" class="loading-spinner-container ">
+                        <span class="loader"></span>
+                    </div>
+                    <!-- Will show if Table is Empty -->
+                    <div class="Container-IfEmpty" v-if="!loading && attendance.length == 0">
+                        <div class="Empty-Message text-center">
+                            <i class="icon 	bi bi-table" id="icon-message"></i>
+                            <p class="text-muted"><b>Member list is Empty</b>
+                                <br>
+                                Student members show up here.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="Container-IfEmpty" v-if="!loading && filtered_attendance.length == 0">
+                        <div class="Empty-Message text-center">
+                            <i class="icon 	bi bi-table" id="icon-message"></i>
+                            <p class="text-muted"><b>No records Found</b>
+                                <br>
+                                Student members show up here.
+                            </p>
+                        </div>
+                    </div>
+                    <tr v-for="attendance in paginatedData" :key="attendance.user_id" v-else>
                         <td>{{ attendance.user_id }}</td>
                         <td>{{ attendance.user_profile.first_name }} {{ attendance.user_profile.last_name }}</td>
                         <td>{{ attendance.user_profile.college.college }}</td>
@@ -86,7 +109,7 @@
                 </tbody>
             </table>
         </div>
-        <ul class="pagination justify-content-center mt-2">
+        <ul class="pagination justify-content-center mt-2" v-if="filtered_attendance != 0">
             <li class="page-item" :class="{ disabled: currentPage === 1 }">
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
             </li>
@@ -158,13 +181,10 @@
                         </div>
                         <div class="select-dropdown">
                             <!-- Second dropdown -->
-                            <label for="session" class="form-label">Session</label>
+                            <label for="session" class="form-label">Attendance Log</label>
                             <select id="sort-select" class="form-control" style="text-align: center;"
                                 v-model="formData.session" required>
-                                <option :value="1" v-if="attendance_count >= 1">Session 1</option>
-                                <option :value="2" v-if="attendance_count >= 2">Session 2</option>
-                                <option :value="3" v-if="attendance_count >= 3">Session 3</option>
-                                <option :value="4" v-if="attendance_count >= 4">Session 4</option>
+                                <option v-for=" index in attendance_count " :key=" index" :value="index"> Attendance Log {{ index }}</option>
                             </select>
 
                         </div>
@@ -210,6 +230,7 @@ export default {
             attendance_count: 0,
             session: 0,
             searchTerm: '',
+            loading: true,
             filtered_attendance: [],
             college_list: [],
             college_data_input: 0,
@@ -455,8 +476,10 @@ export default {
                 });
         },
         fetchData() {
+
             axios.get(`/attendance/list/${this.organization_id}/${this.event_id}`)
                 .then(response => {
+                    this.loading = false;
                     this.filtered_attendance = [];
                     const data = response.data;
                     data.forEach(item => {
@@ -467,6 +490,7 @@ export default {
                     });
                     this.attendance = response.data;
                     this.filtered_attendance = this.attendance;
+
                     //   this.attendance.forEach(element => {
                     //     this.attendance_list.push({
                     //       student_id : element.user_id,
@@ -477,7 +501,7 @@ export default {
 
                 })
                 .catch(error => {
-
+                    this.loading = false;
                 });
         },
         nextPage() {
