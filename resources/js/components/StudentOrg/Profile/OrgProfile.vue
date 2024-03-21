@@ -1,10 +1,5 @@
 <template>
-    <div v-if="this.loading" class="loading-spinner-container">
-        <div class="spinner-border text-success" id="event-spinner" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-    <div v-else>
+    <div>
         <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -79,13 +74,13 @@
                                                 <!-- <h6 class="mb-2"><b>Description: </b> <span id="description">{{
         this.orgProfile.description }}</span></h6> -->
                                                 <h6> <i class="fas fa-users"></i> <span><b>{{
-        this.orgTotalMembers }}</b> Organization members </span>
+                                                    this.orgTotalMembers }}</b> Organization members </span>
                                                 </h6>
                                                 <h6> <i class="fas fa-school"></i> <span>{{
-        this.school_year_org_profile }} </span> </h6>
+                                                    this.school_year_org_profile }} </span> </h6>
                                                 <h6> <i class="fas fa-users-cog"></i> <span><b> {{
-        this.org_officer_count
-    }}</b></span> Organization officers</h6>
+                                                    this.org_officer_count
+                                                }}</b></span> Organization officers</h6>
                                                 <!-- <h6 class="mb-2">Number of Members <span class="fw-bold" style="color: #14684c;"
                                                             id="number-of-students">{{
         this.orgTotalMembers }}</span></h6> -->
@@ -96,15 +91,14 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
 
                         <!-- Organization Tab Content -->
                         <div class="tab-pane fade" id="organization" role="tabpanel" aria-labelledby="organization-tab">
                             <div class="row d-flex justify-content-between">
-                                <div class="col-md-6" style="background-color: #ffff; border-radius: 10px; padding: 10px;">
+                                <div class="col-md-6"
+                                    style="background-color: #ffff; border-radius: 10px; padding: 10px;">
 
                                     <div class="org-officers ">
                                         <!-- Organization Officers -->
@@ -125,12 +119,21 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <div v-if="loading" class="loading-spinner-container">
-                                                        <div class="spinner-border text-success" id="event-spinner"
-                                                            role="status">
-                                                            <span class="visually-hidden">Loading...</span>
+                                                    <div class=" h-100">
+                                                        <div v-if="loading">
+                                                            <span class="loader"></span>
+                                                        </div>
+                                                        <!-- Will show if Table is Empty -->
+                                                        <div class="table-IfEmpty "
+                                                            v-if="!loading && orgOfficers.length == 0">
+                                                            <div>
+                                                                <h6 class="text-muted"><b>
+                                                                        Student Organization Officers show up here.</b>
+                                                                </h6>
+                                                            </div>
                                                         </div>
                                                     </div>
+
                                                     <tr v-for="officers in this.orgOfficers">
                                                         <td>{{ officers['name'] }}</td>
                                                         <td>{{ officers['position'] }}</td>
@@ -183,10 +186,24 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <div class=" h-100">
+                                                            <div v-if="loading">
+                                                                <span class="loader"></span>
+                                                            </div>
+                                                            <!-- Will show if Table is Empty -->
+                                                            <div class="table-IfEmpty "
+                                                                v-if="!loading && officerRoles.length == 0">
+                                                                <div>
+                                                                    <h6 class="text-muted"><b>
+                                                                            Student Organization Officers show up
+                                                                            here.</b></h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <tr v-for="officerRole in this.officerRoles">
                                                             <td>{{ officerRole.user_profile.first_name }} {{
-        officerRole.user_profile.last_name
-    }}</td>
+                                                    officerRole.user_profile.last_name
+                                                }}</td>
                                                             <td>{{ officerRole.role.name }}</td>
                                                             <td>
                                                                 <!-- Ellipsis Button -->
@@ -241,6 +258,19 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <div class=" h-100">
+                                                            <div v-if="loading">
+                                                                <span class="loader"></span>
+                                                            </div>
+                                                            <!-- Will show if Table is Empty -->
+                                                            <div class="table-IfEmpty "
+                                                                v-if="!loading && year_level_data.length == 0">
+                                                                <div>
+                                                                    <h6 class="text-muted"><b>
+                                                                            Add Year Level here.</b></h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                 <!-- Adjust the v-for loop based on your data structure for year levels -->
                                                 <tr v-for="year_level in this.year_level_data">
                                                     <td>{{ year_level.year_level }}</td>
@@ -427,8 +457,8 @@
                             <select class="form-control" id="selectOfficer" v-model="addOfficerRoleData.student_id"
                                 required>
                                 <option v-for="officer in this.orgOfficers" :value="officer.student_id">{{
-        officer.name
-    }}
+                                                    officer.name
+                                                }}
                                 </option>
                             </select>
                         </div>
@@ -600,7 +630,6 @@ export default {
     props: ['org_id', 'user_id', 'school_year_session'],
     data() {
         return {
-            loading: false,
             addSchoolYears: {
                 school_year: '',
                 org_id: this.org_id,
@@ -609,7 +638,6 @@ export default {
             schoolYearSubmit: this.addSchoolYear,
             schoolYearId: 0,
             orgOfficers: [],
-            loading: false,
             addOfficerSubmit: this.addOfficer,
             nameAddOfficer: [],
             nameFilterAddOfficer: [],
@@ -655,9 +683,9 @@ export default {
                 org_id: this.org_id,
                 year_level: ''
             },
-            loading: true,
             isSubmitting: false,
             org_officer_count: 0,
+            loading: true,
 
         }
     },
@@ -670,7 +698,6 @@ export default {
         this.showOfficerRole();
         this.showOrgTotalMembers();
         this.showYearLevel();
-        this.loading = false;
         this.orgOfficersCount();
 
 
@@ -742,12 +769,15 @@ export default {
                 });
         },
         showYearLevel() {
+            this.loading = true;
             axios.get(`/view_year_level/${this.org_id}`)
                 .then(response => {
                     this.year_level_data = response.data;
+                    this.loading = false;
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false;
                 });
         },
         handleFileUpload(event) {
@@ -756,8 +786,6 @@ export default {
             this.tempImage = URL.createObjectURL(this.picture);
         },
         updateOrgProfileDetails() {
-
-
             // if (!this.org_details_profile_input.picture) {
             //     alert('Please select a picture to upload');
             // }
@@ -880,10 +908,12 @@ export default {
 
 
         showOfficerRole() {
+            this.loading = true;
             axios.get(`/view_officer_role/${this.org_id}/${this.school_year_session}`)
                 .then(response => {
                     console.log(response.data)
                     this.officerRoles = response.data;
+                    this.loading = false;
                 })
                 .catch(error => {
                     console.log(error)
@@ -931,13 +961,16 @@ export default {
 
         },
         fetchRoles() {
+            this.loading = true;
             axios.get(`/view_roles`)
                 .then(response => {
                     this.roles = response.data;
                     // console.log(this.roles)
+                    this.loading = false;
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false;
                 });
 
         },
@@ -1040,6 +1073,7 @@ export default {
         },
         showOfficer() {
             this.orgOfficers = [];
+            this.loading = true;
             axios.get(`/view_officers/${this.org_id}/${this.school_year_session}`)
                 .then(response => {
                     response.data.forEach(element => {
@@ -1050,12 +1084,13 @@ export default {
                             position: element.position,
                             year_level_id: element.year_level_id,
                         })
-
+                        this.loading = false;
 
                     });
                 })
                 .catch(error => {
                     console.log(error)
+                    this.loading = false;
                 });
         },
 
