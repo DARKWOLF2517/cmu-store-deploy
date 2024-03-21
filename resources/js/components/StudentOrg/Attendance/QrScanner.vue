@@ -126,25 +126,23 @@ export default {
                 });
         },
 
-        submitForm() {
+        async submitForm() {
             this.scanner.pause();
             axios.post("/attendance", this.formData)
                 .then(response => {
                     console.log(response.data)
                     alert(response.data.message)
-                    if (response.data.result != 'failure') {
-                        axios.post("/send_mail", this.formData)
-                            .then(response => {
-                                console.log(response.data)
-                                this.scanner.resume();
-                            })
-                            .catch(error => {
-                                alert(error)
-                            });
-                    }
-                    else {
-                        this.scanner.resume();
-                    }
+                    // if (response.data.result != 'failure') {
+                    //     axios.post("/send_mail", this.formData)
+                    //         .then(response => {
+                    //             console.log(response.data)
+
+                    //         })
+                    //         .catch(error => {
+                    //             alert(error)
+                    //         });
+                    // }
+                    this.scanner.resume();
                     this.fetchData();
                     this.formData.user_id = '';
                 })
@@ -154,6 +152,25 @@ export default {
 
 
         }
+
+        // async submitForm() {
+        //     this.scanner.pause();
+        //     try {
+        //         const response = axios.post("/attendance", this.formData);
+        //         console.log(response.data);
+        //         alert(response.data.message);
+        //         if (response.data.result !== 'failure') {
+        //             const secondResponse = await axios.post("/send_mail", this.formData);
+        //             console.log(secondResponse.data);
+        //         }
+        //         this.scanner.resume();
+        //         this.fetchData();
+        //         this.formData.user_id = '';
+        //     } catch (error) {
+        //         alert(error);
+        //     }
+        // }
+
     }
 
 }

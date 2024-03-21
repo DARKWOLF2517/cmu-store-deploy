@@ -217,7 +217,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_events/{event_id}', [EvaluationController::class, 'getEvents']);
         Route::get('/fetchEvaluationFormUpdate/{evaluation_id}', [EvaluationController::class, 'getEvaluationFormUpdate']);
         Route::put('/updateEvaluationForm', [EvaluationController::class, 'updateEvaluationForm']);
-        Route::get('/getTotalResponse/{event_id}', [EvaluationController::class, 'getTotalResponse']);
+        Route::get('/getTotalResponse/{event_id}', [EvaluationController::class, 'getEvaluationFormUpdate']);
 
         #EVENT ROUTES
         Route::get('/events', [EventController::class, 'showEvents'])->name('events');

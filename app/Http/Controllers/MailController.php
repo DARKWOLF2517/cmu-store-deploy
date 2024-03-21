@@ -33,6 +33,9 @@ class MailController extends Controller
             'session'=>$request->session,
         ];
         // return $user;
-        Mail::to($user->email)->send(new Attendance($details));
+        if($user->email){
+            Mail::to($user->email)->send(new Attendance($details));
+        }
+        
     }
 }
