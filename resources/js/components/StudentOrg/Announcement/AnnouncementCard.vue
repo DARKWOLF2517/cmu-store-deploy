@@ -54,21 +54,21 @@
                             <div class="">
 
                                 <p class="card-text placeholder-glow mt-2 ">
-                                    <span class="placeholder col-8"></span>
+                                    <span class="placeholder col-8 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-2"></span>
+                                    <span class="placeholder col-2 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-8"></span>
+                                    <span class="placeholder col-8 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                 </p>
                             </div>
                         </div>
@@ -77,21 +77,21 @@
                             <div class="">
 
                                 <p class="card-text placeholder-glow mt-2 ">
-                                    <span class="placeholder col-8"></span>
+                                    <span class="placeholder col-8 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-2"></span>
+                                    <span class="placeholder col-2 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder mt-4 col-12"></span>
+                                    <span class="placeholder mt-4 col-12 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-8"></span>
+                                    <span class="placeholder col-8 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                     <br>
-                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4 bg-secondary"></span>
                                 </p>
                             </div>
                         </div>

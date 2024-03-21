@@ -70,13 +70,7 @@
     padding: 5px;
 
 }
-/* .recorded-event-cards{
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    height: 71vh;
-    max-height: 71vh;
-} */
+
 .recorded-event-cards{
     display: flex;
     flex-wrap: wrap;
