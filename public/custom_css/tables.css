@@ -151,9 +151,7 @@ tr:nth-child(even) {
         overflow: auto;
     }
     td .btn {
-        font-size: 10px;
+        font-size: 14px;
     }
-    .btn-group {
-        font-size: 10px;
-    }
+
 }
