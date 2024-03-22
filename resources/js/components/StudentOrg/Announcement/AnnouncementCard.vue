@@ -36,14 +36,14 @@
                 <div class="col-md-8">
                     <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
                 </div>
-                 <div class="announcement-buttons col-md-4 text-end">
-                <div class="btn-group" role="group">
-                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"
-                        @click="this.submit = this.submitData, this.clearData()">
-                        <i class="fas fa-plus"></i> Add Announcement
-                    </button>
+                <div class="announcement-buttons col-md-4 text-end">
+                    <div class="btn-group" role="group">
+                        <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"
+                            @click="this.submit = this.submitData, this.clearData()">
+                            <i class="fas fa-plus"></i> Add Announcement
+                        </button>
+                    </div>
                 </div>
-            </div>
             </div>
 
 
@@ -54,9 +54,8 @@
             <div class="announcement-container" id="announcement-container">
                 <div class="announcement-cards-list align-items">
                     <!-- Loading spinner -->
-                    <div v-if="loading" class="mb-4"style="padding: 10px;">
-                        <div class="card" aria-hidden="true"
-                            style=" height: 300px; border:none; padding: 20px;">
+                    <div v-if="loading" class="mb-4" style="padding: 10px;">
+                        <div class="card" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
 
                                 <p class="card-text placeholder-glow mt-2 ">
@@ -78,8 +77,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="card mt-4" aria-hidden="true"
-                            style=" height: 300px; border:none; padding: 20px;">
+                        <div class="card mt-4" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
 
                                 <p class="card-text placeholder-glow mt-2 ">
@@ -124,7 +122,8 @@
                         </div>
                     </div>
                     <div v-for="announcements in this.filtered_announcements">
-                        <div class="announcement-card" style=" border-left-style: solid; border-left-color: #1b9587; border-right-style: solid; border-right-color: #1b9587;">
+                        <div class="announcement-card"
+                            style=" border-left-style: solid; border-left-color: #1b9587; border-right-style: solid; border-right-color: #1b9587;">
                             <div class="dropdown">
                                 <a class="ellipsis-button" href="#" style="color: black;" role="button"
                                     id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -211,7 +210,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" ref="submitButton"   :disabled="isSubmitting">Submit</button>
+                        <button type="submit" class="btn btn-success" ref="submitButton"
+                            :disabled="isSubmitting">Submit</button>
                     </div>
                 </form>
             </div>
@@ -292,9 +292,7 @@ export default {
                     // console.log(response.data)
                     // this.fetchData();
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
+
                 })
                 .catch(error => {
                     // console.error('Error updating user:', error);
@@ -320,9 +318,6 @@ export default {
 
                     // this.fetchData();
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 500);
                 })
                 .catch(error => {
                     this.$refs.submitButton.disabled = false;
@@ -386,6 +381,9 @@ export default {
             }
         },
         showSucces(message) {
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
             toast.success(message), {
                 autoClose: 300,
             }

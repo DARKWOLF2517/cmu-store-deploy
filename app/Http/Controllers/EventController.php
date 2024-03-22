@@ -214,23 +214,50 @@ class EventController extends Controller
         return response()->json(['message' => 'Event Updated Successfully']);
     }
 
-    public function submitCancelAttendanceEvent($event_id,$school_year, Request $request)
+    public function submitCancelAttendanceEvent($event_id, $school_year, Request $request)
     {
         // $exemptedData = EventExemptedAttendance::where('event_id',$event_id)->get();
         $exemptedData = EventExemptedAttendance::where('event_id', $event_id)
             ->pluck('session')
             ->toArray();
-
         $requestData = array_values($request->all());
+        $DataExempted = EventExemptedAttendance::where('event_id', $event_id)->get();
+        // return $DataExempted;
+        if ($DataExempted->count() != 0) {
+            // Initialize an array to store the sessions to be added
+            $exemptedSessions = [];
 
-        foreach ($requestData as $data) {
-            $exempted = new EventExemptedAttendance([
-                'event_id' => $event_id,
-                'session' => $data,
-                'school_year' => $school_year,
-            ]);
-            $exempted->save();
+            // Iterate through the requestData
+            foreach ($requestData as $data) {
+                // Check if the session is not exempted for the given event_id
+                if (!$DataExempted->contains(function ($exempted) use ($event_id, $data) {
+                    return $exempted->event_id == $event_id && $exempted->session == $data;
+                })) {
+                    // Add the session to the array of sessions to be added
+                    $exemptedSessions[] = [
+                        'event_id' => $event_id,
+                        'session' => $data,
+                        'school_year' => $school_year,
+                    ];
+                }
+            }
+
+            // Insert the exempted sessions in bulk
+            EventExemptedAttendance::insert($exemptedSessions);
+
+        } else {
+            foreach ($requestData as $data) {
+                $exempted = new EventExemptedAttendance([
+                    'event_id' => $event_id,
+                    'session' => $data,
+                    'school_year' => $school_year,
+                ]);
+                $exempted->save();
+            }
         }
+
+
+
 
         // when deleting to list 
         $differences_when_removing = array_diff($exemptedData, $requestData);

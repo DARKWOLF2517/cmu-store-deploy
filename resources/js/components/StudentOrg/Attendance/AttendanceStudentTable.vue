@@ -4,63 +4,35 @@
             <div class="col-md-6 col-sm-12">
                 <div class="input-container">
                     <i class="fa fa-search"></i>
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        v-model="searchTerm"
-                        @input="filterItems"
-                    />
+                    <input type="text" placeholder="Search" v-model="searchTerm" @input="filterItems" />
                 </div>
             </div>
-            <div
-                class="col-md-6 col-sm-12"
-                style="
+            <div class="col-md-6 col-sm-12" style="
                     display: flex;
                     align-items: center;
                     justify-content: flex-end;
                     gap: 20px;
-                "
-            >
-                <div class="select-dropdown" >
+                ">
+                <div class="select-dropdown">
                     <!-- Second dropdown -->
-                    <select
-                        id="sort-select"
-                        class="form-control"
-                        style="text-align: center"
-                        v-model="session"
-                        @change="filterItems"
-                    >
+                    <select id="sort-select" class="form-control" style="text-align: center" v-model="session"
+                        @change="filterItems">
                         <option value="0" disabled selected>
                             Select Attendace Type
                         </option>
-                        <option
-                            v-for="index in attendance_count"
-                            :key="index"
-                            :value="index"
-                        >
+                        <option v-for="index in attendance_count" :key="index" :value="index">
                             Attendance Log {{ index }}
                         </option>
                     </select>
                 </div>
 
-                <div
-                    class="select-dropdown d-flex justify-content-end"
-                    v-if="this.college_id == 11"
-                >
-                    <select
-                        id="sort-select"
-                        class="form-control"
-                        style="text-align: center"
-                        v-model="college_data_input"
-                        @change="filterItems"
-                    >
+                <div class="select-dropdown d-flex justify-content-end" v-if="this.college_id == 11">
+                    <select id="sort-select" class="form-control" style="text-align: center"
+                        v-model="college_data_input" @change="filterItems">
                         <option value="0" disabled selected>
                             Select College
                         </option>
-                        <option
-                            v-for="college in this.college_list"
-                            :value="college.id"
-                        >
+                        <option v-for="college in this.college_list" :value="college.id">
                             {{ college.college }}
                         </option>
                     </select>
@@ -78,11 +50,7 @@
                 </div>
                 <div class="student-buttons col-md-4 d-flex justify-content-end">
                     <div class="btn-group" role="group">
-                        <button
-                            class="btn me-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#excuseStudentModal"
-                        >
+                        <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
                             <i class="fas fa-plus"></i> Excuse Student
                         </button>
                         <button class="btn me-2" @click="printTable">
@@ -98,13 +66,13 @@
     </div>
     <div id="table-container">
 
-            <h5 id="Eventtitle">
-                Event: <b>{{ this.event.name }}</b>
-            </h5>
-            <p>
-                Date: <b>{{ this.event.start_date }}</b>
-            </p>
-            <div class="scroll-pane" id="table-list">
+        <h5 id="Eventtitle">
+            Event: <b>{{ this.event.name }}</b>
+        </h5>
+        <p>
+            Date: <b>{{ this.event.start_date }}</b>
+        </p>
+        <div class="scroll-pane" id="table-list">
             <table id="accountabilities-table">
                 <thead>
                     <tr>
@@ -124,10 +92,7 @@
                         <span class="loader"></span>
                     </div>
                     <!-- Will show if Table is Empty -->
-                    <div
-                        class="Container-IfEmpty"
-                        v-if="!loading && attendance.length == 0"
-                    >
+                    <div class="Container-IfEmpty" v-if="!loading && attendance.length == 0">
                         <div class="Empty-Message text-center">
                             <i class="icon bi bi-table" id="icon-message"></i>
                             <p class="text-muted">
@@ -138,10 +103,8 @@
                         </div>
                     </div>
 
-                    <div
-                        class="Container-IfEmpty"
-                        v-if="!loading && filtered_attendance.length == 0"
-                    >
+                    <div class="Container-IfEmpty"
+                        v-if="!loading && filtered_attendance.length == 0 && this.attendance.length != 0">
                         <div class="Empty-Message text-center">
                             <i class="icon bi bi-table" id="icon-message"></i>
                             <p class="text-muted">
@@ -151,11 +114,7 @@
                             </p>
                         </div>
                     </div>
-                    <tr
-                        v-for="attendance in paginatedData"
-                        :key="attendance.user_id"
-                        v-else
-                    >
+                    <tr v-for="attendance in paginatedData" :key="attendance.user_id" v-else>
                         <td>{{ attendance.user_id }}</td>
                         <td>
                             {{ attendance.user_profile.first_name }}
@@ -167,15 +126,11 @@
                         <td v-else>{{ attendance.remarks }}</td>
                         <td>
                             <span class="d-flex justify-content-center">
-                                <button
-                                    class="btn btn-danger text-light"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmation"
-                                    @click="
-                                        (this.id = attendance.user_id),
-                                            (this.session = attendance.session)
-                                    "
-                                >
+                                <button class="btn btn-danger text-light" data-bs-toggle="modal"
+                                    data-bs-target="#deleteConfirmation" @click="
+                        (this.id = attendance.user_id),
+                        (this.session = attendance.session)
+                        ">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </span>
@@ -184,56 +139,28 @@
                 </tbody>
             </table>
         </div>
-        <ul
-            class="pagination justify-content-center mt-2"
-            v-if="filtered_attendance != 0"
-        >
+        <ul class="pagination justify-content-center mt-2" v-if="filtered_attendance != 0">
             <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                <a
-                    class="page-link"
-                    href="#"
-                    tabindex="-1"
-                    aria-disabled="true"
-                    @click.prevent="prevPage"
-                    >Previous</a
-                >
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
             </li>
-            <li
-                v-for="page in pageRange"
-                :key="page"
-                class="page-item"
-                :class="{ active: currentPage === page }"
-            >
+            <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
                 <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{
-                    page
-                }}</a>
+                        page
+                    }}</a>
             </li>
-            <li
-                class="page-item"
-                :class="{ disabled: currentPage === totalPages }"
-            >
+            <li class="page-item" :class="{ disabled: currentPage === totalPages }">
                 <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
             </li>
         </ul>
     </div>
     <!-- Delete Confirmation Modal -->
-    <div
-        class="modal fade"
-        id="deleteConfirmation"
-        tabindex="-1"
-        aria-labelledby="deleteConfirmationLabel"
-        aria-hidden="true"
-    >
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <h4>
@@ -243,19 +170,10 @@
                     <p>Are you sure you want to delete this attendance?</p>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button
-                        type="button"
-                        class="btn btn-danger"
-                        @click="deleteAttendance()"
-                        data-bs-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-danger" @click="deleteAttendance()" data-bs-dismiss="modal">
                         Delete
                     </button>
                 </div>
@@ -263,13 +181,8 @@
         </div>
     </div>
     <!-- Excuse student Modal -->
-    <div
-        class="modal fade"
-        id="excuseStudentModal"
-        tabindex="-1"
-        aria-labelledby="addStudentModalLabel"
-        aria-hidden="true"
-    >
+    <div class="modal fade" id="excuseStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -277,100 +190,49 @@
                         Excuse Student
                     </h5>
                     <!-- <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.updateSingleAddStudents">Edit Student</h5> -->
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <form @submit.prevent="this.addAttendance">
                         <div class="mb-3">
-                            <label for="studentId" class="form-label"
-                                >Student ID</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="studentId"
-                                v-model="formData.user_id"
-                                @change="this.fetchDataDisplayName"
-                                required
-                            />
+                            <label for="studentId" class="form-label">Student ID</label>
+                            <input type="text" class="form-control" id="studentId" v-model="formData.user_id"
+                                @change="this.fetchDataDisplayName" required />
                         </div>
                         <div>
                             <div class="mb-3">
-                                <label for="name" class="form-label"
-                                    >Last Name</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="lastname"
-                                    v-model="formData.lastname"
-                                    disabled
-                                />
+                                <label for="name" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="lastname" v-model="formData.lastname"
+                                    disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label"
-                                    >First Name</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="firstname"
-                                    v-model="formData.firstname"
-                                    disabled
-                                />
+                                <label for="name" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstname" v-model="formData.firstname"
+                                    disabled />
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label"
-                                    >Middle Name</label
-                                >
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="firstname"
-                                    v-model="formData.middlename"
-                                    disabled
-                                />
+                                <label for="name" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" id="firstname" v-model="formData.middlename"
+                                    disabled />
                             </div>
                         </div>
                         <div>
                             <!-- Second dropdown -->
-                            <label for="session" class="form-label"
-                                >Attendance Log</label
-                            >
+                            <label for="session" class="form-label">Attendance Log</label>
                             <div class="select-dropdown border">
-                            <select
-                                id="sort-select"
-                                class="form-control border"
-                                style="text-align: center"
-                                v-model="formData.session"
-                                required
-                            >
+                                <select id="sort-select" class="form-control border" style="text-align: center"
+                                    v-model="formData.session" required>
 
-                                <option
-                                    v-for="index in attendance_count"
-                                    :key="index"
-                                    :value="index"
-                                >
-                                    Attendance Log {{ index }}
-                                </option>
-                            </select>
+                                    <option v-for="index in attendance_count" :key="index" :value="index">
+                                        Attendance Log {{ index }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Remarks</label>
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="remarks"
-                                v-model="formData.remarks"
-                                required
-                            />
+                            <input type="text" class="form-control" id="remarks" v-model="formData.remarks" required />
                         </div>
                         <!-- <div class="mb-3">
                                     <label for="reason" class="form-label">College</label>
@@ -380,11 +242,7 @@
                                     </select>
                                 </div> -->
                         <div class="modal-footer">
-                            <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                            >
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Cancel
                             </button>
                             <button type="submit" class="btn btn-success">
@@ -538,9 +396,7 @@ export default {
                         this.showError("Student not Found");
                     } else {
                         this.showSucces(response.data.message);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 1000);
+
                     }
                     console.log(response.data);
                 })
@@ -581,7 +437,7 @@ export default {
                 .then((response) => {
                     console.log(response.data);
                     this.showSucces(response.data.message);
-                    this.fetchData();
+                    // this.fetchData();
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 422) {
@@ -853,17 +709,20 @@ export default {
             document.body.removeChild(link);
         },
         showSucces(message) {
-            this.fetchData();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+            // this.fetchData();
             toast.success(message),
-                {
-                    autoClose: 100,
-                };
+            {
+                autoClose: 100,
+            };
         },
         showError(message) {
             toast.error(message),
-                {
-                    autoClose: 100,
-                };
+            {
+                autoClose: 100,
+            };
         },
     },
 };
