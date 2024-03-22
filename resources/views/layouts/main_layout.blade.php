@@ -282,7 +282,7 @@
                                             <li>
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_accountabilities" class="link-dark rounded"><i
-                                                            class="fas fa-money-check"></i> Accountabilities</a>
+                                                            class="fas fa-calculator"></i> My Fees</a>
                                                 </button>
                                             </li>
                                         </ul>
@@ -410,7 +410,7 @@
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                                     </button>
                                     <div class="collapse" id="student-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small text-start">
                                             <li>
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_announcement" class="link-dark rounded"><i
@@ -430,9 +430,9 @@
                                                 </button>
                                             </li>
                                             <li>
-                                                <button class="btn btn-outline-light">
+                                                <button class="btn btn-outline-light text-start">
                                                     <a href="/student_accountabilities" class="link-dark rounded"><i
-                                                            class="fas fa-money-check"></i> My Accountabilities</a>
+                                                            class="fas fa-calculator"></i> My Fees</a>
                                                 </button>
                                             </li>
                                         </ul>
@@ -458,7 +458,7 @@
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                                     </button>
                                     <div class="collapse" id="student-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small text-start">
                                             <li>
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_announcement" class="link-dark rounded"><i
@@ -480,7 +480,7 @@
                                             <li>
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_accountabilities" class="link-dark rounded"><i
-                                                            class="fas fa-money-check"></i> My Accountabilities</a>
+                                                            class="fas fa-calculator"></i> My Fees</a>
                                                 </button>
                                             </li>
                                         </ul>
