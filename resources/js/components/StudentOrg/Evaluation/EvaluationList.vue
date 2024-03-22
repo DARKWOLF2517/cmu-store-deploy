@@ -19,14 +19,13 @@
 
                     </select>
                 </div>
-                <div class="select-dropdown" style="width: 30%;">
-                    <!-- First dropdown -->
+                <!-- <div class="select-dropdown" style="width: 30%;">
                     <select id="sort-select" class="form-control" style="text-align: center;">
                         <option value="" disabled selected><i class="fas fa-filter"></i> All</option>
                         <option value="ongoing">Ongoing</option>
                         <option value="completed">Other Accountability</option>
                     </select>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
