@@ -9,7 +9,7 @@
         <form @submit.prevent="this.submit" id="EvaluationForm" v-if="!loading">
             <div class="evaluation-header">
                 <h5> <b>{{ this.event_title['organization'] }}</b></h5>
-                <h2> Evaluation Form</h2>
+                <h2> {{ this.evaluation_with_questions_options.evaluation_title }}</h2>
                 <h5> Name of Activity: <b>{{ this.event_title['name'] }}</b> </h5>
                 <h5>Date and Time: <b>{{ this.event_title['start_attendance'] }}</b></h5>
                 <h5>Venue: <b>{{ this.event_title['location'] }}</b></h5>
