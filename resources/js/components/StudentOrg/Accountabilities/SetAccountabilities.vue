@@ -30,12 +30,12 @@
             </div> -->
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mt-3"><i class="fas fa-list"></i> Organization Accountabilities</h4>
+            <h4 class="mt-3"><i class="fas fa-list"></i> Accountabilities</h4>
             <div class="event-buttons d-flex">
                 <div class="btn-group" role="group">
                     <button class="btn me-2" id="btn-accountabilities" data-bs-toggle="modal"
                         data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">
-                        <i class="fas fa-clipboard"></i> Add Accountabilities
+                        <i class="fas fa-clipboard"></i> Add Fee
                     </button>
                 </div>
             </div>
