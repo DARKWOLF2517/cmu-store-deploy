@@ -39,38 +39,46 @@
     </div>
 
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center">
-            <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student List</h4>
-            <div class="student-buttons d-flex">
-                <div class="btn-group" role="group">
-                    <button class="btn me-2" @click="this.submit = this.addSingleStudent, this.clearData()"
-                        data-bs-toggle="modal" data-bs-target="#addStudentModal">
-                        <i class="fas fa-plus"></i> Tag Student
-                    </button>
-                    <button id="uploadButton" class="btn me-2">
-                        <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
-                        <i class="fas fa-file-upload"></i> Upload List
-                    </button>
-                    <button class="btn me-2" @click="printTable">
-                        <i class="fas fa-print"></i> Print
-                    </button>
-                    <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+        <div>
+            <div class="row d-flex justify-content-between ">
+                <div class="col-md-6">
+                    <h3 class="mb-0"><i class="fas fa-list mt-2"></i> Student List</h3>
+                </div>
+                <div class="col-md-4 ">
+                    <div class="student-buttons d-flex justify-content-end">
+                        <div class="btn-group" role="group">
+                            <button class="btn " @click="this.submit = this.addSingleStudent, this.clearData()"
+                                data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                                <i class="fas fa-plus"></i> Tag Student
+                            </button>
+                            <button id="uploadButton" class="btn ">
+                                <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
+                                <i class="fas fa-file-upload"></i> Upload List
+                            </button>
+                            <button class="btn " @click="printTable">
+                                <i class="fas fa-print"></i> Print
+                            </button>
+                            <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
 
-                    <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
-                        <!-- option 1 -->
-                        <li><a class="dropdown-item" id="downloadButton"
-                                href="https://github.com/DARKWOLF2517/cmu-store-deploy/raw/main/template.xlsx">Download
-                                Template</a></li>
-                        <li>
+                            <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
+                                <!-- option 1 -->
+                                <li><a class="dropdown-item" id="downloadButton"
+                                        href="https://github.com/DARKWOLF2517/cmu-store-deploy/raw/main/template.xlsx">Download
+                                        Template</a></li>
+                                <li>
 
-                        </li>
-                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 

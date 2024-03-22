@@ -60,8 +60,28 @@
             <div>
                 <div class="event-cards-list ">
                     <!-- Loading spinner -->
-                    <div v-if="loading" class="d-flex gap-4">
-                        <div class="card" aria-hidden="true"
+                    <div v-if="loading">
+                        <div class="d-flex flex-column flex-md-row gap-4">
+                            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                                style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
+                                <div class="">
+                                    <p class="card-text placeholder-glow mt-2 ">
+                                        <span class="placeholder col-8 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-4 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-6 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-4 bg-secondary"></span>
+                                    </p>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" tabindex="-1"
+                                            class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                            style="height: 35px; width: 70px;"></button>
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
                             style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
                             <div class="">
 
@@ -81,7 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card" aria-hidden="true"
+                        <div class="card loading-card col-lg-4 col-md-6 " aria-hidden="true"
                             style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
                             <div class="">
 
@@ -101,30 +121,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card" aria-hidden="true"
-                            style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
-                            <div class="">
-
-                                <p class="card-text placeholder-glow mt-2 ">
-                                    <span class="placeholder col-8 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-4 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-6 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-4 bg-secondary"></span>
-                                </p>
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" tabindex="-1"
-                                        class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                                        style="height: 35px; width: 70px;"></button>
-                                </div>
-                            </div>
                         </div>
+
+
                     </div>
                     <!-- Message if the container is empty -->
-                    <div class="Container-IfEmpty text-center"
-                        v-if="!loading && this.events == 0">
+                    <div class="Container-IfEmpty text-center" v-if="!loading && this.events == 0">
                         <div class="Empty-Message">
                             <i class="icon 	bi bi-calendar-event mb-0" id="icon-message"></i>
                             <p class="text-muted  mt-0"><b>Create Events when you're ready</b>
@@ -138,7 +140,8 @@
                         </div>
                     </div>
                     <!-- Message No results found -->
-                    <div class="Container-IfEmpty text-center" v-if="!loading && this.filtered_events.length === 0 && this.events != 0">
+                    <div class="Container-IfEmpty text-center"
+                        v-if="!loading && this.filtered_events.length === 0 && this.events != 0">
                         <div class="Empty-Message">
                             <i class="icon 	fas fa-frown" id="icon-message"></i>
                             <p class="text-muted fw-bold">No results found</p>

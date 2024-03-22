@@ -34,7 +34,7 @@
             <select id="sort-select" class="form-control" style="text-align: center;" v-model="accountability_type"
                 @change="filterItems">
                 <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
-                <option value="fines">fines</option>
+                <option value="fines">Fines</option>
                 <option v-for="accountability in this.accountabilities" :value="accountability.accountability_name">{{
                 accountability.accountability_name }}</option>
             </select>
@@ -43,9 +43,11 @@
 
 
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center ">
-            <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
-            <div class="student-buttons d-flex">
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-8">
+ <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
+            </div>
+            <div class="student-buttons d-flex justify-content-end col-md-4 mt-2">
                 <div class="btn-group" role="group">
                     <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
                         <i class="fas fa-plus"></i> Excuse Student

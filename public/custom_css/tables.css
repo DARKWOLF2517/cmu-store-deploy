@@ -18,8 +18,9 @@ table {
 }
 
 thead {
-    background-color: rgb(132, 192, 180);
+    background-color: rgb(119, 177, 165) !important;
     position: sticky;
+    height: 30px;
     top: 0;
 }
 #tableModal thead {

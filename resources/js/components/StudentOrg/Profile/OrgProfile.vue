@@ -9,7 +9,38 @@
                 </ol>
             </nav>
         </div>
-        <div class="student-profile-page h-100">
+        <div class="col-md-8">
+            <h3 class="mt-2"><i class="fas fa-list"></i> Organization Profile</h3>
+        </div>
+        <div v-if="loading" class="mb-4" style="padding: 10px;">
+            <div class="card" aria-hidden="true" style=" height: 100%; border:none; padding: 20px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="card-title placeholder-glow ">
+                            <span class="placeholder col-6 bg-secondary"
+                                style="height: 250px; width: 250px; border-radius: 50%;"></span>
+                        </h3>
+                    </div>
+                    <div class="col-md-6 details-load">
+                        <p class="card-text placeholder-wave mt-2 text-start ">
+
+                            <br>
+                            <span class="placeholder col-4 bg-secondary"></span>
+                            <br>
+                            <span class="placeholder mt-4 col-12 bg-secondary"></span>
+                            <br>
+                            <span class="placeholder col-8 bg-secondary mt-2"></span>
+                            <br>
+                            <span class="placeholder col-6 bg-secondary"></span>
+                            <br>
+                            <span class="placeholder col-4 bg-secondary"></span>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div v-else class="student-profile-page h-100">
             <div class="container-fluid" id="profile-details">
                 <div class="col">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">

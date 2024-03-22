@@ -10,8 +10,6 @@ td {
 
 } */
 .accountability-cards-list {
-    display: flex;
-    flex-wrap: wrap;
     overflow-y: auto;
     overflow-x: hidden;
     height: 70vh;

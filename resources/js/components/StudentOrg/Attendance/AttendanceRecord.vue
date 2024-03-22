@@ -38,8 +38,10 @@
     <div class="col" id="record-container">
 
         <!-- Loading spinner -->
-        <div v-if="loading" class="d-flex gap-4">
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+        <div v-if="loading">
+             <div class="d-flex flex-column flex-md-row gap-4 p-2">
+
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
                 <div class="card-body ">
                     <h5 class="card-title placeholder-glow ">
                         <span class="placeholder col-6 bg-secondary" style="height: 32px; width: 200px; border-radius: 60px;"></span>
@@ -56,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
                 <div class="card-body ">
                     <h5 class="card-title placeholder-glow ">
                         <span class="placeholder col-6 bg-secondary" style="height: 32px; width: 200px; border-radius: 60px;"></span>
@@ -73,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
                 <div class="card-body ">
                     <h5 class="card-title placeholder-glow ">
                         <span class="placeholder col-6 bg-secondary" style="height: 32px; width: 200px; border-radius: 60px;"></span>
@@ -91,6 +93,8 @@
                 </div>
             </div>
         </div>
+        </div>
+
 
         <!-- Message if the container is empty -->
         <div class="Container-IfEmpty text-center" v-if="!loading && Object.keys(attendance).length === 0">
