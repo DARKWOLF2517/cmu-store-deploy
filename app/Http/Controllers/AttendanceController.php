@@ -72,24 +72,24 @@ class AttendanceController extends Controller
 
 
 
-        $event = Event::where('event_id', $request->event_id)->with('organization')->first();
-        $user = UserProfile::where('user_id', $request->user_id)->first();
-        $currentDateTime = Carbon::now();
+        // $event = Event::where('event_id', $request->event_id)->with('organization')->first();
+        // $user = UserProfile::where('user_id', $request->user_id)->first();
+        // $currentDateTime = Carbon::now();
 
-        $date = $currentDateTime->format('F j, Y'); // Format date as "Month Day, Year"
-        $time = $currentDateTime->format('g:i A');
-        $details = [
-            'event_name' => $event->name,
-            'user_name' => $user->first_name . ' ' . $user->last_name,
-            'org_name' => $event->organization->description,
-            'date' => $date,
-            'time' =>  $time,
-            'session' => $request->session,
-        ];
-        // return $user;
-        if ($user->email) {
-            Mail::to($user->email)->send(new AttendanceMail($details));
-        }
+        // $date = $currentDateTime->format('F j, Y'); // Format date as "Month Day, Year"
+        // $time = $currentDateTime->format('g:i A');
+        // $details = [
+        //     'event_name' => $event->name,
+        //     'user_name' => $user->first_name . ' ' . $user->last_name,
+        //     'org_name' => $event->organization->description,
+        //     'date' => $date,
+        //     'time' =>  $time,
+        //     'session' => $request->session,
+        // ];
+        // // return $user;
+        // if ($user->email) {
+        //     Mail::to($user->email)->send(new AttendanceMail($details));
+        // }
 
 
         return response()->json(array("result" => "success", "message" => "Student successfully logged in..."));

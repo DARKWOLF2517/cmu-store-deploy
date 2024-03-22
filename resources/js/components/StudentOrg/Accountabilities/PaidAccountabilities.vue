@@ -45,7 +45,7 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-between">
             <div class="col-md-8">
- <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
+                <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Paid Accountabilities</h4>
             </div>
             <div class="student-buttons d-flex justify-content-end col-md-4 mt-2">
                 <div class="btn-group" role="group">
@@ -381,10 +381,7 @@ export default {
                     }
                     else if (response.data.status == 1) {
                         this.showSucces(response.data.message);
-                        this.fetchData();
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
+
                     }
 
 
@@ -442,7 +439,7 @@ export default {
             axios.delete(`/delete_paid_accountabilities/${this.id}`)
                 .then(response => {
                     this.showSucces(response.data.message);
-                    this.fetchData();
+                    // this.fetchData();
                 })
                 .catch(error => {
                     if (error.response && error.response.status === 422) {
@@ -485,31 +482,60 @@ export default {
         },
 
         filterItems() {
-            let filteredBySearch = this.paidList;
-            if (this.searchTerm) {
-                const searchTermLower = this.searchTerm.toLowerCase();
-                filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name + '' + item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
-                    item.student_id.toString().includes(this.searchTerm)
+            //if university wide
+            if (this.college_id == 11) {
+                let filteredBySearch = this.paidList;
+                if (this.searchTerm) {
+                    const searchTermLower = this.searchTerm.toLowerCase();
+                    filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name + '' + item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
+                        item.student_id.toString().includes(this.searchTerm)
+                    );
+                }
+
+                let filteredByCollege = this.paidList;
+                if (this.college_data_input !== undefined && this.college_data_input !== null && this.college_data_input != 11) {
+                    filteredByCollege = filteredByCollege.filter(item =>
+                        item.user_profile.college_id === parseInt(this.college_data_input, 10)
+                    );
+                }
+
+                let filteredByAccountability = this.paidList;
+                if (this.accountability_type) {
+                    filteredByAccountability = filteredByAccountability.filter(item =>
+                        item.accountability_type == this.accountability_type
+                    );
+                }
+                console.log(filteredByAccountability)
+
+                // this.filtered_paid_accountabilities = filteredBySearch;
+                this.filtered_paid_accountabilities = filteredBySearch.filter(item =>
+                    filteredByCollege.includes(item) && filteredByAccountability.includes(item)
+                );
+            }
+            //if not university wide
+            else {
+                let filteredBySearch = this.paidList;
+                if (this.searchTerm) {
+                    const searchTermLower = this.searchTerm.toLowerCase();
+                    filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name + '' + item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
+                        item.student_id.toString().includes(this.searchTerm)
+                    );
+                }
+                let filteredByAccountability = this.paidList;
+                if (this.accountability_type) {
+                    filteredByAccountability = filteredByAccountability.filter(item =>
+                        item.accountability_type == this.accountability_type
+                    );
+                }
+                console.log(filteredByAccountability)
+
+                // this.filtered_paid_accountabilities = filteredBySearch;
+                this.filtered_paid_accountabilities = filteredBySearch.filter(item =>
+                    filteredByAccountability.includes(item)
                 );
             }
 
-            let filteredByCollege = this.paidList;
-            if (this.college_data_input !== undefined && this.college_data_input !== null && this.college_data_input != 11) {
-                filteredByCollege = filteredByCollege.filter(item =>
-                    item.user_profile.college_id === parseInt(this.college_data_input, 10)
-                );
-            }
 
-            let filteredByAccountability = this.paidList;
-            if (this.accountability_type) {
-                filteredByAccountability = filteredByAccountability.filter(item =>
-                    item.accountability_type == this.accountability_type
-                );
-            }
-            // this.filtered_paid_accountabilities = filteredBySearch;
-            this.filtered_paid_accountabilities = filteredBySearch.filter(item =>
-                filteredByCollege.includes(item) && filteredByAccountability.includes(item)
-            );
         },
         showSchoolYear() {
             axios.get(`get_school_year`)
@@ -671,7 +697,9 @@ export default {
             return tableData;
         },
         showSucces(message) {
-            this.fetchData();
+            setTimeout(() => {
+                location.reload();
+            }, 500);
             toast.success(message), {
                 autoClose: 100,
             }
