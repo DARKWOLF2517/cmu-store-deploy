@@ -269,8 +269,7 @@
                             <div id="choicesContainer1" class="mt-2">
                                 <h5 for="choices1 fw-bold">Choices</h5>
                                 <div style="margin-left: 20px; margin-top: 10px">
-  <p class="lh-1"  v-for="(choices, index) in question.evaluation_option"> <b> {{
-                        String.fromCharCode(65 + index) }}. </b> {{ choices.option }} &nbsp; </p>
+  <p class="lh-1"  v-for="(choices, index) in question.evaluation_option"> <b> {{ choices.option }}</b>  &nbsp; </p>
                                 </div>
 
                             </div>
