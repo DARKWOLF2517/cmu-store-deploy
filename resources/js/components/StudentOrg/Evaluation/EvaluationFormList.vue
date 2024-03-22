@@ -177,7 +177,10 @@
                         <div class="mb-3">
                             <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
                             <input type="text" class="form-control" id="formTitle" v-model="formTitle" required
-                                maxlength="50">
+                                maxlength="50"
+                                :style="{ borderColor: formTitle.length >= 50 ? 'red' : '' }">
+                                <p v-if="formTitle.length >= 50" style="color: red;">Maximum length
+                                reached</p>
                         </div>
                         <div class="mb-3">
                             <label for="formDescription" class="form-label">Input Description</label>
@@ -198,9 +201,11 @@
                                     }}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" :id="'question' + (questionindex + 1)"
-                                        :ref="'question' + (questionindex + 1)" v-model="question.text">
+                                        :ref="'question' + (questionindex + 1)" v-model="question.text"
+                                        required maxlength="200">
                                     <button class="btn btn-danger remove-question" type="button"
                                         @click="removeQuestion(questionindex)">X</button>
+
                                 </div>
                                 <div class="choice-container" style="padding-left: 15px;">
                                     <div class="d-flex justify-content-start mb-3 mt-2"> <button type="button"
@@ -208,12 +213,12 @@
                                             <i class="fas fa-plus"></i> Add
                                             Choice</button>
                                     </div>
-
                                     <div class="mb-3" v-for="(choice, index) in question.choices" :key="index">
                                         <label for="choice" class="form-label fw-bold">Choice {{ index + 1 }}</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" :id="'choice' + (index + 1)"
-                                                :ref="'choice' + (index + 1)" v-model="choice.text">
+                                                :ref="'choice' + (index + 1)" v-model="choice.text"
+                                                required maxlength="200">
                                             <button class="btn btn-danger remove-question" type="button"
                                                 @click="removeChoice(questionindex, index)">X</button>
                                         </div>
