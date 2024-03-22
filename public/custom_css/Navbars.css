@@ -90,7 +90,10 @@ margin-left: auto;
 margin-left: 10px;
 margin-right: 0;
 }
-
+.list-unstyled li:active {
+    /* Set the desired color when the list item is clicked */
+    color: red; /* Change 'red' to your desired color */
+}
 .sidebar {
     position: absolute;
     top: 50px;

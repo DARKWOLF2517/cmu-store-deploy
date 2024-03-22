@@ -63,8 +63,7 @@
                             >
                         </side-nav-button> --}}
                         <li>
-                            <side-nav-button link_name="Profile"
-                                link_route = "{{ url('/student_profile') }}"
+                            <side-nav-button link_name="Profile" link_route = "{{ url('/student_profile') }}"
                                 show_icon = "{{ false }}">
                             </side-nav-button>
                         </li>
@@ -99,7 +98,8 @@
                         <ul class="list-unstyled ">
                             @if (Session::get('role') == 1)
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded dashboard-button">
+                                    <button
+                                        class="btn btn-toggle  btn-outline-light align-items-center rounded dashboard-button">
                                         <i class="fas fa-tachometer-alt"></i>
                                         <a href="/org_dashboard">
                                             <span class="link-title">Dashboard</span>
@@ -107,7 +107,8 @@
                                     </button>
                                 </li>
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded events-button">
+                                    <button
+                                        class="btn btn-toggle  btn-outline-light align-items-center rounded events-button">
                                         <i class="fas fa-bullhorn"></i>
                                         <a href="/student_organization_announcement">
                                             <span class="link-title"> Announcement</span>
@@ -115,7 +116,8 @@
                                     </button>
                                 </li>
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded events-button">
+                                    <button
+                                        class="btn btn-toggle  btn-outline-light align-items-center rounded events-button">
                                         <i class="fas fa-user"></i>
                                         <a href="/student_organization_profile">
                                             <span class="link-title">Organization Profile</span>
@@ -136,7 +138,8 @@
                                 </div>
                             </li> --}}
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded events-button">
+                                    <button
+                                        class="btn btn-toggle  btn-outline-light align-items-center rounded events-button">
                                         <i class="	fas fa-calendar-alt"></i>
                                         <a href="/student_organization_events">
                                             <span class="link-title">Events</span>
@@ -146,7 +149,8 @@
 
 
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center studentlist-button">
+                                    <button
+                                        class="btn btn-toggle  btn-outline-light align-items-center studentlist-button">
                                         <i class="	fas fa-list-alt"></i>
                                         <a href="/student_organization_member_list">
                                             <span class="link-title">Student List</span>
@@ -162,7 +166,8 @@
                                 </button>
                             </li> --}}
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded rotate-icon"
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#evaluation-collapse"
                                         aria-expanded="false">
                                         <i class="fas fa-chart-line"></i>
@@ -170,13 +175,22 @@
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                                     </button>
                                     <div class="collapse" id="evaluation-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/student_organization_evaluation"
-                                                    class="link-dark rounded"><i class="fas fa-folder"></i>
-                                                    Records</a></li>
-                                            <li><a href="/student_organization_evaluation_forms"
-                                                    class="link-dark rounded"><i class="fas fa-file"></i> Evaluation
-                                                    forms</a></li>
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal text-start small w-100">
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_organization_evaluation"
+                                                        class="link-dark rounded"><i class="fas fa-folder"></i>
+                                                        Records</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn  btn-outline-light">
+                                                    <a href="/student_organization_evaluation_forms"
+                                                        class="link-dark rounded"><i class="fas fa-file"></i>
+                                                        Evaluation
+                                                        forms</a>
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -207,70 +221,115 @@
                                 </button>
                             </li> --}}
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded rotate-icon"
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
                                         aria-expanded="false">
                                         <i class="fas fa-clipboard-check"></i>
-                                        <span class="link-title">Attendance</span>
+                                        <span class="link-title fw-normal">Attendance</span>
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                                     </button>
                                     <div class="collapse" id="dashboard-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/student_organization_attendance_schedule"
-                                                    class="link-dark rounded"><i class="fas fa-calendar-check"></i>
-                                                    Schedule</a></li>
-                                            <li><a href="/student_organization_attendance"
-                                                    class="link-dark rounded"><i class="fas fa-check-circle"></i>
-                                                    Records</a></li>
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal text-start small">
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_organization_attendance_schedule"
+                                                        class="link-dark rounded"><i
+                                                            class="fas fa-calendar-check"></i>
+                                                        Schedule</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_organization_attendance"
+                                                        class="link-dark rounded"><i class="fas fa-check-circle"></i>
+                                                        Records</a>
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
 
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded rotate-icon"
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#student-collapse"
                                         aria-expanded="false">
                                         <i class="fas fa-user"></i>
-                                        <span class="link-title">Student</span>
+                                        <span class="link-title fw-normal">Student</span>
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                                     </button>
                                     <div class="collapse" id="student-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/student_announcement" class="link-dark rounded"><i
-                                                        class="fas fa-bullhorn"></i> Announcements</a></li>
-                                            <li><a href="/student_profile" class="link-dark rounded"><i
-                                                        class="fas fa-user"></i> My Profile</a></li>
-                                            <li><a href="/student_evaluation_list" class="link-dark rounded"><i
-                                                        class="fas fa-chart-pie"></i> Evaluation</a></li>
-                                            <li><a href="/student_accountabilities" class="link-dark rounded"><i
-                                                        class="fas fa-money-check"></i> Accountabilities</a></li>
+                                        <ul class="btn-toggle-nav list-unstyled fw-normal small text-start w-100">
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_announcement" class="link-dark rounded"><i
+                                                            class="fas fa-bullhorn"></i> Announcements</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_profile" class="link-dark rounded"><i
+                                                            class="fas fa-user"></i> My Profile</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_evaluation_list" class="link-dark rounded"><i
+                                                            class="fas fa-chart-pie"></i> Evaluation</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_accountabilities" class="link-dark rounded"><i
+                                                            class="fas fa-money-check"></i> Accountabilities</a>
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
 
 
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded rotate-icon"
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse"
                                         aria-expanded="false">
                                         <i class="fas fa-wallet"></i>
-                                        <span class="link-title">Accountabilities</span>
+                                        <span class="link-title fw-normal">Accountabilities</span>
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                                     </button>
                                     <div class="collapse" id="accountabilities-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/student_organization_set_accountabilities"
-                                                    class="link-dark rounded"><i
-                                                        class="fas fa-file-invoice-dollar"></i> Set Fee</a></li>
-                                            <li><a href="/student_organization_free_fines"
-                                                    class="link-dark rounded"><i class="fas fa-check-square"></i> Set
-                                                    Free Fines</a></li>
-                                            <li><a href="/student_organization_accountabilities_list"
-                                                    class="link-dark rounded"><i class="fas fa-book"></i>
-                                                    Accountability list</a></li>
-                                            <li><a href="/student_organization_accountabilities_records"
-                                                    class="link-dark rounded"><i class="fas fa-file-invoice"></i>
-                                                    Payment history</a></li>
+                                        <ul class="btn-toggle-nav list-unstyled  w-100 fw-normal small text-start">
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_organization_set_accountabilities"
+                                                        class="link-dark rounded"><i
+                                                            class="fas fa-file-invoice-dollar"></i> Set Fee</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_organization_free_fines"
+                                                        class="link-dark rounded"><i class="fas fa-check-square"></i>
+                                                        Set
+                                                        Free Fines</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_organization_accountabilities_list"
+                                                        class="link-dark rounded"><i class="fas fa-book"></i>
+                                                        Accountability list</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_organization_accountabilities_records"
+                                                        class="link-dark rounded"><i class="fas fa-file-invoice"></i>
+                                                        Payment history</a>
+                                                </button>
+                                            </li>
                                             {{-- <li><a href="/student_organization_accountability_report" class="link-dark rounded"><i class="fas fa-chart-line"></i> Accountability Report</a></li> --}}
                                         </ul>
                                     </div>
@@ -303,7 +362,8 @@
                             </li> --}}
                             @elseif (Session::get('role') == 3)
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded dashboard-button">
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
                                         <i class="fas fa-tachometer-alt"></i>
                                         <a href="/attendance_checker_dashboard">
                                             <span class="link-title">Dashboard</span>
@@ -311,7 +371,8 @@
                                     </button>
                                 </li>
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded rotate-icon"
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
                                         aria-expanded="false">
                                         <i class="fas fa-clipboard-check"></i>
@@ -320,17 +381,28 @@
                                     </button>
                                     <div class="collapse" id="dashboard-collapse">
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/attendance_checker_attendance_schedule"
-                                                    class="link-dark rounded"><i class="fas fa-calendar-check"></i>
-                                                    Schedule</a></li>
-                                            <li><a href="/attendance_checker_attendance_records_list"
-                                                    class="link-dark rounded"><i class="fas fa-check-circle"></i>
-                                                    Records</a></li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/attendance_checker_attendance_schedule"
+                                                        class="link-dark rounded"><i
+                                                            class="fas fa-calendar-check"></i>
+                                                        Schedule</a>
+                                                </button>
+
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/attendance_checker_attendance_records_list"
+                                                        class="link-dark rounded"><i class="fas fa-check-circle"></i>
+                                                        Records</a>
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded rotate-icon"
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#student-collapse"
                                         aria-expanded="false">
                                         <i class="fas fa-user"></i>
@@ -339,20 +411,37 @@
                                     </button>
                                     <div class="collapse" id="student-collapse">
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/student_announcement" class="link-dark rounded"><i
-                                                        class="fas fa-bullhorn"></i> Announcements</a></li>
-                                            <li><a href="/student_profile" class="link-dark rounded"><i
-                                                        class="fas fa-user"></i> My Profile</a></li>
-                                            <li><a href="/student_evaluation_list" class="link-dark rounded"><i
-                                                        class="fas fa-clipboard-check"></i> Evaluation</a></li>
-                                            <li><a href="/student_accountabilities" class="link-dark rounded"><i
-                                                        class="fas fa-money-check"></i> My Accountabilities</a></li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_announcement" class="link-dark rounded"><i
+                                                            class="fas fa-bullhorn"></i> Announcements</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_profile" class="link-dark rounded"><i
+                                                            class="fas fa-user"></i> My Profile</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_evaluation_list" class="link-dark rounded"><i
+                                                            class="fas fa-clipboard-check"></i> Evaluation</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_accountabilities" class="link-dark rounded"><i
+                                                            class="fas fa-money-check"></i> My Accountabilities</a>
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>
                             @elseif (Session::get('role') == 2)
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded dashboard-button">
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
                                         <i class="fas fa-tachometer-alt"></i>
                                         <a href="/student_dashboard">
                                             <span class="link-title">Dashboard</span>
@@ -360,7 +449,8 @@
                                     </button>
                                 </li>
                                 <li class="mb-1">
-                                    <button class="btn btn-toggle align-items-center rounded rotate-icon"
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#student-collapse"
                                         aria-expanded="false">
                                         <i class="fas fa-user"></i>
@@ -369,14 +459,30 @@
                                     </button>
                                     <div class="collapse" id="student-collapse">
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                                            <li><a href="/student_announcement" class="link-dark rounded"><i
-                                                        class="fas fa-bullhorn"></i> Announcements</a></li>
-                                            <li><a href="/student_profile" class="link-dark rounded"><i
-                                                        class="fas fa-user"></i> My Profile</a></li>
-                                            <li><a href="/student_evaluation_list" class="link-dark rounded"><i
-                                                        class="fas fa-clipboard-check"></i> Evaluation</a></li>
-                                            <li><a href="/student_accountabilities" class="link-dark rounded"><i
-                                                        class="fas fa-money-check"></i> My Accountabilities</a></li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_announcement" class="link-dark rounded"><i
+                                                            class="fas fa-bullhorn"></i> Announcements</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-line">
+                                                    <a href="/student_profile" class="link-dark rounded"><i
+                                                            class="fas fa-user"></i> My Profile</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_evaluation_list" class="link-dark rounded"><i
+                                                            class="fas fa-clipboard-check"></i> Evaluation</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
+                                                    <a href="/student_accountabilities" class="link-dark rounded"><i
+                                                            class="fas fa-money-check"></i> My Accountabilities</a>
+                                                </button>
+                                            </li>
                                         </ul>
                                     </div>
                                 </li>

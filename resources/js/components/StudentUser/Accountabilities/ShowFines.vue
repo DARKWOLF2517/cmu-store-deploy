@@ -110,7 +110,7 @@
                         <div class="Empty-Message">
                             <i class="far fa-smile mb-0" id="icon-message"></i>
                             <p class="text-muted mt-0">
-                                <b>No fees yet</b>
+                                <b>No fees yet.</b>
                                 <br />
                                 Your student organization fees will show up
                                 here.

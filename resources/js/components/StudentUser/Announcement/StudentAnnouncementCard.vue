@@ -15,7 +15,7 @@
             <div class="announcement-container" id="announcement-container">
                 <div class="announcement-cards-list align-items">
                     <!-- Loading spinner -->
-                    <div  class="mb-4" style="padding: 10px;">
+                    <div v-if="loading"  class="mb-4" style="padding: 10px;">
                         <div class="card mb-2" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
                                 <h5 class="card-title placeholder-glow ">
@@ -137,6 +137,7 @@ export default {
             school_year_input: this.school_year_session,
             announcements: [],
             filtered_announcements: [],
+            loading: true,
         }
     },
     mounted() {
