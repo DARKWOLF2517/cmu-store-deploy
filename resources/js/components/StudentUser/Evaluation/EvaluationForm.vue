@@ -1,5 +1,5 @@
     <template>
-        <div style="padding: 30px;">
+        <div class="mt-4 p-2">
             <!-- Loading spinner for the form -->
         <div v-if="loading" class="loading-spinner-container">
             <div class="spinner-border text-success" id="form-spinner" role="status">

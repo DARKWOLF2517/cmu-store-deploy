@@ -1,8 +1,9 @@
 <template>
     <div id="evaluation-container">
         <div class="col">
-        <div v-if="loading" class="d-flex gap-4">
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+            <div v-if="loading">
+                 <div class="d-flex flex-column flex-md-row gap-4">
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
@@ -21,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
@@ -40,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow ">
@@ -60,6 +61,8 @@
                 </div>
             </div>
         </div>
+            </div>
+
     </div>
 
         <div class="evaluation-event-cards">

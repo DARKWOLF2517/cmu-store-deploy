@@ -110,9 +110,10 @@ th{
     padding: 10px;
 }
 .student-details {
-    padding: 10px;
+
     width: 100%;
 }
+
 
 .profile-details{
     margin-top: 20px;
@@ -292,7 +293,7 @@ th{
     h4{
         font-size: 15px;
     }
-    h5, h6, th{
+   h6, th{
         font-size: 12px;
     }
     .student-details{

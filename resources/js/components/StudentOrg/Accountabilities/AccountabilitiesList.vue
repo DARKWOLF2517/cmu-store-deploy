@@ -38,9 +38,12 @@
 
 
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center">
-            <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
-            <div class="student-buttons d-flex">
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-8">
+ <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
+            </div>
+
+            <div class="student-buttons col-md-4 d-flex justify-content-end mt-2">
                 <div class="btn-group" role="group">
                     <button class="btn me-2" id="add-student-list-button" @click="printTable">
                         <i class="fas fa-print"></i> Print
@@ -181,19 +184,19 @@
     <!-- View Modal -->
     <div class="modal fade" id="viewAllAccountabilitiesModal" tabindex="-1"
         aria-labelledby="viewAllAccountabilitiesModalLabel" aria-hidden="true">
-        <div class="modal-dialog  modal-dialog-centered modal-lg " style="max-width: 80%;">
+        <div class="modal-dialog  modal-dialog-centered modal-lg ">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewAllAccountabilitiesModalLabel">View Student Accountability</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style=" overflow-x: auto; overflow-y: auto;">
                     <h5 class="text-success"> <b>Remaining Balance: </b> </h5>
                     <div v-for="summary in this.temporary_list_summary">
 
-                        <h5 class="ms-4"> {{ summary.label }}: <b>&#8369; {{ summary.amount }}</b> </h5>
+                        <h6 class="ms-4"> {{ summary.label }}: <b>&#8369; {{ summary.amount }}</b> </h6>
                     </div>
-                    <table class="table" id="temporaryList" style="max-height: 50vh; overflow-y: auto;">
+                    <table style="margin-top: 0;" id="temporaryList">
                         <thead>
                             <tr>
                                 <th>Student ID</th>
@@ -205,7 +208,7 @@
                                 <th>Amount</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="overflow-y:auto; max-height: 30vh;">
                             <tr v-for="temporary_list in this.temporary_list" :id="temporary_list.event_id">
                                 <td>{{ temporary_list.user_id }}</td>
                                 <td>{{ temporary_list.name }}</td>
@@ -742,7 +745,7 @@ export default {
                         //     });
 
                         // }
-                        
+
                         //for cancelling attedance that is in the database
                         for (let index = 1; index <= attend.attendance_count; index++) {
                             const found = cancelled_attendance.find(element => element.event_id == attend.event_id && element.session == index);

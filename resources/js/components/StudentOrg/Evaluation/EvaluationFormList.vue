@@ -1,13 +1,13 @@
 <template>
     <div class="mt-2">
-        <div class="row head-container">
+        <div class="row head-container d-flex justify-content-between ">
             <div class="col-md-6 col-sm-12">
                 <div class="input-container">
                     <i class="fa fa-search"></i>
                     <input type="text" placeholder="Search Student" v-model="searchTerm" @input="filterItems">
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; gap: 20px;">
+            <div class="col-md-6 col-sm-12 ">
                 <div class="select-dropdown" style="width: 70%;">
                     <select id="sort-select" class="form-control" style="text-align: center;"
                         v-model="school_year_input" @change="fetchEvaluationForms">
@@ -21,74 +21,89 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center">
-            <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
-            <div class="event-buttons d-flex">
+        <div class="align-items-center">
+            <div class="row d-flex justify-content-between">
+                <div class="col-md-8">
+  <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
+                </div>
+                <div class="col event-buttons d-flex justify-content-end">
                 <div class="btn-group" role="group">
                     <button @click="this.submit = this.submitForm" class="btn me-2" id="add-event-button"
                         data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
                         Create form</button>
                 </div>
             </div>
+            </div>
+
+
         </div>
     </div>
     <div id="evaluation-container">
         <!-- Loading spinner -->
-        <div v-if="loading" class="d-flex gap-4">
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 180px; border:none;">
-                <div class="card-body ">
+        <div v-if="loading" >
+            <div class="d-flex flex-column flex-md-row gap-4 p-2">
+                <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                    style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                    <div class="card-body ">
+                        <p class="card-text placeholder-glow mt-4 ">
+                            <span class="placeholder col-4 bg-secondary"></span>
+                        </p>
+                        <p class="card-text placeholder-glow ">
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                            <br>
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" tabindex="-1"
+                                class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                style="height: 35px; width: 70px;"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                    style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                    <div class="card-body ">
 
-                    <p class="card-text placeholder-glow mt-4 ">
-                        <span class="placeholder col-4 bg-secondary"></span>
-                    </p>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                        <br>
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                    </p>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                            style="height: 35px; width: 70px;"></button>
+                        <p class="card-text placeholder-glow mt-4 ">
+                            <span class="placeholder col-4 bg-secondary"></span>
+                        </p>
+                        <p class="card-text placeholder-glow ">
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                            <br>
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" tabindex="-1"
+                                class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                style="height: 35px; width: 70px;"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                    style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                    <div class="card-body ">
+
+                        <p class="card-text placeholder-glow mt-4 ">
+                            <span class="placeholder col-4 bg-secondary"></span>
+                        </p>
+                        <p class="card-text placeholder-glow ">
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                            <br>
+                            <span class="placeholder col-4 mt-0 bg-secondary placeholder-xs"></span>
+                        </p>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" tabindex="-1"
+                                class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                style="height: 35px; width: 70px;"></button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
-                <div class="card-body ">
 
-                    <p class="card-text placeholder-glow mt-4 ">
-                        <span class="placeholder col-4 bg-secondary"></span>
-                    </p>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                        <br>
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                    </p>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                            style="height: 35px; width: 70px;"></button>
-                    </div>
-                </div>
-            </div>
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
-                <div class="card-body ">
 
-                    <p class="card-text placeholder-glow mt-4 ">
-                        <span class="placeholder col-4 bg-secondary"></span>
-                    </p>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                        <br>
-                        <span class="placeholder col-md-4 mt-0 bg-secondary placeholder-xs"></span>
-                    </p>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                            style="height: 35px; width: 70px;"></button>
-                    </div>
-                </div>
-            </div>
 
         </div>
         <div class="evaluation-event-cards">
@@ -152,8 +167,10 @@
                 <form @submit.prevent="this.submit">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Create Evaluation Form</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-if="this.submit == this.submitForm"></button>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-else @click="this.clearData"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            v-if="this.submit == this.submitForm"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-else
+                            @click="this.clearData"></button>
                     </div>
                     <div class="modal-body">
 
@@ -168,7 +185,7 @@
                                 required maxlength="200"></textarea>
                         </div>
                         <div class="d-flex justify-content-end mb-3">
-                            <button type="button" class="btn btn-primary add-question" @click="this.addQuestion()"> <i
+                            <button type="button" class="btn btn-success add-question" @click="this.addQuestion()"> <i
                                     class="fas fa-plus"></i> Add
                                 Question</button>
                         </div>
@@ -210,9 +227,11 @@
                                 :true-value="1" :false-value="0">
                             <label for="feedback">Accept Feedback?</label>
                         </div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-if="this.submit == this.submitForm">Close</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-else @click="this.clearData">Close</button>
-                       
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            v-if="this.submit == this.submitForm">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-else
+                            @click="this.clearData">Close</button>
+
                         <button type="submit" class="btn btn-success">Save Form</button>
                     </div>
                 </form>
@@ -238,17 +257,19 @@
                         <p style="padding-left: 10px;">{{ evaluation.evaluation_description }}</p>
                     </div>
                     <div class="mb-3" v-for="(question, index) in evaluation.evaluation_question">
-                        <label for="question1" class="form-label fw-bold">Question {{ index + 1 }}</label>
+                        <h5 for="question1" class="form-label fw-bold">Question {{ index + 1 }}</h5>
                         <div class="input-group">
                             <input type="text" class="form-control" id="question1" :value="question.description"
-                                readonly>
+                              disabled  readonly>
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
-                                <label for="choices1">Choices</label>
-                                <br>
-                                <small class="fw-bold" v-for="(choices, index) in question.evaluation_option"> {{
-                        String.fromCharCode(65 + index) }}. {{ choices.option }} &nbsp; </small>
+                                <h5 for="choices1 fw-bold">Choices</h5>
+                                <div style="margin-left: 20px; margin-top: 10px">
+  <p class="lh-1"  v-for="(choices, index) in question.evaluation_option"> <b> {{
+                        String.fromCharCode(65 + index) }}. </b> {{ choices.option }} &nbsp; </p>
+                                </div>
+
                             </div>
                         </div>
                     </div>

@@ -1,13 +1,13 @@
 <template>
     <div class="row head-container">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 ">
 
             <div class="input-container">
                 <i class="fa fa-search"></i>
                 <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
             </div>
         </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6">
             <div class="select-dropdown" style="width: 70%;">
                 <!-- Second dropdown -->
                 <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
@@ -29,25 +29,26 @@
                 <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
             </div> -->
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mt-3"><i class="fas fa-list"></i> Accountabilities</h4>
-            <div class="event-buttons d-flex">
-                <div class="btn-group" role="group">
-                    <button class="btn me-2" id="btn-accountabilities" data-bs-toggle="modal"
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-8">
+ <h4 class="mt-3"><i class="fas fa-list"></i> Organization Fees</h4>
+            </div>
+            <div class="col-md-4  d-flex justify-content-end">
+                    <button class="btn me-2"  data-bs-toggle="modal"
                         data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">
                         <i class="fas fa-clipboard"></i> Add Fee
                     </button>
                 </div>
             </div>
         </div>
-    </div>
+
 
     <!-- <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button> -->
     <!-- Card 1 -->
     <div class="accountabilities-container" id="set-accountabilities">
         <!-- Loading spinner -->
-        <div v-if="loading" class="d-flex gap-4" style="padding: 10px;">
-            <div class="card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 180px; border:none;">
+        <div v-if="loading"  class="d-flex gap-4" style="padding: 10px;">
+            <div class="card loading-card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 180px; border:none;">
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow text-center">

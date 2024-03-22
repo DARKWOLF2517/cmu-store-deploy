@@ -31,9 +31,12 @@
         </div>
     </div>
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center ">
-            <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
-            <div class="announcement-buttons d-flex">
+        <div class="align-items-center ">
+            <div class="row d-flex justify-content-between">
+                <div class="col-md-8">
+                    <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
+                </div>
+                 <div class="announcement-buttons col-md-4 text-end">
                 <div class="btn-group" role="group">
                     <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"
                         @click="this.submit = this.submitData, this.clearData()">
@@ -41,6 +44,9 @@
                     </button>
                 </div>
             </div>
+            </div>
+
+
         </div>
     </div>
     <div class="announcement-list">

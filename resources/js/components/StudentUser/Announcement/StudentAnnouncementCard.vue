@@ -15,8 +15,8 @@
             <div class="announcement-container" id="announcement-container">
                 <div class="announcement-cards-list align-items">
                     <!-- Loading spinner -->
-                    <div v-if="loading" class="mb-4" style="padding: 10px;">
-                        <div class="card" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
+                    <div  class="mb-4" style="padding: 10px;">
+                        <div class="card mb-2" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
                                 <h5 class="card-title placeholder-glow ">
                                     <span class="placeholder col-6 bg-secondary"
@@ -41,7 +41,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="card" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
+                        <div class="card " aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
                                 <h5 class="card-title placeholder-glow ">
                                     <span class="placeholder col-6 bg-secondary"

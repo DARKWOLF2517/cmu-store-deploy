@@ -23,9 +23,12 @@
 
 
     <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student with Free Fines</h4>
-            <div class="student-buttons d-flex">
+        <div class="row d-flex justify-content-between">
+            <div class="col-md-8">
+                <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student with Free Fines</h4>
+            </div>
+
+            <div class="student-buttons announcement-buttons col-md-4 text-end mt-2">
                 <div class="btn-group" role="group">
                     <button class="btn me-2" data-bs-toggle="modal" @click="this.clearData()"
                         data-bs-target="#addStudentModal">
