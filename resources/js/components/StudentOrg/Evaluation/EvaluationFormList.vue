@@ -166,7 +166,7 @@
             <div class="modal-content">
                 <form @submit.prevent="this.submit">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Create Evaluation Form</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Evaluation Form</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                             v-if="this.submit == this.submitForm"></button>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-else
@@ -182,7 +182,10 @@
                         <div class="mb-3">
                             <label for="formDescription" class="form-label">Input Description</label>
                             <textarea class="form-control" id="formDescription" rows="3" v-model="formDescription"
-                                required maxlength="200"></textarea>
+                                required maxlength="500"
+                                :style="{ borderColor: formDescription.length >= 500 ? 'red' : '' }"></textarea>
+                                <p v-if="formDescription.length >= 500" style="color: red;">Maximum length
+                                reached</p>
                         </div>
                         <div class="d-flex justify-content-end mb-3">
                             <button type="button" class="btn btn-success add-question" @click="this.addQuestion()"> <i

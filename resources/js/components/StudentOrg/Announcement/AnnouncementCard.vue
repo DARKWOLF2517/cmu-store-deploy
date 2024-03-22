@@ -190,9 +190,9 @@
                         <div class="mb-3">
                             <label class="form-label">Description</label>
                             <textarea class="form-control" v-model="announcement_data.description" required
-                                maxlength="255"
-                                :style="{ borderColor: announcement_data.description.length >= 255 ? 'red' : '' }"></textarea>
-                            <p v-if="announcement_data.description.length >= 255" style="color: red;">Maximum length
+                                maxlength="500"
+                                :style="{ borderColor: announcement_data.description.length >= 500 ? 'red' : '' }"></textarea>
+                            <p v-if="announcement_data.description.length >= 500" style="color: red;">Maximum length
                                 reached</p>
                         </div>
                         <div class="mb-3">
