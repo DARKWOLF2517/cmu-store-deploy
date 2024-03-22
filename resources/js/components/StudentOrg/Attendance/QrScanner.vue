@@ -132,16 +132,16 @@ export default {
                 .then(response => {
                     console.log(response.data)
                     alert(response.data.message)
-                    // if (response.data.result != 'failure') {
-                    //     axios.post("/send_mail", this.formData)
-                    //         .then(response => {
-                    //             console.log(response.data)
+                    if (response.data.result != 'failure') {
+                        axios.post("/send_mail", this.formData)
+                            .then(response => {
+                                console.log(response.data)
 
-                    //         })
-                    //         .catch(error => {
-                    //             alert(error)
-                    //         });
-                    // }
+                            })
+                            .catch(error => {
+                                alert(error)
+                            });
+                    }
                     this.scanner.resume();
                     this.fetchData();
                     this.formData.user_id = '';
