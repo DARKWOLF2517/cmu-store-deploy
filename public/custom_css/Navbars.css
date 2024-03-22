@@ -217,7 +217,7 @@ margin-right: 0;
     .toggle-button {
         display: block;
         position: absolute;
-        height: 50px !important;
+        height: 40px !important;
         top: 5px;
         left: 2px;
         background-color: #ffffff;
@@ -232,7 +232,7 @@ margin-right: 0;
 
     .btn-toggle .link-title {
         margin-left: 3px;
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .btn-toggle .link-arrow {
@@ -246,8 +246,6 @@ margin-right: 0;
     .profile-name{
         font-size: 14px;
     }
-    .toggle-button{
-        height: 30px !important;
-    }
+
 }
 
