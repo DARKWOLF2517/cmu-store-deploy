@@ -14,7 +14,7 @@
             </a> -->
         </div>
     </div>
-    <div class="col mt-2" id="evaluation-summary">
+    <div class=" mt-2" id="evaluation-summary">
         <h5>Student Organizations Evaluation Form</h5>
         <hr />
         <p class="mb-0" for="Activity">
@@ -24,7 +24,7 @@
             Name of Organization: <b>{{ this.event_description.org_name }}</b>
         </p>
         <p class="mb-0" for="DateTime">
-            Date <b>{{ this.event_description.date }}</b>
+            Date: <b>{{ this.event_description.date }}</b>
         </p>
         <p class="mb-0" for="Venue">
             Venue: <b>{{ this.event_description.venue }}</b>
@@ -33,11 +33,10 @@
             Total Responses: <b>{{ this.event_description.totalResponse }}</b>
         </p>
 
-        <div class="row">
+        <div class="row" >
             <div
-                class="col mb-4"
-                v-for="evaluation_questions in evaluation_question_id"
-            >
+                class="col-md-6 mb-4"
+                v-for="evaluation_questions in evaluation_question_id">
                 <div class="piechart" :id="evaluation_questions.id"></div>
             </div>
         </div>
