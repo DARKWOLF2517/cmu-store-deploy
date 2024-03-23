@@ -3,7 +3,7 @@
         <div class="col breadcrumbs">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/login/student_organization_dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/org_dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item">Student Ogranization</li>
                     <li class="breadcrumb-item active" aria-current="page">Organization Profile</li>
                 </ol>
