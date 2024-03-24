@@ -172,8 +172,7 @@
                                     <!-- option 3 -->
                                     <li><a class="dropdown-item"
                                             @click="this.id = (event.event_id), this.showYearLevelExempted()"
-                                            data-bs-toggle="modal" data-bs-target="#exemptModal">Select exempted
-                                            attendees</a>
+                                            data-bs-toggle="modal" data-bs-target="#exemptModal">Select Exempted Year Level</a>
                                     </li>
                                     <div v-if="event.event_status == 0 || event.event_status == 2">
                                         <li><a class="dropdown-item"

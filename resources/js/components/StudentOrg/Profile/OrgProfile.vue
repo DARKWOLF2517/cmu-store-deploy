@@ -271,7 +271,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col" v-if="this.orgProfile.college_id != 11">
                                     <div class="d-flex justify-content-between align-items-center mb-2 header mt-3">
                                         <h5><b>Year Levels</b></h5>
                                         <button class="btn button-secondary" id="addYearLevelButton"

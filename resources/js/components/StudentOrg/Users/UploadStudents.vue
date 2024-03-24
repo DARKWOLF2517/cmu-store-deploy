@@ -99,7 +99,7 @@
                         <th style="width: 10%;">Student ID</th>
                         <!-- <th>Last Name</th> -->
                         <th>Full Name</th>
-                        <th>Year Level</th>
+                        <th v-if="this.college_id != 11">Year Level</th>
                         <th>College</th>
                         <th style="width: 10%;">Action</th>
                     </tr>
@@ -133,7 +133,8 @@
                         <!-- Student data will be added here -->
                         <td>{{ student.student_id }}</td>
                         <td>{{ student.user_profile.first_name }} {{ student.user_profile.last_name }}</td>
-                        <td>{{ student.year_level.year_level }}</td>
+                        <td v-if="this.college_id != 11">{{ student.year_level && student.year_level.year_level ?
+                        student.year_level.year_level : '' }}</td>
                         <td>{{ student.user_profile.college.college }}</td>
                         <td>
                             <span class="table-buttons">
@@ -210,7 +211,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3" v-if="this.college_id != 11">
                             <label for="reason" class="form-label">Year-level</label>
                             <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
                                 <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
@@ -270,7 +271,7 @@
                             <h5 class="fw-bold"> Enter Student ID</h5>
                             <small>Submit an Excel file containing only student ID numbers.</small>
                         </div>
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end" v-if="this.college_id != 11">
                             <div class="select-dropdown border">
 
                                 <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
@@ -348,10 +349,10 @@ export default {
                 student_id: '',
                 lastname: '',
                 firstname: '',
-                year_level_id: 0,
+                year_level_id: '',
                 college_id: 0,
                 middlename: '',
-                year_level_id: 0,
+                // year_level_id: 0,
 
             },
             isSubmitting: false,
@@ -436,12 +437,13 @@ export default {
     },
 
     mounted() {
+        this.getOrgCollege();
         this.upload();
         this.fetchData();
         this.showSchoolYear();
         this.showYearLevel();
         this.showCollege();
-        this.getOrgCollege();
+
     },
     methods: {
         getOrgCollege() {
@@ -547,7 +549,7 @@ export default {
             this.studentList = [];
             this.filtered_student_list = [];
             this.loading = true;
-
+            console.log(this.org_id)
             axios.get(`/student_list/show/${this.org_id}/${this.school_year_input}`)
                 .then(response => {
                     console.log(response.data)
@@ -833,7 +835,7 @@ export default {
                 student_id: '',
                 lastname: '',
                 firstname: '',
-                year_level_id: 0,
+                year_level_id: null,
                 college_id: 0,
                 fullname: '',
             };
