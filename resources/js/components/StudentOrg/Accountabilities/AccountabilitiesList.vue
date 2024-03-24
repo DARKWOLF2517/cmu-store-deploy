@@ -40,7 +40,7 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-between">
             <div class="col-md-8">
- <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
+                <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student Accountabilities</h4>
             </div>
 
             <div class="student-buttons col-md-4 d-flex justify-content-end mt-2">
@@ -550,10 +550,8 @@ export default {
                     }
                     else if (response.data.status == 1) {
                         this.showSucces(response.data.message);
-                        this.fetchData();
-                        setTimeout(() => {
-                            location.reload();
-                        }, 500);
+                        // this.fetchData();
+
                     }
 
 
@@ -730,7 +728,7 @@ export default {
                     events_with_attendance.forEach(attend => {
                         // if (attend.attendance_count == 1) {
 
-                             //for cancelling attedance that is in the database draft
+                        //for cancelling attedance that is in the database draft
                         // for (let index = 1; index <= attend.attendance_count; index++) {
                         //     const session_count = {
                         //         event_id: attend.event_id,
@@ -1089,17 +1087,6 @@ export default {
                     this.loading = false;
                 });
         },
-
-        showSucces(message) {
-            toast.success(message), {
-                autoClose: 100,
-            }
-        },
-        showError(message) {
-            toast.error(message), {
-                autoClose: 100,
-            }
-        },
         prevPage() {
             if (this.currentPage > 1) {
                 this.currentPage--;
@@ -1222,8 +1209,12 @@ export default {
             toast.success(message), {
                 autoClose: 100,
             }
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         },
         showError(message) {
+            this.isSubmitting = false;
             toast.error(message), {
                 autoClose: 100,
             }

@@ -1,6 +1,6 @@
-    <template>
-        <div class="mt-4 p-2">
-            <!-- Loading spinner for the form -->
+<template>
+    <div class="mt-4 p-2">
+        <!-- Loading spinner for the form -->
         <div v-if="loading" class="loading-spinner-container">
             <div class="spinner-border text-success" id="form-spinner" role="status">
                 <span class="visually-hidden">Loading...</span>
@@ -14,7 +14,7 @@
                 <h5>Date and Time: <b>{{ this.event_title['start_attendance'] }}</b></h5>
                 <h5>Venue: <b>{{ this.event_title['location'] }}</b></h5>
                 <hr>
-                <p> {{  this.event_title.description  }}</p>
+                <p> {{ this.event_title.description }}</p>
             </div>
             <hr>
             <div class="evaluation-body">
@@ -38,94 +38,107 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-success mt-4 mb-2 ml-auto h-50" style="padding: 15px; width: 300px;" :disabled="isSubmitting"> Submit</button>
+                    <button type="submit" class="btn btn-success mt-4 mb-2 ml-auto h-50"
+                        style="padding: 15px; width: 300px;" :disabled="isSubmitting"> Submit</button>
                 </div>
 
             </div>
 
         </form>
     </div>
-    </template>
+</template>
 
-    <script>
-    import { converTime } from "../../StudentOrg/Functions/TimeConverter.js";
-    export default {
-        mounted() {
-            // console.log(this.event_id)
-            this.showEventTitle();
-            this.showQuestions();
+<script>
+import { converTime } from "../../StudentOrg/Functions/TimeConverter.js";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
+export default {
+    mounted() {
+        // console.log(this.event_id)
+        this.showEventTitle();
+        this.showQuestions();
+
+    },
+    props: ['user_id', 'event_id', 'org_id', 'evaluation_form_id'],
+    data() {
+        return {
+            formData: {},
+            feedback: '',
+            event_title: {
+                name: '',
+                organization: '',
+                start_attendance: '',
+                location: '',
+                description: '',
+
+            },
+            evaluation_with_questions_options: [],
+            loading: true,
+            isSubmitting: false,
+        }
+    },
+    methods: {
+        submit() {
+            // console.log(this.formData);
+            this.isSubmitting = true;
+            axios.post(`/submit_evaluation/${this.user_id}/${this.event_id}/${this.feedback}`, this.formData)
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data)
+                    setTimeout(() => {
+                        window.location.href = "/student_evaluation_list"
+                    }, 1000);
+
+                })
+                .catch(error => {
+                    console.log(error)
+
+                });
         },
-        props: ['user_id', 'event_id', 'org_id', 'evaluation_form_id'],
-        data() {
-            return {
-                formData: {},
-                feedback: '',
-                event_title: {
-                    name: '',
-                    organization: '',
-                    start_attendance: '',
-                    location: '',
-                    description: '',
+        showEventTitle() {
+            axios.get(`/evaluation_form_title/${this.event_id}`)
+                .then(response => {
+                    // console.log(response.data)
+                    const data = response.data;
+                    data.forEach(item => {
 
-                },
-                evaluation_with_questions_options: [],
-                loading: true,
-                isSubmitting: false,
+                        // console.log(item);
+                        item["start_attendance"] = converTime(item["start_attendance"]);
+                        this.event_title['name'] = item['name'];
+                        this.event_title['organization'] = item['organization']['name'];
+                        this.event_title['start_attendance'] = item['start_attendance'];
+                        this.event_title['location'] = item['location'];
+                        this.loading = false;
+                    });
+                    // console.log(this.event_title);
+
+
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.loading = false;
+                });
+        },
+        showQuestions() {
+            axios.get(`/get_evaluation_question/${this.evaluation_form_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.evaluation_with_questions_options = response.data;
+                    this.event_title.description = response.data.evaluation_description;
+                    this.loading = false;
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.loading = false;
+                });
+        },
+        showSucces(message) {
+            toast.success(message), {
+                autoClose: 100,
             }
         },
-        methods: {
-            submit() {
-                // console.log(this.formData);
-                this.isSubmitting = true;
-                axios.post(`/submit_evaluation/${this.user_id}/${this.event_id}/${this.feedback}`, this.formData)
-                    .then(response => {
-                        console.log(response.data)
-                        window.location.href = "/student_evaluation_list"
-                    })
-                    .catch(error => {
-                        console.log(error)
+    },
 
-                    });
-            },
-            showEventTitle() {
-                axios.get(`/evaluation_form_title/${this.event_id}`)
-                    .then(response => {
-                        // console.log(response.data)
-                        const data = response.data;
-                        data.forEach(item => {
-
-                            // console.log(item);
-                            item["start_attendance"] = converTime(item["start_attendance"]);
-                            this.event_title['name'] = item['name'];
-                            this.event_title['organization'] = item['organization']['name'];
-                            this.event_title['start_attendance'] = item['start_attendance'];
-                            this.event_title['location'] = item['location'];
-                            this.loading = false;
-                        });
-                        // console.log(this.event_title);
-
-
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        this.loading = false;
-                    });
-            },
-            showQuestions() {
-                axios.get(`/get_evaluation_question/${this.evaluation_form_id}`)
-                    .then(response => {
-                        console.log(response.data)
-                        this.evaluation_with_questions_options = response.data;
-                        this.event_title.description = response.data.evaluation_description;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        console.log(error)
-                        this.loading = false;
-                    });
-            },
-        },
-
-    }
-    </script>
+}
+</script>
