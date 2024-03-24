@@ -4,13 +4,13 @@
     border: none;
 }
 
-.evaluation-event-cards, .evaluation-attendance-cards {
+.evaluation-event-cards,
+.evaluation-attendance-cards {
     display: flex;
     flex-wrap: wrap;
     overflow-y: auto;
     max-height: 73vh;
 }
-
 
 .event-card {
     background-color: #ffffff;
@@ -24,40 +24,38 @@
     width: calc(33.33% - 30px);
     /* width: 25%; */
     height: 200px;
-  }
-
+}
 
 .ellipsis-button {
-position: absolute;
-top: 10px;
-right: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .event-title {
-font-size: 1.2rem;
-
+    font-size: 1.2rem;
 }
 
 .event-date-container {
-background-color: #60b192 ;
-color: #ffffff;
-border-radius: 20px;
-padding: 4px 10px;
-display: inline-block;
-margin-bottom: 10px;
-justify-content: center;
-width: 200px;
-text-align: center;
+    background-color: #60b192;
+    color: #ffffff;
+    border-radius: 20px;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+    justify-content: center;
+    width: 200px;
+    text-align: center;
 }
 
 .event-date {
-font-size: 1rem;
+    font-size: 1rem;
 }
 
 .event-description {
-font-size: 1rem;
-color: #555555;
-margin-bottom: 10px;
+    font-size: 1rem;
+    color: #555555;
+    margin-bottom: 10px;
 }
 
 .see-button {
@@ -71,7 +69,7 @@ margin-bottom: 10px;
     align-self: flex-end;
     font-size: 20px;
 }
-.view-button{
+.view-button {
     border: none;
     border-radius: 4px;
     padding: 8px 12px;
@@ -81,34 +79,33 @@ margin-bottom: 10px;
 }
 
 .button-icon {
-margin-left: 6px;
-display: inline-block;
+    margin-left: 6px;
+    display: inline-block;
 }
 
-  /* evaluation result stylesheet */
-  .flex-container {
+/* evaluation result stylesheet */
+.flex-container {
     display: flex;
     flex-wrap: wrap;
-  }
-  .chart-container {
-    flex: 1 0 300px;
-  }
-  h2 {
-    text-align: center;
-  }
-  h4 {
-    margin: 0;
-  }
-
-  .piechart{
-    width: 410px;
-    height: 300px;
-  }
-
-  h3 {
-    font-size: 24px;
-    margin-bottom: 0;
 }
+.chart-container {
+    flex: 1 0 300px;
+}
+h2 {
+    text-align: center;
+}
+h4 {
+    margin: 0;
+}
+
+.piechart {
+    width: 400px;
+    height: 300px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 
 label {
     font-weight: bold;
@@ -127,17 +124,16 @@ option {
     padding-left: 20px;
     background-repeat: no-repeat;
     background-position: center left;
-
 }
-#evaluation-summary{
+#evaluation-summary {
     height: 80vh;
     max-height: 80vh;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     background-color: white;
-    padding: 10px;
+    padding: 20px;
 }
-.feedbacklist-card{
+.feedbacklist-card {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 30px;
@@ -146,24 +142,24 @@ option {
     overflow-y: auto;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
-.list-group-item{
+.list-group-item {
     background-color: #eeeeee;
     border-radius: 8px;
-
 }
 @media (max-width: 768px) {
     .event-card {
-      width: 100%;
-
+        width: 100%;
     }
-    .h3, .event-title{
+    .h3,
+    .event-title {
         font-size: 18px !important;
     }
-    .h5, .event-desc{
+    .h5,
+    .event-desc {
         font-size: 15px !important;
     }
-    .h6, .event-status{
+    .h6,
+    .event-status {
         font-size: 13px !important;
     }
-
-  }
+}
