@@ -150,10 +150,10 @@
                     <div class="recorded-event-cards">
                         <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[
                         'border-top',
-                        'border-5',
-                        { 'border-warning': event.event_status == 1, 'border-success': event.event_status == 2 },
-                        'border-bottom-0'
-                    ]">
+        'border-5',
+        { 'border-warning': event.event_status == 1, 'border-success': event.event_status == 2 },
+        'border-bottom-0'
+    ]" :title="event.event_status == 1 ? 'Event is ongoing' : 'Event Completed'">
 
 
                             <div class="dropdown">
