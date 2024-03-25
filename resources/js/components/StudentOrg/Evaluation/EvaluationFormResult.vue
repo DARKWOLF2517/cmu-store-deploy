@@ -2,7 +2,7 @@
     <!-- <h6>1. PROGRAM/ACTIVITY</h6> -->
     <div class="d-flex justify-content-between p-2" >
         <div class="d-flex justify-content-start">
-            <h3><i class="fas fa-list mt-2"></i> Evaluation</h3>
+            <h3><i class="fas fa-list mt-2"></i> Evaluation Summary</h3>
         </div>
         <div class="d-flex justify-content-end">
 
