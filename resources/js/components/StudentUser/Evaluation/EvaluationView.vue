@@ -114,7 +114,7 @@
                                 <button class="btn btn-secondary text-dark"  disabled>Close</button>
                             </div>
                             <div v-else-if="this.hasResponded(event['event_id'])">
-                                <button class="btn btn-success" :title="'View Response for ' + event['name']">Responded</button>
+                                <button class="btn btn-success" :title="'View Response for ' + event['name']">View Response</button>
                             </div>
                             <div v-else-if="event['evaluation_status'] == 1">
                                 <button class="btn btn-warning"

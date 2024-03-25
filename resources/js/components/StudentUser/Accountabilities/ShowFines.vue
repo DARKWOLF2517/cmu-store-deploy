@@ -1,14 +1,13 @@
 <template>
     <div class=" ">
         <div class="row d-flex justify-content-between">
-  <div class="col-md-8">
+            <div class="col-md-8">
                 <h3 class="mt-4">
                     <i class="fas fa-list"></i> Accountabilities
                 </h3>
             </div>
-            <div
-                class="col-md-4 mb-2">
-                <div class="select-dropdown" style="width: 100%; height: auto;">
+            <div class="col-md-4 mb-2">
+                <div class="select-dropdown" style="width: 100%; height: auto">
                     <select
                         id="sort-select"
                         class="form-control"
@@ -28,10 +27,8 @@
                     </select>
                 </div>
             </div>
-
-
-            </div>
         </div>
+    </div>
 
     <!-- Loading spinner -->
     <div v-if="loading">
@@ -193,7 +190,18 @@
                         </h3>
                         <!-- Use "&#8369;" for the peso sign -->
                     </div>
-
+                    <!-- Button to trigger the modal -->
+                    <div class="d-flex justify-content-end">
+                        <!-- Adding data-bs-toggle and data-bs-target to trigger the modal -->
+                        <button
+                            class="btn btn-success"
+                            data-bs-toggle="modal"
+                            data-bs-target="#paymentHistoryModal"
+                        >
+                            Payment History
+                        </button>
+                    </div>
+                    <br />
                     <table
                         class="student-accountabilities"
                         id="accountabilities-table"
@@ -243,6 +251,62 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div
+        class="modal fade"
+        id="paymentHistoryModal"
+        tabindex="-1"
+        aria-labelledby="paymentHistoryModalLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentHistoryModalLabel">
+                        Payment History
+                    </h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <h5> <b>CSCo</b> </h5>
+                    <table id="accountabilities-table">
+                <thead>
+                    <tr>
+                        <!-- <th>Accountabilities</th> -->
+                        <th>Date Paid</th>
+                        <th style="width: 10%;">Amount</th>
+                        <th>Remarks</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <!-- <td>{{ paid['accountability_name'] }}</td> -->
+                        <td> 02/03/2024</td>
+                        <td style="text-align: right; font-weight: bold;"> &#8369; 500</td>
+                        <td>College Fee</td>
+                    </tr>
+
+                </tbody>
+            </table>
                 </div>
                 <div class="modal-footer">
                     <button
