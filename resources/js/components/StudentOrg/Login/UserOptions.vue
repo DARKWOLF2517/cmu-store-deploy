@@ -11,16 +11,16 @@
                     <!-- <h6> {{ userOrg['organization']['name'] }}</h6> -->
                     <h6>Central Mindanao University</h6>
                     <hr>
-                    <img v-if="userOrg.organization.image" :src="userOrg.organization.image"
-                        alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                    <img v-if="userOrg.organization.image" :src="userOrg.organization.image" alt="user-image" width="32"
+                        height="32" class="rounded-circle me-2">
                     <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
                         alt="user-image" width="32" height="32" class="rounded-circle me-2">
                     <!-- <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="User 1"> -->
                     <!-- <p>
-                    <span v-if="userOrg['role']['role_id'] == 1">Admin</span>
-                    <span v-else-if="userOrg['role']['role_id'] == 2">Student</span>
-                    <span v-else-if="userOrg['role']['role_id'] == 3">Attendance Checker</span>
-                </p> -->
+                        <span v-if="userOrg['role']['role_id'] == 1">Admin</span>
+                        <span v-else-if="userOrg['role']['role_id'] == 2">Student</span>
+                        <span v-else-if="userOrg['role']['role_id'] == 3">Attendance Checker</span>
+                    </p> -->
                     <h6> {{ userOrg['organization']['name'] }}</h6>
                 </div>
             </div>
@@ -97,33 +97,39 @@ export default {
 
         axios.get(`/GetOrgList/${props.id}`)
             .then(response => {
-                // console.log(response.data);
-                // Assuming your data is stored in an array named 'data'
-                const uniqueData = response.data.reduce((acc, item) => {
-                    const existingItemIndex = acc.findIndex(
-                        t => t.student_org_id === item.student_org_id
-                    );
+                console.log(response.data);
+                // // Assuming your data is stored in an array named 'data'
+                // const uniqueData = response.data.reduce((acc, item) => {
+                //     const existingItemIndex = acc.findIndex(
+                //         t => t.student_org_id === item.student_org_id
+                //     );
 
-                    if (existingItemIndex === -1) {
-                        // If no existing item with the same student_org_id, add the item
-                        acc.push(item);
-                    } else {
-                        const existingItem = acc[existingItemIndex];
-                        if (item.role_id === 1) {
-                            // If the new item has role_id 1, replace the existing item with it
-                            acc[existingItemIndex] = item;
-                        } else if (existingItem.role_id === 2 && item.role_id === 3) {
-                            // If existing item has role_id 2 and new item has role_id 3, replace the existing item with the new item
-                            acc[existingItemIndex] = item;
-                        }
-                        // Otherwise, keep the existing item
-                    }
+                //     if (existingItemIndex === -1) {
+                //         // If no existing item with the same student_org_id, add the item
+                //         acc.push(item);
+                //     } else {
+                //         const existingItem = acc[existingItemIndex];
+                //         if (item.role_id === 1) {
+                //             // If the new item has role_id 1, replace the existing item with it
+                //             acc[existingItemIndex] = item;
+                //         } else if (existingItem.role_id === 2 && item.role_id === 3) {
+                //             // If existing item has role_id 2 and new item has role_id 3, replace the existing item with the new item
+                //             acc[existingItemIndex] = item;
+                //         }
+                //         // Otherwise, keep the existing item
+                //     }
 
-                    return acc;
-                }, []);
+                //     return acc;
+                // }, []);
 
-                console.log(uniqueData);
-                userOrgs.value = uniqueData;
+                // console.log(uniqueData);
+
+
+
+                
+                const filteredData = response.data.filter(item => item.role.role_id === 1);
+
+                userOrgs.value = filteredData;
             })
             .catch(error => {
                 console.log(error)

@@ -101,13 +101,13 @@
                                             @change="handleFileUpload" class="d-none" />
                                         <img v-if="this.profile.profile_picture" @click="openFileInput"
                                             id="profileImage" :src="this.tempImage
-            ? this.tempImage
-            : this.profile
-                .profile_picture
+        ? this.tempImage
+        : this.profile
+            .profile_picture
         " alt="profile photo" />
                                         <img v-else id="profileImage" @click="openFileInput" :src="this.tempImage
-            ? this.tempImage
-            : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'
+        ? this.tempImage
+        : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'
         " alt="user-image" />
                                     </div>
                                 </div>

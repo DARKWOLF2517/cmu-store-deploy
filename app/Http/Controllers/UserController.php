@@ -271,7 +271,7 @@ class UserController extends Controller
         $request->picture->move(public_path('/assets/profile_image_for_students'), $filename);
         // $orgProfileDetails->update(['description' => $request['description']]);
         $orgProfileDetails->update(['image' => $filename]);
-
+        session(['profile_picture' =>  $orgProfileDetails->image]);
         return response()->json(['message' => 'Profile Updated Successfully']);
     }
     public function updateEmail($email)
