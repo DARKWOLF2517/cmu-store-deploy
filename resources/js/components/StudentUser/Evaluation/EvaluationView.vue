@@ -92,9 +92,9 @@
                     <div class="info">
                         <div class="d-flex align-items-center">
                             <img v-if="event.organization.image" :src="event.organization.image" alt="user-image"
-                                width="32" height="32" class="rounded-circle me-2">
+                                width="32" height="32" class="rounded-circle me-2 border">
                             <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
-                                alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                                alt="user-image" width="32" height="32" class="rounded-circle me-2 border">
                             <strong class="posted-by-title ml-2">{{ event.organization.name }}</strong>
                         </div>
                         <h5 class="card-title mt-2"><b>{{ event["name"] }} </b></h5>
@@ -125,7 +125,7 @@
 
                         <div v-else>
                             <div v-if="event['evaluation_status'] == 0">
-                                <button class="btn btn-secondary">Unavailable</button>
+                                <button class="btn btn-secondary" disabled>Unavailable</button>
                             </div>
                             <button class="btn btn-warning"
                                 @click="this.showEvaluationForm(event.event_id, event.evaluation_form)"

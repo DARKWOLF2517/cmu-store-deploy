@@ -68,7 +68,7 @@
                         @click="this.event_id = event['event_id'], this.session = event.attendance_session_started, this.attendanceCount()">Start</button>
                 </div>
                 <div class="mt-auto" v-else-if="event.attendance_status == 0 || event.attendance_status == 2">
-                    <button class="btn btn-secondary">Unavailable</button>
+                    <button class="btn btn-secondary text-dark" disabled>Unavailable</button>
                 </div>
             </div>
         </div>

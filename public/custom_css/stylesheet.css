@@ -304,7 +304,9 @@ padding: 20px !important;
   #table-container, #event-container, #schedule-list, #evaluation-container, #set-accountabilities, #record-container{
     position: relative;
   }
-
+.fc-button{
+    background-color: #42b385 !important;
+}
 
 .loader {
     width: 10px;

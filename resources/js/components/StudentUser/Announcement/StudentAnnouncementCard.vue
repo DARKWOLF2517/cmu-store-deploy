@@ -96,10 +96,10 @@
                                 <p class="d-flex align-items-center text-dark text-decoration-none "
                                     aria-expanded="false">
                                     <img v-if="announcements.organization.image" :src="announcements.organization.image"
-                                        alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                                        alt="user-image" width="32" height="32" class="rounded-circle me-2 border">
                                     <img v-else
                                         src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
-                                        alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                                        alt="user-image" width="32" height="32" class="rounded-circle me-2 border">
                                     <span class="profile-name"><strong>{{ announcements.organization.name
                                             }}</strong></span>
                                 </p>

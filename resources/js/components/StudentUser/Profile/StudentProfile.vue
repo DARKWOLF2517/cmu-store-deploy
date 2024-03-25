@@ -3,10 +3,16 @@
         <h3 class="mt-2"><i class="fas fa-list"></i> Student Profile</h3>
     </div>
     <div v-if="loading" class="row d-flex gap-4 mb-4" style="padding: 10px">
-        <div class="card col-md-4" aria-hidden="true" style="height: 100%; border: none; padding: 20px">
+        <div
+            class="card col-md-4"
+            aria-hidden="true"
+            style="height: 100%; border: none; padding: 20px"
+        >
             <h3 class="card-title placeholder-glow">
-                <span class="placeholder col-6 bg-secondary"
-                    style="height: 250px; width: 250px; border-radius: 10px"></span>
+                <span
+                    class="placeholder col-6 bg-secondary"
+                    style="height: 250px; width: 250px; border-radius: 10px"
+                ></span>
             </h3>
             <p class="card-text placeholder-wave mt-2 text-center">
                 <span class="placeholder col-4 bg-secondary"></span>
@@ -19,25 +25,36 @@
                 <span class="placeholder col-4 bg-secondary"></span>
             </p>
         </div>
-        <div class="card col-md-6" aria-hidden="true" style="height: 100%; border: none; padding: 20px">
+        <div
+            class="card col"
+            aria-hidden="true"
+            style="height: 100%;  border: none; padding: 20px"
+        >
             <div class="row d-flex gap-4">
                 <div class="col-md-4">
                     <h3 class="card-title placeholder-glow">
-                        <span class="placeholder col-6 bg-secondary" style="
+                        <span
+                            class="placeholder col-6 bg-secondary"
+                            style="
                                 height: 250px;
                                 width: 250px;
                                 border-radius: 50%;
-                            "></span>
+                            "
+                        ></span>
                     </h3>
                 </div>
-                <div class="col-md-6 details-load">
+                <div class="col-md-6 details-load" >
                     <p class="card-text placeholder-wave mt-2 text-start">
                         <br />
                         <span class="placeholder col-12 bg-secondary"></span>
                         <br />
-                        <span class="placeholder mt-4 col-12 bg-secondary"></span>
+                        <span
+                            class="placeholder mt-4 col-12 bg-secondary"
+                        ></span>
                         <br />
-                        <span class="placeholder col-8 bg-secondary mt-2"></span>
+                        <span
+                            class="placeholder col-8 bg-secondary mt-2"
+                        ></span>
                         <br />
                         <span class="placeholder col-6 bg-secondary"></span>
                         <br />
@@ -49,14 +66,19 @@
     </div>
     <div v-else class="student-profile-container">
         <div class="row w-100">
-            <div class="col-md-4 ">
+            <div class="col-md-4">
                 <div class="qr-code">
                     <h5><i class="far fa-copy"></i> Student Information</h5>
                     <div class="row">
                         <div class="col">
                             <div class="qr-code-container">
                                 <div class="qrcode-img">
-                                    <qrcode-vue :value="value" :size="size" level="H" class="img-fluid" />
+                                    <qrcode-vue
+                                        :value="value"
+                                        :size="size"
+                                        level="H"
+                                        class="img-fluid"
+                                    />
                                 </div>
                                 <h4 class="text-center">
                                     {{ this.profile.name }}
@@ -72,21 +94,35 @@
                     </div>
 
                     <div class="profile-buttons mt-2">
-                        <button class="btn btn-secondary w-100" @click="downloadQRCode">
+                        <button
+                            class="btn btn-secondary w-100"
+                            @click="downloadQRCode"
+                        >
                             <i class="fas fa-download"></i> Download QR
                         </button>
-                        <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal"
-                            data-bs-target="#EditProfileModal">
+                        <button
+                            class="btn btn-light w-100 mt-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#EditProfileModal"
+                        >
                             <i class="fas fa-edit"></i> Edit Email
                         </button>
                         <!-- <button class="btn btn-light w-100 mt-2"> <i class="fas fa-print"></i> Print QR</button> -->
-                        <a class="btn btn-light w-100 mt-2" href="/change_password">
-                            <i class="fas fa-sun"></i> Change Password</a>
+                        <a
+                            class="btn btn-light w-100 mt-2"
+                            href="/change_password"
+                        >
+                            <i class="fas fa-sun"></i> Change Password</a
+                        >
                     </div>
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="organizations" role="tabpanel" aria-labelledby="organization-tab">
+                <div
+                    class="organizations"
+                    role="tabpanel"
+                    aria-labelledby="organization-tab"
+                >
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <div class="profile">
@@ -97,24 +133,47 @@
                                             <i class="fas fa-edit"></i> Change
                                             Image
                                         </div>
-                                        <input id="fileInput" type="file" name="picture" accept="image/*"
-                                            @change="handleFileUpload" class="d-none" />
-                                        <img v-if="this.profile.profile_picture" @click="openFileInput"
-                                            id="profileImage" :src="this.tempImage
-        ? this.tempImage
-        : this.profile
-            .profile_picture
-        " alt="profile photo" />
-                                        <img v-else id="profileImage" @click="openFileInput" :src="this.tempImage
-        ? this.tempImage
-        : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'
-        " alt="user-image" />
+                                        <input
+                                            id="fileInput"
+                                            type="file"
+                                            name="picture"
+                                            accept="image/*"
+                                            @change="handleFileUpload"
+                                            class="d-none"
+                                        />
+                                        <img
+                                            v-if="this.profile.profile_picture"
+                                            @click="openFileInput"
+                                            id="profileImage"
+                                            :src="
+                                                this.tempImage
+                                                    ? this.tempImage
+                                                    : this.profile
+                                                          .profile_picture
+                                            "
+                                            alt="profile photo"
+                                        />
+                                        <img
+                                            v-else
+                                            id="profileImage"
+                                            @click="openFileInput"
+                                            :src="
+                                                this.tempImage
+                                                    ? this.tempImage
+                                                    : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'
+                                            "
+                                            alt="user-image"
+                                        />
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mt-2">
-                                <button @click="this.uploadProfileImage" type="button" class="btn btn-success"
-                                    v-if="this.tempImage">
+                                <button
+                                    @click="this.uploadProfileImage"
+                                    type="button"
+                                    class="btn btn-success"
+                                    v-if="this.tempImage"
+                                >
                                     <i class="fas fa-save"></i> Save Profile
                                     Image
                                 </button>
@@ -126,15 +185,20 @@
                                     <i class="far fa-copy"></i> Student Details
                                 </h5>
                                 <div v-if="loading" class="loading-spinner">
-                                    <div class="spinner-border text-success" role="status">
-                                        <span class="visually-hidden">Loading...</span>
+                                    <div
+                                        class="spinner-border text-success"
+                                        role="status"
+                                    >
+                                        <span class="visually-hidden"
+                                            >Loading...</span
+                                        >
                                     </div>
                                 </div>
                                 <p class="mb-2 mt-2">
                                     <b>Year level:</b>
                                     <span id="year-level">{{
-        this.profile.year_level
-    }}</span>
+                                        this.profile.year_level
+                                    }}</span>
                                 </p>
                                 <p>
                                     <b>Email:</b> {{ this.profile.email }}
@@ -144,8 +208,11 @@
                                     <i class="far fa-copy"></i> Organizations
                                 </h5>
                                 <ul>
-                                    <li v-for="organization in this
-        .organization" :key="organization.student_org_id">
+                                    <li
+                                        v-for="organization in this
+                                            .organization"
+                                        :key="organization.student_org_id"
+                                    >
                                         {{ organization.organization.name }}
                                     </li>
                                     <!-- Add more club items here -->
@@ -157,13 +224,23 @@
             </div>
         </div>
         <!-- Edit Profile Modal -->
-        <div class="modal fade" id="EditProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel"
-            aria-hidden="true">
+        <div
+            class="modal fade"
+            id="EditProfileModal"
+            tabindex="-1"
+            aria-labelledby="editProfileModalLabel"
+            aria-hidden="true"
+        >
             <form @submit.prevent="this.submitEmail">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
                         </div>
                         <div class="modal-body">
                             <div class="text-center">
@@ -171,19 +248,38 @@
                                     <i class="fas fa-envelope text-primary"></i>
                                 </h3>
                                 <h4><b>Edit Email</b></h4>
-                                <small id="emailHelp" class="form-text text-muted mt-2">
+                                <small
+                                    id="emailHelp"
+                                    class="form-text text-muted mt-2"
+                                >
                                     Receive notifications about your attendance
                                     by providing your email. We'll keep you
-                                    informed about important updates.</small>
+                                    informed about important updates.</small
+                                >
                             </div>
                             <div class="mb-3">
-                                <label for="editEmail" class="form-label fw-bold">Email</label>
-                                <input type="email" class="form-control" id="editEmail" placeholder="Enter Email"
-                                    required maxlength="50" v-model="this.profile.email" />
+                                <label
+                                    for="editEmail"
+                                    class="form-label fw-bold"
+                                    >Email</label
+                                >
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="editEmail"
+                                    placeholder="Enter Email"
+                                    required
+                                    maxlength="50"
+                                    v-model="this.profile.email"
+                                />
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
                                 Close
                             </button>
                             <button type="submit" class="btn btn-success">
@@ -288,9 +384,9 @@ export default {
         },
         showSucces(message) {
             toast.success(message),
-            {
-                autoClose: 1000,
-            };
+                {
+                    autoClose: 1000,
+                };
         },
         FetchUserData() {
             this.loading = true; // Set loading to true before making the API call
@@ -301,7 +397,7 @@ export default {
                     // console.log(response.data)
                     this.profile.college = response.data["name"];
                 })
-                .catch((error) => { })
+                .catch((error) => {})
                 .finally(() => {
                     // Set loading to false after the API call is complete
                     this.loading = false;
@@ -319,7 +415,8 @@ export default {
                             item.user_profile.last_name;
                         this.profile.email = item.user_profile.email;
                         if (this.profile.year_level) {
-                            this.profile.year_level = item.year_level.year_level;
+                            this.profile.year_level =
+                                item.year_level.year_level;
                         }
 
                         this.profile.profile_picture = item.user_profile.image;
