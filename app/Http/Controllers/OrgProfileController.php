@@ -268,9 +268,10 @@ class OrgProfileController extends Controller
 
 
     }
-    public function fetchNameOfficerInput($id)
+    public function fetchNameOfficerInput($id, $org_id)
     {
-        $officerName = UserOrganization::where('student_id', $id)->with('user_profile')->first();
+        return
+        $officerName = UserOrganization::where([['student_id', $id], ['student_org_id', $org_id]])->with('user_profile')->first();
         if ($officerName) {
             return response()->json($officerName);
         } else {

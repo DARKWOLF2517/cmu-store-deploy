@@ -73,6 +73,8 @@ class LoginController extends Controller
                     else {
                         //if the role has only 1 admin
                         $countOfRoles1 = $userOrganization->where('role_id', 1)->count();
+                        $countOfRoles3 = $userOrganization->where('role_id', 3)->count();
+
                         if ($countOfRoles1 == 1) {
                             $orgName = $userOrganization->where('role_id', 1)->first();
                             session(['school_year' =>  $defaultSchoolYear->id]);
@@ -82,6 +84,15 @@ class LoginController extends Controller
                             session(['user_name' =>  $orgName->user_profile->first_name]);
                             session(['profile_picture' =>  $orgName->user_profile->image]);
                             return '1';
+                        } else if ($countOfRoles3  == 1) {
+                            $orgName = $userOrganization->where('role_id', 3)->first();
+                            session(['school_year' =>  $defaultSchoolYear->id]);
+                            session(['org_id' =>  $orgName->student_org_id]);
+                            session(['org_name' =>  $orgName->organization->name]);
+                            session(['role' =>  $orgName->role_id]);
+                            session(['user_name' =>  $orgName->user_profile->first_name]);
+                            session(['profile_picture' =>  $orgName->user_profile->image]);
+                            return '3';
                         } else {
                             session(['many_user' =>  'true']);
                             $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->first();
