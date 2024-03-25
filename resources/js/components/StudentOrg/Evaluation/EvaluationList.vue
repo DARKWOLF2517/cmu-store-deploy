@@ -57,7 +57,7 @@
             <div
                 class="card"
                 aria-hidden="true"
-                style="width: calc(33.33% - 30px); height: 180px; border: none"
+                style="width: calc(33.33% - 30px); height: 200px; border: none"
             >
                 <div class="card-body">
                     <h5 class="card-title placeholder-glow">
@@ -91,14 +91,14 @@
             <div
                 class="card"
                 aria-hidden="true"
-                style="width: calc(33.33% - 30px); height: 180px; border: none"
+                style="width: calc(33.33% - 30px); height: 200px; border: none"
             >
                 <div class="card-body">
                     <h5 class="card-title placeholder-glow">
                         <span
                             class="placeholder col-6 bg-secondary"
                             style="
-                                height: 35px;
+                                height: 41px;
                                 width: 200px;
                                 border-radius: 60px;
                             "
@@ -125,7 +125,7 @@
             <div
                 class="card"
                 aria-hidden="true"
-                style="width: calc(33.33% - 30px); height: 180px; border: none"
+                style="width: calc(33.33% - 30px); height: 200px; border: none"
             >
                 <div class="card-body">
                     <h5 class="card-title placeholder-glow">
