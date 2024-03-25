@@ -13,10 +13,28 @@
                 <p class="empty-schedule">Announcements show up here</p>
             </div>
             <div class="announcement-card-list">
-                <div class="announcement-card" v-for="announcement in this.announcement" @click="goToAnnouncement(announcement.id)">
-                    <span class="Organization text-success"> <b>{{ announcement.title }}</b></span>
-                    <div class="date-time-posted">
-                        <span class="date-time-uploaded"><i><small>{{ announcement.date }}</small></i></span>
+                    <button class="announcement-card btn btn-light text-start" style="width: 100%;" v-for="announcement in announcement" @click="openModal(announcement)">
+                        <span class="Organization text-success"><b>{{ announcement.title }}</b></span>
+                        <div class="date-time-posted">
+                            <span class="date-time-uploaded"><i><small>{{ announcement.date }}</small></i></span>
+                        </div>
+                    </button>
+                </div>
+        </div>
+        <!-- Bootstrap 5 Modal -->
+        <div class="modal" id="announcementModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ selectedAnnouncement.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Content here -->
+                        <p>{{ selectedAnnouncement.content }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -32,6 +50,7 @@ export default {
         return {
             announcement: [],
             loading: true,
+            selectedAnnouncement: {}
         }
     },
     mounted() {
@@ -52,11 +71,12 @@ export default {
                 .catch(error => {
 
                 });
-
         },
-        goToAnnouncement(announcementId) {
-        this.$router.push(`/announcement/${announcementId}`);
-    },
+        openModal(announcement) {
+            this.selectedAnnouncement = announcement;
+            var modal = new bootstrap.Modal(document.getElementById('announcementModal'));
+            modal.show();
+        },
 
     }
 
