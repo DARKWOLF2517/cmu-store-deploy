@@ -50,12 +50,9 @@
     font-size: 13px;
 }
 #calendar button{
-    color: white;
-    background-color: #60b192;
     border: none;
     height: auto;
     width: auto;
-    font-size: 12px;
 }
 .card-text{
     margin-left: 20px;

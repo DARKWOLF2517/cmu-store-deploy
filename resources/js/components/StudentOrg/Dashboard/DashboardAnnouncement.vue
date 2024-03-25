@@ -31,7 +31,17 @@
                     </div>
                     <div class="modal-body">
                         <!-- Content here -->
-                        <p>{{ selectedAnnouncement.content }}</p>
+                        <div>
+                                <p class="d-flex align-items-center text-dark text-decoration-none "
+                                    aria-expanded="false">
+                                    <img
+                                        src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                        alt="user-image" width="32" height="32" class="rounded-circle me-2">
+                                    <span class="profile-name"><strong>CSCo</strong></span>
+                                </p>
+                            </div>
+                        <small class="text-mute">Date and time posted: </small>
+                        <p class="mt-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos est praesentium itaque neque tenetur. Ab alias eaque blanditiis amet at similique quaerat labore laudantium, illum nemo totam debitis, quos eveniet.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

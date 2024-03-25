@@ -8,7 +8,6 @@ body {
     /* margin-left: 14.375%; */
     padding: 1.25rem;
     transition: margin-left 0.3s ease-in-out;
-
 }
 
 .content.collapsed {
