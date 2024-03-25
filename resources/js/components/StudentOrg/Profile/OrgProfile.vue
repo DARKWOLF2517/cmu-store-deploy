@@ -1066,7 +1066,7 @@ export default {
                 });
         },
         fetchNameInputOrgOfficer() {
-            axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}`)
+            axios.get(`/fetch_name_officer_input/${this.addOfficersData.student_id}/${this.org_id}`)
                 .then(response => {
                     if (response.data != 1) {
                         this.nameFilterAddOfficer = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
@@ -1074,7 +1074,7 @@ export default {
                     else {
                         this.nameFilterAddOfficer = [];
                     }
-                    // console.log(response.data)
+                    console.log(response.data)
 
                 })
                 .catch(error => {

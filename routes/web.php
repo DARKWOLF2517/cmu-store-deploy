@@ -270,7 +270,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::post('/updateOrgProfileDetails/{id}', [OrgProfileController::class, 'updateOrgProfileDetails']);
         Route::post('/updateOrgProfileImage/{id}', [OrgProfileController::class, 'updateOrgProfileImage']);
-        Route::get('/fetch_name_officer_input/{id}', [OrgProfileController::class, 'fetchNameOfficerInput']);
+        Route::get('/fetch_name_officer_input/{id}/{org_id}', [OrgProfileController::class, 'fetchNameOfficerInput']);
         Route::get('/view_year_level/{org_id}', [OrgProfileController::class, 'fetchYearLevel']);
         Route::post('/add_year_level', [OrgProfileController::class, 'addYearLevel']);
         Route::delete('/delete_year_level/{id}', [OrgProfileController::class, 'DeleteYearLevel']);

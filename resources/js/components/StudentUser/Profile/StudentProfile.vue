@@ -414,7 +414,7 @@ export default {
                             " " +
                             item.user_profile.last_name;
                         this.profile.email = item.user_profile.email;
-                        if (this.profile.year_level) {
+                        if (item.year_level) {
                             this.profile.year_level =
                                 item.year_level.year_level;
                         }

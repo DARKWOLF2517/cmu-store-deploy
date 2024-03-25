@@ -127,7 +127,7 @@ export default {
 
 
                 
-                const filteredData = response.data.filter(item => item.role.role_id === 1);
+                const filteredData = response.data.filter(item => item.role.role_id === 1 || item.role.role_id == 3);
 
                 userOrgs.value = filteredData;
             })
