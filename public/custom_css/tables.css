@@ -19,6 +19,7 @@ table {
 
 thead {
     background-color: rgb(119, 177, 165) !important;
+    color: #f7f7f7;
     position: sticky;
     height: 30px;
     top: 0;
@@ -30,7 +31,7 @@ thead th {
     /* background-color: #60b192; */
     /* color: white; */
     padding: 10px;
-    color: rgb(255, 255, 255);
+    /* color: rgb(71, 71, 71); */
     /* border-bottom: none !important; */
 }
 td {
@@ -44,11 +45,13 @@ td {
     border-right: 1px solid #ddd;
 }
 tr:hover {
-    background-color: #e8faf0;
+    background-color: #dceee4 !important;
+    color: #000000 !important;
 }
 
 tr:nth-child(even) {
     background-color: #f6faf9;
+    color: #000000;
 }
 .edit-button,
 .delete-button {
