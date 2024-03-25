@@ -10,7 +10,7 @@
         <div class="col mt-2">
             <div class="welcome-card-student" >
                 <div class="welcome-text">
-                    <p>Welcome, {{ Auth::user()->name }}</p>
+                    <p>Welcome, {{ Session::get('user_name') }}</p>
                 </div>
             </div>
         </div>

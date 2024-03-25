@@ -78,7 +78,7 @@
                                     show_icon = "{{ false }}">
                                 </side-nav-button>
                             </li>
-                        @else
+                        {{-- @else --}}
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
