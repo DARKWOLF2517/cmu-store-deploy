@@ -79,13 +79,13 @@
                                 </side-nav-button>
                             </li>
                         {{-- @else --}}
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <side-nav-button link_name="Sign out" link_route = "{{ url('/logout') }}"
-                                show_icon = "{{ false }}">
-                            </side-nav-button>
                         @endif
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <side-nav-button link_name="Sign out" link_route = "{{ url('/logout') }}"
+                            show_icon = "{{ false }}">
+                        </side-nav-button>
                     </ul>
                 </div>
             </div>
