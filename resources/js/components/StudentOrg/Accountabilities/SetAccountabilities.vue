@@ -227,7 +227,7 @@ export default {
                 this.showError('The name fines cannot be used as it is already present in the system.');
             }
             else {
-                axios.put(`/update_accountabilities/${this.id}/${this.old_name}`, this.formData)
+                axios.put(`/update_accountabilities/${this.id}/${this.old_name}/${this.org_id}`, this.formData)
                     .then(response => {
                         console.log(response.data)
                         if (response.data.status == 1) {
@@ -331,7 +331,7 @@ export default {
                 })
         },
         deleteAccountability() {
-            axios.delete(`/delete_organization_accountability/${this.id}`)
+            axios.delete(`/delete_organization_accountability/${this.id}/${this.org_id}`)
                 .then((response) => {
                     console.log(response.data)
                     if (response.data.status == 1) {

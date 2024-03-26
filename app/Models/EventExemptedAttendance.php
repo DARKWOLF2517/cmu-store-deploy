@@ -16,5 +16,10 @@ class EventExemptedAttendance extends Model
         'event_id',
         'session',
         'school_year',
+        'org_id',
     ];
+    public function events()
+    {
+        return $this->belongsTo(Event::class,'event_id','event_id');
+    }
 }

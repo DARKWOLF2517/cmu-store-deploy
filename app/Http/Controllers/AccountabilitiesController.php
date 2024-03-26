@@ -160,9 +160,9 @@ class AccountabilitiesController extends Controller
         }
         return response()->json(['message' => 'Accountability Paid Successfully']);
     }
-    public function DeleteOrganizationAccountability(OrganizationAccountability $accountability_id)
+    public function DeleteOrganizationAccountability(OrganizationAccountability $accountability_id, $org_id)
     {
-        $isPaymentPresent = PaidAccountability::where('accountability_type', $accountability_id->accountability_name)->get();
+        $isPaymentPresent = PaidAccountability::where([['accountability_type', $accountability_id->accountability_name], ['student_org_id', $org_id]])->get();
         if (!$isPaymentPresent->isEmpty()) {
             return response()->json(['message' => 'Cannot be deleted due to payment record', 'status' => 1]);
         } else {
@@ -236,10 +236,10 @@ class AccountabilitiesController extends Controller
         $accountability = Accountability::where([['accountability_id', $id]])->first();
         return $accountability;
     }
-    public function updateAccountabilities(Request $request, Accountability $id, $old_name)
+    public function updateAccountabilities(Request $request, Accountability $id, $old_name, $org_id)
     {
 
-        $isPaymentPresent = PaidAccountability::where('accountability_type', $old_name)->get();
+        $isPaymentPresent = PaidAccountability::where([['accountability_type', $old_name], ['student_org_id', $org_id]])->get();
         if (!$isPaymentPresent->isEmpty()) {
             return response()->json(['message' => 'Cannot be deleted due to payment record', 'status' => 1]);
         } else {
@@ -287,7 +287,33 @@ class AccountabilitiesController extends Controller
     }
     public function getStudentPaymentHistory($user_id, $org_id)
     {
-        $accountabilities = PaidAccountability::where([['student_id', $user_id],['student_org_id', $org_id]])->get();
+        $accountabilities = PaidAccountability::where([['student_id', $user_id], ['student_org_id', $org_id]])->get();
         return $accountabilities->toJson();
+    }
+    public function getFreeFinesStudent($user_id, $org_id, $school_year)
+    {
+        $accountabilities = FreeFinesStudent::where([['student_id', $user_id], ['org_id', $org_id], ['school_year', $school_year]])->first();
+        return $accountabilities;
+    }
+    public function getSessionExemptedAttendance($org_id, $school_year)
+    {
+        // $accountabilities = EventExemptedAttendance::where([ ['org_id', $org_id], ['school_year', $school_year]])->with('events')->get();
+        // return $accountabilities;
+        // $accountabilities = EventExemptedAttendance::select('event_id')
+        //     // ->distinct('event_id')
+        //     ->with('events')
+        //     ->where('school_year', $school_year)
+        //     ->get();
+
+        // return $accountabilities;
+
+        $accountabilities = EventExemptedAttendance::select('event_id')
+            ->selectRaw('COUNT(event_id) as count')
+            ->with('events')
+            ->where([['school_year', $school_year], ['org_id', $org_id]])
+            ->groupBy('event_id')
+            ->get();
+
+        return $accountabilities;
     }
 }

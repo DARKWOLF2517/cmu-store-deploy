@@ -103,6 +103,8 @@
                         user_orgs.student_org_id),
                         (this.org_name =
                             user_orgs.organization.name),
+                        this.getFreeFines(),
+                        this.getSessionExemptedAttendance(),
                         this.fetchData()
                         ">
                                     <i class="fas fa-eye"></i> See more
@@ -137,7 +139,7 @@
                     <!-- Button to trigger the modal -->
                     <div class="d-flex justify-content-end">
                         <!-- Adding data-bs-toggle and data-bs-target to trigger the modal -->
-                        <button  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal"
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal"
                             @click="this.getPaymentHistory()">
                             Payment History
                         </button>
@@ -207,11 +209,11 @@
                 </div>
                 <div class="modal-body">
                     <h5> <b> {{ this.org_name }}</b> </h5>
-                    <div v-if="payment_histroy.length === 0" class="text-center">
+                    <div v-if="payment_history.length === 0" class="text-center">
                         <h3><i class="fas fa-frown text-warning"></i></h3>
-                                <h4><b>Oops!</b></h4>
-                                <p>No Payments found</p>
-                </div>
+                        <h4><b>Oops!</b></h4>
+                        <p>No Payments found</p>
+                    </div>
                     <table id="accountabilities-table" v-else>
                         <thead>
                             <tr>
@@ -226,7 +228,7 @@
                         <tbody>
 
 
-                     <tr v-for="payment in this.payment_histroy">
+                            <tr v-for="payment in this.payment_history">
                                 <!-- <td>{{ paid['accountability_name'] }}</td> -->
                                 <td> {{ payment.created_at }}</td>
                                 <td style="text-align: right; font-weight: bold;"> &#8369; {{ payment.amount }}</td>
@@ -271,13 +273,16 @@ export default {
             user_organization: [],
             paid_accountabilities: [],
             loading: true,
-            payment_histroy: [],
+            payment_history: [],
+            freeFines: [],
+            sessionExemptedAttendance: 0,
 
 
         };
     },
     mounted() {
         // this.fetchData();
+
         this.showSchoolYear();
         // console.log(this.name)
         this.getUserOrgs();
@@ -297,7 +302,7 @@ export default {
                             item.amount = item.amount.toFixed(2);
                         }
                     });
-                    this.payment_histroy = response.data;
+                    this.payment_history = response.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -403,22 +408,29 @@ export default {
                         attendanceRecord.student_id = student_id;
 
                         console.log(attendanceRecord);
-                        if (
-                            attendanceRecord.session_count >
-                            attendanceRecord.attendance_count
-                        ) {
+                        if (attendanceRecord.session_count > attendanceRecord.attendance_count) {
                             // console.log(attendanceRecord.event_id + " has fines " + attendanceRecord.fines)
                             attendanceRecord.finalSession =
                                 attendanceRecord.session_count -
                                 attendanceRecord.attendance_count;
-                            this.fines +=
-                                attendanceRecord.fines *
-                                attendanceRecord.finalSession;
-                            // console.log(attendanceRecord.finalSession)
+                            if (this.freeFines == true) {
+                                this.fines = 0
+                            }
+                            else {
+                                this.fines +=
+                                    attendanceRecord.fines *
+                                    attendanceRecord.finalSession;
+
+
+                            }
+
+
                         }
 
                         this.attendanceCount.push(attendanceRecord);
                     });
+                    //to minus the session cancelled attendance
+                    this.fines = this.fines - this.sessionExemptedAttendance;
 
                     this.accountabilityList.forEach((element) => {
                         this.total_accountability += element.amount;
@@ -434,9 +446,51 @@ export default {
                         this.total_accountability =
                             this.total_accountability.toFixed(2);
                     }
+
+                    
+
                 })
                 .catch((error) => {
                     // alert(error)
+                    console.log(error);
+                });
+        },
+        getFreeFines() {
+            axios
+                .get(`get_free_fines_student/${this.user_id}/${this.org_id}/${this.school_year_input}`)
+                .then((response) => {
+                    console.log(response.data)
+                    if (response.data) {
+                        this.freeFines = true;
+                    }
+                    else {
+                        this.freeFines = false;
+                    }
+                    console.log(this.freeFines)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        getSessionExemptedAttendance() {
+
+            axios
+                .get(`get_session_exempted_attendance/${this.org_id}/${this.school_year_input}`)
+                .then((response) => {
+                    let total = 0;
+                    this.sessionExemptedAttendance = 0;
+                    console.log(response.data)
+                    if (response.data.length > 0) {
+                        response.data.forEach(element => {
+                            // console.log(element.events.attendance_count)
+                            total += element.count * element.events.fines
+                        });
+                        console.log('total'+total)
+                        this.sessionExemptedAttendance = total;
+                    }
+
+                })
+                .catch((error) => {
                     console.log(error);
                 });
         },

@@ -81,46 +81,46 @@
                                     </div>
                                 </div>
                             </div>
-                          <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
-                            style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
-                            <div class="">
+                            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                                style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
+                                <div class="">
 
-                                <p class="card-text placeholder-glow mt-2 ">
-                                    <span class="placeholder col-8 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-4 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-6 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-4 bg-secondary"></span>
-                                </p>
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" tabindex="-1"
-                                        class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                                        style="height: 35px; width: 70px;"></button>
+                                    <p class="card-text placeholder-glow mt-2 ">
+                                        <span class="placeholder col-8 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-4 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-6 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-4 bg-secondary"></span>
+                                    </p>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" tabindex="-1"
+                                            class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                            style="height: 35px; width: 70px;"></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card loading-card col-lg-4 col-md-6 " aria-hidden="true"
-                            style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
-                            <div class="">
+                            <div class="card loading-card col-lg-4 col-md-6 " aria-hidden="true"
+                                style="width: calc(33.33% - 30px); height: 200px; border:none; padding: 10px;">
+                                <div class="">
 
-                                <p class="card-text placeholder-glow mt-2 ">
-                                    <span class="placeholder col-8 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-4 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-6 bg-secondary"></span>
-                                    <br>
-                                    <span class="placeholder col-4 bg-secondary"></span>
-                                </p>
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" tabindex="-1"
-                                        class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                                        style="height: 35px; width: 70px;"></button>
+                                    <p class="card-text placeholder-glow mt-2 ">
+                                        <span class="placeholder col-8 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-4 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-6 bg-secondary"></span>
+                                        <br>
+                                        <span class="placeholder col-4 bg-secondary"></span>
+                                    </p>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" tabindex="-1"
+                                            class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                            style="height: 35px; width: 70px;"></button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
 
 
@@ -150,10 +150,10 @@
                     <div class="recorded-event-cards">
                         <div v-for="event in filtered_events" :id="event.event_id" class="event-card" :class="[
                         'border-top',
-        'border-5',
-        { 'border-warning': event.event_status == 1, 'border-success': event.event_status == 2 },
-        'border-bottom-0'
-    ]" :title="event.event_status == 1 ? 'Event is ongoing' : 'Event Completed'">
+                        'border-5',
+                        { 'border-warning': event.event_status == 1, 'border-success': event.event_status == 2 },
+                        'border-bottom-0'
+                    ]" :title="event.event_status == 1 ? 'Event is ongoing' : 'Event Completed'">
 
 
                             <div class="dropdown">
@@ -170,10 +170,11 @@
                                             data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete Event</a>
                                     </li>
                                     <!-- option 3 -->
-                                    <li><a class="dropdown-item"
+                                    <!-- <li v-if="this.college_id != 11"><a class="dropdown-item"
                                             @click="this.id = (event.event_id), this.showYearLevelExempted()"
-                                            data-bs-toggle="modal" data-bs-target="#exemptModal">Select Exempted Year Level</a>
-                                    </li>
+                                            data-bs-toggle="modal" data-bs-target="#exemptModal">Select Exempted Year
+                                            Level</a>
+                                    </li> -->
                                     <div v-if="event.event_status == 0 || event.event_status == 2">
                                         <li><a class="dropdown-item"
                                                 @click="this.id = (event.event_id), this.status = 1"
@@ -661,10 +662,12 @@ export default {
             isSubmitting: false,
             attendance_count_for_exempting_attendance: 0,
             attendanceCancelled: [],
+            college_id: 0,
         }
     },
     created() {
         this.loading = true;
+        this.getOrgCollege();
         this.fetchData();
         this.showSchoolYear();
         this.showYearLevelData();
@@ -681,9 +684,19 @@ export default {
     },
 
     methods: {
+        getOrgCollege() {
+            axios.get(`/get_organization_college/${this.organization_id}`)
+                .then(response => {
+                    this.college_id = response.data;
+
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         submitCancelAttendanceEvent() {
             // console.log(this.attendanceCancelled)
-            axios.post(`/submitCancelAttendanceEvent/${this.id}/${this.school_year_input}`, this.attendanceCancelled)
+            axios.post(`/submitCancelAttendanceEvent/${this.id}/${this.school_year_input}/${this.organization_id}`, this.attendanceCancelled)
                 .then(response => {
                     this.showSucces(response.data.message);
 

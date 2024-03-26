@@ -12,6 +12,7 @@ use App\Models\SchoolYear;
 use App\Models\User;
 use App\Models\UserOrganization;
 use App\Models\YearLevel;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +26,24 @@ class EventController extends Controller
 
     public function getEvents($org_id = null, $school_year = null)
     {
+        $student = Auth::id();
+        $userOrgs = UserOrganization::select('student_org_id')
+            ->where([
+                ['student_id', $student],
+                ['role_id', 2],
+                ['school_year', Session::get('school_year')]
+            ])
+            
+            ->groupBy('student_org_id')
+            ->get();
+
+        $orgIds = $userOrgs->pluck('student_org_id')->toArray();
+
+        // return $userOrgs;
         if (!$school_year && !$org_id) {
             $events = Event::with('organization')
                 ->orderByDesc('created_at')
+                ->whereIn('org_id', $orgIds)
                 ->get();
 
             return $events->toJson();
@@ -216,7 +232,7 @@ class EventController extends Controller
         return response()->json(['message' => 'Event Updated Successfully']);
     }
 
-    public function submitCancelAttendanceEvent($event_id, $school_year, Request $request)
+    public function submitCancelAttendanceEvent($event_id, $school_year, $org_id,Request $request)
     {
         // $exemptedData = EventExemptedAttendance::where('event_id',$event_id)->get();
         $exemptedData = EventExemptedAttendance::where('event_id', $event_id)
@@ -240,6 +256,8 @@ class EventController extends Controller
                         'event_id' => $event_id,
                         'session' => $data,
                         'school_year' => $school_year,
+                        'org_id' => $org_id,
+                        
                     ];
                 }
             }
@@ -252,6 +270,7 @@ class EventController extends Controller
                     'event_id' => $event_id,
                     'session' => $data,
                     'school_year' => $school_year,
+                    'org_id' => $org_id,
                 ]);
                 $exempted->save();
             }

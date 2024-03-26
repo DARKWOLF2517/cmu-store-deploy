@@ -12,6 +12,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrgProfileController;
 use App\Http\Controllers\UserController;
 use App\Mail\WelcomeEmail;
+use App\Models\Accountability;
 use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 
@@ -233,7 +234,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_year_level/{organization_id}', [EventController::class, 'getYearLevel']);
         Route::get('/yearLevel/exempted/{org_id}/{id}', [EventController::class, 'getExempted']);
         Route::put('/update_event_status/{id}/{status}', [EventController::class, 'updateEventStatus']);
-        Route::post('/submitCancelAttendanceEvent/{event_id}/{school_year}', [EventController::class, 'submitCancelAttendanceEvent']);
+        Route::post('/submitCancelAttendanceEvent/{event_id}/{school_year}/{org_id}', [EventController::class, 'submitCancelAttendanceEvent']);
         Route::get('/show_cancelled_attendance/{event_id}', [EventController::class, 'showCancelledAttendance']);
 
         #ACCOUNTABILITIES ROUTES
@@ -243,10 +244,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/OtherAccountabilityPayment', [AccountabilitiesController::class, 'OtherAccountabilityPayment']);
         Route::post('/FinesAccountabilityPayment/{school_year}/{amount}/{accountability_type}', [AccountabilitiesController::class, 'FinesAccountabilityPayment']);
         Route::post('/attendanceFill', [AccountabilitiesController::class, 'attendanceFill']);
-        Route::delete('/delete_organization_accountability/{accountability_id}', [AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
+        Route::delete('/delete_organization_accountability/{accountability_id}/{org_id}', [AccountabilitiesController::class, 'DeleteOrganizationAccountability']);
         Route::get('/paid_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'PaidAccountabilities']);
         Route::get('/accountabilities_fetch_update/{id}', [AccountabilitiesController::class, 'accountabilitiesFetchUpdate']);
-        Route::put('/update_accountabilities/{id}/{old_name}', [AccountabilitiesController::class, 'updateAccountabilities']);
+        Route::put('/update_accountabilities/{id}/{old_name}/{org_id}', [AccountabilitiesController::class, 'updateAccountabilities']);
         Route::get('/get_org_accountability/{org_id}/{school_year}', [AccountabilitiesController::class, 'getOrgAccountability']);
         Route::get('/get_student_payments/{student_id}', [AccountabilitiesController::class, 'getStudentPayments']);
         Route::delete('/delete_paid_accountabilities/{accountability_id}', [AccountabilitiesController::class, 'deletePaidAccountabilities']);
@@ -359,6 +360,10 @@ Route::middleware(['auth'])->group(function () {
         //DASHBOARD ROUTE
         Route::get('/events_student_dashboard/{school_year}', [EventController::class, 'eventStudentDashboard']);
         Route::get('/calendar_student_dashboard/{school_year}', [EventController::class, 'calendarStudentDashboard']);
+
+        //ACCOUNTABILITIES ROUTE
+        Route::get('/get_free_fines_student/{user_id}/{org_id}/{school_year}', [AccountabilitiesController::class, 'getFreeFinesStudent']);
+        Route::get('/get_session_exempted_attendance/{org_id}/{school_year}', [AccountabilitiesController::class, 'getSessionExemptedAttendance']);
     });
     Route::middleware(['user-role:3'])->group(function () {
         //Attendance Checker route
