@@ -6,7 +6,7 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        <form @submit.prevent="this.submit" id="EvaluationForm" v-if="!loading">
+        <form id="EvaluationForm" v-if="!loading">
             <div class="evaluation-header">
                 <h5> <b>{{ this.event_title['organization'] }}</b></h5>
                 <h2> {{ this.evaluation_with_questions_options.evaluation_title }}</h2>
@@ -22,26 +22,29 @@
                     <!-- <p>{{ question.description }}</p>
                     <p v-for="answer in question.evaluation_answers"> </p> -->
                     <label :for="'PA-' + question.id">{{ question.description }}</label>
-                    <select  class="form-control" :id="'PA-' + question.id" v-model="formData.id" disabled>
+                    <div v-for="answer in question.evaluation_option">
+                        <p v-if="isChoicePresent(answer.id)"> {{ answer.option }} </p>
+                    </div>
+
+                    <!-- <select  class="form-control" :id="'PA-' + question.id" v-model="formData.id" disabled>
                         <option v-for="option in question.evaluation_option" :value="question.id">
                             {{ option.option }}
                         </option>
-                    </select>
+                    </select> -->
                 </div>
 
 
 
                 <div class="form-group mt-4" v-if="evaluation_with_questions_options.is_accept_feedback == 1">
-                    <label for="feedback">Please write below any suggestions/recommendations on how we can improve the
-                        Activity:</label>
+                    <label for="feedback">Feedback:</label>
                     <textarea class="form-control" id="feedback" rows="3" placeholder="Enter your feedback" required
-                        v-model="this.feedback" disabled></textarea>
+                        v-model="this.word_answer" disabled></textarea>
                 </div>
 
-                <div class="d-flex justify-content-end">
+                <!-- <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-success mt-4 mb-2 ml-auto h-50"
                         style="padding: 15px; width: 300px;" :disabled="isSubmitting"> Submit</button>
-                </div>
+                </div> -->
 
             </div>
 
@@ -57,16 +60,16 @@ import 'vue3-toastify/dist/index.css';
 export default {
     mounted() {
         // console.log(this.event_id)
+        this.fetchFeedback();
         this.showEventTitle();
         this.showQuestions();
+        this.showChoiceAnswer();
 
     },
     props: ['user_id', 'event_id', 'org_id', 'evaluation_form_id'],
     data() {
         return {
-            formData: {
-                id: 1,
-            },
+            formData: {},
             feedback: '',
             event_title: {
                 name: '',
@@ -79,24 +82,41 @@ export default {
             evaluation_with_questions_options: [],
             loading: true,
             isSubmitting: false,
+            answers: [],
+            word_answer: '',
+            
         }
     },
     methods: {
-        submit() {
-            // console.log(this.formData);
-            this.isSubmitting = true;
-            axios.post(`/submit_evaluation/${this.user_id}/${this.event_id}/${this.feedback}`, this.formData)
+        fetchFeedback() {
+            axios
+                .get(`/get_evaluation_feedback/${this.event_id}`)
+                .then((response) => {
+                    // console.log(response.data);
+                    // this.feedback = response.data;
+                    let filteredArray = response.data.filter(item => item.student_id == this.user_id);
+                    this.word_answer =filteredArray[0].word_answer;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        isChoicePresent(id) {
+            return this.answers.includes(id);
+        },
+        async showChoiceAnswer() {
+            await axios.get(`/get_choice_name/${this.evaluation_form_id}/${this.event_id}`)
                 .then(response => {
-                    console.log(response.data)
-                    this.showSucces(response.data)
-                    setTimeout(() => {
-                        window.location.href = "/student_evaluation_list"
-                    }, 1000);
 
+                    response.data.forEach(element => {
+
+                        this.answers.push(element.evaluation_answers[0].option_id);
+                    });
+                    // this.loading = false;
                 })
                 .catch(error => {
                     console.log(error)
-
+                    // this.loading = false;
                 });
         },
         showEventTitle() {

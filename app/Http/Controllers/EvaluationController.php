@@ -217,11 +217,23 @@ class  EvaluationController extends Controller
         $authStudentId = Auth::id();
 
         $evaluationQuestions = EvaluationForm::where('id', $evaluation_form_id)
-            ->with(['evaluation_question.evaluation_answers' => function ($query) use ($authStudentId, $event_id) {
-                $query->where([['student_id', $authStudentId],['event_id', $event_id]]);
-            }])
+            ->with(['evaluation_question.evaluation_option'])
             ->first();
 
+        // $evaluationQuestions = EvaluationForm::where('id', $evaluation_form_id)
+        // ->with(['evaluation_question.evaluation_answers' => function ($query) use ($authStudentId, $event_id) {
+        //     $query->where([['student_id', $authStudentId],['event_id', $event_id]]);
+        // }])
+        // ->first();
+
         return $evaluationQuestions->toJson();
+    }
+    public function getChoiceName($evaluation_form_id, $event_id)
+    {
+        $authStudentId = Auth::id();
+        $evaluationOptions = EvaluationQuestion::where('evaluation_form_id', $evaluation_form_id)->with(['evaluation_answers' => function ($query) use ($authStudentId, $event_id) {
+            $query->where([['student_id', $authStudentId], ['event_id', $event_id]]);
+        }])->get();
+        return $evaluationOptions->toJson();
     }
 }

@@ -56,6 +56,7 @@ Route::get('/login', function () {
 
 Route::middleware(['auth'])->group(function () {
     //can access to all roles
+    Route::get('/get_evaluation_feedback/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
     Route::get('/events/show/{org_id?}/{school_year?}', [EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}', [EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}', [EventController::class, 'getEventsAttendance']);
@@ -215,7 +216,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
         Route::get('/getEvaluationForm/{org_id}/{school_year}', [EvaluationController::class, 'getEvaluationForm']);
         Route::delete('/delete_evaluation_form/{evaluation_form_id}', [EvaluationController::class, 'deleteEvaluationForm']);
-        Route::get('/get_evaluation_feedback/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
+       
         Route::get('/get_events/{event_id}', [EvaluationController::class, 'getEvents']);
         Route::get('/fetchEvaluationFormUpdate/{evaluation_id}', [EvaluationController::class, 'getEvaluationFormUpdate']);
         Route::put('/updateEvaluationForm', [EvaluationController::class, 'updateEvaluationForm']);
@@ -350,6 +351,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_evaluation_question/{evaluation_form_id}', [EvaluationController::class, 'getEvaluationQuestion']);
         Route::get('/evaluation_form_summary/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationFormResult']);
         Route::get('/evaluation_form_result_student/{evaluation_form_id}/{event_id}', [EvaluationController::class, 'getEvaluationFormResultStudent']);
+        Route::get('/get_choice_name/{evaluation_form_id}/{event_id}', [EvaluationController::class, 'getChoiceName']);
 
         //ANNOUNCEMENT ROUTE
         Route::get('/get_student_annoucement/{school_year}', [AnnouncementController::class, 'getStudentAnnouncement']);
