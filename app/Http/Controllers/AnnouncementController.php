@@ -74,7 +74,7 @@ class AnnouncementController extends Controller
         $orgIds = $userOrgs->pluck('student_org_id')->toArray();
 
         $announcement = Announcement::with('organization')
-            // ->orderByDesc('created_at')
+            ->orderByDesc('created_at')
             ->whereIn('org_id', $orgIds)
             ->where('school_year', $school_year)
             ->get();
