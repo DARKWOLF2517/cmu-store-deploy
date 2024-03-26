@@ -16,7 +16,7 @@
         <li v-for="event in events" :key="event.event_id">
           <div class="date">{{ event.start_date }}</div>
           <small class="text-success"> <b>{{ event.name }}</b> </small> <br>
-          <small class="text-success"> <b>{{ event.organization.description }}</b> </small>
+          <small> {{ event.organization.description }} </small>
         </li>
       </ul>
     </div>
