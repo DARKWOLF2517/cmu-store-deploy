@@ -137,7 +137,7 @@
                     <!-- Button to trigger the modal -->
                     <div class="d-flex justify-content-end">
                         <!-- Adding data-bs-toggle and data-bs-target to trigger the modal -->
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal"
+                        <button  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal"
                             @click="this.getPaymentHistory()">
                             Payment History
                         </button>
@@ -207,7 +207,12 @@
                 </div>
                 <div class="modal-body">
                     <h5> <b> {{ this.org_name }}</b> </h5>
-                    <table id="accountabilities-table">
+                    <div v-if="payment_histroy.length === 0" class="text-center">
+                        <h3><i class="fas fa-frown text-warning"></i></h3>
+                                <h4><b>Oops!</b></h4>
+                                <p>No Payments found</p>
+                </div>
+                    <table id="accountabilities-table" v-else>
                         <thead>
                             <tr>
                                 <!-- <th>Accountabilities</th> -->
@@ -219,7 +224,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="payment in this.payment_histroy">
+
+
+                     <tr v-for="payment in this.payment_histroy">
                                 <!-- <td>{{ paid['accountability_name'] }}</td> -->
                                 <td> {{ payment.created_at }}</td>
                                 <td style="text-align: right; font-weight: bold;"> &#8369; {{ payment.amount }}</td>
@@ -228,6 +235,8 @@
                                 <td v-else>N/A</td>
 
                             </tr>
+
+
 
                         </tbody>
                     </table>

@@ -21,11 +21,14 @@
                 <div class="mt-2" v-for="question in this.evaluation_with_questions_options.evaluation_question">
                     <!-- <p>{{ question.description }}</p>
                     <p v-for="answer in question.evaluation_answers"> </p> -->
-                    <label :for="'PA-' + question.id">{{ question.description }}</label>
+                    <h5 :for="'PA-' + question.id">{{ question.description }}</h5>
+                    <span class="card bg-light mt-2"  style="padding: 2px;">
                     <div v-for="answer in question.evaluation_option">
-                        <p v-if="isChoicePresent(answer.id)"> {{ answer.option }} </p>
-                    </div>
 
+                        <p class="fw-bold mt-2" style="margin-left: 10px;" v-if="isChoicePresent(answer.id)"> {{ answer.option }} </p>
+
+                    </div>
+                </span>
                     <!-- <select  class="form-control" :id="'PA-' + question.id" v-model="formData.id" disabled>
                         <option v-for="option in question.evaluation_option" :value="question.id">
                             {{ option.option }}
@@ -84,7 +87,7 @@ export default {
             isSubmitting: false,
             answers: [],
             word_answer: '',
-            
+
         }
     },
     methods: {
