@@ -422,6 +422,15 @@
                                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small text-start">
                                             <li>
                                                 <button class="btn btn-outline-light">
+
+                                                    <a href="/student_dashboard" class="link-dark rounded">
+                                                        <i class="fas fa-tachometer-alt"></i>
+                                                        <span class="link-title">Dashboard</span>
+                                                    </a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button class="btn btn-outline-light">
                                                     <a href="/student_announcement" class="link-dark rounded"><i
                                                             class="fas fa-bullhorn"></i> Announcements</a>
                                                 </button>
@@ -460,7 +469,7 @@
                                 <li class="mb-1">
                                     <button
                                         class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
-                                        <i class="fas fa-bullhorn"></i> 
+                                        <i class="fas fa-bullhorn"></i>
                                         <a href="/student_announcement">
                                             <span class="link-title">Announcement</span>
                                         </a>
@@ -469,7 +478,7 @@
                                 <li class="mb-1">
                                     <button
                                         class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
-                                        <i class="fas fa-user"></i> 
+                                        <i class="fas fa-user"></i>
                                         <a href="/student_profile">
                                             <span class="link-title">My Profile</span>
                                         </a>
@@ -478,7 +487,7 @@
                                 <li class="mb-1">
                                     <button
                                         class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
-                                        <i class="fas fa-clipboard-check"></i> 
+                                        <i class="fas fa-clipboard-check"></i>
                                         <a href="/student_evaluation_list">
                                             <span class="link-title">Evaluation</span>
                                         </a>
@@ -487,7 +496,7 @@
                                 <li class="mb-1">
                                     <button
                                         class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
-                                        <i class="fas fa-calculator"></i> 
+                                        <i class="fas fa-calculator"></i>
                                         <a href="/student_accountabilities">
                                             <span class="link-title">My Fees</span>
                                         </a>
