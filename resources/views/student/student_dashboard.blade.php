@@ -8,7 +8,7 @@
 @section('main-content')
     <div class="row">
         <div class="col mt-2">
-            <div class="welcome-card-student" >
+            <div class="welcome-card-student">
                 <div class="welcome-text">
                     <p>Welcome, {{ Session::get('user_name') }}</p>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="timeline-header">
                         <i class="bi bi-list"></i> Event Timeline
                     </div>
-                    <event-dashboard :organization_id={{ Session::get('org_id') }}
+                    <event-dashboard :organization_id={{ Session::get('org_id') }} :student={{ true }}
                         :school_year_session={{ Session::get('school_year') }}>
 
                     </event-dashboard>
@@ -30,18 +30,18 @@
             </div>
 
             <div class="col-lg-4 col-md-12 mb-3">
-                <div class="announcement" >
+                <div class="announcement">
                     <div class="announcement-header">
                         <i class="bi bi-list"></i> Announcements
                     </div>
-                    <announcement-dashboard :org_id={{ Session::get('org_id') }}
+                    <announcement-dashboard :org_id={{ Session::get('org_id') }} :student={{ true }}
                         :school_year_session={{ Session::get('school_year') }}>
                     </announcement-dashboard>
                 </div>
             </div>
             <div class="col-lg-4 col-md-12 mb-4">
                 <div id="calendar">
-                    <dashboard-calendar :org_id={{ Session::get('org_id') }}
+                    <dashboard-calendar :org_id={{ Session::get('org_id') }} :student={{ true }}
                         :school_year_session={{ Session::get('school_year') }}>
                     </dashboard-calendar>
                 </div>

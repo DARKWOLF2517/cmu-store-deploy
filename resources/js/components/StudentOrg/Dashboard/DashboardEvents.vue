@@ -15,7 +15,8 @@
       <ul v-else class="sessions">
         <li v-for="event in events" :key="event.event_id">
           <div class="date">{{ event.start_date }}</div>
-          <small class="text-success"> <b>{{ event.name }}</b> </small>
+          <small class="text-success"> <b>{{ event.name }}</b> </small> <br>
+          <small class="text-success"> <b>{{ event.organization.description }}</b> </small>
         </li>
       </ul>
     </div>
@@ -27,7 +28,7 @@ import axios from 'axios';
 import { convertDate } from '../Functions/DateConverter.js';
 
 export default {
-  props: ['organization_id', 'school_year_session'],
+  props: ['organization_id', 'school_year_session', 'student'],
   data() {
     return {
       events: [],
@@ -39,25 +40,48 @@ export default {
   },
   methods: {
     fetchData() {
-  axios
-    .get(`/events/show/${this.organization_id}/${this.school_year_session}`)
-    .then((response) => {
-      console.log(response.data)
+      if (this.student == true) {
+        axios
+          .get(`/events_student_dashboard/${this.school_year_session}`)
+          .then((response) => {
+            console.log(response.data)
 
-      //convert date to specific format that is readable
-      response.data.forEach(element => {
-        element["start_date"] = convertDate(element["start_date"]);
-      });
+            //convert date to specific format that is readable
+            response.data.forEach(element => {
+              element["start_date"] = convertDate(element["start_date"]);
+            });
 
-      this.events = response.data;
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    })
-    .finally(() => {
-      this.loading = false;
-    });
-},
+            this.events = response.data;
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
+      else {
+        axios
+          .get(`/events/show/${this.organization_id}/${this.school_year_session}`)
+          .then((response) => {
+            console.log(response.data)
+
+            //convert date to specific format that is readable
+            response.data.forEach(element => {
+              element["start_date"] = convertDate(element["start_date"]);
+            });
+
+            this.events = response.data;
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }
+
+    },
   },
 };
 </script>

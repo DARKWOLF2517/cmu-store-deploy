@@ -31,7 +31,7 @@ export default {
     components: {
         FullCalendar // make the <FullCalendar> tag available
     },
-    props: ['org_id', 'school_year_session'],
+    props: ['org_id', 'school_year_session', 'student'],
     data() {
         return {
             events: [],
@@ -52,14 +52,27 @@ export default {
     },
     methods: {
         fetchData() {
-            axios.get(`/calendar/${this.org_id}/${this.school_year_session}`)
-                .then(response => {
-                    this.calendarOptions.events = response.data;
-                    console.log(response.data)
-                })
-                .catch(error => {
+            if (this.student == true) {
+                axios.get(`/calendar_student_dashboard/${this.school_year_session}`)
+                    .then(response => {
+                        this.calendarOptions.events = response.data;
+                        console.log(response.data)
+                    })
+                    .catch(error => {
 
-                });
+                    });
+            }
+            else {
+                axios.get(`/calendar/${this.org_id}/${this.school_year_session}`)
+                    .then(response => {
+                        this.calendarOptions.events = response.data;
+                        console.log(response.data)
+                    })
+                    .catch(error => {
+
+                    });
+            }
+
 
         },
         eventClick: function (info) {

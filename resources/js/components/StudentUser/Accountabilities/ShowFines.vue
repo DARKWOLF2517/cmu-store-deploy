@@ -8,20 +8,12 @@
             </div>
             <div class="col-md-4 mb-2">
                 <div class="select-dropdown" style="width: 100%; height: auto">
-                    <select
-                        id="sort-select"
-                        class="form-control"
-                        style="text-align: center"
-                        v-model="school_year_input"
-                        @change="getUserOrgs"
-                    >
+                    <select id="sort-select" class="form-control" style="text-align: center" v-model="school_year_input"
+                        @change="getUserOrgs">
                         <option value="" disabled selected>
                             Select Semester
                         </option>
-                        <option
-                            v-for="school_year in this.school_year"
-                            :value="school_year.id"
-                        >
+                        <option v-for="school_year in this.school_year" :value="school_year.id">
                             {{ school_year.school_year }}
                         </option>
                     </select>
@@ -33,63 +25,39 @@
     <!-- Loading spinner -->
     <div v-if="loading">
         <div class="d-flex flex-column flex-md-row gap-4 p-2">
-            <div
-                class="card loading-card col-lg-4 col-md-6"
-                aria-hidden="true"
-                style="width: calc(33.33% - 30px); height: 200px; border: none"
-            >
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                style="width: calc(33.33% - 30px); height: 200px; border: none">
                 <div class="card-body">
                     <h5 class="card-title placeholder-glow text-center mt-2">
-                        <span
-                            class="placeholder col-6 bg-secondary"
-                            style="height: 40px; width: 40px"
-                        ></span>
+                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px"></span>
                     </h5>
                     <p class="card-text placeholder-glow mt-2 text-center">
                         <span class="placeholder col-4 bg-secondary"></span>
                     </p>
-                    <p
-                        class="card-text placeholder-glow placeholder-xs mt-2 text-center"
-                    >
+                    <p class="card-text placeholder-glow placeholder-xs mt-2 text-center">
                         <span class="placeholder col-8 bg-secondary"></span>
                     </p>
                     <div class="d-flex justify-content-center">
-                        <button
-                            type="button"
-                            tabindex="-1"
-                            class="btn btn-success mt-2 disabled placeholder col-6"
-                            style="height: 35px; width: 120px"
-                        ></button>
+                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6"
+                            style="height: 35px; width: 120px"></button>
                     </div>
                 </div>
             </div>
-            <div
-                class="card loading-card col-lg-4 col-md-6"
-                aria-hidden="true"
-                style="width: calc(33.33% - 30px); height: 200px; border: none"
-            >
+            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                style="width: calc(33.33% - 30px); height: 200px; border: none">
                 <div class="card-body">
                     <h5 class="card-title placeholder-glow text-center mt-2">
-                        <span
-                            class="placeholder col-6 bg-secondary"
-                            style="height: 40px; width: 40px"
-                        ></span>
+                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px"></span>
                     </h5>
                     <p class="card-text placeholder-glow mt-2 text-center">
                         <span class="placeholder col-4 bg-secondary"></span>
                     </p>
-                    <p
-                        class="card-text placeholder-glow placeholder-xs mt-2 text-center"
-                    >
+                    <p class="card-text placeholder-glow placeholder-xs mt-2 text-center">
                         <span class="placeholder col-8 bg-secondary"></span>
                     </p>
                     <div class="d-flex justify-content-center">
-                        <button
-                            type="button"
-                            tabindex="-1"
-                            class="btn btn-success mt-2 disabled placeholder col-6"
-                            style="height: 35px; width: 120px"
-                        ></button>
+                        <button type="button" tabindex="-1" class="btn btn-success mt-2 disabled placeholder col-6"
+                            style="height: 35px; width: 120px"></button>
                     </div>
                 </div>
             </div>
@@ -100,10 +68,7 @@
             <div>
                 <div class="accountability-cards-list">
                     <!-- Message if the container is empty -->
-                    <div
-                        class="Container-IfEmpty text-center"
-                        v-if="!loading && this.user_organization.length === 0"
-                    >
+                    <div class="Container-IfEmpty text-center" v-if="!loading && this.user_organization.length === 0">
                         <div class="Empty-Message">
                             <i class="far fa-smile mb-0" id="icon-message"></i>
                             <p class="text-muted mt-0">
@@ -115,17 +80,14 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column flex-md-row gap-2">
-                        <div
-                            class="stud-accountability-card border-top border-5 border-success border-bottom-0"
-                            v-for="user_orgs in this.user_organization"
-                        >
+                        <div class="stud-accountability-card border-top border-5 border-success border-bottom-0"
+                            v-for="user_orgs in this.user_organization">
                             <div class="p-2 text-center">
                                 <h2 class="text-center bold mt-2">
                                     <i class="bi bi-wallet2 text-secondary"></i>
                                 </h2>
                                 <h5 class="card-title mt-2">
-                                    <strong
-                                        >{{ user_orgs.organization.name }}
+                                    <strong>{{ user_orgs.organization.name }}
                                     </strong>
                                 </h5>
                                 <p>{{ user_orgs.organization.description }}</p>
@@ -133,22 +95,16 @@
                                 <!-- Use "&#8369;" for the peso sign -->
                             </div>
                             <div class="text-center">
-                                <button
-                                    class="btn button-secondary"
-                                    style="
+                                <button class="btn button-secondary" style="
                                         background-color: #4fb98e;
                                         color: #fefffe;
-                                    "
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#seeMoreAccountability"
-                                    @click="
-                                        (this.org_id =
-                                            user_orgs.student_org_id),
-                                            (this.org_name =
-                                                user_orgs.organization.name),
-                                            this.fetchData()
-                                    "
-                                >
+                                    " data-bs-toggle="modal" data-bs-target="#seeMoreAccountability" @click="
+                    (this.org_id =
+                        user_orgs.student_org_id),
+                        (this.org_name =
+                            user_orgs.organization.name),
+                        this.fetchData()
+                        ">
                                     <i class="fas fa-eye"></i> See more
                                 </button>
                             </div>
@@ -159,32 +115,20 @@
         </div>
     </div>
     <!-- Modal -->
-    <div
-        class="modal fade"
-        id="seeMoreAccountability"
-        tabindex="-1"
-        aria-labelledby="seeMoreAccountabilityLabel"
-        aria-hidden="true"
-    >
+    <div class="modal fade" id="seeMoreAccountability" tabindex="-1" aria-labelledby="seeMoreAccountabilityLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modal-lg">
                 <div class="modal-header">
                     <h6 class="modal-title" id="seeMoreAccountabilityLabel">
                         {{ this.org_name }}
                     </h6>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <!-- Detailed Information -->
                     <div class="mb-3">
-                        <label for="totalPayment" class="form-label"
-                            >Total Accountabilities</label
-                        >
+                        <label for="totalPayment" class="form-label">Total Accountabilities</label>
                         <h3 id="totalPayment">
                             &#8369; {{ this.total_accountability }}
                         </h3>
@@ -193,22 +137,14 @@
                     <!-- Button to trigger the modal -->
                     <div class="d-flex justify-content-end">
                         <!-- Adding data-bs-toggle and data-bs-target to trigger the modal -->
-                        <button
-                            class="btn btn-success"
-                            data-bs-toggle="modal"
-                            data-bs-target="#paymentHistoryModal"
-                        >
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#paymentHistoryModal"
+                            @click="this.getPaymentHistory()">
                             Payment History
                         </button>
                     </div>
                     <br />
-                    <table
-                        class="student-accountabilities"
-                        id="accountabilities-table"
-                    >
-                        <thead
-                            style="background-color: #84c0b4; color: #fefffe"
-                        >
+                    <table class="student-accountabilities" id="accountabilities-table">
+                        <thead style="background-color: #84c0b4; color: #fefffe">
                             <th>
                                 <h6><b>Accountabilities</b></h6>
                             </th>
@@ -222,42 +158,36 @@
                                 <td>
                                     &#8369;
                                     {{
-                                        getTotalAccountabilitiesIndividual(
-                                            "fines",
-                                            fines
-                                        )
-                                    }}
+                        getTotalAccountabilitiesIndividual(
+                            "fines",
+                            fines
+                        )
+                    }}
                                     <!-- <i class="fas fa-eye ml-6">see more</i> -->
                                 </td>
                             </tr>
-                            <tr
-                                v-for="accountability in this
-                                    .accountabilityList"
-                            >
+                            <tr v-for="accountability in this
+                            .accountabilityList">
                                 <th>
                                     {{ accountability["accountability_name"] }}
                                 </th>
                                 <td>
                                     &#8369;
                                     {{
-                                        getTotalAccountabilitiesIndividual(
-                                            accountability[
-                                                "accountability_name"
-                                            ],
-                                            accountability["amount"]
-                                        )
-                                    }}
+                        getTotalAccountabilitiesIndividual(
+                            accountability[
+                            "accountability_name"
+                            ],
+                            accountability["amount"]
+                        )
+                    }}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
                 </div>
@@ -265,55 +195,45 @@
         </div>
     </div>
     <!-- Modal -->
-    <div
-        class="modal fade"
-        id="paymentHistoryModal"
-        tabindex="-1"
-        aria-labelledby="paymentHistoryModalLabel"
-        aria-hidden="true"
-    >
+    <div class="modal fade" id="paymentHistoryModal" tabindex="-1" aria-labelledby="paymentHistoryModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="paymentHistoryModalLabel">
                         Payment History
                     </h5>
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h5> <b>CSCo</b> </h5>
+                    <h5> <b> {{ this.org_name }}</b> </h5>
                     <table id="accountabilities-table">
-                <thead>
-                    <tr>
-                        <!-- <th>Accountabilities</th> -->
-                        <th>Date Paid</th>
-                        <th style="width: 10%;">Amount</th>
-                        <th>Remarks</th>
+                        <thead>
+                            <tr>
+                                <!-- <th>Accountabilities</th> -->
+                                <th>Date Paid</th>
+                                <th style="width: 10%;">Amount</th>
+                                <th>Accountability Type</th>
+                                <th>Remarks</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <!-- <td>{{ paid['accountability_name'] }}</td> -->
-                        <td> 02/03/2024</td>
-                        <td style="text-align: right; font-weight: bold;"> &#8369; 500</td>
-                        <td>College Fee</td>
-                    </tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="payment in this.payment_histroy">
+                                <!-- <td>{{ paid['accountability_name'] }}</td> -->
+                                <td> {{ payment.created_at }}</td>
+                                <td style="text-align: right; font-weight: bold;"> &#8369; {{ payment.amount }}</td>
+                                <td>{{ payment.accountability_type }}</td>
+                                <td v-if="payment.remarks != 0">{{ payment.remarks }}</td>
+                                <td v-else>N/A</td>
 
-                </tbody>
-            </table>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                    >
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
                 </div>
@@ -323,6 +243,7 @@
 </template>
 
 <script>
+import { convertDate } from "../../StudentOrg/Functions/DateConverter.js";
 export default {
     props: ["user_id", "name", "school_year_session"],
     data() {
@@ -341,15 +262,38 @@ export default {
             user_organization: [],
             paid_accountabilities: [],
             loading: true,
+            payment_histroy: [],
+
+
         };
     },
     mounted() {
-        this.fetchData();
+        // this.fetchData();
         this.showSchoolYear();
         // console.log(this.name)
         this.getUserOrgs();
     },
     methods: {
+        getPaymentHistory() {
+            console.log(this.org_id)
+            axios
+                .get(`get_student_payment_history/${this.user_id}/${this.org_id}`)
+                .then((response) => {
+                    console.log(response.data)
+                    const data = response.data;
+                    data.forEach(item => {
+                        item["created_at"] = convertDate(item["created_at"]);
+                        if (Number.isInteger(item.amount)) {
+                            // If it is a whole number, convert it to a string with two decimal places
+                            item.amount = item.amount.toFixed(2);
+                        }
+                    });
+                    this.payment_histroy = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
         showSchoolYear() {
             axios
                 .get(`get_school_year`)
@@ -388,7 +332,7 @@ export default {
                     )
                     .then((response) => {
                         this.accountabilityList = response.data;
-                        // console.log(this.accountabilityList)
+                        console.log(this.accountabilityList)
                     })
                     .catch((error) => {
                         alert(error);
@@ -427,7 +371,7 @@ export default {
                         0
                     );
 
-                    console.log(totalAmount);
+                    // console.log(totalAmount);
                     data.forEach((events) => {
                         //get the data of the student attendance and compile it to the array
                         const attendanceRecord = {

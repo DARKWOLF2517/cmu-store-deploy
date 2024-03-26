@@ -13,50 +13,23 @@
                 <p class="empty-schedule">Announcements show up here</p>
             </div>
             <div class="announcement-card-list">
-                <button
-                    class="announcement-card btn btn-light text-start"
-                    style="width: 100%"
-                    v-for="announcement in announcement"
-                    @click="openModal(announcement)"
-                >
+                <button class="announcement-card btn btn-light text-start" style="width: 100%"
+                    v-for="announcement in announcement" @click="openModal(announcement)">
                     <div>
-                        <p
-                            class="d-flex align-items-center text-dark text-decoration-none mb-0"
-                            aria-expanded="false"
-                        >
-                            <img
-                                v-if="announcement.organization.image"
-                                :src="announcement.organization.image"
-                                alt="user-image"
-                                width="32"
-                                height="32"
-                                class="rounded-circle me-2 border"
-                            />
-                            <img
-                                v-else
-                                src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
-                                alt="user-image"
-                                width="32"
-                                height="32"
-                                class="rounded-circle me-2 border"
-                            />
-                            <span class="profile-name"
-                                ><strong>{{
-                                    this.selectedAnnouncement.organization
-                                }}</strong></span
-                            >
+                        <p class="d-flex align-items-center text-dark text-decoration-none mb-0" aria-expanded="false">
+                            <img v-if="announcement.organization.image" :src="announcement.organization.image"
+                                alt="user-image" width="32" height="32" class="rounded-circle me-2 border" />
+                            <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                alt="user-image" width="32" height="32" class="rounded-circle me-2 border" />
+                            <span class="profile-name"><strong>{{
+        this.selectedAnnouncement.organization
+    }}</strong></span>
                         </p>
                     </div>
-                    <div >
-                        <span class="Organization text-success"
-                            ><b>{{ announcement.title }}</b></span
-                        >
+                    <div>
+                        <span class="Organization text-success"><b>{{ announcement.title }}</b></span>
                         <div class="date-time-posted">
-                            <span class="date-time-uploaded"
-                                ><i
-                                    ><small>{{ announcement.date }}</small></i
-                                ></span
-                            >
+                            <span class="date-time-uploaded"><i><small>{{ announcement.date }}</small></i></span>
                         </div>
                     </div>
                 </button>
@@ -70,18 +43,12 @@
                         <h5 class="modal-title">
                             {{ selectedAnnouncement.title }}
                         </h5>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Content here -->
 
-                        <p class="text-secondary text-normal"
-                            >Date and time posted:
+                        <p class="text-secondary text-normal">Date and time posted:
                             {{ this.selectedAnnouncement.date }}
                             {{ this.selectedAnnouncement.time }}
                         </p>
@@ -90,11 +57,7 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                        >
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Close
                         </button>
                     </div>
@@ -108,7 +71,7 @@
 import { convertDate } from "../Functions/DateConverter.js";
 import { converTime } from "../Functions/TimeConverter.js";
 export default {
-    props: ["org_id", "school_year_session"],
+    props: ["org_id", "school_year_session", 'student'],
     data() {
         return {
             announcement: [],
@@ -128,20 +91,44 @@ export default {
     },
     methods: {
         fetchData() {
-            axios
-                .get(
-                    `/get_announcement/${this.org_id}/${this.school_year_session}`
-                )
-                .then((response) => {
-                    const data = response.data;
-                    data.forEach((item) => {
-                        item["date"] = convertDate(item["date"]);
+            if (this.student == true) {
+
+                axios
+                    .get(
+                        `/get_student_annoucement/${this.school_year_session}`
+                    )
+                    .then((response) => {
+                        const data = response.data;
+                        data.forEach((item) => {
+                            item["date"] = convertDate(item["date"]);
+                        });
+                        this.announcement = response.data;
+                        console.log(response.data);
+                        this.loading = false;
+                    })
+                    .catch((error) => {
+                        console.log(error)
                     });
-                    this.announcement = response.data;
-                    console.log(response.data);
-                    this.loading = false;
-                })
-                .catch((error) => {});
+            }
+            else {
+                axios
+                    .get(
+                        `/get_announcement/${this.org_id}/${this.school_year_session}`
+                    )
+                    .then((response) => {
+                        const data = response.data;
+                        data.forEach((item) => {
+                            item["date"] = convertDate(item["date"]);
+                        });
+                        this.announcement = response.data;
+                        console.log(response.data);
+                        this.loading = false;
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            }
+
         },
         openModal(announcement) {
             this.selectedAnnouncement.title = announcement.title;

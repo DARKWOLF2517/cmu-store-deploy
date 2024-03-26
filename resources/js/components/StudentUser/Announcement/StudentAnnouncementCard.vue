@@ -110,7 +110,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
-                                <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
+                                <small class="date-upload text-muted"> Posted: {{ announcements.date }} {{ announcements.time }}</small>
                                 <p class="card-short-description mt-2">
                                     <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
                                 </p>
@@ -148,11 +148,12 @@ export default {
             this.loading = true;
             this.announcements = [];
             this.filtered_announcements = [];
-            axios.get(`get_announcement/0/${this.school_year_input}`)
+            axios.get(`get_student_annoucement/${this.school_year_input}`)
                 .then(response => {
                     console.log(response.data)
                     const data = response.data;
                     data.forEach(item => {
+                        console.log(item.time)
                         item["date"] = convertDate(item["date"]);
                         item["time"] = converTime(item["time"]);
                     });

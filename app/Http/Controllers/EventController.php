@@ -10,9 +10,11 @@ use App\Models\EventExemptedAttendance;
 use App\Models\PaidAccountability;
 use App\Models\SchoolYear;
 use App\Models\User;
+use App\Models\UserOrganization;
 use App\Models\YearLevel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -244,7 +246,6 @@ class EventController extends Controller
 
             // Insert the exempted sessions in bulk
             EventExemptedAttendance::insert($exemptedSessions);
-
         } else {
             foreach ($requestData as $data) {
                 $exempted = new EventExemptedAttendance([
@@ -273,5 +274,53 @@ class EventController extends Controller
     {
         $cancelledAttendance = EventExemptedAttendance::where([['event_id', $event_id]])->get();
         return response()->json($cancelledAttendance);
+    }
+
+    //STUDENT SIDE
+    public function eventStudentDashboard($school_year)
+    {
+
+
+        $student = Auth::id();
+        $userOrgs = UserOrganization::select('student_org_id')
+            ->where([
+                ['student_id', $student],
+                ['role_id', 2],
+                ['school_year', $school_year]
+            ])
+            ->groupBy('student_org_id')
+            ->get();
+
+        $orgIds = $userOrgs->pluck('student_org_id')->toArray();
+
+        $events = Event::with('organization')
+            // ->orderByDesc('created_at')
+            ->whereIn('org_id', $orgIds)
+            ->where('school_year', $school_year)
+            ->get();
+        return $events->toJson();
+        // }
+    }
+
+    public function calendarStudentDashboard($school_year)
+    {
+
+        $student = Auth::id();
+        $userOrgs = UserOrganization::select('student_org_id')
+            ->where([
+                ['student_id', $student],
+                ['role_id', 2],
+                ['school_year', $school_year]
+            ])
+            ->groupBy('student_org_id')
+            ->get();
+
+        $orgIds = $userOrgs->pluck('student_org_id')->toArray();
+
+        $events = Event::select(DB::raw('name as title', 'start_date as start'))->get();
+        $events = Event::select(('name as title'),
+            DB::raw("CONCAT(start_date, 'T', start_attendance) as start")
+        )->whereIn('org_id', $orgIds)->where([['school_year', $school_year]])->get();
+        return $events->toJson();
     }
 }

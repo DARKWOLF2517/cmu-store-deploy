@@ -12,6 +12,7 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\OrgProfileController;
 use App\Http\Controllers\UserController;
 use App\Mail\WelcomeEmail;
+use App\Models\Announcement;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -101,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/accountabilities_students/{org_id}/{school_year}', [AccountabilitiesController::class, 'getAccountabilities']);
     Route::get('/get_accountabilities/{org_id}/{school_year}', [AccountabilitiesController::class, 'getAccountabilitiesList']);
     Route::get('/get_user_orgs/{school_year}', [AccountabilitiesController::class, 'getUserOrgs']);
+    Route::get('/get_student_payment_history/{user_id}/{org_id}', [AccountabilitiesController::class, 'getStudentPaymentHistory']);
 
     #attendance route
     Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
@@ -346,6 +348,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/submit_evaluation/{user_id}/{event_id}/{feedback}', [EvaluationController::class, 'store']);
         Route::get('/evaluation_form/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
         Route::get('/get_evaluation_question/{evaluation_form_id}', [EvaluationController::class, 'getEvaluationQuestion']);
+        Route::get('/evaluation_form_summary/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationFormResult']);
+        Route::get('/evaluation_form_result_student/{evaluation_form_id}/{event_id}', [EvaluationController::class, 'getEvaluationFormResultStudent']);
+
+        //ANNOUNCEMENT ROUTE
+        Route::get('/get_student_annoucement/{school_year}', [AnnouncementController::class, 'getStudentAnnouncement']);
+
+        //DASHBOARD ROUTE
+        Route::get('/events_student_dashboard/{school_year}', [EventController::class, 'eventStudentDashboard']);
+        Route::get('/calendar_student_dashboard/{school_year}', [EventController::class, 'calendarStudentDashboard']);
     });
     Route::middleware(['user-role:3'])->group(function () {
         //Attendance Checker route

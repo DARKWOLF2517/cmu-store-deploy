@@ -13,6 +13,7 @@ use App\Models\EventEvaluation;
 use Illuminate\Http\Request;
 use Symfony\Component\Console\Question\Question;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class  EvaluationController extends Controller
 {
@@ -133,7 +134,7 @@ class  EvaluationController extends Controller
     public function getTotalResponse($event_id)
     {
 
-        $uniqueCount = EvaluationAnswer::selectRaw('COUNT(DISTINCT student_id) as unique_count')->where('event_id',$event_id)
+        $uniqueCount = EvaluationAnswer::selectRaw('COUNT(DISTINCT student_id) as unique_count')->where('event_id', $event_id)
             ->first();
 
         $uniqueCount = $uniqueCount->unique_count;
@@ -173,6 +174,10 @@ class  EvaluationController extends Controller
     {
         return view('student.student_evaluation_form', ['event_id' => $event_id, 'evaluation_form_id' => $evaluation_form]);
     }
+    public function EvaluationFormResult($event_id, $evaluation_form)
+    {
+        return view('student.student_evaluation_form_view_summary', ['event_id' => $event_id, 'evaluation_form_id' => $evaluation_form]);
+    }
     public function EvaluationTotalResponse($event_id)
     {
         $EvaluationCount = EvaluationFormAnswer::where('event_id', $event_id)->count();
@@ -205,6 +210,18 @@ class  EvaluationController extends Controller
     public function getEvaluationQuestion($evaluation_form_id)
     {
         $evaluationQuestions = EvaluationForm::where('id', $evaluation_form_id)->with('evaluation_question.evaluation_option')->first();
+        return $evaluationQuestions->toJson();
+    }
+    public function getEvaluationFormResultStudent($evaluation_form_id, $event_id)
+    {
+        $authStudentId = Auth::id();
+
+        $evaluationQuestions = EvaluationForm::where('id', $evaluation_form_id)
+            ->with(['evaluation_question.evaluation_answers' => function ($query) use ($authStudentId, $event_id) {
+                $query->where([['student_id', $authStudentId],['event_id', $event_id]]);
+            }])
+            ->first();
+
         return $evaluationQuestions->toJson();
     }
 }

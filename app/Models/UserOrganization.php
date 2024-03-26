@@ -40,6 +40,10 @@ class UserOrganization extends Model
     {
         return $this->belongsTo(YearLevel::class, 'year_level_id');
     }
+    public function announcement()
+    {
+        return $this->belongsTo(Announcement::class, 'student_org_id', 'org_id');
+    }
 
     
 }

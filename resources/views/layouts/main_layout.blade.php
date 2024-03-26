@@ -78,7 +78,7 @@
                                     show_icon = "{{ false }}">
                                 </side-nav-button>
                             </li>
-                        {{-- @else --}}
+                            {{-- @else --}}
                         @endif
                         <li>
                             <hr class="dropdown-divider">
@@ -261,6 +261,15 @@
                                     </button>
                                     <div class="collapse" id="student-collapse">
                                         <ul class="btn-toggle-nav list-unstyled fw-normal small text-start w-100">
+                                            <li>
+                                                <button class="btn btn-outline-light">
+
+                                                    <a href="/student_dashboard" class="link-dark rounded">
+                                                        <i class="fas fa-tachometer-alt"></i>
+                                                        <span class="link-title">Dashboard</span>
+                                                    </a>
+                                                </button>
+                                            </li>
                                             <li>
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_announcement" class="link-dark rounded"><i
@@ -450,6 +459,42 @@
                                 </li>
                                 <li class="mb-1">
                                     <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
+                                        <i class="fas fa-bullhorn"></i> 
+                                        <a href="/student_announcement">
+                                            <span class="link-title">Announcement</span>
+                                        </a>
+                                    </button>
+                                </li>
+                                <li class="mb-1">
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
+                                        <i class="fas fa-user"></i> 
+                                        <a href="/student_profile">
+                                            <span class="link-title">My Profile</span>
+                                        </a>
+                                    </button>
+                                </li>
+                                <li class="mb-1">
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
+                                        <i class="fas fa-clipboard-check"></i> 
+                                        <a href="/student_evaluation_list">
+                                            <span class="link-title">Evaluation</span>
+                                        </a>
+                                    </button>
+                                </li>
+                                <li class="mb-1">
+                                    <button
+                                        class="btn btn-toggle btn-outline-light align-items-center rounded dashboard-button">
+                                        <i class="fas fa-calculator"></i> 
+                                        <a href="/student_accountabilities">
+                                            <span class="link-title">My Fees</span>
+                                        </a>
+                                    </button>
+                                </li>
+                                {{-- <li class="mb-1">
+                                    <button
                                         class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#student-collapse"
                                         aria-expanded="false">
@@ -458,7 +503,7 @@
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
                                     </button>
                                     <div class="collapse" id="student-collapse">
-                                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small text-start">
+                                        <ul class=" list-unstyled fw-normal pb-1 small text-start">
                                             <li>
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_announcement" class="link-dark rounded"><i
@@ -470,7 +515,7 @@
                                                     <a href="/student_profile" class="link-dark rounded"><i
                                                             class="fas fa-user"></i> My Profile</a>
                                                 </button>
-                                            </li>
+                                                </li>
                                             <li>
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_evaluation_list" class="link-dark rounded"><i
@@ -485,7 +530,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </li>
+                                </li> --}}
                             @endif
 
                         </ul>

@@ -2,91 +2,103 @@
     <div id="evaluation-container">
         <div>
             <div v-if="loading">
-                 <div class="d-flex flex-column flex-md-row gap-4 p-2">
-            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
-                <div class="card-body ">
+                <div class="d-flex flex-column flex-md-row gap-4 p-2">
+                    <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                        style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                        <div class="card-body ">
 
-                    <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                        <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-5 bg-secondary"></span>
-                    </p>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-4 mt-0 bg-secondary"></span>
-                    </p>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                            style="height: 35px; width: 70px;"></button>
+                            <h5 class="card-title placeholder-glow ">
+                                <span class="placeholder col-6 bg-secondary"
+                                    style="height: 40px; width: 40px; border-radius: 60px;"></span>
+                                <span class="placeholder col-6 bg-secondary"
+                                    style="margin-left: 10px; ; width: 50px;"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow ">
+                                <span class="placeholder col-5 bg-secondary"></span>
+                            </p>
+                            <p class="card-text placeholder-glow ">
+                                <span class="placeholder col-4 mt-0 bg-secondary"></span>
+                            </p>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" tabindex="-1"
+                                    class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                    style="height: 35px; width: 70px;"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                        style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                        <div class="card-body ">
+
+                            <h5 class="card-title placeholder-glow ">
+                                <span class="placeholder col-6 bg-secondary"
+                                    style="height: 40px; width: 40px; border-radius: 60px;"></span>
+                                <span class="placeholder col-6 bg-secondary"
+                                    style="margin-left: 10px; ; width: 50px;"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow ">
+                                <span class="placeholder col-5 bg-secondary"></span>
+                            </p>
+                            <p class="card-text placeholder-glow ">
+                                <span class="placeholder col-4 mt-0 bg-secondary"></span>
+                            </p>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" tabindex="-1"
+                                    class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                    style="height: 35px; width: 70px;"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                        style="width: calc(33.33% - 30px); height: 200px; border:none;">
+                        <div class="card-body ">
+
+                            <h5 class="card-title placeholder-glow ">
+                                <span class="placeholder col-6 bg-secondary"
+                                    style="height: 40px; width: 40px; border-radius: 60px;"></span>
+                                <span class="placeholder col-6 bg-secondary"
+                                    style="margin-left: 10px; ; width: 50px;"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow ">
+                                <span class="placeholder col-5 bg-secondary"></span>
+                            </p>
+                            <p class="card-text placeholder-glow ">
+                                <span class="placeholder col-4 mt-0 bg-secondary"></span>
+                            </p>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" tabindex="-1"
+                                    class="btn btn-secondary mt-2 disabled placeholder col-6 "
+                                    style="height: 35px; width: 70px;"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
-                <div class="card-body ">
 
-                    <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                        <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-5 bg-secondary"></span>
-                    </p>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-4 mt-0 bg-secondary"></span>
-                    </p>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                            style="height: 35px; width: 70px;"></button>
-                    </div>
-                </div>
-            </div>
-            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 30px); height: 200px; border:none;">
-                <div class="card-body ">
-
-                    <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6 bg-secondary" style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                        <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-5 bg-secondary"></span>
-                    </p>
-                    <p class="card-text placeholder-glow ">
-                        <span class="placeholder col-4 mt-0 bg-secondary"></span>
-                    </p>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6 "
-                            style="height: 35px; width: 70px;"></button>
-                    </div>
-                </div>
-            </div>
         </div>
-            </div>
-
-    </div>
 
         <div class="evaluation-event-cards">
             <div class="Container-IfEmpty text-center" v-if="!loading && this.events.length === 0">
-                        <div class="Empty-Message">
-                            <i class="far fa-smile mb-0" id="icon-message"></i>
-                            <p class="text-muted  mt-0"><b>No Evaluation form yet</b>
-                                <br>
-                                The evaluation form per event will show up here.
-                            </p>
-                        </div>
-                    </div>
+                <div class="Empty-Message">
+                    <i class="far fa-smile mb-0" id="icon-message"></i>
+                    <p class="text-muted  mt-0"><b>No Evaluation form yet</b>
+                        <br>
+                        The evaluation form per event will show up here.
+                    </p>
+                </div>
+            </div>
             <!-- <div class="evaluation-list">
         <div class="evaluation-container" id="evaluation-container">
             <div class="evaluation-cards-list"> -->
-                <!-- Loading spinner -->
+            <!-- Loading spinner -->
 
             <div v-for="(event, index) in this.events" :id="event.event_id" :class="[
-            'event-card',
-            'border-top',
-            'border-5',
-            { 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0 },
-            'py-3'
-        ]">
+                'event-card',
+                'border-top',
+                'border-5',
+                { 'border-warning': event.evaluation_status === 1, 'border-secondary': event.evaluation_status === 0 },
+                'py-3'
+            ]">
 
                 <div class="card-body">
                     <div class="info">
@@ -111,10 +123,11 @@
                         <div v-if="this.user_answer_student_id.length > 0">
 
                             <div v-if="event['evaluation_status'] == 0">
-                                <button class="btn btn-secondary text-dark"  disabled>Close</button>
+                                <button class="btn btn-secondary text-dark" disabled>Close</button>
                             </div>
                             <div v-else-if="this.hasResponded(event['event_id'])">
-                                <button class="btn btn-success" :title="'View Response for ' + event['name']">View Response</button>
+                                <button class="btn btn-success" :title="'View Response for ' + event['name']" @click="this.showEvaluationFormSummary(event.event_id, event.evaluation_form)">View
+                                    Response</button>
                             </div>
                             <div v-else-if="event['evaluation_status'] == 1">
                                 <button class="btn btn-warning"
@@ -249,6 +262,10 @@ export default {
         showEvaluationForm(event_id, evaluation_form_id) {
 
             window.location.href = `evaluation_form/${event_id}/${evaluation_form_id}`;
+
+        },
+        showEvaluationFormSummary(event_id, evaluation_form_id) {
+            window.location.href = `evaluation_form_summary/${event_id}/${evaluation_form_id}`;
 
         },
     }

@@ -42,7 +42,7 @@ import { createApp } from 'vue';
     import StudentAnnouncement from './components/StudentUser/Announcement/StudentAnnouncementCard.vue';
     import StudentProfile from './components/StudentUser/Profile/StudentProfile.vue';
     import EvaluationForm from './components/StudentUser/Evaluation/EvaluationForm.vue';
-    import EvaluationForm1 from './components/StudentUser/Evaluation/EvaluationForm1.vue';
+    import EvaluationFormViewSummary from './components/StudentUser/Evaluation/EvaluationFormViewSummary.vue';
     import ShowFines from './components/StudentUser/Accountabilities/ShowFines.vue';
 
 const app = createApp({});
@@ -88,6 +88,6 @@ const app = createApp({});
     app.component ('student-announcement-card', StudentAnnouncement);
     app.component ('student-profile', StudentProfile);
     app.component ('student-evaluation-form', EvaluationForm);
-    app.component ('student-evaluation-form1', EvaluationForm1);
+    app.component ('student-evaluation-form-summary', EvaluationFormViewSummary);
     app.component ('show-fines', ShowFines);
 app.mount('#app');

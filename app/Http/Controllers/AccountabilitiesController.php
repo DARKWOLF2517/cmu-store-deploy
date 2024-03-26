@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\UserOrganization;
 use App\Models\UserProfile;
 use App\Models\YearLevel;
+use Faker\Provider\ar_EG\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -282,6 +283,11 @@ class AccountabilitiesController extends Controller
     public function getAccountabilityType($accountability_type, $school_year)
     {
         $accountabilities = Accountability::where([['accountability_name', $accountability_type], ['school_year', $school_year]])->first();
+        return $accountabilities->toJson();
+    }
+    public function getStudentPaymentHistory($user_id, $org_id)
+    {
+        $accountabilities = PaidAccountability::where([['student_id', $user_id],['student_org_id', $org_id]])->get();
         return $accountabilities->toJson();
     }
 }
