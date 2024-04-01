@@ -2,7 +2,7 @@
     <div class="col-md-6 col-sm-12">
         <div class="input-container">
             <i class="fa fa-search"></i>
-            <input type="text" v-model="searchTerm" @input="filterItems" placeholder="Search Accountabilities">
+            <input type="text" v-model="searchTerm" @input="filterItems" placeholder="Search Student">
         </div>
     </div>
     <div class="col-md-6 col-sm-12" style="display: flex; align-items: center; justify-content: flex-end; gap: 20px;">
