@@ -55,13 +55,33 @@
             <!-- <a class="btn btn-success" href="/student_organization_events">Go to Events</a> -->
         </div>
 
-        <div class="schedule-card " v-for="event in this.events" :id="event.event_id">
+        <div class="schedule-card " v-for="event in this.events" :id="event.event_id":class="[
+                                'border-top',
+                                'border-5',
+                                {
+                                    'border-secondary': event.event_status == 0,
+                                    'border-warning': event.event_status == 1,
+                                    'border-success': event.event_status == 2,
+                                },
+                                'border-bottom-0',
+                            ]"
+                             :title="
+                                event.event_status == 0
+                                    ? 'Event not started yet'
+                                    : event.event_status == 1
+                                    ? 'Event Ongoing'
+                                    : event.event_status == 2
+                                    ? 'Event Completed'
+                                    : ''
+                            "
+                        >
             <div class="card-body d-flex justify-content-between align-items-start">
                 <div>
                     <h5 class="mb-2"><b>{{ event["name"] }}</b></h5>
                     <p class="mt-2">Start Date: {{ event["start_date"] }}</p>
                     <p>Time starts at: {{ event["start_attendance"] }}</p>
                     <p class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</p>
+                    <p class="text-muted fw-bold">Number of Attendance Checker: 0</p>
                 </div>
                 <div class="mt-auto" v-if="event.attendance_status == 1">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation"

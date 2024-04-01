@@ -120,10 +120,13 @@
                     <h5><b>{{ attendance_list.name }}</b></h5>
                 </div>
                 <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b></div>
-                <button v-if="attendance_list.attendance !== 0" class="view-button"
-                    @click="attendance_result(attendance_list.event_id)">
-                    <i class="fas fa-chevron-right button-icon"></i>
+               <div class="d-flex justify-content-end">
+                 <button v-if="attendance_list.attendance !== 0" class="btn btn-success"
+                    @click="attendance_result(attendance_list.event_id)" >
+                    <i class="fas fa-eye"></i> View
                 </button>
+               </div>
+
             </div>
         </div>
     </div>

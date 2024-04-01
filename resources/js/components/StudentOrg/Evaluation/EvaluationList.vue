@@ -13,14 +13,7 @@
                 </div>
             </div>
             <div
-                class="col-md-6 col-sm-12"
-                style="
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                    gap: 20px;
-                "
-            >
+                class="col-md-6 col-sm-12">
                 <div class="select-dropdown" style="width: 70%">
                     <select
                         id="sort-select"
@@ -50,7 +43,7 @@
             </div>
         </div>
     </div>
-    <h3><i class="fas fa-list mt-2"></i> Evaluation</h3>
+    <h3><i class="fas fa-list mt-2"></i> Evaluation Records</h3>
     <div id="evaluation-container">
         <!-- Loading spinner -->
         <div v-if="loading" class="d-flex gap-4">
@@ -220,7 +213,7 @@
                     </div>
                 </div>
                 <!-- <h5> {{ evaluation['event_id'] }}</h5> -->
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <a
                         class="ellipsis-button"
                         href="#"
@@ -236,8 +229,6 @@
                         class="dropdown-menu"
                         aria-labelledby="ellipsisDropdown"
                     >
-                        <!-- option 1 -->
-
                         <li v-if="evaluation.evaluation_status == 0">
                             <a
                                 class="dropdown-item"
@@ -250,7 +241,6 @@
                                 >Start Evaluation</a
                             >
                         </li>
-                        <!-- option 2 -->
                         <li v-else-if="evaluation.evaluation_status == 1">
                             <a
                                 class="dropdown-item"
@@ -263,9 +253,9 @@
                                 >Stop Evaluation</a
                             >
                         </li>
-                        <!-- Add more dropdown items as needed -->
                     </ul>
-                </div>
+                </div> -->
+
                 <div class="event-date-container">
                     <span class="event-date">
                         <i class="bi bi-calendar"></i>
@@ -295,14 +285,46 @@
                         Status: <b>Ongoing</b>
                     </div>
                 </div>
-
-                <button
-                    v-if="evaluation['evaluation_form_answer'] !== 0"
-                    class="see-button"
-                    @click="evaluation_result(evaluation.event_id)"
-                >
-                    <i class="fas fa-chevron-right button-icon"></i>
-                </button>
+                <div class="Actions d-flex justify-content-end">
+                    <button
+                        class="btn btn-success"
+                        v-if="evaluation.evaluation_status == 0"
+                    >
+                        <a
+                            class="dropdown-item"
+                            @click="
+                                UpdateAttendanceStatus(evaluation.event_id, '1')
+                            "
+                            >Start Evaluation</a
+                        >
+                    </button>
+                    <div
+                        class="d-flex gap-2"
+                        v-else-if="evaluation.evaluation_status == 1"
+                    >
+                        <button class="btn btn-danger">
+                            <a
+                                class="dropdown-item"
+                                @click="
+                                    UpdateAttendanceStatus(
+                                        evaluation.event_id,
+                                        '0'
+                                    )
+                                "
+                                >Stop Evaluation</a
+                            >
+                        </button>
+                        <button
+                            v-if="evaluation['evaluation_form_answer'] !== 0"
+                            class="btn btn-secondary"
+                            @click="evaluation_result(evaluation.event_id)"
+                            data-bs-toggle="tooltip"
+                            title="View Results"
+                        >
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
