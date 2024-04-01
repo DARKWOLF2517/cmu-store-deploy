@@ -168,8 +168,8 @@
                                 <li class="mb-1">
                                     <button
                                         class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
-                                        data-bs-toggle="collapse" data-bs-target="#evaluation-collapse"
-                                        aria-expanded="false">
+                                        id="evaluation_tab" data-bs-toggle="collapse"
+                                        data-bs-target="#evaluation-collapse" aria-expanded="false">
                                         <i class="fas fa-chart-line"></i>
                                         <span class="link-title">Evaluation</span>
                                         <span class="link-arrow"><i class="fas fa-chevron-down"></i></span>
@@ -221,7 +221,7 @@
                                 </button>
                             </li> --}}
                                 <li class="mb-1">
-                                    <button
+                                    <button id="attendance_tab"
                                         class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#dashboard-collapse"
                                         aria-expanded="false">
@@ -251,7 +251,7 @@
                                 </li>
 
                                 <li class="mb-1">
-                                    <button
+                                    <button id="student_tab"
                                         class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#student-collapse"
                                         aria-expanded="false">
@@ -300,7 +300,7 @@
 
 
                                 <li class="mb-1">
-                                    <button
+                                    <button id="accountabilities_tab"
                                         class="btn btn-toggle btn-outline-light align-items-center rounded rotate-icon"
                                         data-bs-toggle="collapse" data-bs-target="#accountabilities-collapse"
                                         aria-expanded="false">
@@ -571,6 +571,30 @@
     <script>
         document.onreadystatechange = () => {
             if (document.readyState === "complete") {
+
+                //TO GET THE CURRENT ROUTE AND CLICK THE SIDENAV BUTTON
+                var currentRoutePath = "{{ Request::path() }}";
+                if (currentRoutePath == 'student_organization_evaluation' || currentRoutePath ==
+                    'student_organization_evaluation_forms') {
+                    document.getElementById('evaluation_tab').click();
+                } else if (currentRoutePath == 'student_organization_attendance_schedule' || currentRoutePath ==
+                    'student_organization_attendance') {
+                    document.getElementById('attendance_tab').click();
+                } else if (currentRoutePath == 'student_dashboard' || currentRoutePath ==
+                    'student_announcement' || currentRoutePath ==
+                    'student_profile' || currentRoutePath ==
+                    'student_evaluation_list' || currentRoutePath ==
+                    'student_accountabilities') {
+                    document.getElementById('student_tab').click();
+                } else if (currentRoutePath == 'student_organization_set_accountabilities' || currentRoutePath ==
+                    'student_organization_free_fines' || currentRoutePath ==
+                    'student_organization_accountabilities_list' || currentRoutePath ==
+                    'student_organization_accountabilities_records' || currentRoutePath ==
+                    'accountabilities_tab') {
+                    document.getElementById('accountabilities_tab').click();
+                }
+
+
                 // Notification button and popover
                 // const notificationButton = document.querySelector('.notification-button');
                 // const popover = document.querySelector('.popover');
@@ -602,6 +626,7 @@
 
                 // Function to rotate the chevron icon
                 function rotateChevron(button) {
+
                     const chevron = button.querySelector('.link-arrow i');
                     chevron.classList.toggle('fa-chevron-down');
                     chevron.classList.toggle('fa-chevron-up');
