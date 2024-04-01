@@ -1803,25 +1803,24 @@
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
-                                        Scheduled Date:
+                                       <b> Scheduled Date: </b>
                                         {{ this.showEvent["start_date"] }}
                                     </h6>
                                     <h6 class="card-text text-muted">
-                                        Start Time:
+                                       <b>Start Time: </b>
                                         {{ this.showEvent["start_attendance"] }}
                                     </h6>
                                     <h6 class="card-text text-muted">
-                                        End Time:
+                                      <b>End Time:</b>
                                         {{ this.showEvent["end_attendance"] }}
                                     </h6>
-                                </div>
-                                <div class="mb-3">
+
                                     <h6 class="card-text">
-                                        Location:
+                                       <b>Location: </b>
                                         {{ this.showEvent["location"] }}
                                     </h6>
                                     <h6 class="card-text">
-                                        Description:
+                                       <b>Description: </b>
                                         {{ this.showEvent["description"] }}
                                     </h6>
                                 </div>
