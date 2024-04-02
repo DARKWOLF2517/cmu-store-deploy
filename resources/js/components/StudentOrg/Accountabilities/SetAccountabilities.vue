@@ -113,6 +113,10 @@
                     <h4 class="text-center" style="color: #357960; font-weight: bold;">&#8369; {{
                     accountability['amount']
                 }}</h4>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewBreakdownModal"> <i class="fas fa-eye"></i> View</button>
+                </div>
+
                 </span>
 
             </div>
@@ -158,6 +162,9 @@
                             :style="{ borderColor: formData.amount.length >= 20 ? 'red' : '' }">
                         <p class="pl-2" v-if="formData.amount.length >= 20" style="color: red;">Maximum length reached
                         </p>
+
+                        <label for="breakdownInput" class="form-label">Fee  Breakdown</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -165,6 +172,31 @@
                             changes</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fee Breakdown Modal -->
+    <div class="modal fade" id="viewBreakdownModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="membershipFeeModalLabel" >
+                            Accountability Breakdown
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="fw-bold">College Fee Breakdown</h6>
+                        <p style="white-space: pre-wrap;">Valentine's day 50.00
+                        Women's day 40.00
+                    </p>
+                    </div>
+                    <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+
+                </div>
             </div>
         </div>
     </div>

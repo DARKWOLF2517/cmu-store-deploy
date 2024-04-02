@@ -81,6 +81,7 @@
                         </th>
                         <th class="sortable-header">Student Name</th>
                         <th class="sortable-header">College</th>
+                        <th class="sortable-header">Log</th>
                         <th class="sortable-header" style="width: 20%">Time</th>
                         <th>Remarks</th>
                         <th></th>
@@ -121,6 +122,7 @@
                             {{ attendance.user_profile.last_name }}
                         </td>
                         <td>{{ attendance.user_profile.college.college }}</td>
+                        <td>{{ attendance.session }}</td>
                         <td>{{ attendance.created_at }}</td>
                         <td v-if="attendance.remarks == 0">N/A</td>
                         <td v-else>{{ attendance.remarks }}</td>

@@ -153,6 +153,9 @@
                             <th>
                                 <h6><b>Amount</b></h6>
                             </th>
+                            <th>
+                                <h6></h6>
+                            </th>
                         </thead>
                         <tbody>
                             <tr>
@@ -166,6 +169,10 @@
                         )
                     }}
                                     <!-- <i class="fas fa-eye ml-6">see more</i> -->
+                                </td>
+
+                                <td>
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#seeFinesModal"> <i class="fas fa-eye"></i> See More </button>
                                 </td>
                             </tr>
                             <tr v-for="accountability in this
@@ -184,6 +191,9 @@
                         )
                     }}
                                 </td>
+                                <td>
+                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewBreakdownModal"> <i class="fas fa-eye"></i> See More </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -196,7 +206,67 @@
             </div>
         </div>
     </div>
-    <!-- Modal -->
+     <!-- FINES Modal -->
+     <div class="modal fade" id="seeFinesModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5> {{ this.org_name }} Fines Breakdown </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="fw-bold">Fines Breakdown</h6>
+                        <table style="margin-top: 0;" id="temporaryList">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Missed Attendance</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody style="overflow-y:auto; max-height: 30vh;">
+                            <tr>
+                                <td>Valentine's day</td>
+                                <td>1</td>
+                                <td>29/02/2022</td>
+                                <td>$10.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Fee Breakdown Modal -->
+     <div class="modal fade" id="viewBreakdownModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                    <div class="modal-header">
+                        <h5> {{ this.org_name }} Fee Breakdown </h5>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6 class="fw-bold">College Fee Breakdown</h6>
+                        <p style="white-space: pre-wrap;">Valentine's day 50.00
+                        Women's day 40.00
+                    </p>
+                    </div>
+                    <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Payment Modal -->
     <div class="modal fade" id="paymentHistoryModal" tabindex="-1" aria-labelledby="paymentHistoryModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">

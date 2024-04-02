@@ -203,8 +203,8 @@
                                 <th>Student ID</th>
                                 <th>Student Name</th>
                                 <th>Fees</th>
-                                <th>event</th>
-                                <th>Missing Session</th>
+                                <th>Event</th>
+                                <th>Missed Attendance</th>
                                 <th>Date</th>
                                 <th>Amount</th>
                             </tr>

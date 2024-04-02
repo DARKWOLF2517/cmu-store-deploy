@@ -1140,22 +1140,22 @@
                                         <option :value="1" v-if="attendance_count_start_attendance >=
                         1
                         ">
-                                            Session 1
+                                            Attendance log 1
                                         </option>
                                         <option :value="2" v-if="attendance_count_start_attendance >=
                         2
                         ">
-                                            Session 2
+                                            Attendance log 2
                                         </option>
                                         <option :value="3" v-if="attendance_count_start_attendance >=
                         3
                         ">
-                                            Session 3
+                                           Attendance log 3
                                         </option>
                                         <option :value="4" v-if="attendance_count_start_attendance >=
                         4
                         ">
-                                            Session 4
+                                            Attendance log 4
                                         </option>
                                     </select>
                                 </div>
