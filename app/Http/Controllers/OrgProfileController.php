@@ -41,8 +41,11 @@ class OrgProfileController extends Controller
 
     public function updateSchoolYear($id, Request $request)
     {
-        $attendance = SchoolYear::find($id);
-        $attendance->update(['school_year' => $request['school_year']]);
+        $school_year = SchoolYear::find($id);
+        $school_year->update([
+            'semester' => $request['semester'],
+            'school_year' => $request['school_year']
+        ]);
 
         return response()->json(['message' => 'School Year Updated Successfully']);
     }
@@ -242,29 +245,23 @@ class OrgProfileController extends Controller
         // $orgProfileDetails->update(['image' =>$filename]);
 
         return response()->json(['message' => 'Org Profile Updated Successfully']);
-
-
-
     }
     public function updateOrgProfileImage($id, Request $request)
     {
         // return $request;
 
         $orgProfileDetails = Organization::find($id);
-        $filename = $request->getSchemeAndHttpHost().'/'. 'assets/profile_image_for_organization' .'/'. time() . '.' . $request->picture->extension();
-        $request->picture->move(public_path('/assets/profile_image_for_organization'), $filename);    
+        $filename = $request->getSchemeAndHttpHost() . '/' . 'assets/profile_image_for_organization' . '/' . time() . '.' . $request->picture->extension();
+        $request->picture->move(public_path('/assets/profile_image_for_organization'), $filename);
         // $orgProfileDetails->update(['description' => $request['description']]);
-        $orgProfileDetails->update(['image' =>$filename]);
+        $orgProfileDetails->update(['image' => $filename]);
 
         return response()->json(['message' => 'Org Profile Updated Successfully']);
-
-
-
     }
     public function fetchNameOfficerInput($id, $org_id)
     {
         return
-        $officerName = UserOrganization::where([['student_id', $id], ['student_org_id', $org_id]])->with('user_profile')->first();
+            $officerName = UserOrganization::where([['student_id', $id], ['student_org_id', $org_id]])->with('user_profile')->first();
         if ($officerName) {
             return response()->json($officerName);
         } else {

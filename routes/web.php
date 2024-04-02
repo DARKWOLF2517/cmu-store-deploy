@@ -243,9 +243,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_accountability_amount/{accountability_type}/{school_year}', [AccountabilitiesController::class, 'getAccountabilityType']);
 
         #ORG PROFILE ROUTES
-
         Route::get('/view_school_year', [OrgProfileController::class, 'viewSchoolYear']);
-        Route::delete('/deleteSchoolYear/{id}', [OrgProfileController::class, 'DeleteSchoolYear']);
         Route::get('/view_officers/{org_id}/{school_year}', [OrgProfileController::class, 'viewOrgOfficer']);
         Route::get('/view_users_org/{org_id}', [OrgProfileController::class, 'viewUsersOrg']);
         Route::post('/add_org_officer', [OrgProfileController::class, 'addOrgOfficer']);
@@ -380,4 +378,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/add_school_year', [OrgProfileController::class, 'addSchoolYear']);
     Route::get('/edit_school_year/{id}', [OrgProfileController::class, 'fetchUpdateSchoolYear']);
     Route::put('/update_school_year/{id}', [OrgProfileController::class, 'updateSchoolYear']);
+    Route::delete('/deleteSchoolYear/{id}', [OrgProfileController::class, 'DeleteSchoolYear']);
 });

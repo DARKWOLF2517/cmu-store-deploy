@@ -7,7 +7,7 @@
                         <div class="col">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4><i class="far fa-copy"></i> School Year</h4>
-                                <button @click="this.submit = this.AddSchoolYearData" class="btn btn-primary"
+                                <button @click="this.submit = this.addSchoolYearData" class="btn btn-primary"
                                     data-bs-toggle="modal" data-bs-target="#addSchoolYearModal">
                                     <i class="fas fa-plus"></i> Add School Year
                                 </button>
@@ -26,12 +26,12 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button
-                                                        @click="this.id = school_year.id, this.submit = this.FetchEditSchoolYearData()"
+                                                        @click="this.id = school_year.id, this.submit = this.updateSchoolYearData, this.fetchEditSchoolYearData()"
                                                         data-bs-toggle="modal" data-bs-target="#addSchoolYearModal"
                                                         class="btn btn-warning text-light">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button class="btn btn-danger text-light" data-bs-toggle="modal"
+                                                    <button @click="this.id = school_year.id" class="btn btn-danger text-light" data-bs-toggle="modal"
                                                         data-bs-target="#deleteSYConfirmation">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
@@ -266,7 +266,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addSchoolYearModalLabel"
-                            v-if="this.submit = this.AddSchoolYearData">
+                            v-if="this.submit == this.addSchoolYearData">
                             Add School Year
                         </h5>
                         <h5 class="modal-title" id="addSchoolYearModalLabel" v-else>
@@ -494,7 +494,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <button @click="this.deleteSchoolYear" type="button" class="btn btn-danger" data-bs-dismiss="modal">
                         Delete
                     </button>
                 </div>
@@ -584,6 +584,8 @@
 </template>
 
 <script>
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 export default {
     data() {
         return {
@@ -610,17 +612,18 @@ export default {
                     console.log(error)
                 });
         },
-        AddSchoolYearData() {
+        addSchoolYearData() {
             axios.post('/add_school_year', this.school_year_input)
                 .then(response => {
                     console.log(response.data)
-
+                    this.showSucces(response.data.message)
                 })
                 .catch(error => {
                     console.log(error)
                 });
         },
-        FetchEditSchoolYearData() {
+        fetchEditSchoolYearData() {
+            console.log(this.submit)
             axios.get(`/edit_school_year/${this.id}`)
                 .then(response => {
                     this.school_year_input = response.data;
@@ -628,6 +631,39 @@ export default {
                 .catch(error => {
                     console.log(error)
                 });
+        },
+        updateSchoolYearData() {
+            axios.put(`/update_school_year/${this.id}`, this.school_year_input)
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message);
+
+                })
+                .catch(error => {
+                    // console.error('Error updating user:', error);
+                    alert('Error updating user:', error)
+                });
+        },
+        deleteSchoolYear() {
+            axios.delete(`/deleteSchoolYear/${this.id}`)
+                .then(response => {
+                    this.showSucces(response.data.message);
+                    // this.viewSchoolYear();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
+        },
+        showSucces(message) {
+            // this.fetchData();
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+            toast.success(message),
+            {
+                autoClose: 1000,
+            };
         },
     },
 
