@@ -27,36 +27,25 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-#MAIL ROUTES
-Route::post('/send_mail', [MailController::class,  'AttendanceCheck']);
-//OSA route
-Route::get('OSA', function () {
-    return view('layouts.osa');
-});
 
-//OSA route
-Route::get('qrscan', function () {
-    return view('attendance_checker.qrscanner');
-});
-// PROFILE
-
-Route::get('student_organization_profile', function () {
-    return view('student_organization.student_organization_profile');
-});
 // general
-Route::get('/', function () {
-    return view('layouts.login');
-});
+Route::get('/', [LoginController::class, 'checkAuth']);
 Route::post('/authenticate_user', [LoginController::class, 'authenticate'])->name('authentication');
 Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/login', [LoginController::class, 'checkAuth'])->name('login'); //important
 
 
-Route::get('/login', function () {
-    return view('layouts.login');
-})->name('login');
-
+//can access to all roles
 Route::middleware(['auth'])->group(function () {
-    //can access to all roles
+    Route::get('qrscan', function () {
+        return view('attendance_checker.qrscanner');
+    });
+    // PROFILE
+    Route::get('student_organization_profile', function () {
+        return view('student_organization.student_organization_profile');
+    });
+    #MAIL ROUTES
+    Route::post('/send_mail', [MailController::class,  'AttendanceCheck']);
     Route::get('/get_evaluation_feedback/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
     Route::get('/events/show/{org_id?}/{school_year?}', [EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}', [EventController::class, 'getSchoolYearDefault']);
@@ -217,7 +206,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
         Route::get('/getEvaluationForm/{org_id}/{school_year}', [EvaluationController::class, 'getEvaluationForm']);
         Route::delete('/delete_evaluation_form/{evaluation_form_id}', [EvaluationController::class, 'deleteEvaluationForm']);
-       
+
         Route::get('/get_events/{event_id}', [EvaluationController::class, 'getEvents']);
         Route::get('/fetchEvaluationFormUpdate/{evaluation_id}', [EvaluationController::class, 'getEvaluationFormUpdate']);
         Route::put('/updateEvaluationForm', [EvaluationController::class, 'updateEvaluationForm']);
@@ -254,10 +243,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/get_accountability_amount/{accountability_type}/{school_year}', [AccountabilitiesController::class, 'getAccountabilityType']);
 
         #ORG PROFILE ROUTES
-        Route::post('/add_school_year', [OrgProfileController::class, 'addSchoolYear']);
+
         Route::get('/view_school_year', [OrgProfileController::class, 'viewSchoolYear']);
-        Route::get('/edit_school_year/{id}', [OrgProfileController::class, 'fetchUpdateSchoolYear']);
-        Route::put('/update_school_year/{id}', [OrgProfileController::class, 'updateSchoolYear']);
         Route::delete('/deleteSchoolYear/{id}', [OrgProfileController::class, 'DeleteSchoolYear']);
         Route::get('/view_officers/{org_id}/{school_year}', [OrgProfileController::class, 'viewOrgOfficer']);
         Route::get('/view_users_org/{org_id}', [OrgProfileController::class, 'viewUsersOrg']);
@@ -385,4 +372,12 @@ Route::middleware(['auth'])->group(function () {
             return view('attendance_checker.student_attendance_records');
         });
     });
+
+    //OSA ROUTE
+    Route::get('OSA', function () {
+        return view('layouts.osa');
+    });
+    Route::post('/add_school_year', [OrgProfileController::class, 'addSchoolYear']);
+    Route::get('/edit_school_year/{id}', [OrgProfileController::class, 'fetchUpdateSchoolYear']);
+    Route::put('/update_school_year/{id}', [OrgProfileController::class, 'updateSchoolYear']);
 });

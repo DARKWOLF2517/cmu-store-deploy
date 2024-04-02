@@ -18,6 +18,7 @@ use PhpParser\Node\Stmt\Return_;
 
 class LoginController extends Controller
 {
+
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
@@ -307,7 +308,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function doesExist(int $id)
@@ -337,5 +338,26 @@ class LoginController extends Controller
         $user->update(['password' => Hash::make($request->new_password)]);
         return response()->json(['message' => 'Change Password Success', 'status' => 1]);
         // return $user->password;
+    }
+
+    public function checkAuth()
+    {
+        if (Auth::id()) {
+            if (Session::get('user_name')) {
+                $role = Session::get('role');
+                if ($role == 1) {
+                    return redirect('/org_dashboard');
+                } else if ($role == 2) {
+                    return redirect('/student_dashboard');
+                } else if ($role == 3) {
+                    return redirect('/attendance_checker_dashboard');
+                } else {
+                    return redirect('/options');
+                }
+            }
+        }
+        else{
+            return view('layouts.login');
+        }
     }
 }

@@ -15,7 +15,8 @@
             <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
                 @change="fetchData">
                 <option value="" disabled selected>Select Semester</option>
-                <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year']
+                <option v-for="school_year in this.school_year" :value="school_year['id']">{{
+                school_year['semester'] }} {{ school_year['school_year']
                     }}
                 </option>
 

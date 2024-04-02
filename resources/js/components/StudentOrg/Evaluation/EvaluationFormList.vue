@@ -13,6 +13,7 @@
                         v-model="school_year_input" @change="fetchEvaluationForms">
                         <option value="" disabled selected>Select Semester</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
+                        school_year['semester'] }} {{
                         school_year['school_year'] }}
                         </option>
                     </select>

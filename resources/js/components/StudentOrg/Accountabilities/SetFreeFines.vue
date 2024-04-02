@@ -13,8 +13,9 @@
                 <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
                     @change="fetchData">
                     <option value="0" disabled selected>Select Semester</option>
-                    <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year']
-                    }}
+                    <option v-for="school_year in this.school_year" :value="school_year['id']">{{
+                    school_year['semester'] }} {{ school_year['school_year']
+                        }}
                     </option>
                 </select>
             </div>
@@ -120,8 +121,9 @@
                                     @click="submit = updateData, id = free_fines.student_id, fetchUpdateData()"
                                     data-bs-toggle="modal" data-bs-target="#addStudentModal"><i
                                         class="fas fa-pen"></i></button>
-                                <button class="btn btn-danger text-light" @click="id = free_fines.student_id" data-bs-toggle="modal"
-                                    data-bs-target="#deleteConfirmModal"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-danger text-light" @click="id = free_fines.student_id"
+                                    data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i
+                                        class="fas fa-trash"></i></button>
                             </span>
                         </td>
                     </tr>
@@ -131,7 +133,8 @@
         <div class="pagination-container mt-2">
             <ul class="pagination justify-content-center">
                 <li class="page-item" :class="{ disabled: currentPage === 1 }">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="prevPage">Previous</a>
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
+                        @click.prevent="prevPage">Previous</a>
                 </li>
                 <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
                     <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{ page }}</a>
@@ -170,12 +173,14 @@
     </div>
 
     <!-- Add student Modal -->
-    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == sendData">Add Student</h5>
-                    <h5 class="modal-title" id="addStudentModalLabel" v-else-if="this.submit == updateData">Update Student
+                    <h5 class="modal-title" id="addStudentModalLabel" v-else-if="this.submit == updateData">Update
+                        Student
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -183,10 +188,12 @@
                     <form @submit.prevent="this.submit">
                         <div class="mb-3" v-if="this.submit == sendData">
                             <label for="studentId" class="form-label">Student ID</label>
-                            <input type="number" class="form-control" id="studentId" v-model="free_fines_input.student_id"
-                                @change="this.fetchNameStudent" required maxlength="20"
+                            <input type="number" class="form-control" id="studentId"
+                                v-model="free_fines_input.student_id" @change="this.fetchNameStudent" required
+                                maxlength="20"
                                 :style="{ borderColor: free_fines_input.student_id.length >= 20 ? 'red' : '' }">
-                            <p class="pl-2" v-if="free_fines_input.student_id.length >= 20" style="color: red;">Maximum length reached</p>
+                            <p class="pl-2" v-if="free_fines_input.student_id.length >= 20" style="color: red;">Maximum
+                                length reached</p>
                         </div>
                         <div class="mb-3" v-else-if="this.submit == updateData">
                             <label for="studentId" class="form-label">Student ID</label>
@@ -195,15 +202,17 @@
                         </div>
                         <div class="mb-3">
                             <label for="IDnumber">Student Name</label>
-                            <input type="text" class="form-control" id="IDnumber" disabled v-model="this.nameFilterStudent" required maxlength="50">
+                            <input type="text" class="form-control" id="IDnumber" disabled
+                                v-model="this.nameFilterStudent" required maxlength="50">
                         </div>
                         <div class="mb-3">
                             <label for="reason" class="form-label">Reason</label>
-                            <input type="text" class="form-control" id="reason" v-model="free_fines_input.reason" required>
+                            <input type="text" class="form-control" id="reason" v-model="free_fines_input.reason"
+                                required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" >Add</button>
+                            <button type="submit" class="btn btn-success">Add</button>
                         </div>
                     </form>
                 </div>
@@ -243,30 +252,30 @@ export default {
             return Math.ceil(this.filtered_free_fines.length / this.itemsPerPage);
         },
         pageRange() {
-    const start = Math.max(1, this.currentPage - 2);
-    const end = Math.min(this.totalPages, this.currentPage + 2);
-    const range = [];
+            const start = Math.max(1, this.currentPage - 2);
+            const end = Math.min(this.totalPages, this.currentPage + 2);
+            const range = [];
 
-    if (start > 1) {
-        range.push(1);
-        if (start > 2) {
-            range.push("...");
-        }
-    }
+            if (start > 1) {
+                range.push(1);
+                if (start > 2) {
+                    range.push("...");
+                }
+            }
 
-    for (let i = start; i <= end; i++) {
-        range.push(i);
-    }
+            for (let i = start; i <= end; i++) {
+                range.push(i);
+            }
 
-    if (end < this.totalPages) {
-        if (end < this.totalPages - 1) {
-            range.push("...");
-        }
-        range.push(this.totalPages);
-    }
+            if (end < this.totalPages) {
+                if (end < this.totalPages - 1) {
+                    range.push("...");
+                }
+                range.push(this.totalPages);
+            }
 
-    return range;
-},
+            return range;
+        },
         paginatedData() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             const end = start + this.itemsPerPage;
@@ -355,37 +364,37 @@ export default {
             return rows;
         },
         downloadTable() {
-    // Get the table data specifically from free_fines_students
-    const tableData = this.getFreeFinesTableData();
+            // Get the table data specifically from free_fines_students
+            const tableData = this.getFreeFinesTableData();
 
-    // Create a workbook
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.aoa_to_sheet(tableData);
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+            // Create a workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(tableData);
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-    // Save the workbook as an Excel file
-    XLSX.writeFile(wb, 'StudentwithFreeFines.xlsx');
-},
+            // Save the workbook as an Excel file
+            XLSX.writeFile(wb, 'StudentwithFreeFines.xlsx');
+        },
 
         getFreeFinesTableData() {
-    // Initialize an array to store the table data
-    const tableData = [];
+            // Initialize an array to store the table data
+            const tableData = [];
 
-    // Iterate through the paidList data
-    this.free_fines_students.forEach(item => {
-        const rowData = [
-            item.student_id,
-            item.user_profile.first_name + ' ' + item.user_profile.last_name,
-            item.reason,
-        ];
+            // Iterate through the paidList data
+            this.free_fines_students.forEach(item => {
+                const rowData = [
+                    item.student_id,
+                    item.user_profile.first_name + ' ' + item.user_profile.last_name,
+                    item.reason,
+                ];
 
-        // Push the row data to the tableData array
-        tableData.push(rowData);
-    });
+                // Push the row data to the tableData array
+                tableData.push(rowData);
+            });
 
-    // Return the table data
-    return tableData;
-},
+            // Return the table data
+            return tableData;
+        },
         filterItems() {
             // Filter based on searchTerm from textbox
             let filteredBySearch = this.free_fines_students;
@@ -428,7 +437,7 @@ export default {
                     this.showSucces(response.data.message);
                     setTimeout(() => {
                         location.reload();
-            }, 1000);
+                    }, 1000);
                     this.fetchData();
                 })
                 .catch(error => {
@@ -474,12 +483,12 @@ export default {
                     }
                     else {
                         this.showSucces(response.data.message);
-            //             setTimeout(() => {
-            //             location.reload();
-            // }, 1000);
-            setTimeout(() => {
-                    this.clearData(); // Clear the input fields after the success message is shown
-                }, 300);
+                        //             setTimeout(() => {
+                        //             location.reload();
+                        // }, 1000);
+                        setTimeout(() => {
+                            this.clearData(); // Clear the input fields after the success message is shown
+                        }, 300);
                         this.fetchData();
                         // console.log(response.data)
                     }

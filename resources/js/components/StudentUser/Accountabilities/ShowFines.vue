@@ -14,7 +14,7 @@
                             Select Semester
                         </option>
                         <option v-for="school_year in this.school_year" :value="school_year.id">
-                            {{ school_year.school_year }}
+                            {{ school_year['semester'] }} {{ school_year.school_year }}
                         </option>
                     </select>
                 </div>
@@ -447,7 +447,7 @@ export default {
                             this.total_accountability.toFixed(2);
                     }
 
-                    
+
 
                 })
                 .catch((error) => {
@@ -485,7 +485,7 @@ export default {
                             // console.log(element.events.attendance_count)
                             total += element.count * element.events.fines
                         });
-                        console.log('total'+total)
+                        console.log('total' + total)
                         this.sessionExemptedAttendance = total;
                     }
 

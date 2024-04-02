@@ -14,6 +14,7 @@
                     @change="fetchData">
                     <option value="0" disabled selected>Select School Year</option>
                     <option v-for="school_year in this.school_year" :value="school_year['id']">{{
+                        school_year['semester'] }} {{
                     school_year['school_year']
                 }}
                     </option>

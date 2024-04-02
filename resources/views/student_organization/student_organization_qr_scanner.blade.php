@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,8 +74,7 @@
             </div>
           </div> --}}
 
-            <qr-scanner event_id={{ $event_id }} org_id={{ $org_id }}
-                session={{ $session }}>
+            <qr-scanner event_id={{ $event_id }} org_id={{ $org_id }} session={{ $session }}>
             </qr-scanner>
 
 
@@ -91,8 +89,21 @@
 
 
 {{--
-@extends('layouts.student_organization_navigation_bar')
+@extends('layouts.student_organization_navigation_bar') 
 
 @section('main-content')
 
 @endsection --}}
+<script>
+    window.onbeforeunload = function(e) {
+        e = e || window.event;
+
+        // For IE and Firefox prior to version 4
+        if (e) {
+            e.returnValue = 'Sure?';
+        }
+
+        // For Safari
+        return 'Sure?';
+    };
+</script>

@@ -20,11 +20,12 @@
             <div class="col-md-6 col-sm-12">
 
                 <div class="select-dropdown" style="width: 70%;">
-                    <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
-                        @change="fetchData">
+                    <select id="sort-select" class="form-control" style="text-align: center;"
+                        v-model="school_year_input" @change="fetchData">
                         <option value="0" disabled selected>Select School Year</option>
-                        <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                            school_year['school_year'] }}</option>
+                        <option v-for="school_year in this.school_year" :value="school_year['id']"> {{
+                        school_year['semester'] }} {{
+                        school_year['school_year'] }}</option>
                     </select>
                 </div>
             </div>
@@ -39,60 +40,69 @@
 
         <!-- Loading spinner -->
         <div v-if="loading">
-             <div class="d-flex flex-column flex-md-row gap-4 p-2">
+            <div class="d-flex flex-column flex-md-row gap-4 p-2">
 
-            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
-                <div class="card-body ">
-                    <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6 bg-secondary" style="height: 32px; width: 200px; border-radius: 60px;"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow mt-4 ">
-                        <span class="placeholder col-8 bg-secondary placeholder-sm"></span>
-                        <br>
-                        <span class="placeholder col-4 bg-secondary placeholder-sm"></span>
-                    </p>
+                <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                    style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                    <div class="card-body ">
+                        <h5 class="card-title placeholder-glow ">
+                            <span class="placeholder col-6 bg-secondary"
+                                style="height: 32px; width: 200px; border-radius: 60px;"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow mt-4 ">
+                            <span class="placeholder col-8 bg-secondary placeholder-sm"></span>
+                            <br>
+                            <span class="placeholder col-4 bg-secondary placeholder-sm"></span>
+                        </p>
 
-                    <div class="d-flex justify-content-end mt-4">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6"
-                            style="height: 35px; width: 50px;"></button>
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="button" tabindex="-1"
+                                class="btn btn-secondary mt-2 disabled placeholder col-6"
+                                style="height: 35px; width: 50px;"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                    style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                    <div class="card-body ">
+                        <h5 class="card-title placeholder-glow ">
+                            <span class="placeholder col-6 bg-secondary"
+                                style="height: 32px; width: 200px; border-radius: 60px;"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow mt-4 ">
+                            <span class="placeholder col-8 bg-secondary placeholder-sm"></span>
+                            <br>
+                            <span class="placeholder col-4 bg-secondary placeholder-sm"></span>
+                        </p>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="button" tabindex="-1"
+                                class="btn btn-secondary mt-2 disabled placeholder col-6"
+                                style="height: 35px; width: 50px;"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
+                    style="width: calc(33.33% - 20px); height: 200px; border:none;">
+                    <div class="card-body ">
+                        <h5 class="card-title placeholder-glow ">
+                            <span class="placeholder col-6 bg-secondary"
+                                style="height: 32px; width: 200px; border-radius: 60px;"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow mt-4 ">
+                            <span class="placeholder col-8 bg-secondary placeholder-sm"></span>
+                            <br>
+                            <span class="placeholder col-4 bg-secondary placeholder-sm"></span>
+                        </p>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="button" tabindex="-1"
+                                class="btn btn-secondary mt-2 disabled placeholder col-6"
+                                style="height: 35px; width: 50px;"></button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
-                <div class="card-body ">
-                    <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6 bg-secondary" style="height: 32px; width: 200px; border-radius: 60px;"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow mt-4 ">
-                        <span class="placeholder col-8 bg-secondary placeholder-sm"></span>
-                        <br>
-                        <span class="placeholder col-4 bg-secondary placeholder-sm"></span>
-                    </p>
-
-                    <div class="d-flex justify-content-end mt-4">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6"
-                            style="height: 35px; width: 50px;"></button>
-                    </div>
-                </div>
-            </div>
-            <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true" style="width: calc(33.33% - 20px); height: 200px; border:none;">
-                <div class="card-body ">
-                    <h5 class="card-title placeholder-glow ">
-                        <span class="placeholder col-6 bg-secondary" style="height: 32px; width: 200px; border-radius: 60px;"></span>
-                    </h5>
-                    <p class="card-text placeholder-glow mt-4 ">
-                        <span class="placeholder col-8 bg-secondary placeholder-sm"></span>
-                        <br>
-                        <span class="placeholder col-4 bg-secondary placeholder-sm"></span>
-                    </p>
-
-                    <div class="d-flex justify-content-end mt-4">
-                        <button type="button" tabindex="-1" class="btn btn-secondary mt-2 disabled placeholder col-6"
-                            style="height: 35px; width: 50px;"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
 
 
@@ -115,11 +125,13 @@
 
             <!-- Render attendance records -->
             <div v-for="attendance_list in this.filtered_attendance" class="record-card" :id="attendance.event_id">
-                <div class="record-date-container"><span class="event-date">{{ attendance_list.start_date }}</span></div>
+                <div class="record-date-container"><span class="event-date">{{ attendance_list.start_date }}</span>
+                </div>
                 <div class="record-title">
                     <h5><b>{{ attendance_list.name }}</b></h5>
                 </div>
-                <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b></div>
+                <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b>
+                </div>
                 <button v-if="attendance_list.attendance !== 0" class="view-button"
                     @click="attendance_result(attendance_list.event_id)">
                     <i class="fas fa-chevron-right button-icon"></i>

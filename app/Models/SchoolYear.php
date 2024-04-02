@@ -14,7 +14,7 @@ class SchoolYear extends Model
 
     protected $fillable = [
         'school_year',
-        
+        'semester',
     ];
 
 }

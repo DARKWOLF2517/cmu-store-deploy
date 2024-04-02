@@ -73,6 +73,9 @@ export default {
             scanner: ""
         }
     },
+    destroyed() {
+        alert('asdfasdf')
+    },
     mounted() {
         this.startQrReading();
         this.fetchData();

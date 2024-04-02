@@ -1142,7 +1142,7 @@ export default {
                     this.schoolYear = response.data
                     this.schoolYear.forEach(element => {
                         if (element.id == this.school_year_session) {
-                            this.school_year_org_profile = element.school_year;
+                            this.school_year_org_profile = element.semester +element.school_year  ;
                         }
                     });
                 })

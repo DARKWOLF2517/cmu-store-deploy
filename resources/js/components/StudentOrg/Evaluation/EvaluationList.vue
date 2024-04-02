@@ -36,7 +36,8 @@
                             v-for="school_year in this.school_year"
                             :value="school_year['id']"
                         >
-                            {{ school_year["school_year"] }}
+                        {{
+                        school_year['semester'] }} {{ school_year["school_year"] }}
                         </option>
                     </select>
                 </div>

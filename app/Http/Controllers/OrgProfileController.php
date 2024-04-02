@@ -20,17 +20,10 @@ class OrgProfileController extends Controller
     //
     public function addSchoolYear(Request $request)
     {
-        // Validate the form data
-        $validatedData = $this->validate($request, [
-            'school_year' => 'required',
-            'org_id' => 'required',
-        ]);
-
         // // Create a new School Year instance
         $schoolyear = new SchoolYear([
-            'school_year' => $validatedData['school_year'],
-            'org_id' => $validatedData['org_id'],
-
+            'school_year' => $request['school_year'],
+            'semester' => $request['semester'],
         ]);
         $schoolyear->save();
         return response()->json(['message' => 'School Year added Successfully']);
