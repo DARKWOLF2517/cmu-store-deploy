@@ -339,9 +339,21 @@
                                                         Payment history</a>
                                                 </button>
                                             </li>
+
+
                                             {{-- <li><a href="/student_organization_accountability_report" class="link-dark rounded"><i class="fas fa-chart-line"></i> Accountability Report</a></li> --}}
                                         </ul>
                                     </div>
+                                </li>
+
+                                <li class="mb-1">
+                                    <button
+                                        class="btn btn-toggle  btn-outline-light align-items-center studentlist-button">
+                                        <i class="	fas fa-list-alt"></i>
+                                        <a href="/student_organization_member_list">
+                                            <span class="link-title">Activity Logs</span>
+                                        </a>
+                                    </button>
                                 </li>
                                 {{-- <li class="mb-1">
                                 <button class="btn btn-toggle align-items-center rounded events-button">

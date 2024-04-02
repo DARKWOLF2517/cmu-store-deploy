@@ -55,7 +55,11 @@
             <h3 class="mt-2"><i class="fas fa-list"></i> Events</h3>
             <div class="event-buttons d-flex">
                 <div class="btn-group" role="group">
-                    <button class="btn me-2" id="add-event-button" data-bs-toggle="modal" data-bs-target="#event-modal"
+                    <button
+                        class="btn btn-light me-2"
+                        id="add-event-button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#event-modal"
                         @click="
                         this.initialData(), (this.submit = this.sendData)
                         ">
@@ -361,12 +365,23 @@
                     <div class="recorded-event-cards container-fluid">
                         <!-- New Events -->
                         <div class="col-12 accordion" id="eventAccordion">
-                            <div class="accordion-item" v-if="newEvents.length > 0">
-                                <h2 class="accordion-header" id="newEventsHeading">
-                                    <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#newEventsCollapse" aria-expanded="true"
-                                        aria-controls="newEventsCollapse">
-                                        New Events
+                            <div
+                                class="accordion-item"
+                                v-if="newEvents.length > 0"
+                            >
+                                <h2
+                                    class="accordion-header"
+                                    id="newEventsHeading"
+                                >
+                                    <button
+                                        class="accordion-button bg-white border rounded"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#newEventsCollapse"
+                                        aria-expanded="true"
+                                        aria-controls="newEventsCollapse"
+                                    >
+                                    <i class="fas fa-bars" style="padding-right: 5px;"></i>  New Events
                                     </button>
                                 </h2>
                                 <div id="newEventsCollapse" class="accordion-collapse collapse show"
@@ -536,13 +551,21 @@
                                                         Location:
                                                         {{ event.location }}
                                                     </h6>
-                                                    <button class="btn btn-success view-button" @click="
-                        showEventDetails(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-details-modal">
-                                                        View
+                                                    <div class="d-flex justify-content-end">
+                                                         <button
+                                                        class="btn btn-success"
+                                                        @click="
+                                                            showEventDetails(
+                                                                event.event_id
+                                                            )
+                                                        "
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#event-details-modal"
+                                                    >
+                                                    <i class="fas fa-eye"></i>  View
                                                     </button>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -552,12 +575,23 @@
                         </div>
                         <!-- Ongoing Events -->
                         <div class="col-12 accordion" id="eventAccordion">
-                            <div class="accordion-item" v-if="ongoingEvents.length > 0">
-                                <h2 class="accordion-header" id="newEventsHeading">
-                                    <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#ongoingEventsCollapse" aria-expanded="true"
-                                        aria-controls="ongoingEventsCollapse">
-                                        Ongoing Events
+                            <div
+                                class="accordion-item"
+                                v-if="ongoingEvents.length > 0"
+                            >
+                                <h2
+                                    class="accordion-header"
+                                    id="newEventsHeading"
+                                >
+                                    <button
+                                        class="accordion-button bg-white border rounded"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#ongoingEventsCollapse"
+                                        aria-expanded="true"
+                                        aria-controls="ongoingEventsCollapse"
+                                    >
+                                    <i class="fas fa-bars" style="padding-right: 5px;"></i>   Ongoing Events
                                     </button>
                                 </h2>
                                 <div id="ongoingEventsCollapse" class="accordion-collapse collapse show"
@@ -727,13 +761,20 @@
                                                         Location:
                                                         {{ event.location }}
                                                     </h6>
-                                                    <button class="btn btn-success view-button" @click="
-                        showEventDetails(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-details-modal">
-                                                        View
+                                                    <div class="d-flex justify-content-end">
+                                                         <button
+                                                        class="btn btn-success"
+                                                        @click="
+                                                            showEventDetails(
+                                                                event.event_id
+                                                            )
+                                                        "
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#event-details-modal"
+                                                    >
+                                                    <i class="fas fa-eye"></i>  View
                                                     </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -743,12 +784,23 @@
                         </div>
                         <!-- Completed Events -->
                         <div class="col-12 accordion" id="eventAccordion">
-                            <div class="accordion-item" v-if="completedEvents.length > 0">
-                                <h2 class="accordion-header" id="newEventsHeading">
-                                    <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#completedEventsCollapse" aria-expanded="true"
-                                        aria-controls="completedEventsCollapse">
-                                        Completed Events
+                            <div
+                                class="accordion-item"
+                                v-if="completedEvents.length > 0"
+                            >
+                                <h2
+                                    class="accordion-header"
+                                    id="newEventsHeading"
+                                >
+                                    <button
+                                        class="accordion-button bg-white border rounded"
+                                        type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#completedEventsCollapse"
+                                        aria-expanded="true"
+                                        aria-controls="completedEventsCollapse"
+                                    >
+                                      <i class="fas fa-bars" style="padding-right: 5px;"></i>  Completed Events
                                     </button>
                                 </h2>
                                 <div id="completedEventsCollapse" class="accordion-collapse collapse show"
@@ -918,13 +970,20 @@
                                                         Location:
                                                         {{ event.location }}
                                                     </h6>
-                                                    <button class="btn btn-success view-button" @click="
-                        showEventDetails(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-details-modal">
-                                                        View
+                                                    <div class="d-flex justify-content-end">
+                                                         <button
+                                                        class="btn btn-success"
+                                                        @click="
+                                                            showEventDetails(
+                                                                event.event_id
+                                                            )
+                                                        "
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#event-details-modal"
+                                                    >
+                                                    <i class="fas fa-eye"></i>  View
                                                     </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

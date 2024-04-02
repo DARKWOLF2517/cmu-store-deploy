@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-12 mb-3">
+            <div class="col-lg-4 col-md-12 mb-2">
                 <div class="announcement">
                     <div class="announcement-header">
                         <i class="bi bi-list"></i> Announcements
@@ -39,7 +39,7 @@
                     </announcement-dashboard>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-12 mb-4">
+            <div class="col-lg-4 col-md-12 mb-2">
                 <div id="calendar">
                     <dashboard-calendar :org_id={{ Session::get('org_id') }} :student={{ true }}
                         :school_year_session={{ Session::get('school_year') }}>

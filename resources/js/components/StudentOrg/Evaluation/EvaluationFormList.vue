@@ -29,7 +29,7 @@
                 </div>
                 <div class="col event-buttons d-flex justify-content-end">
                 <div class="btn-group" role="group">
-                    <button @click="this.submit = this.submitForm" class="btn me-2" id="add-event-button"
+                    <button  @click="this.submit = this.submitForm" class="btn btn-light me-2" id="add-event-button"
                         data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
                         Create form</button>
                 </div>
@@ -153,7 +153,7 @@
                 </div>
                 <button class="btn btn-success view-button" data-bs-toggle="modal"
                     data-bs-target="#evaluation-form-modal" @click="this.viewEvaluationModal(evaluation.id)">
-                    View</button>
+                    <i class="fas fa-eye"></i>  View</button>
                 <!-- <button class="view-button"> <i class="fas fa-chevron-right button-icon"></i></button> -->
             </div>
         </div>

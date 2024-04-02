@@ -237,8 +237,14 @@ overflow: auto;
 }
 .accordion{
     --bs-accordion-bg: #f3f7fb !important;
-    --bs-accordion-border-color: #e2e2e2 !important;
+    --bs-accordion-border-color: #f3f7fb !important;
 
+
+}
+.accordion-button{
+    font-weight: bold !important;
+    font-size: 1.2rem !important;
+    color: #4a5864 !important;
 }
   .input-container input {
     padding-left: 30px;
