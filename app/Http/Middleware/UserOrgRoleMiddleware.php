@@ -29,7 +29,7 @@ class UserOrgRoleMiddleware
             }
         }
         else{
-            return response()->json(["You don't have permission to access this page"]);
+            return abort(403, 'Unauthorized access');;
         }
         // else{
         //     $student_id = Auth::id();

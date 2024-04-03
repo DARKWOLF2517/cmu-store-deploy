@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountabilitiesController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EvaluationController;
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('student_organization_profile', function () {
         return view('student_organization.student_organization_profile');
     });
+    Route::get('/view_college', [UserController::class, 'viewCollege']);
     #MAIL ROUTES
     Route::post('/send_mail', [MailController::class,  'AttendanceCheck']);
     Route::get('/get_evaluation_feedback/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
@@ -186,7 +188,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload_single_student/{school_year}', [UserController::class, 'addSingleStudent']);
         Route::put('/update_single_student', [UserController::class, 'updateSingleStudent']);
         Route::delete('/delete_single_student/{id}', [UserController::class, 'deleteSingleStudent']);
-        Route::get('/view_college', [UserController::class, 'viewCollege']);
         Route::get('/get_organization_college/{org_id}', [UserController::class, 'viewOrgCollege']);
 
         #ATTENDANCE ROUTES
@@ -372,11 +373,28 @@ Route::middleware(['auth'])->group(function () {
     });
 
     //OSA ROUTE
-    Route::get('OSA', function () {
-        return view('layouts.osa');
+    Route::middleware(['user-role:4'])->group(function () {
+
+        Route::get('OSA', function () {
+            return view('layouts.osa');
+        });
+        Route::post('/add_school_year', [AdminController::class, 'addSchoolYear']);
+        Route::get('/edit_school_year/{id}', [AdminController::class, 'fetchUpdateSchoolYear']);
+        Route::put('/update_school_year/{id}', [AdminController::class, 'updateSchoolYear']);
+        Route::delete('/deleteSchoolYear/{id}', [AdminController::class, 'DeleteSchoolYear']);
+        Route::post('/add_college', [AdminController::class, 'addCollege']);
+        Route::get('/edit_college/{id}', [AdminController::class, 'fetchCollegeEdit']);
+        Route::put('/update_college/{id}', [AdminController::class, 'updateCollege']);
+        Route::delete('/delete_college/{id}', [AdminController::class, 'deleteCollege']);
+        Route::get('/get_organization', [AdminController::class, 'getOrganization']);
+        Route::post('/add_organization', [AdminController::class, 'addOrganization']);
+        Route::get('/edit_organization/{id}', [AdminController::class, 'editOrganization']);
+        Route::put('/update_organization/{id}', [AdminController::class, 'updateOrganization']);
+        Route::delete('/delete_organization/{id}', [AdminController::class, 'deleteOrganization']);
+        Route::get('/get_organization_admins', [AdminController::class, 'getOrganizationAdmins']);
+        Route::post('/add_organization_admin', [AdminController::class, 'addOrganizationAdmin']);
+        Route::get('/edit_organization_admin/{id}', [AdminController::class, 'editOrganizationAdmin']);
+        Route::put('/update_organization_admin/{id}', [AdminController::class, 'updateOrganizationAdmin']);
+        Route::delete('/delete_organization_admin/{id}/{student_id}', [AdminController::class, 'deleteOrganizationAdmin']);
     });
-    Route::post('/add_school_year', [OrgProfileController::class, 'addSchoolYear']);
-    Route::get('/edit_school_year/{id}', [OrgProfileController::class, 'fetchUpdateSchoolYear']);
-    Route::put('/update_school_year/{id}', [OrgProfileController::class, 'updateSchoolYear']);
-    Route::delete('/deleteSchoolYear/{id}', [OrgProfileController::class, 'DeleteSchoolYear']);
 });

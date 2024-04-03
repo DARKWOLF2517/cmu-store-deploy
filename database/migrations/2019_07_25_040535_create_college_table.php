@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('college', function (Blueprint $table) {
             $table->id();
             $table->string('college');
+            $table->string('description');
             $table->timestamps();
         });
     }

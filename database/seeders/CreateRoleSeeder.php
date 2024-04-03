@@ -24,5 +24,9 @@ class CreateRoleSeeder extends Seeder
             'role_id' =>'3',
             'name' =>'Attendance Checker',
         ]);
+        DB::table('roles')->insert([
+            'role_id' =>'4',
+            'name' =>'superadmin',
+        ]);
     }
 }

@@ -193,6 +193,10 @@ class LoginController extends Controller
                         //for student role when the user has 1 role
                         return '2';
                     }
+                    else if ($userOrganization->role_id == 4) {
+                        //for student role when the user has 1 role
+                        return '5';
+                    }
 
                     // }
                     //  //if the user is admin it will bypass the school year

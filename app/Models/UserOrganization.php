@@ -18,7 +18,7 @@ class UserOrganization extends Model
         'student_org_id',
         'student_id',
         'role_id',
-        'year_level_id',
+        // 'year_level_id',
         'school_year',
         // 'college_id'
     ];
@@ -43,6 +43,10 @@ class UserOrganization extends Model
     public function announcement()
     {
         return $this->belongsTo(Announcement::class, 'student_org_id', 'org_id');
+    }
+    public function school_year()
+    {
+        return $this->belongsTo(SchoolYear::class, 'school_year', 'id');
     }
 
     

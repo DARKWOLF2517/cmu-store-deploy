@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\College;
 use App\Models\Organization;
 use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\OrganizationOfficer;
@@ -18,42 +19,14 @@ use Illuminate\Support\Facades\Session;
 class OrgProfileController extends Controller
 {
     //
-    public function addSchoolYear(Request $request)
-    {
-        // // Create a new School Year instance
-        $schoolyear = new SchoolYear([
-            'school_year' => $request['school_year'],
-            'semester' => $request['semester'],
-        ]);
-        $schoolyear->save();
-        return response()->json(['message' => 'School Year added Successfully']);
-    }
+
     public function viewSchoolYear()
     {
         $schoolYear = SchoolYear::get();
         return response()->json($schoolYear);
     }
-    public function fetchUpdateSchoolYear($id)
-    {
-        $schoolYear = SchoolYear::find($id);
-        return $schoolYear;
-    }
 
-    public function updateSchoolYear($id, Request $request)
-    {
-        $school_year = SchoolYear::find($id);
-        $school_year->update([
-            'semester' => $request['semester'],
-            'school_year' => $request['school_year']
-        ]);
 
-        return response()->json(['message' => 'School Year Updated Successfully']);
-    }
-    public function DeleteSchoolYear(SchoolYear $id)
-    {
-        $id->delete();
-        return response()->json(['message' => 'School Year Deleted successfully']);
-    }
     public function viewOrgOfficer($org_id, $school_year)
     {
 
@@ -145,7 +118,9 @@ class OrgProfileController extends Controller
     {
         // $roles = Role::all();
 
-        $roles = Role::where('role_id', '!=', 2)->get();
+        $roles = Role::where('role_id', '!=', 2)
+            ->where('role_id', '!=', 4)
+            ->get();
         return response()->json($roles);
     }
 

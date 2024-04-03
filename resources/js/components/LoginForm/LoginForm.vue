@@ -91,6 +91,9 @@ export default {
                     else if (response.data == 4) {
                         window.location.href = '/options';
                     }
+                    else if (response.data == 5) {
+                        window.location.href = 'OSA';
+                    }
                     else if (response.data == 'user_creadential_error') {
                         this.error = 'user_creadential_error';
                     }
