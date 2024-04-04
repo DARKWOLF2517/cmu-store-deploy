@@ -184,7 +184,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/student_list/show/{org_id}/{school_year}', [UserController::class, 'showStudents']);
         Route::get('/student_list/show_name/{student_id}', [UserController::class, 'showforEdit']);
         Route::put('/student_list/edit/commit/{student_id}', [UserController::class, 'UpdateData']);
-        Route::post('/upload_students/{school_year}/{year_level}', [UserController::class, 'store']);
+        Route::post('/upload_students/{school_year}/{college_id}', [UserController::class, 'store']);
         Route::post('/upload_single_student/{school_year}', [UserController::class, 'addSingleStudent']);
         Route::put('/update_single_student', [UserController::class, 'updateSingleStudent']);
         Route::delete('/delete_single_student/{id}', [UserController::class, 'deleteSingleStudent']);

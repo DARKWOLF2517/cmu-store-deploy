@@ -28,7 +28,7 @@
                         school_year['school_year'] }}</option>
                     </select>
                 </div>
-                <div class="select-dropdown d-flex justify-content-end" v-if="this.college_id == 11">
+                <div class="select-dropdown d-flex justify-content-end" v-if="college_id == 11">
                     <select id="sort-select" class="form-control" style="text-align: center;"
                         v-model="college_data_input" @change="filterItems">
                         <option value="0" disabled selected>Select College</option>
@@ -100,7 +100,7 @@
                         <th style="width: 10%;">Student ID</th>
                         <!-- <th>Last Name</th> -->
                         <th>Full Name</th>
-                        <th v-if="this.college_id != 11">Year Level</th>
+                        <th>Year Level</th>
                         <th>College</th>
                         <th style="width: 10%;">Action</th>
                     </tr>
@@ -134,8 +134,7 @@
                         <!-- Student data will be added here -->
                         <td>{{ student.student_id }}</td>
                         <td>{{ student.user_profile.first_name }} {{ student.user_profile.last_name }}</td>
-                        <td v-if="this.college_id != 11">{{ student.year_level && student.year_level.year_level ?
-                        student.year_level.year_level : '' }}</td>
+                        <td>{{ student.user_profile.year_level ? student.user_profile.year_level : '' }}</td>
                         <td>{{ student.user_profile.college.college }}</td>
                         <td>
                             <span class="table-buttons">
@@ -194,38 +193,46 @@
                                 <p class="text-muted">No student found with the given ID.</p>
                             </div> -->
                         <!-- </div> -->
-                        <div v-if="this.submit == this.addSingleStudent">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastname" v-model="student_data.lastname"
-                                    disabled required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstname" v-model="student_data.firstname"
-                                    disabled required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" id="firstname" v-model="student_data.middlename"
-                                    disabled required>
-                            </div>
+                        <!-- <div v-if="this.submit == this.addSingleStudent"> -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstname" v-model="student_data.firstname"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="firstname" v-model="student_data.middlename"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" v-model="student_data.lastname"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" v-model="student_data.email" required>
                         </div>
 
-                        <div class="mb-3" v-if="this.college_id != 11">
+                        <!-- </div> -->
+
+                        <div class="mb-3">
                             <label for="reason" class="form-label">Year-level</label>
-                            <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
+                            <input type="text" class="form-control" id="yearlevel" v-model="student_data.year_level_id"
+                                required>
+                            <!-- <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
                                 <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
                         year_level.year_level }}</option>
+                            </select> -->
+                        </div>
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">College</label>
+                            <select class="form-select" id="college" v-model="student_data.college_id">
+                                <option value="0" disabled selected>Select College</option>
+                                <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}
+                                </option>
                             </select>
                         </div>
-                        <!-- <div class="mb-3">
-                                    <label for="reason" class="form-label">College</label>
-                                    <select  class="form-select" id="college" v-model="student_data.college_id">
-                                            <option value="0" disabled selected >Select College</option>
-                                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
-                                    </select>
-                                </div> -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-success">Save</button>
@@ -272,7 +279,7 @@
                             <h5 class="fw-bold"> Enter Student ID</h5>
                             <small>Submit an Excel file containing only student ID numbers.</small>
                         </div>
-                        <div class="d-flex justify-content-end" v-if="this.college_id != 11">
+                        <!-- <div class="d-flex justify-content-end">
                             <div class="select-dropdown border">
 
                                 <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
@@ -282,14 +289,16 @@
                                 </select>
 
                             </div>
-                        </div>
+                        </div> -->
 
-                        <!-- <div class="select-dropdown" >
-                                        <select id="sort-select" class="form-control" style="text-align: center;" v-model="college_data_input">
-                                            <option value="0" disabled selected >Select College</option>
-                                            <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}</option>
-                                        </select>
-                                    </div> -->
+                        <div class="select-dropdown">
+                            <select id="sort-select" class="form-control" style="text-align: center;"
+                                v-model="college_data_input_for_insert">
+                                <option value="0" disabled selected>Select College</option>
+                                <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}
+                                </option>
+                            </select>
+                        </div>
 
 
                         <br>
@@ -297,9 +306,11 @@
                             <thead>
                                 <tr>
                                     <th>Student ID Number</th>
-                                    <!-- <th>Last Name</th>
-                                            <th>First Name</th> -->
-                                    <!-- <th>Year Level</th> -->
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Year Level or Classification</th>
                                 </tr>
                             </thead>
                             <tbody id="modalStudentTableBody">
@@ -344,16 +355,19 @@ export default {
             year_level_data: [],
             college_list: [],
             college_data_input: 0,
+            college_data_input_for_insert: 0,
             college_id: 0,//colege data of the organization
             year_level_data_input: 0,
             student_data: {
                 student_id: '',
-                lastname: '',
                 firstname: '',
+                middlename: '',
+                lastname: '',
+                email: '',
                 year_level_id: '',
                 college_id: 0,
-                middlename: '',
-                // year_level_id: 0,
+
+
 
             },
             isSubmitting: false,
@@ -672,31 +686,32 @@ export default {
             }
 
 
-            if (data[0].length == 1) {
-                this.collectedData = data;
+            // if (data[0].length == 1) {
+            this.collectedData = data;
 
-                // Display the extracted data in the console
-                this.loading = true;
-                axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}`, { data: this.collectedData })
-                    .then(response => {
-                        console.log(response.data)
-                        this.loading = false;
-                        if (response.data.type == 0) {
-                            this.showError('Error File');
-                        }
-                        else {
-                            this.showSucces(response.data.message);
-                            // this.fetchData();
-                        }
+            // Display the extracted data in the console
+            this.loading = true;
+            axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
+                .then(response => {
+                    console.log(response.data)
+                    this.loading = false;
+                    this.isSubmitting = false;
+                    if (response.data.type == 0) {
+                        this.showError('Error File');
+                    }
+                    else {
+                        this.showSucces(response.data.message);
+                        // this.fetchData();
+                    }
 
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    });
-            }
-            else {
-                this.showError('excel incorrect format');
-            }
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            // }
+            // else {
+            //     this.showError('excel incorrect format');
+            // }
             // }
 
 
@@ -834,11 +849,12 @@ export default {
         clearData() {
             this.student_data = {
                 student_id: '',
-                lastname: '',
                 firstname: '',
-                year_level_id: null,
+                middlename: '',
+                lastname: '',
+                email: '',
+                year_level_id: '',
                 college_id: 0,
-                fullname: '',
             };
         },
         printTable() {
