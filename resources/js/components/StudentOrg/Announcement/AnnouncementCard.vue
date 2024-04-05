@@ -211,6 +211,12 @@
                                 <input type="time" name="start_attendance" class="form-control" id="time"
                                     v-model="this.announcement_data.time" required>
                             </div>
+                            <div class="mb-3 mt-4">
+                                        <input class="form-check-input" type="checkbox" name="mark-important"
+                                            id="mark-important" />
+                                        <label for="mark-important" class="form-label"
+                                            style="padding-left: 5px">Mark Announcement as important?</label>
+                                    </div>
                         </div>
                     </div>
                     <div class="modal-footer">
