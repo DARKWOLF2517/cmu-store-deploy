@@ -609,11 +609,11 @@
                                                                     Event</a>
                                                             </li>
                                                             <!-- option 3 -->
-                                                            <!-- <li v-if="this.college_id != 11"><a class="dropdown-item"
+                                                            <li v-if="this.college_id != 11"><a class="dropdown-item"
                                             @click="this.id = (event.event_id), this.showYearLevelExempted()"
                                             data-bs-toggle="modal" data-bs-target="#exemptModal">Select Exempted Year
                                             Level</a>
-                                    </li> -->
+                                    </li>
                                                             <div v-if="event.event_status ==
                         0 ||
                         event.event_status ==

@@ -58,7 +58,7 @@ class UserController extends Controller
         return $count;
     }
 
-    public function store($school_year, $college_id, Request $request)
+    public function store($school_year, $year_level, $college_id, Request $request)
     {
 
         // return $college_id;
@@ -84,7 +84,7 @@ class UserController extends Controller
                         'last_name' => $row[3],
                         'email' => $row[4],
                         'college_id' => $college_id,
-                        'year_level' => $row[5]
+                        'year_level' => $year_level
                     ]
                 );
                 // Save the changes
@@ -94,12 +94,20 @@ class UserController extends Controller
 
                 if ($this->UserOrgRepitition($row[0], $org_id, $school_year)  >= 1) {
                     // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                    $user_organization = UserOrganization::where('student_id', $row[0])->first();
+                    // return $user_organization;
+                    $user_organization->update([
+                        'year_level_id' => $year_level,
+                    ]);
+                    // Save the changes
+                    $user_organization->save();
                 } else {
                     $userOrg = new UserOrganization();
                     $userOrg->student_org_id = $org_id;
                     $userOrg->student_id = $row[0];
                     $userOrg->role_id = '2';
                     $userOrg->school_year = $school_year;
+                    $userOrg->year_level_id = $year_level;
                     $userOrg->save();
                 }
             }
@@ -149,20 +157,28 @@ class UserController extends Controller
                     'last_name' => $request->lastname,
                     'email' => $request->email,
                     'college_id' => $request->college_id,
-                    'year_level' => $request->year_level_id
+                    'year_level' => $request->year_level_id,
                 ]
             );
             // Save the changes
             $user_profile->save();
 
             if ($this->UserOrgRepitition($request->student_id, $org_id, $school_year)  >= 1) {
-                // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                // return'asdfsadf';
+                $user_organization = UserOrganization::where('student_id', $request->student_id)->first();
+                // return $user_organization;
+                $user_organization->update([
+                    'year_level_id' => $request->year_level_id,
+                ]);
+                // Save the changes
+                $user_organization->save();
             } else {
                 $userOrg = new UserOrganization();
                 $userOrg->student_org_id = $org_id;
                 $userOrg->student_id = $request->student_id;
                 $userOrg->role_id = '2';
                 $userOrg->school_year = $school_year;
+                $userOrg->year_level_id = $request->year_level_id;
                 $userOrg->save();
             }
 
@@ -197,7 +213,7 @@ class UserController extends Controller
             ['student_org_id', $org_id],
             ['role_id', '2'],
             ['school_year', $school_year],
-        ])->with(['user_profile.college', 'yearLevel', 'organization'])
+        ])->with(['user_profile.college', 'user_profile.year_level', 'yearLevel', 'organization'])
             ->get();
 
         return $student_list->toJson();
@@ -209,14 +225,20 @@ class UserController extends Controller
     public function showforEdit($student_id)
     {
         // return $student_id;
-        $student_result = UserProfile::where([
-            ['user_id', $student_id],
-        ])->count();
+        // $student_result = UserProfile::where([
+        //     ['user_id', $student_id],
+        // ])->count();
+        $student_result = UserProfile::where('first_name', $student_id)
+            ->orWhere('user_id', $student_id)
+            ->orWhere('last_name', $student_id)
+            ->count();
 
         if ($student_result != 0) {
-            $student_list = UserProfile::where([
-                ['user_id', $student_id]
-            ])->first();
+            $student_list = UserProfile::where('first_name', $student_id)
+                ->orWhere('user_id', $student_id)
+                ->orWhere('last_name', $student_id)
+                ->first();
+
 
             return $student_list->toJson();
         } else {
