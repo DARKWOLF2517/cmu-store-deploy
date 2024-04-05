@@ -1309,35 +1309,53 @@
                                     <button class="btn btn-success">Select All</button>
                                 </div>
                                 <h5 class="text-center">Select Events you want to copy</h5>
-                                <div class="mt-0" style="background-color: #f3f7fb; overflow-y: auto; max-height: 50vh;">
-                                <div class="container d-flex  mt-5">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
-                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
-                                        <div class="card-body">
-                                                    <h5 class="card-title">Event Title</h5>
-                                                    <p class="mb-0">Date</p>
-                                                    <p class="mb-0">Start Time</p>
-                                                    <p class="mb-0">End Time</p>
-                                                    <p class="mb-0">Location</p>
-                                                </div>
-                                            </div>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
-                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
-                                        <div class="card-body">
-                                                    <h5 class="card-title">Event Title</h5>
-                                                    <p class="mb-0">Date</p>
-                                                    <p class="mb-0">Start Time</p>
-                                                    <p class="mb-0">End Time</p>
-                                                    <p class="mb-0">Location</p>
-                                                </div>
-                                            </div>
-                                </label>
-                                        </div>
+                                <div class="row" style="background-color: #f3f7fb;  overflow-y: auto; max-height: 40vh; ">
+                                    <div class="col mt-2">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
+                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
+                                                        <div class="card-body">
+                                                                    <h5 class="card-title">Event Title</h5>
+                                                                    <p class="mb-0">Date</p>
+                                                                    <p class="mb-0">Start Time</p>
+                                                                    <p class="mb-0">End Time</p>
+                                                                    <p class="mb-0">Location</p>
+                                                        </div>
+                                                    </div>
+                                            </label>
+                                    </div>
+                                    <div class="col mt-2">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
+                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
+                                                        <div class="card-body">
+                                                                    <h5 class="card-title">Event Title</h5>
+                                                                    <p class="mb-0">Date</p>
+                                                                    <p class="mb-0">Start Time</p>
+                                                                    <p class="mb-0">End Time</p>
+                                                                    <p class="mb-0">Location</p>
+                                                        </div>
+                                                    </div>
+                                            </label>
+                                    </div>
+                                    <div class="col mt-2">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
+                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
+                                                        <div class="card-body">
+                                                                    <h5 class="card-title">Event Title</h5>
+                                                                    <p class="mb-0">Date</p>
+                                                                    <p class="mb-0">Start Time</p>
+                                                                    <p class="mb-0">End Time</p>
+                                                                    <p class="mb-0">Location</p>
+                                                        </div>
+                                                    </div>
+                                            </label>
                                     </div>
                                 </div>
+
+                                </div>
+
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     Close
