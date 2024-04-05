@@ -52,6 +52,7 @@
                                 data-bs-toggle="modal" data-bs-target="#optionSelection">
                                 <i class="fas fa-plus"></i> Tag Student
                             </button>
+
                              <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
                             <!-- <button id="uploadButton" class="btn ">
                                 <i class="fas fa-file-upload"></i> Upload List
@@ -71,15 +72,17 @@
                                         href="https://github.com/DARKWOLF2517/cmu-store-deploy/raw/main/template.xlsx">Download
                                         Template</a></li>
                                 <li>
-
+                                    <li>
+                                        <button class="btn text-danger" data-bs-toggle="modal" data-bs-target="#deleteAllConfirmation">
+                                            <i class="fas fa-trash"></i> Delete All
+                                        </button>
+                                    </li>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 
@@ -265,6 +268,28 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-danger" @click="deleteSingleStudents()"
                         data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Delete Confirmation Modal -->
+     <div class="modal fade" id="deleteAllConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
+                    <h4><b>Deleting Member List</b></h4>
+                    <p>Are you sure you want to permanently delete member list? Once confirmed, action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Delete All</button>
                 </div>
             </div>
         </div>
