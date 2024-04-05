@@ -61,6 +61,10 @@
                         ">
                         <i class="fas fa-calendar-plus"></i> Add Event
                     </button>
+                    <button class="btn btn-light me-2" id="copy-event-button" data-bs-toggle="modal"
+                        data-bs-target="#copy-modal">
+                        <i class="fas fa-copy"></i> Copy existing
+                    </button>
                 </div>
             </div>
         </div>
@@ -153,7 +157,7 @@
                                 <br />
                                 No events yet.
                             </p>
-                            <a class="btn btn-success" id="add-event-button" data-bs-toggle="modal"
+                            <a class="btn btn-success" id="copy-event-button" data-bs-toggle="modal"
                                 data-bs-target="#event-modal" @click="
                         this.initialData(),
                         (this.submit = this.sendData)
@@ -1274,7 +1278,94 @@
                         </div>
                     </div>
                 </div>
+ <!-- Copy Event modal -->
+ <div class="modal fade" id="copy-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="event-details-modal-label" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="event-details-modal-label">
+                                    Copy an Existing Event
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" :id="this.showEvent.event_id">
+                                <label for="select-dropdown">
+                                    Select Semester to copy event from
+                                </label>
+                                <div class="select-dropdown border" style="width: 70%">
+                                    <select id="sort-select" class="form-control" style="text-align: center" v-model="school_year_input"
+                                        @change="fetchData">
+                                        <option value="0" disabled selected>
+                                            Select Semester
+                                        </option>
+                                        <option v-for="school_year in this.school_year" :value="school_year['id']">
+                                            {{ school_year["semester"] }} {{ school_year["school_year"] }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-success">Select All</button>
+                                </div>
+                                <h5 class="text-center">Select Events you want to copy</h5>
+                                <div class="row" style="background-color: #f3f7fb;  overflow-y: auto; max-height: 40vh; ">
+                                    <div class="col mt-2">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
+                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
+                                                        <div class="card-body">
+                                                                    <h5 class="card-title">Event Title</h5>
+                                                                    <p class="mb-0">Date</p>
+                                                                    <p class="mb-0">Start Time</p>
+                                                                    <p class="mb-0">End Time</p>
+                                                                    <p class="mb-0">Location</p>
+                                                        </div>
+                                                    </div>
+                                            </label>
+                                    </div>
+                                    <div class="col mt-2">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
+                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
+                                                        <div class="card-body">
+                                                                    <h5 class="card-title">Event Title</h5>
+                                                                    <p class="mb-0">Date</p>
+                                                                    <p class="mb-0">Start Time</p>
+                                                                    <p class="mb-0">End Time</p>
+                                                                    <p class="mb-0">Location</p>
+                                                        </div>
+                                                    </div>
+                                            </label>
+                                    </div>
+                                    <div class="col mt-2">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
+                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
+                                                        <div class="card-body">
+                                                                    <h5 class="card-title">Event Title</h5>
+                                                                    <p class="mb-0">Date</p>
+                                                                    <p class="mb-0">Start Time</p>
+                                                                    <p class="mb-0">End Time</p>
+                                                                    <p class="mb-0">Location</p>
+                                                        </div>
+                                                    </div>
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                                    Copy Events
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Event Modal -->
                 <div class="modal fade" id="event-modal" tabindex="-1" aria-labelledby="event-modal-label"
                     aria-hidden="true">
@@ -1409,7 +1500,7 @@
                                         <input class="form-check-input" type="checkbox" name="require_evaluation"
                                             id="require-evaluation" v-model="requireEvaluation" />
                                         <label for="require-evaluation" class="form-label"
-                                            style="padding-left: 5px">Require Evaluation?</label>
+                                            style="padding-left: 5px">Add Evaluation?</label>
                                     </div>
                                     <div v-if="requireEvaluation" class="evaluation-content"
                                         style="padding-left: 15px; padding-right: 15px;">
@@ -1438,10 +1529,16 @@
                                             <tbody>
                                                 <tr>
                                                     <td>San Francisco</td>
-                                                    <td style="width: 10%">
+                                                    <td style="width: 20%">
+                                                        <div  class="d-flex gap-2">
+                                                            <button class="btn btn-secondary">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
                                                         <button class="btn btn-danger">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
+                                                        </div>
+
                                                     </td>
                                                 </tr>
                                                 <!-- Add more rows as needed -->
