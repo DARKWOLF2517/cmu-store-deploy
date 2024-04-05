@@ -13,8 +13,8 @@
                 <p class="empty-schedule">Announcements show up here</p>
             </div>
             <div class="announcement-card-list">
-                <button class="announcement-card btn btn-light text-start" style="width: 100%"
-                    v-for="announcement in announcement" @click="openModal(announcement)">
+                <button :class="[isNewAnnouncement(announcement) ? 'announcement-card btn btn-secondary text-start' : 'announcement-card btn btn-light text-start']" style="width: 100%"
+    v-for="announcement in announcement" @click="openModal(announcement)">
                     <div>
                         <p class="d-flex align-items-center text-dark text-decoration-none mb-0" aria-expanded="false">
                             <img v-if="announcement.organization.image" :src="announcement.organization.image"
@@ -28,9 +28,11 @@
                     </div>
                     <div>
                         <span class="Organization text-success"><b>{{ announcement.title }}</b></span>
-                        <div class="date-time-posted">
-                            <span class="date-time-uploaded"><i><small>{{ announcement.date }}</small></i></span>
+                        <div class="d-flex justify-content-between">
+                            <span :class="{ 'fw-bold': isNewAnnouncement(announcement) }" class="date-time-uploaded date-time-posted "><i><small>{{ announcement.date }}</small></i></span>
+                            <span v-if="isNewAnnouncement(announcement)" class="bg-danger px-2 rounded new-announcement"><i><small class="text-white">New</small></i></span>
                         </div>
+
                     </div>
                 </button>
             </div>
@@ -76,6 +78,7 @@ export default {
         return {
             announcement: [],
             loading: true,
+            newAnnouncementTimeFrame: 24 * 60 * 60 * 1000, // 24 hours
             selectedAnnouncement: {
                 title: "",
                 organization: "",
@@ -84,6 +87,7 @@ export default {
                 description: "",
                 image: "",
             },
+
         };
     },
     mounted() {
@@ -143,6 +147,12 @@ export default {
                 document.getElementById("announcementModal")
             );
             modal.show();
+        },
+        isNewAnnouncement(announcement) {
+            // Check if the announcement is new based on the time frame
+            const announcementDate = new Date(announcement.date).getTime();
+            const currentTime = new Date().getTime();
+            return currentTime - announcementDate <= this.newAnnouncementTimeFrame;
         },
     },
 };

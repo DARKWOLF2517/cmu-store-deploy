@@ -147,7 +147,11 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
-                                <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
+                                <div class="d-flex gap-2">
+                                    <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
+                                    <span v-if="isNewAnnouncement(announcements)" class="bg-danger rounded px-2 text-white">New</span>
+                                </div>
+
                                 <p class="card-short-description mt-2">
                                     <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
                                 </p>
@@ -389,6 +393,17 @@ export default {
                 autoClose: 300,
             }
         },
+        isNewAnnouncement(announcement) {
+            // Define your criteria to determine if the announcement is new
+            // For example, compare the announcement's created_at date with the current date
+            const announcementDate = new Date(announcement.created_at);
+            const currentDate = new Date();
+            const timeDifference = currentDate.getTime() - announcementDate.getTime();
+            const twentyFourHours = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+            // Return true if the announcement was created within the last 24 hours
+            return timeDifference <= twentyFourHours;
+        }
     },
 
 
