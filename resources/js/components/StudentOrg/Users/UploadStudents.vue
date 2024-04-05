@@ -49,17 +49,17 @@
                     <div class="student-buttons d-flex justify-content-end">
                         <div class="btn-group" role="group">
                             <button class="btn " @click="this.submit = this.addSingleStudent, this.clearData()"
-                                data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                                data-bs-toggle="modal" data-bs-target="#optionSelection">
                                 <i class="fas fa-plus"></i> Tag Student
                             </button>
-                            <button id="uploadButton" class="btn ">
-                                <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
+                             <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
+                            <!-- <button id="uploadButton" class="btn ">
                                 <i class="fas fa-file-upload"></i> Upload List
-                            </button>
+                            </button> -->
                             <button class="btn " @click="printTable">
                                 <i class="fas fa-print"></i> Print
                             </button>
-                            <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+
 
                             <a class="ellipsis-button btn btn-light" href="#" role="button" id="ellipsisDropdown"
                                 data-bs-toggle="dropdown" aria-expanded="false" style="color: black">
@@ -234,7 +234,7 @@
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#optionSelection">Back</button>
                             <button type="submit" class="btn btn-success">Save</button>
                         </div>
                     </form>
@@ -260,6 +260,35 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-danger" @click="deleteSingleStudents()"
                         data-bs-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Option Selection Modal -->
+     <div class="modal fade" id="optionSelection" tabindex="-1" aria-labelledby="optionSelectionLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Select one of the following options </h4>
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                           <i class="fas fa-plus"></i> Add student
+                        </button>
+                        <p class="mt-2">OR</p>
+                         <button id="uploadButton" class="btn btn-warning ">
+                                <i class="fas fa-file-upload"></i> Upload List
+                        </button>
+                        <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -351,7 +380,7 @@ export default {
             filtered_student_list: [],
             loading: false,
             currentPage: 1,
-            itemsPerPage: 10,
+            itemsPerPage: 15,
             year_level_data: [],
             college_list: [],
             college_data_input: 0,
