@@ -240,7 +240,8 @@
                                             <td>{{ admin.organization.name }}</td>
                                             <td>{{ admin.user_profile.college.college }}</td>
                                             <td>{{ admin.role.name }}</td>
-                                            <td>{{ admin.school_year.semester }} {{ admin.school_year.school_year }}</td>
+                                            <td>{{ admin.school_year.semester }} {{ admin.school_year.school_year }}
+                                            </td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button
@@ -249,7 +250,8 @@
                                                         class="btn btn-warning text-light">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
-                                                    <button @click="this.id = admin.id, this.admins_input.student_id = admin.student_id"
+                                                    <button
+                                                        @click="this.id = admin.id, this.admins_input.student_id = admin.student_id"
                                                         class="btn btn-danger text-light" data-bs-toggle="modal"
                                                         data-bs-target="#deleteAdminConfirmation">
                                                         <i class="fas fa-trash"></i>

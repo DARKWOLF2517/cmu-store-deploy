@@ -21,14 +21,14 @@ class UserProfile extends Model
         'email',
         'college_id',
         'image',
+        'year_level',
     ];
     public function college()
     {
-        return $this->belongsTo(College::class,'college_id','id');
+        return $this->belongsTo(College::class, 'college_id', 'id');
     }
     public function year_level()
     {
-        return $this->belongsTo(YearLevel::class,'year_level_id','id');
+        return $this->belongsTo(YearLevel::class, 'year_level_id', 'id');
     }
-    
 }

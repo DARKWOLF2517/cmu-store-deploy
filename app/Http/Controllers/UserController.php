@@ -58,28 +58,38 @@ class UserController extends Controller
         return $count;
     }
 
-    public function store($school_year, $year_level, Request $request)
+    public function store($school_year, $college_id, Request $request)
     {
 
-
+        // return $college_id;
         $org_id = Session::get('org_id');
         $data = $request->input('data');
         try {
             // Code that may throw an exception
-            // foreach ($data as $row) {
-            //     if($this->UserRepitition($row[0]) >= 1 )
-            //     {
-            //         // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
-            //     }
-            //     else{
-            //         $user = new User();
-            //         $user->id = $row[0];
-            //         $user->name = $row[1] . ' '. $row[2] ;
-            //         $user->email = strtolower(str_replace(' ', '', $row[1]. $row[0]));
-            //         $user->password = Hash::make($row[0]);
-            //         $user->save();
-            //     }
-            // }
+            foreach ($data as $row) {
+                if ($this->UserRepitition($row[0]) >= 1) {
+                    // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+                } else {
+                    $user = new User();
+                    $user->id = $row[0];
+                    $user->username = strtolower(str_replace(' ', '', $row[4]));
+                    $user->password = Hash::make($row[0]);
+                    $user->save();
+                }
+                $user_profile = UserProfile::updateOrCreate(
+                    ['user_id' => $row[0]], // Unique identifier
+                    [
+                        'first_name' => $row[1],
+                        'middle_name' => $row[2],
+                        'last_name' => $row[3],
+                        'email' => $row[4],
+                        'college_id' => $college_id,
+                        'year_level' => $row[5]
+                    ]
+                );
+                // Save the changes
+                $user_profile->save();
+            }
             foreach ($data as $row) {
 
                 if ($this->UserOrgRepitition($row[0], $org_id, $school_year)  >= 1) {
@@ -89,12 +99,7 @@ class UserController extends Controller
                     $userOrg->student_org_id = $org_id;
                     $userOrg->student_id = $row[0];
                     $userOrg->role_id = '2';
-                    if ($year_level != 0) {
-                        $userOrg->year_level_id = $year_level;
-                    }
-
                     $userOrg->school_year = $school_year;
-                    // $userOrg->college_id = $college;
                     $userOrg->save();
                 }
             }
@@ -122,37 +127,59 @@ class UserController extends Controller
     public function addSingleStudent($school_year, Request $request)
     {
 
+        // return $request;
         $org_id = Session::get('org_id');
         try {
             // Code that may throw an exception
-            // if($this->UserRepitition($request->student_id) >= 1 )
-            // {
-            //     // return response()->json(['message' =>'Student is already in the list','type' => 0]);
-            // }
-            // else{
-            //     $user = new User();
-            //     $user->id = $request->student_id;
-            //     $user->name = $request->lastname . ' '.$request->firstname;
-            //     $user->email = strtolower(str_replace(' ', '', $request->lastname. $request->student_id));
-            //     $user->password = Hash::make($request->student_id);
-            //     $user->save();
-            // }
+            if ($this->UserRepitition($request->student_id) >= 1) {
+                // return response()->json(['message' =>'Student is already in the list','type' => 0]);
+            } else {
+                $user = new User();
+                $user->id = $request->student_id;
+                $user->username = strtolower(str_replace(' ', '', $request->email));
+                $user->password = Hash::make($request->student_id);
+                $user->save();
+            }
 
+            $user_profile = UserProfile::updateOrCreate(
+                ['user_id' => $request->student_id],
+                [
+                    'first_name' => $request->firstname,
+                    'middle_name' => $request->middlename,
+                    'last_name' => $request->lastname,
+                    'email' => $request->email,
+                    'college_id' => $request->college_id,
+                    'year_level' => $request->year_level_id
+                ]
+            );
+            // Save the changes
+            $user_profile->save();
 
             if ($this->UserOrgRepitition($request->student_id, $org_id, $school_year)  >= 1) {
-                return response()->json(['message' => 'Student is already in the list', 'type' => 0]);
-            }
-            if ($this->UserCheck($request->student_id)  <= 0) {
-                return response()->json(['message' => 'Student not found', 'type' => 2]);
+                // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
             } else {
                 $userOrg = new UserOrganization();
                 $userOrg->student_org_id = $org_id;
                 $userOrg->student_id = $request->student_id;
                 $userOrg->role_id = '2';
-                $userOrg->year_level_id = $request->year_level_id;
                 $userOrg->school_year = $school_year;
                 $userOrg->save();
             }
+
+            // if ($this->UserOrgRepitition($request->student_id, $org_id, $school_year)  >= 1) {
+            //     return response()->json(['message' => 'Student is already in the list', 'type' => 0]);
+            // }
+            // if ($this->UserCheck($request->student_id)  <= 0) {
+            //     return response()->json(['message' => 'Student not found', 'type' => 2]);
+            // } else {
+            //     $userOrg = new UserOrganization();
+            //     $userOrg->student_org_id = $org_id;
+            //     $userOrg->student_id = $request->student_id;
+            //     $userOrg->role_id = '2';
+            //     $userOrg->year_level_id = $request->year_level_id;
+            //     $userOrg->school_year = $school_year;
+            //     $userOrg->save();
+            // }
 
             return response()->json(['message' => 'Students Added Successfully', 'type' => 1]);
             // Optionally, you can return a response indicating success or redirection
