@@ -100,6 +100,9 @@ export default {
                     else if (response.data == 'not_tagged_error') {
                         this.error = 'not_tagged_error';
                     }
+                    else if (response.data == 'changepassword') {
+                        window.location.href = 'change_password';
+                    }
                 })
                 .catch(error => {
                     console.log(error)

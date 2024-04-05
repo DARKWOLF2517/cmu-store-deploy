@@ -30,6 +30,7 @@ class LoginController extends Controller
             $userOrganizationCount = UserOrganization::where('student_id', Auth::id())->count();
             $defaultSchoolYear = SchoolYear::latest()->get()->last();
 
+
             //if the user has MANY org or role
             if ($userOrganizationCount > 1) {
                 //tells when there is many user
@@ -68,7 +69,11 @@ class LoginController extends Controller
                         session(['profile_picture' =>  $userOrganizations->user_profile->image]);
                         // session(['college_id' =>  $userOrganizations->college_id]);
                         // return $userOrganization->school_year;
-                        return '2';
+                        if (Auth::user()->is_password_change == 0) {
+                            return 'changepassword';
+                        } else {
+                            return '2';
+                        }
                     }
                     // Not all user organizations have role_id equal to 2
                     else {
@@ -84,7 +89,11 @@ class LoginController extends Controller
                             session(['role' =>  $orgName->role_id]);
                             session(['user_name' =>  $orgName->user_profile->first_name]);
                             session(['profile_picture' =>  $orgName->user_profile->image]);
-                            return '1';
+                            if (Auth::user()->is_password_change == 0) {
+                                return 'changepassword';
+                            } else {
+                                return '1';
+                            }
                         } else if ($countOfRoles3  == 1) {
                             $orgName = $userOrganization->where('role_id', 3)->first();
                             session(['school_year' =>  $defaultSchoolYear->id]);
@@ -93,14 +102,23 @@ class LoginController extends Controller
                             session(['role' =>  $orgName->role_id]);
                             session(['user_name' =>  $orgName->user_profile->first_name]);
                             session(['profile_picture' =>  $orgName->user_profile->image]);
-                            return '3';
+
+                            if (Auth::user()->is_password_change == 0) {
+                                return 'changepassword';
+                            } else {
+                                return '3';
+                            }
                         } else {
                             session(['many_user' =>  'true']);
                             $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->first();
                             session(['user_name' =>  $userOrganization->user_profile->first_name]);
                             session(['school_year' =>  $defaultSchoolYear->id]);
                             session(['profile_picture' =>  $userOrganization->user_profile->image]);
-                            return '4';
+                            if (Auth::user()->is_password_change == 0) {
+                                return 'changepassword';
+                            } else {
+                                return '4';
+                            }
                         }
                     }
                 }
@@ -122,7 +140,11 @@ class LoginController extends Controller
                             session(['profile_picture' =>  $userOrganizations->user_profile->image]);
                             // session(['college_id' =>  $userOrganizations->college_id]);
                             // return $userOrganization->school_year;
-                            return '1';
+                            if (Auth::user()->is_password_change == 0) {
+                                return 'changepassword';
+                            } else {
+                                return '1';
+                            }
                         }
                     }
                     foreach ($userOrganization as $userOrganizations) {
@@ -139,7 +161,11 @@ class LoginController extends Controller
                             session(['profile_picture' =>  $userOrganizations->user_profile->image]);
                             // session(['college_id' =>  $userOrganizations->college_id]);
                             // return $userOrganization->school_year;
-                            return '3';
+                            if (Auth::user()->is_password_change == 0) {
+                                return 'changepassword';
+                            } else {
+                                return '3';
+                            }
                         }
                     }
                     foreach ($userOrganization as $userOrganizations) {
@@ -156,7 +182,12 @@ class LoginController extends Controller
                             session(['profile_picture' =>  $userOrganizations->user_profile->image]);
                             // session(['college_id' =>  $userOrganizations->college_id]);
                             // return $userOrganization->school_year;
-                            return '2';
+
+                            if (Auth::user()->is_password_change == 0) {
+                                return 'changepassword';
+                            } else {
+                                return '2';
+                            }
                         }
                     }
                 }
@@ -183,19 +214,35 @@ class LoginController extends Controller
                     // session(['college_id' =>  $userOrganization->college_id]);
                     //tells when there is only one user
                     session(['many_user' =>  'false']);
+
                     if ($userOrganization->role_id == 1) {
                         //for admin role when the user has 1 role
-                        return '1';
+                        if (Auth::user()->is_password_change == 0) {
+                            return 'changepassword';
+                        } else {
+                            return '1';
+                        }
                     } else if ($userOrganization->role_id == 3) {
                         //for attendance checker role when the user has 1 role
-                        return '3';
+                        if (Auth::user()->is_password_change == 0) {
+                            return 'changepassword';
+                        } else {
+                            return '3';
+                        }
                     } else if ($userOrganization->role_id == 2) {
                         //for student role when the user has 1 role
-                        return '2';
-                    }
-                    else if ($userOrganization->role_id == 4) {
+                        if (Auth::user()->is_password_change == 0) {
+                            return 'changepassword';
+                        } else {
+                            return '2';
+                        }
+                    } else if ($userOrganization->role_id == 4) {
                         //for student role when the user has 1 role
-                        return '5';
+                        if (Auth::user()->is_password_change == 0) {
+                            return 'changepassword';
+                        } else {
+                            return '5';
+                        }
                     }
 
                     // }
@@ -339,7 +386,11 @@ class LoginController extends Controller
             return response()->json(['message' => 'The provided password does not match our records.', 'status' => 0]);
         }
 
-        $user->update(['password' => Hash::make($request->new_password)]);
+        $user->update([
+            'password' => Hash::make($request->new_password),
+            'is_password_change' => 1
+        ]);
+
         return response()->json(['message' => 'Change Password Success', 'status' => 1]);
         // return $user->password;
     }
@@ -359,8 +410,7 @@ class LoginController extends Controller
                     return redirect('/options');
                 }
             }
-        }
-        else{
+        } else {
             return view('layouts.login');
         }
     }

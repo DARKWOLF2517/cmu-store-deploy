@@ -24,6 +24,7 @@ class User extends Authenticatable
         'id',
         'username',
         'password',
+        'is_password_change',
     ];
 
     public function user_organization()

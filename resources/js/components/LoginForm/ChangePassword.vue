@@ -1,5 +1,5 @@
 <template>
-    <form class="login-form">
+    <form @submit.prevent="this.checkNewPassword" class="login-form">
 
         <div class="form-group mt-3">
             <b>Enter your Current Password</b>
@@ -30,8 +30,8 @@
 
         <div class="form-group text-right mt-4">
             <a class="btn btn-secondary rounded mr-2 text-light" href="/student_profile">Cancel</a>
-            <button class="btn btn-primary rounded submit" data-bs-toggle="modal" data-bs-target="#changePassword"
-                @click="checkNewPassword()">Save Changes</button>
+            <button class="btn btn-primary rounded submit" type="submit">Save
+                Changes</button>
         </div>
     </form>
 
@@ -102,8 +102,8 @@ export default {
                         this.showError(response.data.message);
                     }
                     else if (response.data.status == 1) {
-                        window.location.href = '/student_profile';
-                        console.log('hello ')
+                        window.location.href = '/';
+                        // console.log('hello ')/
                     }
                 })
                 .catch(error => {

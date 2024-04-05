@@ -29,7 +29,7 @@ class UserOrgRoleMiddleware
             }
         }
         else{
-            return abort(403, 'Unauthorized access');;
+            return abort(403, 'Unauthorized access');
         }
         // else{
         //     $student_id = Auth::id();

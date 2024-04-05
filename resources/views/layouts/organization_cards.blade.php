@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" href="{{ asset('assets/CSA_logo.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -27,9 +28,11 @@
                     <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle"
                         id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                         @if (Session::get('profile_picture'))
-                          <img src="{{ Session::get('profile_picture') }}" alt="user-image" width="32" height="32"class="rounded-circle me-2">
+                            <img src="{{ Session::get('profile_picture') }}" alt="user-image" width="32"
+                                height="32"class="rounded-circle me-2">
                         @else
-                          <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png" alt="user-image" width="32" height="32"class="rounded-circle me-2">
+                            <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                alt="user-image" width="32" height="32"class="rounded-circle me-2">
                         @endif
                         {{-- <img src="{{ Session::get('profile_picture') }}" alt="user-image" width="32" height="32"
                             class="rounded-circle me-2"> --}}
