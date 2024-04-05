@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->nullable();
             $table->unsignedBigInteger('college_id');
-            // $table->unsignedBigInteger('year_level_id');
+            $table->unsignedBigInteger('year_level_id');
             $table->text('image')->nullable();
             $table->text('year_level')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreign('college_id')->references('id')->on('college')->onUpdate('cascade');
-            // $table->foreign('year_level_id')->references('id')->on('year_level')->onUpdate('cascade');
+            $table->foreign('year_level_id')->references('id')->on('year_level')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('school_year');
+            $table->unsignedBigInteger('year_level_id');
             // $table->unsignedBigInteger('college_id');
             $table->timestamps();
             $table->foreign('student_org_id')->references('org_id')->on('organizations');
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->foreign('school_year')->references('id')->on('school_year');
             // $table->foreign('college_id')->references('id')->on('college');
-
+            $table->foreign('year_level_id')->references('id')->on('year_level');
         });
     }
 

@@ -134,7 +134,7 @@
                         <!-- Student data will be added here -->
                         <td>{{ student.student_id }}</td>
                         <td>{{ student.user_profile.first_name }} {{ student.user_profile.last_name }}</td>
-                        <td>{{ student.user_profile.year_level ? student.user_profile.year_level : '' }}</td>
+                        <td>{{ student.user_profile.year_level.year_level ? student.user_profile.year_level.year_level : '' }}</td>
                         <td>{{ student.user_profile.college.college }}</td>
                         <td>
                             <span class="table-buttons">
@@ -180,12 +180,12 @@
                 <div class="modal-body">
                     <form @submit.prevent="this.submit">
                         <div class="mb-3" v-if="this.submit == this.addSingleStudent">
-                            <label for="studentId" class="form-label">Student ID</label>
+                            <label for="studentId" class="form-label">Search Student</label>
                             <!-- <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
                                 @change="this.fetchDataDisplayName" required maxlength="30"
                                 :style="{ borderColor: student_data.student_id.length >= 30 ? 'red' : '' }"
                                 > -->
-                            <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
+                            <input type="text" class="form-control" id="studentId" v-model="student_data.search"
                                 @change="this.fetchDataDisplayName" required>
                         </div>
                         <!-- <div v-if="student_data.lastname.length == 0"> -->
@@ -194,6 +194,11 @@
                             </div> -->
                         <!-- </div> -->
                         <!-- <div v-if="this.submit == this.addSingleStudent"> -->
+                        <div class="mb-3" v-if="this.submit == this.addSingleStudent">
+                            <label for="studentId" class="form-label">Student ID</label>
+                            <input type="text" class="form-control" id="studentId" v-model="student_data.student_id"
+                                required>
+                        </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">First Name</label>
                             <input type="text" class="form-control" id="firstname" v-model="student_data.firstname"
@@ -218,17 +223,17 @@
 
                         <div class="mb-3">
                             <label for="reason" class="form-label">Year-level</label>
-                            <input type="text" class="form-control" id="yearlevel" v-model="student_data.year_level_id"
-                                required>
-                            <!-- <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
+                            <!-- <input type="text" class="form-control" id="yearlevel" v-model="student_data.year_level_id"
+                                required> -->
+                            <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
                                 <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
                         year_level.year_level }}</option>
-                            </select> -->
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="reason" class="form-label">College</label>
                             <select class="form-select" id="college" v-model="student_data.college_id">
-                                <option value="0" disabled selected>Select College</option>
+                                <!-- <option value="0" disabled selected>Select College</option> -->
                                 <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}
                                 </option>
                             </select>
@@ -308,7 +313,7 @@
                             <h5 class="fw-bold"> Enter Student ID</h5>
                             <small>Submit an Excel file containing only student ID numbers.</small>
                         </div>
-                        <!-- <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end">
                             <div class="select-dropdown border">
 
                                 <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
@@ -318,7 +323,7 @@
                                 </select>
 
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="select-dropdown">
                             <select id="sort-select" class="form-control" style="text-align: center;"
@@ -393,8 +398,9 @@ export default {
                 middlename: '',
                 lastname: '',
                 email: '',
-                year_level_id: '',
+                year_level_id: 0,
                 college_id: 0,
+                search: '',
 
 
 
@@ -642,7 +648,7 @@ export default {
         },
         fetchDataDisplayName() {
             // console.log(this.student_data.student_id)
-            axios.get(`/student_list/show_name/${this.student_data.student_id}`)
+            axios.get(`/student_list/show_name/${this.student_data.search}`)
                 .then(response => {
                     console.log(response.data)
                     if (response.data.length != 0) {
@@ -650,11 +656,18 @@ export default {
                         this.student_data.firstname = response.data.first_name;
                         this.student_data.lastname = response.data.last_name;
                         this.student_data.middlename = response.data.middle_name;
+                        this.student_data.year_level_id = response.data.year_level;
+                        this.student_data.college_id = response.data.college_id;
+                        this.student_data.email = response.data.email;
                     }
                     else {
+                        this.student_data.student_id = [];
                         this.student_data.firstname = [];
                         this.student_data.lastname = [];
                         this.student_data.middlename = [];
+                        this.student_data.year_level_id = [];
+                        this.student_data.college_id = [];
+                        this.student_data.email = [];
                     }
                     // this.student_data.year_level_id = response.data.user_profile.year_level_id;
                     // this.student_data.college_id = response.data.user_profile.college_id;
@@ -720,7 +733,7 @@ export default {
 
             // Display the extracted data in the console
             this.loading = true;
-            axios.post(`/upload_students/${this.school_year_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
+            axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
                 .then(response => {
                     console.log(response.data)
                     this.loading = false;

@@ -29,6 +29,6 @@ class UserProfile extends Model
     }
     public function year_level()
     {
-        return $this->belongsTo(YearLevel::class, 'year_level_id', 'id');
+        return $this->belongsTo(YearLevel::class, 'year_level');
     }
 }
