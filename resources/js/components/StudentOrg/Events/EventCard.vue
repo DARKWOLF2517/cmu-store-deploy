@@ -1479,7 +1479,7 @@
                                         <input class="form-check-input" type="checkbox" name="require_evaluation"
                                             id="require-evaluation" v-model="requireEvaluation" />
                                         <label for="require-evaluation" class="form-label"
-                                            style="padding-left: 5px">Require Evaluation?</label>
+                                            style="padding-left: 5px">Add Evaluation?</label>
                                     </div>
                                     <div v-if="requireEvaluation" class="evaluation-content"
                                         style="padding-left: 15px; padding-right: 15px;">
@@ -1508,10 +1508,16 @@
                                             <tbody>
                                                 <tr>
                                                     <td>San Francisco</td>
-                                                    <td style="width: 10%">
+                                                    <td style="width: 20%">
+                                                        <div  class="d-flex gap-2">
+                                                            <button class="btn btn-secondary">
+                                                            <i class="fas fa-eye"></i>
+                                                        </button>
                                                         <button class="btn btn-danger">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
+                                                        </div>
+
                                                     </td>
                                                 </tr>
                                                 <!-- Add more rows as needed -->

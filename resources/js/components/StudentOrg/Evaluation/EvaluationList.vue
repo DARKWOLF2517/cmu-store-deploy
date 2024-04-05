@@ -315,16 +315,17 @@
                                 >Stop Evaluation</a
                             >
                         </button>
-                        <button
+
+                    </div>
+                    <button
                             v-if="evaluation['evaluation_form_answer'] !== 0"
-                            class="btn btn-secondary"
+                            class="btn btn-secondary" style="margin-left: 10px;"
                             @click="evaluation_result(evaluation.event_id)"
                             data-bs-toggle="tooltip"
                             title="View Results"
                         >
                             <i class="fas fa-eye"></i>
                         </button>
-                    </div>
                 </div>
             </div>
         </div>
