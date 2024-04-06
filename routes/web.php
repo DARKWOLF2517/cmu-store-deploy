@@ -69,6 +69,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/fetchEditAnnouncement/{id}', [AnnouncementController::class, 'fetchEditAnnouncement']);
     Route::put('/updateAnnouncement/{id}', [AnnouncementController::class, 'updateAnnouncement']);
     Route::delete('/delete_announcement/{id}', [AnnouncementController::class, 'deleteAnnouncement']);
+    Route::get('/get_student_opened_announcement/{school_year}', [AnnouncementController::class, 'getStudentOpenedAnnouncement']);
+    Route::post('/addStudentOpenedAnnouncement/{announcement_id}/{school_year}', [AnnouncementController::class, 'addStudentOpenedAnnouncement']);
+    //EVALUATION FORM 
+    Route::post('/submit_evaluation/{user_id}/{event_id}/{feedback?}', [EvaluationController::class, 'store']);
+
     //get student org list
     Route::get('/usercards', function () {
         return view('layouts.organization_cards');
@@ -333,7 +338,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('student_evaluationform', function () {
             return view('student.student_evaluation_form');
         });
-        Route::post('/submit_evaluation/{user_id}/{event_id}/{feedback}', [EvaluationController::class, 'store']);
+
         Route::get('/evaluation_form/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
         Route::get('/get_evaluation_question/{evaluation_form_id}', [EvaluationController::class, 'getEvaluationQuestion']);
         Route::get('/evaluation_form_summary/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationFormResult']);

@@ -57,8 +57,8 @@
                 <div class="btn-group" role="group">
                     <button class="btn btn-light me-2" id="add-event-button" data-bs-toggle="modal"
                         data-bs-target="#event-modal" @click="
-                        this.initialData(), (this.submit = this.sendData)
-                        ">
+                            this.initialData(), (this.submit = this.sendData)
+                            ">
                         <i class="fas fa-calendar-plus"></i> Add Event
                     </button>
                     <button class="btn btn-light me-2" id="copy-event-button" data-bs-toggle="modal"
@@ -159,16 +159,16 @@
                             </p>
                             <a class="btn btn-success" id="copy-event-button" data-bs-toggle="modal"
                                 data-bs-target="#event-modal" @click="
-                        this.initialData(),
-                        (this.submit = this.sendData)
-                        ">Add Event</a>
+                                    this.initialData(),
+                                    (this.submit = this.sendData)
+                                    ">Add Event</a>
                         </div>
                     </div>
                     <!-- Message No results found -->
                     <div class="Container-IfEmpty text-center" v-if="!loading &&
                         this.filtered_events.length === 0 &&
                         this.events != 0
-                        ">
+                    ">
                         <div class="Empty-Message">
                             <i class="icon fas fa-frown" id="icon-message"></i>
                             <p class="text-muted fw-bold">No results found</p>
@@ -379,27 +379,27 @@
                                         <div class="d-flex row">
                                             <div v-for="event in newEvents" :key="event.event_id"
                                                 class="event-card col-md-4" :class="[
-                        'border-top',
-                        'border-5',
-                        {
-                            'border-secondary':
-                                event.event_status ===
-                                0,
-                            'border-warning':
-                                event.event_status ===
-                                1,
-                            'border-success':
-                                event.event_status ===
-                                2,
-                        },
-                        'border-bottom-0',
-                    ]" :title="event.event_status === 0
-                        ? 'New Event'
-                        : event.event_status ===
-                            1
-                            ? 'Ongoing Event'
-                            : 'Completed Event'
-                        ">
+                                                    'border-top',
+                                                    'border-5',
+                                                    {
+                                                        'border-secondary':
+                                                            event.event_status ===
+                                                            0,
+                                                        'border-warning':
+                                                            event.event_status ===
+                                                            1,
+                                                        'border-success':
+                                                            event.event_status ===
+                                                            2,
+                                                    },
+                                                    'border-bottom-0',
+                                                ]" :title="event.event_status === 0
+                                                    ? 'New Event'
+                                                    : event.event_status ===
+                                                        1
+                                                        ? 'Ongoing Event'
+                                                        : 'Completed Event'
+                                                    ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -411,17 +411,19 @@
                                                         <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                                             <li>
                                                                 <a class="dropdown-item" @click="
-                        FetchUpdateData(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-modal">Edit
+                                                                    FetchUpdateData(
+                                                                        event.event_id
+                                                                    )
+                                                                    " data-bs-toggle="modal"
+                                                                    data-bs-target="#event-modal">Edit
                                                                     Event</a>
                                                             </li>
                                                             <li>
                                                                 <a class="dropdown-item" @click="
-                        this.id =
-                        event.event_id
-                        " data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete
+                                                                    this.id =
+                                                                    event.event_id
+                                                                    " data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteConfirmation">Delete
                                                                     Event</a>
                                                             </li>
                                                             <!-- option 3 -->
@@ -431,65 +433,69 @@
                                             Level</a>
                                     </li> -->
                                                             <div v-if="event.event_status ==
-                        0 ||
-                        event.event_status ==
-                        2
-                        ">
+                                                                0 ||
+                                                                event.event_status ==
+                                                                2
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.id =
-                        event.event_id),
-                        (this.status = 1)
-                        " data-bs-toggle="modal" data-bs-target="#eventStatus">Start
+                                                                    (this.id =
+                                                                        event.event_id),
+                                                                        (this.status = 1)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#eventStatus">Start
                                                                         Event</a>
                                                                 </li>
                                                             </div>
                                                             <div v-else-if="event.event_status ==
-                        1
-                        ">
+                                                                1
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.id =
-                        event.event_id),
-                        (this.status = 2)
-                        " data-bs-toggle="modal" data-bs-target="#eventStatus">Stop
+                                                                    (this.id =
+                                                                        event.event_id),
+                                                                        (this.status = 2)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#eventStatus">Stop
                                                                         Event</a>
                                                                 </li>
                                                             </div>
                                                             <div v-if="(event.attendance_status ==
-                        0 ||
-                        event.attendance_status ==
-                        2) &&
-                        event.event_status ==
-                        1 &&
-                        event.event_status !=
-                        0
-                        ">
+                                                                0 ||
+                                                                event.attendance_status ==
+                                                                2) &&
+                                                                event.event_status ==
+                                                                1 &&
+                                                                event.event_status !=
+                                                                0
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.attendance_count_start_attendance =
-                        event.attendance_count),
-                        (this.id =
-                            event.event_id),
-                        (this.status = 1)
-                        " data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start
+                                                                    (this.attendance_count_start_attendance =
+                                                                        event.attendance_count),
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                        (this.status = 1)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#startAttendanceModal">Start
                                                                         Attendance</a>
                                                                 </li>
                                                             </div>
                                                             <div v-else-if="event.attendance_status ==
-                        1 &&
-                        event.event_status ==
-                        1 &&
-                        event.event_status !=
-                        0
-                        ">
+                                                                1 &&
+                                                                event.event_status ==
+                                                                1 &&
+                                                                event.event_status !=
+                                                                0
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                        (this.attendance_count_start_attendance = 0),
-                        (this.id =
-                            event.event_id),
-                        (this.status = 2)
-                        " data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
+                                                                        (this.attendance_count_start_attendance = 0),
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                        (this.status = 2)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#stopAttendanceConfirmation">Stop
                                                                         Attendance</a>
                                                                 </li>
                                                             </div>
@@ -498,10 +504,10 @@
                                                                 <li>
                                                                     <a class="dropdown-item" data-bs-toggle="modal"
                                                                         data-bs-target="#cancelAttendance" @click="
-                    (this.id =
-                        event.event_id),
-                        this.fetchCancelAttendanceEvent()
-                        ">Exclude
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                            this.fetchCancelAttendanceEvent()
+                                                                            ">Exclude
                                                                         Attendance
                                                                         log</a>
                                                                 </li>
@@ -511,8 +517,8 @@
                                                     <!-- Card content -->
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
-                        event.name
-                    }}</strong>
+                                                            event.name
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -521,14 +527,14 @@
                                                     <p class="card-subtitle text-muted">
                                                         Start Time:
                                                         {{
-                        event.start_attendance
-                    }}
+                                                            event.start_attendance
+                                                        }}
                                                     </p>
                                                     <p class="card-subtitle text-muted">
                                                         End Time:
                                                         {{
-                            event.end_attendance
-                        }}
+                                                            event.end_attendance
+                                                        }}
                                                     </p>
                                                     <h6 class="card-text mb-0">
                                                         Location:
@@ -536,10 +542,11 @@
                                                     </h6>
                                                     <div class="d-flex justify-content-end">
                                                         <button class="btn btn-success" @click="
-                        showEventDetails(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-details-modal">
+                                                            showEventDetails(
+                                                                event.event_id
+                                                            )
+                                                            " data-bs-toggle="modal"
+                                                            data-bs-target="#event-details-modal">
                                                             <i class="fas fa-eye"></i> View
                                                         </button>
                                                     </div>
@@ -567,27 +574,27 @@
                                         <div class="d-flex row">
                                             <div v-for="event in ongoingEvents" :key="event.event_id" class="event-card"
                                                 :class="[
-                        'border-top',
-                        'border-5',
-                        {
-                            'border-secondary':
-                                event.event_status ===
-                                0,
-                            'border-warning':
-                                event.event_status ===
-                                1,
-                            'border-success':
-                                event.event_status ===
-                                2,
-                        },
-                        'border-bottom-0',
-                    ]" :title="event.event_status === 0
-                        ? 'New Event'
-                        : event.event_status ===
-                            1
-                            ? 'Ongoing Event'
-                            : 'Completed Event'
-                        ">
+                                                    'border-top',
+                                                    'border-5',
+                                                    {
+                                                        'border-secondary':
+                                                            event.event_status ===
+                                                            0,
+                                                        'border-warning':
+                                                            event.event_status ===
+                                                            1,
+                                                        'border-success':
+                                                            event.event_status ===
+                                                            2,
+                                                    },
+                                                    'border-bottom-0',
+                                                ]" :title="event.event_status === 0
+                                                    ? 'New Event'
+                                                    : event.event_status ===
+                                                        1
+                                                        ? 'Ongoing Event'
+                                                        : 'Completed Event'
+                                                    ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -599,85 +606,92 @@
                                                         <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                                             <li>
                                                                 <a class="dropdown-item" @click="
-                        FetchUpdateData(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-modal">Edit
+                                                                    FetchUpdateData(
+                                                                        event.event_id
+                                                                    )
+                                                                    " data-bs-toggle="modal"
+                                                                    data-bs-target="#event-modal">Edit
                                                                     Event</a>
                                                             </li>
                                                             <li>
                                                                 <a class="dropdown-item" @click="
-                        this.id =
-                        event.event_id
-                        " data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete
+                                                                    this.id =
+                                                                    event.event_id
+                                                                    " data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteConfirmation">Delete
                                                                     Event</a>
                                                             </li>
                                                             <!-- option 3 -->
                                                             <li v-if="this.college_id != 11"><a class="dropdown-item"
-                                            @click="this.id = (event.event_id), this.showYearLevelExempted()"
-                                            data-bs-toggle="modal" data-bs-target="#exemptModal">Select Exempted Year
-                                            Level</a>
-                                    </li>
+                                                                    @click="this.id = (event.event_id), this.showYearLevelExempted()"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#exemptModal">Select Exempted Year
+                                                                    Level</a>
+                                                            </li>
                                                             <div v-if="event.event_status ==
-                        0 ||
-                        event.event_status ==
-                        2
-                        ">
+                                                                0 ||
+                                                                event.event_status ==
+                                                                2
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.id =
-                        event.event_id),
-                        (this.status = 1)
-                        " data-bs-toggle="modal" data-bs-target="#eventStatus">Start
+                                                                    (this.id =
+                                                                        event.event_id),
+                                                                        (this.status = 1)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#eventStatus">Start
                                                                         Event</a>
                                                                 </li>
                                                             </div>
                                                             <div v-else-if="event.event_status ==
-                        1
-                        ">
+                                                                1
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.id =
-                        event.event_id),
-                        (this.status = 2)
-                        " data-bs-toggle="modal" data-bs-target="#eventStatus">Stop
+                                                                    (this.id =
+                                                                        event.event_id),
+                                                                        (this.status = 2)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#eventStatus">Stop
                                                                         Event</a>
                                                                 </li>
                                                             </div>
                                                             <div v-if="(event.attendance_status ==
-                        0 ||
-                        event.attendance_status ==
-                        2) &&
-                        event.event_status ==
-                        1 &&
-                        event.event_status !=
-                        0
-                        ">
+                                                                0 ||
+                                                                event.attendance_status ==
+                                                                2) &&
+                                                                event.event_status ==
+                                                                1 &&
+                                                                event.event_status !=
+                                                                0
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.attendance_count_start_attendance =
-                        event.attendance_count),
-                        (this.id =
-                            event.event_id),
-                        (this.status = 1)
-                        " data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start
+                                                                    (this.attendance_count_start_attendance =
+                                                                        event.attendance_count),
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                        (this.status = 1)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#startAttendanceModal">Start
                                                                         Attendance</a>
                                                                 </li>
                                                             </div>
                                                             <div v-else-if="event.attendance_status ==
-                        1 &&
-                        event.event_status ==
-                        1 &&
-                        event.event_status !=
-                        0
-                        ">
+                                                                1 &&
+                                                                event.event_status ==
+                                                                1 &&
+                                                                event.event_status !=
+                                                                0
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                        (this.attendance_count_start_attendance = 0),
-                        (this.id =
-                            event.event_id),
-                        (this.status = 2)
-                        " data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
+                                                                        (this.attendance_count_start_attendance = 0),
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                        (this.status = 2)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#stopAttendanceConfirmation">Stop
                                                                         Attendance</a>
                                                                 </li>
                                                             </div>
@@ -686,10 +700,10 @@
                                                                 <li>
                                                                     <a class="dropdown-item" data-bs-toggle="modal"
                                                                         data-bs-target="#cancelAttendance" @click="
-                    (this.id =
-                        event.event_id),
-                        this.fetchCancelAttendanceEvent()
-                        ">Exclude
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                            this.fetchCancelAttendanceEvent()
+                                                                            ">Exclude
                                                                         Attendance
                                                                         log</a>
                                                                 </li>
@@ -699,8 +713,8 @@
                                                     <!-- Card content -->
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
-                        event.name
-                    }}</strong>
+                                                            event.name
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -709,14 +723,14 @@
                                                     <p class="card-subtitle text-muted">
                                                         Start Time:
                                                         {{
-                        event.start_attendance
-                    }}
+                                                            event.start_attendance
+                                                        }}
                                                     </p>
                                                     <p class="card-subtitle text-muted">
                                                         End Time:
                                                         {{
-                            event.end_attendance
-                        }}
+                                                            event.end_attendance
+                                                        }}
                                                     </p>
                                                     <h6 class="card-text mb-0">
                                                         Location:
@@ -724,10 +738,11 @@
                                                     </h6>
                                                     <div class="d-flex justify-content-end">
                                                         <button class="btn btn-success" @click="
-                        showEventDetails(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-details-modal">
+                                                            showEventDetails(
+                                                                event.event_id
+                                                            )
+                                                            " data-bs-toggle="modal"
+                                                            data-bs-target="#event-details-modal">
                                                             <i class="fas fa-eye"></i> View
                                                         </button>
                                                     </div>
@@ -754,27 +769,27 @@
                                         <div class="d-flex row">
                                             <div v-for="event in completedEvents" :key="event.event_id"
                                                 class="event-card" :class="[
-                        'border-top',
-                        'border-5',
-                        {
-                            'border-secondary':
-                                event.event_status ===
-                                0,
-                            'border-warning':
-                                event.event_status ===
-                                1,
-                            'border-success':
-                                event.event_status ===
-                                2,
-                        },
-                        'border-bottom-0',
-                    ]" :title="event.event_status === 0
-                        ? 'New Event'
-                        : event.event_status ===
-                            1
-                            ? 'Ongoing Event'
-                            : 'Completed Event'
-                        ">
+                                                    'border-top',
+                                                    'border-5',
+                                                    {
+                                                        'border-secondary':
+                                                            event.event_status ===
+                                                            0,
+                                                        'border-warning':
+                                                            event.event_status ===
+                                                            1,
+                                                        'border-success':
+                                                            event.event_status ===
+                                                            2,
+                                                    },
+                                                    'border-bottom-0',
+                                                ]" :title="event.event_status === 0
+                                                    ? 'New Event'
+                                                    : event.event_status ===
+                                                        1
+                                                        ? 'Ongoing Event'
+                                                        : 'Completed Event'
+                                                    ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -786,17 +801,19 @@
                                                         <ul class="dropdown-menu" aria-labelledby="ellipsisDropdown">
                                                             <li>
                                                                 <a class="dropdown-item" @click="
-                        FetchUpdateData(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-modal">Edit
+                                                                    FetchUpdateData(
+                                                                        event.event_id
+                                                                    )
+                                                                    " data-bs-toggle="modal"
+                                                                    data-bs-target="#event-modal">Edit
                                                                     Event</a>
                                                             </li>
                                                             <li>
                                                                 <a class="dropdown-item" @click="
-                        this.id =
-                        event.event_id
-                        " data-bs-toggle="modal" data-bs-target="#deleteConfirmation">Delete
+                                                                    this.id =
+                                                                    event.event_id
+                                                                    " data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteConfirmation">Delete
                                                                     Event</a>
                                                             </li>
                                                             <!-- option 3 -->
@@ -806,65 +823,69 @@
                                             Level</a>
                                     </li> -->
                                                             <div v-if="event.event_status ==
-                        0 ||
-                        event.event_status ==
-                        2
-                        ">
+                                                                0 ||
+                                                                event.event_status ==
+                                                                2
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.id =
-                        event.event_id),
-                        (this.status = 1)
-                        " data-bs-toggle="modal" data-bs-target="#eventStatus">Start
+                                                                    (this.id =
+                                                                        event.event_id),
+                                                                        (this.status = 1)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#eventStatus">Start
                                                                         Event</a>
                                                                 </li>
                                                             </div>
                                                             <div v-else-if="event.event_status ==
-                        1
-                        ">
+                                                                1
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.id =
-                        event.event_id),
-                        (this.status = 2)
-                        " data-bs-toggle="modal" data-bs-target="#eventStatus">Stop
+                                                                    (this.id =
+                                                                        event.event_id),
+                                                                        (this.status = 2)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#eventStatus">Stop
                                                                         Event</a>
                                                                 </li>
                                                             </div>
                                                             <div v-if="(event.attendance_status ==
-                        0 ||
-                        event.attendance_status ==
-                        2) &&
-                        event.event_status ==
-                        1 &&
-                        event.event_status !=
-                        0
-                        ">
+                                                                0 ||
+                                                                event.attendance_status ==
+                                                                2) &&
+                                                                event.event_status ==
+                                                                1 &&
+                                                                event.event_status !=
+                                                                0
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                    (this.attendance_count_start_attendance =
-                        event.attendance_count),
-                        (this.id =
-                            event.event_id),
-                        (this.status = 1)
-                        " data-bs-toggle="modal" data-bs-target="#startAttendanceModal">Start
+                                                                    (this.attendance_count_start_attendance =
+                                                                        event.attendance_count),
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                        (this.status = 1)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#startAttendanceModal">Start
                                                                         Attendance</a>
                                                                 </li>
                                                             </div>
                                                             <div v-else-if="event.attendance_status ==
-                        1 &&
-                        event.event_status ==
-                        1 &&
-                        event.event_status !=
-                        0
-                        ">
+                                                                1 &&
+                                                                event.event_status ==
+                                                                1 &&
+                                                                event.event_status !=
+                                                                0
+                                                            ">
                                                                 <li>
                                                                     <a class="dropdown-item" @click="
-                        (this.attendance_count_start_attendance = 0),
-                        (this.id =
-                            event.event_id),
-                        (this.status = 2)
-                        " data-bs-toggle="modal" data-bs-target="#stopAttendanceConfirmation">Stop
+                                                                        (this.attendance_count_start_attendance = 0),
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                        (this.status = 2)
+                                                                        " data-bs-toggle="modal"
+                                                                        data-bs-target="#stopAttendanceConfirmation">Stop
                                                                         Attendance</a>
                                                                 </li>
                                                             </div>
@@ -873,10 +894,10 @@
                                                                 <li>
                                                                     <a class="dropdown-item" data-bs-toggle="modal"
                                                                         data-bs-target="#cancelAttendance" @click="
-                    (this.id =
-                        event.event_id),
-                        this.fetchCancelAttendanceEvent()
-                        ">Exclude
+                                                                        (this.id =
+                                                                            event.event_id),
+                                                                            this.fetchCancelAttendanceEvent()
+                                                                            ">Exclude
                                                                         Attendance
                                                                         log</a>
                                                                 </li>
@@ -886,8 +907,8 @@
                                                     <!-- Card content -->
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
-                        event.name
-                    }}</strong>
+                                                            event.name
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -896,14 +917,14 @@
                                                     <p class="card-subtitle text-muted">
                                                         Start Time:
                                                         {{
-                        event.start_attendance
-                    }}
+                                                            event.start_attendance
+                                                        }}
                                                     </p>
                                                     <p class="card-subtitle text-muted">
                                                         End Time:
                                                         {{
-                            event.end_attendance
-                        }}
+                                                            event.end_attendance
+                                                        }}
                                                     </p>
                                                     <h6 class="card-text mb-0">
                                                         Location:
@@ -911,10 +932,11 @@
                                                     </h6>
                                                     <div class="d-flex justify-content-end">
                                                         <button class="btn btn-success" @click="
-                        showEventDetails(
-                            event.event_id
-                        )
-                        " data-bs-toggle="modal" data-bs-target="#event-details-modal">
+                                                            showEventDetails(
+                                                                event.event_id
+                                                            )
+                                                            " data-bs-toggle="modal"
+                                                            data-bs-target="#event-details-modal">
                                                             <i class="fas fa-eye"></i> View
                                                         </button>
                                                     </div>
@@ -1072,23 +1094,23 @@
                                             Select Attendace Type
                                         </option>
                                         <option :value="1" v-if="attendance_count_start_attendance >=
-                        1
-                        ">
+                                            1
+                                        ">
                                             Attendance log 1
                                         </option>
                                         <option :value="2" v-if="attendance_count_start_attendance >=
-                        2
-                        ">
+                                            2
+                                        ">
                                             Attendance log 2
                                         </option>
                                         <option :value="3" v-if="attendance_count_start_attendance >=
-                        3
-                        ">
+                                            3
+                                        ">
                                             Attendance log 3
                                         </option>
                                         <option :value="4" v-if="attendance_count_start_attendance >=
-                        4
-                        ">
+                                            4
+                                        ">
                                             Attendance log 4
                                         </option>
                                     </select>
@@ -1108,12 +1130,12 @@
                                     Cancel
                                 </button>
                                 <button type="button" class="btn btn-success" @click="
-                        startAttendance(
-                            event_id,
-                            org_id,
-                            session
-                        )
-                        " :disabled="isSubmitting">
+                                    startAttendance(
+                                        event_id,
+                                        org_id,
+                                        session
+                                    )
+                                    " :disabled="isSubmitting">
                                     Start
                                 </button>
                             </div>
@@ -1144,7 +1166,7 @@
                                 </p>
 
                                 <div v-for="index in this
-                        .attendance_count_for_exempting_attendance" :key="index">
+                                    .attendance_count_for_exempting_attendance" :key="index">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input mr-2" :value="index"
                                             v-model="attendanceCancelled" />
@@ -1243,8 +1265,8 @@
                             <div class="modal-body" :id="this.showEvent.event_id">
                                 <h5 class="card-title">
                                     <strong>{{
-                        this.showEvent["name"]
-                    }}</strong>
+                                        this.showEvent["name"]
+                                        }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1278,8 +1300,8 @@
                         </div>
                     </div>
                 </div>
- <!-- Copy Event modal -->
- <div class="modal fade" id="copy-modal" tabindex="-1" role="dialog"
+                <!-- Copy Event modal -->
+                <div class="modal fade" id="copy-modal" tabindex="-1" role="dialog"
                     aria-labelledby="event-details-modal-label" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -1295,8 +1317,8 @@
                                     Select Semester to copy event from
                                 </label>
                                 <div class="select-dropdown border" style="width: 70%">
-                                    <select id="sort-select" class="form-control" style="text-align: center" v-model="school_year_input"
-                                        @change="fetchData">
+                                    <select id="sort-select" class="form-control" style="text-align: center"
+                                        v-model="school_year_input" @change="fetchData">
                                         <option value="0" disabled selected>
                                             Select Semester
                                         </option>
@@ -1309,48 +1331,52 @@
                                     <button class="btn btn-success">Select All</button>
                                 </div>
                                 <h5 class="text-center">Select Events you want to copy</h5>
-                                <div class="row" style="background-color: #f3f7fb;  overflow-y: auto; max-height: 40vh; ">
+                                <div class="row"
+                                    style="background-color: #f3f7fb;  overflow-y: auto; max-height: 40vh; ">
                                     <div class="col mt-2">
                                         <label class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
-                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
-                                                        <div class="card-body">
-                                                                    <h5 class="card-title">Event Title</h5>
-                                                                    <p class="mb-0">Date</p>
-                                                                    <p class="mb-0">Start Time</p>
-                                                                    <p class="mb-0">End Time</p>
-                                                                    <p class="mb-0">Location</p>
-                                                        </div>
-                                                    </div>
-                                            </label>
+                                            <div class=" event-card border-top border-5 border-success"
+                                                style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Event Title</h5>
+                                                    <p class="mb-0">Date</p>
+                                                    <p class="mb-0">Start Time</p>
+                                                    <p class="mb-0">End Time</p>
+                                                    <p class="mb-0">Location</p>
+                                                </div>
+                                            </div>
+                                        </label>
                                     </div>
                                     <div class="col mt-2">
                                         <label class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
-                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
-                                                        <div class="card-body">
-                                                                    <h5 class="card-title">Event Title</h5>
-                                                                    <p class="mb-0">Date</p>
-                                                                    <p class="mb-0">Start Time</p>
-                                                                    <p class="mb-0">End Time</p>
-                                                                    <p class="mb-0">Location</p>
-                                                        </div>
-                                                    </div>
-                                            </label>
+                                            <div class=" event-card border-top border-5 border-success"
+                                                style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Event Title</h5>
+                                                    <p class="mb-0">Date</p>
+                                                    <p class="mb-0">Start Time</p>
+                                                    <p class="mb-0">End Time</p>
+                                                    <p class="mb-0">Location</p>
+                                                </div>
+                                            </div>
+                                        </label>
                                     </div>
                                     <div class="col mt-2">
                                         <label class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="myCheckbox">
-                                                    <div class=" event-card border-top border-5 border-success" style="width: 18rem;">
-                                                        <div class="card-body">
-                                                                    <h5 class="card-title">Event Title</h5>
-                                                                    <p class="mb-0">Date</p>
-                                                                    <p class="mb-0">Start Time</p>
-                                                                    <p class="mb-0">End Time</p>
-                                                                    <p class="mb-0">Location</p>
-                                                        </div>
-                                                    </div>
-                                            </label>
+                                            <div class=" event-card border-top border-5 border-success"
+                                                style="width: 18rem;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Event Title</h5>
+                                                    <p class="mb-0">Date</p>
+                                                    <p class="mb-0">Start Time</p>
+                                                    <p class="mb-0">End Time</p>
+                                                    <p class="mb-0">Location</p>
+                                                </div>
+                                            </div>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -1390,11 +1416,11 @@
                                         <label for="event-title" class="form-label">Event Name</label>
                                         <input type="text" name="name" class="form-control" id="event-title"
                                             v-model="formData.name" required maxlength="50" :style="{
-                        borderColor:
-                            formData.name.length >= 50
-                                ? 'red'
-                                : '',
-                    }" />
+                                                borderColor:
+                                                    formData.name.length >= 50
+                                                        ? 'red'
+                                                        : '',
+                                            }" />
                                         <p class="pl-2" v-if="formData.name.length >= 50" style="color: red">
                                             Maximum length reached
                                         </p>
@@ -1414,13 +1440,13 @@
                                             <label for="event-start-time" class="form-label">Start Event Time</label>
                                             <input type="time" name="start_attendance" class="form-control"
                                                 id="event-start-time" v-model="formData.start_attendance
-                        " required />
+                                                    " required />
                                         </div>
                                         <div class="col-md-6">
                                             <label for="event-end-time" class="form-label">End Event Time</label>
                                             <input type="time" name="end_attendance" class="form-control"
                                                 id="event-end-time" v-model="formData.end_attendance
-                        " required />
+                                                    " required />
                                         </div>
                                     </div>
                                     <!-- </div> -->
@@ -1429,34 +1455,34 @@
                                         <label for="event-location" class="form-label">Location</label>
                                         <input type="text" name="location" class="form-control" id="event-location"
                                             v-model="formData.location" required maxlength="30" :style="{
-                        borderColor:
-                            formData.location.length >=
-                                30
-                                ? 'red'
-                                : '',
-                    }" />
+                                                borderColor:
+                                                    formData.location.length >=
+                                                        30
+                                                        ? 'red'
+                                                        : '',
+                                            }" />
                                         <p class="pl-2" v-if="formData.location.length >= 30
-                        " style="color: red">
+                                        " style="color: red">
                                             Maximum length reached
                                         </p>
                                     </div>
                                     <div class="mb-3">
                                         <label for="event-description" class="form-label">Description</label>
                                         <span v-if="formData.description.length >
-                        200
-                        " class="text-danger">You have exceeded the word
+                                            200
+                                        " class="text-danger">You have exceeded the word
                                             limit</span>
                                         <textarea class="form-control" name="description" id="event-description"
                                             rows="3" v-model="formData.description" required maxlength="200" :style="{
-                        borderColor:
-                            formData.description
-                                .length >= 200
-                                ? 'red'
-                                : '',
-                    }"></textarea>
+                                                borderColor:
+                                                    formData.description
+                                                        .length >= 200
+                                                        ? 'red'
+                                                        : '',
+                                            }"></textarea>
                                         <p class="pl-2" v-if="formData.description.length >=
-                        200
-                        " style="color: red">
+                                            200
+                                        " style="color: red">
                                             Maximum length reached
                                         </p>
                                     </div>
@@ -1499,8 +1525,8 @@
                                     <div class="mb-3">
                                         <input class="form-check-input" type="checkbox" name="require_evaluation"
                                             id="require-evaluation" v-model="requireEvaluation" />
-                                        <label for="require-evaluation" class="form-label"
-                                            style="padding-left: 5px">Add Evaluation?</label>
+                                        <label for="require-evaluation" class="form-label" style="padding-left: 5px">Add
+                                            Evaluation?</label>
                                     </div>
                                     <div v-if="requireEvaluation" class="evaluation-content"
                                         style="padding-left: 15px; padding-right: 15px;">
@@ -1530,13 +1556,13 @@
                                                 <tr>
                                                     <td>San Francisco</td>
                                                     <td style="width: 20%">
-                                                        <div  class="d-flex gap-2">
+                                                        <div class="d-flex gap-2">
                                                             <button class="btn btn-secondary">
-                                                            <i class="fas fa-eye"></i>
-                                                        </button>
-                                                        <button class="btn btn-danger">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
+                                                                <i class="fas fa-eye"></i>
+                                                            </button>
+                                                            <button class="btn btn-danger">
+                                                                <i class="fas fa-trash"></i>
+                                                            </button>
                                                         </div>
 
                                                     </td>
@@ -1549,20 +1575,20 @@
                                     <div class="mb-3">
                                         <input class="form-check-input" type="checkbox" name="require_attendance"
                                             id="require-attendance" v-model="formData.require_attendance
-                        " :true-value="1" :false-value="0" />
+                                                " :true-value="1" :false-value="0" />
                                         <label for="require-attendance" class="form-label"
                                             style="padding-left: 5px">Require Attendance</label>
                                     </div>
                                     <div id="attendance-container" v-if="this.formData.require_attendance ==
-                        1
-                        ">
+                                        1
+                                    ">
                                         <div class="row g-3">
                                             <div class="col-md-6">
                                                 <label for="event-attendance" class="form-label">Number of Attendance
                                                     Log</label>
                                                 <select name="attendance_count" class="form-select"
                                                     id="event-attendance" v-model="formData.attendance_count
-                        " required>
+                                                        " required>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>

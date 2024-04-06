@@ -93,7 +93,7 @@ class  EvaluationController extends Controller
             return response()->json(['message' => 'Database error: ' . $e->getMessage(), 'status' => 0]);
         }
     }
-    public function store(Request $request, $user_id, $event_id, $feedback)
+    public function store(Request $request, $user_id, $event_id, $feedback = null)
     {
         //to add the answer in each choices
         foreach ($request->all() as $key => $data) {

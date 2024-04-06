@@ -1,6 +1,6 @@
 <template>
     <!-- <h6>1. PROGRAM/ACTIVITY</h6> -->
-    <div class="d-flex justify-content-between p-2" >
+    <div class="d-flex justify-content-between p-2">
         <div class="d-flex justify-content-start">
             <h3><i class="fas fa-list mt-2"></i> Evaluation Summary</h3>
         </div>
@@ -21,29 +21,22 @@
     <div v-if="loading" class="row d-flex gap-2 mb-4" style="padding: 10px">
         <div>
             <span class="placeholder col-6"></span>
-        <span class="placeholder w-75"></span>
-        <span class="placeholder col-4"></span>
-        <span class="placeholder col-4"></span>
+            <span class="placeholder w-75"></span>
+            <span class="placeholder col-4"></span>
+            <span class="placeholder col-4"></span>
         </div>
 
 
-        <div
-            class="card col-md-6"
-            aria-hidden="true"
-            style="height: 100%; border: none; padding: 20px"
-        >
+        <div class="card col-md-6" aria-hidden="true" style="height: 100%; border: none; padding: 20px">
             <div class="row d-flex gap-4">
                 <div class="col-md-4">
                     <span class="placeholder col-12 bg-secondary"></span>
                     <h3 class="card-title placeholder-glow mt-2">
-                        <span
-                            class="placeholder col-md-6 bg-secondary"
-                            style="
+                        <span class="placeholder col-md-6 bg-secondary" style="
                                 height: 210px;
                                 width: 230px;
                                 border-radius: 50%;
-                            "
-                        ></span>
+                            "></span>
                     </h3>
                 </div>
                 <div class="col-md-6 details-load">
@@ -51,13 +44,9 @@
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder mt-4 col-4 bg-secondary"
-                        ></span>
+                        <span class="placeholder mt-4 col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder col-4 bg-secondary mt-2"
-                        ></span>
+                        <span class="placeholder col-4 bg-secondary mt-2"></span>
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
@@ -66,23 +55,16 @@
                 </div>
             </div>
         </div>
-        <div
-            class="card col"
-            aria-hidden="true"
-            style="height: 100%; border: none; padding: 20px"
-        >
+        <div class="card col" aria-hidden="true" style="height: 100%; border: none; padding: 20px">
             <div class="row d-flex gap-4">
                 <div class="col-md-4">
                     <span class="placeholder col-12 bg-secondary"></span>
                     <h3 class="card-title placeholder-glow mt-2">
-                        <span
-                            class="placeholder col-md-6 bg-secondary"
-                            style="
+                        <span class="placeholder col-md-6 bg-secondary" style="
                                 height: 210px;
                                 width: 230px;
                                 border-radius: 50%;
-                            "
-                        ></span>
+                            "></span>
                     </h3>
                 </div>
                 <div class="col-md-6 details-load">
@@ -90,13 +72,9 @@
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder mt-4 col-4 bg-secondary"
-                        ></span>
+                        <span class="placeholder mt-4 col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder col-4 bg-secondary mt-2"
-                        ></span>
+                        <span class="placeholder col-4 bg-secondary mt-2"></span>
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
@@ -105,23 +83,16 @@
                 </div>
             </div>
         </div>
-        <div
-            class="card col-md-6"
-            aria-hidden="true"
-            style="height: 100%; border: none; padding: 20px"
-        >
+        <div class="card col-md-6" aria-hidden="true" style="height: 100%; border: none; padding: 20px">
             <div class="row d-flex gap-4">
                 <div class="col-md-4">
                     <span class="placeholder col-12 bg-secondary"></span>
                     <h3 class="card-title placeholder-glow mt-2">
-                        <span
-                            class="placeholder col-md-6 bg-secondary"
-                            style="
+                        <span class="placeholder col-md-6 bg-secondary" style="
                                 height: 210px;
                                 width: 230px;
                                 border-radius: 50%;
-                            "
-                        ></span>
+                            "></span>
                     </h3>
                 </div>
                 <div class="col-md-6 details-load">
@@ -129,13 +100,9 @@
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder mt-4 col-4 bg-secondary"
-                        ></span>
+                        <span class="placeholder mt-4 col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder col-4 bg-secondary mt-2"
-                        ></span>
+                        <span class="placeholder col-4 bg-secondary mt-2"></span>
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
@@ -144,23 +111,16 @@
                 </div>
             </div>
         </div>
-        <div
-            class="card col"
-            aria-hidden="true"
-            style="height: 100%; border: none; padding: 20px"
-        >
+        <div class="card col" aria-hidden="true" style="height: 100%; border: none; padding: 20px">
             <div class="row d-flex gap-4">
                 <div class="col-md-4">
                     <span class="placeholder col-12 bg-secondary"></span>
                     <h3 class="card-title placeholder-glow mt-2">
-                        <span
-                            class="placeholder col-md-6 bg-secondary"
-                            style="
+                        <span class="placeholder col-md-6 bg-secondary" style="
                                 height: 210px;
                                 width: 230px;
                                 border-radius: 50%;
-                            "
-                        ></span>
+                            "></span>
                     </h3>
                 </div>
                 <div class="col-md-6 details-load">
@@ -168,13 +128,9 @@
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder mt-4 col-4 bg-secondary"
-                        ></span>
+                        <span class="placeholder mt-4 col-4 bg-secondary"></span>
                         <br />
-                        <span
-                            class="placeholder col-4 bg-secondary mt-2"
-                        ></span>
+                        <span class="placeholder col-4 bg-secondary mt-2"></span>
                         <br />
                         <span class="placeholder col-4 bg-secondary"></span>
                         <br />
@@ -204,10 +160,7 @@
         </p>
 
         <div class="row">
-            <div
-                class="col-md-6 mb-4"
-                v-for="evaluation_questions in evaluation_question_id"
-            >
+            <div class="col-md-6 mb-4" v-for="evaluation_questions in evaluation_question_id">
                 <div class="piechart" :id="evaluation_questions.id"></div>
             </div>
         </div>
@@ -216,10 +169,7 @@
             <h4>Feedbacks</h4>
             <div class="feedbacklist-card">
                 <ul class="list-group" id="evaluation-feedbacks">
-                    <li
-                        class="list-group-item mb-2"
-                        v-for="feedbacks in this.feedback"
-                    >
+                    <li class="list-group-item mb-2" v-for="feedbacks in this.feedback">
                         {{ feedbacks.word_answer }}
                     </li>
                 </ul>
@@ -264,7 +214,7 @@ export default {
             await axios
                 .get(`/getTotalResponse/${this.event_id}`)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.event_description.totalResponse = response.data;
                 })
                 .catch((error) => {
@@ -324,9 +274,12 @@ export default {
                                 });
                             });
                             question.evaluation_answers.forEach((element) => {
-                                answers_temporary.push({
-                                    answers_option_id: element.option_id,
-                                });
+
+                                if (element.event_id == this.event_id) {
+                                    answers_temporary.push({
+                                        answers_option_id: element.option_id,
+                                    });
+                                }
                             });
                             //to count the result per options
                             let combinedData =

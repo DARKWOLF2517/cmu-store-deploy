@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\AnnouncementStudentOpened;
 use App\Models\UserOrganization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -80,5 +81,23 @@ class AnnouncementController extends Controller
             ->get();
         return $announcement->toJson();
         // }
+    }
+    public function getStudentOpenedAnnouncement($school_year)
+    {
+        $announcement = AnnouncementStudentOpened::where([['school_year', $school_year], ['student_id', Auth::id()]])->get();
+        return $announcement->toJson();
+    }
+    public function addStudentOpenedAnnouncement($announcement_id, $school_year)
+    {
+        $addAnnouncement = AnnouncementStudentOpened::firstOrCreate([
+            'student_id' => Auth::id(),
+            'announcement_id' => $announcement_id,
+        ], [
+            // 'org_id' => $org_id,
+            'school_year' => $school_year,
+        ]);
+
+        $addAnnouncement->save();
+        return response()->json(['message' => 'Student Opened Announcement added Successfully']);
     }
 }

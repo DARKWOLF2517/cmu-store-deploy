@@ -402,7 +402,7 @@ export default {
         isNewAnnouncement(announcement) {
             // Define your criteria to determine if the announcement is new
             // For example, compare the announcement's created_at date with the current date
-            const announcementDate = new Date(announcement.date);
+            const announcementDate = new Date(announcement.created_at);
             const currentDate = new Date();
             const timeDifference = currentDate.getTime() - announcementDate.getTime();
             const twentyFourHours = 24 * 60 * 60 * 1000; // 24 hours in milliseconds

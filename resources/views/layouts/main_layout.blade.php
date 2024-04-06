@@ -56,7 +56,7 @@
                             <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
                                 alt="user-image" width="32" height="32"class="rounded-circle me-2">
                         @endif
-                        <span class="profile-name"><strong>{{ Session::get('user_name') }}</strong></span>
+                        <span class="profile-name"><strong>{{ Session::get('user_name') }} - {{ Session::get('org_name') }}</strong></span>
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                         {{-- <side-nav-button

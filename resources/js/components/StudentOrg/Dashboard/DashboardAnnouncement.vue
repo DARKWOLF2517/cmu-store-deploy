@@ -13,8 +13,9 @@
                 <p class="empty-schedule">Announcements show up here</p>
             </div>
             <div class="announcement-card-list">
-                <button :class="[isNewAnnouncement(announcement) ? 'announcement-card btn btn-secondary text-start' : 'announcement-card btn btn-light text-start']" style="width: 100%"
-    v-for="announcement in announcement" @click="openModal(announcement)">
+                <button v-for="announcement in announcement"
+                    :class="[isOpened(announcement.id) ? 'announcement-card btn btn-secondary text-start' : 'announcement-card btn btn-light text-start']"
+                    style="width: 100%" @click="openModal(announcement)">
                     <div>
                         <p class="d-flex align-items-center text-dark text-decoration-none mb-0" aria-expanded="false">
                             <img v-if="announcement.organization.image" :src="announcement.organization.image"
@@ -22,15 +23,19 @@
                             <img v-else src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
                                 alt="user-image" width="32" height="32" class="rounded-circle me-2 border" />
                             <span class="profile-name"><strong>{{
-        this.selectedAnnouncement.organization
-    }}</strong></span>
+                                this.selectedAnnouncement.organization
+                                    }}</strong></span>
                         </p>
                     </div>
                     <div>
                         <span class="Organization text-success"><b>{{ announcement.title }}</b></span>
                         <div class="d-flex justify-content-between">
-                            <span :class="{ 'fw-bold': isNewAnnouncement(announcement) }" class="date-time-uploaded date-time-posted "><i><small>{{ announcement.date }}</small></i></span>
-                            <span v-if="isNewAnnouncement(announcement)" class="bg-danger px-2 rounded new-announcement"><i><small class="text-white">New</small></i></span>
+                            <span :class="{ 'fw-bold': isOpened(announcement.id) }"
+                                class="date-time-uploaded date-time-posted "><i><small>{{ announcement.date
+                                        }}</small></i></span>
+                            <span v-if="isNewAnnouncement(announcement)"
+                                class="bg-danger px-2 rounded new-announcement"><i><small
+                                        class="text-white">New</small></i></span>
                         </div>
 
                     </div>
@@ -87,11 +92,14 @@ export default {
                 description: "",
                 image: "",
             },
+            studentOpenedAnnouncement: [],
 
         };
     },
     mounted() {
         this.fetchData();
+        this.fetchStudentOpenedAnnouncement();
+        console.log(this.student)
     },
     methods: {
         fetchData() {
@@ -147,13 +155,49 @@ export default {
                 document.getElementById("announcementModal")
             );
             modal.show();
+
+            //to add the student if it opens the announcemnt
+            axios.post(`/addStudentOpenedAnnouncement/${announcement.id}/${this.school_year_session}`)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    this.$refs.submitButton.disabled = false;
+
+                    console.log(error)
+
+                });
+
+            this.fetchStudentOpenedAnnouncement();
         },
         isNewAnnouncement(announcement) {
             // Check if the announcement is new based on the time frame
-            const announcementDate = new Date(announcement.date).getTime();
+            const announcementDate = new Date(announcement.created_at).getTime();
             const currentTime = new Date().getTime();
             return currentTime - announcementDate <= this.newAnnouncementTimeFrame;
         },
+        fetchStudentOpenedAnnouncement() {
+            axios
+                .get(
+                    `/get_student_opened_announcement/${this.school_year_session}`
+                )
+                .then((response) => {
+                    console.log(response.data)
+                    this.studentOpenedAnnouncement = response.data;
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        },
+        isOpened(id) {
+           
+            const foundItem = this.studentOpenedAnnouncement.find(item => item.announcement_id === id);
+
+            if (!foundItem) {
+                return true;
+            }
+
+        }
     },
 };
 </script>
