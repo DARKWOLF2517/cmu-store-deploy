@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/view_college', [UserController::class, 'viewCollege']);
     #MAIL ROUTES
     Route::post('/send_mail', [MailController::class,  'AttendanceCheck']);
-    Route::get('/get_evaluation_feedback/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
+    Route::get('/get_evaluation_feedback/{evaluation_id}/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
     Route::get('/events/show/{org_id?}/{school_year?}', [EventController::class, 'getEvents'])->name('get-events');
     Route::get('/get_school_year_default/{org_id}', [EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}', [EventController::class, 'getEventsAttendance']);
@@ -72,7 +72,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get_student_opened_announcement/{school_year}', [AnnouncementController::class, 'getStudentOpenedAnnouncement']);
     Route::post('/addStudentOpenedAnnouncement/{announcement_id}/{school_year}', [AnnouncementController::class, 'addStudentOpenedAnnouncement']);
     //EVALUATION FORM 
-    Route::post('/submit_evaluation/{user_id}/{event_id}/{feedback?}', [EvaluationController::class, 'store']);
+    Route::post('/submit_evaluation/{user_id}/{event_id}', [EvaluationController::class, 'store']);
+    Route::get('/event_evaluation_form/{event_id}/{org_id}', [EvaluationController::class, 'getEventEvaluationForm']);
+
 
     //get student org list
     Route::get('/usercards', function () {
@@ -202,13 +204,13 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete_attendance/{id}/{session}', [AttendanceController::class, 'deleteAttendance']);
 
         #EVALUATION ROUTES
-        Route::get('/evaluation_form_summary/{event}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
+        Route::get('/evaluation_form_summary/{event_id}/{evaluation_id}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');
         Route::get('/evaluation_form{event_id}', [EvaluationController::class, 'GetEvaluationResult'])->name('fetchEvaluation');
         Route::get('/evaluation_form_answer/{event_id}', [EvaluationController::class, 'EvaluationFormAnswer']);
         Route::get('/evaluation_form_total_response/{event_id}', [EvaluationController::class, 'EvaluationTotalResponse']);
         Route::get('/events/evaluation/{org_id}/{school_year?}', [EventController::class, 'getEvaluationList'])->name('get-evaluation');
         //new evaluation//
-        Route::get('/evaluation_answer/{event_id}', [EvaluationController::class, 'EvaluationAnswer']);
+        Route::get('/evaluation_answer/{evaluation_id}', [EvaluationController::class, 'EvaluationAnswer']);
         Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
         Route::get('/getEvaluationForm/{org_id}/{school_year}', [EvaluationController::class, 'getEvaluationForm']);
         Route::delete('/delete_evaluation_form/{evaluation_form_id}', [EvaluationController::class, 'deleteEvaluationForm']);
@@ -339,7 +341,7 @@ Route::middleware(['auth'])->group(function () {
             return view('student.student_evaluation_form');
         });
 
-        Route::get('/evaluation_form/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
+        Route::get('/evaluation_form/{event}', [EvaluationController::class, 'EvaluationForm'])->name('EvaluationForm');
         Route::get('/get_evaluation_question/{evaluation_form_id}', [EvaluationController::class, 'getEvaluationQuestion']);
         Route::get('/evaluation_form_summary/{event}/{evaluation_form}', [EvaluationController::class, 'EvaluationFormResult']);
         Route::get('/evaluation_form_result_student/{evaluation_form_id}/{event_id}', [EvaluationController::class, 'getEvaluationFormResultStudent']);

@@ -20,7 +20,7 @@
             </ol>
         </nav>
     </div>
-    <evaluation-result event_id={{ $id }}>
+    <evaluation-result event_id={{ $event_id }} evaluation_id={{ $evaluation_form_id }}>
     </evaluation-result>
 @endsection
 

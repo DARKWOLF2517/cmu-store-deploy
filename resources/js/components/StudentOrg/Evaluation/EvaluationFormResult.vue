@@ -141,7 +141,7 @@
         </div>
     </div>
     <div v-else class="mt-2" id="evaluation-summary">
-        <h5>Student Organizations Evaluation Form</h5>
+        <h5>{{ this.event_description.evalaution_form_title }}</h5>
         <hr />
         <p class="mb-0" for="Activity">
             Event: <b>{{ this.event_description.event_name }}</b>
@@ -170,7 +170,7 @@
             <div class="feedbacklist-card">
                 <ul class="list-group" id="evaluation-feedbacks">
                     <li class="list-group-item mb-2" v-for="feedbacks in this.feedback">
-                        {{ feedbacks.word_answer }}
+                        {{ feedbacks.feedback }}
                     </li>
                 </ul>
             </div>
@@ -185,7 +185,7 @@ import html2canvas from "html2canvas";
 
 import { convertDate } from "../Functions/DateConverter.js";
 export default {
-    props: ["event_id"],
+    props: ["event_id", "evaluation_id"],
     data() {
         return {
             loading: true,
@@ -198,13 +198,13 @@ export default {
                 date: "",
                 venue: "",
                 totalResponse: "",
+                evalaution_form_title: "",
             },
         };
     },
     mounted() {
         this.fetchEvent();
         this.fetchTotaResponse();
-        console.log("mounted");
         // this.pieChart();
         this.fetchAnswer();
         this.fetchFeedback();
@@ -214,7 +214,7 @@ export default {
             await axios
                 .get(`/getTotalResponse/${this.event_id}`)
                 .then((response) => {
-                    // console.log(response.data);
+                    console.log(response.data);
                     this.event_description.totalResponse = response.data;
                 })
                 .catch((error) => {
@@ -225,7 +225,7 @@ export default {
 
         fetchFeedback() {
             axios
-                .get(`/get_evaluation_feedback/${this.event_id}`)
+                .get(`/get_evaluation_feedback/${this.evaluation_id}/${this.event_id}`)
                 .then((response) => {
                     console.log(response.data);
                     this.feedback = response.data;
@@ -254,12 +254,14 @@ export default {
         fetchAnswer() {
             this.loading = true;
             axios
-                .get(`/evaluation_answer/${this.event_id}`)
+                .get(`/evaluation_answer/${this.evaluation_id}`)
                 .then((response) => {
                     this.loading = false;
                     console.log(response.data);
+
                     this.evaluation_result = response.data;
                     this.evaluation_result.forEach((evaluation) => {
+                        this.event_description.evalaution_form_title = evaluation.evaluation_title;
                         evaluation.evaluation_question.forEach((question) => {
                             this.evaluation_question_id.push({
                                 id: question.id,

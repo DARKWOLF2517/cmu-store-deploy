@@ -126,12 +126,13 @@
                                 <button class="btn btn-secondary text-dark" disabled>Close</button>
                             </div>
                             <div v-else-if="this.hasResponded(event['event_id'])">
-                                <button class="btn btn-success" :title="'View Response for ' + event['name']" @click="this.showEvaluationFormSummary(event.event_id, event.evaluation_form)">View
+                                <button class="btn btn-success" :title="'View Response for ' + event['name']"
+                                    @click="this.showEvaluationFormSummary(event.event_id, event.evaluation_form)">View
                                     Response</button>
                             </div>
                             <div v-else-if="event['evaluation_status'] == 1">
                                 <button class="btn btn-warning"
-                                    @click="this.showEvaluationForm(event.event_id, event.evaluation_form)">Evaluate</button>
+                                    @click="this.event_id = event.event_id, this.showEvaluationForm()">Evaluate</button>
                             </div>
 
                         </div>
@@ -141,7 +142,7 @@
                                 <button class="btn btn-secondary" disabled>Unavailable</button>
                             </div>
                             <button class="btn btn-warning"
-                                @click="this.showEvaluationForm(event.event_id, event.evaluation_form)"
+                                @click="this.event_id = event.event_id, this.showEvaluationForm()"
                                 v-else-if="event['evaluation_status'] == 1">Evaluate</button>
                         </div>
                     </div>
@@ -206,6 +207,8 @@ export default {
             events: [],
             user_answer_student_id: [],
             loading: true,
+            event_id: 0,
+            // event_evaluation_form: [],
 
         }
     },
@@ -217,6 +220,7 @@ export default {
     },
 
     methods: {
+
         hasResponded(eventId) {
             // Check if any element in user_answer_student_id has a matching event_id
 
@@ -259,9 +263,9 @@ export default {
                 });
 
         },
-        showEvaluationForm(event_id, evaluation_form_id) {
+        showEvaluationForm() {
 
-            window.location.href = `evaluation_form/${event_id}/${evaluation_form_id}`;
+            window.location.href = `evaluation_form/${this.event_id}`;
 
         },
         showEvaluationFormSummary(event_id, evaluation_form_id) {

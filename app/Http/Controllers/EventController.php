@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\EventEvaluation;
 use App\Models\EventExempted;
 use App\Models\EventExemptedAttendance;
 use App\Models\PaidAccountability;
@@ -33,7 +34,7 @@ class EventController extends Controller
                 ['role_id', 2],
                 ['school_year', Session::get('school_year')]
             ])
-            
+
             ->groupBy('student_org_id')
             ->get();
 
@@ -78,6 +79,8 @@ class EventController extends Controller
     }
     public function store(Request $request)
     {
+
+
         // Validate the form data
         $validatedData = $request->validate([
             'name' => 'required',
@@ -91,7 +94,7 @@ class EventController extends Controller
             'fines' => 'nullable',
             'org_id' => 'required|exists:organizations,org_id',
             'school_year_input' => 'required',
-            'evaluation_form' => 'required'
+            // 'evaluation_form' => 'required'
         ]);
 
         // Create a new Event instance
@@ -108,9 +111,15 @@ class EventController extends Controller
         $event->fines = $validatedData['fines'] ?? 0;
         $event->org_id = $validatedData['org_id'];
         $event->school_year = $validatedData['school_year_input'];
-        $event->evaluation_form = $validatedData['evaluation_form'];
+        // $event->evaluation_form = $validatedData['evaluation_form'];
         $event->save();
 
+        foreach ($request->evaluation_form as $evaluation) {
+            $evaluationform = new EventEvaluation();
+            $evaluationform->evaluation_form_id = $evaluation;
+            $evaluationform->event_id = $event->event_id;
+            $evaluationform->save();
+        }
         return response()->json(['message' => 'Event Created successfully']);
     }
     public function showEventDetails($event)
@@ -232,7 +241,7 @@ class EventController extends Controller
         return response()->json(['message' => 'Event Updated Successfully']);
     }
 
-    public function submitCancelAttendanceEvent($event_id, $school_year, $org_id,Request $request)
+    public function submitCancelAttendanceEvent($event_id, $school_year, $org_id, Request $request)
     {
         // $exemptedData = EventExemptedAttendance::where('event_id',$event_id)->get();
         $exemptedData = EventExemptedAttendance::where('event_id', $event_id)
@@ -257,7 +266,7 @@ class EventController extends Controller
                         'session' => $data,
                         'school_year' => $school_year,
                         'org_id' => $org_id,
-                        
+
                     ];
                 }
             }

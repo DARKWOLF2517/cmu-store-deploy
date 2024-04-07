@@ -26,13 +26,13 @@ return new class extends Migration
             $table->boolean('attendance_status')->default(0);
             $table->boolean('event_status')->default(0);
             $table->double('fines')->default(0);
-            
+
             $table->unsignedBigInteger('school_year');
             $table->unsignedBigInteger('org_id');
-            $table->unsignedBigInteger('evaluation_form');
+            // $table->unsignedBigInteger('evaluation_form');
             $table->foreign('school_year')->references('id')->on('school_year');
             $table->foreign('org_id')->references('org_id')->on('organizations');
-            $table->foreign('evaluation_form')->references('id')->on('evaluation_form');
+            // $table->foreign('evaluation_form')->references('id')->on('evaluation_form');
             $table->timestamps();
         });
     }
