@@ -29,7 +29,7 @@ class UserOrganization extends Model
     }
     public function user_profile()
     {
-        return $this->belongsTo(UserProfile::class, 'student_id','user_id');
+        return $this->belongsTo(UserProfile::class, 'student_id', 'user_id');
     }
 
     public function role()
@@ -48,6 +48,4 @@ class UserOrganization extends Model
     {
         return $this->belongsTo(SchoolYear::class, 'school_year', 'id');
     }
-
-    
 }

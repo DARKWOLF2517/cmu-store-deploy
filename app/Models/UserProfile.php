@@ -21,7 +21,7 @@ class UserProfile extends Model
         'email',
         'college_id',
         'image',
-        'year_level',
+        'year_level_id',
     ];
     public function college()
     {
@@ -29,6 +29,6 @@ class UserProfile extends Model
     }
     public function year_level()
     {
-        return $this->belongsTo(YearLevel::class, 'year_level');
+        return $this->belongsTo(YearLevel::class, 'year_level_id');
     }
 }

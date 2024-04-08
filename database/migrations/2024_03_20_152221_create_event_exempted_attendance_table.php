@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('event_id');
             $table->integer('session');
-            $table->timestamps();
             $table->unsignedBigInteger('school_year');
+            $table->unsignedBigInteger('org_id');
+
+            $table->timestamps();
 
             $table->foreign('event_id')->references('event_id')->on('events');
             $table->foreign('school_year')->references('id')->on('school_year');

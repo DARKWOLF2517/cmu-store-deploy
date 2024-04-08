@@ -84,7 +84,7 @@ class UserController extends Controller
                         'last_name' => $row[3],
                         'email' => $row[4],
                         'college_id' => $college_id,
-                        'year_level' => $year_level
+                        'year_level_id' => $year_level
                     ]
                 );
                 // Save the changes
@@ -157,7 +157,7 @@ class UserController extends Controller
                     'last_name' => $request->lastname,
                     'email' => $request->email,
                     'college_id' => $request->college_id,
-                    'year_level' => $request->year_level_id,
+                    'year_level_id' => $request->year_level_id,
                 ]
             );
             // Save the changes
