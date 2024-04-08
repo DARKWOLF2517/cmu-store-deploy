@@ -291,14 +291,21 @@
                                 <label for="exemptCheckbox"> Exempt Student?</label>
                             </div> -->
                             <button type="button" class="btn btn-success " @click="this.fullPayment">Full
-                                Amount</button>
+                                Payment</button>
                         </div>
 
                         <div class="mb-3">
-                            <p>Enter the amount you have received:</p>
+                            <p class="fw-bold">Amount to Receive</p>
                             <input type="number" class="form-control" v-model="this.paymentAmount" required step="any">
                         </div>
-
+                        <div class="mb-3">
+                        <p class="fw-bold">Cash</p>
+                        <input type="number" class="form-control"  v-model="cashAmount" @input="this.updateChange" required step="any">
+                    </div>
+                    <div class="mb-3">
+                        <p class="fw-bold">Change</p>
+                        <input type="number" class="form-control" v-model="changeAmount" disabled required step="any">
+                    </div>
                         <!-- <div>
                             <p>Remarks:</p>
                             <input type="input" class="form-control" >
@@ -380,7 +387,8 @@ export default {
             payment_list: [],
             isSubmitting: false,
             isConfirmationModalVisible: false,
-
+            cashAmount: null,
+            changeAmount: null,
 
         }
     },
@@ -489,6 +497,14 @@ export default {
             }
 
         },
+
+            updateChange() {
+                console.log(this.cashAmount);
+                console.log(this.paymentAmount);
+                // if (this.paymentAmount !== null && this.cashAmount !== null) {
+                    this.changeAmount = (this.cashAmount) - (this.paymentAmount);
+                // }
+            },
         //filter the zero balance
         filteredAmountByZero() {
             const filteredArray = this.temporary_list_summary.filter(item => item.amount !== 0);

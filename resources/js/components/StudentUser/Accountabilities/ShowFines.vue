@@ -237,7 +237,7 @@
                     </table>
                     </div>
                     <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary px-4" data-bs-toggle="modal" data-bs-target="#seeMoreAccountability">Back</button>
 
                 </div>
             </div>
@@ -260,7 +260,7 @@
                     </p>
                     </div>
                     <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary px-4" data-bs-toggle="modal" data-bs-target="#seeMoreAccountability">Close</button>
 
                 </div>
             </div>
