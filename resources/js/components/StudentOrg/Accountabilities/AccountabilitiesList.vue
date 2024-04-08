@@ -258,8 +258,8 @@
             </div> -->
     <!-- Receive PaymentModal -->
     <form @submit.prevent="checkPaymentAmount">
-        <div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div  class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
 
                 <div class="modal-content">
                     <div class="modal-header">
@@ -313,26 +313,29 @@
             </div>
         </div>
     </form>
-    <!-- Confirmation Modal -->
-    <div class="modal fade" id="ConfirmationModal" ref="myModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Are you sure you want to receive the payment?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                        @click.prevent="this.SubmitPayment()">Confirm</button>
-                </div>
-            </div>
+    <!-- Bootstrap Modal -->
+  <div class="modal fade" id="confirmationModal" tabindex="-1" style="z-index: 1060;  background-color: rgba(0, 0, 0, 0.7);  " aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hideConfirmationModal"></button>
         </div>
+        <div class="modal-body text-center">
+            <h4>
+                        <i class="fas fa-money-bill-wave-alt text-warning"></i>
+                    </h4>
+                    <h4><b>Confirm transaction</b></h4>
+
+         <p>Are you sure you want to receive payment?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelPayment">Cancel</button>
+          <button type="button" class="btn btn-success" @click="confirmPayment">Yes, I confirm</button>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -376,6 +379,7 @@ export default {
             selected_user_id: 0,
             payment_list: [],
             isSubmitting: false,
+            isConfirmationModalVisible: false,
 
 
         }
@@ -532,13 +536,38 @@ export default {
             const accountability = this.temporary_list_summary.find(item => item.label === this.accountability_type);
             const amount = accountability ? accountability.amount : null;
             if (amount < this.paymentAmount) {
-                this.showError('amount exceeded');
+                this.showError('Amount exceeded');
             }
             else {
-                this.SubmitPayment();
-
+                // this.SubmitPayment();
+                this.showConfirmationModal();
             }
         },
+        showConfirmationModal() {
+      // Show Bootstrap modal using native JavaScript
+      const modal = document.getElementById('confirmationModal');
+      modal.classList.add('show');
+      modal.style.display = 'block';
+      modal.setAttribute('aria-modal', true);
+    },
+    hideConfirmationModal() {
+      // Hide Bootstrap modal using native JavaScript
+      const modal = document.getElementById('confirmationModal');
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-modal', false);
+    },
+    confirmPayment() {
+      // Hide the modal
+      this.hideConfirmationModal();
+
+      // Proceed with payment submission
+      this.SubmitPayment();
+    },
+    cancelPayment() {
+      // Hide the modal
+      this.hideConfirmationModal();
+    },
         SubmitPayment() {
             // for adding payment database
             console.log(this.accountability_type)

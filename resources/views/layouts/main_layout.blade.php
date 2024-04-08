@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    
+
 
   <link rel="icon" href="{{ asset('assets/CSA_logo.png') }}">
     <meta charset="UTF-8">

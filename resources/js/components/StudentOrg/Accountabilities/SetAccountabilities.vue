@@ -4,7 +4,7 @@
 
             <div class="input-container">
                 <i class="fa fa-search"></i>
-                <input type="text" placeholder="Search Event" v-model="searchTerm" @input="filterItems">
+                <input type="text" placeholder="Search" v-model="searchTerm" @input="filterItems">
             </div>
         </div>
         <div class="col-md-6">

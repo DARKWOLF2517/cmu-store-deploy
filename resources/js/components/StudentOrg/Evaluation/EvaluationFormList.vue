@@ -32,6 +32,10 @@
                     <button  @click="this.submit = this.submitForm" class="btn btn-light me-2" id="add-event-button"
                         data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
                         Create form</button>
+                        <button class="btn btn-light me-2" id="copy-event-button" data-bs-toggle="modal"
+                        data-bs-target="#copy-modal">
+                        <i class="fas fa-copy"></i> Copy existing
+                    </button>
                 </div>
             </div>
             </div>
