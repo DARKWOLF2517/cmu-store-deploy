@@ -85,10 +85,10 @@ class AccountabilitiesController extends Controller
             'cancelled_attendance' => $cancelledAttendance,
         ]);
     }
-    public function updateEventAttendanceStatus($event_id, $status, $session)
+    public function updateEventAttendanceStatus($event_id, $status, Request $request)
     {
         $attendance = Event::find($event_id);
-        $attendance->update(['attendance_status' => $status, 'attendance_session_started' => $session]);
+        $attendance->update(['attendance_status' => $status, 'attendance_session_started' => $request->session, 'end_session_scheduled_attendance' => $request->end_session_scheduled_attendance]);
         return response()->json(['message' => 'Attendance Status Updated']);
     }
 

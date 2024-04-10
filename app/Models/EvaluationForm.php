@@ -19,10 +19,12 @@ class EvaluationForm extends Model
         'is_accept_feedback',
     ];
 
-    public function event_evaluation(){
-        return $this->hasMany(EventEvaluation::class,'evaluation_form_id');
+    public function event_evaluation()
+    {
+        return $this->hasMany(EventEvaluation::class, 'evaluation_form_id');
     }
-    public function evaluation_question(){
-        return $this->hasMany(EvaluationQuestion::class,'evaluation_form_id');
+    public function evaluation_question()
+    {
+        return $this->hasMany(EvaluationQuestion::class, 'evaluation_form_id');
     }
 }

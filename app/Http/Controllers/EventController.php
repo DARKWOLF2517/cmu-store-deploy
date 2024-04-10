@@ -49,7 +49,7 @@ class EventController extends Controller
 
             return $events->toJson();
         } else {
-            $events = Event::where([['org_id', $org_id], ['school_year', $school_year]])->with('organization')->orderByDesc('created_at')->get();
+            $events = Event::where([['org_id', $org_id], ['school_year', $school_year]])->with('organization', 'EventAttendanceChecker')->orderByDesc('created_at')->get();
             return $events->toJson();
         }
     }
@@ -80,41 +80,42 @@ class EventController extends Controller
     public function store(Request $request)
     {
 
-
+        // return $request->formData['org_id'];
         // Validate the form data
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'start_date' => 'required|date',
-            'start_attendance' => 'required',
-            'end_attendance' => 'required',
-            'location' => 'required',
-            'description' => 'required',
-            'require_attendance' => 'nullable|boolean',
-            'attendance_count' => 'nullable|integer',
-            'fines' => 'nullable',
-            'org_id' => 'required|exists:organizations,org_id',
-            'school_year_input' => 'required',
-            // 'evaluation_form' => 'required'
-        ]);
+        // $validatedData = $request->validate([
+        //     'formData.name' => 'required',
+        //     'formData.start_date' => 'required|date',
+        //     'formData.start_attendance' => 'required',
+        //     'formData.end_attendance' => 'required',
+        //     'formData.location' => 'required',
+        //     'formData.description' => 'required',
+        //     'formData.require_attendance' => 'nullable|boolean',
+        //     'formData.attendance_count' => 'nullable|integer',
+        //     'formData.fines' => 'nullable',
+        //     'formData.org_id' => 'required|exists:organizations,org_id',
+        //     'formData.school_year_input' => 'required',
+        //     'formData.require_evaluation' => 'nullable'
+        // ]);
+
 
         // Create a new Event instance
         $event = new Event();
-        $event->name = $validatedData['name'];
-        $event->start_date = $validatedData['start_date'];
-        $event->start_attendance = $validatedData['start_attendance'];
-        $event->end_attendance = $validatedData['end_attendance'];
-        $event->location = $validatedData['location'];
-        $event->description = $validatedData['description'];
-        $event->require_attendance = $validatedData['require_attendance'] ?? 0;
+        $event->name = $request->formData['name'];
+        $event->start_date = $request->formData['start_date'];
+        $event->start_attendance = $request->formData['start_attendance'];
+        $event->end_attendance = $request->formData['end_attendance'];
+        $event->location = $request->formData['location'];
+        $event->description = $request->formData['description'];
+        $event->require_attendance = $request->formData['require_attendance'] ?? 0;
         $event->attendance_status = 0;
-        $event->attendance_count = $validatedData['attendance_count'] ?? 1;
-        $event->fines = $validatedData['fines'] ?? 0;
-        $event->org_id = $validatedData['org_id'];
-        $event->school_year = $validatedData['school_year_input'];
-        // $event->evaluation_form = $validatedData['evaluation_form'];
+        $event->attendance_count = $request->formData['attendance_count'] ?? 1;
+        $event->fines = $request->formData['fines'] ?? 0;
+        $event->org_id = $request->formData['org_id'];
+        $event->school_year = $request->formData['school_year_input'];
+        $event->require_evaluation = $request->formData['require_evaluation'];
         $event->save();
 
-        foreach ($request->evaluation_form as $evaluation) {
+        foreach ($request->temporary_evaluation_form as $evaluation) {
             $evaluationform = new EventEvaluation();
             $evaluationform->evaluation_form_id = $evaluation;
             $evaluationform->event_id = $event->event_id;
@@ -125,23 +126,50 @@ class EventController extends Controller
     public function showEventDetails($event)
     {
         $events = Event::find($event);
-        return $events;
+        $event_evaluation = EventEvaluation::where('event_id', $event)->with('evaluation_form')->get();
+        // Return both $events and $event_evaluation
+        return [
+            'events' => $events,
+            'event_evaluation' => $event_evaluation,
+        ];
     }
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $event)
     {
-        $request->validate([
-            'name' => 'required',
-            'start_date' => 'required|date',
-            'start_attendance' => 'required',
-            'end_attendance' => 'required',
-            'location' => 'required',
-            'description' => 'required',
-            'require_attendance' => 'nullable|boolean',
-            'fines' => 'nullable',
-            'evaluation_form' => 'required'
+        // $request->formData->validate([
+        //     'name' => 'required',
+        //     'start_date' => 'required|date',
+        //     'start_attendance' => 'required',
+        //     'end_attendance' => 'required',
+        //     'location' => 'required',
+        //     'description' => 'required',
+        //     'require_attendance' => 'nullable|boolean',
+        //     'fines' => 'nullable',
+        //     'evaluation_form' => 'required'
+        // ]);
+        // return $request->temporary_evaluation_form;
+        Event::where('event_id', $event)->update([
+            'name' => $request->formData['name'],
+            'start_date' => $request->formData['start_date'],
+            'start_attendance' => $request->formData['start_attendance'],
+            'end_attendance' => $request->formData['end_attendance'],
+            'location' => $request->formData['location'],
+            'description' => $request->formData['description'],
+            'require_attendance' => $request->formData['require_attendance'],
+            'require_evaluation' => $request->formData['require_evaluation'],
+            'attendance_count' => $request->formData['attendance_count'],
+            'attendance_session_started' => $request->formData['attendance_session_started'],
+            'fines' => $request->formData['fines'],
         ]);
 
-        $event->update($request->all());
+        // // Assuming you have an Event model
+        EventEvaluation::where('event_id', $event)->delete();
+
+        foreach ($request->temporary_evaluation_form as $evaluation) {
+            $evaluationform = new EventEvaluation();
+            $evaluationform->evaluation_form_id = $evaluation;
+            $evaluationform->event_id = $event;
+            $evaluationform->save();
+        }
         return response()->json(['message' => 'Event ' . $request->name . ' Updated Successfully']);
     }
     public function destroy($event)

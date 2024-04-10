@@ -19,11 +19,12 @@ return new class extends Migration
             $table->time('end_attendance');
             $table->string('location');
             $table->longText('description');
-            $table->tinyInteger('require_attendance');
+            $table->tinyInteger('require_attendance')->default(0);
             $table->integer('attendance_count')->default(1);
             $table->integer('attendance_session_started')->default(0);
             $table->boolean('evaluation_status')->default(0);
             $table->boolean('attendance_status')->default(0);
+            $table->time('end_session_scheduled_attendance')->nullable();
             $table->boolean('event_status')->default(0);
             $table->double('fines')->default(0);
             $table->tinyInteger('require_evaluation');

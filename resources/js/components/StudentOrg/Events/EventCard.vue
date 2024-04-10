@@ -1115,7 +1115,7 @@
                                         border: 1px solid #ccc;
                                     ">
                                     <select id="sort-select" class="form-control" style="text-align: center"
-                                        v-model="session" required>
+                                        v-model="start_attendance.session" required>
                                         <option :value="0" disabled selected>
                                             Select Attendace Type
                                         </option>
@@ -1145,6 +1145,13 @@
                                         </option>
                                     </select>
                                 </div>
+                                <div>
+                                    <label class="mt-2">Schedule End Attendance:</label>
+                                    <input type="time" name="start_attendance" class="form-control"
+                                        id="event-start-time" v-model="start_attendance.end_session_scheduled_attendance
+                                            " required />
+                                </div>
+
                                 <!-- <div class="form-group">
                                                     <label for="attendanceType">Select Attendance Type:</label>
                                                     <select class="form-select " id="attendanceType" v-model="session">
@@ -1574,11 +1581,12 @@
                                     </div> -->
                                     <div class="mb-3">
                                         <input class="form-check-input" type="checkbox" name="require_evaluation"
-                                            id="require-evaluation" v-model="requireEvaluation" />
+                                            id="require-evaluation" v-model="formData.require_evaluation"
+                                            :true-value="1" :false-value="0" />
                                         <label for="require-evaluation" class="form-label" style="padding-left: 5px">Add
                                             Evaluation?</label>
                                     </div>
-                                    <div v-if="requireEvaluation" class="evaluation-content" style="
+                                    <div v-if="formData.require_evaluation == 1" class="evaluation-content" style="
                                             padding-left: 15px;
                                             padding-right: 15px;
                                         ">
@@ -1589,7 +1597,7 @@
                                                     placeholder="Search Form..." />
                                             </div> -->
                                             <select id="sort-select" class="form-control" style="text-align: center"
-                                                v-model="temporarySelectEvaluation" required>
+                                                v-model="temporarySelectEvaluation">
                                                 <option value="" disabled selected>
                                                     Select Evaluation form
                                                 </option>
@@ -1598,7 +1606,7 @@
                                                     {{ evaluation['evaluation_title'] }}
                                                 </option>
                                             </select>
-                                            <button @click="this.addTemporaryEvaluation" type="button"
+                                            <button @click="this.addTemporaryEvaluation()" type="button"
                                                 class="btn btn-primary">
                                                 <i class="fas fa-plus"></i>
                                             </button>
@@ -1706,11 +1714,12 @@ export default {
                 require_attendance: 0,
                 attendance_count: "",
                 fines: "",
-                org_id: "",
+                org_id: this.organization_id,
                 school_year_input: this.school_year_input,
-                evaluation_form: [],
+                require_evaluation: 0,
 
             },
+            temporary_evaluation_form: [],
             errors: {},
             school_year: [],
             school_year_input: this.school_year_session,
@@ -1722,7 +1731,11 @@ export default {
             year_level_exempted: [],
             year_level_fetch_update: [],
             attendance_count_start_attendance: 0,
-            session: 0,
+            start_attendance: {
+                session: 0,
+                end_session_scheduled_attendance: null,
+            },
+
             evaluation_form: [],
             isSubmitting: false,
             attendance_count_for_exempting_attendance: 0,
@@ -1738,8 +1751,11 @@ export default {
         this.fetchData();
         this.showSchoolYear();
         this.showYearLevelData();
+
     },
-    mounted() { },
+    mounted() {
+
+    },
     computed: {
         isAtLeastOneChecked() {
             return this.year_level_exempted.length > 0;
@@ -1763,32 +1779,32 @@ export default {
 
     methods: {
         removeEvaluationForm(id) {
+            console.log(this.termporaryEvaluationDisplay)
             //for the temporary view of the evaluation form
             const indexToRemove = this.termporaryEvaluationDisplay.findIndex(item => item.id === id);
             this.termporaryEvaluationDisplay.splice(indexToRemove, 1);
 
             //for the formdata
             const indexToRemove1 = this.termporaryEvaluationDisplay.findIndex(item => item.id === id);
-            this.formData.evaluation_form.splice(indexToRemove1, 1);
+            this.temporary_evaluation_form.splice(indexToRemove1, 1);
         },
         addTemporaryEvaluation() {
-
-            // Ensure formData.evaluation_form is initialized as an array if it's not already
-            if (!Array.isArray(this.formData.evaluation_form)) {
-                this.formData.evaluation_form = [];
-            }
-
             // Check if the value already exists in the array
-            if (!this.formData.evaluation_form.includes(this.temporarySelectEvaluation)) {
+            if (!this.temporary_evaluation_form.includes(this.temporarySelectEvaluation)) {
                 // Push the value into the array
-                this.formData.evaluation_form.push(this.temporarySelectEvaluation);
+                if (this.temporarySelectEvaluation != 0) {
+                    this.temporary_evaluation_form.push(this.temporarySelectEvaluation);
+                }
+
             }
 
             // Filter the evaluation_form array based on this.formData.evaluation_form
             this.termporaryEvaluationDisplay = this.evaluation_form.filter(item => {
                 // Check if the id number is included in this.formData.evaluation_form
-                return this.formData.evaluation_form.includes(item.id);
+                return this.temporary_evaluation_form.includes(item.id);
             });
+
+            console.log(this.temporary_evaluation_form)
         },
         getOrgCollege() {
             axios
@@ -1988,15 +2004,15 @@ export default {
                 alert("Please select School Year");
             } else {
                 axios
-                    .post("/events", this.formData)
+                    .post("/events", { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
                     .then((response) => {
                         this.showSucces(response.data.message);
-
-                        console.log(response.data)
+                        console.log(response.data);
                     })
                     .catch((error) => {
                         alert(error);
                     });
+
             }
         },
         fetchData() {
@@ -2009,6 +2025,7 @@ export default {
                     `/events/show/${this.organization_id}/${this.school_year_input}`
                 )
                 .then((response) => {
+                    console.log(response.data)
                     this.loading = false;
                     // document.getElementById("event-spinner").classList.add("hidden");
                     const data = response.data;
@@ -2034,12 +2051,27 @@ export default {
         },
 
         FetchUpdateData(id) {
-            console.log(id);
+            this.id = id;
+
             axios
                 .get(`show_event_details/${id}`)
                 .then((response) => {
-                    this.formData = response.data;
-                    this.id = id;
+                    let id = [];
+                    if (response.data.event_evaluation.length > 0) {
+                        console.log(response.data.event_evaluation.length)
+                        response.data.event_evaluation.forEach(element => {
+                            id.push(element.evaluation_form.id)
+                            // console.log(element.evaluation_form.id)
+                        });
+
+                        this.temporary_evaluation_form = id;
+                        console.log('this is the id' + this.temporary_evaluation_form)
+                        this.addTemporaryEvaluation();
+                    }
+
+                    // console.log(id)
+
+                    this.formData = response.data.events;
                     this.submit = this.UpdateData;
                 })
                 .catch((error) => { });
@@ -2047,9 +2079,10 @@ export default {
         UpdateData() {
             this.isSubmitting = true;
             axios
-                .put(`/events/${this.id}`, this.formData)
+                .put(`/events/${this.id}`, { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
                 .then((response) => {
                     this.submit = this.sendData;
+                    console.log(response.data)
                     this.showSucces(response.data.message);
                 })
                 .catch((error) => {
@@ -2080,12 +2113,13 @@ export default {
         },
 
         startAttendance() {
+            // console.log(this.start_attendance)
             if (this.session == 0 && this.status == 1) {
                 alert("Please input session");
             } else {
                 axios
                     .put(
-                        `/update_event_attendance_status/${this.id}/${this.status}/${this.session}`
+                        `/update_event_attendance_status/${this.id}/${this.status}`, this.start_attendance
                     )
                     .then((response) => {
                         this.isSubmitting = true;
@@ -2120,15 +2154,17 @@ export default {
             this.formData = {
                 name: "",
                 start_date: "",
-                end_date: "",
                 start_attendance: "",
                 end_attendance: "",
                 location: "",
                 description: "",
                 require_attendance: 0,
+                attendance_count: "",
+                fines: "",
                 org_id: this.organization_id,
                 school_year_input: this.school_year_input,
-                evaluation_form: "",
+                require_evaluation: 0,
+
             };
         },
     },

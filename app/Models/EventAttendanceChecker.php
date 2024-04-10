@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EventEvaluation extends Model
+class EventAttendanceChecker extends Model
 {
     use HasFactory;
-    protected $table = 'event_evaluation';
+    protected $table = 'event_attendance_checker';
     // protected $primaryKey = 'role_id';
 
     protected $fillable = [
-        'evaluation_form_id',
         'event_id',
+        'student_id',
     ];
-
-    public function evaluation_form()
-    {
-        return $this->belongsTo(EvaluationForm::class, 'evaluation_form_id');
-    }
 }

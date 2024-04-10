@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\Attendance as AttendanceMail;
+use App\Models\EventAttendanceChecker;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Mail;
+
+use function PHPUnit\Framework\returnSelf;
 
 class AttendanceController extends Controller
 {
@@ -153,4 +156,23 @@ class AttendanceController extends Controller
         $userOrg->delete();
         return response()->json(['message' => 'Attendance Deleted successfully']);
     }
+    public function uploadEventAttendanceChecker($event_id)
+    {
+        $student_id = Auth::id();
+
+        $student_attendance_checker = EventAttendanceChecker::where('student_id', $student_id)->count();
+
+        if ($student_attendance_checker == 0) {
+            $student = new EventAttendanceChecker();
+            $student->event_id = $event_id;
+            $student->student_id = $student_id;
+            $student->save();
+            return response()->json(['message' => 'Success']);
+        }
+    }
+    // public function attendanceCheckerCount($event_id)
+    // {
+    //     $student_attendance_checker = EventAttendanceChecker::where('event_id', $event_id)->count();
+    //     return $student_attendance_checker;
+    // }
 }

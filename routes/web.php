@@ -35,6 +35,7 @@ Route::post('/authenticate_user', [LoginController::class, 'authenticate'])->nam
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/login', [LoginController::class, 'checkAuth'])->name('login'); //important
 
+Route::get('/testroute', [LoginController::class, 'testroute']); //important
 
 //can access to all roles
 Route::middleware(['auth'])->group(function () {
@@ -59,6 +60,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/attendance_record/{organization_id}/{school_year}', [AttendanceController::class, 'attendanceRecord']);
     Route::get('/attendance/list/{organization_id}/{event_id}', [AttendanceController::class, 'AttendanceList']);
     Route::get('student_organization_attendance_record/{event_id}', [AttendanceController::class, 'events']);
+    Route::post('/upload_event_attendance_checker/{event_id}', [AttendanceController::class, 'uploadEventAttendanceChecker']);
+    // Route::get('attendance_checker_count/{event_id}', [AttendanceController::class, 'attendanceCheckerCount']);
     #dashboard
     Route::get('/view_org_total_members/{org_id}/{school_year}', [OrgProfileController::class, 'viewOrgTotalMembers']);
     Route::get('/events_count/{org_id}/{school_year}', [EventController::class, 'getEventsCount']);
@@ -237,7 +240,7 @@ Route::middleware(['auth'])->group(function () {
         #ACCOUNTABILITIES ROUTES
         Route::post('/set_accountabilities', [AccountabilitiesController::class, 'store']);
         Route::get('/fees_list/{org_id}/{school_year}', [AccountabilitiesController::class, 'AccountabilitiesListInAdmin']);
-        Route::put('/update_event_attendance_status/{event_id}/{status}/{session}', [AccountabilitiesController::class, 'updateEventAttendanceStatus']);
+        Route::put('/update_event_attendance_status/{event_id}/{status}', [AccountabilitiesController::class, 'updateEventAttendanceStatus']);
         Route::post('/OtherAccountabilityPayment', [AccountabilitiesController::class, 'OtherAccountabilityPayment']);
         Route::post('/FinesAccountabilityPayment/{school_year}/{amount}/{accountability_type}', [AccountabilitiesController::class, 'FinesAccountabilityPayment']);
         Route::post('/attendanceFill', [AccountabilitiesController::class, 'attendanceFill']);

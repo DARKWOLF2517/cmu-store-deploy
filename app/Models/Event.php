@@ -18,14 +18,17 @@ class Event extends Model
         'location',
         'description',
         'require_attendance',
+        'require_evaluation',
         'attendance_count',
         'attendance_session_started',
         'fines',
         'org_id',
         'evaluation_status',
         'attendance_status',
+        'end_session_scheduled_attendance',
         'event_status',
-        'school_year'
+        'school_year',
+
     ];
 
     public function organization()
@@ -39,5 +42,9 @@ class Event extends Model
     public function Attendance()
     {
         return $this->hasMany(Attendance::class, 'event_id', 'event_id');
+    }
+    public function EventAttendanceChecker()
+    {
+        return $this->hasMany(EventAttendanceChecker::class, 'event_id', 'event_id');
     }
 }

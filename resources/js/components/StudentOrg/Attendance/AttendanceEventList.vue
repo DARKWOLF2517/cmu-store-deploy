@@ -1,7 +1,7 @@
-<template>
+nn<template>
     <div class="schedule-list-container" id="schedule-list">
         <!-- Loading spinner -->
-        <div v-if="loading" style="padding: 10px;" >
+        <div v-if="loading" style="padding: 10px;">
             <div class="card mb-2" aria-hidden="true" style=" height: 150px; border:none; ">
                 <div class="card-body ">
                     <small class="card-text placeholder-glow ">
@@ -55,33 +55,31 @@
             <!-- <a class="btn btn-success" href="/student_organization_events">Go to Events</a> -->
         </div>
 
-        <div class="schedule-card " v-for="event in this.events" :id="event.event_id":class="[
-                                'border-top',
-                                'border-5',
-                                {
-                                    'border-secondary': event.event_status == 0,
-                                    'border-warning': event.event_status == 1,
-                                    'border-success': event.event_status == 2,
-                                },
-                                'border-bottom-0',
-                            ]"
-                             :title="
-                                event.event_status == 0
-                                    ? 'Event not started yet'
-                                    : event.event_status == 1
-                                    ? 'Event Ongoing'
-                                    : event.event_status == 2
-                                    ? 'Event Completed'
-                                    : ''
-                            "
-                        >
+        <div class="schedule-card " v-for="event in this.events" :id="event.event_id" :class="[
+            'border-top',
+            'border-5',
+            {
+                'border-secondary': event.event_status == 0,
+                'border-warning': event.event_status == 1,
+                'border-success': event.event_status == 2,
+            },
+            'border-bottom-0',
+        ]" :title="event.event_status == 0
+            ? 'Event not started yet'
+            : event.event_status == 1
+                ? 'Event Ongoing'
+                : event.event_status == 2
+                    ? 'Event Completed'
+                    : ''
+            ">
             <div class="card-body d-flex justify-content-between align-items-start">
                 <div>
                     <h5 class="mb-2"><b>{{ event["name"] }}</b></h5>
                     <p class="mt-2">Start Date: {{ event["start_date"] }}</p>
                     <p>Time starts at: {{ event["start_attendance"] }}</p>
                     <p class="text-muted">Number of Attendance: {{ event["attendance_count"] }}</p>
-                    <p class="text-muted fw-bold">Number of Attendance Checker: 0</p>
+                    <p class="text-muted fw-bold">Number of Attendance Checker: {{ event['event_attendance_checker'] }}
+                    </p>
                 </div>
                 <div class="mt-auto" v-if="event.attendance_status == 1">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation"
@@ -189,6 +187,16 @@ export default {
         console.log("mounted")
     },
     methods: {
+        // attendanceCheckerCount(event_id) {
+        //     axios.get(`/attendance_checker_count/${event_id}`)
+        //         .then(response => {
+        //             console.log(response.data)
+        //             return response.data;
+        //         })
+        //         .catch(error => {
+        //             console.log(error)
+        //         });
+        // },
         attendanceCount() {
             axios.get(`/attendance/count/${this.event_id}/${this.org_id}`)
                 .then(response => {
@@ -206,9 +214,11 @@ export default {
                     this.loading = false;
                     const data = response.data;
                     data.forEach(item => {
+
                         item["start_attendance"] = converTime(item["start_attendance"]);
                         item["end_attendance"] = converTime(item["end_attendance"]);
                         item["start_date"] = convertDate(item["start_date"]);
+                        item["event_attendance_checker"] = item.event_attendance_checker.length;
                     });
                     console.log(response.data);
                     this.events = response.data
@@ -220,7 +230,6 @@ export default {
         },
 
         startAttendance(event_id, org_id, session) {
-
             // if (event_id === null || org_id === null || session === null) {
             //     // console.error('Error: One or more parameters are null');
             //     if(session == null){
@@ -231,6 +240,13 @@ export default {
             // }
             // else{
             //      //query for qr scanner with event_id
+            axios.post(`/upload_event_attendance_checker/${this.event_id}`)
+                .then(response => {
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
             window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
             // }
 

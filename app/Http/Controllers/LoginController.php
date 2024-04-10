@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Organization;
 use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\Role;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserOrganization;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -413,5 +415,22 @@ class LoginController extends Controller
         } else {
             return view('layouts.login');
         }
+    }
+    public function testroute()
+    {
+        $events = Event::get();
+
+        // Compare user-inputted time with current time
+        $currentTime = Carbon::now()->format('H:i');
+
+        // foreach ($events as $event) {
+        //     // return $event->event_id;
+        //     if (Carbon::parse($event->end_session_scheduled_attendance)->format('H:i') == $currentTime) {
+        //         $event_id = Event::find($event->event_id);
+        //         $event_id->update([
+        //             'attendance_status' => 2,
+        //         ]);
+        //     }
+        // }
     }
 }
