@@ -42,7 +42,29 @@
         }
         .page-container{
     margin-top: 30px;
-    /* padding: 10px; */
+
+}
+.fa-search{
+    color: #42b385;
+}
+.select-dropdown{
+    border-radius: 10px;
+    margin-top: 10px;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+
+}
+.select-dropdown select {
+    width: 100%;
+    height: 80%;
+    padding: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    background-color: white;
 }
 
 .page-content-wrapper{
@@ -56,8 +78,8 @@
     padding: 15px;
 }
 .table-container {
-    max-height: 250px;
-    height: 250px;
+    max-height: 350px;
+    height: 350px;
     overflow-y: auto;
 }
 .btn{
@@ -84,6 +106,50 @@
     background-color: #e9eef3;
 }
 
+.input-container input {
+    padding-left: 30px;
+    width: 70%;
+    height: 90%;
+    border-radius: 10px;
+    border: none;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  }
+  .select-dropdown {
+    width: 50%;
+    margin-bottom: 10px;
+}
+.input-container {
+    position: relative;
+  }
+
+  .input-container i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .head-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .input-container input {
+    width: 100%;
+    height: 50px;
+}
+/* Arrow icon */
+.select-dropdown::after {
+    content: '\25BC';
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
 
       </style>
          @vite('resources/js/app.js', 'build')
@@ -95,6 +161,30 @@
                 <a href="#" class="nav-link link-light">
                     <span class="nav-link-text"> CMU-STORE-AMS</span>
                 </a>
+                <div>
+                    <a href="#" class="d-flex align-items-center link-light text-decoration-none dropdown-toggle"
+                        id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                        @if (Session::get('profile_picture'))
+                            <img src="{{ Session::get('profile_picture') }}" alt="user-image" width="32"
+                                height="32"class="rounded-circle me-2">
+                        @else
+                            <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                                alt="user-image" width="32" height="32"class="rounded-circle me-2">
+                        @endif
+                        <span class="profile-name"><strong>{{ Session::get('user_name') }} - Admin</strong></span>
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                        {{-- <side-nav-button
+                            link_name="Settings"
+                            link_route = "#"
+                            show_icon = "{{false}}"
+                            >
+                        </side-nav-button> --}}
+                        <side-nav-button link_name="Sign out" link_route = "{{ url('/logout') }}"
+                            show_icon = "{{ false }}">
+                        </side-nav-button>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="page-content-wapper">
