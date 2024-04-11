@@ -143,7 +143,7 @@ class AdminController extends Controller
             ]);
             $userProfile->save();
         }
-        $existingUserOrganization = UserOrganization::where([['student_id', $request['student_id']], ['school_year', $request['school_year']], ['student_org_id', $request['organization']], ['role_id', 1]])->get();
+        $existingUserOrganization = UserOrganization::where([['student_id', $request['student_id']], ['school_year', $request['school_year']], ['student_org_id', $request['organization']], ['role_id', 1]])->first();
         // return $existingUserOrganization;
         if ($existingUserOrganization > 0) {
             return response()->json(['message' => 'User Aready Existing in School Year', 'status' => 'error']);
@@ -192,11 +192,11 @@ class AdminController extends Controller
         $user_organization = UserOrganization::find($id);
         $user_organization->delete();
 
-        $user_profile = UserProfile::find($student_id);
-        $user_profile->delete();
+        // $user_profile = UserProfile::find($student_id);
+        // $user_profile->delete();
 
-        $user = User::find($student_id);
-        $user->delete();
+        // $user = User::find($student_id);
+        // $user->delete();
 
         return response()->json(['message' => 'Admin Deleted successfully']);
     }

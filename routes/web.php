@@ -42,11 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('qrscan', function () {
         return view('attendance_checker.qrscanner');
     });
-    // PROFILE
-    Route::get('student_organization_profile', function () {
-        return view('student_organization.student_organization_profile');
-    });
-    Route::get('/view_college', [UserController::class, 'viewCollege']);
+
     #MAIL ROUTES
     Route::post('/send_mail', [MailController::class,  'AttendanceCheck']);
     Route::get('/get_evaluation_feedback/{evaluation_id}/{event_id}', [EvaluationController::class, 'getEvaluationFeedback']);
@@ -54,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get_school_year_default/{org_id}', [EventController::class, 'getSchoolYearDefault']);
     Route::get('/events/attendance/{org_id}/{school_year}', [EventController::class, 'getEventsAttendance']);
     Route::get('/get_school_year', [EventController::class, 'getSchoolYear']);
-    #attendance
+    #ATTENDANCE
     Route::get('/attendance/count/{event_id}/{org_id}', [AttendanceController::class, 'AttendanceCount']);
     Route::post('/attendance', [AttendanceController::class, 'store'])->name('add-attendance');
     Route::get('/attendance_record/{organization_id}/{school_year}', [AttendanceController::class, 'attendanceRecord']);
@@ -63,11 +59,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/upload_event_attendance_checker/{event_id}', [AttendanceController::class, 'uploadEventAttendanceChecker']);
     Route::get('check_attendance_status/{event_id}', [AttendanceController::class, 'checkAttendanceStatus']);
     // Route::get('attendance_checker_count/{event_id}', [AttendanceController::class, 'attendanceCheckerCount']);
-    #dashboard
+    #DASHBOARD
     Route::get('/view_org_total_members/{org_id}/{school_year}', [OrgProfileController::class, 'viewOrgTotalMembers']);
     Route::get('/events_count/{org_id}/{school_year}', [EventController::class, 'getEventsCount']);
     Route::get('/total_paid_accountabilities/{organization_id}/{school_year}', [EventController::class, 'getCompleteEventsCount']);
-    //announcement tab
+    //ANNOUNCEMENT
     Route::get('/get_announcement/{org_id}/{school_year}', [AnnouncementController::class, 'getAnnouncement']);
     Route::post('/addAnnouncement/{org_id}/{school_year}', [AnnouncementController::class, 'addAnnouncement']);
     Route::get('/fetchEditAnnouncement/{id}', [AnnouncementController::class, 'fetchEditAnnouncement']);
@@ -79,6 +75,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/submit_evaluation/{user_id}/{event_id}', [EvaluationController::class, 'store']);
     Route::get('/event_evaluation_form/{event_id}/{org_id}', [EvaluationController::class, 'getEventEvaluationForm']);
 
+    //USER
+    Route::get('/student_list/show_name/{student_id}', [UserController::class, 'showforEdit']);
+    Route::get('student_organization_profile', function () {
+        return view('student_organization.student_organization_profile');
+    });
+    Route::get('/view_college', [UserController::class, 'viewCollege']);
 
     //get student org list
     Route::get('/usercards', function () {
@@ -195,7 +197,6 @@ Route::middleware(['auth'])->group(function () {
         #USER ROUTE
         Route::get('getMemberRoute/{org_id}', [UserController::class, 'GetMemberList'])->name('member-list');
         Route::get('/student_list/show/{org_id}/{school_year}', [UserController::class, 'showStudents']);
-        Route::get('/student_list/show_name/{student_id}', [UserController::class, 'showforEdit']);
         Route::put('/student_list/edit/commit/{student_id}', [UserController::class, 'UpdateData']);
         Route::post('/upload_students/{school_year}/{year_level}/{college_id}', [UserController::class, 'store']);
         Route::post('/upload_single_student/{school_year}', [UserController::class, 'addSingleStudent']);
