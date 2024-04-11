@@ -23,7 +23,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="school_year in this
-                                    .school_year_data">
+                                            .school_year_data">
                                             <td>{{ school_year.semester }}</td>
                                             <td>
                                                 {{ school_year.school_year }}
@@ -31,19 +31,19 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button @click="
-                                (this.id =
-                                    school_year.id),
-                                    (this.submit =
-                                        this.updateSchoolYearData),
-                                    this.fetchEditSchoolYearData()
-                                    " data-bs-toggle="modal" data-bs-target="#addSchoolYearModal"
+                                                    (this.id =
+                                                        school_year.id),
+                                                        (this.submit =
+                                                            this.updateSchoolYearData),
+                                                        this.fetchEditSchoolYearData()
+                                                        " data-bs-toggle="modal" data-bs-target="#addSchoolYearModal"
                                                         class="btn btn-warning text-light">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button @click="
-                                    this.id =
-                                    school_year.id
-                                    " class="btn btn-danger text-light" data-bs-toggle="modal"
+                                                        this.id =
+                                                        school_year.id
+                                                        " class="btn btn-danger text-light" data-bs-toggle="modal"
                                                         data-bs-target="#deleteSYConfirmation">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
@@ -81,11 +81,11 @@
                                     <td>
                                         <div class="btn-group" role="group" v-if="college.id != 11">
                                             <button @click="
-                                    (this.id = college.id),
-                                    (this.submit =
-                                        this.updateCollege),
-                                    this.fetchEditCollege()
-                                    " data-bs-toggle="modal" data-bs-target="#addCollegeModal"
+                                                (this.id = college.id),
+                                                (this.submit =
+                                                    this.updateCollege),
+                                                this.fetchEditCollege()
+                                                " data-bs-toggle="modal" data-bs-target="#addCollegeModal"
                                                 class="btn btn-warning text-light">
                                                 <i class="fas fa-edit"></i>
                                             </button>
@@ -127,7 +127,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="organization in this
-                                    .organization_data">
+                                            .organization_data">
                                             <td>{{ organization.name }}</td>
                                             <td>
                                                 {{ organization.description }}
@@ -135,9 +135,9 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button @click="
-                                    this.submit =
-                                    this.updateOrganization, this.id = organization.org_id, this.fetchEditOrganiztion()
-                                    " data-bs-toggle="modal" data-bs-target="#addOrganizationModal"
+                                                        this.submit =
+                                                        this.updateOrganization, this.id = organization.org_id, this.fetchEditOrganiztion()
+                                                        " data-bs-toggle="modal" data-bs-target="#addOrganizationModal"
                                                         class="btn btn-warning text-light">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
@@ -220,80 +220,80 @@
         </div>
     </div>
     <div class="row p-2">
- <div class="col">
-                <div class="card border-0 p-2" style="height: 500px; max-height: 500px; overflow: auto;">
-                    <div class="d-flex justify-content-between">
-                        <h4><i class="far fa-copy"></i> Users</h4>
-                    </div>
-                    <div class="d-flex ">
-                        <div class="row head-container justify-content-start">
-                            <div class="col-md-6">
-                                <div class="input-container border rounded">
-                                    <i class="fa fa-search"></i>
-                                    <input type="text" placeholder="Search User" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="select-dropdown border" style="width: 70%;">
-                                    <select id="sort-select" class="form-control" style="text-align: center"
-                                        v-model="school_year_input" @change="fetchData">
-                                        <option value="0" disabled selected>
-                                            Select Semester
-                                        </option>
-                                        <option v-for="school_year in this
-                                            .school_year" :value="school_year['id']">
-                                            {{ school_year["semester"] }}
-                                            {{ school_year["school_year"] }}
-                                        </option>
-                                    </select>
-                                </div>
+        <div class="col">
+            <div class="card border-0 p-2" style="height: 500px; max-height: 500px; overflow: auto;">
+                <div class="d-flex justify-content-between">
+                    <h4><i class="far fa-copy"></i> Users</h4>
+                </div>
+                <div class="d-flex ">
+                    <div class="row head-container justify-content-start">
+                        <div class="col-md-6">
+                            <div class="input-container border rounded">
+                                <i class="fa fa-search"></i>
+                                <input type="text" placeholder="Search User" />
                             </div>
                         </div>
-                        <div class="d-flex gap-2 align-items-center mb-3">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                                <i class="fas fa-plus"></i> Add User
-                            </button>
-                            <button id="uploadButton" class="btn btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#excelDataModal">
-                                <i class="fas fa-file-upload"></i> Upload List
-                            </button>
-                            <input type="file" id="fileInput" accept=".xls,.xlsx" style="display: none" />
+                        <div class="col-md-4">
+                            <div class="select-dropdown border" style="width: 70%;">
+                                <select id="sort-select" class="form-control" style="text-align: center"
+                                    v-model="school_year_input" @change="fetchData">
+                                    <option value="0" disabled selected>
+                                        Select Semester
+                                    </option>
+                                    <option v-for="school_year in this
+                                        .school_year_data" :value="school_year['id']">
+                                        {{ school_year["semester"] }}
+                                        {{ school_year["school_year"] }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <th>Student ID</th>
-                                <th>Full name</th>
-                                <th>Year Level</th>
-                                <th>Organization</th>
-                                <th>College</th>
-                                <th>Actions</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold">74565423</td>
-                                    <td>dhdhjvbdbhhf</td>
-                                    <td>2nd Year</td>
-                                    <td>CSCo</td>
-                                    <td>CISC</td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-warning text-light">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-danger text-light">
-                                                <i class="fas fa-trash" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteUserConfirmation"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="d-flex gap-2 align-items-center mb-3">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="fas fa-plus"></i> Add User
+                        </button>
+                        <button id="uploadButton" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#excelDataModal">
+                            <i class="fas fa-file-upload"></i> Upload List
+                        </button>
+                        <input type="file" id="fileInput" accept=".xls,.xlsx" style="display: none" />
                     </div>
                 </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <th>Student ID</th>
+                            <th>Full name</th>
+                            <th>Year Level</th>
+                            <th>Organization</th>
+                            <th>College</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">74565423</td>
+                                <td>dhdhjvbdbhhf</td>
+                                <td>2nd Year</td>
+                                <td>CSCo</td>
+                                <td>CISC</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-warning text-light">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger text-light">
+                                            <i class="fas fa-trash" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserConfirmation"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
     </div>
     <!-- Upload list Modal -->
     <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
@@ -753,7 +753,8 @@ export default {
                 organization: '',
                 // role: '',
                 school_year: '',
-            }
+            },
+
         };
     },
     mounted() {
@@ -837,7 +838,7 @@ export default {
             axios
                 .get(`/view_college`)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.college_data = response.data;
                 })
                 .catch((error) => {
@@ -894,7 +895,7 @@ export default {
             axios
                 .get(`/get_organization`)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.organization_data = response.data;
                 })
                 .catch((error) => {
@@ -961,13 +962,13 @@ export default {
             axios
                 .post("/add_organization_admin", this.admins_input)
                 .then((response) => {
-                    // console.log(response.status)
-                    if (response.data.status == 'error') {
-                        this.showError(response.data.message);
-                    }
-                    else {
-                        this.showSucces(response.data.message);
-                    }
+                    console.log(response.data)
+                    // if (response.data.status == 'error') {
+                    //     this.showError(response.data.message);
+                    // }
+                    // else {
+                    //     this.showSucces(response.data.message);
+                    // }
 
                 })
                 .catch((error) => {

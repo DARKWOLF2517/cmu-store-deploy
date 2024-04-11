@@ -61,7 +61,7 @@ export default {
         profileClicked(id) {
             axios.get(`/profile_clicked/${id}`)
                 .then(response => {
-                    // console.log(response.data);
+                    console.log(response.data);
                     // userOrgs.value = response.data;
                     if (response.data == 1) {
 
@@ -126,7 +126,7 @@ export default {
 
 
 
-                
+
                 const filteredData = response.data.filter(item => item.role.role_id === 1 || item.role.role_id == 3);
 
                 userOrgs.value = filteredData;

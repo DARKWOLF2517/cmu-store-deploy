@@ -69,6 +69,7 @@ class LoginController extends Controller
                         session(['role' =>  $userOrganizations->role_id]);
                         session(['user_name' =>  $userOrganizations->user_profile->first_name]);
                         session(['profile_picture' =>  $userOrganizations->user_profile->image]);
+                        session(['user_school_year' =>  $userOrganizations->school_year]);
                         // session(['college_id' =>  $userOrganizations->college_id]);
                         // return $userOrganization->school_year;
                         if (Auth::user()->is_password_change == 0) {
@@ -91,6 +92,7 @@ class LoginController extends Controller
                             session(['role' =>  $orgName->role_id]);
                             session(['user_name' =>  $orgName->user_profile->first_name]);
                             session(['profile_picture' =>  $orgName->user_profile->image]);
+                            session(['user_school_year' =>  $orgName->school_year]);
                             if (Auth::user()->is_password_change == 0) {
                                 return 'changepassword';
                             } else {
@@ -104,6 +106,7 @@ class LoginController extends Controller
                             session(['role' =>  $orgName->role_id]);
                             session(['user_name' =>  $orgName->user_profile->first_name]);
                             session(['profile_picture' =>  $orgName->user_profile->image]);
+                            session(['user_school_year' =>  $orgName->school_year]);
 
                             if (Auth::user()->is_password_change == 0) {
                                 return 'changepassword';
@@ -140,6 +143,7 @@ class LoginController extends Controller
                             session(['role' =>  $userOrganizations->role_id]);
                             session(['user_name' =>  $userOrganizations->user_profile->first_name]);
                             session(['profile_picture' =>  $userOrganizations->user_profile->image]);
+                            session(['user_school_year' =>  $userOrganizations->school_year]);
                             // session(['college_id' =>  $userOrganizations->college_id]);
                             // return $userOrganization->school_year;
                             if (Auth::user()->is_password_change == 0) {
@@ -161,6 +165,7 @@ class LoginController extends Controller
                             session(['role' =>  $userOrganizations->role_id]);
                             session(['user_name' =>  $userOrganizations->user_profile->first_name]);
                             session(['profile_picture' =>  $userOrganizations->user_profile->image]);
+                            session(['user_school_year' =>  $userOrganizations->school_year]);
                             // session(['college_id' =>  $userOrganizations->college_id]);
                             // return $userOrganization->school_year;
                             if (Auth::user()->is_password_change == 0) {
@@ -182,6 +187,7 @@ class LoginController extends Controller
                             session(['role' =>  $userOrganizations->role_id]);
                             session(['user_name' =>  $userOrganizations->user_profile->first_name]);
                             session(['profile_picture' =>  $userOrganizations->user_profile->image]);
+                            session(['user_school_year' =>  $userOrganizations->school_year]);
                             // session(['college_id' =>  $userOrganizations->college_id]);
                             // return $userOrganization->school_year;
 
@@ -213,6 +219,7 @@ class LoginController extends Controller
                     session(['role' =>  $userOrganization->role_id]);
                     session(['user_name' =>  $userOrganization->user_profile->first_name]);
                     session(['profile_picture' =>  $userOrganization->user_profile->image]);
+                    session(['user_school_year' =>  $userOrganization->school_year]);
                     // session(['college_id' =>  $userOrganization->college_id]);
                     //tells when there is only one user
                     session(['many_user' =>  'false']);
@@ -327,6 +334,7 @@ class LoginController extends Controller
         session(['role' =>  $userOrganization->role_id]);
         session(['user_name' =>  $userOrganization->user_profile->first_name]);
         session(['profile_picture' =>  $userOrganization->user_profile->image]);
+        session(['user_school_year' =>  $userOrganization->school_year]);
         // session(['college_id' =>  $userOrganization->college_id]);
         // return $userOrganization->school_year;
         return $userOrganization->role_id;
