@@ -1624,8 +1624,7 @@
                                                     <td>{{ evaluation.evaluation_title }}</td>
                                                     <td style="width: 20%">
                                                         <div class="d-flex gap-2">
-                                                            <button type="button" class="btn btn-secondary">
-                                                                <i class="fas fa-eye"></i>
+                                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#previewModal">                                                                <i class="fas fa-eye"></i>
                                                             </button>
                                                             <button @click="this.removeEvaluationForm(evaluation.id)"
                                                                 type="button" class="btn btn-danger">
@@ -1686,6 +1685,50 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- View Evaluation Form Modal -->
+     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="exampleModalLabel">View Evaluation Form</h5> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+                    <div class="mb-3">
+                        <h3 for="formTitle" class="form-label">Evalution name: </h3>
+                    </div>
+                    <div>
+                        <label for="formDescription">Description:</label>
+                        <p style="padding-left: 10px;"> lorem</p>
+                    </div>
+                    <div class="mb-3">
+                        <h5 for="question1" class="form-label fw-bold">Question 1</h5>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="question1"  readonly>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <div id="choicesContainer1" class="mt-2">
+                                <h5 for="choices1 fw-bold">Choices</h5>
+                                <div style="margin-left: 20px; margin-top: 10px">
+  <p class="lh-1" > <b> 1- Negatively disagree</b>  &nbsp; </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback mb-3">
+                        <label for="feedback">Accept Feedback?</label>
+                        <small>Yes</small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#event-modal">Close</button>
                 </div>
             </div>
         </div>

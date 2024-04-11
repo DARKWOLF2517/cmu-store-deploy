@@ -245,7 +245,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" v-else
                             @click="this.clearData">Close</button>
 
-                        <button type="submit" class="btn btn-success">Save Form</button>
+                        <button type="submit" class="btn btn-success" :disabled="isSubmitting">Save Form</button>
                     </div>
                 </form>
             </div>
@@ -349,6 +349,7 @@ export default {
             filteredEvaluationForm: [],
             filteredEvaluationFormForModal: [],
             searchTerm: '',
+            isSubmitting: false,
         }
     },
     mounted() {
@@ -397,6 +398,7 @@ export default {
             this.questions[questionIndex].choices.splice(choiceIndex, 1);
         },
         submitForm() {
+            this.isSubmitting = true;
             axios.post('/upload_evaluation_form', {
                 title: this.formTitle,
                 description: this.formDescription,
