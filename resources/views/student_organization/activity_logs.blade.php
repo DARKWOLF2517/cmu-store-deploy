@@ -19,7 +19,7 @@
         </nav>
     </div>
     <div class="mt-2">
-        <div class="row head-container">
+        <div class="row">
             <show-logs
                 :school_year_session={{ Session::get('school_year') }} />
         </div>
