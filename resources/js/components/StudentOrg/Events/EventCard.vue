@@ -395,12 +395,12 @@
                                                     },
                                                     'border-bottom-0',
                                                 ]" :title="event.event_status === 0
-                                                    ? 'New Event'
-                                                    : event.event_status ===
-                                                        1
-                                                        ? 'Ongoing Event'
-                                                        : 'Completed Event'
-                                                    ">
+                                                                ? 'New Event'
+                                                                : event.event_status ===
+                                                                    1
+                                                                    ? 'Ongoing Event'
+                                                                    : 'Completed Event'
+                                                                ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -523,7 +523,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -595,12 +595,12 @@
                                                     },
                                                     'border-bottom-0',
                                                 ]" :title="event.event_status === 0
-                                                    ? 'New Event'
-                                                    : event.event_status ===
-                                                        1
-                                                        ? 'Ongoing Event'
-                                                        : 'Completed Event'
-                                                    ">
+                                                                ? 'New Event'
+                                                                : event.event_status ===
+                                                                    1
+                                                                    ? 'Ongoing Event'
+                                                                    : 'Completed Event'
+                                                                ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -733,7 +733,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -805,12 +805,12 @@
                                                     },
                                                     'border-bottom-0',
                                                 ]" :title="event.event_status === 0
-                                                    ? 'New Event'
-                                                    : event.event_status ===
-                                                        1
-                                                        ? 'Ongoing Event'
-                                                        : 'Completed Event'
-                                                    ">
+                                                                ? 'New Event'
+                                                                : event.event_status ===
+                                                                    1
+                                                                    ? 'Ongoing Event'
+                                                                    : 'Completed Event'
+                                                                ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -933,7 +933,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1207,7 +1207,8 @@
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input mr-2" :value="index"
                                             v-model="attendanceCancelled" />
-                                        <label class="form-check-label fw-bold">Attendance Log {{ index }}</label>
+                                        <label class="form-check-label fw-bold">Attendance Log {{ index
+                                            }}</label>
                                     </div>
                                 </div>
 
@@ -1303,7 +1304,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                        }}</strong>
+                                    }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1495,13 +1496,15 @@
                                             </div> -->
                                     <div class="row g-3">
                                         <div class="col-md-6">
-                                            <label for="event-start-time" class="form-label">Start Event Time</label>
+                                            <label for="event-start-time" class="form-label">Start Event
+                                                Time</label>
                                             <input type="time" name="start_attendance" class="form-control"
                                                 id="event-start-time" v-model="formData.start_attendance
                                                     " required />
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="event-end-time" class="form-label">End Event Time</label>
+                                            <label for="event-end-time" class="form-label">End Event
+                                                Time</label>
                                             <input type="time" name="end_attendance" class="form-control"
                                                 id="event-end-time" v-model="formData.end_attendance
                                                     " required />
@@ -1649,7 +1652,8 @@
                                     ">
                                         <div class="row g-3">
                                             <div class="col-md-6">
-                                                <label for="event-attendance" class="form-label">Number of Attendance
+                                                <label for="event-attendance" class="form-label">Number of
+                                                    Attendance
                                                     Log</label>
                                                 <select name="attendance_count" class="form-select"
                                                     id="event-attendance" v-model="formData.attendance_count
@@ -1661,7 +1665,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="fines" class="form-label">Fines Per Attendance</label>
+                                                <label for="fines" class="form-label">Fines Per
+                                                    Attendance</label>
                                                 <input type="number" name="fines" class="form-control" id="fines"
                                                     v-model="formData.fines" required />
                                             </div>
@@ -1864,7 +1869,7 @@ export default {
                     console.log(response.data);
                     this.showSucces(response.data.message);
 
-                    this.fetchData();
+                    // this.fetchData();
                 })
                 .catch((error) => {
                     alert("Error", error);
@@ -2113,10 +2118,21 @@ export default {
         },
 
         startAttendance() {
-            // console.log(this.start_attendance)
-            if (this.session == 0 && this.status == 1) {
-                alert("Please input session");
-            } else {
+            //get the current time
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+
+            const currentTime = `${hours}:${minutes}`;
+
+            if (this.start_attendance.session == 0 && this.status == 1 || this.start_attendance.end_session_scheduled_attendance == null && this.status == 1) {
+                this.showError('Please Input Details')
+            }
+            else if (this.start_attendance.end_session_scheduled_attendance <= currentTime) {
+                this.showError('End Attendance Time Scheduled is Earlier than Current Time')
+            }
+            else {
                 axios
                     .put(
                         `/update_event_attendance_status/${this.id}/${this.status}`, this.start_attendance
@@ -2126,7 +2142,7 @@ export default {
                         console.log(response.data);
                         this.showSucces(response.data.message);
 
-                        this.fetchData();
+                        // this.fetchData();
                     })
                     .catch((error) => {
                         alert("Error", error);
@@ -2144,7 +2160,7 @@ export default {
             };
         },
         showError(message) {
-            this.fetchData();
+            // this.fetchData();
             toast.error(message),
             {
                 autoClose: 100,

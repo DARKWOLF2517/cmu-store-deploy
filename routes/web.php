@@ -61,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/attendance/list/{organization_id}/{event_id}', [AttendanceController::class, 'AttendanceList']);
     Route::get('student_organization_attendance_record/{event_id}', [AttendanceController::class, 'events']);
     Route::post('/upload_event_attendance_checker/{event_id}', [AttendanceController::class, 'uploadEventAttendanceChecker']);
+    Route::get('check_attendance_status/{event_id}', [AttendanceController::class, 'checkAttendanceStatus']);
     // Route::get('attendance_checker_count/{event_id}', [AttendanceController::class, 'attendanceCheckerCount']);
     #dashboard
     Route::get('/view_org_total_members/{org_id}/{school_year}', [OrgProfileController::class, 'viewOrgTotalMembers']);

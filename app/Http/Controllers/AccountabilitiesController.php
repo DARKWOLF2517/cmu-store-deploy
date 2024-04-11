@@ -88,8 +88,13 @@ class AccountabilitiesController extends Controller
     public function updateEventAttendanceStatus($event_id, $status, Request $request)
     {
         $attendance = Event::find($event_id);
-        $attendance->update(['attendance_status' => $status, 'attendance_session_started' => $request->session, 'end_session_scheduled_attendance' => $request->end_session_scheduled_attendance]);
-        return response()->json(['message' => 'Attendance Status Updated']);
+        if ($request->end_session_scheduled_attendance != null) {
+            $attendance->update(['attendance_status' => $status, 'attendance_session_started' => $request->session, 'end_session_scheduled_attendance' => $request->end_session_scheduled_attendance]);
+            return response()->json(['message' => 'Attendance Status Updated']);
+        } else {
+            $attendance->update(['attendance_status' => $status, 'attendance_session_started' => $request->session]);
+            return response()->json(['message' => 'Attendance Status Updated']);
+        }
     }
 
     public function OtherAccountabilityPayment(Request $request)

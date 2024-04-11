@@ -33,7 +33,7 @@
                             <tbody>
                                 <tr v-for="attendances in this.attendance" :id="attendances.user_id">
                                     <td> {{ attendances.user_profile.first_name }} {{
-                attendances.user_profile.last_name }}</td>
+                                        attendances.user_profile.last_name }}</td>
                                     <td>
                                         {{ attendances.time }}
                                     </td>
@@ -55,6 +55,8 @@ import { QrcodeStream } from 'vue-qrcode-reader'
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
 import { converTime } from "../Functions/TimeConverter.js";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 export default {
     components: { QrcodeStream },
     props: ['event_id', 'org_id', 'session'],
@@ -77,10 +79,23 @@ export default {
         alert('asdfasdf')
     },
     mounted() {
+        this.checkAttendanceStatus();
         this.startQrReading();
         this.fetchData();
     },
     methods: {
+        checkAttendanceStatus() {
+            axios.get(`/check_attendance_status/${this.event_id}`)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data == 2) {
+                        window.location.href = '/'
+                    }
+                })
+                .catch(error => {
+
+                });
+        },
         startQrReading() {
             this.scanner = new Html5QrcodeScanner('reader', {
                 // Scanner will be initialized in DOM inside element with id of 'reader'
@@ -134,7 +149,13 @@ export default {
             axios.post("/attendance", this.formData)
                 .then(response => {
                     console.log(response.data)
-                    alert(response.data.message)
+                    if (response.data.result == 'success') {
+                        this.showSucces(response.data.message);
+                    }
+                    else {
+                        this.showError(response.data.message);
+                    }
+
                     if (response.data.result != 'failure') {
                         axios.post("/send_mail", this.formData)
                             .then(response => {
@@ -145,7 +166,10 @@ export default {
                                 alert(error)
                             });
                     }
-                    this.scanner.resume();
+                    setTimeout(() => {
+                        this.scanner.resume();
+                    }, 1000);
+
                     this.fetchData();
                     this.formData.user_id = '';
                 })
@@ -154,7 +178,7 @@ export default {
                 });
 
 
-        }
+        },
 
         // async submitForm() {
         //     this.scanner.pause();
@@ -173,7 +197,18 @@ export default {
         //         alert(error);
         //     }
         // }
-
+        showSucces(message) {
+            toast.success(message),
+            {
+                autoClose: 100,
+            };
+        },
+        showError(message) {
+            toast.error(message),
+            {
+                autoClose: 100,
+            };
+        },
     }
 
 }

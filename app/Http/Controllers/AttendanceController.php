@@ -160,7 +160,7 @@ class AttendanceController extends Controller
     {
         $student_id = Auth::id();
 
-        $student_attendance_checker = EventAttendanceChecker::where('student_id', $student_id)->count();
+        $student_attendance_checker = EventAttendanceChecker::where([['student_id', $student_id], ['event_id', $event_id]])->count();
 
         if ($student_attendance_checker == 0) {
             $student = new EventAttendanceChecker();
@@ -169,6 +169,11 @@ class AttendanceController extends Controller
             $student->save();
             return response()->json(['message' => 'Success']);
         }
+    }
+    public function checkAttendanceStatus($event_id)
+    {
+        $attendanceStatus = Event::where('event_id', $event_id)->first();
+        return $attendanceStatus->attendance_status;
     }
     // public function attendanceCheckerCount($event_id)
     // {
