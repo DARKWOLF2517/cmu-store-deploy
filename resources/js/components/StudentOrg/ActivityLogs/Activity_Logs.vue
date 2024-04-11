@@ -4,7 +4,7 @@
 </h4>
 <div class="container">
     <div class="col" style="background-color: white; padding: 10px;">
-        <div class="row head-container justify-content-start">
+        <div class="row head-container d-flex justify-content-start">
                             <div class="col-md-6">
                                 <div class="input-container border rounded">
                                     <i class="fas fa-search"></i>
@@ -21,6 +21,19 @@
                                         <option>Event</option>
                                         <option>Announcement</option>
                                         <option>Accountabilties</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="select-dropdown border" style="width: 70%;">
+                                    <select id="sort-select" class="form-control" style="text-align: center"
+                                        >
+                                        <option value="0" disabled selected>
+                                            By Actions
+                                        </option>
+                                        <option>Created</option>
+                                        <option>Updated</option>
+                                        <option>Deleted</option>
                                     </select>
                                 </div>
                             </div>
