@@ -13,8 +13,8 @@
                         v-model="school_year_input" @change="fetchEvaluationForms">
                         <option value="" disabled selected>Select Semester</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                        school_year['semester'] }} {{
-                        school_year['school_year'] }}
+                            school_year['semester'] }} {{
+                                school_year['school_year'] }}
                         </option>
                     </select>
                 </div>
@@ -25,19 +25,19 @@
         <div class="align-items-center">
             <div class="row d-flex justify-content-between">
                 <div class="col-md-8">
-  <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
+                    <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
                 </div>
                 <div class="col event-buttons d-flex justify-content-end">
-                <div class="btn-group" role="group">
-                    <button  @click="this.submit = this.submitForm" class="btn btn-light me-2" id="add-event-button"
-                        data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
-                        Create form</button>
+                    <div class="btn-group" role="group">
+                        <button @click="this.submit = this.submitForm" class="btn btn-light me-2" id="add-event-button"
+                            data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
+                            Create form</button>
                         <button class="btn btn-light me-2" id="copy-event-button" data-bs-toggle="modal"
-                        data-bs-target="#copy-modal">
-                        <i class="fas fa-copy"></i> Copy existing
-                    </button>
+                            data-bs-target="#copy-modal">
+                            <i class="fas fa-copy"></i> Copy existing
+                        </button>
+                    </div>
                 </div>
-            </div>
             </div>
 
 
@@ -45,7 +45,7 @@
     </div>
     <div id="evaluation-container">
         <!-- Loading spinner -->
-        <div v-if="loading" >
+        <div v-if="loading">
             <div class="d-flex flex-column flex-md-row gap-4 p-2">
                 <div class="card loading-card col-lg-4 col-md-6" aria-hidden="true"
                     style="width: calc(33.33% - 30px); height: 200px; border:none;">
@@ -157,7 +157,7 @@
                 </div>
                 <button class="btn btn-success view-button" data-bs-toggle="modal"
                     data-bs-target="#evaluation-form-modal" @click="this.viewEvaluationModal(evaluation.id)">
-                    <i class="fas fa-eye"></i>  View</button>
+                    <i class="fas fa-eye"></i> View</button>
                 <!-- <button class="view-button"> <i class="fas fa-chevron-right button-icon"></i></button> -->
             </div>
         </div>
@@ -182,9 +182,8 @@
                         <div class="mb-3">
                             <label for="formTitle" class="form-label">Title of the Evaluation Form</label>
                             <input type="text" class="form-control" id="formTitle" v-model="formTitle" required
-                                maxlength="50"
-                                :style="{ borderColor: formTitle.length >= 50 ? 'red' : '' }">
-                                <p v-if="formTitle.length >= 50" style="color: red;">Maximum length
+                                maxlength="50" :style="{ borderColor: formTitle.length >= 50 ? 'red' : '' }">
+                            <p v-if="formTitle.length >= 50" style="color: red;">Maximum length
                                 reached</p>
                         </div>
                         <div class="mb-3">
@@ -192,7 +191,7 @@
                             <textarea class="form-control" id="formDescription" rows="3" v-model="formDescription"
                                 required maxlength="500"
                                 :style="{ borderColor: formDescription.length >= 500 ? 'red' : '' }"></textarea>
-                                <p v-if="formDescription.length >= 500" style="color: red;">Maximum length
+                            <p v-if="formDescription.length >= 500" style="color: red;">Maximum length
                                 reached</p>
                         </div>
                         <div class="d-flex justify-content-end mb-3">
@@ -206,8 +205,8 @@
                                     }}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" :id="'question' + (questionindex + 1)"
-                                        :ref="'question' + (questionindex + 1)" v-model="question.text"
-                                        required maxlength="200">
+                                        :ref="'question' + (questionindex + 1)" v-model="question.text" required
+                                        maxlength="200">
                                     <button class="btn btn-danger remove-question" type="button"
                                         @click="removeQuestion(questionindex)">X</button>
 
@@ -222,8 +221,8 @@
                                         <label for="choice" class="form-label fw-bold">Choice {{ index + 1 }}</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" :id="'choice' + (index + 1)"
-                                                :ref="'choice' + (index + 1)" v-model="choice.text"
-                                                required maxlength="200">
+                                                :ref="'choice' + (index + 1)" v-model="choice.text" required
+                                                maxlength="200">
                                             <button class="btn btn-danger remove-question" type="button"
                                                 @click="removeChoice(questionindex, index)">X</button>
                                         </div>
@@ -273,13 +272,14 @@
                         <h5 for="question1" class="form-label fw-bold">Question {{ index + 1 }}</h5>
                         <div class="input-group">
                             <input type="text" class="form-control" id="question1" :value="question.description"
-                              disabled  readonly>
+                                disabled readonly>
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
                                 <h5 for="choices1 fw-bold">Choices</h5>
                                 <div style="margin-left: 20px; margin-top: 10px">
-  <p class="lh-1"  v-for="(choices, index) in question.evaluation_option"> <b> {{ choices.option }}</b>  &nbsp; </p>
+                                    <p class="lh-1" v-for="(choices, index) in question.evaluation_option"> <b> {{
+                                        choices.option }}</b> &nbsp; </p>
                                 </div>
 
                             </div>
@@ -287,7 +287,8 @@
                     </div>
                     <div class="feedback mb-3">
                         <label for="feedback">Accept Feedback?</label>
-                        <small>Yes</small>
+                        <small v-if="evaluation.is_accept_feedback == 0">No </small>
+                        <small v-else>Yes</small>
                     </div>
                 </div>
                 <div class="modal-footer">

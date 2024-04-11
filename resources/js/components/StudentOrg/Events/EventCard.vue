@@ -523,7 +523,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -733,7 +733,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -933,7 +933,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1304,7 +1304,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                        }}</strong>
+                                    }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1841,8 +1841,9 @@ export default {
             axios
                 .get(`show_event_details/${this.id}`)
                 .then((response) => {
+                    console.log(response.data.events)
                     this.attendance_count_for_exempting_attendance =
-                        response.data.attendance_count;
+                        response.data.events.attendance_count;
                     console.log(this.attendance_count_for_exempting_attendance);
                 })
                 .catch((error) => {
