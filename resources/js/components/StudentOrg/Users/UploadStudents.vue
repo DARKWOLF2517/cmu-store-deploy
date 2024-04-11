@@ -840,65 +840,11 @@ export default {
                     excelDataModal.show();
 
 
-                    // var myModal = new bootstrap.Modal(document.getElementById('excelDataModal'));
-                    // myModal.show();
 
                 };
 
                 reader.readAsArrayBuffer(file);
             }
-
-
-
-            // // Function to handle the "Delete" button click
-            // document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
-            //     if (e.target && e.target.classList.contains("delete-button")) {
-            //         const row = e.target.closest("tr");
-            //         if (confirm("Are you sure you want to delete this student?")) {
-            //             // If the user confirms the deletion, remove the row from the table
-            //             row.remove();
-            //         }
-            //     }
-            // });
-
-            // // Function to handle the "Edit" button click
-            // document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
-            //     if (e.target && e.target.classList.contains("edit-button")) {
-            //         const row = e.target.closest("tr");
-            //         const cells = row.querySelectorAll("td");
-
-            //         // Disable the Edit button
-            //         e.target.disabled = true;
-
-            //         // Enable editing of the student details
-            //         for (let i = 0; i < cells.length - 1; i++) {
-            //             const cellContent = cells[i].textContent;
-            //             const input = document.createElement("input");
-            //             input.value = cellContent;
-            //             cells[i].textContent = "";
-            //             cells[i].appendChild(input);
-            //         }
-
-            //         // Create a Save button
-            //         const saveButton = document.createElement("button");
-            //         saveButton.textContent = "Save";
-            //         saveButton.classList.add("btn", "btn-success");
-            //         row.querySelector(".edit-button").insertAdjacentElement("beforebegin", saveButton);
-
-            //         // Handle saving changes
-            //         saveButton.addEventListener("click", function () {
-            //             // Update the table with the edited details
-            //             for (let i = 0; i < cells.length - 1; i++) {
-            //                 const input = cells[i].querySelector("input");
-            //                 cells[i].textContent = input.value;
-            //             }
-
-            //             // Remove the Save button and re-enable the Edit button
-            //             saveButton.remove();
-            //             e.target.disabled = false;
-            //         });
-            //     }
-            // });
         },
         showSucces(message) {
             setTimeout(() => {
