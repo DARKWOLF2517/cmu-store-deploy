@@ -395,12 +395,12 @@
                                                     },
                                                     'border-bottom-0',
                                                 ]" :title="event.event_status === 0
-                                                                ? 'New Event'
-                                                                : event.event_status ===
-                                                                    1
-                                                                    ? 'Ongoing Event'
-                                                                    : 'Completed Event'
-                                                                ">
+                                                    ? 'New Event'
+                                                    : event.event_status ===
+                                                        1
+                                                        ? 'Ongoing Event'
+                                                        : 'Completed Event'
+                                                    ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -523,7 +523,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -595,12 +595,12 @@
                                                     },
                                                     'border-bottom-0',
                                                 ]" :title="event.event_status === 0
-                                                                ? 'New Event'
-                                                                : event.event_status ===
-                                                                    1
-                                                                    ? 'Ongoing Event'
-                                                                    : 'Completed Event'
-                                                                ">
+                                                    ? 'New Event'
+                                                    : event.event_status ===
+                                                        1
+                                                        ? 'Ongoing Event'
+                                                        : 'Completed Event'
+                                                    ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -733,7 +733,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -805,12 +805,12 @@
                                                     },
                                                     'border-bottom-0',
                                                 ]" :title="event.event_status === 0
-                                                                ? 'New Event'
-                                                                : event.event_status ===
-                                                                    1
-                                                                    ? 'Ongoing Event'
-                                                                    : 'Completed Event'
-                                                                ">
+                                                    ? 'New Event'
+                                                    : event.event_status ===
+                                                        1
+                                                        ? 'Ongoing Event'
+                                                        : 'Completed Event'
+                                                    ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
                                                     <div class="dropdown">
@@ -933,7 +933,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1304,7 +1304,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                    }}</strong>
+                                        }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1969,7 +1969,8 @@ export default {
             axios
                 .get(`show_event_details/${event}`)
                 .then((response) => {
-                    const data = response.data;
+                    console.log(response.data)
+                    const data = response.data.events;
                     // data.forEach(item => {
                     data["start_attendance"] = converTime(
                         data["start_attendance"]
@@ -1978,7 +1979,7 @@ export default {
                     data["start_date"] = convertDate(data["start_date"]);
                     // });
                     console.log(data);
-                    this.showEvent = response.data;
+                    this.showEvent = data;
                 })
                 .catch((error) => { });
         },
