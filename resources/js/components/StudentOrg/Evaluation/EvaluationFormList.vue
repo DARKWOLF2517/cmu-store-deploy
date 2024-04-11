@@ -287,7 +287,7 @@
                     </div>
                     <div class="feedback mb-3">
                         <label for="feedback">Accept Feedback?</label>
-                        <small>Yes</small>
+                        <small></small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -318,6 +318,79 @@
             </div>
         </div>
     </div>
+     <!-- Copy Event modal -->
+     <div class="modal fade" id="copy-modal" tabindex="-1" role="dialog"
+                    aria-labelledby="evaluation-details-modal-label" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="evaluation-details-modal-label">
+                                    Copy an Existing Evaluation Form
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body"  >
+                                <label for="select-dropdown">
+                                    Select Semester to copy Evaluation form/s from
+                                </label>
+                                <div class="select-dropdown border" style="width: 70%">
+                                    <select id="sort-select" class="form-control" style="text-align: center"
+                                        v-model="school_year_input" @change="fetchData">
+                                        <option value="0" disabled selected>
+                                            Select Semester
+                                        </option>
+                                        <option v-for="school_year in this
+                                            .school_year" :value="school_year['id']">
+                                            {{ school_year["semester"] }}
+                                            {{ school_year["school_year"] }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-success">
+                                        Select All
+                                    </button>
+                                </div>
+                                <h5 class="text-center">
+                                    Select Evaluation form/s you want to copy
+                                </h5>
+                                <div class="row" style="
+                                        background-color: #f3f7fb;
+                                        overflow-y: auto;
+                                        max-height: 40vh;
+                                    ">
+                                    <div class="col mt-2">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox" />
+                                            <div class="event-card border-top border-5 border-success"
+                                                style="width: 18rem; height: auto;">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        Evaluation Name
+                                                    </h5>
+                                                    <p class="mb-0">Total Questions:</p>
+                                                    <p class="mb-0">
+                                                        Date Created
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                                    Copy Form
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 </template>
 
 <script>
