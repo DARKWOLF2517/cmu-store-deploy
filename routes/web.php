@@ -75,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/delete_announcement/{id}', [AnnouncementController::class, 'deleteAnnouncement']);
     Route::get('/get_student_opened_announcement/{school_year}', [AnnouncementController::class, 'getStudentOpenedAnnouncement']);
     Route::post('/addStudentOpenedAnnouncement/{announcement_id}/{school_year}', [AnnouncementController::class, 'addStudentOpenedAnnouncement']);
-    //EVALUATION FORM 
+    //EVALUATION FORM
     Route::post('/submit_evaluation/{user_id}/{event_id}', [EvaluationController::class, 'store']);
     Route::get('/event_evaluation_form/{event_id}/{org_id}', [EvaluationController::class, 'getEventEvaluationForm']);
 
@@ -129,7 +129,9 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('student_organization_attendance_record/{event_id}', function () {
         //     return view('student_organization.student_organization_attendance_record');
         // });
-
+        Route::get('student_organization_activity_logs', function () {
+            return view('student_organization.activity_logs');
+        });
 
         Route::get('student_organization_attendance', function () {
             return view('student_organization.student_organization_attendance');
@@ -330,7 +332,7 @@ Route::middleware(['auth'])->group(function () {
         //get evaluation form title
         Route::get('/evaluation_form_title/{event_id}', [EvaluationController::class, 'EvaluationResultTitle']);
 
-        //STUDENT PROFILE 
+        //STUDENT PROFILE
         Route::get('organization/{org_id}', [UserController::class, 'getUserOrganization']);
         Route::post('uploadProfilePictureForStudent/{user_id}', [UserController::class, 'uploadProfilePictureForStudent']);
         Route::put('updateEmail/{email}', [UserController::class, 'updateEmail']);

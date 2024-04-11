@@ -353,7 +353,7 @@
                                     <button
                                         class="btn btn-toggle  btn-outline-light align-items-center studentlist-button">
                                         <i class="	fas fa-list-alt"></i>
-                                        <a href="/student_organization_member_list">
+                                        <a href="/student_organization_activity_logs">
                                             <span class="link-title">Activity Logs</span>
                                         </a>
                                     </button>

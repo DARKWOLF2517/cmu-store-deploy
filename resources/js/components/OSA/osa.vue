@@ -296,7 +296,8 @@
             </div>
     </div>
     <!-- Upload list Modal -->
-    <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
+
+    <!-- <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -317,15 +318,84 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-primary" id="uploadExcelButton">
+                    <button type="button" class="btn btn-primary" id="uploadExcelButton" data-bs-toggle="modal" data-bs-target="#excelDataModal">
                         Upload
                     </button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- MODALS -->
+ <!-- Modal for displaying Excel data before Uploading -->
+ <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="excelDataModalLabel">Excel Student List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form @submit.prevent="this.uploadData()">
+                    <div class="modal-body"
+                        style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
+                        <div class="text-center">
+                            <h5 class="fw-bold"> Enter Student ID</h5>
+                            <small>Submit an Excel file containing only student ID numbers.</small>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <label for="select-dropdown"> Select Year Level</label>
+                            <div class="select-dropdown border ">
+                                <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
+                                    v-model="year_level_data_input" required>
+                                    <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
+                        year_level.year_level }}</option>
+                                </select>
+                            </div>
 
+                        </div>
+                        <div class="d-flex justify-content-between">
+
+                            <label for="select-dropdown">
+                            Select College
+                        </label>
+
+                        <div class="select-dropdown border">
+                            <select id="sort-select" class="form-control" style="text-align: center;"
+                                v-model="college_data_input_for_insert">
+                                <option value="0" disabled selected>Select College</option>
+                                <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}
+                                </option>
+                            </select>
+                        </div>
+                        </div>
+
+
+
+                        <br>
+                        <table class="table" id="tableModal">
+                            <thead>
+                                <tr>
+                                    <th>Student ID Number</th>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Year Level or Classification</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modalStudentTableBody">
+                                <!-- Excel data will be displayed here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" id="uploadToTableButton"
+                            :disabled="isSubmitting">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <!-- Add school year Modal -->
     <div class="modal fade" id="addSchoolYearModal" tabindex="-1" aria-labelledby="addSchoolYearModalLabel"
         aria-hidden="true">
@@ -761,8 +831,194 @@ export default {
         this.fetchCollege();
         this.fetchOrganization();
         this.fetchOrganizationAdmins();
+        this.upload();
     },
     methods: {
+        uploadData() {
+
+// if (this.college_data_input == 0 || this.year_level_data_input == 0){
+//     alert('Please Choose Year Level and  College')
+// }
+// else{
+this.isSubmitting = true;
+const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
+// excelDataModal.show();
+excelDataModal.hide();
+
+// Get a reference to the table
+var table = document.getElementById("tableModal");
+// Initialize an empty array to store the data
+var data = [];
+
+// Iterate through the table rows and cells
+for (var i = 1; i < table.rows.length; i++) {
+    var row = table.rows[i];
+    var rowData = [];
+
+    for (var j = 0; j < row.cells.length; j++) {
+        var cell = row.cells[j];
+        var cellContent = cell.textContent.trim(); // Trim to remove leading/trailing whitespaces
+
+        // Check if the cell is not empty before pushing it into the rowData array
+        if (cellContent !== "") {
+            rowData.push(cellContent);
+        }
+    }
+
+    // Check if the rowData array is not empty before pushing it into the data array
+    if (rowData.length > 0) {
+        data.push(rowData);
+    }
+}
+
+
+// if (data[0].length == 1) {
+this.collectedData = data;
+
+// Display the extracted data in the console
+this.loading = true;
+axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
+    .then(response => {
+        console.log(response.data)
+        this.loading = false;
+        this.isSubmitting = false;
+        if (response.data.type == 0) {
+            this.showError('Error File');
+        }
+        else {
+            this.showSucces(response.data.message);
+            // this.fetchData();
+        }
+
+    })
+    .catch(error => {
+        console.log(error)
+    });
+// }
+// else {
+//     this.showError('excel incorrect format');
+// }
+// }
+
+
+
+},
+upload() {
+document.getElementById("uploadButton").addEventListener("click", function () {
+    document.getElementById("fileInput").click();
+});
+
+document.getElementById("fileInput").addEventListener("change", function (e) {
+    const file = e.target.files[0];
+    if (file) {
+        parseExcelData(file);
+    }
+});
+
+// Function to parse the uploaded Excel file and display it in the modal
+async function parseExcelData(file) {
+    const workbook = new ExcelJS.Workbook();
+    const reader = new FileReader();
+
+    reader.onload = async function (e) {
+        const buffer = e.target.result;
+        await workbook.xlsx.load(buffer);
+        const worksheet = workbook.getWorksheet(1); // Assuming data is in the first worksheet
+
+        // Clear the existing table content
+        const tableBody = document.getElementById("modalStudentTableBody");
+        tableBody.innerHTML = "";
+
+        // Populate the table with student data, excluding the first row
+        let isHeaderRow = true;
+        worksheet.eachRow({ includeEmpty: true }, function (row) {
+            if (isHeaderRow) {
+                isHeaderRow = false; // Skip the first row (header row)
+                return;
+            }
+
+            const newRow = document.createElement("tr");
+
+            row.eachCell({ includeEmpty: true }, function (cell) {
+                let cellValue = cell.text;
+                if (cell.hyperlink && cell.hyperlink.address) {
+                    // If the cell contains a hyperlink, use the hyperlink's address as the cell value
+                    cellValue = cell.hyperlink.address;
+                }
+
+                const newCell = document.createElement("td");
+                newCell.textContent = cellValue || ""; // Use an empty string if cellValue is falsy
+                newRow.appendChild(newCell);
+            });
+
+            tableBody.appendChild(newRow);
+        });
+
+        // Show the modal
+        const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"), { keyboard: false });
+        excelDataModal.show();
+
+
+        // var myModal = new bootstrap.Modal(document.getElementById('excelDataModal'));
+        // myModal.show();
+
+    };
+
+    reader.readAsArrayBuffer(file);
+}
+
+
+
+// // Function to handle the "Delete" button click
+// document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
+//     if (e.target && e.target.classList.contains("delete-button")) {
+//         const row = e.target.closest("tr");
+//         if (confirm("Are you sure you want to delete this student?")) {
+//             // If the user confirms the deletion, remove the row from the table
+//             row.remove();
+//         }
+//     }
+// });
+
+// // Function to handle the "Edit" button click
+// document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
+//     if (e.target && e.target.classList.contains("edit-button")) {
+//         const row = e.target.closest("tr");
+//         const cells = row.querySelectorAll("td");
+
+//         // Disable the Edit button
+//         e.target.disabled = true;
+
+//         // Enable editing of the student details
+//         for (let i = 0; i < cells.length - 1; i++) {
+//             const cellContent = cells[i].textContent;
+//             const input = document.createElement("input");
+//             input.value = cellContent;
+//             cells[i].textContent = "";
+//             cells[i].appendChild(input);
+//         }
+
+//         // Create a Save button
+//         const saveButton = document.createElement("button");
+//         saveButton.textContent = "Save";
+//         saveButton.classList.add("btn", "btn-success");
+//         row.querySelector(".edit-button").insertAdjacentElement("beforebegin", saveButton);
+
+//         // Handle saving changes
+//         saveButton.addEventListener("click", function () {
+//             // Update the table with the edited details
+//             for (let i = 0; i < cells.length - 1; i++) {
+//                 const input = cells[i].querySelector("input");
+//                 cells[i].textContent = input.value;
+//             }
+
+//             // Remove the Save button and re-enable the Edit button
+//             saveButton.remove();
+//             e.target.disabled = false;
+//         });
+//     }
+// });
+},
         showSucces(message) {
             // this.fetchData();
             setTimeout(() => {

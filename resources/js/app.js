@@ -35,6 +35,7 @@ import { createApp } from 'vue';
     import OrgProfile from './components/StudentOrg/Profile/OrgProfile.vue';
     import AnnouncementDashboard from './components/StudentOrg/Dashboard/DashboardAnnouncement.vue';
     import EvaluationResult from './components/StudentOrg/Evaluation/EvaluationFormResult.vue';
+    import Activity_Logs from './components/StudentOrg/ActivityLogs/Activity_Logs.vue';
 
 // student module
     import StudentAttendance from './components/StudentUser/Attendance/StudentAttendance.vue';
@@ -44,6 +45,7 @@ import { createApp } from 'vue';
     import EvaluationForm from './components/StudentUser/Evaluation/EvaluationForm.vue';
     import EvaluationFormViewSummary from './components/StudentUser/Evaluation/EvaluationFormViewSummary.vue';
     import ShowFines from './components/StudentUser/Accountabilities/ShowFines.vue';
+
 
 const app = createApp({});
 //OSA
@@ -81,6 +83,7 @@ const app = createApp({});
     app.component('org-profile', OrgProfile);
     app.component('announcement-dashboard', AnnouncementDashboard);
     app.component('evaluation-result', EvaluationResult);
+    app.component('show-logs', Activity_Logs);
 
 // student module
     app.component ('student-attendance',StudentAttendance);
