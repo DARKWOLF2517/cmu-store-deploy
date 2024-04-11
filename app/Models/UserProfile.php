@@ -31,4 +31,8 @@ class UserProfile extends Model
     {
         return $this->belongsTo(YearLevel::class, 'year_level_id');
     }
+    public function user_organization()
+    {
+        return $this->belongsTo(UserOrganization::class, 'user_id', 'student_id');
+    }
 }

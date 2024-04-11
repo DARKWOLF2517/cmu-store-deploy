@@ -237,6 +237,7 @@ class UserController extends Controller
             $student_list = UserProfile::where('first_name', $student_id)
                 ->orWhere('user_id', $student_id)
                 ->orWhere('last_name', $student_id)
+                ->with('user_organization')
                 ->first();
 
 

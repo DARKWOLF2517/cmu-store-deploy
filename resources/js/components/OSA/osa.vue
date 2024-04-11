@@ -23,7 +23,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="school_year in this
-                                    .school_year_data">
+                                            .school_year_data">
                                             <td>{{ school_year.semester }}</td>
                                             <td>
                                                 {{ school_year.school_year }}
@@ -31,19 +31,19 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button @click="
-                                (this.id =
-                                    school_year.id),
-                                    (this.submit =
-                                        this.updateSchoolYearData),
-                                    this.fetchEditSchoolYearData()
-                                    " data-bs-toggle="modal" data-bs-target="#addSchoolYearModal"
+                                                    (this.id =
+                                                        school_year.id),
+                                                        (this.submit =
+                                                            this.updateSchoolYearData),
+                                                        this.fetchEditSchoolYearData()
+                                                        " data-bs-toggle="modal" data-bs-target="#addSchoolYearModal"
                                                         class="btn btn-warning text-light">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                     <button @click="
-                                    this.id =
-                                    school_year.id
-                                    " class="btn btn-danger text-light" data-bs-toggle="modal"
+                                                        this.id =
+                                                        school_year.id
+                                                        " class="btn btn-danger text-light" data-bs-toggle="modal"
                                                         data-bs-target="#deleteSYConfirmation">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
@@ -81,11 +81,11 @@
                                     <td>
                                         <div class="btn-group" role="group" v-if="college.id != 11">
                                             <button @click="
-                                    (this.id = college.id),
-                                    (this.submit =
-                                        this.updateCollege),
-                                    this.fetchEditCollege()
-                                    " data-bs-toggle="modal" data-bs-target="#addCollegeModal"
+                                                (this.id = college.id),
+                                                (this.submit =
+                                                    this.updateCollege),
+                                                this.fetchEditCollege()
+                                                " data-bs-toggle="modal" data-bs-target="#addCollegeModal"
                                                 class="btn btn-warning text-light">
                                                 <i class="fas fa-edit"></i>
                                             </button>
@@ -127,7 +127,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="organization in this
-                                    .organization_data">
+                                            .organization_data">
                                             <td>{{ organization.name }}</td>
                                             <td>
                                                 {{ organization.description }}
@@ -135,9 +135,9 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <button @click="
-                                    this.submit =
-                                    this.updateOrganization, this.id = organization.org_id, this.fetchEditOrganiztion()
-                                    " data-bs-toggle="modal" data-bs-target="#addOrganizationModal"
+                                                        this.submit =
+                                                        this.updateOrganization, this.id = organization.org_id, this.fetchEditOrganiztion()
+                                                        " data-bs-toggle="modal" data-bs-target="#addOrganizationModal"
                                                         class="btn btn-warning text-light">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
@@ -220,80 +220,80 @@
         </div>
     </div>
     <div class="row p-2">
- <div class="col">
-                <div class="card border-0 p-2" style="height: 500px; max-height: 500px; overflow: auto;">
-                    <div class="d-flex justify-content-between">
-                        <h4><i class="far fa-copy"></i> Users</h4>
-                    </div>
-                    <div class="d-flex ">
-                        <div class="row head-container justify-content-start">
-                            <div class="col-md-6">
-                                <div class="input-container border rounded">
-                                    <i class="fa fa-search"></i>
-                                    <input type="text" placeholder="Search User" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="select-dropdown border" style="width: 70%;">
-                                    <select id="sort-select" class="form-control" style="text-align: center"
-                                        v-model="school_year_input" @change="fetchData">
-                                        <option value="0" disabled selected>
-                                            Select Semester
-                                        </option>
-                                        <option v-for="school_year in this
-                                            .school_year" :value="school_year['id']">
-                                            {{ school_year["semester"] }}
-                                            {{ school_year["school_year"] }}
-                                        </option>
-                                    </select>
-                                </div>
+        <div class="col">
+            <div class="card border-0 p-2" style="height: 500px; max-height: 500px; overflow: auto;">
+                <div class="d-flex justify-content-between">
+                    <h4><i class="far fa-copy"></i> Users</h4>
+                </div>
+                <div class="d-flex ">
+                    <div class="row head-container justify-content-start">
+                        <div class="col-md-6">
+                            <div class="input-container border rounded">
+                                <i class="fa fa-search"></i>
+                                <input type="text" placeholder="Search User" />
                             </div>
                         </div>
-                        <div class="d-flex gap-2 align-items-center mb-3">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                                <i class="fas fa-plus"></i> Add User
-                            </button>
-                            <button id="uploadButton" class="btn btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#excelDataModal">
-                                <i class="fas fa-file-upload"></i> Upload List
-                            </button>
-                            <input type="file" id="fileInput" accept=".xls,.xlsx" style="display: none" />
+                        <div class="col-md-4">
+                            <div class="select-dropdown border" style="width: 70%;">
+                                <select id="sort-select" class="form-control" style="text-align: center"
+                                    v-model="school_year_input" @change="fetchData">
+                                    <option value="0" disabled selected>
+                                        Select Semester
+                                    </option>
+                                    <option v-for="school_year in this
+                                        .school_year_data" :value="school_year['id']">
+                                        {{ school_year["semester"] }}
+                                        {{ school_year["school_year"] }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <th>Student ID</th>
-                                <th>Full name</th>
-                                <th>Year Level</th>
-                                <th>Organization</th>
-                                <th>College</th>
-                                <th>Actions</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold">74565423</td>
-                                    <td>dhdhjvbdbhhf</td>
-                                    <td>2nd Year</td>
-                                    <td>CSCo</td>
-                                    <td>CISC</td>
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                            <button class="btn btn-warning text-light">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-danger text-light">
-                                                <i class="fas fa-trash" data-bs-toggle="modal"
-                                                    data-bs-target="#deleteUserConfirmation"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="d-flex gap-2 align-items-center mb-3">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                            <i class="fas fa-plus"></i> Add User
+                        </button>
+                        <button id="uploadButton" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#excelDataModal">
+                            <i class="fas fa-file-upload"></i> Upload List
+                        </button>
+                        <input type="file" id="fileInput" accept=".xls,.xlsx" style="display: none" />
                     </div>
                 </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <th>Student ID</th>
+                            <th>Full name</th>
+                            <th>Year Level</th>
+                            <th>Organization</th>
+                            <th>College</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-bold">74565423</td>
+                                <td>dhdhjvbdbhhf</td>
+                                <td>2nd Year</td>
+                                <td>CSCo</td>
+                                <td>CISC</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-warning text-light">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger text-light">
+                                            <i class="fas fa-trash" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserConfirmation"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </div>
     </div>
     <!-- Upload list Modal -->
 
@@ -326,8 +326,8 @@
         </div>
     </div> -->
     <!-- MODALS -->
- <!-- Modal for displaying Excel data before Uploading -->
- <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
+    <!-- Modal for displaying Excel data before Uploading -->
+    <div class="modal fade" id="excelDataModal" tabindex="-1" aria-labelledby="excelDataModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -347,7 +347,7 @@
                                 <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
                                     v-model="year_level_data_input" required>
                                     <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
-                        year_level.year_level }}</option>
+                                        year_level.year_level }}</option>
                                 </select>
                             </div>
 
@@ -355,17 +355,18 @@
                         <div class="d-flex justify-content-between">
 
                             <label for="select-dropdown">
-                            Select College
-                        </label>
+                                Select College
+                            </label>
 
-                        <div class="select-dropdown border">
-                            <select id="sort-select" class="form-control" style="text-align: center;"
-                                v-model="college_data_input_for_insert">
-                                <option value="0" disabled selected>Select College</option>
-                                <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}
-                                </option>
-                            </select>
-                        </div>
+                            <div class="select-dropdown border">
+                                <select id="sort-select" class="form-control" style="text-align: center;"
+                                    v-model="college_data_input_for_insert">
+                                    <option value="0" disabled selected>Select College</option>
+                                    <option v-for="college in this.college_list" :value="college.id"> {{ college.college
+                                        }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
 
@@ -513,7 +514,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-
+                        <div class="mb-3" v-if="this.submit == this.addOrganizationAdmin">
+                            <label for="studentId" class="form-label">Search Student</label>
+                            <input type="text" class="form-control" id="studentId" v-model="this.admins_input.search"
+                                @change="this.fetchDataDisplayName" required>
+                        </div>
                         <div v-if="this.submit == this.addOrganizationAdmin" class="mb-3">
                             <label for="organizationName" class="form-label">Student ID</label>
                             <input v-model="this.admins_input.student_id" type="number" class="form-control"
@@ -823,7 +828,10 @@ export default {
                 organization: '',
                 // role: '',
                 school_year: '',
-            }
+                search: '',
+            },
+
+
         };
     },
     mounted() {
@@ -834,191 +842,222 @@ export default {
         this.upload();
     },
     methods: {
+        fetchDataDisplayName() {
+            // console.log(this.student_data.student_id)
+            axios.get(`/student_list/show_name/${this.admins_input.search}`)
+                .then(response => {
+                    console.log(response.data)
+                    if (response.data.length != 0) {
+                        this.admins_input.student_id = response.data.user_id;
+                        this.admins_input.first_name = response.data.first_name;
+                        this.admins_input.last_name = response.data.last_name;
+                        this.admins_input.middle_name = response.data.middle_name;
+                        this.admins_input.college = response.data.college_id;
+                        this.admins_input.email = response.data.email;
+                        this.admins_input.organization = response.data.user_organization.student_org_id;
+                        this.admins_input.school_year = response.data.user_organization.school_year;
+                    }
+                    else {
+                        this.admins_input.student_id = [];
+                        this.admins_input.first_name = [];
+                        this.admins_input.last_name = [];
+                        this.admins_input.middle_name = [];
+                        this.admins_input.college = [];
+                        this.admins_input.email = [];
+                        this.admins_input.organization = [];
+                        this.admins_input.school_year = [];
+                    }
+                    // this.admins_input.college = response.data.user_profile.college_id;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         uploadData() {
 
-// if (this.college_data_input == 0 || this.year_level_data_input == 0){
-//     alert('Please Choose Year Level and  College')
-// }
-// else{
-this.isSubmitting = true;
-const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
-// excelDataModal.show();
-excelDataModal.hide();
+            // if (this.college_data_input == 0 || this.year_level_data_input == 0){
+            //     alert('Please Choose Year Level and  College')
+            // }
+            // else{
+            this.isSubmitting = true;
+            const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"));
+            // excelDataModal.show();
+            excelDataModal.hide();
 
-// Get a reference to the table
-var table = document.getElementById("tableModal");
-// Initialize an empty array to store the data
-var data = [];
+            // Get a reference to the table
+            var table = document.getElementById("tableModal");
+            // Initialize an empty array to store the data
+            var data = [];
 
-// Iterate through the table rows and cells
-for (var i = 1; i < table.rows.length; i++) {
-    var row = table.rows[i];
-    var rowData = [];
+            // Iterate through the table rows and cells
+            for (var i = 1; i < table.rows.length; i++) {
+                var row = table.rows[i];
+                var rowData = [];
 
-    for (var j = 0; j < row.cells.length; j++) {
-        var cell = row.cells[j];
-        var cellContent = cell.textContent.trim(); // Trim to remove leading/trailing whitespaces
+                for (var j = 0; j < row.cells.length; j++) {
+                    var cell = row.cells[j];
+                    var cellContent = cell.textContent.trim(); // Trim to remove leading/trailing whitespaces
 
-        // Check if the cell is not empty before pushing it into the rowData array
-        if (cellContent !== "") {
-            rowData.push(cellContent);
-        }
-    }
-
-    // Check if the rowData array is not empty before pushing it into the data array
-    if (rowData.length > 0) {
-        data.push(rowData);
-    }
-}
-
-
-// if (data[0].length == 1) {
-this.collectedData = data;
-
-// Display the extracted data in the console
-this.loading = true;
-axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
-    .then(response => {
-        console.log(response.data)
-        this.loading = false;
-        this.isSubmitting = false;
-        if (response.data.type == 0) {
-            this.showError('Error File');
-        }
-        else {
-            this.showSucces(response.data.message);
-            // this.fetchData();
-        }
-
-    })
-    .catch(error => {
-        console.log(error)
-    });
-// }
-// else {
-//     this.showError('excel incorrect format');
-// }
-// }
-
-
-
-},
-upload() {
-document.getElementById("uploadButton").addEventListener("click", function () {
-    document.getElementById("fileInput").click();
-});
-
-document.getElementById("fileInput").addEventListener("change", function (e) {
-    const file = e.target.files[0];
-    if (file) {
-        parseExcelData(file);
-    }
-});
-
-// Function to parse the uploaded Excel file and display it in the modal
-async function parseExcelData(file) {
-    const workbook = new ExcelJS.Workbook();
-    const reader = new FileReader();
-
-    reader.onload = async function (e) {
-        const buffer = e.target.result;
-        await workbook.xlsx.load(buffer);
-        const worksheet = workbook.getWorksheet(1); // Assuming data is in the first worksheet
-
-        // Clear the existing table content
-        const tableBody = document.getElementById("modalStudentTableBody");
-        tableBody.innerHTML = "";
-
-        // Populate the table with student data, excluding the first row
-        let isHeaderRow = true;
-        worksheet.eachRow({ includeEmpty: true }, function (row) {
-            if (isHeaderRow) {
-                isHeaderRow = false; // Skip the first row (header row)
-                return;
-            }
-
-            const newRow = document.createElement("tr");
-
-            row.eachCell({ includeEmpty: true }, function (cell) {
-                let cellValue = cell.text;
-                if (cell.hyperlink && cell.hyperlink.address) {
-                    // If the cell contains a hyperlink, use the hyperlink's address as the cell value
-                    cellValue = cell.hyperlink.address;
+                    // Check if the cell is not empty before pushing it into the rowData array
+                    if (cellContent !== "") {
+                        rowData.push(cellContent);
+                    }
                 }
 
-                const newCell = document.createElement("td");
-                newCell.textContent = cellValue || ""; // Use an empty string if cellValue is falsy
-                newRow.appendChild(newCell);
+                // Check if the rowData array is not empty before pushing it into the data array
+                if (rowData.length > 0) {
+                    data.push(rowData);
+                }
+            }
+
+
+            // if (data[0].length == 1) {
+            this.collectedData = data;
+
+            // Display the extracted data in the console
+            this.loading = true;
+            axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
+                .then(response => {
+                    console.log(response.data)
+                    this.loading = false;
+                    this.isSubmitting = false;
+                    if (response.data.type == 0) {
+                        this.showError('Error File');
+                    }
+                    else {
+                        this.showSucces(response.data.message);
+                        // this.fetchData();
+                    }
+
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            // }
+            // else {
+            //     this.showError('excel incorrect format');
+            // }
+            // }
+
+
+
+        },
+        upload() {
+            document.getElementById("uploadButton").addEventListener("click", function () {
+                document.getElementById("fileInput").click();
             });
 
-            tableBody.appendChild(newRow);
-        });
+            document.getElementById("fileInput").addEventListener("change", function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    parseExcelData(file);
+                }
+            });
 
-        // Show the modal
-        const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"), { keyboard: false });
-        excelDataModal.show();
+            // Function to parse the uploaded Excel file and display it in the modal
+            async function parseExcelData(file) {
+                const workbook = new ExcelJS.Workbook();
+                const reader = new FileReader();
+
+                reader.onload = async function (e) {
+                    const buffer = e.target.result;
+                    await workbook.xlsx.load(buffer);
+                    const worksheet = workbook.getWorksheet(1); // Assuming data is in the first worksheet
+
+                    // Clear the existing table content
+                    const tableBody = document.getElementById("modalStudentTableBody");
+                    tableBody.innerHTML = "";
+
+                    // Populate the table with student data, excluding the first row
+                    let isHeaderRow = true;
+                    worksheet.eachRow({ includeEmpty: true }, function (row) {
+                        if (isHeaderRow) {
+                            isHeaderRow = false; // Skip the first row (header row)
+                            return;
+                        }
+
+                        const newRow = document.createElement("tr");
+
+                        row.eachCell({ includeEmpty: true }, function (cell) {
+                            let cellValue = cell.text;
+                            if (cell.hyperlink && cell.hyperlink.address) {
+                                // If the cell contains a hyperlink, use the hyperlink's address as the cell value
+                                cellValue = cell.hyperlink.address;
+                            }
+
+                            const newCell = document.createElement("td");
+                            newCell.textContent = cellValue || ""; // Use an empty string if cellValue is falsy
+                            newRow.appendChild(newCell);
+                        });
+
+                        tableBody.appendChild(newRow);
+                    });
+
+                    // Show the modal
+                    const excelDataModal = new bootstrap.Modal(document.getElementById("excelDataModal"), { keyboard: false });
+                    excelDataModal.show();
 
 
-        // var myModal = new bootstrap.Modal(document.getElementById('excelDataModal'));
-        // myModal.show();
+                    // var myModal = new bootstrap.Modal(document.getElementById('excelDataModal'));
+                    // myModal.show();
 
-    };
+                };
 
-    reader.readAsArrayBuffer(file);
-}
+                reader.readAsArrayBuffer(file);
+            }
 
 
 
-// // Function to handle the "Delete" button click
-// document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
-//     if (e.target && e.target.classList.contains("delete-button")) {
-//         const row = e.target.closest("tr");
-//         if (confirm("Are you sure you want to delete this student?")) {
-//             // If the user confirms the deletion, remove the row from the table
-//             row.remove();
-//         }
-//     }
-// });
+            // // Function to handle the "Delete" button click
+            // document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
+            //     if (e.target && e.target.classList.contains("delete-button")) {
+            //         const row = e.target.closest("tr");
+            //         if (confirm("Are you sure you want to delete this student?")) {
+            //             // If the user confirms the deletion, remove the row from the table
+            //             row.remove();
+            //         }
+            //     }
+            // });
 
-// // Function to handle the "Edit" button click
-// document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
-//     if (e.target && e.target.classList.contains("edit-button")) {
-//         const row = e.target.closest("tr");
-//         const cells = row.querySelectorAll("td");
+            // // Function to handle the "Edit" button click
+            // document.getElementById("modalStudentTableBody").addEventListener("click", function (e) {
+            //     if (e.target && e.target.classList.contains("edit-button")) {
+            //         const row = e.target.closest("tr");
+            //         const cells = row.querySelectorAll("td");
 
-//         // Disable the Edit button
-//         e.target.disabled = true;
+            //         // Disable the Edit button
+            //         e.target.disabled = true;
 
-//         // Enable editing of the student details
-//         for (let i = 0; i < cells.length - 1; i++) {
-//             const cellContent = cells[i].textContent;
-//             const input = document.createElement("input");
-//             input.value = cellContent;
-//             cells[i].textContent = "";
-//             cells[i].appendChild(input);
-//         }
+            //         // Enable editing of the student details
+            //         for (let i = 0; i < cells.length - 1; i++) {
+            //             const cellContent = cells[i].textContent;
+            //             const input = document.createElement("input");
+            //             input.value = cellContent;
+            //             cells[i].textContent = "";
+            //             cells[i].appendChild(input);
+            //         }
 
-//         // Create a Save button
-//         const saveButton = document.createElement("button");
-//         saveButton.textContent = "Save";
-//         saveButton.classList.add("btn", "btn-success");
-//         row.querySelector(".edit-button").insertAdjacentElement("beforebegin", saveButton);
+            //         // Create a Save button
+            //         const saveButton = document.createElement("button");
+            //         saveButton.textContent = "Save";
+            //         saveButton.classList.add("btn", "btn-success");
+            //         row.querySelector(".edit-button").insertAdjacentElement("beforebegin", saveButton);
 
-//         // Handle saving changes
-//         saveButton.addEventListener("click", function () {
-//             // Update the table with the edited details
-//             for (let i = 0; i < cells.length - 1; i++) {
-//                 const input = cells[i].querySelector("input");
-//                 cells[i].textContent = input.value;
-//             }
+            //         // Handle saving changes
+            //         saveButton.addEventListener("click", function () {
+            //             // Update the table with the edited details
+            //             for (let i = 0; i < cells.length - 1; i++) {
+            //                 const input = cells[i].querySelector("input");
+            //                 cells[i].textContent = input.value;
+            //             }
 
-//             // Remove the Save button and re-enable the Edit button
-//             saveButton.remove();
-//             e.target.disabled = false;
-//         });
-//     }
-// });
-},
+            //             // Remove the Save button and re-enable the Edit button
+            //             saveButton.remove();
+            //             e.target.disabled = false;
+            //         });
+            //     }
+            // });
+        },
         showSucces(message) {
             // this.fetchData();
             setTimeout(() => {
@@ -1093,7 +1132,7 @@ async function parseExcelData(file) {
             axios
                 .get(`/view_college`)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.college_data = response.data;
                 })
                 .catch((error) => {
@@ -1150,7 +1189,7 @@ async function parseExcelData(file) {
             axios
                 .get(`/get_organization`)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.organization_data = response.data;
                 })
                 .catch((error) => {
@@ -1217,7 +1256,7 @@ async function parseExcelData(file) {
             axios
                 .post("/add_organization_admin", this.admins_input)
                 .then((response) => {
-                    // console.log(response.status)
+                    console.log(response.data)
                     if (response.data.status == 'error') {
                         this.showError(response.data.message);
                     }

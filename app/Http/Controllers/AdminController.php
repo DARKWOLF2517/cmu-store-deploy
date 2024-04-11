@@ -120,30 +120,34 @@ class AdminController extends Controller
     }
     public function addOrganizationAdmin(Request $request)
     {
-        $existingUser = User::where('id',$request['student_id'])->count();
+        $existingUser = User::where('id', $request['student_id'])->count();
+        // return   $existingUser;
+        if ($existingUser == 0) {
+            // return response()->json(['message' => 'ID number is already existing', 'status' => 'error']);
+            $user = new User([
+                'id' => $request['student_id'],
+                'username' => $request['email'],
+                'password' => Hash::make(
+                    $request['student_id'],
+                )
+            ]);
+            $user->save();
 
-        if ($existingUser > 0){
-            return response()->json(['message' => 'ID number is already existing','status' => 'error' ]);
+            $userProfile = new UserProfile([
+                'user_id' => $request['student_id'],
+                'first_name' => $request['first_name'],
+                'middle_name' => $request['middle_name'],
+                'last_name' => $request['last_name'],
+                'email' => $request['email'],
+                'college_id' => $request['college'],
+            ]);
+            $userProfile->save();
         }
-        $user = new User([
-            'id' => $request['student_id'],
-            'username' => $request['email'],
-            'password' => Hash::make(
-                $request['student_id'],
-            )
-        ]);
-        $user->save();
-
-        $userProfile = new UserProfile([
-            'user_id' => $request['student_id'],
-            'first_name' => $request['first_name'],
-            'middle_name' => $request['middle_name'],
-            'last_name' => $request['last_name'],
-            'email' => $request['email'],
-            'college_id' => $request['college'],
-        ]);
-        $userProfile->save();
-
+        $existingUserOrganization = UserOrganization::where([['student_id', $request['student_id']], ['school_year', $request['school_year']], ['student_org_id', $request['organization']], ['role_id', 1]])->first();
+        // return $existingUserOrganization;
+        if ($existingUserOrganization > 0) {
+            return response()->json(['message' => 'User Aready Existing in School Year', 'status' => 'error']);
+        }
         $userOrgs = new UserOrganization([
             'student_org_id' => $request['organization'],
             'student_id' => $request['student_id'],
@@ -188,11 +192,11 @@ class AdminController extends Controller
         $user_organization = UserOrganization::find($id);
         $user_organization->delete();
 
-        $user_profile = UserProfile::find($student_id);
-        $user_profile->delete();
+        // $user_profile = UserProfile::find($student_id);
+        // $user_profile->delete();
 
-        $user = User::find($student_id);
-        $user->delete();
+        // $user = User::find($student_id);
+        // $user->delete();
 
         return response()->json(['message' => 'Admin Deleted successfully']);
     }

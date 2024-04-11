@@ -2,11 +2,7 @@
     <div class="mt-4 p-2">
         <!-- Loading spinner for the form -->
         <div v-if="loading" class="loading-spinner-container">
-            <div
-                class="spinner-border text-success"
-                id="form-spinner"
-                role="status"
-            >
+            <div class="spinner-border text-success" id="form-spinner" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
@@ -52,15 +48,8 @@
         </form> -->
         <div>
             <!-- Display current page content -->
-            <form
-                @submit.prevent="this.submit"
-                id="EvaluationForm"
-                v-if="!loading"
-            >
-                <div
-                    v-for="evaluationForm in currentPageEvaluationForms"
-                    :key="evaluationForm.id"
-                >
+            <form @submit.prevent="this.submit" id="EvaluationForm" v-if="!loading">
+                <div v-for="evaluationForm in currentPageEvaluationForms" :key="evaluationForm.id">
                     <!-- Render evaluation form content -->
                     <div class="evaluation-header">
                         <h5>
@@ -97,105 +86,63 @@
                                 </option>
                             </select>
                         </div> -->
-                        <div
-                            class="mt-2"
-                            v-for="question in this
-                                .evaluation_with_questions_options
-                                .evaluation_question"
-                        >
+                        <div class="mt-2" v-for="question in this
+                            .evaluation_with_questions_options
+                            .evaluation_question">
                             <label :for="'PA-' + question.id">{{
                                 question.description
-                            }}</label
-                            ><br />
+                            }}</label><br />
                             <div class="btn-group" data-toggle="buttons">
-                                <label
-                                    v-for="option in question.evaluation_option"
-                                    :class="[
-                                        'btn',
-                                        'btn-outline-success',
-                                        {
-                                            active:
-                                                formData[question.id] ===
-                                                option.id,
-                                        },
-                                    ]"
-                                    :key="option.id"
-                                >
-                                    <input
-                                        type="radio"
-                                        :name="'PA-' + question.id"
-                                        :id="
-                                            'PA-' +
-                                            question.id +
-                                            '-' +
-                                            option.id
-                                        "
-                                        v-model="formData[question.id]"
-                                        :value="option.id"
-                                    />
+                                <label v-for="option in question.evaluation_option" :class="[
+                                    'btn',
+                                    'btn-outline-success',
+                                    {
+                                        active:
+                                            formData[question.id] ===
+                                            option.id,
+                                    },
+                                ]" :key="option.id">
+                                    <input type="radio" :name="'PA-' + question.id" :id="'PA-' +
+                                        question.id +
+                                        '-' +
+                                        option.id
+                                        " v-model="formData[question.id]" :value="option.id" />
                                     {{ option.option }}
                                 </label>
                             </div>
                         </div>
 
-                        <div
-                            class="form-group mt-4"
-                            v-if="
-                                evaluation_with_questions_options.is_accept_feedback ==
-                                1
-                            "
-                        >
+                        <div class="form-group mt-4" v-if="
+                            evaluation_with_questions_options.is_accept_feedback ==
+                            1
+                        ">
                             <!-- <label for="feedback">Please write below any suggestions/recommendations on how we can
                                 improve the
                                 Activity:</label>
                             <textarea class="form-control" id="feedback" rows="3" placeholder="Enter your feedback"
                                 required v-model="this.feedback[evaluationForm.id]"></textarea> -->
-                            <label :for="'feedback-' + evaluationForm.id"
-                                >Please write below any
+                            <label :for="'feedback-' + evaluationForm.id">Please write below any
                                 suggestions/recommendations on how we can
-                                improve the Activity:</label
-                            >
-                            <textarea
-                                class="form-control"
-                                :id="'feedback-' + evaluationForm.id"
-                                rows="3"
-                                placeholder="Enter your feedback"
-                                required
-                                v-model="this.feedback[evaluationForm.id]"
-                            ></textarea>
+                                improve the Activity:</label>
+                            <textarea class="form-control" :id="'feedback-' + evaluationForm.id" rows="3"
+                                placeholder="Enter your feedback" required
+                                v-model="this.feedback[evaluationForm.id]"></textarea>
                         </div>
 
-                        <div class="mt-4 d-flex justify-content-between">
+                        <div class="mt-4 d-flex justify-content-between" v-if="totalPages > 1">
                             <!-- Pagination controls -->
-                            <button
-                                class="btn btn-secondary text-dark"
-                                @click="prevPage"
-                                :disabled="currentPage === 1"
-                            >
-                              <i class="fas fa-angle-left"></i>  Prev Page
+                            <button class="btn btn-secondary text-dark" @click="prevPage" :disabled="currentPage === 1">
+                                <i class="fas fa-angle-left"></i> Prev Page
                             </button>
-                            <span
-                                >Page {{ currentPage }} of
-                                {{ totalPages }}</span
-                            >
-                            <button
-                                class="btn btn-success"
-                                @click="nextPage"
-                                :disabled="currentPage === totalPages"
-                            >
+                            <span>Page {{ currentPage }} of
+                                {{ totalPages }}</span>
+                            <button class="btn btn-success" @click="nextPage" :disabled="currentPage === totalPages">
                                 Next Page <i class="	fas fa-angle-right"></i>
                             </button>
                         </div>
-                        <div
-                            v-if="currentPage == totalPages"
-                            class="d-flex justify-content-center p-2"
-                        >
-                            <button
-                                type="submit"
-                                class="btn btn-success mt-4 mb-2 ml-auto h-50"
-                                style="padding: 10px; width: 200px"
-                                :disabled="Submitting"
-                            >
+                        <div v-if="currentPage == totalPages" class="d-flex justify-content-center p-2">
+                            <button type="submit" class="btn btn-success mt-4 mb-2 ml-auto h-50"
+                                style="padding: 10px; width: 200px" :disabled="Submitting">
                                 Submit
                             </button>
                         </div>
@@ -354,9 +301,9 @@ export default {
         },
         showSucces(message) {
             toast.success(message),
-                {
-                    autoClose: 100,
-                };
+            {
+                autoClose: 100,
+            };
         },
     },
 };
