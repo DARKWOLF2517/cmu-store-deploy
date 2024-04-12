@@ -11,15 +11,15 @@ trait Loggable
     public static function bootLoggable()
     {
         static::created(function (Model $model) {
-            self::log($model, 'created');
+            self::log($model, 'Created');
         });
 
         static::updated(function (Model $model) {
-            self::log($model, 'updated');
+            self::log($model, 'Updated');
         });
 
         static::deleted(function (Model $model) {
-            self::log($model, 'deleted');
+            self::log($model, 'Deleted');
         });
 
         // static::retrieved(function (Model $model) {
