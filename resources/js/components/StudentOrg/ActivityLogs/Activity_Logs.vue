@@ -11,7 +11,8 @@
                         <input type="text" placeholder="Search History" />
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col d-flex gap-2">
+
                     <div class="select-dropdown border" style="width: 70%;">
                         <select id="sort-select" class="form-control" style="text-align: center">
                             <option value="0" disabled selected>
@@ -22,8 +23,8 @@
                             <option>Accountabilties</option>
                         </select>
                     </div>
-                </div>
-                <div class="col">
+
+
                     <div class="select-dropdown border" style="width: 70%;">
                         <select id="sort-select" class="form-control" style="text-align: center">
                             <option value="0" disabled selected>
@@ -36,7 +37,10 @@
                     </div>
                 </div>
             </div>
-            <table class="table table-hover">
+            <div style="height: 80vh; max-height: 80vh; overflow-y: auto;">
+
+
+            <table>
                 <thead>
                     <tr>
                         <th scope="col">Trans #</th>
@@ -46,20 +50,21 @@
                         <th scope="col">Data</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     <tr v-for="logs in this.log_data">
                         <th scope="row">{{ logs.id }}</th>
                         <td>{{ logs.created_at }}</td>
                         <td>{{ logs.user_profile.first_name }} {{ logs.user_profile.last_name }}</td>
-                        <td>{{ logs.action }} {{ logs.model }}</td>
-                        <td>
-                            <p v-for="(value, key) in logs.data" :key="key"> {{ key }}: {{ value }} &nbsp</p>
+                        <td>{{ logs.model }} {{ logs.action }} </td>
+                        <td style="width: 30%;">
+                            <small v-for="(value, key) in logs.data" :key="key"> {{ key }}: {{ value }} &nbsp</small>
 
                         </td>
                     </tr>
 
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 

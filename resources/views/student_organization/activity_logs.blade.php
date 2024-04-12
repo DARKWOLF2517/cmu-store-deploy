@@ -6,6 +6,7 @@
 
 @section('custom-style')
     <link href="{{ asset('/custom_css/stylesheet.css') }}" rel="stylesheet">
+        <link href="{{ asset('/custom_css/tables.css') }}" rel="stylesheet">
 @endsection
 
 @section('main-content')

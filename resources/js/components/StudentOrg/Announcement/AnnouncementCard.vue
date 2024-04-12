@@ -151,7 +151,9 @@
                                     <small class="date-upload text-muted"> Posted: {{ announcements.created_at
                                         }}</small>
                                     <span v-if="isNewAnnouncement(announcements)"
-                                        class="bg-danger rounded px-2 text-white">New</span>
+                                        class="bg-primary rounded px-2 text-white">New</span>
+                                        <span v-if="announcements.important ==1"
+                                        class="bg-danger rounded px-2 text-white">Important</span>
                                 </div>
 
                                 <p class="card-short-description mt-2">

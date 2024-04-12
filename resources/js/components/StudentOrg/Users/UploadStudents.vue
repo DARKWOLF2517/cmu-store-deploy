@@ -341,30 +341,32 @@
                             <h5 class="fw-bold"> Enter Student ID</h5>
                             <small>Submit an Excel file containing only student ID numbers.</small>
                         </div>
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex ">
                             <div class="select-dropdown border">
 
                                 <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
                                     v-model="year_level_data_input" required>
+                                    <option value="0" disabled selected>Select Year Level</option>
                                     <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
                                         year_level.year_level }}</option>
                                 </select>
 
                             </div>
-                        </div>
-
-                        <div class="select-dropdown">
-                            <select id="sort-select" class="form-control" style="text-align: center;"
+                            <div class="select-dropdown border">
+                            <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
                                 v-model="college_data_input_for_insert">
                                 <option value="0" disabled selected>Select College</option>
                                 <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}
                                 </option>
                             </select>
                         </div>
+                        </div>
+
+
 
 
                         <br>
-                        <table class="table" id="tableModal">
+                        <table id="tableModal">
                             <thead>
                                 <tr>
                                     <th>Student ID Number</th>
