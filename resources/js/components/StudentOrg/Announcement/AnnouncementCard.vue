@@ -215,7 +215,8 @@
                             </div>
                             <div class="mb-3 mt-4">
                                 <input class="form-check-input" type="checkbox" name="mark-important"
-                                    id="mark-important" />
+                                    id="mark-important" v-model="this.announcement_data.important" :true-value="1"
+                                    :false-value="0" />
                                 <label for="mark-important" class="form-label" style="padding-left: 5px">Mark
                                     Announcement as important?</label>
                             </div>
@@ -275,6 +276,7 @@ export default {
                 description: '',
                 date: '',
                 time: '',
+                important: null,
             },
             loading: false,
             showMessage: false,
@@ -284,6 +286,7 @@ export default {
     mounted() {
         this.showSchoolYear();
         this.fetchData();
+        console.log('mounted')
     },
     methods: {
 

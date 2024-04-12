@@ -523,7 +523,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -733,7 +733,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -933,7 +933,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1304,7 +1304,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                        }}</strong>
+                                    }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -2104,7 +2104,6 @@ export default {
 
         FetchUpdateData(id) {
             this.id = id;
-
             axios
                 .get(`show_event_details/${id}`)
                 .then((response) => {

@@ -115,7 +115,8 @@
                         accountability['amount']
                         }}</h4>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewBreakdownModal"> <i
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewBreakdownModal"
+                            @click="this.id = accountability.accountability_id, this.accountabilitiesFetchUpdate()"> <i
                                 class="fas fa-eye"></i> View</button>
                     </div>
 
@@ -166,7 +167,8 @@
                         </p>
 
                         <label for="breakdownInput" class="form-label">Fee Breakdown</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required
+                            v-model="this.formData.breakdown"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -190,9 +192,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6 class="fw-bold">College Fee Breakdown</h6>
-                    <p style="white-space: pre-wrap;">Valentine's day 50.00
-                        Women's day 40.00
+                    <h6 class="fw-bold">{{ this.formData.accountability_name }} Breakdown</h6>
+                    <p style="white-space: pre-wrap;"> {{ this.formData.breakdown }}
                     </p>
                 </div>
                 <div class="modal-footer ">
@@ -238,10 +239,15 @@ export default {
             submit: this.submitData,
             loading: false, // Add loading variable
             id: 0,
+            accountability_summary: {
+                accountability_name: '',
+                breakdown: '',
+            },
             formData: {
                 accountability_name: '',
                 amount: '',
-                org_id: '',
+                org_id: this.org_id,
+                breakdown: '',
                 school_year: this.school_year_session,
             },
             school_year: [],
@@ -280,6 +286,17 @@ export default {
             }
         },
         accountabilitiesFetchUpdate() {
+            axios.get(`accountabilities_fetch_update/${this.id}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.formData = response.data;
+                    this.old_name = response.data.accountability_name;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        accountabilitySummary() {
             axios.get(`accountabilities_fetch_update/${this.id}`)
                 .then(response => {
                     console.log(response.data)
@@ -329,7 +346,8 @@ export default {
 
 
         submitData() {
-            if (this.formData.accountability_name.toLowerCase() == 'fines') {
+            const trimmedName = this.formData.accountability_name.trim().toLowerCase();
+            if (trimmedName === 'fines') {
                 this.showError('The name fines cannot be used as it is already present in the system.');
             }
             else {
@@ -386,9 +404,10 @@ export default {
         },
         clearData() {
             this.formData = {
-                description: '',
+                accountability_name: '',
                 amount: '',
                 org_id: this.org_id,
+                breakdown: '',
                 school_year: this.school_year_session,
             }
         },

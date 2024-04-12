@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('accountability_name');
             $table->double('amount');
             $table->unsignedBigInteger('school_year');
+            $table->longText('breakdown');
             $table->timestamps();
             $table->foreign('org_id')->references('org_id')->on('organizations');
             $table->foreign('school_year')->references('id')->on('school_year');

@@ -18,7 +18,9 @@ class Announcement extends Model
         'title',
         'description',
         'date',
-        'time'
+        'time',
+        'important',
+        'event_id'
     ];
 
 

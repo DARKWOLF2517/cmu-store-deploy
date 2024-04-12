@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('description');
             $table->date('date');
             $table->time('time');
+            $table->tinyInteger('important')->nullable()->default(0);
+            $table->unsignedBigInteger('event_id')->nullable();
             $table->timestamps();
             $table->foreign('org_id')->references('org_id')->on('organizations');
             $table->foreign('school_year')->references('id')->on('school_year')->cascadeOnDelete();

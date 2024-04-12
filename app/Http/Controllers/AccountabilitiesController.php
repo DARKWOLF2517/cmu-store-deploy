@@ -45,12 +45,14 @@ class AccountabilitiesController extends Controller
             'accountability_name' => 'required',
             'amount' => 'required',
             'school_year' => 'required',
+            'breakdown' => 'required',
         ]);
         $accountability = new Accountability([
             'org_id' => $validatedData['org_id'],
             'accountability_name' => $validatedData['accountability_name'],
             'amount' => $validatedData['amount'],
             'school_year' => $validatedData['school_year'],
+            'breakdown' => $validatedData['breakdown'],
 
         ]);
         $accountability->save();

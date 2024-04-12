@@ -16,7 +16,8 @@ class Accountability extends Model
         'org_id',
         'accountability_name',
         'amount',
-        'school_year'
+        'school_year',
+        'breakdown'
     ];
     public function paid_accountabilities()
     {

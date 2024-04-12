@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Models\Event;
@@ -121,6 +122,19 @@ class EventController extends Controller
             $evaluationform->event_id = $event->event_id;
             $evaluationform->save();
         }
+
+
+        // Create a new Event instance
+        $announcement = new Announcement();
+        $announcement->org_id = $request->formData['org_id'];
+        $announcement->school_year = $request->formData['school_year_input'];
+        $announcement->title = $request->formData['name'];
+        $announcement->description = $request->formData['description'];
+        $announcement->date = $request->formData['start_date'];
+        $announcement->time = $request->formData['start_attendance'];
+        $announcement->important = 1;
+        $announcement->event_id = $event->event_id;
+        $announcement->save();
         return response()->json(['message' => 'Event Created successfully']);
     }
     public function showEventDetails($event)
@@ -133,7 +147,7 @@ class EventController extends Controller
             'event_evaluation' => $event_evaluation,
         ];
     }
-    public function update(Request $request, $event)
+    public function update(Request $request, $event_id)
     {
         // $request->formData->validate([
         //     'name' => 'required',
@@ -146,8 +160,8 @@ class EventController extends Controller
         //     'fines' => 'nullable',
         //     'evaluation_form' => 'required'
         // ]);
-        // return $request->temporary_evaluation_form;
-        $event = Event::findOrFail($event);
+
+        $event = Event::where('event_id', $event_id)->first();
         $event->update([
             'name' => $request->formData['name'],
             'start_date' => $request->formData['start_date'],
@@ -162,16 +176,25 @@ class EventController extends Controller
             'fines' => $request->formData['fines'],
         ]);
 
-        return response()->json(['message' => 'Event updated successfully.']);
-        // // Assuming you have an Event model
-        EventEvaluation::where('event_id', $event)->delete();
 
-        foreach ($request->temporary_evaluation_form as $evaluation) {
-            $evaluationform = new EventEvaluation();
-            $evaluationform->evaluation_form_id = $evaluation;
-            $evaluationform->event_id = $event;
-            $evaluationform->save();
+        $announcement = Announcement::where('event_id', $event_id)->first();
+        $announcement->update([
+            'title' => $request->formData['name'],
+            'description' => $request->formData['description'],
+            'date' => $request->formData['start_date'],
+            'time' => $request->formData['start_attendance'],
+        ]);
+        EventEvaluation::where('event_id', $event_id)->delete();
+        if (count($request->temporary_evaluation_form) > 0) {
+            foreach ($request->temporary_evaluation_form as $evaluation) {
+                $evaluationform = new EventEvaluation();
+                $evaluationform->evaluation_form_id = $evaluation;
+                $evaluationform->event_id = $event_id;
+                $evaluationform->save();
+            }
         }
+
+
         return response()->json(['message' => 'Event ' . $request->name . ' Updated Successfully']);
     }
     public function destroy($event)

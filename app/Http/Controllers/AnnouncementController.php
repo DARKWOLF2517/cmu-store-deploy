@@ -30,6 +30,7 @@ class AnnouncementController extends Controller
             'description' => $request['description'],
             'date' => $request['date'],
             'time' => $request['time'],
+            'important' => $request['important'],
         ]);
         $addAnnouncement->save();
         return response()->json(['message' => 'Announcement added Successfully']);
