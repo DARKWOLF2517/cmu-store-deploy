@@ -1151,6 +1151,22 @@
                                         id="event-start-time" v-model="start_attendance.end_session_scheduled_attendance
                                             " required />
                                 </div>
+                                <label for="select-dropdown" class="mt-2">Select Type</label>
+                                <div class="d-flex gap-2">
+
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Time IN
+                                        </label>
+                                        </div>
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Time OUT
+                                        </label>
+                                        </div>
+                                </div>
 
                                 <!-- <div class="form-group">
                                                     <label for="attendanceType">Select Attendance Type:</label>

@@ -325,8 +325,7 @@
                                                 <button class="btn btn-outline-light">
                                                     <a href="/student_organization_free_fines"
                                                         class="link-dark rounded"><i class="fas fa-check-square"></i>
-                                                        Set
-                                                        Free Fines</a>
+                                                        Waive fee</a>
                                                 </button>
                                             </li>
                                             <li>
