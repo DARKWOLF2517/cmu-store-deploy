@@ -23,8 +23,8 @@
                         v-model="school_year_input" @change="fetchData">
                         <option value="0" disabled selected>Select School Year</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                        school_year['semester'] }} {{
-                        school_year['school_year'] }}
+                            school_year['semester'] }} {{
+                                school_year['school_year'] }}
                         </option>
                     </select>
                 </div>
@@ -148,8 +148,10 @@
                             <div class="card-body">
                                 <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
                                 <div class="d-flex gap-2">
-                                    <small class="date-upload text-muted"> Posted: {{ announcements.created_at }}</small>
-                                    <span v-if="isNewAnnouncement(announcements)" class="bg-danger rounded px-2 text-white">New</span>
+                                    <small class="date-upload text-muted"> Posted: {{ announcements.created_at
+                                        }}</small>
+                                    <span v-if="isNewAnnouncement(announcements)"
+                                        class="bg-danger rounded px-2 text-white">New</span>
                                 </div>
 
                                 <p class="card-short-description mt-2">
@@ -212,11 +214,11 @@
                                     v-model="this.announcement_data.time" required>
                             </div>
                             <div class="mb-3 mt-4">
-                                        <input class="form-check-input" type="checkbox" name="mark-important"
-                                            id="mark-important" />
-                                        <label for="mark-important" class="form-label"
-                                            style="padding-left: 5px">Mark Announcement as important?</label>
-                                    </div>
+                                <input class="form-check-input" type="checkbox" name="mark-important"
+                                    id="mark-important" />
+                                <label for="mark-important" class="form-label" style="padding-left: 5px">Mark
+                                    Announcement as important?</label>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -286,7 +288,7 @@ export default {
     methods: {
 
         deleteData() {
-            axios.delete(`/delete_announcement/${this.id}`)
+            axios.post(`/delete_announcement/${this.id}`)
                 .then(response => {
                     this.fetchData();
                     this.showSucces(response.data.message);
@@ -298,7 +300,7 @@ export default {
         },
         updateData() {
             this.isSubmitting = true;
-            axios.put(`/updateAnnouncement/${this.id}`, this.announcement_data)
+            axios.post(`/updateAnnouncement/${this.id}`, this.announcement_data)
                 .then(response => {
                     // console.log(response.data)
                     // this.fetchData();

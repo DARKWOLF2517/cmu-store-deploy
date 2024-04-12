@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
     use HasFactory;
+    use Loggable;
     protected $table = 'attendance';
-    protected $primaryKey = 'user_id'; 
+    // protected $primaryKey = 'user_id';
     protected $fillable = [
         'user_id',
         'org_id',
@@ -24,11 +26,11 @@ class Attendance extends Model
 
     public function user_profile()
     {
-        return $this->belongsTo(UserProfile::class, 'user_id','user_id');
+        return $this->belongsTo(UserProfile::class, 'user_id', 'user_id');
     }
     public function events()
     {
-        return $this->hasOne(Event::class,'event_id','event_id');
+        return $this->hasOne(Event::class, 'event_id', 'event_id');
     }
     // public function college()
     // {

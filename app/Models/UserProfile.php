@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model
 {
     use HasFactory;
+    use Loggable;
     protected $table = 'user_profile';
     protected $primaryKey = 'user_id';
     // public $incrementing = false;

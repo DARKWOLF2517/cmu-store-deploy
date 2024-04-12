@@ -8,7 +8,6 @@ use App\Models\Event;
 use App\Models\EventExempted;
 use App\Models\EventExemptedAttendance;
 use App\Models\FreeFinesStudent;
-use App\Models\OrganizationAccountability;
 use App\Models\OrganizationDefaultSchoolYear;
 use App\Models\PaidAccountability;
 use App\Models\User;
@@ -68,7 +67,7 @@ class AccountabilitiesController extends Controller
         $users = UserProfile::all();
         $userOrgs = UserOrganization::where([['school_year', $school_year], ['role_id', 2], ['student_org_id', $org_id]])->get();
         $paidAccountability = PaidAccountability::where([['student_org_id', $org_id], ['school_year', $school_year]])->get();
-        $accountability = OrganizationAccountability::where([['org_id', $org_id], ['school_year', $school_year]])->get();
+        $accountability = Accountability::where([['org_id', $org_id], ['school_year', $school_year]])->get();
         $yearLevel = YearLevel::where([['org_id', $org_id]])->get();
         $exempted = EventExempted::where([['org_id', $org_id], ['school_year', $school_year]])->get();
         $freeFines = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]])->get();
@@ -165,7 +164,7 @@ class AccountabilitiesController extends Controller
         }
         return response()->json(['message' => 'Accountability Paid Successfully']);
     }
-    public function DeleteOrganizationAccountability(OrganizationAccountability $accountability_id, $org_id)
+    public function DeleteOrganizationAccountability(Accountability $accountability_id, $org_id)
     {
         $isPaymentPresent = PaidAccountability::where([['accountability_type', $accountability_id->accountability_name], ['student_org_id', $org_id]])->get();
         if (!$isPaymentPresent->isEmpty()) {
@@ -269,7 +268,7 @@ class AccountabilitiesController extends Controller
     }
     public function fetchAccountabilities($org_id)
     {
-        $accountabilities = OrganizationAccountability::where([['org_id', $org_id]])->get();
+        $accountabilities = Accountability::where([['org_id', $org_id]])->get();
         return $accountabilities->toJson();
     }
     public function getStudentPayments($student_id)

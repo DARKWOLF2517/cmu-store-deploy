@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model
 {
     use HasFactory;
+    use Loggable;
     protected $table = 'organizations';
     protected $primaryKey = 'org_id';
 
@@ -19,16 +21,15 @@ class Organization extends Model
     ];
     public function user_organization()
     {
-        return $this->hasMany(UserOrganization::class,'student_org_id','org_id');
+        return $this->hasMany(UserOrganization::class, 'student_org_id', 'org_id');
     }
 
     public function events()
     {
-        return $this->hasMany(Event::class,'org_id','org_id');
+        return $this->hasMany(Event::class, 'org_id', 'org_id');
     }
     public function college()
     {
-        return $this->belongsTo(College::class,'college_id','id');
+        return $this->belongsTo(College::class, 'college_id', 'id');
     }
-
 }

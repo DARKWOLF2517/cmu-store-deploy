@@ -1,4 +1,4 @@
-nn<template>
+<template>
     <div class="schedule-list-container" id="schedule-list">
         <!-- Loading spinner -->
         <div v-if="loading" style="padding: 10px;">

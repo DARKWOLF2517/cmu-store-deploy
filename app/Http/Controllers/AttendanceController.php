@@ -52,7 +52,7 @@ class AttendanceController extends Controller
         if ($this->attendanceRepetition($request['user_id'], $request['session'], $request['event_id']) >= 1) {
             return response()->json(array("result" => "failure", "message" => "Already logged in for this session..."));
         }
-        if ($this->notMemberChecker($request['user_id']) < 1) {
+        if ($this->notMemberChecker($request['user_id'], $request['org_id']) < 1) {
             return response()->json(array("result" => "failure", "message" => "Invalid Qr Code"));
         }
         $validatedData = $request->validate([
@@ -108,10 +108,11 @@ class AttendanceController extends Controller
         $attendance = $attendance->count();
         return $attendance;
     }
-    public function notMemberChecker($result_id)
+    public function notMemberChecker($result_id, $org_id)
     {
         $memberChecker = UserOrganization::where([
             ['student_id', $result_id],
+            ['student_org_id', $org_id]
         ])->get();
         $memberChecker = $memberChecker->count();
         return $memberChecker;

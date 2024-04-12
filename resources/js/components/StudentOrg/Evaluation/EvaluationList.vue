@@ -403,7 +403,7 @@ export default {
 
         UpdateAttendanceStatus(event_id, status) {
             axios
-                .put(`/attendance/${event_id}/${status}`)
+                .post(`/attendance/${event_id}/${status}`)
                 .then((response) => {
                     this.showSuccess(response.data.message);
                     this.fetchData();

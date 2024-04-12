@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use NumberFormatter;
@@ -9,6 +10,7 @@ use NumberFormatter;
 class OrganizationAccountability extends Model
 {
     use HasFactory;
+    use Loggable;
     protected $table = 'organization_accountabilities';
     protected $primaryKey = 'accountability_id';
 
@@ -22,5 +24,4 @@ class OrganizationAccountability extends Model
     {
         return $this->hasMany(PaidAccountability::class, 'student_org_id', 'org_id');
     }
-
 }

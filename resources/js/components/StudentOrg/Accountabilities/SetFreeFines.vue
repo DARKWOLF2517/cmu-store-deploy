@@ -14,7 +14,7 @@
                     @change="fetchData">
                     <option value="0" disabled selected>Select Semester</option>
                     <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                    school_year['semester'] }} {{ school_year['school_year']
+                        school_year['semester'] }} {{ school_year['school_year']
                         }}
                     </option>
                 </select>
@@ -431,7 +431,7 @@ export default {
                 })
         },
         updateData() {
-            axios.put(`/update_student_data/${this.id}/${this.free_fines_input.reason}`)
+            axios.post(`/update_student_data/${this.id}/${this.free_fines_input.reason}`)
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -446,7 +446,7 @@ export default {
         },
         deleteStudentData() {
             console.log(this.id)
-            axios.delete(`/delete_student_free_fines/${this.id}`)
+            axios.post(`/delete_student_free_fines/${this.id}`)
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);

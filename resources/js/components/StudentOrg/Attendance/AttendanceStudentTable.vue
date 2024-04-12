@@ -130,9 +130,9 @@
                             <span class="d-flex justify-content-center">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmation" @click="
-                        (this.id = attendance.user_id),
-                        (this.session = attendance.session)
-                        ">
+                                        (this.id = attendance.user_id),
+                                        (this.session = attendance.session)
+                                        ">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </span>
@@ -147,8 +147,8 @@
             </li>
             <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
                 <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{
-                        page
-                    }}</a>
+                    page
+                }}</a>
             </li>
             <li class="page-item" :class="{ disabled: currentPage === totalPages }">
                 <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
@@ -435,7 +435,7 @@ export default {
 
         deleteAttendance() {
             axios
-                .delete(`/delete_attendance/${this.id}/${this.session}`)
+                .post(`/delete_attendance/${this.id}/${this.session}`)
                 .then((response) => {
                     console.log(response.data);
                     this.showSucces(response.data.message);

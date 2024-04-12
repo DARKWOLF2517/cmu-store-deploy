@@ -101,13 +101,13 @@
                                             @change="handleFileUpload" class="d-none" />
                                         <img v-if="this.profile.profile_picture" @click="openFileInput"
                                             id="profileImage" :src="this.tempImage
-                                                    ? this.tempImage
-                                                    : this.profile
-                                                        .profile_picture
+                                                ? this.tempImage
+                                                : this.profile
+                                                    .profile_picture
                                                 " alt="profile photo" />
                                         <img v-else id="profileImage" @click="openFileInput" :src="this.tempImage
-                                                ? this.tempImage
-                                                : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'
+                                            ? this.tempImage
+                                            : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'
                                             " alt="user-image" />
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                                     <b>Year level:</b>
                                     <span id="year-level">{{
                                         this.profile.year_level
-                                        }}</span>
+                                    }}</span>
                                 </p>
                                 <p>
                                     <b>Email:</b> {{ this.profile.email }}
@@ -228,7 +228,7 @@ export default {
     methods: {
         submitEmail() {
             axios
-                .put(`/updateEmail/${this.profile.email}`)
+                .post(`/updateEmail/${this.profile.email}`)
                 .then((response) => {
                     console.log(response.data);
                     this.showSucces(response.data.message);

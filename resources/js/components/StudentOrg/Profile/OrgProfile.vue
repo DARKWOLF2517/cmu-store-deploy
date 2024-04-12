@@ -111,7 +111,7 @@
                                                     this.school_year_org_profile }} </span> </h6>
                                                 <h6> <i class="fas fa-users-cog"></i> <span><b> {{
                                                     this.org_officer_count
-                                                }}</b></span> Organization officers</h6>
+                                                            }}</b></span> Organization officers</h6>
                                                 <!-- <h6 class="mb-2">Number of Members <span class="fw-bold" style="color: #14684c;"
                                                             id="number-of-students">{{
         this.orgTotalMembers }}</span></h6> -->
@@ -233,8 +233,8 @@
                                                         </div>
                                                         <tr v-for="officerRole in this.officerRoles">
                                                             <td>{{ officerRole.user_profile.first_name }} {{
-                                                    officerRole.user_profile.last_name
-                                                }}</td>
+                                                                officerRole.user_profile.last_name
+                                                                }}</td>
                                                             <td>{{ officerRole.role.name }}</td>
                                                             <td>
                                                                 <!-- Ellipsis Button -->
@@ -488,8 +488,8 @@
                             <select class="form-control" id="selectOfficer" v-model="addOfficerRoleData.student_id"
                                 required>
                                 <option v-for="officer in this.orgOfficers" :value="officer.student_id">{{
-                                                    officer.name
-                                                }}
+                                    officer.name
+                                }}
                                 </option>
                             </select>
                         </div>
@@ -750,7 +750,7 @@ export default {
         },
         updateYearLevel() {
             this.isSubmitting = true;
-            axios.put(`/update_year_level/${this.year_level_id}`, this.year_level_input)
+            axios.post(`/update_year_level/${this.year_level_id}`, this.year_level_input)
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -772,7 +772,7 @@ export default {
                 });
         },
         deleteYearLevel() {
-            axios.delete(`/delete_year_level/${this.year_level_id}`)
+            axios.post(`/delete_year_level/${this.year_level_id}`)
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -879,7 +879,7 @@ export default {
         },
 
         deleteOfficerRole() {
-            axios.delete(`/delete_officer_role/${this.updateOfficerRoleID}`)
+            axios.post(`/delete_officer_role/${this.updateOfficerRoleID}`)
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -893,7 +893,7 @@ export default {
             // console.log(this.updatedOfficerRoleData)
             this.isSubmitting = true;
 
-            axios.put(`/update_officer_role/${this.updateOfficerRoleID}`, this.updatedOfficerRoleData)
+            axios.post(`/update_officer_role/${this.updateOfficerRoleID}`, this.updatedOfficerRoleData)
                 .then(response => {
                     // console.log(response.data)
                     if (response.data.type == 0) {
@@ -993,7 +993,7 @@ export default {
 
         },
         deleteOfficer() {
-            axios.delete(`/deleteOfficer/${this.OfficerId}`)
+            axios.post(`/deleteOfficer/${this.OfficerId}`)
                 .then(response => {
                     this.showSucces(response.data.message);
                     // this.showOfficer();
@@ -1004,7 +1004,7 @@ export default {
         },
         updateOfficer() {
             // console.log( this.OfficerId);
-            axios.put(`/update_officer/${this.OfficerId}`, this.addOfficersData)
+            axios.post(`/update_officer/${this.OfficerId}`, this.addOfficersData)
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -1105,7 +1105,7 @@ export default {
         },
 
         deleteSchoolYear() {
-            axios.delete(`/deleteSchoolYear/${this.schoolYearId}`)
+            axios.post(`/deleteSchoolYear/${this.schoolYearId}`)
                 .then(response => {
                     this.showSucces(response.data.message);
                     // this.viewSchoolYear();
@@ -1116,7 +1116,7 @@ export default {
 
         },
         updateSchoolYear() {
-            axios.put(`/update_school_year/${this.schoolYearId}`, this.addSchoolYears)
+            axios.post(`/update_school_year/${this.schoolYearId}`, this.addSchoolYears)
                 .then(response => {
                     this.showSucces(response.data.message);
                     // this.viewSchoolYear();
@@ -1142,7 +1142,7 @@ export default {
                     this.schoolYear = response.data
                     this.schoolYear.forEach(element => {
                         if (element.id == this.school_year_session) {
-                            this.school_year_org_profile = element.semester +element.school_year  ;
+                            this.school_year_org_profile = element.semester + element.school_year;
                         }
                     });
                 })

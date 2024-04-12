@@ -24,8 +24,8 @@
                         v-model="school_year_input" @change="fetchData">
                         <option value="0" disabled selected>Select School Year</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                        school_year['semester'] }} {{
-                        school_year['school_year'] }}</option>
+                            school_year['semester'] }} {{
+                                school_year['school_year'] }}</option>
                     </select>
                 </div>
                 <div class="select-dropdown d-flex justify-content-end" v-if="college_id == 11">
@@ -53,7 +53,7 @@
                                 <i class="fas fa-plus"></i> Tag Student
                             </button>
 
-                             <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
+                            <!-- <button id="uploadButton" class="btn me-2" data-bs-toggle="modal" data-bs-target="#excelDataModal"></button> -->
                             <!-- <button id="uploadButton" class="btn ">
                                 <i class="fas fa-file-upload"></i> Upload List
                             </button> -->
@@ -72,11 +72,12 @@
                                         href="https://github.com/DARKWOLF2517/cmu-store-deploy/raw/main/template.xlsx">Download
                                         Template</a></li>
                                 <li>
-                                    <li>
-                                        <button class="btn text-danger" data-bs-toggle="modal" data-bs-target="#deleteAllConfirmation">
-                                            <i class="fas fa-trash"></i> Delete All
-                                        </button>
-                                    </li>
+                                <li>
+                                    <button class="btn text-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteAllConfirmation">
+                                        <i class="fas fa-trash"></i> Delete All
+                                    </button>
+                                </li>
                                 </li>
                             </ul>
                         </div>
@@ -137,7 +138,8 @@
                         <!-- Student data will be added here -->
                         <td>{{ student.student_id }}</td>
                         <td>{{ student.user_profile.first_name }} {{ student.user_profile.last_name }}</td>
-                        <td>{{ student.user_profile.year_level.year_level ? student.user_profile.year_level.year_level : '' }}</td>
+                        <td>{{ student.user_profile.year_level.year_level ? student.user_profile.year_level.year_level :
+                            '' }}</td>
                         <td>{{ student.user_profile.college.college }}</td>
                         <td>
                             <span class="table-buttons">
@@ -230,7 +232,7 @@
                                 required> -->
                             <select class="form-select" id="yr-level" v-model="student_data.year_level_id" required>
                                 <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
-                        year_level.year_level }}</option>
+                                    year_level.year_level }}</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -242,7 +244,8 @@
                             </select>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#optionSelection">Back</button>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#optionSelection">Back</button>
                             <button type="submit" class="btn btn-success">Save</button>
                         </div>
                     </form>
@@ -272,8 +275,8 @@
             </div>
         </div>
     </div>
-     <!-- Delete Confirmation Modal -->
-     <div class="modal fade" id="deleteAllConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteAllConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -284,18 +287,18 @@
                 <div class="modal-body text-center">
                     <h4><i class="fas fa-exclamation-triangle text-warning"></i></h4>
                     <h4><b>Deleting Member List</b></h4>
-                    <p>Are you sure you want to permanently delete member list? Once confirmed, action cannot be undone.</p>
+                    <p>Are you sure you want to permanently delete member list? Once confirmed, action cannot be undone.
+                    </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger"
-                        data-bs-dismiss="modal">Delete All</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete All</button>
                 </div>
             </div>
         </div>
     </div>
-     <!-- Option Selection Modal -->
-     <div class="modal fade" id="optionSelection" tabindex="-1" aria-labelledby="optionSelectionLabel"
+    <!-- Option Selection Modal -->
+    <div class="modal fade" id="optionSelection" tabindex="-1" aria-labelledby="optionSelectionLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -307,11 +310,11 @@
                     <h4>Select one of the following options </h4>
                     <div class="d-flex justify-content-center gap-2 mt-4">
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-                           <i class="fas fa-plus"></i> Add student
+                            <i class="fas fa-plus"></i> Add student
                         </button>
                         <p class="mt-2">OR</p>
-                         <button id="uploadButton" class="btn btn-warning ">
-                                <i class="fas fa-file-upload"></i> Upload List
+                        <button id="uploadButton" class="btn btn-warning ">
+                            <i class="fas fa-file-upload"></i> Upload List
                         </button>
                         <input type="file" id="fileInput" accept=".xls, .xlsx" style="display: none;">
                     </div>
@@ -344,7 +347,7 @@
                                 <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
                                     v-model="year_level_data_input" required>
                                     <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
-                        year_level.year_level }}</option>
+                                        year_level.year_level }}</option>
                                 </select>
 
                             </div>
@@ -532,7 +535,7 @@ export default {
                 });
         },
         deleteSingleStudents() {
-            axios.delete(`/delete_single_student/${this.fetchID}`)
+            axios.post(`/delete_single_student/${this.fetchID}`)
                 .then(response => {
                     console.log(response.data)
                     this.showSucces(response.data.message);
@@ -543,7 +546,7 @@ export default {
                 });
         },
         // updateSingleAddStudents(){
-        //     axios.put(`/update_single_student`, this.student_data)
+        //     axios.post(`/update_single_student`, this.student_data)
         //         .then(response => {
         //             console.log(response.data)
         //             if (response.data.type == 0) {
@@ -705,7 +708,7 @@ export default {
             this.student_data.middlename = [];
         },
         updateData() {
-            axios.put(`/student_list/edit/commit/${this.fetchID}`, this.editData)
+            axios.post(`/student_list/edit/commit/${this.fetchID}`, this.editData)
                 .then(response => {
                     console.log(response.data)
                     alert('adf')

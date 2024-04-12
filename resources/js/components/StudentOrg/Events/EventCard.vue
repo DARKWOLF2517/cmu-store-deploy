@@ -523,7 +523,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -733,7 +733,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -933,7 +933,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1304,7 +1304,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                    }}</strong>
+                                        }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1624,7 +1624,9 @@
                                                     <td>{{ evaluation.evaluation_title }}</td>
                                                     <td style="width: 20%">
                                                         <div class="d-flex gap-2">
-                                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#previewModal">                                                                <i class="fas fa-eye"></i>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-toggle="modal" data-bs-target="#previewModal">
+                                                                <i class="fas fa-eye"></i>
                                                             </button>
                                                             <button @click="this.removeEvaluationForm(evaluation.id)"
                                                                 type="button" class="btn btn-danger">
@@ -1689,11 +1691,10 @@
             </div>
         </div>
     </div>
-     <!-- View Evaluation Form Modal -->
-     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <!-- View Evaluation Form Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content" >
+            <div class="modal-content">
                 <div class="modal-header">
                     <!-- <h5 class="modal-title" id="exampleModalLabel">View Evaluation Form</h5> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1709,13 +1710,13 @@
                     <div class="mb-3">
                         <h5 for="question1" class="form-label fw-bold">Question 1</h5>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="question1"  readonly>
+                            <input type="text" class="form-control" id="question1" readonly>
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
                                 <h5 for="choices1 fw-bold">Choices</h5>
                                 <div style="margin-left: 20px; margin-top: 10px">
-  <p class="lh-1" > <b> 1- Negatively disagree</b>  &nbsp; </p>
+                                    <p class="lh-1"> <b> 1- Negatively disagree</b> &nbsp; </p>
                                 </div>
 
                             </div>
@@ -1728,7 +1729,8 @@
                 </div>
                 <div class="modal-footer">
 
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#event-modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#event-modal">Close</button>
                 </div>
             </div>
         </div>
@@ -1908,7 +1910,7 @@ export default {
         },
         startEvent() {
             axios
-                .put(`/update_event_status/${this.id}/${this.status}`)
+                .post(`/update_event_status/${this.id}/${this.status}`)
                 .then((response) => {
                     console.log(response.data);
                     this.showSucces(response.data.message);
@@ -2054,7 +2056,7 @@ export default {
                 alert("Please select School Year");
             } else {
                 axios
-                    .post("/events", { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
+                    .post("/add_event", { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
                     .then((response) => {
                         this.showSucces(response.data.message);
                         console.log(response.data);
@@ -2129,7 +2131,7 @@ export default {
         UpdateData() {
             this.isSubmitting = true;
             axios
-                .put(`/events/${this.id}`, { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
+                .post(`/update_event/${this.id}`, { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
                 .then((response) => {
                     this.submit = this.sendData;
                     console.log(response.data)
@@ -2142,9 +2144,9 @@ export default {
         },
         deleteEvent() {
             axios
-                .delete(`/events/${this.id}`)
+                .post(`/delete_event/${this.id}`)
                 .then((response) => {
-                    // console.log(response.data)
+                    console.log(response.data)
                     // const closeButton = $('.modal button[data-bs-dismiss="modal"]');
                     // closeButton.trigger('click');
                     if (response.data.status == 1) {
@@ -2179,7 +2181,7 @@ export default {
             }
             else {
                 axios
-                    .put(
+                    .post(
                         `/update_event_attendance_status/${this.id}/${this.status}`, this.start_attendance
                     )
                     .then((response) => {

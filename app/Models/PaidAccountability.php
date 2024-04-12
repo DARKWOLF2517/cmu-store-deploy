@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +10,7 @@ class PaidAccountability extends Model
 {
 
     use HasFactory;
+    use Loggable;
     protected $table = 'paid_accountabilities';
     // protected $primaryKey = 'org_id';
 
@@ -23,8 +25,6 @@ class PaidAccountability extends Model
 
     public function user_profile()
     {
-        return $this->belongsTo(UserProfile::class, 'student_id','user_id');
+        return $this->belongsTo(UserProfile::class, 'student_id', 'user_id');
     }
-
-
 }

@@ -12,8 +12,9 @@
                 <select id="sort-select" class="form-control" style="text-align: center;" v-model="school_year_input"
                     @change="fetchData">
                     <option value="0" disabled selected>Select School Year</option>
-                    <option v-for="school_year in this.school_year" :value="school_year['id']">{{ school_year['school_year']
-                    }}</option>
+                    <option v-for="school_year in this.school_year" :value="school_year['id']">{{
+                        school_year['school_year']
+                        }}</option>
                 </select>
             </div>
         </div>

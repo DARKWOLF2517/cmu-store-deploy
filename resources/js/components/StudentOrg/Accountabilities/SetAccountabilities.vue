@@ -15,8 +15,8 @@
                     <option value="0" disabled selected>Select School Year</option>
                     <option v-for="school_year in this.school_year" :value="school_year['id']">{{
                         school_year['semester'] }} {{
-                    school_year['school_year']
-                }}
+                            school_year['school_year']
+                        }}
                     </option>
                 </select>
             </div>
@@ -32,24 +32,25 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-between">
             <div class="col-md-8">
- <h4 class="mt-3"><i class="fas fa-list"></i> Organization Fees</h4>
+                <h4 class="mt-3"><i class="fas fa-list"></i> Organization Fees</h4>
             </div>
             <div class="col-md-4  d-flex justify-content-end">
-                    <button class="btn me-2"  data-bs-toggle="modal"
-                        data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">
-                        <i class="fas fa-clipboard"></i> Add Fee
-                    </button>
-                </div>
+                <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#membershipFeeModal"
+                    @click="submit = this.submitData, this.clearData()">
+                    <i class="fas fa-clipboard"></i> Add Fee
+                </button>
             </div>
         </div>
+    </div>
 
 
     <!-- <button class="btn btn-primary" id="btn-accountabilities" data-bs-toggle="modal" data-bs-target="#membershipFeeModal" @click="submit = this.submitData, this.clearData()">Add Accountabilities</button> -->
     <!-- Card 1 -->
     <div class="accountabilities-container" id="set-accountabilities">
         <!-- Loading spinner -->
-        <div v-if="loading"  class="d-flex gap-4" style="padding: 10px;">
-            <div class="card loading-card" aria-hidden="true" style="width: calc(33.33% - 20px); height: 180px; border:none;">
+        <div v-if="loading" class="d-flex gap-4" style="padding: 10px;">
+            <div class="card loading-card" aria-hidden="true"
+                style="width: calc(33.33% - 20px); height: 180px; border:none;">
                 <div class="card-body ">
 
                     <h5 class="card-title placeholder-glow text-center">
@@ -111,11 +112,12 @@
 
                     <h2 class="text-center "> <b>{{ accountability['accountability_name'] }}</b> </h2>
                     <h4 class="text-center" style="color: #357960; font-weight: bold;">&#8369; {{
-                    accountability['amount']
-                }}</h4>
-                <div class="d-flex justify-content-center">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewBreakdownModal"> <i class="fas fa-eye"></i> View</button>
-                </div>
+                        accountability['amount']
+                        }}</h4>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#viewBreakdownModal"> <i
+                                class="fas fa-eye"></i> View</button>
+                    </div>
 
                 </span>
 
@@ -163,7 +165,7 @@
                         <p class="pl-2" v-if="formData.amount.length >= 20" style="color: red;">Maximum length reached
                         </p>
 
-                        <label for="breakdownInput" class="form-label">Fee  Breakdown</label>
+                        <label for="breakdownInput" class="form-label">Fee Breakdown</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
                     </div>
                     <div class="modal-footer">
@@ -181,19 +183,19 @@
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="membershipFeeModalLabel" >
-                            Accountability Breakdown
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h6 class="fw-bold">College Fee Breakdown</h6>
-                        <p style="white-space: pre-wrap;">Valentine's day 50.00
+                <div class="modal-header">
+                    <h5 class="modal-title" id="membershipFeeModalLabel">
+                        Accountability Breakdown
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="fw-bold">College Fee Breakdown</h6>
+                    <p style="white-space: pre-wrap;">Valentine's day 50.00
                         Women's day 40.00
                     </p>
-                    </div>
-                    <div class="modal-footer ">
+                </div>
+                <div class="modal-footer ">
                     <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Close</button>
 
                 </div>
@@ -260,7 +262,7 @@ export default {
                 this.showError('The name fines cannot be used as it is already present in the system.');
             }
             else {
-                axios.put(`/update_accountabilities/${this.id}/${this.old_name}/${this.org_id}`, this.formData)
+                axios.post(`/update_accountabilities/${this.id}/${this.old_name}/${this.org_id}`, this.formData)
                     .then(response => {
                         console.log(response.data)
                         if (response.data.status == 1) {
@@ -364,7 +366,7 @@ export default {
                 })
         },
         deleteAccountability() {
-            axios.delete(`/delete_organization_accountability/${this.id}/${this.org_id}`)
+            axios.post(`/delete_organization_accountability/${this.id}/${this.org_id}`)
                 .then((response) => {
                     console.log(response.data)
                     if (response.data.status == 1) {

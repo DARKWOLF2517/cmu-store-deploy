@@ -147,7 +147,8 @@ class EventController extends Controller
         //     'evaluation_form' => 'required'
         // ]);
         // return $request->temporary_evaluation_form;
-        Event::where('event_id', $event)->update([
+        $event = Event::findOrFail($event);
+        $event->update([
             'name' => $request->formData['name'],
             'start_date' => $request->formData['start_date'],
             'start_attendance' => $request->formData['start_attendance'],
@@ -161,6 +162,7 @@ class EventController extends Controller
             'fines' => $request->formData['fines'],
         ]);
 
+        return response()->json(['message' => 'Event updated successfully.']);
         // // Assuming you have an Event model
         EventEvaluation::where('event_id', $event)->delete();
 
@@ -184,16 +186,27 @@ class EventController extends Controller
         // }
 
         try {
-            event::where('event_id', $event)->delete();
-            return response()->json(['message' => 'Event Deleted successfully', 'status' => 1]);
+            $event = Event::findOrFail($event);
+            $event->delete();
+
+            return response()->json([
+                'message' => 'Event Deleted successfully',
+                'status' => 1
+            ]);
         } catch (QueryException $e) {
             // Check if the exception is due to a foreign key constraint
             if ($e->errorInfo[1] === 1451) {
-                return response()->json(['message' => 'Unable to delete event because it has attendance records.', 'status' => 0]);
+                return response()->json([
+                    'message' => 'Unable to delete event because it has attendance records.',
+                    'status' => 0
+                ]);
             }
 
             // Handle other database errors
-            return response()->json(['message' => 'Database error: ' . $e->getMessage(), 'status' => 0]);
+            return response()->json([
+                'message' => 'Database error: ' . $e->getMessage(),
+                'status' => 0
+            ]);
         }
     }
 

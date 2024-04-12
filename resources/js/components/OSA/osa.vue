@@ -1107,7 +1107,7 @@ export default {
         },
         updateSchoolYearData() {
             axios
-                .put(`/update_school_year/${this.id}`, this.school_year_input)
+                .post(`/update_school_year/${this.id}`, this.school_year_input)
                 .then((response) => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -1119,7 +1119,7 @@ export default {
         },
         deleteSchoolYear() {
             axios
-                .delete(`/deleteSchoolYear/${this.id}`)
+                .post(`/deleteSchoolYear/${this.id}`)
                 .then((response) => {
                     this.showSucces(response.data.message);
                     // this.viewSchoolYear();
@@ -1164,7 +1164,7 @@ export default {
         },
         updateCollege() {
             axios
-                .put(`/update_college/${this.id}`, this.college_input)
+                .post(`/update_college/${this.id}`, this.college_input)
                 .then((response) => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -1176,7 +1176,7 @@ export default {
         },
         deleteCollege() {
             axios
-                .delete(`/delete_college/${this.id}`)
+                .post(`/delete_college/${this.id}`)
                 .then((response) => {
                     this.showSucces(response.data.message);
                     // this.viewSchoolYear();
@@ -1220,7 +1220,7 @@ export default {
         },
         updateOrganization() {
             axios
-                .put(`/update_organization/${this.id}`, this.organization_input)
+                .post(`/update_organization/${this.id}`, this.organization_input)
                 .then((response) => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -1232,7 +1232,7 @@ export default {
         },
         deleteOrganization() {
             axios
-                .delete(`/delete_organization/${this.id}`)
+                .post(`/delete_organization/${this.id}`)
                 .then((response) => {
                     this.showSucces(response.data.message);
                     // this.viewSchoolYear();
@@ -1290,7 +1290,7 @@ export default {
         },
         updateOrganizationAdmin() {
             axios
-                .put(`/update_organization_admin/${this.id}`, this.admins_input)
+                .post(`/update_organization_admin/${this.id}`, this.admins_input)
                 .then((response) => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
@@ -1302,7 +1302,7 @@ export default {
         },
         deleteOrganizationAdmin() {
             axios
-                .delete(`/delete_organization_admin/${this.id}/${this.admins_input.student_id}`)
+                .post(`/delete_organization_admin/${this.id}/${this.admins_input.student_id}`)
                 .then((response) => {
                     this.showSucces(response.data.message);
                     // this.viewSchoolYear();

@@ -16,7 +16,7 @@
                 @change="fetchData">
                 <option value="" disabled selected>Select Semester</option>
                 <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                school_year['semester'] }} {{ school_year['school_year']
+                    school_year['semester'] }} {{ school_year['school_year']
                     }}
                 </option>
 
@@ -37,7 +37,7 @@
                 <option value="" disabled selected><i class="fas fa-filter"></i> Sort by</option>
                 <option value="fines">Fines</option>
                 <option v-for="accountability in this.accountabilities" :value="accountability.accountability_name">{{
-                accountability.accountability_name }}</option>
+                    accountability.accountability_name }}</option>
             </select>
         </div>
     </div>
@@ -437,7 +437,7 @@ export default {
         },
         deleteAccountabilities() {
             console.log(this.id)
-            axios.delete(`/delete_paid_accountabilities/${this.id}`)
+            axios.post(`/delete_paid_accountabilities/${this.id}`)
                 .then(response => {
                     this.showSucces(response.data.message);
                     // this.fetchData();
