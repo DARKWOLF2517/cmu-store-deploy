@@ -84,6 +84,7 @@
                         <th class="sortable-header">Log</th>
                         <th class="sortable-header" style="width: 20%">Time</th>
                         <th>Remarks</th>
+                        <th>Attendance Checker</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -126,6 +127,8 @@
                         <td>{{ attendance.created_at }}</td>
                         <td v-if="attendance.remarks == 0">N/A</td>
                         <td v-else>{{ attendance.remarks }}</td>
+                        <td>{{ attendance.attendance_checker.first_name }} {{ attendance.attendance_checker.last_name }}
+                        </td>
                         <td>
                             <span class="d-flex justify-content-center">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
@@ -546,6 +549,7 @@ export default {
                     `/attendance/list/${this.organization_id}/${this.event_id}`
                 )
                 .then((response) => {
+                    console.log(response.data)
                     this.loading = false;
                     this.filtered_attendance = [];
                     const data = response.data;

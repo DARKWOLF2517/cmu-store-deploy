@@ -24,8 +24,8 @@
                         v-model="school_year_input" @change="fetchData">
                         <option value="0" disabled selected>Select School Year</option>
                         <option v-for="school_year in this.school_year" :value="school_year['id']"> {{
-                        school_year['semester'] }} {{
-                        school_year['school_year'] }}</option>
+                            school_year['semester'] }} {{
+                                school_year['school_year'] }}</option>
                     </select>
                 </div>
             </div>
@@ -130,13 +130,14 @@
                 <div class="record-title">
                     <h5><b>{{ attendance_list.name }}</b></h5>
                 </div>
-                <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b></div>
-               <div class="d-flex justify-content-end">
-                 <button v-if="attendance_list.attendance !== 0" class="btn btn-success"
-                    @click="attendance_result(attendance_list.event_id)" >
-                    <i class="fas fa-eye"></i> View
-                </button>
-               </div>
+                <div class="record-description">Number of Attendance recorded: <b>{{ attendance_list.attendance }}</b>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button v-if="attendance_list.attendance !== 0" class="btn btn-success"
+                        @click="attendance_result(attendance_list.event_id)">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                </div>
 
             </div>
         </div>
@@ -182,7 +183,7 @@ export default {
                 this.filtered_attendance = [];
             axios.get(`/attendance_record/${this.organization_id}/${this.school_year_input}`)
                 .then((response) => {
-                    // console.log(response.data)
+                    console.log(response.data)
                     const data = response.data;
                     data.forEach(element => {
                         element['attendance'] = (element['attendance'].length)

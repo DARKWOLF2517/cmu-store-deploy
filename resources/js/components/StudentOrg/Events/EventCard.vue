@@ -523,7 +523,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -733,7 +733,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -933,7 +933,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1304,7 +1304,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                    }}</strong>
+                                        }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1356,7 +1356,7 @@
                                 </label>
                                 <div class="select-dropdown border" style="width: 70%">
                                     <select id="sort-select" class="form-control" style="text-align: center"
-                                        v-model="school_year_input" @change="fetchData">
+                                        v-model="copy_event_data_school_year" @change="this.getEventsListToCopy">
                                         <option value="0" disabled selected>
                                             Select Semester
                                         </option>
@@ -1380,59 +1380,23 @@
                                         overflow-y: auto;
                                         max-height: 40vh;
                                     ">
-                                    <div class="col mt-2">
+                                    <div class="col mt-2" v-for="events in this.event_data_to_copy"
+                                        :key="events.event_id">
                                         <label class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox" />
+                                            <input class="form-check-input" type="checkbox"
+                                                v-model="this.event_data_to_copy_event_id" :value="events.event_id" />
                                             <div class="event-card border-top border-5 border-success"
                                                 style="width: 18rem">
                                                 <div class="card-body">
                                                     <h5 class="card-title">
-                                                        Event Title
+                                                        Event Title :{{ events.name }}
                                                     </h5>
-                                                    <p class="mb-0">Date</p>
+                                                    <p class="mb-0">Date : {{ events.start_date }}</p>
                                                     <p class="mb-0">
-                                                        Start Time
+                                                        Start Time : {{ events.start_attendance }}
                                                     </p>
-                                                    <p class="mb-0">End Time</p>
-                                                    <p class="mb-0">Location</p>
-                                                </div>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="col mt-2">
-                                        <label class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox" />
-                                            <div class="event-card border-top border-5 border-success"
-                                                style="width: 18rem">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        Event Title
-                                                    </h5>
-                                                    <p class="mb-0">Date</p>
-                                                    <p class="mb-0">
-                                                        Start Time
-                                                    </p>
-                                                    <p class="mb-0">End Time</p>
-                                                    <p class="mb-0">Location</p>
-                                                </div>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div class="col mt-2">
-                                        <label class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="myCheckbox" />
-                                            <div class="event-card border-top border-5 border-success"
-                                                style="width: 18rem">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        Event Title
-                                                    </h5>
-                                                    <p class="mb-0">Date</p>
-                                                    <p class="mb-0">
-                                                        Start Time
-                                                    </p>
-                                                    <p class="mb-0">End Time</p>
-                                                    <p class="mb-0">Location</p>
+                                                    <p class="mb-0">End Time : {{ events.end_attendance }}</p>
+                                                    <p class="mb-0">Location : {{ events.location }}</p>
                                                 </div>
                                             </div>
                                         </label>
@@ -1444,7 +1408,7 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     Close
                                 </button>
-                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                                <button type="button" class="btn btn-success" @click="this.submitCopyEvents()">
                                     Copy Events
                                 </button>
                             </div>
@@ -1747,6 +1711,7 @@ export default {
     props: ["organization_id", "school_year_session"],
     data() {
         return {
+
             submit: this.sendData,
             events: [],
             showEvent: [],
@@ -1793,6 +1758,11 @@ export default {
             college_id: 0,
             temporarySelectEvaluation: 0,
             termporaryEvaluationDisplay: [],
+
+            //COPY EVENTS
+            copy_event_data_school_year: null,
+            copy_event_data_event_id: [],
+            event_data_to_copy: []
         };
     },
     created() {
@@ -1801,6 +1771,7 @@ export default {
         this.fetchData();
         this.showSchoolYear();
         this.showYearLevelData();
+        this.getEventsListToCopy();
 
     },
     mounted() {
@@ -1828,6 +1799,22 @@ export default {
     },
 
     methods: {
+        submitCopyEvents() {
+
+        },
+        getEventsListToCopy() {
+            axios
+                .get(
+                    `/events/show/${this.organization_id}/${this.copy_event_data_school_year}`
+                )
+                .then((response) => {
+                    console.log(response.data)
+                    this.event_data_to_copy = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
         removeEvaluationForm(id) {
             console.log(this.termporaryEvaluationDisplay)
             //for the temporary view of the evaluation form

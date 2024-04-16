@@ -35,7 +35,7 @@ class AttendanceController extends Controller
             ['org_id', $organization_id],
             ['event_id', $event_id],
             ['remarks', 0]
-        ])->with(['user_profile.college', 'events'])->get();
+        ])->with(['user_profile.college', 'events', 'attendance_checker'])->get();
         return $attendance->toJson();
     }
     public function events($event_id)

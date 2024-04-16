@@ -20,8 +20,8 @@
                             <i class="fas fa-lock"></i>
                         </span>
                     </div>
-                    <input type="password" class="form-control rounded-left" placeholder="Password" required name="password"
-                        v-model="form.password" :class="{ 'border-danger': error }">
+                    <input type="password" class="form-control rounded-left" placeholder="Password" required
+                        name="password" v-model="form.password" :class="{ 'border-danger': error }">
                 </div>
 
             </div>
@@ -36,9 +36,11 @@
             <!-- <div class="form-group d-md-flex">
                 <a href="#" class="text-primary">Forgot Password</a>
         </div> -->
-            <p class="text-danger error-message" id="error-message" v-if="this.error == 'user_creadential_error'">Incorrect
+            <p class="text-danger error-message" id="error-message" v-if="this.error == 'user_creadential_error'">
+                Incorrect
                 username or password. Please try again.</p>
-            <p class="text-danger error-message" id="error-message" v-else-if="this.error == 'not_tagged_error'">You are not
+            <p class="text-danger error-message" id="error-message" v-else-if="this.error == 'not_tagged_error'">You are
+                not
                 tagged in any organization.</p>
             <div class="form-group text-right">
                 <button type="submit" class="btn btn-primary rounded submit">Log In</button>
@@ -61,12 +63,12 @@ export default {
         };
     },
     watch: {
-        'form.username': function(newVal, oldVal) {
+        'form.username': function (newVal, oldVal) {
             if (newVal === '') {
                 this.error = '';
             }
         },
-        'form.password': function(newVal, oldVal) {
+        'form.password': function (newVal, oldVal) {
             if (newVal === '') {
                 this.error = '';
             }
@@ -116,6 +118,6 @@ export default {
 </script>
 <style>
 .border-danger {
-  border-color: #dc3545;
+    border-color: #dc3545;
 }
 </style>

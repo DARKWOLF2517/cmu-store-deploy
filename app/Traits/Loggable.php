@@ -29,8 +29,13 @@ trait Loggable
 
     protected static function log(Model $model, string $action)
     {
+        $modelName = match (get_class($model)) {
+            \App\Models\EventAttendanceChecker::class => 'Attendance Checker',
+
+            default => class_basename($model),
+        };
         Log::create([
-            'model' => get_class($model),
+            'model' => $modelName,
             'action' => $action,
             'data' => json_encode($model->toArray()),
             'user' => Auth::id() ?? 'Unknown',

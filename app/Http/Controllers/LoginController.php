@@ -30,8 +30,8 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $userOrganizationCount = UserOrganization::where('student_id', Auth::id())->count();
-            $defaultSchoolYear = SchoolYear::latest()->get()->last();
-
+            $defaultSchoolYear = SchoolYear::latest()->first();
+            // return $defaultSchoolYear;
 
             //if the user has MANY org or role
             if ($userOrganizationCount > 1) {
@@ -314,7 +314,7 @@ class LoginController extends Controller
         // $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
         // if($orgDefaultSchoolYear > 0){
         // $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();
-        $defaultSchoolYear = SchoolYear::latest()->get()->last();
+        $defaultSchoolYear = SchoolYear::latest()->first();
 
         // if ($userOrganization->school_year == $defaultSchoolYear->school_year){
         //     session(['school_year' =>  $orgSchoolYear->school_year]);
@@ -328,12 +328,12 @@ class LoginController extends Controller
         // }
         //if the user is admin it will bypass the school year
         // else if ($userOrganization->role_id == 1){
-        session(['school_year' => $defaultSchoolYear->id]);
+        // session(['school_year' => $defaultSchoolYear->id]);
         session(['org_id' =>  $userOrganization->student_org_id]);
         session(['org_name' =>  $userOrganization->organization->name]);
         session(['role' =>  $userOrganization->role_id]);
-        session(['user_name' =>  $userOrganization->user_profile->first_name]);
-        session(['profile_picture' =>  $userOrganization->user_profile->image]);
+        // session(['user_name' =>  $userOrganization->user_profile->first_name]);
+        // session(['profile_picture' =>  $userOrganization->user_profile->image]);
         session(['user_school_year' =>  $userOrganization->school_year]);
         // session(['college_id' =>  $userOrganization->college_id]);
         // return $userOrganization->school_year;

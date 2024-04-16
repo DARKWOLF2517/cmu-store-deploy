@@ -32,8 +32,8 @@ class Attendance extends Model
     {
         return $this->hasOne(Event::class, 'event_id', 'event_id');
     }
-    // public function college()
-    // {
-    //     return $this->belongsTo(College::class,'college_id','id');
-    // }
+    public function attendance_checker()
+    {
+        return $this->belongsTo(UserProfile::class, 'officer_id', 'user_id');
+    }
 }

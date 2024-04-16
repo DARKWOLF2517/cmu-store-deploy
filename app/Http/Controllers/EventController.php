@@ -186,6 +186,7 @@ class EventController extends Controller
         ]);
         EventEvaluation::where('event_id', $event_id)->delete();
         if (count($request->temporary_evaluation_form) > 0) {
+
             foreach ($request->temporary_evaluation_form as $evaluation) {
                 $evaluationform = new EventEvaluation();
                 $evaluationform->evaluation_form_id = $evaluation;
