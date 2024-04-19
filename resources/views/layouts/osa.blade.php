@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,7 @@
     <link href="{{ asset('custom_css/osastylesheet.css') }}" rel="stylesheet">
     @vite('resources/js/app.js', 'build')
 </head>
+
 <body>
     <div id="app">
         <div class="wrapper">
@@ -65,5 +67,8 @@
         </div>
     </div>
 
+    <!-- Include exceljs for parsing Excel files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js"></script>
 </body>
+
 </html>

@@ -233,7 +233,7 @@
                                 <input type="text" placeholder="Search User" />
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                             <div class="select-dropdown border" style="width: 70%;">
                                 <select id="sort-select" class="form-control" style="text-align: center"
                                     v-model="school_year_input" @change="fetchData">
@@ -247,14 +247,13 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="d-flex gap-2 align-items-center mb-3">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                             <i class="fas fa-plus"></i> Add User
                         </button>
-                        <button id="uploadButton" class="btn btn-secondary" data-bs-toggle="modal"
-                            data-bs-target="#excelDataModal">
+                        <button id="uploadButton" class="btn btn-secondary">
                             <i class="fas fa-file-upload"></i> Upload List
                         </button>
                         <input type="file" id="fileInput" accept=".xls,.xlsx" style="display: none" />
@@ -271,9 +270,11 @@
                             <th>Actions</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="fw-bold">74565423</td>
-                                <td>dhdhjvbdbhhf</td>
+                            <tr v-for="users in this.users_data">
+                                <td class="fw-bold">{{ users.id }}</td>
+                                <td v-if="users.user_profile">{{ users.user_profile.first_name }} {{
+                                    users.user_profile.middle_name }} {{ users.user_profile.last_name }}</td>
+                                <td v-else></td>
                                 <td>2nd Year</td>
                                 <td>CSCo</td>
                                 <td>CISC</td>
@@ -334,7 +335,7 @@
                     <h5 class="modal-title" id="excelDataModalLabel">Excel Student List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form @submit.prevent="this.uploadData()">
+                <form @submit.prevent="this.addUsersData()">
                     <div class="modal-body"
                         style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
                         <div class="text-center">
@@ -831,6 +832,9 @@ export default {
                 search: '',
             },
 
+            users_data: [],
+            users_data_input: [],
+
 
         };
     },
@@ -839,6 +843,7 @@ export default {
         this.fetchCollege();
         this.fetchOrganization();
         this.fetchOrganizationAdmins();
+        this.fetchUserData();
         this.upload();
     },
     methods: {
@@ -873,7 +878,18 @@ export default {
                     console.log(error)
                 });
         },
-        uploadData() {
+        fetchUserData() {
+            axios
+                .get(`/get_users`)
+                .then((response) => {
+                    console.log(response.data)
+                    this.users_data = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        addUsersData() {
 
             // if (this.college_data_input == 0 || this.year_level_data_input == 0){
             //     alert('Please Choose Year Level and  College')

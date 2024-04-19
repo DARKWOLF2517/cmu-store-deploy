@@ -31,8 +31,8 @@
 
             <div class="student-buttons announcement-buttons col-md-4 text-end mt-2">
                 <div class="btn-group" role="group">
-                    <button class="btn me-2" data-bs-toggle="modal" @click="this.clearData()"
-                        data-bs-target="#addStudentModal">
+                    <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
+                        data-bs-toggle="modal" @click="this.clearData()" data-bs-target="#addStudentModal">
                         <i class="fas fa-plus"></i> Add Student
                     </button>
 
@@ -74,7 +74,7 @@
                         <th>Student ID</th>
                         <th style="width: 30%;">Student Name</th>
                         <th style="width: 20%;">Reason</th>
-                        <th style="width: 10%;"></th>
+                        <th v-if="this.user_school_year == this.school_year_input" style="width: 10%;"></th>
                     </tr>
                 </thead>
 
@@ -115,7 +115,7 @@
                         <td>{{ free_fines.student_id }}</td>
                         <td>{{ free_fines.user_profile.first_name }} {{ free_fines.user_profile.last_name }}</td>
                         <td>{{ free_fines.reason }}</td>
-                        <td>
+                        <td v-if="this.user_school_year == this.school_year_input">
                             <span class="d-flex justify-content-center gap-2">
                                 <button class="btn edit-button"
                                     @click="submit = updateData, id = free_fines.student_id, fetchUpdateData()"
@@ -225,7 +225,7 @@
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 export default {
-    props: ['org_id', 'school_year_session'],
+    props: ['org_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             submit: this.sendData,

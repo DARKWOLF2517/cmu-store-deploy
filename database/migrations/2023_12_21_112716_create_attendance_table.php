@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('time');
             $table->integer('session');
             $table->longText('remarks');
+            $table->string('atteandance_log');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->foreign('org_id')->references('org_id')->on('organizations')->onDelete('restrict');
             $table->foreign('event_id')->references('event_id')->on('events')->onDelete('restrict');

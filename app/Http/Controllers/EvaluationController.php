@@ -170,6 +170,33 @@ class  EvaluationController extends Controller
         }
         return response()->json(['message' => 'Evaluation Form Added Successfully']);
     }
+    public function uploadCopyEvaluationForm($school_year, Request $request)
+    {
+
+        foreach ($request->all() as $key => $value) {
+            $evaluation_form = EvaluationForm::find($value);
+            $new_evaluation_form = $evaluation_form->replicate();
+            $new_evaluation_form->school_year = $school_year;
+            $new_evaluation_form->save();
+
+            $evaluation_question = EvaluationQuestion::where('evaluation_form_id', $evaluation_form->id)->get();
+            foreach ($evaluation_question as $questions) {
+                $new_evaluation_question = $questions->replicate();
+                $new_evaluation_question->evaluation_form_id = $new_evaluation_form->id;
+                $new_evaluation_question->save();
+
+                $evaluation_option = EvaluationOption::where('question_id', $questions->id)->get();
+                foreach ($evaluation_option as $options) {
+
+                    $new_evaluation_option = $options->replicate();
+                    $new_evaluation_option->question_id = $new_evaluation_question->id;
+                    $new_evaluation_option->save();
+                }
+            }
+        }
+
+        return response()->json(['message' => 'Events Copied Successfully']);
+    }
 
     /////////////////////
     //student section///

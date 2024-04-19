@@ -33,8 +33,9 @@ class LoginController extends Controller
             $defaultSchoolYear = SchoolYear::latest()->first();
             // return $defaultSchoolYear;
 
-            //if the user has MANY org or role
+            //if the user has MANY role in  organization
             if ($userOrganizationCount > 1) {
+
                 //tells when there is many user
                 session(['many_user' =>  'false']);
                 //filter if the user has the same org
@@ -45,8 +46,10 @@ class LoginController extends Controller
                     ->pluck('count')
                     ->first();
                 // if($userOrgRoles > 1 ){
+
                 //if the user has many organization and 2 or more roles on the said organization
                 if ($userOrganizationCount != $userOrgRoles) {
+
                     // Retrieve user organizations with the specified student ID and eager load user_profile
                     $userOrganization = UserOrganization::where('student_id', Auth::id())
                         ->with(['organization', 'user_profile'])
@@ -80,53 +83,95 @@ class LoginController extends Controller
                     }
                     // Not all user organizations have role_id equal to 2
                     else {
+
                         //if the role has only 1 admin
                         $countOfRoles1 = $userOrganization->where('role_id', 1)->count();
                         $countOfRoles3 = $userOrganization->where('role_id', 3)->count();
 
-                        if ($countOfRoles1 == 1) {
-                            $orgName = $userOrganization->where('role_id', 1)->first();
-                            session(['school_year' =>  $defaultSchoolYear->id]);
-                            session(['org_id' =>  $orgName->student_org_id]);
-                            session(['org_name' =>  $orgName->organization->name]);
-                            session(['role' =>  $orgName->role_id]);
-                            session(['user_name' =>  $orgName->user_profile->first_name]);
-                            session(['profile_picture' =>  $orgName->user_profile->image]);
-                            session(['user_school_year' =>  $orgName->school_year]);
-                            if (Auth::user()->is_password_change == 0) {
-                                return 'changepassword';
-                            } else {
-                                return '1';
-                            }
-                        } else if ($countOfRoles3  == 1) {
-                            $orgName = $userOrganization->where('role_id', 3)->first();
-                            session(['school_year' =>  $defaultSchoolYear->id]);
-                            session(['org_id' =>  $orgName->student_org_id]);
-                            session(['org_name' =>  $orgName->organization->name]);
-                            session(['role' =>  $orgName->role_id]);
-                            session(['user_name' =>  $orgName->user_profile->first_name]);
-                            session(['profile_picture' =>  $orgName->user_profile->image]);
-                            session(['user_school_year' =>  $orgName->school_year]);
+                        if ($countOfRoles1 > 0) {
+                            // check if there is 2 or more organization that the user is admin
+                            $groupedOrganizations = $userOrganization->where('role_id', 1)->groupBy('organization.org_id');
 
-                            if (Auth::user()->is_password_change == 0) {
-                                return 'changepassword';
+                            // if the user has 2 or more organization with admin role
+                            if ($groupedOrganizations->count() > 1) {
+                                session(['many_user' =>  'true']);
+                                $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->first();
+                                session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                                session(['school_year' =>  $defaultSchoolYear->id]);
+                                session(['profile_picture' =>  $userOrganization->user_profile->image]);
+                                if (Auth::user()->is_password_change == 0) {
+                                    return 'changepassword';
+                                } else {
+                                    return '4';
+                                }
+
+                                //if the user has 1 organization with admin role
                             } else {
-                                return '3';
+
+                                $orgName = $userOrganization->where('role_id', 1)->sortByDesc('id')->first();
+                                session(['school_year' =>  $defaultSchoolYear->id]);
+                                session(['org_id' =>  $orgName->student_org_id]);
+                                session(['org_name' =>  $orgName->organization->name]);
+                                session(['role' =>  $orgName->role_id]);
+                                session(['user_name' =>  $orgName->user_profile->first_name]);
+                                session(['profile_picture' =>  $orgName->user_profile->image]);
+                                session(['user_school_year' =>  $orgName->school_year]);
+                                if (Auth::user()->is_password_change == 0) {
+                                    return 'changepassword';
+                                } else {
+                                    return '1';
+                                }
                             }
-                        } else {
-                            session(['many_user' =>  'true']);
-                            $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->first();
-                            session(['user_name' =>  $userOrganization->user_profile->first_name]);
-                            session(['school_year' =>  $defaultSchoolYear->id]);
-                            session(['profile_picture' =>  $userOrganization->user_profile->image]);
-                            if (Auth::user()->is_password_change == 0) {
-                                return 'changepassword';
+                        } else if ($countOfRoles3  > 1) {
+
+                            $groupedOrganizations = $userOrganization->where('role_id', 3)->groupBy('organization.org_id');
+
+                            // if the user has 2 or more organization with admin role
+                            if ($groupedOrganizations->count() > 0) {
+
+                                session(['many_user' =>  'true']);
+                                $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->first();
+                                session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                                session(['school_year' =>  $defaultSchoolYear->id]);
+                                session(['profile_picture' =>  $userOrganization->user_profile->image]);
+                                if (Auth::user()->is_password_change == 0) {
+                                    return 'changepassword';
+                                } else {
+                                    return '4';
+                                }
+
+                                //if the user has 1 organization with admin role
                             } else {
-                                return '4';
+                                $orgName = $userOrganization->where('role_id', 1)->latest()->first();
+                                session(['school_year' =>  $defaultSchoolYear->id]);
+                                session(['org_id' =>  $orgName->student_org_id]);
+                                session(['org_name' =>  $orgName->organization->name]);
+                                session(['role' =>  $orgName->role_id]);
+                                session(['user_name' =>  $orgName->user_profile->first_name]);
+                                session(['profile_picture' =>  $orgName->user_profile->image]);
+                                session(['user_school_year' =>  $orgName->school_year]);
+                                if (Auth::user()->is_password_change == 0) {
+                                    return 'changepassword';
+                                } else {
+                                    return '3';
+                                }
                             }
                         }
+                        // else {
+                        //     session(['many_user' =>  'true']);
+                        //     $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->first();
+                        //     session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                        //     session(['school_year' =>  $defaultSchoolYear->id]);
+                        //     session(['profile_picture' =>  $userOrganization->user_profile->image]);
+                        //     if (Auth::user()->is_password_change == 0) {
+                        //         return 'changepassword';
+                        //     } else {
+                        //         return '4';
+                        //     }
+                        // }
                     }
                 }
+
                 //if the user has one organization and 2 or more roles on the said organization
                 else {
                     $userOrganization = UserOrganization::where('student_id', Auth::id())->with(['organization', 'user_profile'])->get();
@@ -207,6 +252,17 @@ class LoginController extends Controller
             } else {
                 //if the user has only ONE org or role
                 $userOrganization = UserOrganization::where('student_id', Auth::id())->with('organization', 'user_profile')->first();
+                if ($userOrganization->role_id == 4) {
+                    session(['role' =>  $userOrganization->role_id]);
+                    session(['user_name' =>  $userOrganization->user_profile->first_name]);
+                    session(['profile_picture' =>  $userOrganization->user_profile->image]);
+                    //for student role when the user has 1 role
+                    if (Auth::user()->is_password_change == 0) {
+                        return 'changepassword';
+                    } else {
+                        return '5';
+                    }
+                }
                 if ($userOrganization) {
                     //get org default school year
                     // $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
@@ -244,13 +300,6 @@ class LoginController extends Controller
                             return 'changepassword';
                         } else {
                             return '2';
-                        }
-                    } else if ($userOrganization->role_id == 4) {
-                        //for student role when the user has 1 role
-                        if (Auth::user()->is_password_change == 0) {
-                            return 'changepassword';
-                        } else {
-                            return '5';
                         }
                     }
 
@@ -310,7 +359,11 @@ class LoginController extends Controller
     {
 
 
-        $userOrganization = UserOrganization::where('id', $id)->with('organization', 'user_profile')->first();
+        $userOrganization = UserOrganization::where('id', $id)
+            ->orderBy('id', 'desc')
+            ->with('organization', 'user_profile')
+            ->first();
+        // return $userOrganization;
         // $orgDefaultSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->count();
         // if($orgDefaultSchoolYear > 0){
         // $orgSchoolYear = OrganizationDefaultSchoolYear::where('org_id',$userOrganization->student_org_id)->first();

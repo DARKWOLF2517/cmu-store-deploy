@@ -56,7 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/attendance', [AttendanceController::class, 'store'])->name('add-attendance');
     Route::get('/attendance_record/{organization_id}/{school_year}', [AttendanceController::class, 'attendanceRecord']);
     Route::get('/attendance/list/{organization_id}/{event_id}', [AttendanceController::class, 'AttendanceList']);
-    Route::get('student_organization_attendance_record/{event_id}', [AttendanceController::class, 'events']);
+    Route::get('student_organization_attendance_record/{event_id}/{school_year}', [AttendanceController::class, 'events']);
     Route::post('/upload_event_attendance_checker/{event_id}', [AttendanceController::class, 'uploadEventAttendanceChecker']);
     Route::get('check_attendance_status/{event_id}', [AttendanceController::class, 'checkAttendanceStatus']);
     // Route::get('attendance_checker_count/{event_id}', [AttendanceController::class, 'attendanceCheckerCount']);
@@ -116,7 +116,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get_student_payment_history/{user_id}/{org_id}', [AccountabilitiesController::class, 'getStudentPaymentHistory']);
 
     #attendance route
-    Route::get('student_qrscanner/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showQR']);
+    Route::get('student_qrscanner/{event_id}/{org_id}/{session}/{attendance_log_started}', [AttendanceController::class, 'showQR']);
     Route::get('/attendance/show/{event_id}/{org_id}/{session}', [AttendanceController::class, 'showAttendanceList']);
     Route::get('back_to_schedule', [AttendanceController::class, 'back']);
 
@@ -226,6 +226,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/upload_evaluation_form', [EvaluationController::class, 'uploadEvaluationForm']);
         Route::get('/getEvaluationForm/{org_id}/{school_year}', [EvaluationController::class, 'getEvaluationForm']);
         Route::post('/delete_evaluation_form/{evaluation_form_id}', [EvaluationController::class, 'deleteEvaluationForm']);
+        Route::post('/upload_copy_evaluation_form/{school_year}', [EvaluationController::class, 'uploadCopyEvaluationForm']);
 
         Route::get('/get_events/{event_id}', [EvaluationController::class, 'getEvents']);
         Route::get('/fetchEvaluationFormUpdate/{evaluation_id}', [EvaluationController::class, 'getEvaluationFormUpdate']);
@@ -245,6 +246,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update_event_status/{id}/{status}', [EventController::class, 'updateEventStatus']);
         Route::post('/submitCancelAttendanceEvent/{event_id}/{school_year}/{org_id}', [EventController::class, 'submitCancelAttendanceEvent']);
         Route::get('/show_cancelled_attendance/{event_id}', [EventController::class, 'showCancelledAttendance']);
+        Route::post('/submit_copy_events/{school_year}/{org_id}', [EventController::class, 'submitCopyEvents']);
 
         #ACCOUNTABILITIES ROUTES
         Route::post('/set_accountabilities', [AccountabilitiesController::class, 'store']);
@@ -415,5 +417,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/edit_organization_admin/{id}', [AdminController::class, 'editOrganizationAdmin']);
         Route::post('/update_organization_admin/{id}', [AdminController::class, 'updateOrganizationAdmin']);
         Route::post('/delete_organization_admin/{id}/{student_id}', [AdminController::class, 'deleteOrganizationAdmin']);
+        Route::get('/get_users', [AdminController::class, 'getUsers']);
     });
 });

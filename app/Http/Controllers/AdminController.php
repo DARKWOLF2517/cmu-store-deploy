@@ -200,4 +200,9 @@ class AdminController extends Controller
 
         return response()->json(['message' => 'Admin Deleted successfully']);
     }
+    public function getUsers()
+    {
+        $users = User::with('user_profile.year_level')->get();
+        return $users;
+    }
 }

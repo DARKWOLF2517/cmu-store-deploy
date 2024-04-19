@@ -30,6 +30,7 @@ class Event extends Model
         'end_session_scheduled_attendance',
         'event_status',
         'school_year',
+        'attendance_log_started',
 
     ];
 

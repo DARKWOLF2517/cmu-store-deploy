@@ -22,7 +22,8 @@
     <div class="mt-2">
         <div class="row head-container">
             <show-accountabilities-list :org_id={{ Session::get('org_id') }} :user_id={{ Auth::id() }}
-                :school_year_session={{ Session::get('school_year') }} />
+                :school_year_session={{ Session::get('school_year') }}
+                :user_school_year={{ Session::get('user_school_year') }} />
         </div>
     </div>
 @endsection

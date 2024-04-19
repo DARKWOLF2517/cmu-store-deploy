@@ -97,39 +97,44 @@ export default {
 
         axios.get(`/GetOrgList/${props.id}`)
             .then(response => {
-                console.log(response.data);
-                // // Assuming your data is stored in an array named 'data'
-                // const uniqueData = response.data.reduce((acc, item) => {
-                //     const existingItemIndex = acc.findIndex(
-                //         t => t.student_org_id === item.student_org_id
-                //     );
+                // console.log(response.data);
 
-                //     if (existingItemIndex === -1) {
-                //         // If no existing item with the same student_org_id, add the item
-                //         acc.push(item);
-                //     } else {
-                //         const existingItem = acc[existingItemIndex];
-                //         if (item.role_id === 1) {
-                //             // If the new item has role_id 1, replace the existing item with it
-                //             acc[existingItemIndex] = item;
-                //         } else if (existingItem.role_id === 2 && item.role_id === 3) {
-                //             // If existing item has role_id 2 and new item has role_id 3, replace the existing item with the new item
-                //             acc[existingItemIndex] = item;
-                //         }
-                //         // Otherwise, keep the existing item
+                // Assuming response.data is your array of objects containing the user organization data
+                let groupedData = [];
+
+                response.data.forEach(item => {
+                    if (item.role_id === 1 || item.role_id === 3) {
+                        let existingItemIndex = groupedData.findIndex(existingItem => existingItem.organization.name === item.organization.name && existingItem.student_org_id === item.student_org_id);
+                        if (existingItemIndex === -1 || groupedData[existingItemIndex].id < item.id) {
+                            if (existingItemIndex !== -1) {
+                                groupedData.splice(existingItemIndex, 1);
+                            }
+                            groupedData.push(item);
+                        }
+                    }
+                });
+
+                console.log(groupedData);
+
+                userOrgs.value = groupedData;
+
+
+
+                // if (groupedData.length == 1) {
+                //     console.log()
+                //     if (groupedData[0].role_id == 1) {
+
+                //         window.location.href = '/org_dashboard';
                 //     }
+                //     else if (groupedData[0].role_id == 2) {
+                //         window.location.href = '/student_dashboard';
+                //     }
+                //     else if (groupedData[0].role_id == 3) {
+                //         window.location.href = '/attendance_checker_dashboard';
+                //     }
+                // }
+                // const filteredData = response.data.filter(item => item.role.role_id === 1 || item.role.role_id == 3);
 
-                //     return acc;
-                // }, []);
-
-                // console.log(uniqueData);
-
-
-
-
-                const filteredData = response.data.filter(item => item.role.role_id === 1 || item.role.role_id == 3);
-
-                userOrgs.value = filteredData;
             })
             .catch(error => {
                 console.log(error)

@@ -20,6 +20,7 @@ class Attendance extends Model
         'session',
         'remarks',
         'time',
+        'attendance_log',
         'created_at',
         'updated_at'
     ];

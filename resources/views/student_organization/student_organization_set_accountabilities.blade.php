@@ -18,7 +18,8 @@
             </ol>
         </nav>
     </div>
-    <set-accountabilities :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }}>
+    <set-accountabilities :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }}
+        :user_school_year={{ Session::get('user_school_year') }}>
     </set-accountabilities>
 @endsection
 <!-- Bootstrap JavaScript -->

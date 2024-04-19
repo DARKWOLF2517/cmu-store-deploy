@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="this.user_school_year == this.school_year_input">
         <div class="d-flex justify-content-between align-items-center">
             <h3 class="mt-2"><i class="fas fa-list"></i> Events</h3>
             <div class="event-buttons d-flex">
@@ -158,8 +158,8 @@
                                 <br />
                                 No events yet.
                             </p>
-                            <a class="btn btn-success" id="copy-event-button" data-bs-toggle="modal"
-                                data-bs-target="#event-modal" @click="
+                            <a v-if="this.user_school_year == this.school_year_input" class="btn btn-success"
+                                id="copy-event-button" data-bs-toggle="modal" data-bs-target="#event-modal" @click="
                                     this.initialData(),
                                     (this.submit = this.sendData)
                                     ">Add Event</a>
@@ -403,7 +403,8 @@
                                                     ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
-                                                    <div class="dropdown">
+                                                    <div class="dropdown"
+                                                        v-if="this.user_school_year == this.school_year_input">
                                                         <a class="ellipsis-button" href="#" style="color: black"
                                                             role="button" id="ellipsisDropdown"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -523,7 +524,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -603,7 +604,8 @@
                                                     ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
-                                                    <div class="dropdown">
+                                                    <div class="dropdown"
+                                                        v-if="this.user_school_year == this.school_year_input">
                                                         <a class="ellipsis-button" href="#" style="color: black"
                                                             role="button" id="ellipsisDropdown"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -733,7 +735,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -813,7 +815,8 @@
                                                     ">
                                                 <!-- Event card HTML -->
                                                 <div class="card">
-                                                    <div class="dropdown">
+                                                    <div class="dropdown"
+                                                        v-if="this.user_school_year == this.school_year_input">
                                                         <a class="ellipsis-button" href="#" style="color: black"
                                                             role="button" id="ellipsisDropdown"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -933,7 +936,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                            }}</strong>
+                                                        }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1154,18 +1157,20 @@
                                 <label for="select-dropdown" class="mt-2">Select Type</label>
                                 <div class="d-flex gap-2">
 
-                                    <div class="form-check ">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="attendanceType" id="timeIn"
+                                            value="Time-IN" v-model="start_attendance.attendance_log_started">
+                                        <label class="form-check-label" for="timeIn">
                                             Time IN
                                         </label>
-                                        </div>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                        <label class="form-check-label" for="flexRadioDefault2">
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="attendanceType" id="timeOut"
+                                            value="Time-Out" v-model="start_attendance.attendance_log_started">
+                                        <label class="form-check-label" for="timeOut">
                                             Time OUT
                                         </label>
-                                        </div>
+                                    </div>
                                 </div>
 
                                 <!-- <div class="form-group">
@@ -1182,12 +1187,7 @@
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     Cancel
                                 </button>
-                                <button type="button" class="btn btn-success" @click="
-                                    startAttendance(
-                                        event_id,
-                                        org_id,
-                                        session
-                                    )
+                                <button type="button" class="btn btn-success" @click="startAttendance()
                                     " :disabled="isSubmitting">
                                     Start
                                 </button>
@@ -1320,7 +1320,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                        }}</strong>
+                                    }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1400,7 +1400,7 @@
                                         :key="events.event_id">
                                         <label class="form-check">
                                             <input class="form-check-input" type="checkbox"
-                                                v-model="this.event_data_to_copy_event_id" :value="events.event_id" />
+                                                v-model="this.copy_event_data_event_id" :value="events.event_id" />
                                             <div class="event-card border-top border-5 border-success"
                                                 style="width: 18rem">
                                                 <div class="card-body">
@@ -1604,7 +1604,8 @@
                                                     <td>{{ evaluation.evaluation_title }}</td>
                                                     <td style="width: 20%">
                                                         <div class="d-flex gap-2">
-                                                            <button type="button" class="btn btn-secondary"
+                                                            <button @click="this.viewEvaluationModal(evaluation.id)"
+                                                                type="button" class="btn btn-secondary"
                                                                 data-bs-toggle="modal" data-bs-target="#previewModal">
                                                                 <i class="fas fa-eye"></i>
                                                             </button>
@@ -1674,37 +1675,40 @@
     <!-- View Evaluation Form Modal -->
     <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content" v-for="evaluation in this.filteredEvaluationFormForModal">
                 <div class="modal-header">
                     <!-- <h5 class="modal-title" id="exampleModalLabel">View Evaluation Form</h5> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
                     <div class="mb-3">
-                        <h3 for="formTitle" class="form-label">Evalution name: </h3>
+                        <h3 for="formTitle" class="form-label">Evalution name:{{ evaluation.evaluation_title }} </h3>
                     </div>
                     <div>
                         <label for="formDescription">Description:</label>
-                        <p style="padding-left: 10px;"> lorem</p>
+                        <p style="padding-left: 10px;"> {{ evaluation.evaluation_description }}</p>
                     </div>
-                    <div class="mb-3">
-                        <h5 for="question1" class="form-label fw-bold">Question 1</h5>
+                    <div class="mb-3" v-for="(question, index) in evaluation.evaluation_question">
+                        <h5 for="question1" class="form-label fw-bold">Question {{ index + 1 }}</h5>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="question1" readonly>
+                            <input type="text" class="form-control" id="question1" :value="question.description"
+                                disabled readonly>
                         </div>
                         <div class="mb-3 form-check">
                             <div id="choicesContainer1" class="mt-2">
                                 <h5 for="choices1 fw-bold">Choices</h5>
                                 <div style="margin-left: 20px; margin-top: 10px">
-                                    <p class="lh-1"> <b> 1- Negatively disagree</b> &nbsp; </p>
+                                    <p class="lh-1" v-for="(choices, index) in question.evaluation_option"> <b> {{
+                                        choices.option }}</b> &nbsp; </p>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                     <div class="feedback mb-3">
-                        <label for="feedback">Accept Feedback?</label>
-                        <small>Yes</small>
+                        <label for="feedback">Accept Feedback? &nbsp; </label>
+                        <small v-if="evaluation.is_accept_feedback == 0"> <b>No</b> </small>
+                        <small v-else><b>Yes</b> </small>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -1724,7 +1728,7 @@ import "vue3-toastify/dist/index.css";
 import { converTime } from "../Functions/TimeConverter.js";
 
 export default {
-    props: ["organization_id", "school_year_session"],
+    props: ['organization_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
 
@@ -1765,6 +1769,7 @@ export default {
             start_attendance: {
                 session: 0,
                 end_session_scheduled_attendance: null,
+                attendance_log_started: null,
             },
 
             evaluation_form: [],
@@ -1774,6 +1779,7 @@ export default {
             college_id: 0,
             temporarySelectEvaluation: 0,
             termporaryEvaluationDisplay: [],
+            filteredEvaluationFormForModal: [],
 
             //COPY EVENTS
             copy_event_data_school_year: null,
@@ -1788,6 +1794,7 @@ export default {
         this.showSchoolYear();
         this.showYearLevelData();
         this.getEventsListToCopy();
+
 
     },
     mounted() {
@@ -1815,8 +1822,21 @@ export default {
     },
 
     methods: {
+        viewEvaluationModal(evaluation_id) {
+            console.log(evaluation_id)
+            this.filteredEvaluationFormForModal = this.evaluation_form.filter(form => form.id === evaluation_id);
+            console.log(this.filteredEvaluationFormForModal)
+        },
         submitCopyEvents() {
-
+            // console.log(this.copy_event_data_event_id)
+            axios.post(`/submit_copy_events/${this.school_year_input}/${this.organization_id}`, this.copy_event_data_event_id)
+                .then((response) => {
+                    console.log(response.data);
+                    this.showSucces(response.data.message)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
         getEventsListToCopy() {
             axios
@@ -2034,7 +2054,7 @@ export default {
         },
 
         sendData() {
-            this.isSubmitting = true;
+
             // Assuming the checkboxes are already created as mentioned in your code snippet
 
             // Get all the checkboxes by their name
@@ -2055,9 +2075,10 @@ export default {
             // Now, the checkedValues array contains the values of the checked checkboxes
             console.log("Checked values:", checkedValues);
 
-            if (this.school_year_input == 0) {
-                alert("Please select School Year");
+            if (this.formData.require_evaluation == 1 && this.temporary_evaluation_form.length <= 0) {
+                alert("Enter Evaluation Form");
             } else {
+                this.isSubmitting = true;
                 axios
                     .post("/add_event", { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
                     .then((response) => {
@@ -2131,18 +2152,24 @@ export default {
                 .catch((error) => { });
         },
         UpdateData() {
-            this.isSubmitting = true;
-            axios
-                .post(`/update_event/${this.id}`, { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
-                .then((response) => {
-                    this.submit = this.sendData;
-                    console.log(response.data)
-                    this.showSucces(response.data.message);
-                })
-                .catch((error) => {
-                    // console.error('Error updating user:', error);
-                    alert("Error updating user:", error);
-                });
+            if (this.formData.require_evaluation == 1 && this.temporary_evaluation_form.length <= 0) {
+                alert("Please Enter Evaluation Form");
+            }
+            else {
+                this.isSubmitting = true;
+                axios
+                    .post(`/update_event/${this.id}`, { formData: this.formData, temporary_evaluation_form: this.temporary_evaluation_form })
+                    .then((response) => {
+                        this.submit = this.sendData;
+                        console.log(response.data)
+                        this.showSucces(response.data.message);
+                    })
+                    .catch((error) => {
+                        // console.error('Error updating user:', error);
+                        alert("Error updating user:", error);
+                    });
+            }
+
         },
         deleteEvent() {
             axios
@@ -2175,7 +2202,7 @@ export default {
 
             const currentTime = `${hours}:${minutes}`;
 
-            if (this.start_attendance.session == 0 && this.status == 1 || this.start_attendance.end_session_scheduled_attendance == null && this.status == 1) {
+            if (this.start_attendance.session == 0 && this.status == 1 || this.start_attendance.end_session_scheduled_attendance == null && this.status == 1 || this.start_attendance.attendance_log_started == null && this.status == 1) {
                 this.showError('Please Input Details')
             }
             else if (this.start_attendance.end_session_scheduled_attendance <= currentTime) {

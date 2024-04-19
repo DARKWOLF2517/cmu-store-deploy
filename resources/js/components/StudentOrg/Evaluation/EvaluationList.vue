@@ -202,7 +202,7 @@
                     <b>{{ evaluation["evaluation_form_answer"] }}</b>
                 </div>
 
-                <div>
+                <div v-if="this.user_school_year == this.school_year_input">
                     <div class="event-status text-muted" v-if="evaluation['evaluation_status'] == 0">
                         Status:
                         <b>Closed</b>
@@ -212,22 +212,25 @@
                     </div>
                 </div>
                 <div class="Actions d-flex justify-content-end">
-                    <button class="btn btn-success" v-if="evaluation.evaluation_status == 0">
-                        <a class="dropdown-item" @click="
-                            UpdateAttendanceStatus(evaluation.event_id, '1')
-                            ">Start Evaluation</a>
-                    </button>
-                    <div class="d-flex gap-2" v-else-if="evaluation.evaluation_status == 1">
-                        <button class="btn btn-danger">
+                    <div v-if="this.user_school_year == this.school_year_input">
+                        <button class="btn btn-success" v-if="evaluation.evaluation_status == 0">
                             <a class="dropdown-item" @click="
-                                UpdateAttendanceStatus(
-                                    evaluation.event_id,
-                                    '0'
-                                )
-                                ">Stop Evaluation</a>
+                                UpdateAttendanceStatus(evaluation.event_id, '1')
+                                ">Start Evaluation</a>
                         </button>
+                        <div class="d-flex gap-2" v-else-if="evaluation.evaluation_status == 1">
+                            <button class="btn btn-danger">
+                                <a class="dropdown-item" @click="
+                                    UpdateAttendanceStatus(
+                                        evaluation.event_id,
+                                        '0'
+                                    )
+                                    ">Stop Evaluation</a>
+                            </button>
 
+                        </div>
                     </div>
+
                     <button v-if="evaluation['evaluation_form_answer'] !== 0" class="btn btn-secondary"
                         style="margin-left: 10px;"
                         @click="this.event_id = evaluation.event_id, this.fetchEvaluation_form()" data-bs-toggle="modal"
@@ -301,7 +304,7 @@ import "vue3-toastify/dist/index.css";
 import { convertDate } from "../Functions/DateConverter.js";
 
 export default {
-    props: ["organization_id", "school_year_session"],
+    props: ['organization_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             loading: true,

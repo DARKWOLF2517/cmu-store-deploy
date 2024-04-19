@@ -20,7 +20,8 @@
     <div class="mt-2">
         <div class="row head-container">
             <paid-accountabilities :org_id={{ Session::get('org_id') }}
-                :school_year_session={{ Session::get('school_year') }}>
+                :school_year_session={{ Session::get('school_year') }}
+                :user_school_year={{ Session::get('user_school_year') }}>
 
             </paid-accountabilities>
         </div>

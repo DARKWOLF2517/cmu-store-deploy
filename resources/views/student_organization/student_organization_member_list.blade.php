@@ -5,7 +5,8 @@
 @endsection
 @section('main-content')
     <div class="page-content-wapper">
-        <upload-students :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }}>
+        <upload-students :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }}
+            :user_school_year={{ Session::get('user_school_year') }}>
         </upload-students>
     </div>
 

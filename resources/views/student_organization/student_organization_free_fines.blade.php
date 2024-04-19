@@ -21,7 +21,8 @@
         </nav>
     </div>
     <div class="mt-2">
-        <set-free-fines :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }} />
+        <set-free-fines :org_id={{ Session::get('org_id') }} :school_year_session={{ Session::get('school_year') }}
+            :user_school_year={{ Session::get('user_school_year') }} />
     </div>
     </div>
 @endsection

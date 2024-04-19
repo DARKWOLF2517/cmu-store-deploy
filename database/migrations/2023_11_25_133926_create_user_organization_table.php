@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('user_organization', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('student_org_id');
+            $table->unsignedBigInteger('student_org_id')->nullable();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('role_id');
-            $table->unsignedBigInteger('school_year');
+            $table->unsignedBigInteger('school_year')->nullable();
             $table->unsignedBigInteger('year_level_id');
             // $table->unsignedBigInteger('college_id');
             $table->timestamps();

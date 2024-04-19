@@ -12,7 +12,7 @@
                 @change="fetchData">
                 <option value="0" disabled selected>Select Semester</option>
                 <option v-for="school_year in this.school_year" :value="school_year['id']">{{
-                school_year['semester'] }} {{ school_year['school_year']
+                    school_year['semester'] }} {{ school_year['school_year']
                     }}
                 </option>
             </select>
@@ -101,14 +101,14 @@
                         <td>
                             <button class="view-button btn" data-bs-toggle="modal"
                                 data-bs-target="#viewAllAccountabilitiesModal" @click="this.viewAccountabilities(fees_list.user_id),
-                this.finesPay = {
-                    student_id: fees_list.user_id,
-                    // student_name: fees_list.name,
-                    // accountability_name: fees_list.accountability_type,
-                    remarks: 0,
-                    student_org_id: this.org_id,
-                }
-                ">
+                                    this.finesPay = {
+                                        student_id: fees_list.user_id,
+                                        // student_name: fees_list.name,
+                                        // accountability_name: fees_list.accountability_type,
+                                        remarks: 0,
+                                        student_org_id: this.org_id,
+                                    }
+                                    ">
                                 <i class="fas fa-eye"></i> See More
                             </button>
                         </td>
@@ -231,8 +231,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                        data-bs-target="#ReceiveModal">Receive Payment</button>
+                    <button v-if="this.user_school_year == this.school_year_input" type="button" class="btn btn-success"
+                        data-bs-toggle="modal" data-bs-target="#ReceiveModal">Receive Payment</button>
                 </div>
             </div>
         </div>
@@ -258,7 +258,7 @@
             </div> -->
     <!-- Receive PaymentModal -->
     <form @submit.prevent="checkPaymentAmount">
-        <div  class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ReceiveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
 
                 <div class="modal-content">
@@ -299,13 +299,15 @@
                             <input type="number" class="form-control" v-model="this.paymentAmount" required step="any">
                         </div>
                         <div class="mb-3">
-                        <p class="fw-bold">Cash</p>
-                        <input type="number" class="form-control"  v-model="cashAmount" @input="this.updateChange" required step="any">
-                    </div>
-                    <div class="mb-3">
-                        <p class="fw-bold">Change</p>
-                        <input type="number" class="form-control" v-model="changeAmount" disabled required step="any">
-                    </div>
+                            <p class="fw-bold">Cash</p>
+                            <input type="number" class="form-control" v-model="cashAmount" @input="this.updateChange"
+                                required step="any">
+                        </div>
+                        <div class="mb-3">
+                            <p class="fw-bold">Change</p>
+                            <input type="number" class="form-control" v-model="changeAmount" disabled required
+                                step="any">
+                        </div>
                         <!-- <div>
                             <p>Remarks:</p>
                             <input type="input" class="form-control" >
@@ -321,28 +323,32 @@
         </div>
     </form>
     <!-- Bootstrap Modal -->
-  <div class="modal fade" id="confirmationModal" tabindex="-1" style="z-index: 1060;  background-color: rgba(0, 0, 0, 0.7);  " aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
+    <div class="modal fade" id="confirmationModal" tabindex="-1"
+        style="z-index: 1060;  background-color: rgba(0, 0, 0, 0.7);  " aria-labelledby="confirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
 
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="hideConfirmationModal"></button>
-        </div>
-        <div class="modal-body text-center">
-            <h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        @click="hideConfirmationModal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>
                         <i class="fas fa-money-bill-wave-alt text-warning"></i>
                     </h4>
                     <h4><b>Confirm transaction</b></h4>
 
-         <p>Are you sure you want to receive payment?</p>
+                    <p>Are you sure you want to receive payment?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        @click="cancelPayment">Cancel</button>
+                    <button type="button" class="btn btn-success" @click="confirmPayment">Yes, I confirm</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="cancelPayment">Cancel</button>
-          <button type="button" class="btn btn-success" @click="confirmPayment">Yes, I confirm</button>
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -352,7 +358,7 @@ import 'vue3-toastify/dist/index.css';
 import * as XLSX from 'xlsx';
 
 export default {
-    props: ['org_id', 'user_id', 'school_year_session'],
+    props: ['org_id', 'user_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             events: [],
@@ -498,13 +504,13 @@ export default {
 
         },
 
-            updateChange() {
-                console.log(this.cashAmount);
-                console.log(this.paymentAmount);
-                // if (this.paymentAmount !== null && this.cashAmount !== null) {
-                    this.changeAmount = (this.cashAmount) - (this.paymentAmount);
-                // }
-            },
+        updateChange() {
+            console.log(this.cashAmount);
+            console.log(this.paymentAmount);
+            // if (this.paymentAmount !== null && this.cashAmount !== null) {
+            this.changeAmount = (this.cashAmount) - (this.paymentAmount);
+            // }
+        },
         //filter the zero balance
         filteredAmountByZero() {
             const filteredArray = this.temporary_list_summary.filter(item => item.amount !== 0);
@@ -560,30 +566,30 @@ export default {
             }
         },
         showConfirmationModal() {
-      // Show Bootstrap modal using native JavaScript
-      const modal = document.getElementById('confirmationModal');
-      modal.classList.add('show');
-      modal.style.display = 'block';
-      modal.setAttribute('aria-modal', true);
-    },
-    hideConfirmationModal() {
-      // Hide Bootstrap modal using native JavaScript
-      const modal = document.getElementById('confirmationModal');
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-      modal.setAttribute('aria-modal', false);
-    },
-    confirmPayment() {
-      // Hide the modal
-      this.hideConfirmationModal();
+            // Show Bootstrap modal using native JavaScript
+            const modal = document.getElementById('confirmationModal');
+            modal.classList.add('show');
+            modal.style.display = 'block';
+            modal.setAttribute('aria-modal', true);
+        },
+        hideConfirmationModal() {
+            // Hide Bootstrap modal using native JavaScript
+            const modal = document.getElementById('confirmationModal');
+            modal.classList.remove('show');
+            modal.style.display = 'none';
+            modal.setAttribute('aria-modal', false);
+        },
+        confirmPayment() {
+            // Hide the modal
+            this.hideConfirmationModal();
 
-      // Proceed with payment submission
-      this.SubmitPayment();
-    },
-    cancelPayment() {
-      // Hide the modal
-      this.hideConfirmationModal();
-    },
+            // Proceed with payment submission
+            this.SubmitPayment();
+        },
+        cancelPayment() {
+            // Hide the modal
+            this.hideConfirmationModal();
+        },
         SubmitPayment() {
             // for adding payment database
             console.log(this.accountability_type)

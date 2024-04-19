@@ -83,7 +83,7 @@
                 </div>
                 <div class="mt-auto" v-if="event.attendance_status == 1">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#startAttendanceConfirmation"
-                        @click="this.event_id = event['event_id'], this.session = event.attendance_session_started, this.attendanceCount()">Start</button>
+                        @click="this.event_id = event['event_id'], this.session = event.attendance_session_started, this.attendance_log_started = event.attendance_log_started, this.attendanceCount()">Start</button>
                 </div>
                 <div class="mt-auto" v-else-if="event.attendance_status == 0 || event.attendance_status == 2">
                     <button class="btn btn-secondary text-dark" disabled>Unavailable</button>
@@ -107,7 +107,8 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 
                         <button type="button" class="btn btn-success"
-                            @click="startAttendance(this.event_id, this.org_id, this.session)" data-bs-dismiss="modal">
+                            @click="startAttendance(this.event_id, this.org_id, this.session, this.attendance_log_started)"
+                            data-bs-dismiss="modal">
                             <div>Start Attendance</div>
                         </button>
                     </div>
@@ -178,6 +179,7 @@ export default {
             events: [],
             event_id: null,
             session: null,
+            attendance_log_started: null,
 
         }
     },
@@ -229,7 +231,7 @@ export default {
                 });
         },
 
-        startAttendance(event_id, org_id, session) {
+        startAttendance(event_id, org_id, session, attendance_log_started) {
             // if (event_id === null || org_id === null || session === null) {
             //     // console.error('Error: One or more parameters are null');
             //     if(session == null){
@@ -247,7 +249,7 @@ export default {
                 .catch(error => {
                     console.log(error)
                 });
-            window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}`;
+            window.location.href = `student_qrscanner/${event_id}/${org_id}/${session}/${attendance_log_started}`;
             // }
 
         },

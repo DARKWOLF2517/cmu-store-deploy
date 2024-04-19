@@ -160,8 +160,9 @@ class EventController extends Controller
         //     'fines' => 'nullable',
         //     'evaluation_form' => 'required'
         // ]);
-
+        // return $request;
         $event = Event::where('event_id', $event_id)->first();
+
         $event->update([
             'name' => $request->formData['name'],
             'start_date' => $request->formData['start_date'],
@@ -177,16 +178,24 @@ class EventController extends Controller
         ]);
 
 
-        $announcement = Announcement::where('event_id', $event_id)->first();
-        $announcement->update([
-            'title' => $request->formData['name'],
-            'description' => $request->formData['description'],
-            'date' => $request->formData['start_date'],
-            'time' => $request->formData['start_attendance'],
-        ]);
+        // $announcement = Announcement::where('event_id', $event_id)->first();
+        // return $announcement;
+        // if ($announcement) {
+        $announcement = Announcement::updateOrCreate(
+            ['event_id' => $event_id],
+            [
+                'org_id' => $request->formData['org_id'],
+                'school_year' => $request->formData['school_year'],
+                'title' => $request->formData['name'],
+                'description' => $request->formData['description'],
+                'date' => $request->formData['start_date'],
+                'time' => $request->formData['start_attendance'],
+                'important' => 1,
+            ]
+        );
+        // }
         EventEvaluation::where('event_id', $event_id)->delete();
         if (count($request->temporary_evaluation_form) > 0) {
-
             foreach ($request->temporary_evaluation_form as $evaluation) {
                 $evaluationform = new EventEvaluation();
                 $evaluationform->evaluation_form_id = $evaluation;
@@ -196,9 +205,10 @@ class EventController extends Controller
         }
 
 
+
         return response()->json(['message' => 'Event ' . $request->name . ' Updated Successfully']);
     }
-    public function destroy($event)
+    public function destroy($event_id)
     {
         // $event_list = Attendance::where('event_id', $event)->count();
         // if ($event_list > 0){
@@ -210,8 +220,11 @@ class EventController extends Controller
         // }
 
         try {
-            $event = Event::findOrFail($event);
+            $event = Event::findOrFail($event_id);
             $event->delete();
+
+            $announcement = Announcement::where('event_id', $event_id);
+            $announcement->delete();
 
             return response()->json([
                 'message' => 'Event Deleted successfully',
@@ -241,7 +254,7 @@ class EventController extends Controller
     }
     public function getEvaluationList($org_id, $school_year = null)
     {
-        $events = event::where([['org_id', $org_id], ['school_year', $school_year]])->with('EvaluationFormAnswer')->orderByDesc('created_at')->get();
+        $events = event::where([['org_id', $org_id], ['school_year', $school_year], ['require_evaluation', 1]])->with('EvaluationFormAnswer')->orderByDesc('created_at')->get();
         return response()->json($events);
     }
 
@@ -415,5 +428,21 @@ class EventController extends Controller
             DB::raw("CONCAT(start_date, 'T', start_attendance) as start")
         )->whereIn('org_id', $orgIds)->where([['school_year', $school_year]])->get();
         return $events->toJson();
+    }
+    public function submitCopyEvents($school_year, $org_id, Request $request)
+    {
+        foreach ($request->all() as $key => $value) {
+            $existingRecord = Event::find($value);
+
+            $newRecord = $existingRecord->replicate();
+            $newRecord->school_year = $school_year;
+            $newRecord->evaluation_status = 0;
+            $newRecord->attendance_status = 0;
+            $newRecord->event_status = 0;
+            $newRecord->end_session_scheduled_attendance = null;
+            $newRecord->save();
+        }
+
+        return response()->json(['message' => 'Events Copied Successfully']);
     }
 }

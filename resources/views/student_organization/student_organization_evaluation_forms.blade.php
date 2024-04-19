@@ -18,5 +18,6 @@
         </nav>
     </div>
     <evaluation-form-list organization_id={{ Session::get('org_id') }}
-        :school_year_session={{ Session::get('school_year') }}></evaluation-form-list>
+        :school_year_session={{ Session::get('school_year') }}
+        :user_school_year={{ Session::get('user_school_year') }}></evaluation-form-list>
 @endsection

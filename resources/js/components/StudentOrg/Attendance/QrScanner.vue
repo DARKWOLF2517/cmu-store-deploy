@@ -59,7 +59,7 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 export default {
     components: { QrcodeStream },
-    props: ['event_id', 'org_id', 'session'],
+    props: ['event_id', 'org_id', 'session', 'attendance_log_started'],
     data() {
         return {
             attendance: [],
@@ -70,6 +70,7 @@ export default {
                 // officer_id: this.officer_id,
                 remarks: 0,
                 session: this.session,
+                attendance_log_started: this.attendance_log_started
 
             },
             scanner: ""

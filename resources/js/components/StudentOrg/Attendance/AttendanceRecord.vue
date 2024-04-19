@@ -224,7 +224,7 @@ export default {
             this.filtered_attendance = filtered;
         },
         attendance_result(event_id) {
-            window.location.href = `student_organization_attendance_record/${event_id}`;
+            window.location.href = `student_organization_attendance_record/${event_id}/${this.school_year_input}`;
         },
     },
 };

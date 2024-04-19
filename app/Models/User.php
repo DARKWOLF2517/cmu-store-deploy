@@ -33,7 +33,7 @@ class User extends Authenticatable
     }
     public function user_profile()
     {
-        return $this->belongsTo(UserProfile::class,  'user_id');
+        return $this->hasOne(UserProfile::class,  'user_id');
     }
     // public function hasRole($roleName)
     // {
@@ -62,7 +62,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-
-
 }

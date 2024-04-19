@@ -48,8 +48,9 @@
                 <div class="col-md-4 ">
                     <div class="student-buttons d-flex justify-content-end">
                         <div class="btn-group" role="group">
-                            <button class="btn " @click="this.submit = this.addSingleStudent, this.clearData()"
-                                data-bs-toggle="modal" data-bs-target="#optionSelection">
+                            <button v-if="this.user_school_year == this.school_year_input" class="btn "
+                                @click="this.submit = this.addSingleStudent, this.clearData()" data-bs-toggle="modal"
+                                data-bs-target="#optionSelection">
                                 <i class="fas fa-plus"></i> Tag Student
                             </button>
 
@@ -106,7 +107,7 @@
                         <th>Full Name</th>
                         <th>Year Level</th>
                         <th>College</th>
-                        <th style="width: 10%;">Action</th>
+                        <th style="width: 10%;" v-if="this.user_school_year == this.school_year_input">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -141,7 +142,7 @@
                         <td>{{ student.user_profile.year_level.year_level ? student.user_profile.year_level.year_level :
                             '' }}</td>
                         <td>{{ student.user_profile.college.college }}</td>
-                        <td>
+                        <td v-if="this.user_school_year == this.school_year_input">
                             <span class="table-buttons">
                                 <!-- <button class="btn edit-button" data-bs-toggle="modal" data-bs-target="#addStudentModal" @click="this.fetchID = student.student_id,this.submit = this.updateSingleAddStudents, this.fetchDataDisplayName()" > <i class="fas fa-pen"></i></button> -->
                                 <div class="d-flex justify-content-center">
@@ -353,13 +354,14 @@
 
                             </div>
                             <div class="select-dropdown border">
-                            <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
-                                v-model="college_data_input_for_insert">
-                                <option value="0" disabled selected>Select College</option>
-                                <option v-for="college in this.college_list" :value="college.id"> {{ college.college }}
-                                </option>
-                            </select>
-                        </div>
+                                <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
+                                    v-model="college_data_input_for_insert">
+                                    <option value="0" disabled selected>Select College</option>
+                                    <option v-for="college in this.college_list" :value="college.id"> {{ college.college
+                                        }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
 
@@ -398,7 +400,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 export default {
-    props: ['org_id', 'school_year_session'],
+    props: ['org_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             fetchID: 0,

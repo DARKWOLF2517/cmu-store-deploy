@@ -38,12 +38,12 @@ class AttendanceController extends Controller
         ])->with(['user_profile.college', 'events', 'attendance_checker'])->get();
         return $attendance->toJson();
     }
-    public function events($event_id)
+    public function events($event_id, $school_year)
     {
         if (Session::get('role') == 3) {
-            return view('attendance_checker.student_attendance_records', ['event_id' => $event_id]);
+            return view('attendance_checker.student_attendance_records', compact('event_id', 'school_year'));
         } else if (Session::get('role') == 1) {
-            return view('student_organization.student_organization_attendance_record', ['event_id' => $event_id]);
+            return view('student_organization.student_organization_attendance_record', compact('event_id', 'school_year'));
         }
     }
     public function store(Request $request)
@@ -61,6 +61,7 @@ class AttendanceController extends Controller
             'event_id'  => 'required',
             // 'officer_id'  => 'required',
             'session'  => 'required',
+            'attendance_log_started'  => 'required',
         ]);
         $attendances = new Attendance();
         $attendances->user_id = $validatedData['user_id'];
@@ -68,6 +69,7 @@ class AttendanceController extends Controller
         $attendances->event_id = $validatedData['event_id'];
         $attendances->officer_id = Auth::id();
         $attendances->session = $validatedData['session'];
+        $attendances->attendance_log = $validatedData['attendance_log_started'];
         $attendances->remarks = $request->remarks;
         $attendances->time = Carbon::now()->format('H:i');
         $attendances->save();
@@ -138,9 +140,9 @@ class AttendanceController extends Controller
             ->get();
         return $attendance->toJson();
     }
-    public function showQR($event_id, $org_id, $session)
+    public function showQR($event_id, $org_id, $session, $attendance_log_started)
     {
-        return view('student_organization.student_organization_qr_scanner', ['event_id' => $event_id, 'org_id' => $org_id, 'session' => $session]);
+        return view('student_organization.student_organization_qr_scanner', ['event_id' => $event_id, 'org_id' => $org_id, 'session' => $session, 'attendance_log_started' => $attendance_log_started]);
     }
     public function AttendanceCount($event_id, $org_id)
     {

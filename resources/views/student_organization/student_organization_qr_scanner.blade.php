@@ -74,7 +74,8 @@
             </div>
           </div> --}}
 
-            <qr-scanner event_id={{ $event_id }} org_id={{ $org_id }} session={{ $session }}>
+            <qr-scanner event_id={{ $event_id }} org_id={{ $org_id }} session={{ $session }}
+                attendance_log_started={{ $attendance_log_started }}>
             </qr-scanner>
 
 

@@ -50,7 +50,8 @@
             </div>
             <div class="student-buttons d-flex justify-content-end col-md-4 mt-2">
                 <div class="btn-group" role="group">
-                    <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
+                    <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
+                        data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
                         <i class="fas fa-plus"></i> Excuse Student
                     </button>
                     <button class="btn me-2" @click="printTable">
@@ -76,7 +77,7 @@
                         <th>Date Received</th>
                         <th style="width: 10%;">Amount</th>
                         <th>Remarks</th>
-                        <th></th>
+                        <th v-if="this.user_school_year == this.school_year_input"></th>
 
                     </tr>
                 </thead>
@@ -101,7 +102,7 @@
                         <td style="text-align: right; font-weight: bold;"> &#8369; {{ paid['amount'] }}</td>
                         <td v-if="paid.remarks == 0">N/A</td>
                         <td v-else> {{ paid.remarks }}</td>
-                        <td>
+                        <td v-if="this.user_school_year == this.school_year_input">
                             <span class="d-flex justify-content-center p-2">
                                 <button @click="this.id = paid.id" class="btn btn-danger text-light"
                                     data-bs-toggle="modal" data-bs-target="#deleteConfirmation"><i
@@ -260,7 +261,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 export default {
 
-    props: ['org_id', 'school_year_session'],
+    props: ['org_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             paidList: [],

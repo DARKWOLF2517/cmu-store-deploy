@@ -20,7 +20,8 @@
         </nav>
     </div>
 
-    <show-student-attendance :event_id={{ $event_id }} :organization_id={{ Session::get('org_id') }}>
+    <show-student-attendance :event_id={{ $event_id }} :school_year_session={{ $school_year }}
+        :organization_id={{ Session::get('org_id') }} :user_school_year={{ Session::get('user_school_year') }}>
 
     </show-student-attendance>
 @endsection

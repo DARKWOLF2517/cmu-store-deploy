@@ -27,7 +27,8 @@
                 <div class="col-md-8">
                     <h3><i class="fas fa-list mt-2"></i> Evaluation Forms</h3>
                 </div>
-                <div class="col event-buttons d-flex justify-content-end">
+                <div class="col event-buttons d-flex justify-content-end"
+                    v-if="this.user_school_year == this.school_year_input">
                     <div class="btn-group" role="group">
                         <button @click="this.submit = this.submitForm" class="btn btn-light me-2" id="add-event-button"
                             data-bs-toggle="modal" data-bs-target="#evaluation-modal"> <i class="fas fa-plus"></i>
@@ -127,7 +128,7 @@
             <div class="event-card" style=" border-left-style: solid; border-left-color: #1b9587;"
                 v-for="evaluation in this.filteredEvaluationForm">
 
-                <div class="dropdown">
+                <div class="dropdown" v-if="this.user_school_year == this.school_year_input">
                     <a class="ellipsis-button" href="#" style="color: #3e505d;" role="button" id="ellipsisDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
@@ -336,7 +337,7 @@
                     </label>
                     <div class="select-dropdown border" style="width: 70%">
                         <select id="sort-select" class="form-control" style="text-align: center"
-                            v-model="school_year_input" @change="fetchData">
+                            v-model="this.copy_evaluation_data_school_year" @change="fetchCopyEvaluationForm">
                             <option value="0" disabled selected>
                                 Select Semester
                             </option>
@@ -360,18 +361,19 @@
                                         overflow-y: auto;
                                         max-height: 40vh;
                                     ">
-                        <div class="col mt-2">
-                            <label class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="myCheckbox" />
+                        <div class="col mt-2" v-for="evaluation in this.evaluation_data_to_copy " :key="evaluation.id">
+                            <label class=" form-check">
+                                <input class="form-check-input" type="checkbox" id="myCheckbox"
+                                    v-model="this.copy_evaluation_data_id" :value="evaluation.id" />
                                 <div class="event-card border-top border-5 border-success"
                                     style="width: 18rem; height: auto;">
                                     <div class="card-body">
                                         <h5 class="card-title">
-                                            Evaluation Name
+                                            {{ evaluation.evaluation_title }}
                                         </h5>
-                                        <p class="mb-0">Total Questions:</p>
+                                        <p class="mb-0">Total Questions: {{ evaluation.evaluation_question }}</p>
                                         <p class="mb-0">
-                                            Date Created
+                                            Date Created: {{ evaluation.created_at }}
                                         </p>
                                     </div>
                                 </div>
@@ -384,7 +386,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
                     </button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-success" @click="this.submitCopyEvaluation()">
                         Copy Form
                     </button>
                 </div>
@@ -400,7 +402,7 @@ import 'vue3-toastify/dist/index.css';
 import axios from 'axios';
 
 export default {
-    props: ['organization_id', 'school_year_session'],
+    props: ['organization_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             loading: true,
@@ -423,6 +425,11 @@ export default {
             filteredEvaluationFormForModal: [],
             searchTerm: '',
             isSubmitting: false,
+
+            //COPY EVALUATION
+            copy_evaluation_data_school_year: null,
+            copy_evaluation_data_id: [],
+            evaluation_data_to_copy: []
         }
     },
     mounted() {
@@ -430,6 +437,32 @@ export default {
         this.showSchoolYear();
     },
     methods: {
+        submitCopyEvaluation() {
+            console.log(this.copy_evaluation_data_id)
+            axios.post(`/upload_copy_evaluation_form/${this.school_year_input}`, this.copy_evaluation_data_id)
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message);
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        fetchCopyEvaluationForm() {
+            axios.get(`/getEvaluationForm/${this.organization_id}/${this.copy_evaluation_data_school_year}`)
+                .then(response => {
+                    console.log(response.data)
+                    response.data.forEach(item => {
+                        item["created_at"] = convertDate(item["created_at"]);
+                        item.evaluation_question = item.evaluation_question.length;
+                    });
+                    this.evaluation_data_to_copy = response.data;
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+
+        },
         filterItems() {
             let filteredBySearch = this.evaluation_form;
             if (this.searchTerm) {
@@ -478,7 +511,7 @@ export default {
                 questions: this.questions,
                 org_id: this.organization_id,
                 accept_feedback: this.acceptFeedback,
-                school_year: this.school_year_session,
+                school_year: this.school_year_input,
             })
                 .then(response => {
                     console.log(response.data)
@@ -556,7 +589,7 @@ export default {
                 questions: this.questions,
                 org_id: this.organization_id,
                 accept_feedback: this.acceptFeedback,
-                school_year: this.school_year_session,
+                school_year: this.school_year_input,
             })
                 .then(response => {
                     console.log(response.data)

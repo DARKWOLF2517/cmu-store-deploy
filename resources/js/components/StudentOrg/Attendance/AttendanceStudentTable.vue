@@ -50,7 +50,8 @@
                 </div>
                 <div class="student-buttons col-md-4 d-flex justify-content-end">
                     <div class="btn-group" role="group">
-                        <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
+                        <button v-if="this.user_school_year == this.school_year_session" class="btn me-2"
+                            data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
                             <i class="fas fa-plus"></i> Excuse Student
                         </button>
                         <button class="btn me-2" @click="printTable">
@@ -81,11 +82,11 @@
                         </th>
                         <th class="sortable-header">Student Name</th>
                         <th class="sortable-header">College</th>
-                        <th class="sortable-header">Log</th>
+                        <th class="sortable-header">Attendance Log</th>
                         <th class="sortable-header" style="width: 20%">Time</th>
                         <th>Remarks</th>
                         <th>Attendance Checker</th>
-                        <th></th>
+                        <th v-if="this.user_school_year == this.school_year_session"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,13 +124,13 @@
                             {{ attendance.user_profile.last_name }}
                         </td>
                         <td>{{ attendance.user_profile.college.college }}</td>
-                        <td>{{ attendance.session }}</td>
+                        <td>{{ attendance.session }} {{ attendance.attendance_log }}</td>
                         <td>{{ attendance.created_at }}</td>
                         <td v-if="attendance.remarks == 0">N/A</td>
                         <td v-else>{{ attendance.remarks }}</td>
                         <td>{{ attendance.attendance_checker.first_name }} {{ attendance.attendance_checker.last_name }}
                         </td>
-                        <td>
+                        <td v-if="this.user_school_year == this.school_year_session">
                             <span class="d-flex justify-content-center">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmation" @click="
@@ -151,7 +152,7 @@
             <li v-for="page in pageRange" :key="page" class="page-item" :class="{ active: currentPage === page }">
                 <a class="page-link" href="#" @click.prevent="gotoPage(page)">{{
                     page
-                }}</a>
+                    }}</a>
             </li>
             <li class="page-item" :class="{ disabled: currentPage === totalPages }">
                 <a class="page-link" href="#" @click.prevent="nextPage">Next</a>
@@ -268,7 +269,7 @@ import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 
 export default {
-    props: ["organization_id", "event_id"],
+    props: ['organization_id', 'event_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             attendance: [],

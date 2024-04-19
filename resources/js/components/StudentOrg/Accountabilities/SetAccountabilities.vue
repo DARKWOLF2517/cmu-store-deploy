@@ -34,7 +34,7 @@
             <div class="col-md-8">
                 <h4 class="mt-3"><i class="fas fa-list"></i> Organization Fees</h4>
             </div>
-            <div class="col-md-4  d-flex justify-content-end">
+            <div class="col-md-4  d-flex justify-content-end" v-if="this.user_school_year == this.school_year_input">
                 <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#membershipFeeModal"
                     @click="submit = this.submitData, this.clearData()">
                     <i class="fas fa-clipboard"></i> Add Fee
@@ -87,7 +87,7 @@
         <div class="accountabilities-cards">
             <div class="accountability-card border-top border-5 border-success border-bottom-0"
                 v-for="accountability in this.filtered_accountabilities">
-                <div class="dropdown">
+                <div class="dropdown" v-if="this.user_school_year == this.school_year_input">
                     <a class="ellipsis-button" href="#" style="color: black;" role="button" id="ellipsisDropdown"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-h"></i>
@@ -233,7 +233,7 @@
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 export default {
-    props: ['org_id', 'school_year_session'],
+    props: ['org_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             submit: this.submitData,

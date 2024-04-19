@@ -28,6 +28,7 @@ return new class extends Migration
             $table->boolean('event_status')->default(0);
             $table->double('fines')->default(0);
             $table->tinyInteger('require_evaluation');
+            $table->string('attendance_log_started');
             $table->unsignedBigInteger('school_year');
             $table->unsignedBigInteger('org_id');
             // $table->unsignedBigInteger('evaluation_form');

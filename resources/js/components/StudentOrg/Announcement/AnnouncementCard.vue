@@ -37,7 +37,8 @@
                 <div class="col-md-8">
                     <h3 class="mt-2"><i class="fas fa-list"></i> Announcements</h3>
                 </div>
-                <div class="announcement-buttons col-md-4 text-end">
+                <div class="announcement-buttons col-md-4 text-end"
+                    v-if="this.user_school_year == this.school_year_input">
                     <div class="btn-group" role="group">
                         <button class="btn me-2" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal"
                             @click="this.submit = this.submitData, this.clearData()">
@@ -125,7 +126,7 @@
                     <div v-for="announcements in this.filtered_announcements">
                         <div class="announcement-card"
                             style=" border-left-style: solid; border-left-color: #1b9587; border-right-style: solid; border-right-color: #1b9587;">
-                            <div class="dropdown">
+                            <div class="dropdown" v-if="this.user_school_year == this.school_year_input">
                                 <a class="ellipsis-button" href="#" style="color: black;" role="button"
                                     id="ellipsisDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-ellipsis-h"></i>
@@ -152,7 +153,7 @@
                                         }}</small>
                                     <span v-if="isNewAnnouncement(announcements)"
                                         class="bg-primary rounded px-2 text-white">New</span>
-                                        <span v-if="announcements.important ==1"
+                                    <span v-if="announcements.important == 1"
                                         class="bg-danger rounded px-2 text-white">Important</span>
                                 </div>
 
@@ -263,7 +264,7 @@ import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
 export default {
-    props: ['org_id', 'school_year_session'],
+    props: ['org_id', 'school_year_session', 'user_school_year'],
     data() {
         return {
             id: 0,
