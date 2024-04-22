@@ -21,10 +21,14 @@ return new class extends Migration
             $table->integer('session');
             $table->longText('remarks');
             $table->string('atteandance_log');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->constrained()
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
             $table->foreign('org_id')->references('org_id')->on('organizations')->onDelete('restrict');
             $table->foreign('event_id')->references('event_id')->on('events')->onDelete('restrict');
-            $table->foreign('officer_id')->references('id')->on('users')->onDelete('restrict');
+            $table->foreign('officer_id')->references('id')->on('users')->constrained()
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');;
             // $table->foreign('college_id')->references('id')->on('college')->onDelete('restrict');
             // $table->primary(['user_id','org_id','session','type']);
             $table->timestamps();

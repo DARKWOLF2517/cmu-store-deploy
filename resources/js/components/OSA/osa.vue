@@ -230,7 +230,8 @@
                         <div class="col-md-6">
                             <div class="input-container border rounded">
                                 <i class="fa fa-search"></i>
-                                <input type="text" placeholder="Search User" />
+                                <input type="text" placeholder="Search User" v-model="user_search"
+                                    @input="filterUsers" />
                             </div>
                         </div>
                         <!-- <div class="col-md-4">
@@ -250,7 +251,8 @@
                         </div> -->
                     </div>
                     <div class="d-flex gap-2 align-items-center mb-3">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <button @click="this.submit = this.addSingleUsersData" class="btn btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#addUserModal">
                             <i class="fas fa-plus"></i> Add User
                         </button>
                         <button id="uploadButton" class="btn btn-secondary">
@@ -264,26 +266,29 @@
                         <thead>
                             <th>Student ID</th>
                             <th>Full name</th>
-                            <th>Year Level</th>
-                            <th>Organization</th>
+                            <!-- <th>Year Level</th> -->
+                            <!-- <th>Organization</th> -->
                             <th>College</th>
                             <th>Actions</th>
                         </thead>
                         <tbody>
-                            <tr v-for="users in this.users_data">
+                            <tr v-for="users in this.filtered_users_data">
                                 <td class="fw-bold">{{ users.id }}</td>
                                 <td v-if="users.user_profile">{{ users.user_profile.first_name }} {{
                                     users.user_profile.middle_name }} {{ users.user_profile.last_name }}</td>
                                 <td v-else></td>
-                                <td>2nd Year</td>
-                                <td>CSCo</td>
-                                <td>CISC</td>
+                                <!-- <td>2nd Year</td> -->
+                                <!-- <td></td> -->
+                                <td>{{ users.user_profile.college.college }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <button class="btn btn-warning text-light">
+                                        <button
+                                            @click="this.id = users.id, this.submit = this.updateUsers, this.fetchEditUsersData()"
+                                            data-bs-toggle="modal" data-bs-target="#addUserModal"
+                                            class="btn btn-warning text-light">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger text-light">
+                                        <button @click="this.id = users.id" class="btn btn-danger text-light">
                                             <i class="fas fa-trash" data-bs-toggle="modal"
                                                 data-bs-target="#deleteUserConfirmation"></i>
                                         </button>
@@ -335,24 +340,24 @@
                     <h5 class="modal-title" id="excelDataModalLabel">Excel Student List</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form @submit.prevent="this.addUsersData()">
+                <form @submit.prevent="this.addManyUsersData()">
                     <div class="modal-body"
                         style="height: 50vh !important; max-height: 50vh !important; overflow-y: auto;">
                         <div class="text-center">
                             <h5 class="fw-bold"> Enter Student ID</h5>
                             <small>Submit an Excel file containing only student ID numbers.</small>
                         </div>
-                        <div class="d-flex justify-content-between">
+                        <!-- <div class="d-flex justify-content-between">
                             <label for="select-dropdown"> Select Year Level</label>
                             <div class="select-dropdown border ">
                                 <select id="sort-select" class="form-control" style="text-align: center; height: 100%;"
-                                    v-model="year_level_data_input" required>
+                                    v-model="users_input.year_level_data_input" required>
                                     <option v-for="year_level in this.year_level_data" :value="year_level.id">{{
                                         year_level.year_level }}</option>
                                 </select>
                             </div>
 
-                        </div>
+                        </div> -->
                         <div class="d-flex justify-content-between">
 
                             <label for="select-dropdown">
@@ -363,7 +368,7 @@
                                 <select id="sort-select" class="form-control" style="text-align: center;"
                                     v-model="college_data_input_for_insert">
                                     <option value="0" disabled selected>Select College</option>
-                                    <option v-for="college in this.college_list" :value="college.id"> {{ college.college
+                                    <option v-for="college in this.college_data" :value="college.id"> {{ college.college
                                         }}
                                     </option>
                                 </select>
@@ -391,13 +396,93 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" id="uploadToTableButton"
-                            :disabled="isSubmitting">Upload</button>
+                        <button type="submit" class="btn btn-success" id="uploadToTableButton">Upload</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <!-- Add user Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel" v-if="this.submit == this.addSingleUsersData">Add
+                        User</h5>
+                    <h5 class="modal-title" id="addStudentModalLabel" v-else>Edit Student</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form @submit.prevent="this.submit">
+                        <div class="mb-3" v-if="this.submit == this.addSingleUsersData">
+                            <label for="studentId" class="form-label">Student ID</label>
+                            <input type="number" class="form-control" id="studentId" v-model="users_input.user_id"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstname" v-model="users_input.first_name"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Middle Name</label>
+                            <input type="text" class="form-control" id="firstname" v-model="users_input.middle_name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" v-model="users_input.last_name"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" v-model="users_input.email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">College</label>
+                            <select class="form-select" id="college" v-model="users_input.college_id">
+                                <!-- <option value="0" disabled selected>Select College</option> -->
+                                <option v-for="college in this.college_data" :value="college.id"> {{ college.college }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                data-bs-target="#optionSelection">Back</button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- User Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteUserConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>
+                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                    </h4>
+                    <h4><b>Delete User</b></h4>
+                    <p>Are you sure you want to delete User?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+                    <button @click="this.deleteUser" type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Add school year Modal -->
     <div class="modal fade" id="addSchoolYearModal" tabindex="-1" aria-labelledby="addSchoolYearModalLabel"
         aria-hidden="true">
@@ -589,59 +674,6 @@
             </form>
         </div>
     </div>
-    <!-- add single user modal -->
-    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="studentId" class="form-label">Student ID</label>
-                            <input type="text" class="form-control" id="studentId" placeholder="Enter student ID" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="fullName" placeholder="Enter full name" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="yearLevel" class="form-label">Year Level</label>
-                            <input type="text" class="form-control" id="yearLevel" placeholder="Enter year level" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="organization" class="form-label">Organization</label>
-                            <select class="form-select" id="organization">
-                                <option value="CSCo">CSCo</option>
-                                <option value="Other">
-                                    Other Organization
-                                </option>
-                                <!-- Add more options if needed -->
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="college" class="form-label">College</label>
-                            <select class="form-select" id="college">
-                                <option value="CISC">CISC</option>
-                                <option value="Other College">
-                                    Other College
-                                </option>
-                                <!-- Add more options if needed -->
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="button" class="btn btn-primary">Add</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- add college modal -->
     <div class="modal fade" id="addCollegeModal" tabindex="-1" aria-labelledby="addCollegeModalLabel"
         aria-hidden="true">
@@ -831,11 +863,18 @@ export default {
                 school_year: '',
                 search: '',
             },
-
             users_data: [],
-            users_data_input: [],
-
-
+            filtered_users_data: [],
+            users_input: {
+                user_id: null,
+                first_name: null,
+                middle_name: null,
+                last_name: null,
+                email: null,
+                college_id: null,
+            },
+            user_search: null,
+            college_data_input_for_insert: null,
         };
     },
     mounted() {
@@ -878,18 +917,83 @@ export default {
                     console.log(error)
                 });
         },
+        filterUsers() {
+            let filteredBySearch = this.users_data;
+            if (this.user_search) {
+                const searchTermLower = this.user_search.toLowerCase();
+                filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name + '' + item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
+                    item.id.toString().includes(this.user_search)
+                );
+            }
+            this.filtered_users_data = filteredBySearch;
+        },
         fetchUserData() {
             axios
                 .get(`/get_users`)
                 .then((response) => {
                     console.log(response.data)
                     this.users_data = response.data;
+                    this.filtered_users_data = this.users_data;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         },
-        addUsersData() {
+        addSingleUsersData() {
+            axios.post(`/upload_single_user`, this.users_input)
+                .then(response => {
+                    // console.log(response.data)
+                    if (response.data.type == 0) {
+                        this.showError(response.data.message);
+                    }
+                    else if (response.data.type == 2) {
+                        this.showError(response.data.message);
+                    }
+                    else {
+                        this.showSucces(response.data.message);
+                        // this.fetchData();
+                    }
+
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        fetchEditUsersData() {
+            axios
+                .get(`/edit_user/${this.id}`)
+                .then((response) => {
+                    console.log(response.data)
+                    this.users_input = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        updateUsers() {
+            axios
+                .post(`/upload_single_user`, this.users_input)
+                .then((response) => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message);
+                })
+                .catch((error) => {
+                    // console.error('Error updating user:', error);
+                    alert("Error updating user:", error);
+                });
+        },
+        deleteUser() {
+            axios
+                .post(`/delete_user/${this.id}`)
+                .then((response) => {
+                    this.showSucces(response.data.message);
+                    // this.viewSchoolYear();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        addManyUsersData() {
 
             // if (this.college_data_input == 0 || this.year_level_data_input == 0){
             //     alert('Please Choose Year Level and  College')
@@ -908,31 +1012,28 @@ export default {
             // Iterate through the table rows and cells
             for (var i = 1; i < table.rows.length; i++) {
                 var row = table.rows[i];
-                var rowData = [];
+                var rowData = {}; // Use an object instead of an array
 
                 for (var j = 0; j < row.cells.length; j++) {
                     var cell = row.cells[j];
                     var cellContent = cell.textContent.trim(); // Trim to remove leading/trailing whitespaces
 
-                    // Check if the cell is not empty before pushing it into the rowData array
-                    if (cellContent !== "") {
-                        rowData.push(cellContent);
-                    }
+                    // Replace empty cell content with null
+                    rowData[j] = cellContent !== "" ? cellContent : null;
                 }
 
-                // Check if the rowData array is not empty before pushing it into the data array
-                if (rowData.length > 0) {
-                    data.push(rowData);
-                }
+                // Push the rowData object into the data array
+                data.push(rowData);
             }
+
 
 
             // if (data[0].length == 1) {
             this.collectedData = data;
-
+            console.log(this.college_data_input_for_insert)
             // Display the extracted data in the console
-            this.loading = true;
-            axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
+            // this.loading = true;
+            axios.post(`/upload_multiple_user/${this.college_data_input_for_insert}`, { data: this.collectedData })
                 .then(response => {
                     console.log(response.data)
                     this.loading = false;
@@ -950,9 +1051,9 @@ export default {
                     console.log(error)
                 });
             // }
-            // else {
-            //     this.showError('excel incorrect format');
-            // }
+            //         else {
+            //         this.showError('excel incorrect format');
+            //     }
             // }
 
 

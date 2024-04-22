@@ -418,5 +418,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update_organization_admin/{id}', [AdminController::class, 'updateOrganizationAdmin']);
         Route::post('/delete_organization_admin/{id}/{student_id}', [AdminController::class, 'deleteOrganizationAdmin']);
         Route::get('/get_users', [AdminController::class, 'getUsers']);
+        Route::post('/upload_single_user', [AdminController::class, 'addSingleStudent']);
+        Route::post('/upload_multiple_user/{college_id}', [AdminController::class, 'addMultipleUser']);
+        Route::get('/edit_user/{id}', [AdminController::class, 'editUser']);
+        Route::post('/delete_user/{id}', [AdminController::class, 'deleteUser']);
     });
 });

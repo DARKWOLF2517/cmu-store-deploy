@@ -212,8 +212,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Middle Name</label>
-                            <input type="text" class="form-control" id="firstname" v-model="student_data.middlename"
-                                required>
+                            <input type="text" class="form-control" id="firstname" v-model="student_data.middlename">
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Last Name</label>
@@ -363,9 +362,6 @@
                                 </select>
                             </div>
                         </div>
-
-
-
 
                         <br>
                         <table id="tableModal">

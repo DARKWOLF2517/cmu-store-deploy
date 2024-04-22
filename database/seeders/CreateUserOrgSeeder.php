@@ -14,7 +14,7 @@ class CreateUserOrgSeeder extends Seeder
     public function run(): void
     {
         DB::table('user_organization')->insert([
-            'student_id' => '3',
+            'student_id' => '6574812024',
             'role_id' => '4',
         ]);
     }

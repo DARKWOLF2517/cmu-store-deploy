@@ -202,7 +202,97 @@ class AdminController extends Controller
     }
     public function getUsers()
     {
-        $users = User::with('user_profile.year_level')->get();
+        $users = User::with('user_profile.year_level', 'user_profile.college')->where('id', '!=', 6574812024)->get();
         return $users;
+    }
+    public function UserRepitition($id)
+    {
+        $records = User::where([
+            ['id', $id],
+        ])->get();
+        $count = $records->count();
+        return $count;
+    }
+    public function addSingleStudent(Request $request)
+    {
+        // Code that may throw an exception
+        if ($this->UserRepitition($request->user_id) >= 1) {
+            // return response()->json(['message' =>'Student is already in the list','type' => 0]);
+        } else {
+            $user = new User();
+            $user->id = $request->user_id;
+            $user->username = strtolower(str_replace(' ', '', $request->email));
+            $user->password = Hash::make($request->user_id);
+            $user->save();
+        }
+
+        $user_profile = UserProfile::updateOrCreate(
+            ['user_id' => $request->user_id],
+            [
+                'first_name' => $request->first_name,
+                'middle_name' => $request->middle_name ?? '',
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'college_id' => $request->college_id,
+                // 'year_level_id' => $request->year_level_id ?? '',
+            ]
+        );
+        // Save the changes
+        $user_profile->save();
+        return response()->json(['message' => 'User Added Successfully', 'type' => 1]);
+    }
+
+    public function addMultipleUser($college_id, Request $request)
+    {
+
+
+        $data = $request->input('data');
+
+        // Code that may throw an exception
+        foreach ($data as $row) {
+            if ($this->UserRepitition($row[0]) >= 1) {
+                // return response()->json(['message' => $row[1] .' is already in the list','type' => 0]);
+            } else {
+                $user = new User();
+                $user->id = $row[0];
+                $user->username = strtolower(str_replace(' ', '', $row[4]));
+                $user->password = Hash::make($row[0]);
+                $user->save();
+            }
+            $user_profile = UserProfile::updateOrCreate(
+                ['user_id' => $row[0]], // Unique identifier
+                [
+                    'first_name' => $row[1],
+                    'middle_name' => $row[2] ?? '',
+                    'last_name' => $row[3],
+                    'email' => $row[4],
+                    'college_id' => $college_id ?? null,
+                    // 'year_level_id' => $year_level ?? null
+                ]
+            );
+            // Save the changes
+            $user_profile->save();
+        }
+        return response()->json(['message' => 'Students Added Successfully', 'type' => 1]);
+    }
+
+
+    public function deleteUser($id)
+    {
+        $user_profile = UserProfile::where('user_id', $id)->first();
+        $user_profile->delete();
+
+        $user_profile = User::where('id', $id)->first();
+        $user_profile->delete();
+
+
+
+        return response()->json(['message' => 'User Deleted successfully']);
+    }
+
+    public function editUser($id)
+    {
+        $user_profile = UserProfile::find($id);
+        return response()->json($user_profile);
     }
 }

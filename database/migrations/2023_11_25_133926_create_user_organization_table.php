@@ -21,7 +21,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('college_id');
             $table->timestamps();
             $table->foreign('student_org_id')->references('org_id')->on('organizations');
-            $table->foreign('student_id')->references('id')->on('users');
+            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('role_id')->references('role_id')->on('roles');
             $table->foreign('school_year')->references('id')->on('school_year');
             // $table->foreign('college_id')->references('id')->on('college');

@@ -80,11 +80,11 @@ class UserController extends Controller
                     ['user_id' => $row[0]], // Unique identifier
                     [
                         'first_name' => $row[1],
-                        'middle_name' => $row[2],
+                        'middle_name' => $row[2] ?? '',
                         'last_name' => $row[3],
                         'email' => $row[4],
-                        'college_id' => $college_id,
-                        'year_level_id' => $year_level
+                        'college_id' => $college_id ?? null,
+                        'year_level_id' => $year_level ?? null
                     ]
                 );
                 // Save the changes
@@ -153,11 +153,12 @@ class UserController extends Controller
                 ['user_id' => $request->student_id],
                 [
                     'first_name' => $request->firstname,
-                    'middle_name' => $request->middlename,
+                    'middle_name' => $request->middlename ?? '',
                     'last_name' => $request->lastname,
                     'email' => $request->email,
                     'college_id' => $request->college_id,
-                    'year_level_id' => $request->year_level_id,
+                    'year_level_id' => $request->year_level_id ?? '',
+
                 ]
             );
             // Save the changes

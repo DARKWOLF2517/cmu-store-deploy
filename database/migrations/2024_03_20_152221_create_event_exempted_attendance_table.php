@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('event_id')->references('event_id')->on('events');
+            $table->foreign('event_id')->references('event_id')->on('events')->onDelete('cascade');
             $table->foreign('school_year')->references('id')->on('school_year');
         });
     }

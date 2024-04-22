@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('action');
             $table->text('data');
             $table->unsignedInteger('user');
-            $table->unsignedInteger('org_id');
-            $table->unsignedInteger('school_year');
+            $table->unsignedInteger('org_id')->nullable();
+            $table->unsignedInteger('school_year')->nullable();
             $table->timestamps();
         });
     }
