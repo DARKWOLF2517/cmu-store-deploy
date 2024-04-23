@@ -11,9 +11,9 @@
                         <input type="text" placeholder="Search History" />
                     </div>
                 </div>
-                <div class="col d-flex gap-2">
-
-                    <div class="select-dropdown border" style="width: 70%;">
+                <div class=" col-md-4 d-flex gap-2">
+                    <div class="col" >
+                         <div class="select-dropdown border" style="width: 100%;">
                         <select id="sort-select" class="form-control" style="text-align: center">
                             <option value="0" disabled selected>
                                 Filter by
@@ -23,9 +23,10 @@
                             <option>Accountabilties</option>
                         </select>
                     </div>
+                    </div>
 
-
-                    <div class="select-dropdown border" style="width: 70%;">
+                    <div class="col">
+                        <div class="select-dropdown border" style="width: 100%;">
                         <select id="sort-select" class="form-control" style="text-align: center">
                             <option value="0" disabled selected>
                                 By Actions
@@ -34,6 +35,7 @@
                             <option>Updated</option>
                             <option>Deleted</option>
                         </select>
+                    </div>
                     </div>
                 </div>
             </div>
