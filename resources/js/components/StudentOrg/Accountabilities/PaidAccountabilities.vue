@@ -50,10 +50,10 @@
             </div>
             <div class="student-buttons d-flex justify-content-end col-md-4 mt-2">
                 <div class="btn-group" role="group">
-                    <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
+                    <!-- <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
                         data-bs-toggle="modal" data-bs-target="#excuseStudentModal">
                         <i class="fas fa-plus"></i> Excuse Student
-                    </button>
+                    </button> -->
                     <button class="btn me-2" @click="printTable">
                         <i class="fas fa-print"></i> Print
                     </button>

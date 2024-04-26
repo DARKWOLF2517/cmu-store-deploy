@@ -13,6 +13,7 @@ use App\Models\PaidAccountability;
 use App\Models\User;
 use App\Models\UserOrganization;
 use App\Models\UserProfile;
+use App\Models\WaiveFeeEvent;
 use App\Models\YearLevel;
 use Faker\Provider\ar_EG\Payment;
 use Illuminate\Http\Request;
@@ -72,7 +73,7 @@ class AccountabilitiesController extends Controller
         $accountability = Accountability::where([['org_id', $org_id], ['school_year', $school_year]])->get();
         $yearLevel = YearLevel::where([['org_id', $org_id]])->get();
         $exempted = EventExempted::where([['org_id', $org_id], ['school_year', $school_year]])->get();
-        $freeFines = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]])->get();
+        $freeFines = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]])->with('waived_events')->get();
         $cancelledAttendance = EventExemptedAttendance::where([['school_year', $school_year]])->get();
         return response()->json([
             'accountabilities_fines' => $accountabilities,
@@ -187,55 +188,88 @@ class AccountabilitiesController extends Controller
 
     public function viewFreeFinesStudents($org_id, $school_year)
     {
-        $freeFinesStudents = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]])->with('user_profile')->get();
+        $freeFinesStudents = FreeFinesStudent::where([['org_id', $org_id], ['school_year', $school_year]])->with('user_profile', 'waived_events')->get();
+        // $freeFinesStudents = FreeFinesStudent::groupBy('accountability_type')->get();
+
         return $freeFinesStudents->toJson();
     }
     public function addFreeFinesStudents(Request $request)
     {
-        if ($this->addFreeFinesRepetition($request['student_id'], $request['school_year']) >= 1) {
+        $formData = $request->formData;
+        $events = $request->events;
+
+        if ($this->addFreeFinesRepetition($formData['student_id'], $formData['school_year'], $formData['accountability_type']) >= 1) {
             return response()->json(array("message" => "Already in the list", "error" => 1));
         }
-        $validatedData = $this->validate($request, [
-            'org_id' => 'required',
-            'reason' => 'required',
-            'school_year' => 'required',
-            'student_id' => 'required',
-        ]);
         $freeFines = new FreeFinesStudent([
-            'student_id' => $validatedData['student_id'],
-            'reason' => $validatedData['reason'],
-            'org_id' => $validatedData['org_id'],
-            'school_year' => $validatedData['school_year'],
-
+            'student_id' => $formData['student_id'],
+            'reason' => $formData['reason'],
+            'accountability_type' => $formData['accountability_type'],
+            'org_id' => $formData['org_id'],
+            'school_year' => $formData['school_year'],
         ]);
         $freeFines->save();
+
+        if (count($events) > 0) {
+            foreach ($events as $event) {
+                $waive_fee_event = new WaiveFeeEvent([
+                    'event_id' => $event,
+                    'waive_fee_id' => $freeFines->id,
+                ]);
+                $waive_fee_event->save();
+            }
+        }
         return response()->json(['message' => 'Free Fines Student Added Successfully']);
     }
-    public function addFreeFinesRepetition($student_id, $school_year)
+    public function addFreeFinesRepetition($student_id, $school_year, $accountability_type)
     {
-        $student = FreeFinesStudent::where([['student_id', $student_id], ['school_year', $school_year]])->get();
+        $student = FreeFinesStudent::where([['student_id', $student_id], ['school_year', $school_year], ['accountability_type', $accountability_type]])->get();
         $student = $student->count();
         return $student;
     }
-    public function getStudentName($student_id)
+    public function getStudentName($student)
     {
-        $student = UserOrganization::where([['student_id', $student_id]])->with('user_profile')->first();
-        return $student;
+        $studentResult = UserOrganization::where('student_id', $student)
+            ->orWhereHas('user_profile', function ($query) use ($student) {
+                $query->where('first_name', $student)
+                    ->orWhere('last_name', $student);
+            })
+            ->with('user_profile')
+            ->first();
+
+        return $studentResult;
     }
-    public function deleteStudentFreeFines($student_id)
+    public function deleteStudentFreeFines($id)
     {
-        FreeFinesStudent::where('student_id', $student_id)->delete();
+        FreeFinesStudent::where('id', $id)->delete();
         return response()->json(['message' => 'Student deleted successfully']);
     }
-    public function fetchUpdateStudentData($student_id)
+    public function fetchUpdateStudentData($id)
     {
-        $student = FreeFinesStudent::where([['student_id', $student_id]])->with('user_profile')->first();
+        $student = FreeFinesStudent::where([['id', $id]])->with('user_profile', 'waived_events')->first();
         return $student;
     }
-    public function updateStudentData($student_id, $reason)
+    public function updateStudentData($id, Request $request)
     {
-        $attendance = FreeFinesStudent::find($student_id);
-        $attendance->update(['reason' => $reason]);
+
+        $waivefee = FreeFinesStudent::find($id);
+        $waivefee->update([
+            'reason' => $request->formData['reason'],
+            'accountability_type' => $request->formData['accountability_type']
+        ]);
+
+        if (count($request->events) > 0) {
+            WaiveFeeEvent::where('waive_fee_id', $id)->delete();
+
+            foreach ($request->events as $event) {
+                $waive_fee_event = new WaiveFeeEvent([
+                    'event_id' => $event,
+                    'waive_fee_id' => $id,
+                ]);
+                $waive_fee_event->save();
+            }
+        }
+
         return response()->json(['message' => 'Updated Successfully']);
     }
     public function accountabilitiesFetchUpdate($id)

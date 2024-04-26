@@ -192,16 +192,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style=" overflow-x: auto; overflow-y: auto;">
+                    <h5 class="text-success"> <b>Student Details: </b></h5>
+                    <h6 class="ms-4"> Student ID Number: <b> {{ this.temporary_list_student_name.student_id }}</b> </h6>
+                    <h6 class="ms-4"> Name: <b> {{ this.temporary_list_student_name.student_name }}</b> </h6>
                     <h5 class="text-success"> <b>Remaining Balance: </b> </h5>
                     <div v-for="summary in this.temporary_list_summary">
 
                         <h6 class="ms-4"> {{ summary.label }}: <b>&#8369; {{ summary.amount }}</b> </h6>
                     </div>
+
                     <table style="margin-top: 0;" id="temporaryList">
                         <thead>
                             <tr>
-                                <th>Student ID</th>
-                                <th>Student Name</th>
+                                <!-- <th>Student ID</th> -->
+                                <!-- <th>Student Name</th> -->
                                 <th>Fees</th>
                                 <th>Event</th>
                                 <th>Missed Attendance</th>
@@ -211,8 +215,8 @@
                         </thead>
                         <tbody style="overflow-y:auto; max-height: 30vh;">
                             <tr v-for="temporary_list in this.temporary_list" :id="temporary_list.event_id">
-                                <td>{{ temporary_list.user_id }}</td>
-                                <td>{{ temporary_list.name }}</td>
+                                <!-- <td>{{ temporary_list.user_id }}</td> -->
+                                <!-- <td>{{ temporary_list.name }}</td> -->
                                 <td>{{ temporary_list.accountability_type.toUpperCase() }}</td>
                                 <td>{{ temporary_list.event_name }}</td>
 
@@ -352,6 +356,7 @@
 </template>
 
 <script>
+import firebase from 'firebase/compat/app';
 import { convertDate } from '../Functions/DateConverter';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
@@ -372,6 +377,10 @@ export default {
             other_accountabilities_list: [],
             temporary_list: [],
             temporary_list_summary: [],
+            temporary_list_student_name: {
+                student_id: '',
+                student_name: '',
+            },
             // select_accountability: 'fines',
             searchTerm: '',
             filtered_items_for_fines: [],
@@ -487,6 +496,7 @@ export default {
 
     },
     created() {
+        console.log('mounted')
         this.fetchData();
         this.showSchoolYear();
         this.showCollege();
@@ -505,8 +515,8 @@ export default {
         },
 
         updateChange() {
-            console.log(this.cashAmount);
-            console.log(this.paymentAmount);
+            // console.log(this.cashAmount);
+            // console.log(this.paymentAmount);
             // if (this.paymentAmount !== null && this.cashAmount !== null) {
             this.changeAmount = (this.cashAmount) - (this.paymentAmount);
             // }
@@ -540,7 +550,7 @@ export default {
             axios.get(`get_school_year`)
                 .then(response => {
                     this.school_year = response.data;
-                    console.log(response.data)
+                    // console.log(response.data)
                 })
                 .catch(error => {
                     console.log(error)
@@ -550,10 +560,6 @@ export default {
 
         },
         checkPaymentAmount() {
-            // console.log(this.selected_user_id)
-
-            console.log(this.temporary_list_summary)
-
             //to get the amount of the current balance
             const accountability = this.temporary_list_summary.find(item => item.label === this.accountability_type);
             const amount = accountability ? accountability.amount : null;
@@ -582,8 +588,6 @@ export default {
         confirmPayment() {
             // Hide the modal
             this.hideConfirmationModal();
-
-            // Proceed with payment submission
             this.SubmitPayment();
         },
         cancelPayment() {
@@ -592,11 +596,10 @@ export default {
         },
         SubmitPayment() {
             // for adding payment database
-            console.log(this.accountability_type)
             this.isSubmitting = true;
             axios.post(`/FinesAccountabilityPayment/${this.school_year_input}/${this.paymentAmount}/${this.accountability_type}`, this.finesPay)
                 .then(response => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     if (response.data.status == 0) {
                         this.showError(response.data.message);
                     }
@@ -622,9 +625,7 @@ export default {
                     item.user_id.toString().includes(this.searchTerm)
                 );
             });
-            console.log(this.filtered_items_for_fines)
         },
-
         async viewAccountabilities(user_id) {
             this.selected_user_id = user_id;
             this.temporary_list = [];
@@ -635,6 +636,8 @@ export default {
                         // If it is a whole number, convert it to a string with two decimal places
                         fines.amount = fines.amount.toFixed(2);
                     }
+                    this.temporary_list_student_name.student_id = fines.user_id;
+                    this.temporary_list_student_name.student_name = fines.name
                     this.temporary_list.push({
                         name: fines.name,
                         user_id: fines.user_id,
@@ -647,7 +650,6 @@ export default {
                     });
                 }
             })
-            console.log(this.temporary_list)
 
             // Calculate total amount for each accountability type
             const totalsByType = [];
@@ -707,7 +709,7 @@ export default {
             }
 
             this.temporary_list_summary = newArray;
-            console.log(this.temporary_list_summary)
+            // console.log(this.temporary_list_summary)
             this.filteredAmountByZero();
         },
 
@@ -724,7 +726,7 @@ export default {
             axios.get(`/fees_list/${this.org_id}/${this.school_year_input}`)
 
                 .then(response => {
-                    // console.log(response.data)
+
                     this.loading = false;
                     //FOR FINES LOGIC
                     const events_with_attendance = response.data.accountabilities_fines;
@@ -736,34 +738,10 @@ export default {
                     let free_fines = response.data.free_fines;
                     let cancelled_attendance = response.data.cancelled_attendance
 
-                    // const change_user_year_level = []
-                    // user_orgs.forEach(element => {
-
-                    //     //change the year level id to year level name
-                    //     const findYear = year_level.find(year => year.id === element.year_level_id)
-                    //     if (findYear) {
-                    //         change_user_year_level.push({
-                    //             student_org_id: element.student_org_id,
-                    //             student_id: element.student_id,
-                    //             role_id: element.role_id,
-                    //             year_level_id: findYear.year_level,
-                    //         })
-                    //     }
-
-
-                    // });
-
-                    //CHANGE THE YEAR LEVEL TO NAME INSTEAD OF ID
-                    // user_orgs = change_user_year_level;
-
-                    // Function to filter users belonging to student_org_id 2 WHICH IS THE STUDENTS ELIMINATING THE ADMINS
                     const usersInOrg = [];
                     //SET USERS THAT IS ONLY COVERED WITH THE ORGANIZATION
                     // console.log(user_orgs)
                     user_orgs.forEach(userOrg => {
-
-                        // if (userOrg.student_org_id === this.org_id && userOrg.role_id === 2 ) {
-
                         const userId = userOrg.student_id;
                         const foundUser = users.find(user => user.user_id === userId);
                         if (foundUser) {
@@ -775,27 +753,8 @@ export default {
                             };
                             usersInOrg.push(user);
                         }
-                        // }
                     });
                     events_with_attendance.forEach(attend => {
-                        // if (attend.attendance_count == 1) {
-
-                        //for cancelling attedance that is in the database draft
-                        // for (let index = 1; index <= attend.attendance_count; index++) {
-                        //     const session_count = {
-                        //         event_id: attend.event_id,
-                        //         session: index,
-                        //         fines: attend.fines,
-                        //         date: attend.start_date,
-                        //     }
-                        //     cancelled_attendance.forEach(element => {
-                        //         if (element.event_id != attend.event_id && element.session != index) {
-                        //             this.events.push(session_count);
-                        //         }
-                        //     });
-
-                        // }
-
                         //for cancelling attedance that is in the database
                         for (let index = 1; index <= attend.attendance_count; index++) {
                             const found = cancelled_attendance.find(element => element.event_id == attend.event_id && element.session == index);
@@ -810,7 +769,7 @@ export default {
                             }
                         }
 
-                        console.log(this.events)
+                        // console.log(this.events)
                         // }
                         // else if (attend.attendance_count == 2) {
                         //     for (let index = 1; index <= 2; index++) {
@@ -899,27 +858,148 @@ export default {
                             }
                         });
                     });
-                    //for exempting the free fines
+
+
+                    //for getting the waived events of the student
+                    let waived_events = [];
+                    free_fines.forEach(element => {
+
+                        if (element.waived_events.length > 0) {
+                            element.waived_events.forEach(waived => {
+                                waived_events.push({
+                                    event_id: waived.event_id,
+                                    student_id: element.student_id
+                                });
+                            });
+
+                        }
+                    });
+
+                    //for getting fines
+                    ///////////OLD VERSION //////////////////
+                    // missingSessions.forEach(overall_fees_list => {
+                    //     const event = events_with_attendance.find(event_name => event_name.event_id === overall_fees_list.event_id);
+
+                    //     waived_events.forEach(waived => {
+                    //         if (waived.event_id == overall_fees_list.event_id && waived.student_id == overall_fees_list.user_id) {
+                    //             //do nothing
+                    //         }
+                    //         else {
+                    //             this.overall_fees_list.push({
+                    //                 name: overall_fees_list.name,
+                    //                 user_id: overall_fees_list.user_id,
+                    //                 event_name: event.name,
+                    //                 event_id: event.event_id,
+                    //                 amount: overall_fees_list.amount,
+                    //                 missing_session: overall_fees_list.missing_session,
+                    //                 accountability_type: overall_fees_list.accountability_type,
+                    //                 date: overall_fees_list.date
+                    //             });
+                    //         }
+                    //     });
+
+
+                    //     // if (event) {
+                    //     // if (free_fines.length === 0 || !free_fines.some(free => free.student_id === overall_fees_list.user_id)) {
+                    //     // free_fines.forEach(element => {
+                    //     //     // console.log(element)
+                    //     //     if (element.accountability_type == 'fines') {
+                    //     //         //if waived_events in the database table has value
+                    //     //         // console.log(element.waived_events.length)
+                    //     //         if (element.waived_events.length > 0) {
+
+                    //     //             element.waived_events.forEach(waived_events => {
+                    //     //                 if (element.student_id == overall_fees_list.user_id && waived_events.event_id == overall_fees_list.event_id) {
+                    //     //                     //do nothing because it is free fines
+
+                    //     //                 }
+                    //     //                 else {
+                    //     //                     this.overall_fees_list.push({
+                    //     //                         name: overall_fees_list.name,
+                    //     //                         user_id: overall_fees_list.user_id,
+                    //     //                         event_name: event.name,
+                    //     //                         event_id: event.event_id,
+                    //     //                         amount: overall_fees_list.amount,
+                    //     //                         missing_session: overall_fees_list.missing_session,
+                    //     //                         accountability_type: overall_fees_list.accountability_type,
+                    //     //                         date: overall_fees_list.date
+                    //     //                     });
+
+                    //     //                 }
+                    //     //             });
+                    //     //         }
+                    //     //     }
+                    //     //     else {
+
+                    //     //     }
+
+                    //     // });
+
+                    //     // }
+                    //     // }
+                    // });
+
+                    //for getting fines
+                    ///////////new VERSION //////////////////
                     missingSessions.forEach(overall_fees_list => {
                         const event = events_with_attendance.find(event_name => event_name.event_id === overall_fees_list.event_id);
 
-                        if (event) {
-                            if (free_fines.length === 0 || !free_fines.some(free => free.student_id === overall_fees_list.user_id)) {
-                                this.overall_fees_list.push({
-                                    name: overall_fees_list.name,
-                                    user_id: overall_fees_list.user_id,
-                                    event_name: event.name,
-                                    event_id: event.event_id,
-                                    amount: overall_fees_list.amount,
-                                    missing_session: overall_fees_list.missing_session,
-                                    accountability_type: overall_fees_list.accountability_type,
-                                    date: overall_fees_list.date
-                                });
-                            }
+                        // Check if the combination of event_id and user_id is not found in waived_events
+                        if (!waived_events.some(waived => waived.event_id === overall_fees_list.event_id && waived.student_id === overall_fees_list.user_id)) {
+                            this.overall_fees_list.push({
+                                name: overall_fees_list.name,
+                                user_id: overall_fees_list.user_id,
+                                event_name: event ? event.name : null,
+                                event_id: event ? event.event_id : null,
+                                amount: overall_fees_list.amount,
+                                missing_session: overall_fees_list.missing_session,
+                                accountability_type: overall_fees_list.accountability_type,
+                                date: overall_fees_list.date
+                            });
                         }
                     });
 
 
+
+                    //FOR MERGING OTHER ACCOUNTABILITIES TO FINES
+
+                    const other_accountabilities = response.data.accountabilities_other;
+                    usersInOrg.forEach(user => {
+                        other_accountabilities.forEach(otherAccountabilities => {
+                            // Check if there are free fines for the current user and accountability type
+                            const hasFreeFine = free_fines.some(element =>
+                                element.accountability_type === otherAccountabilities.accountability_name &&
+                                element.student_id === user.id
+                            );
+
+                            // If there are no free fines for the current user and accountability type, push to overall_fees_list
+                            if (!hasFreeFine) {
+                                this.overall_fees_list.push({
+                                    name: user.name,
+                                    user_id: user.id,
+                                    event_name: 'N/A',
+                                    event_id: 'N/A',
+                                    amount: otherAccountabilities.amount,
+                                    missing_session: 'N/A',
+                                    accountability_type: otherAccountabilities.accountability_name,
+                                    date: 'N/A'
+                                });
+                            }
+                        });
+                    });
+
+
+
+                    // this.overall_fees_list.push({
+                    //     name: user.name,
+                    //     user_id: user.id,
+                    //     event_name: 'N/A',
+                    //     event_id: 'N/A',
+                    //     amount: otherAccountabilities.amount,
+                    //     missing_session: 'N/A',
+                    //     accountability_type: otherAccountabilities.accountability_name,
+                    //     date: 'N/A'
+                    // });
 
                     // Function to sort the data and display on table and remove repetition of data
                     const aggregateData = (dataArray) => {
@@ -947,27 +1027,6 @@ export default {
                     };
 
 
-                    // console.log(this.overall_fees_list)
-
-
-
-                    //FOR MERGING OTHER ACCOUNTABILITIES TO FINES
-                    const other_accountabilities = response.data.accountabilities_other;
-                    usersInOrg.forEach(user => {
-                        other_accountabilities.forEach(otherAccountabilities => {
-                            // console.log(otherAccountabilities)
-                            this.overall_fees_list.push({
-                                name: user.name,
-                                user_id: user.id,
-                                event_name: 'N/A',
-                                event_id: 'N/A',
-                                amount: otherAccountabilities.amount,
-                                missing_session: 'N/A',
-                                accountability_type: otherAccountabilities.accountability_name,
-                                date: 'N/A'
-                            });
-                        });
-                    });
 
                     // const studentsWhoPaid = new Set(accountability_paid.map(entry => entry.student_id));
 
@@ -1126,11 +1185,16 @@ export default {
                             }
                         });
                     }
+
+
+
+
+
                     // this.filtered_items_for_fines = this.total_fees;
                     //if the filtered items has zero value
                     this.total_fees = this.total_fees.filter(item => item.total_fees != 0);
                     this.filtered_items_for_fines = this.total_fees;
-                    console.log(this.filtered_items_for_fines)
+                    // console.log(this.filtered_items_for_fines)
                     // this.filtered_items_for_other_accountabilities = this.other_accountabilities_list;
 
                 })

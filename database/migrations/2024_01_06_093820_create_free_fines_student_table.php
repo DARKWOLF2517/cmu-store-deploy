@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('free_fines_student', function (Blueprint $table) {
+        Schema::create('waive_fees', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('student_id');
             $table->string('reason');
+            $table->string('accountability_type');
             $table->unsignedBigInteger('org_id');
             $table->unsignedBigInteger('school_year');
+            // $table->unsignedBigInteger('event_id');
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('org_id')->references('org_id')->on('organizations')->cascadeOnDelete();
             $table->foreign('school_year')->references('id')->on('school_year')->cascadeOnDelete();
+            // $table->foreign('event_id')->references('event_id')->on('events')->cascadeOnDelete();
         });
     }
 
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('free_fines_student');
+        Schema::dropIfExists('waive_fees');
     }
 };

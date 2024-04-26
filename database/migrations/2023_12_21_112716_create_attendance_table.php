@@ -20,7 +20,7 @@ return new class extends Migration
             $table->time('time');
             $table->integer('session');
             $table->longText('remarks');
-            $table->string('atteandance_log');
+            $table->string('attendance_log');
             $table->foreign('user_id')->references('id')->on('users')->constrained()
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');

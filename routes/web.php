@@ -292,10 +292,10 @@ Route::middleware(['auth'])->group(function () {
         #FREE FINES ROUTES
         Route::get('/get_free_fines_students/{org_id}/{school_year}', [AccountabilitiesController::class, 'viewFreeFinesStudents']);
         Route::post('/add_free_fines_students', [AccountabilitiesController::class, 'addFreeFinesStudents']);
-        Route::get('/get_student_name/{student_id}', [AccountabilitiesController::class, 'getStudentName']);
-        Route::post('/delete_student_free_fines/{student_id}', [AccountabilitiesController::class, 'deleteStudentFreeFines']);
-        Route::get('/fetch_update_student_data/{student_id}', [AccountabilitiesController::class, 'fetchUpdateStudentData']);
-        Route::post('/update_student_data/{student_id}/{reason}', [AccountabilitiesController::class, 'updateStudentData']);
+        Route::get('/get_student_name/{student}', [AccountabilitiesController::class, 'getStudentName']);
+        Route::post('/delete_student_free_fines/{id}', [AccountabilitiesController::class, 'deleteStudentFreeFines']);
+        Route::get('/fetch_update_student_data/{id}', [AccountabilitiesController::class, 'fetchUpdateStudentData']);
+        Route::post('/update_student_data/{id}', [AccountabilitiesController::class, 'updateStudentData']);
 
         #ACCOUNTABILITY REPORT
         Route::get('/fetch_accountabilities/{org_id}', [AccountabilitiesController::class, 'fetchAccountabilities']);

@@ -2133,10 +2133,8 @@ export default {
                 .then((response) => {
                     let id = [];
                     if (response.data.event_evaluation.length > 0) {
-                        console.log(response.data.event_evaluation.length)
                         response.data.event_evaluation.forEach(element => {
                             id.push(element.evaluation_form.id)
-                            // console.log(element.evaluation_form.id)
                         });
 
                         this.temporary_evaluation_form = id;

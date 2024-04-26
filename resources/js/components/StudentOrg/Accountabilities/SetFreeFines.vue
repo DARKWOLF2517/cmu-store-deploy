@@ -26,16 +26,24 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-between">
             <div class="col-md-8">
-                <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student with Free Fines</h4>
+                <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student with Exempt Fees</h4>
             </div>
 
             <div class="student-buttons announcement-buttons col-md-4 text-end mt-2">
                 <div class="btn-group" role="group">
                     <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
-                        data-bs-toggle="modal" @click="this.clearData()" data-bs-target="#addStudentModal">
-                        <i class="fas fa-plus"></i> Add Student
+                        data-bs-toggle="modal"
+                        @click=" this.clearData(), this.accountability_type_category = 'fines', this.free_fines_input.accountability_type = 'fines'"
+                        data-bs-target="#addStudentModal">
+                        <i class="fas fa-plus"></i> Add Free Fines Student
                     </button>
 
+                    <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
+                        data-bs-toggle="modal"
+                        @click="this.clearData(), this.accountability_type_category = 'other_accountabilities'"
+                        data-bs-target="#addStudentModal">
+                        <i class="fas fa-plus"></i> Add Free Accountabilities Student
+                    </button>
                     <button class="btn me-2" id="add-student-list-button" @click="printTable">
                         <i class="fas fa-print"></i> Print
                     </button>
@@ -73,6 +81,7 @@
                     <tr>
                         <th>Student ID</th>
                         <th style="width: 30%;">Student Name</th>
+                        <th style="width: 20%;">Accountability Type</th>
                         <th style="width: 20%;">Reason</th>
                         <th v-if="this.user_school_year == this.school_year_input" style="width: 10%;"></th>
                     </tr>
@@ -111,17 +120,18 @@
                     </td>
                 </tr> -->
                     <!-- <tr v-for="free_fines in filtered_free_fines" :key="free_fines.student_id"> -->
-                    <tr v-for="free_fines in paginatedData" :key="free_fines.student_id">
+                    <tr v-for="free_fines in paginatedData" :key="free_fines.id">
                         <td>{{ free_fines.student_id }}</td>
                         <td>{{ free_fines.user_profile.first_name }} {{ free_fines.user_profile.last_name }}</td>
+                        <td>{{ free_fines.accountability_type }}</td>
                         <td>{{ free_fines.reason }}</td>
                         <td v-if="this.user_school_year == this.school_year_input">
                             <span class="d-flex justify-content-center gap-2">
                                 <button class="btn edit-button"
-                                    @click="submit = updateData, id = free_fines.student_id, fetchUpdateData()"
+                                    @click="submit = updateData, id = free_fines.id, this.accountability_type_category = free_fines.accountability_type, this.free_fines_input.accountability_type = free_fines.accountability_type, fetchUpdateData()"
                                     data-bs-toggle="modal" data-bs-target="#addStudentModal"><i
                                         class="fas fa-pen"></i></button>
-                                <button class="btn btn-danger text-light" @click="id = free_fines.student_id"
+                                <button class="btn btn-danger text-light" @click="id = free_fines.id"
                                     data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i
                                         class="fas fa-trash"></i></button>
                             </span>
@@ -172,7 +182,7 @@
         </div>
     </div>
 
-    <!-- Add student Modal -->
+    <!-- Add free accountabilities and fines student Modal -->
     <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -186,16 +196,20 @@
                 </div>
                 <div class="modal-body">
                     <form @submit.prevent="this.submit">
-                        <div class="mb-3" v-if="this.submit == sendData">
+                        <div class="mb-3" v-if="this.submit == this.sendData">
+                            <label for="studentId" class="form-label">Search Student</label>
+                            <input type="text" class="form-control" id="studentId" v-model="free_fines_input.search"
+                                @change="this.fetchNameStudent">
+                        </div>
+                        <!-- <div class="mb-3" v-if="this.submit == sendData">
                             <label for="studentId" class="form-label">Student ID</label>
                             <input type="number" class="form-control" id="studentId"
-                                v-model="free_fines_input.student_id" @change="this.fetchNameStudent" required
-                                maxlength="20"
+                                v-model="free_fines_input.student_id" required maxlength="20"
                                 :style="{ borderColor: free_fines_input.student_id.length >= 20 ? 'red' : '' }">
                             <p class="pl-2" v-if="free_fines_input.student_id.length >= 20" style="color: red;">Maximum
                                 length reached</p>
-                        </div>
-                        <div class="mb-3" v-else-if="this.submit == updateData">
+                        </div> -->
+                        <div class="mb-3">
                             <label for="studentId" class="form-label">Student ID</label>
                             <input type="text" class="form-control" id="studentId" v-model="free_fines_input.student_id"
                                 disabled>
@@ -203,13 +217,67 @@
                         <div class="mb-3">
                             <label for="IDnumber">Student Name</label>
                             <input type="text" class="form-control" id="IDnumber" disabled
-                                v-model="this.nameFilterStudent" required maxlength="50">
+                                v-model="this.free_fines_input.name" maxlength="50">
                         </div>
                         <div class="mb-3">
                             <label for="reason" class="form-label">Reason</label>
                             <input type="text" class="form-control" id="reason" v-model="free_fines_input.reason"
                                 required>
                         </div>
+                        <div class="mb-3" v-if="this.accountability_type_category === 'fines'">
+                            <label>Event To exempt</label>
+                            <select id="sort-select" class="form-control" style="text-align: center"
+                                v-model="temporarySelectionEvents">
+                                <option value="" disabled selected>
+                                    Select Evaluation form
+                                </option>
+                                <option v-for="events in this.events" :value="events.event_id">
+                                    {{ events.name }}
+                                </option>
+                            </select>
+                            <button @click="this.addTemporaryEvents()" type="button" class="btn btn-primary">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <table class="table table-striped border rounded">
+                                <tbody>
+                                    <tr v-for="events in this.selectedEventsDisplay">
+                                        <td>{{ events.name }}</td>
+                                        <td style="width: 20%">
+                                            <div class="d-flex gap-2">
+                                                <!-- <button @click="this.viewEvaluationModal(events.event_id)" type="button"
+                                                class="btn btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#previewModal">
+                                                <i class="fas fa-eye"></i>
+                                            </button> -->
+                                                <button @click="this.removeEvent(events.event_id)" type="button"
+                                                    class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mb-3" v-else>
+                            <label for="AccountabilityName" class="form-label">Accountability Name</label>
+                            <select v-if="this.submit == sendData" id="sort-select" class="form-control"
+                                style="text-align: center;" v-model="free_fines_input.accountability_type"
+                                @change="this.getAccountabilityAmount">
+                                <option v-for="accountability in this.accountabilities"
+                                    :value="accountability.accountability_name">{{ accountability.accountability_name }}
+                                </option>
+                            </select>
+                            <select v-else disabled id="sort-select" class="form-control" style="text-align: center;"
+                                v-model="free_fines_input.accountability_type" @change="this.getAccountabilityAmount">
+                                <option v-for="accountability in this.accountabilities"
+                                    :value="accountability.accountability_name">{{ accountability.accountability_name }}
+                                </option>
+                            </select>
+                        </div>
+
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success">Add</button>
@@ -219,6 +287,9 @@
             </div>
         </div>
     </div>
+
+
+
 </template>
 
 <script>
@@ -233,18 +304,26 @@ export default {
             loading: false,
             free_fines_students: [],
             school_year_input: this.school_year_session,
+            accountability_type_category: '',
             free_fines_input: {
+                search: '',
                 student_id: '',
+                name: '',
                 reason: '',
                 org_id: this.org_id,
                 school_year: this.school_year_input,
+                accountability_type: '',
             },
-            nameFilterStudent: '',
+            temporarySelectionEvents: 0,
+            selectedEvents: [],
+            selectedEventsDisplay: [],
+            events: [],
             school_year: [],
             searchTerm: '',
             filtered_free_fines: [],
             currentPage: 1,
             itemsPerPage: 10,
+            accountabilities: [],
         }
     },
     computed: {
@@ -285,8 +364,54 @@ export default {
     mounted() {
         this.fetchData();
         this.showSchoolYear();
+        this.getEvents();
+        this.getAccountabilities();
     },
     methods: {
+        getAccountabilities() {
+            axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_input}`)
+                .then(response => {
+                    this.accountabilities = response.data;
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
+        removeEvent(id) {
+            //for the temporary view of the event
+            const indexToRemove = this.selectedEventsDisplay.findIndex(item => item.event_id === id);
+            this.selectedEventsDisplay.splice(indexToRemove, 1);
+
+            //for the selectedEvents
+            const indexToRemove1 = this.selectedEventsDisplay.findIndex(item => item.event_id === id);
+            this.selectedEvents.splice(indexToRemove1, 1);
+        },
+        addTemporaryEvents() {
+            // Check if the value already exists in the array
+            if (!this.selectedEvents.includes(this.temporarySelectionEvents)) {
+                // Push the value into the array
+                if (this.temporarySelectionEvents != 0) {
+                    this.selectedEvents.push(this.temporarySelectionEvents);
+                }
+            }
+            // Filter the evaluation_form array based on this.formData.evaluation_form
+            this.selectedEventsDisplay = this.events.filter(item => {
+                // Check if the id number is included in this.formData.evaluation_form
+                return this.selectedEvents.includes(item.event_id);
+            });
+
+        },
+        getEvents() {
+            axios.get(`/events/show/${this.org_id}/${this.school_year_input}`)
+                .then((response) => {
+                    console.log(response.data)
+                    this.events = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
         prevPage() {
             if (this.currentPage > 1) {
                 this.currentPage--; this.paginatedData = this.filtered_free_fines.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
@@ -300,8 +425,6 @@ export default {
         gotoPage(page) {
             this.currentPage = page; this.paginatedData = this.filtered_free_fines.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
         },
-
-
         printTable() {
             // Create a hidden iframe for printing
             const iframe = document.createElement('iframe');
@@ -349,7 +472,6 @@ export default {
                 document.body.removeChild(iframe);
             }, 1000);
         },
-
         generateTableRowsWithoutLastColumn(data) {
             let rows = '';
             data.forEach(item => {
@@ -375,7 +497,6 @@ export default {
             // Save the workbook as an Excel file
             XLSX.writeFile(wb, 'StudentwithFreeFines.xlsx');
         },
-
         getFreeFinesTableData() {
             // Initialize an array to store the table data
             const tableData = [];
@@ -405,7 +526,6 @@ export default {
             }
             this.filtered_free_fines = filteredBySearch;
         },
-
         showSchoolYear() {
             axios.get(`get_school_year`)
                 .then(response => {
@@ -417,11 +537,24 @@ export default {
                 });
         },
         fetchUpdateData() {
+            // console.log(this.id)
             axios.get(`/fetch_update_student_data/${this.id}`)
                 .then((response) => {
                     console.log(response.data)
-                    this.nameFilterStudent = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
-                    this.free_fines_input = response.data;
+                    this.free_fines_input.name = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
+                    this.free_fines_input.student_id = response.data.student_id;
+                    this.free_fines_input.reason = response.data.reason;
+
+                    // this.free_fines_input = response.data;
+                    let id = [];
+                    if (response.data.waived_events.length > 0) {
+                        response.data.waived_events.forEach(element => {
+                            // this.selectedEvents.push(element.event_id);
+                            id.push(element.event_id);
+                        });
+                        this.selectedEvents = id;
+                        this.addTemporaryEvents();
+                    }
 
 
                     // this.loading = false; //
@@ -431,13 +564,10 @@ export default {
                 })
         },
         updateData() {
-            axios.post(`/update_student_data/${this.id}/${this.free_fines_input.reason}`)
+            axios.post(`/update_student_data/${this.id}`, { formData: this.free_fines_input, events: this.selectedEvents })
                 .then(response => {
-                    // console.log(response.data)
+                    console.log(response.data)
                     this.showSucces(response.data.message);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
                     this.fetchData();
                 })
                 .catch(error => {
@@ -450,21 +580,24 @@ export default {
                 .then(response => {
                     // console.log(response.data)
                     this.showSucces(response.data.message);
-                    this.fetchData();
+                    // this.fetchData();
                 })
                 .catch(error => {
                     alert(error)
                 });
         },
         fetchNameStudent() {
-            axios.get(`/get_student_name/${this.free_fines_input.student_id}`)
+            console.log('asdf')
+            axios.get(`/get_student_name/${this.free_fines_input.search}`)
                 .then((response) => {
                     console.log(response.data)
                     if (response.data != 0) {
-                        this.nameFilterStudent = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
+                        this.free_fines_input.name = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
+                        this.free_fines_input.student_id = response.data.student_id;
                     }
                     else {
-                        this.nameFilterStudent = '';
+                        this.free_fines_input.name = '';
+                        this.free_fines_input.student_id = '';
                     }
 
                     // this.free_fines_students = response.data;
@@ -475,22 +608,15 @@ export default {
                 })
         },
         sendData() {
-            // console.log(this.free_fines_input)
-            axios.post('/add_free_fines_students', this.free_fines_input)
+            console.log(this.free_fines_input)
+            axios.post('/add_free_fines_students', { formData: this.free_fines_input, events: this.selectedEvents })
                 .then(response => {
+                    console.log(response.data)
                     if (response.data.error == 1) {
                         this.showError(response.data.message);
                     }
                     else {
                         this.showSucces(response.data.message);
-                        //             setTimeout(() => {
-                        //             location.reload();
-                        // }, 1000);
-                        setTimeout(() => {
-                            this.clearData(); // Clear the input fields after the success message is shown
-                        }, 300);
-                        this.fetchData();
-                        // console.log(response.data)
                     }
 
                 })
@@ -515,17 +641,22 @@ export default {
         clearData() {
             this.submit = this.sendData;
             this.free_fines_input = {
+                search: '',
                 student_id: '',
+                name: '',
                 reason: '',
                 org_id: this.org_id,
                 school_year: this.school_year_input,
+                accountability_type: '',
             }
-            this.nameFilterStudent = '';
         },
         showSucces(message) {
             toast.success(message), {
                 autoClose: 100,
             }
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         },
         showError(message) {
             toast.error(message), {
