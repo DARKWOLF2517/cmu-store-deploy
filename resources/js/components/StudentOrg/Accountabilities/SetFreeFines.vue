@@ -29,21 +29,23 @@
                 <h4 class="mb-0"><i class="fas fa-list mt-2"></i> Student with Exempt Fees</h4>
             </div>
 
-            <div class="student-buttons announcement-buttons col-md-4 text-end mt-2">
-                <div class="btn-group" role="group">
+            <div class=" col-md-4 text-end mt-2">
+                <div class="d-flex justify-content-end">
                     <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
                         data-bs-toggle="modal"
                         @click=" this.clearData(), this.accountability_type_category = 'fines', this.free_fines_input.accountability_type = 'fines'"
                         data-bs-target="#addStudentModal">
-                        <i class="fas fa-plus"></i> Add Free Fines Student
+                        <i class="fas fa-plus"></i> Waive Fine
                     </button>
 
                     <button v-if="this.user_school_year == this.school_year_input" class="btn me-2"
                         data-bs-toggle="modal"
                         @click="this.clearData(), this.accountability_type_category = 'other_accountabilities'"
                         data-bs-target="#addStudentModal">
-                        <i class="fas fa-plus"></i> Add Free Accountabilities Student
+                        <i class="fas fa-plus"></i> Waive Accountability
                     </button>
+                </div>
+                <div class="d-flex justify-content-end">
                     <button class="btn me-2" id="add-student-list-button" @click="printTable">
                         <i class="fas fa-print"></i> Print
                     </button>
@@ -225,19 +227,22 @@
                                 required>
                         </div>
                         <div class="mb-3" v-if="this.accountability_type_category === 'fines'">
-                            <label>Event To exempt</label>
-                            <select id="sort-select" class="form-control" style="text-align: center"
+                            <label>Select Event to exempt student</label>
+                            <div class="d-flex">
+                                <select id="sort-select" class="form-control" style="text-align: center"
                                 v-model="temporarySelectionEvents">
                                 <option value="" disabled selected>
-                                    Select Evaluation form
+                                    Select Event
                                 </option>
                                 <option v-for="events in this.events" :value="events.event_id">
                                     {{ events.name }}
                                 </option>
                             </select>
                             <button @click="this.addTemporaryEvents()" type="button" class="btn btn-primary">
-                                <i class="fas fa-plus"></i>
+                               Add
                             </button>
+                            </div>
+                            <label for="table" class="mt-4">List of Events</label>
                             <table class="table table-striped border rounded">
                                 <tbody>
                                     <tr v-for="events in this.selectedEventsDisplay">
@@ -280,7 +285,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Add</button>
+                            <button type="submit" class="btn btn-success">Add Student</button>
                         </div>
                     </form>
                 </div>
@@ -594,10 +599,14 @@ export default {
                     if (response.data != 0) {
                         this.free_fines_input.name = response.data.user_profile.first_name + ' ' + response.data.user_profile.last_name;
                         this.free_fines_input.student_id = response.data.student_id;
+                        document.getElementById("studentId").style.borderColor = "";
                     }
                     else {
+                        this.showError('Student not found');
                         this.free_fines_input.name = '';
                         this.free_fines_input.student_id = '';
+                        // Add a red border to the input field
+                        document.getElementById("studentId").style.borderColor = "red";
                     }
 
                     // this.free_fines_students = response.data;
