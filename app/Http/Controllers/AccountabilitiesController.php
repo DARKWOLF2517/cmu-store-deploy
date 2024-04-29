@@ -331,9 +331,9 @@ class AccountabilitiesController extends Controller
         $accountabilities = PaidAccountability::where([['student_id', $user_id], ['student_org_id', $org_id]])->get();
         return $accountabilities->toJson();
     }
-    public function getFreeFinesStudent($user_id, $org_id, $school_year)
+    public function waivedFees($user_id, $org_id, $school_year)
     {
-        $accountabilities = FreeFinesStudent::where([['student_id', $user_id], ['org_id', $org_id], ['school_year', $school_year]])->first();
+        $accountabilities = FreeFinesStudent::where([['student_id', $user_id], ['org_id', $org_id], ['school_year', $school_year]])->with('waived_events')->get();
         return $accountabilities;
     }
     public function getSessionExemptedAttendance($org_id, $school_year)

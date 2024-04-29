@@ -99,14 +99,14 @@
                                         background-color: #4fb98e;
                                         color: #fefffe;
                                     " data-bs-toggle="modal" data-bs-target="#seeMoreAccountability" @click="
-                    (this.org_id =
-                        user_orgs.student_org_id),
-                        (this.org_name =
-                            user_orgs.organization.name),
-                        this.getFreeFines(),
-                        this.getSessionExemptedAttendance(),
-                        this.fetchData()
-                        ">
+                                    (this.org_id =
+                                        user_orgs.student_org_id),
+                                        (this.org_name =
+                                            user_orgs.organization.name),
+                                        this.getWaivedFees(),
+                                        this.getSessionExemptedAttendance(),
+                                        this.fetchData()
+                                        ">
                                     <i class="fas fa-eye"></i> See more
                                 </button>
                             </div>
@@ -162,37 +162,30 @@
                                 <th>Fines</th>
                                 <td>
                                     &#8369;
-                                    {{
-                        getTotalAccountabilitiesIndividual(
-                            "fines",
-                            fines
-                        )
-                    }}
+                                    {{ getTotalAccountabilitiesIndividual("fines", fines) }}
                                     <!-- <i class="fas fa-eye ml-6">see more</i> -->
                                 </td>
 
                                 <td>
-                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#seeFinesModal"> <i class="fas fa-eye"></i> See More </button>
+                                    <button class="btn btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#seeFinesModal"> <i class="fas fa-eye"></i> See More </button>
                                 </td>
                             </tr>
-                            <tr v-for="accountability in this
-                            .accountabilityList">
+                            <tr v-for="accountability in this.accountabilityList">
                                 <th>
                                     {{ accountability["accountability_name"] }}
                                 </th>
                                 <td>
                                     &#8369;
                                     {{
-                        getTotalAccountabilitiesIndividual(
-                            accountability[
-                            "accountability_name"
-                            ],
-                            accountability["amount"]
-                        )
-                    }}
+                                        getTotalAccountabilitiesIndividual(accountability["accountability_name"],
+                                            accountability["amount"])
+                                    }}
                                 </td>
                                 <td>
-                                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#viewBreakdownModal"> <i class="fas fa-eye"></i> See More </button>
+                                    <button class="btn btn-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#viewBreakdownModal"> <i class="fas fa-eye"></i> See More
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
@@ -206,18 +199,18 @@
             </div>
         </div>
     </div>
-     <!-- FINES Modal -->
-     <div class="modal fade" id="seeFinesModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel"
+    <!-- FINES Modal -->
+    <div class="modal fade" id="seeFinesModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                    <div class="modal-header">
-                        <h5> {{ this.org_name }} Fines Breakdown </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h6 class="fw-bold">Fines Breakdown</h6>
-                        <table style="margin-top: 0;" id="temporaryList">
+                <div class="modal-header">
+                    <h5> {{ this.org_name }} Fines Breakdown </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="fw-bold">Fines Breakdown</h6>
+                    <table style="margin-top: 0;" id="temporaryList">
                         <thead>
                             <tr>
                                 <th>Event</th>
@@ -227,40 +220,42 @@
                             </tr>
                         </thead>
                         <tbody style="overflow-y:auto; max-height: 30vh;">
-                            <tr>
-                                <td>Valentine's day</td>
-                                <td>1</td>
-                                <td>29/02/2022</td>
-                                <td>$10.00</td>
+                            <tr v-for="fines in this.fines_overall">
+                                <td>{{ fines.event_name }}</td>
+                                <td>{{ fines.session }}</td>
+                                <td>{{ fines.date }}</td>
+                                <td>{{ fines.fines }}</td>
                             </tr>
                         </tbody>
                     </table>
-                    </div>
-                    <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary px-4" data-bs-toggle="modal" data-bs-target="#seeMoreAccountability">Back</button>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-toggle="modal"
+                        data-bs-target="#seeMoreAccountability">Back</button>
 
                 </div>
             </div>
         </div>
     </div>
-     <!-- Fee Breakdown Modal -->
-     <div class="modal fade" id="viewBreakdownModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel"
+    <!-- Fee Breakdown Modal -->
+    <div class="modal fade" id="viewBreakdownModal" tabindex="-1" aria-labelledby="membershipFeeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                    <div class="modal-header">
-                        <h5> {{ this.org_name }} Fee Breakdown </h5>
+                <div class="modal-header">
+                    <h5> {{ this.org_name }} Fee Breakdown </h5>
 
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h6 class="fw-bold">College Fee Breakdown</h6>
-                        <p style="white-space: pre-wrap;">Valentine's day 50.00
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="fw-bold">College Fee Breakdown</h6>
+                    <p style="white-space: pre-wrap;">Valentine's day 50.00
                         Women's day 40.00
                     </p>
-                    </div>
-                    <div class="modal-footer ">
-                    <button type="button" class="btn btn-secondary px-4" data-bs-toggle="modal" data-bs-target="#seeMoreAccountability">Close</button>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-toggle="modal"
+                        data-bs-target="#seeMoreAccountability">Close</button>
 
                 </div>
             </div>
@@ -329,13 +324,13 @@ export default {
     props: ["user_id", "name", "school_year_session"],
     data() {
         return {
-            attendanceCount: [],
+            fines_overall: [],
             fines: 0,
             total_accountability: 0,
             accountabilityList: [],
             school_year: [],
             school_year_input: this.school_year_session,
-            accountabilityList: [],
+            // accountabilityList: [],
             searchTerm: "",
             filtered_accountabilities: [],
             org_id: 0,
@@ -344,13 +339,14 @@ export default {
             paid_accountabilities: [],
             loading: true,
             payment_history: [],
-            freeFines: [],
+            waivedFees: [],
             sessionExemptedAttendance: 0,
 
 
         };
     },
     mounted() {
+        console.log('Mounted')
         // this.fetchData();
 
         this.showSchoolYear();
@@ -359,11 +355,11 @@ export default {
     },
     methods: {
         getPaymentHistory() {
-            console.log(this.org_id)
+            // console.log(this.org_id)
             axios
                 .get(`get_student_payment_history/${this.user_id}/${this.org_id}`)
                 .then((response) => {
-                    console.log(response.data)
+                    // console.log(response.data)
                     const data = response.data;
                     data.forEach(item => {
                         item["created_at"] = convertDate(item["created_at"]);
@@ -397,7 +393,7 @@ export default {
                 .get(`/get_user_orgs/${this.school_year_input}`)
                 .then((response) => {
                     this.user_organization = response.data;
-                    console.log(response.data);
+                    // console.log(response.data);
                     this.loading = false;
                 })
                 .catch((error) => {
@@ -406,32 +402,24 @@ export default {
                 });
         },
         fetchData() {
-            (this.attendanceCount = []),
-                (this.fines = 0),
-                (this.accountabilityList = []),
-                (this.total_accountability = 0),
-                axios
-                    .get(
-                        `/get_accountabilities/${this.org_id}/${this.school_year_input}`
-                    )
-                    .then((response) => {
-                        this.accountabilityList = response.data;
-                        console.log(this.accountabilityList)
-                    })
-                    .catch((error) => {
-                        alert(error);
-                    });
+            this.fines_overall = [];
+            this.fines = 0;
+            this.accountabilityList = [];
+            this.total_accountability = 0;
+            axios.get(`/get_accountabilities/${this.org_id}/${this.school_year_input}`)
+                .then((response) => {
+                    this.accountabilityList = response.data;
+                    // console.log(this.accountabilityList)
+                })
+                .catch((error) => {
+                    alert(error);
+                });
 
             this.fetchEventsWithAttendance();
         },
         getTotalAccountabilitiesIndividual(accountability_type, amount) {
-            // Sum the amount property of objects where accountability_type is "fines"
-            const totalAmountFines = this.paid_accountabilities
-                .filter(
-                    (item) => item.accountability_type == accountability_type
-                )
-                .reduce((total, item) => total + item.amount, 0);
-
+            //  minus the amount of payment either fines or other accountabilities
+            const totalAmountFines = this.paid_accountabilities.filter((item) => item.accountability_type == accountability_type).reduce((total, item) => total + item.amount, 0);
             let total_amount = amount - totalAmountFines;
             if (Number.isInteger(total_amount)) {
                 // If it is a whole number, convert it to a string with two decimal places
@@ -440,84 +428,68 @@ export default {
             return total_amount;
         },
         fetchEventsWithAttendance() {
-            axios
-                .get(
-                    `/accountabilities_students/${this.org_id}/${this.school_year_input}`
-                )
+            axios.get(`/accountabilities_students/${this.org_id}/${this.school_year_input}`)
                 .then((response) => {
-                    // console.log(response.data.paid_accountabilities)
                     const data = response.data.accountabilities;
-                    this.paid_accountabilities =
-                        response.data.paid_accountabilities;
-                    // Calculate the total amount
+                    this.paid_accountabilities = response.data.paid_accountabilities;
+                    // Calculate the total amount of paid accountabilities
                     const totalAmount = this.paid_accountabilities.reduce(
                         (total, item) => total + item.amount,
                         0
                     );
+                    const attendanceTotal = [];
 
-                    // console.log(totalAmount);
-                    data.forEach((events) => {
-                        //get the data of the student attendance and compile it to the array
-                        const attendanceRecord = {
-                            // student_id: events,
-                            event_id: events.event_id,
-                            fines: events.fines,
-                            session_count: events.attendance_count,
-                        };
-                        const attendance = events.attendance;
-                        let attendanceCount = 0;
-                        let student_id = "";
-                        attendance.forEach((id) => {
-                            if (id.user_id == this.user_id) {
-                                attendanceCount++;
-                                student_id = this.user_id;
-                            }
-                        });
-                        // Update the events.attendance_count with the total attendance count for the user
-                        attendanceRecord.attendance_count = attendanceCount;
-                        attendanceRecord.student_id = student_id;
+                    data.forEach(event => {
+                        for (let index = 1; index <= event.attendance_count; index++) {
+                            console.log(event)
+                            let isEventWaived = false;
+                            // Check if the event is waived
+                            this.waivedFees.forEach(waive => {
+                                if (waive.waived_events.some(waivedEvent => waivedEvent.event_id === event.event_id)) {
+                                    isEventWaived = true;
+                                }
+                            });
 
-                        console.log(attendanceRecord);
-                        if (attendanceRecord.session_count > attendanceRecord.attendance_count) {
-                            // console.log(attendanceRecord.event_id + " has fines " + attendanceRecord.fines)
-                            attendanceRecord.finalSession =
-                                attendanceRecord.session_count -
-                                attendanceRecord.attendance_count;
-                            if (this.freeFines == true) {
-                                this.fines = 0
-                            }
-                            else {
-                                this.fines +=
-                                    attendanceRecord.fines *
-                                    attendanceRecord.finalSession;
+                            // If the event is not waived, add attendance details
+                            if (!isEventWaived) {
+                                // Check if user is present in attendance
+                                let isPresent = false;
+                                if (event.attendance.some(attendance_present => attendance_present.event_id === event.event_id && attendance_present.session === index)) {
+                                    isPresent = true;
+                                }
 
+                                //if the student is absent in the attendance
+                                if (!isPresent) {
+                                    attendanceTotal.push({
+                                        event_id: event.event_id,
+                                        event_name: event.name,
+                                        fines: event.fines,
+                                        session: index,
+                                        date: event.start_date,
+                                    });
+                                    this.fines += event.fines;
+                                }
 
                             }
-
-
                         }
-
-                        this.attendanceCount.push(attendanceRecord);
                     });
-                    //to minus the session cancelled attendance
+                    console.log(attendanceTotal)
+                    this.fines_overall = attendanceTotal;
+
+
+                    //to minus the session cancelled attendance in events
                     this.fines = this.fines - this.sessionExemptedAttendance;
 
                     this.accountabilityList.forEach((element) => {
                         this.total_accountability += element.amount;
                     });
-
-                    this.total_accountability =
-                        this.total_accountability + this.fines;
-                    this.total_accountability =
-                        this.total_accountability - totalAmount;
+                    this.total_accountability = this.total_accountability + this.fines;
+                    this.total_accountability = this.total_accountability - totalAmount;
 
                     if (Number.isInteger(this.total_accountability)) {
                         // If it is a whole number, convert it to a string with two decimal places
-                        this.total_accountability =
-                            this.total_accountability.toFixed(2);
+                        this.total_accountability = this.total_accountability.toFixed(2);
                     }
-
-
 
                 })
                 .catch((error) => {
@@ -525,18 +497,11 @@ export default {
                     console.log(error);
                 });
         },
-        getFreeFines() {
-            axios
-                .get(`get_free_fines_student/${this.user_id}/${this.org_id}/${this.school_year_input}`)
+        getWaivedFees() {
+
+            axios.get(`get_waived_fees/${this.user_id}/${this.org_id}/${this.school_year_input}`)
                 .then((response) => {
-                    console.log(response.data)
-                    if (response.data) {
-                        this.freeFines = true;
-                    }
-                    else {
-                        this.freeFines = false;
-                    }
-                    console.log(this.freeFines)
+                    this.waivedFees = response.data;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -549,13 +514,13 @@ export default {
                 .then((response) => {
                     let total = 0;
                     this.sessionExemptedAttendance = 0;
-                    console.log(response.data)
+                    // console.log(response.data)
                     if (response.data.length > 0) {
                         response.data.forEach(element => {
                             // console.log(element.events.attendance_count)
                             total += element.count * element.events.fines
                         });
-                        console.log('total' + total)
+                        // console.log('total' + total)
                         this.sessionExemptedAttendance = total;
                     }
 

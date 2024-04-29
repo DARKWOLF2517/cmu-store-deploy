@@ -833,7 +833,6 @@ export default {
                     const missingSessions = [];
 
                     usersInOrg.forEach(user => {
-
                         this.events.forEach(event => {
                             //exclude the exempted students
                             for (const exemption of year_level_exempted) {

@@ -369,7 +369,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/calendar_student_dashboard/{school_year}', [EventController::class, 'calendarStudentDashboard']);
 
         //ACCOUNTABILITIES ROUTE
-        Route::get('/get_free_fines_student/{user_id}/{org_id}/{school_year}', [AccountabilitiesController::class, 'getFreeFinesStudent']);
+        Route::get('/get_waived_fees/{user_id}/{org_id}/{school_year}', [AccountabilitiesController::class, 'waivedFees']);
         Route::get('/get_session_exempted_attendance/{org_id}/{school_year}', [AccountabilitiesController::class, 'getSessionExemptedAttendance']);
     });
     Route::middleware(['user-role:3'])->group(function () {
