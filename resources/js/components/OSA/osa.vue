@@ -1,6 +1,30 @@
 <template>
     <div class="osa-container">
-        <div class="p-2">
+        <div class="px-2">
+            <div class="row mb-3 gap-2">
+                <div class=" card col-md-8" style="background: linear-gradient(135deg, #60b192, #2c7873); color: #fff; padding:20px; border-radius: 10px;">
+                    <div class="mt-2 p-4">
+                        <h3 class="fw-bold">Welcome! </h3>
+                        <p>"This is the administrator page, where you can effortlessly manage student organization and more."</p>
+                    </div>
+                </div>
+                <div class="card col"style="border-top: 6px solid #2c7873;">
+                    <div style="color: #2c7873; padding: 10px; border-radius: 10px;">
+                        <div class="d-flex align-items-center  p-4 mt-2">
+                            <span class="p-2" style="font-size: 50px; margin-right: 10px">
+                                <i class="fas fa-calendar"></i>
+                            </span>
+                            <div class="ml-6">
+                                <b>
+                                    <h3 class="fw-bold"> {{ this.current_school_year.semester }} {{
+                                        this.current_school_year.school_year }}</h3>
+                                </b>
+                                <p>Current School Year</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row gap-2">
                 <!-- card 1 -->
                 <div class="card col">
@@ -65,25 +89,6 @@
                                 <p class="stat-label">Number of Colleges</p>
                                 <b>
                                     <p class="stat-number"> {{ college_data.length }}</p>
-                                </b>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- card 5 -->
-
-                <div class="card col">
-                    <div class="statistic">
-                        <div class="d-flex align-items-center">
-                            <span class="square-span">
-                                <i class="fas fa-calendar"></i>
-                            </span>
-                            <div class="ml-3">
-                                <p class="stat-label">Current Semester</p>
-                                <b>
-                                    <p class="stat-number"> {{ this.current_school_year.semester }} {{
-                                        this.current_school_year.school_year }}</p>
                                 </b>
                             </div>
                         </div>
