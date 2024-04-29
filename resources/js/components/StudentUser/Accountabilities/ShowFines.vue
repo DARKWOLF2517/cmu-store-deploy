@@ -183,7 +183,9 @@
                                     }}
                                 </td>
                                 <td>
-                                    <button class="btn btn-secondary" data-bs-toggle="modal"
+                                    <button
+                                        @click="this.accountabilitiesFetchBreakdown(accountability.accountability_id)"
+                                        class="btn btn-secondary" data-bs-toggle="modal"
                                         data-bs-target="#viewBreakdownModal"> <i class="fas fa-eye"></i> See More
                                     </button>
                                 </td>
@@ -248,10 +250,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h6 class="fw-bold">College Fee Breakdown</h6>
-                    <p style="white-space: pre-wrap;">Valentine's day 50.00
-                        Women's day 40.00
-                    </p>
+                    <h6 class="fw-bold">{{ this.accountability_breakdown.accountability_name }} Breakdown</h6>
+                    <p style="white-space: pre-wrap;"> {{ this.accountability_breakdown.accountability_breakdown }}</p>
                 </div>
                 <div class="modal-footer ">
                     <button type="button" class="btn btn-secondary px-4" data-bs-toggle="modal"
@@ -342,6 +342,11 @@ export default {
             waivedFees: [],
             sessionExemptedAttendance: 0,
 
+            accountability_breakdown: {
+                accountability_name: '',
+                accountability_breakdown: '',
+            }
+
 
         };
     },
@@ -354,6 +359,17 @@ export default {
         this.getUserOrgs();
     },
     methods: {
+        accountabilitiesFetchBreakdown(id) {
+            axios.get(`accountabilities_fetch_update/${id}`)
+                .then(response => {
+                    this.accountability_breakdown.accountability_name = response.data.accountability_name;
+                    this.accountability_breakdown.accountability_breakdown = response.data.breakdown;
+
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         getPaymentHistory() {
             // console.log(this.org_id)
             axios
@@ -421,6 +437,15 @@ export default {
             //  minus the amount of payment either fines or other accountabilities
             const totalAmountFines = this.paid_accountabilities.filter((item) => item.accountability_type == accountability_type).reduce((total, item) => total + item.amount, 0);
             let total_amount = amount - totalAmountFines;
+
+            const isWaived = this.waivedFees.some(waive => {
+                return waive.accountability_type === accountability_type && waive.accountability_type !== 'fines' && waive.student_id === this.user_id;
+            });
+            //if the student is exempted in accountability
+            if (isWaived) {
+                total_amount = 0;
+            }
+
             if (Number.isInteger(total_amount)) {
                 // If it is a whole number, convert it to a string with two decimal places
                 total_amount = total_amount.toFixed(2);
@@ -441,7 +466,7 @@ export default {
 
                     data.forEach(event => {
                         for (let index = 1; index <= event.attendance_count; index++) {
-                            console.log(event)
+                            // console.log(event)
                             let isEventWaived = false;
                             // Check if the event is waived
                             this.waivedFees.forEach(waive => {
@@ -454,7 +479,7 @@ export default {
                             if (!isEventWaived) {
                                 // Check if user is present in attendance
                                 let isPresent = false;
-                                if (event.attendance.some(attendance_present => attendance_present.event_id === event.event_id && attendance_present.session === index)) {
+                                if (event.attendance.some(attendance_present => attendance_present.event_id === event.event_id && attendance_present.session === index && attendance_present.user_id === this.user_id)) {
                                     isPresent = true;
                                 }
 
@@ -473,15 +498,21 @@ export default {
                             }
                         }
                     });
-                    console.log(attendanceTotal)
+                    // console.log(attendanceTotal)
                     this.fines_overall = attendanceTotal;
-
 
                     //to minus the session cancelled attendance in events
                     this.fines = this.fines - this.sessionExemptedAttendance;
-
-                    this.accountabilityList.forEach((element) => {
-                        this.total_accountability += element.amount;
+                    console.log(this.waivedFees)
+                    //to get the accountability list and exempt the student with waive accountabilities excluding fines
+                    this.accountabilityList.forEach(element => {
+                        const isWaived = this.waivedFees.some(waive => {
+                            return waive.accountability_type === element.accountability_name && waive.accountability_type !== 'fines' && waive.student_id === this.user_id;
+                        });
+                        // Only add the amount if the accountability_type is not waived
+                        if (!isWaived) {
+                            this.total_accountability += element.amount;
+                        }
                     });
                     this.total_accountability = this.total_accountability + this.fines;
                     this.total_accountability = this.total_accountability - totalAmount;
