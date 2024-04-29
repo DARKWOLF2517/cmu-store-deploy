@@ -145,3 +145,59 @@ pointer-events: none;
 .table{
 padding: 10px;
 }
+#statistic{
+    align-items: center;
+}
+.statistic {
+padding: 10px;
+margin-left: 3px;
+width: 100%;
+height: 90%;
+background-color: #ffffff;
+border-radius: 10px;
+box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+
+.card-icon {
+font-size: 30px;
+padding: 5px;
+/* margin-right: 10px; */
+flex-shrink: 0;
+}
+.stat-label {
+color: #000000;
+font-size: small;
+padding-left: 10px;
+margin-bottom: 5px;
+}
+.load-center{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 25vh;
+    overflow-y: hidden;
+    margin-top: 20vh;
+  }
+#stat-cards-loading{
+    margin-left: 1.25rem;
+}
+.stat-number {
+font-size: 25px;
+color: #15292B;
+margin-left: 10px;
+}
+.square-span {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #60b192;
+    border-radius: 10px;
+  }
+
+  .square-span i {
+    color: #fff;
+    font-size: 24px;
+  }

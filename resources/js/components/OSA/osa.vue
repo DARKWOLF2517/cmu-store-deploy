@@ -1,5 +1,96 @@
 <template>
     <div class="osa-container">
+<div class="p-2">
+    <div class="row gap-2">
+        <!-- card 1 -->
+        <div class="card col">
+                <div class="statistic">
+                    <div class="d-flex align-items-center">
+                    <span class="square-span">
+                        <i class="fas fa-users"></i>
+                    </span>
+                    <div class="ml-3">
+                        <p class="stat-label">Users</p>
+                        <b>
+                            <p class="stat-number">{{ users_data.length  }}</p>
+                        </b>
+                </div>
+            </div>
+    </div>
+
+        </div>
+        <!-- card 2 -->
+        <div class="card col">
+                <div class="statistic">
+                    <div class="d-flex align-items-center">
+                    <span class="square-span">
+                        <i class="	fas fa-user-tag"></i>
+                    </span>
+                    <div class="ml-3">
+                        <p class="stat-label">Tag Student Organization Accounts</p>
+                        <b>
+                            <p class="stat-number">{{ admins_data.length }}</p>
+                        </b>
+                </div>
+        </div>
+    </div>
+
+        </div>
+        <!-- card 3 -->
+        <div class="card col">
+
+                <div class="statistic">
+                    <div class="d-flex align-items-center">
+                    <span class="square-span">
+                        <i class="	fas fa-door-open"></i>
+                    </span>
+                    <div class="ml-3">
+                        <p class="stat-label">Number of Student Organizations</p>
+                        <b>
+                            <p class="stat-number">{{ organization_data.length }}</p>
+                        </b>
+                </div>
+            </div>
+    </div>
+
+        </div>
+        <!-- card 4 -->
+        <div class="card col">
+                <div class="statistic">
+                    <div class="d-flex align-items-center">
+                    <span class="square-span">
+                        <i class="	fas fa-school"></i>
+                    </span>
+                    <div class="ml-3">
+                        <p class="stat-label">Number of Colleges</p>
+                        <b>
+                            <p class="stat-number"> {{ college_data.length }}</p>
+                        </b>
+                </div>
+        </div>
+    </div>
+
+        </div>
+        <!-- card 5 -->
+
+            <div class="card col" >
+                <div class="statistic" >
+                    <div class="d-flex align-items-center">
+                    <span class="square-span">
+                        <i class="fas fa-calendar"></i>
+                    </span>
+                    <div class="ml-3">
+                        <p class="stat-label">Current Semester</p>
+                        <b>
+                            <p class="stat-number"> {{ }}</p>
+                        </b>
+                </div>
+            </div>
+    </div>
+
+        </div>
+    </div>
+</div>
         <div class="row p-2">
             <div class="col-md-6">
                 <div class="card p-2 border-0">
@@ -832,6 +923,7 @@ import "vue3-toastify/dist/index.css";
 export default {
     data() {
         return {
+
             school_year_data: [],
             school_year_input: {
                 semester: "",
