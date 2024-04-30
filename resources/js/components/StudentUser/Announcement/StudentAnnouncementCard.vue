@@ -15,13 +15,14 @@
             <div class="announcement-container" id="announcement-container">
                 <div class="announcement-cards-list align-items">
                     <!-- Loading spinner -->
-                    <div v-if="loading"  class="mb-4" style="padding: 10px;">
+                    <div v-if="loading" class="mb-4" style="padding: 10px;">
                         <div class="card mb-2" aria-hidden="true" style=" height: 300px; border:none; padding: 20px;">
                             <div class="">
                                 <h5 class="card-title placeholder-glow ">
                                     <span class="placeholder col-6 bg-secondary"
                                         style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                                    <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
+                                    <span class="placeholder col-6 bg-secondary"
+                                        style="margin-left: 10px; ; width: 50px;"></span>
                                 </h5>
                                 <p class="card-text placeholder-glow mt-2 ">
 
@@ -46,7 +47,8 @@
                                 <h5 class="card-title placeholder-glow ">
                                     <span class="placeholder col-6 bg-secondary"
                                         style="height: 40px; width: 40px; border-radius: 60px;"></span>
-                                    <span class="placeholder col-6 bg-secondary" style="margin-left: 10px; ; width: 50px;"></span>
+                                    <span class="placeholder col-6 bg-secondary"
+                                        style="margin-left: 10px; ; width: 50px;"></span>
                                 </h5>
                                 <p class="card-text placeholder-glow mt-2 ">
 
@@ -110,7 +112,12 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title mt-2"><strong>{{ announcements.title }}</strong> </h5>
-                                <small class="date-upload text-muted"> Posted: {{ announcements.date }} {{ announcements.time }}</small>
+                                <small class="date-upload text-muted"> Posted: {{ announcements.date }} {{
+                                    announcements.time }}</small>
+                                <span v-if="isNewAnnouncement(announcements)"
+                                    class="bg-primary rounded px-2 text-white">New</span>
+                                <span v-if="announcements.important == 1"
+                                    class="bg-danger rounded px-2 text-white">Important</span>
                                 <p class="card-short-description mt-2">
                                     <b>Scheduled Date and Time:</b> {{ announcements.time }} - {{ announcements.date }}
                                 </p>
@@ -144,6 +151,17 @@ export default {
         this.fetchData();
     },
     methods: {
+        isNewAnnouncement(announcement) {
+            // Define your criteria to determine if the announcement is new
+            // For example, compare the announcement's created_at date with the current date
+            const announcementDate = new Date(announcement.created_at);
+            const currentDate = new Date();
+            const timeDifference = currentDate.getTime() - announcementDate.getTime();
+            const twentyFourHours = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+            // Return true if the announcement was created within the last 24 hours
+            return timeDifference <= twentyFourHours;
+        },
         fetchData() {
             this.loading = true;
             this.announcements = [];
