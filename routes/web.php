@@ -208,6 +208,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update_single_student', [UserController::class, 'updateSingleStudent']);
         Route::post('/delete_single_student/{id}', [UserController::class, 'deleteSingleStudent']);
         Route::get('/get_organization_college/{org_id}', [UserController::class, 'viewOrgCollege']);
+        Route::post('/delete_all_student/{org_id}/{school_year}', [UserController::class, 'deleteAllStudent']);
 
         #ATTENDANCE ROUTES
 

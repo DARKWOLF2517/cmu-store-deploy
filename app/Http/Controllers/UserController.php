@@ -335,4 +335,11 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Profile Updated Successfully']);
     }
+    public function deleteAllStudent($org_id, $school_year)
+    {
+        // return $school_year;
+        $userOrg = UserOrganization::where([['student_org_id', $org_id], ['school_year', $school_year], ['role_id', 2]]);
+        $userOrg->delete();
+        return response()->json(['message' => 'Student Deleted successfully']);
+    }
 }

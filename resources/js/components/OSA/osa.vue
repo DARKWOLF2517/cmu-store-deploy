@@ -2,13 +2,15 @@
     <div class="osa-container">
         <div class="px-2">
             <div class="row mb-3 gap-2">
-                <div class=" card col-md-8" style="background: linear-gradient(135deg, #60b192, #2c7873); color: #fff; padding:20px; border-radius: 10px;">
+                <div class=" card col-md-8"
+                    style="background: linear-gradient(135deg, #60b192, #2c7873); color: #fff; padding:20px; border-radius: 10px;">
                     <div class="mt-2 p-4">
                         <h3 class="fw-bold">Welcome! </h3>
-                        <p>"This is the administrator page, where you can effortlessly manage student organization and more."</p>
+                        <p>"This is the administrator page, where you can effortlessly manage student organization and
+                            more."</p>
                     </div>
                 </div>
-                <div class="card col"style="border-top: 6px solid #2c7873;">
+                <div class="card col" style="border-top: 6px solid #2c7873;">
                     <div style="color: #2c7873; padding: 10px; border-radius: 10px;">
                         <div class="d-flex align-items-center  p-4 mt-2">
                             <span class="p-2" style="font-size: 50px; margin-right: 10px">
@@ -1085,8 +1087,12 @@ export default {
             axios
                 .post(`/delete_user/${this.id}`)
                 .then((response) => {
-                    this.showSucces(response.data.message);
-                    // this.viewSchoolYear();
+                    if (response.data.type == 1) {
+                        this.showSucces(response.data.message);
+                    }
+                    else {
+                        this.showError('Error, User Cannot be Deleted')
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
@@ -1339,7 +1345,13 @@ export default {
             axios
                 .post(`/deleteSchoolYear/${this.id}`)
                 .then((response) => {
-                    this.showSucces(response.data.message);
+                    if (response.data.type == 1) {
+                        this.showSucces(response.data.message);
+                    }
+                    else {
+                        this.showError('Error, Data is Used By Organization')
+                    }
+
                     // this.viewSchoolYear();
                 })
                 .catch((error) => {
@@ -1396,7 +1408,13 @@ export default {
             axios
                 .post(`/delete_college/${this.id}`)
                 .then((response) => {
-                    this.showSucces(response.data.message);
+                    if (response.data.type == 1) {
+                        this.showSucces(response.data.message);
+                    }
+                    else {
+                        this.showError('Error, Data is Used By Organization')
+                    }
+
                     // this.viewSchoolYear();
                 })
                 .catch((error) => {
@@ -1452,7 +1470,12 @@ export default {
             axios
                 .post(`/delete_organization/${this.id}`)
                 .then((response) => {
-                    this.showSucces(response.data.message);
+                    if (response.data.type == 1) {
+                        this.showSucces(response.data.message);
+                    }
+                    else {
+                        this.showError('Error, Data is Used By Organization')
+                    }
                     // this.viewSchoolYear();
                 })
                 .catch((error) => {
@@ -1523,7 +1546,6 @@ export default {
                 .post(`/delete_organization_admin/${this.id}/${this.admins_input.student_id}`)
                 .then((response) => {
                     this.showSucces(response.data.message);
-                    // this.viewSchoolYear();
                 })
                 .catch((error) => {
                     console.log(error);

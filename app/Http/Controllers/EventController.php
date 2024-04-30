@@ -437,6 +437,7 @@ class EventController extends Controller
             $newRecord = $existingRecord->replicate();
             $newRecord->school_year = $school_year;
             $newRecord->evaluation_status = 0;
+            $newRecord->require_evaluation = 0;
             $newRecord->attendance_status = 0;
             $newRecord->event_status = 0;
             $newRecord->end_session_scheduled_attendance = null;

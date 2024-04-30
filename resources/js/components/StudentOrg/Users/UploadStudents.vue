@@ -292,7 +292,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete All</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        @click="this.DeleteAllButton()">Delete All</button>
                 </div>
             </div>
         </div>
@@ -524,6 +525,17 @@ export default {
 
     },
     methods: {
+        DeleteAllButton() {
+            axios.post(`/delete_all_student/${this.org_id}/${this.school_year_input}`)
+                .then(response => {
+                    console.log(response.data)
+                    this.showSucces(response.data.message);
+                    // this.fetchData();
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        },
         getOrgCollege() {
             axios.get(`/get_organization_college/${this.org_id}`)
                 .then(response => {
@@ -743,24 +755,20 @@ export default {
                     var cell = row.cells[j];
                     var cellContent = cell.textContent.trim(); // Trim to remove leading/trailing whitespaces
 
-                    // Check if the cell is not empty before pushing it into the rowData array
-                    if (cellContent !== "") {
-                        rowData.push(cellContent);
-                    }
+                    // Push cell content to rowData, or push an empty string if the cell is empty
+                    rowData.push(cellContent !== "" ? cellContent : "");
                 }
 
-                // Check if the rowData array is not empty before pushing it into the data array
-                if (rowData.length > 0) {
-                    data.push(rowData);
-                }
+                data.push(rowData); // Push rowData into data array
             }
+
 
 
             // if (data[0].length == 1) {
             this.collectedData = data;
-
+            console.log(data)
             // Display the extracted data in the console
-            this.loading = true;
+            // this.loading = true;
             axios.post(`/upload_students/${this.school_year_input}/${this.year_level_data_input}/${this.college_data_input_for_insert}`, { data: this.collectedData })
                 .then(response => {
                     console.log(response.data)

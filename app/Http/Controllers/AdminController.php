@@ -11,6 +11,8 @@ use App\Models\UserOrganization;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Error;
+use Exception;
 
 class AdminController extends Controller
 {
@@ -41,8 +43,16 @@ class AdminController extends Controller
 
     public function DeleteSchoolYear(SchoolYear $id)
     {
-        $id->delete();
-        return response()->json(['message' => 'School Year Deleted successfully']);
+        try {
+            $id->delete();
+            return response()->json(['message' => 'School Year Deleted successfully', 'type' => 1]);
+        } catch (Exception $e) {
+            // Code to handle the exception
+            return response()->json(['message' => "An exception occurred: " . $e, 'type' => 0]);
+        } catch (Error $e) {
+            // Code to handle errors (PHP 7 and later)
+            return response()->json(['message' => "An error occurred: " . $e, 'type' => 0]);
+        }
     }
     public function addCollege(Request $request)
     {
@@ -71,8 +81,16 @@ class AdminController extends Controller
 
     public function deleteCollege(College $id)
     {
-        $id->delete();
-        return response()->json(['message' => 'School Year Deleted successfully']);
+        try {
+            $id->delete();
+            return response()->json(['message' => 'School Year Deleted successfully', 'type' => 1]);
+        } catch (Exception $e) {
+            // Code to handle the exception
+            return response()->json(['message' => "An exception occurred: " . $e, 'type' => 0]);
+        } catch (Error $e) {
+            // Code to handle errors (PHP 7 and later)
+            return response()->json(['message' => "An error occurred: " . $e, 'type' => 0]);
+        }
     }
 
     public function getOrganization()
@@ -110,8 +128,17 @@ class AdminController extends Controller
     }
     public function deleteOrganization(Organization $id)
     {
-        $id->delete();
-        return response()->json(['message' => 'School Year Deleted successfully']);
+
+        try {
+            $id->delete();
+            return response()->json(['message' => 'School Year Deleted successfully', 'type' => 1]);
+        } catch (Exception $e) {
+            // Code to handle the exception
+            return response()->json(['message' => "An exception occurred: " . $e, 'type' => 0]);
+        } catch (Error $e) {
+            // Code to handle errors (PHP 7 and later)
+            return response()->json(['message' => "An error occurred: " . $e, 'type' => 0]);
+        }
     }
     public function getOrganizationAdmins()
     {
@@ -279,11 +306,20 @@ class AdminController extends Controller
 
     public function deleteUser($id)
     {
-        $user_profile = UserProfile::where('user_id', $id)->first();
-        $user_profile->delete();
+        try {
+            $user_profile = UserProfile::where('user_id', $id)->first();
+            $user_profile->delete();
 
-        $user_profile = User::where('id', $id)->first();
-        $user_profile->delete();
+            $user_profile = User::where('id', $id)->first();
+            $user_profile->delete();
+        } catch (Exception $e) {
+            // Code to handle the exception
+            return response()->json(['message' => "An exception occurred: " . $e, 'type' => 0]);
+        } catch (Error $e) {
+            // Code to handle errors (PHP 7 and later)
+            return response()->json(['message' => "An error occurred: " . $e, 'type' => 0]);
+        }
+
 
 
 
