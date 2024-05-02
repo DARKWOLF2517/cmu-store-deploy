@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('user');
             $table->unsignedInteger('org_id')->nullable();
             $table->unsignedInteger('school_year')->nullable();
+            $table->foreign('user')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
