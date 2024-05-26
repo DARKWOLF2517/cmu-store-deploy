@@ -201,7 +201,7 @@ class  EvaluationController extends Controller
     /////////////////////
     //student section///
     ///////////////////
-    public function EvaluationForm($event_id,)
+    public function EvaluationForm($event_id)
     {
         return view('student.student_evaluation_form', ['event_id' => $event_id]);
     }

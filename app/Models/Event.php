@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
-    use Loggable;
+    // use Loggable;
     protected $table = 'events';
     protected $primaryKey = 'event_id';
     protected $fillable = [
