@@ -153,9 +153,9 @@ class AttendanceController extends Controller
     {
         return Redirect::back();
     }
-    public function deleteAttendance($id, $session)
+    public function deleteAttendance($id, $session, $event_id)
     {
-        $userOrg = Attendance::where([['user_id', $id], ['session', $session]]);
+        $userOrg = Attendance::where([['user_id', $id], ['session', $session], ['event_id', $event_id]]);
         $userOrg->delete();
         return response()->json(['message' => 'Attendance Deleted successfully']);
     }

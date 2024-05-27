@@ -214,7 +214,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/attendance_repetition/{result_id}/{session}/{event_id}', [AttendanceController::class, 'attendanceRepetition'])->name('repeat-attendance');
         Route::post('/attendance/{event_id}/{status}', [AttendanceController::class, 'update']);
-        Route::post('/delete_attendance/{id}/{session}', [AttendanceController::class, 'deleteAttendance']);
+        Route::post('/delete_attendance/{id}/{session}/{event_id}', [AttendanceController::class, 'deleteAttendance']);
 
         #EVALUATION ROUTES
         Route::get('/evaluation_form_summary/{event_id}/{evaluation_id}', [EvaluationController::class, 'EvaluationFormSummary'])->name('EvaluationFormSummary');

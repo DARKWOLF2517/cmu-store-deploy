@@ -134,8 +134,9 @@
                             <span class="d-flex justify-content-center">
                                 <button class="btn btn-danger text-light" data-bs-toggle="modal"
                                     data-bs-target="#deleteConfirmation" @click="
-                                        (this.id = attendance.user_id),
-                                        (this.session = attendance.session)
+                                        this.id = attendance.user_id,
+                                        this.session = attendance.session,
+                                        this.event_id = attendance.event_id
                                         ">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -285,6 +286,7 @@ export default {
             college_data_input: 0,
             college_id: 0, //college id of the organization'
             id: 0, //id for deletion
+            event_id: 0,
             session: 0, //session for deletion
             formData: {
                 user_id: "",
@@ -439,7 +441,7 @@ export default {
 
         deleteAttendance() {
             axios
-                .post(`/delete_attendance/${this.id}/${this.session}`)
+                .post(`/delete_attendance/${this.id}/${this.session}/${this.event_id}`)
                 .then((response) => {
                     console.log(response.data);
                     this.showSucces(response.data.message);
