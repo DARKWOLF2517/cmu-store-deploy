@@ -72,7 +72,7 @@ class UserController extends Controller
                 } else {
                     $user = new User();
                     $user->id = $row[0];
-                    $user->username = strtolower(str_replace(' ', '', $row[4]));
+                    $user->username = strtolower(str_replace(' ', '', $row[3]) . $row[0]);
                     $user->password = Hash::make($row[0]);
                     $user->save();
                 }
@@ -82,7 +82,7 @@ class UserController extends Controller
                         'first_name' => $row[1],
                         'middle_name' => $row[2] ?? '',
                         'last_name' => $row[3],
-                        'email' => $row[4],
+                        'email' => $row[4] ?? null,
                         'college_id' => $college_id ?? null,
                         'year_level_id' => $year_level ?? null
                     ]
@@ -144,7 +144,7 @@ class UserController extends Controller
             } else {
                 $user = new User();
                 $user->id = $request->student_id;
-                $user->username = strtolower(str_replace(' ', '', $request->email));
+                $user->username = strtolower(str_replace(' ', '', $request->lastname) . $request->student_id);
                 $user->password = Hash::make($request->student_id);
                 $user->save();
             }

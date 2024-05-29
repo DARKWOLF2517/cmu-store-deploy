@@ -702,7 +702,7 @@
                         <div class="mb-3" v-if="this.submit == this.addOrganizationAdmin">
                             <label for="studentId" class="form-label">Search Student</label>
                             <input type="text" class="form-control" id="studentId" v-model="this.admins_input.search"
-                                @change="this.fetchDataDisplayName" required>
+                                @change="this.fetchDataDisplayName" >
                         </div>
                         <div v-if="this.submit == this.addOrganizationAdmin" class="mb-3">
                             <label for="organizationName" class="form-label">Student ID</label>

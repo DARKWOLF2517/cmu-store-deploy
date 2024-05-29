@@ -192,7 +192,7 @@
                                 :style="{ borderColor: student_data.student_id.length >= 30 ? 'red' : '' }"
                                 > -->
                             <input type="text" class="form-control" id="studentId" v-model="student_data.search"
-                                @change="this.fetchDataDisplayName" required>
+                                @change="this.fetchDataDisplayName" >
                         </div>
                         <!-- <div v-if="student_data.lastname.length == 0"> -->
                         <!-- <div v-if="this.student_data.length == 0" class="text-center">
@@ -221,7 +221,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" v-model="student_data.email" required>
+                            <input type="email" class="form-control" id="email" v-model="student_data.email" >
                         </div>
 
                         <!-- </div> -->

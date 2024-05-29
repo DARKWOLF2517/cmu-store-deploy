@@ -29,7 +29,7 @@
         <!-- </div> -->
 
         <div class="form-group text-right mt-4">
-            <a class="btn btn-secondary rounded mr-2 text-light" href="/student_profile">Cancel</a>
+            <a class="btn btn-secondary rounded mr-2 text-light" href="/">Cancel</a>
             <button class="btn btn-primary rounded submit" type="submit">Save
                 Changes</button>
         </div>

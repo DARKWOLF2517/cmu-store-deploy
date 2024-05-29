@@ -356,7 +356,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
 import { convertDate } from '../Functions/DateConverter';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';

@@ -53,7 +53,7 @@
                             <img src="{{ Session::get('profile_picture') }}" alt="user-image" width="32"
                                 height="32"class="rounded-circle me-2">
                         @else
-                            <img src="https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png"
+                            <img src="/assets/default_image.png"
                                 alt="user-image" width="32" height="32"class="rounded-circle me-2">
                         @endif
                         <span class="profile-name"><strong>{{ Session::get('user_name') }} -

@@ -76,7 +76,7 @@
                                                         :src="this.tempImage ? this.tempImage : this.orgProfile.image"
                                                         alt="profile photo">
                                                     <img v-else id="profileImage" @click="openFileInput"
-                                                        :src="this.tempImage ? this.tempImage : 'https://indonesiasatu.co.id/assets/themes/indonesiasatu/img/user.png'"
+                                                        :src="this.tempImage ? this.tempImage : '/assets/default_image.png'"
                                                         alt="user-image">
                                                 </div>
                                             </div>
