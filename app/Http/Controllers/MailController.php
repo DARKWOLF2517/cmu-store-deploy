@@ -26,16 +26,16 @@ class MailController extends Controller
         $time = $currentDateTime->format('g:i A');
         $details = [
             'event_name' => $event->name,
-            'user_name' => $user->first_name.' '. $user->last_name,
+            'user_name' => $user->first_name . ' ' . $user->last_name,
             'org_name' => $event->organization->description,
             'date' => $date,
             'time' =>  $time,
-            'session'=>$request->session,
+            'session' => $request->session,
+            'attendance_log_started' => $request->attendance_log_started,
         ];
         // return $user;
-        if($user->email){
+        if ($user->email) {
             Mail::to($user->email)->send(new Attendance($details));
         }
-        
     }
 }

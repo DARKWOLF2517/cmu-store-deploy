@@ -54,7 +54,8 @@
         <div class="content">
             <p>Hi <b>{{ $details['user_name'] }}</b>!</p>
             <p>
-                You have logged into session <b>{{ $details['session'] }}</b> of the attendance for the
+                You have logged into session <b>{{ $details['session'] }} {{ $details['attendance_log_started'] }}</b>
+                of the attendance for the
                 <b>{{ $details['event_name'] }}</b> .
             </p>
             <small>Date Attended: <b>{{ $details['date'] }}</b></small>
