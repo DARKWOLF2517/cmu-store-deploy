@@ -378,7 +378,8 @@
                                 <td v-else></td>
                                 <!-- <td>2nd Year</td> -->
                                 <!-- <td></td> -->
-                                <td>{{ users.user_profile.college.college }}</td>
+                                <td>{{ users?.user_profile?.college?.college ?? '' }}</td>
+
                                 <td>
                                     <div class="btn-group" role="group">
                                         <button
@@ -702,7 +703,7 @@
                         <div class="mb-3" v-if="this.submit == this.addOrganizationAdmin">
                             <label for="studentId" class="form-label">Search Student</label>
                             <input type="text" class="form-control" id="studentId" v-model="this.admins_input.search"
-                                @change="this.fetchDataDisplayName" >
+                                @change="this.fetchDataDisplayName">
                         </div>
                         <div v-if="this.submit == this.addOrganizationAdmin" class="mb-3">
                             <label for="organizationName" class="form-label">Student ID</label>
