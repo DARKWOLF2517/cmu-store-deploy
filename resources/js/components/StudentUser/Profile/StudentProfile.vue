@@ -241,6 +241,7 @@ export default {
                 });
         },
         uploadProfileImage() {
+            this.loading = true;
             const formData = new FormData();
             formData.append("picture", this.picture);
             axios
@@ -260,6 +261,7 @@ export default {
                     setTimeout(() => {
                         location.reload();
                     }, 500);
+                    this.loading = false;
                 })
                 .catch((error) => {
                     console.error(error);
