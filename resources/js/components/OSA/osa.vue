@@ -1020,10 +1020,11 @@ export default {
                 });
         },
         filterUsers() {
+            console.log('sadf');
             let filteredBySearch = this.users_data;
             if (this.user_search) {
                 const searchTermLower = this.user_search.toLowerCase();
-                filteredBySearch = filteredBySearch.filter(item => (item.user_profile.first_name + '' + item.user_profile.last_name).toLowerCase().includes(searchTermLower) ||
+                filteredBySearch = filteredBySearch.filter(item => (item?.user_profile?.first_name ?? '' + '' + item?.user_profile?.last_name ?? '').toLowerCase().includes(searchTermLower) ||
                     item.id.toString().includes(this.user_search)
                 );
             }
