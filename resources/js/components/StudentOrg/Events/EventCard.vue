@@ -524,7 +524,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -735,7 +735,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -936,7 +936,7 @@
                                                     <h5 class="card-title mt-4 mb-2">
                                                         <strong>{{
                                                             event.name
-                                                        }}</strong>
+                                                            }}</strong>
                                                     </h5>
                                                     <p class="card-subtitle text-muted">
                                                         Scheduled Date:
@@ -1320,7 +1320,7 @@
                                 <h5 class="card-title">
                                     <strong>{{
                                         this.showEvent["name"]
-                                    }}</strong>
+                                        }}</strong>
                                 </h5>
                                 <div class="mt-2 mb-3">
                                     <h6 class="card-text text-muted">
@@ -1512,20 +1512,20 @@
                                         <label for="event-description" class="form-label">Description</label>
                                         <span v-if="
                                             formData.description.length >
-                                            500
+                                            1000
                                         " class="text-danger">You have exceeded the word
                                             limit</span>
                                         <textarea class="form-control" name="description" id="event-description"
                                             rows="3" v-model="formData.description" required maxlength="200" :style="{
                                                 borderColor:
                                                     formData.description
-                                                        .length >= 200
+                                                        .length >= 1000
                                                         ? 'red'
                                                         : '',
                                             }"></textarea>
                                         <p class="pl-2" v-if="
                                             formData.description.length >=
-                                            200
+                                            1000
                                         " style="color: red">
                                             Maximum length reached
                                         </p>
