@@ -125,7 +125,7 @@
                         </td>
                         <td>{{ attendance.user_profile.college.college }}</td>
                         <td>{{ attendance.session }} {{ attendance.attendance_log }}</td>
-                        <td>{{ attendance.created_at }}</td>
+                        <td>{{ attendance.time }}</td>
                         <td v-if="attendance.remarks == 0">N/A</td>
                         <td v-else>{{ attendance.remarks }}</td>
                         <td>{{ attendance.attendance_checker.first_name }} {{ attendance.attendance_checker.last_name }}
@@ -558,7 +558,7 @@ export default {
                     const data = response.data;
                     data.forEach((item) => {
                         // console.log(item);
-                        item["created_at"] = converTime(item["time"]);
+                        item["time"] = converTime(item["time"]);
                         item["events"]["start_date"] = convertDate(
                             item["events"]["start_date"]
                         );
